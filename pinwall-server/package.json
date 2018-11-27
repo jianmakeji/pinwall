@@ -9,10 +9,12 @@
     "egg-alinode": "^2.0.1",
     "egg-cors": "^2.1.1",
     "egg-mysql": "^3.0.0",
+    "egg-passport": "^2.0.1",
     "egg-scripts": "^2.5.0",
     "egg-sequelize": "^4.2.0",
     "egg-validate": "^2.0.2",
     "mysql2": "^1.6.4",
+    "passport-local": "^1.0.0",
     "request": "^2.88.0"
   },
   "devDependencies": {
