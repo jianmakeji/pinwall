@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="css/src/base.css"/>
+		<link rel="stylesheet" type="text/css" href="css/lib/iview.css">
+		<link rel="stylesheet" type="text/css" href="css/src/home.css"/>
+	    <script type="text/javascript" src="js/lib/vue.min.js"></script>
+	    <script type="text/javascript" src="js/lib/iview.min.js"></script>
+	</head>
+	<body>
+		<div class="home">
+			<div class="header">
+			    <row>
+			        <i-col :lg="2">图钉墙</i-col>
+			        <i-col :lg="2">精选</i-col>
+			        <i-col :lg="2">毕业展</i-col>
+			        <i-col :lg="2">作业荚</i-col>
+			        <i-col :lg="2">探索...</i-col>
+			        
+			        <i-col :lg="{span:1,offset:10}">用户</i-col>
+			        <i-col :lg="1">右侧栏</i-col>
+			        <i-col :lg="2">登陆/注册</i-col>
+			    </row>
+			</div>
+			<div class="container">
+				<ul class="de_project_photowall">
+					<li v-for="(item,index) in dataList" :class="setClass(index)">
+						<div class="flip">
+					        <div class="front">
+					            <img src="http://pinwall.fzcloud.design-engine.org/5329/7703198392760.jpg?imageMogr2/thumbnail/400x400" alt="">
+					        </div>
+					        <div class="back">
+					            <div class="user_Info">
+					            	<a :href="setUserId(item.id)">
+					            		<img class="photo" src="http://pinwall.fzcloud.design-engine.org/5167/3076441136926.jpg"/>
+					            		<p class="name">桂芷欣</p>
+					            		<p class="date">{{item.time}}</p>
+					            	</a>
+					            </div>
+					            <div class="project_info">
+					            	<a href="javascript:void(0)">
+					            		<h4>ECO绿舍未来家环保洗衣机</h4>
+					            		<p class="abstract">
+                        在科技高度发达的未来，如何利用能源是关键性的问题。并且伴随着技术的进步，人们对于自然的了解也会随之不断加深。 ECO绿舍洗衣机正是对未来能源的问题上，思考未来之家在洗衣的过程中如何使用和存储能源的问题。整体造型采用了沙漏的形状，在与大自然形成的空间中又加入了时间感。通过对雨水的利用循环周期，实现了水资源小范围的循环利用，形成了自己的小生态。
+                    </p>
+					            	</a>
+					            </div>
+					        </div>
+					    </div>
+					</li>
+				</ul>
+			</div>
+			<div class="footer">
+				<p>© 湖南大学设计艺术学院，保留所有权利。</p>
+			</div>
+		</div>
+		<script>
+		    var home = new Vue({
+		        el: '.home',
+		        data(){
+		            return{
+		            	dataList:[
+		            		{id:1,name:"1111111",content:'fgasdfasdfasdfasdfa',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5329/7703198392760.jpg?imageMogr2/thumbnail/400x400"},
+		            		{id:2,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
+		            		{id:3,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
+		            		{id:4,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
+		            		{id:5,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
+		            		{id:6,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
+		            		{id:7,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
+		            		{id:8,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
+		            		{id:9,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
+		            		{id:10,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
+		            		{id:11,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
+		            		{id:12,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"}
+		            	]
+		            }
+		        },
+		        methods: {
+		            setClass(index){
+		            	let obj = {}
+			            obj[`item-${index}`] = true;
+			            return obj
+		            },
+		            setUserId(id){
+		            	let obj = `user/${id}`;
+			            return obj
+		            }
+		        }
+		    })
+		</script>
+	</body>
+</html>
