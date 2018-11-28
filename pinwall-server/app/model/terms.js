@@ -17,5 +17,21 @@ module.exports  = app => {
     }
   });
 
+  Terms.associate = function() {
+
+    Terms.belongsToMany(Topics, {
+        through: {
+          model: TopicTerm,
+          unique: false,
+          scope: {
+            taggable: 'terms'
+          }
+        },
+        foreignKey: 'termId',
+        constraints: false
+    });
+
+  };
+
   return Terms;
 };

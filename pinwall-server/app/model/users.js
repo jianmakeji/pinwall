@@ -69,5 +69,22 @@ module.exports = app => {
     tableName: 'users'
   });
 
+  Users.associate = function() {
+    app.model.Users.hasMany(app.model.Artifacts,{sourceKey:'Id',foreignKey: 'userId'});
+    app.model.Users.hasMany(app.model.Topics,{sourceKey:'Id',foreignKey: 'userId'});
+
+    Users.belongsToMany(Roles, {
+      through: {
+        model: UserRole,
+        unique: false,
+        scope: {
+          taggable: 'users'
+        }
+      },
+      foreignKey: 'userId',
+      constraints: false
+    });
+  };
+
   return Users;
 };

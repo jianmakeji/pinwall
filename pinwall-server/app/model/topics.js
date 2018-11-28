@@ -39,5 +39,33 @@ module.exports  = app => {
     }
   });
 
+  Topics.associate = function() {
+    app.model.Topics.belongsTo(app.model.Users, {targetKey: 'Id', foreignKey: 'userId'});
+
+    Topics.belongsToMany(Terms, {
+        through: {
+          model: TopicTerm,
+          unique: false,
+          scope: {
+            taggable: 'topics'
+          }
+        },
+        foreignKey: 'topicId',
+        constraints: false
+    });
+
+    Topics.belongsToMany(Artifact, {
+        through: {
+          model: TopicArtifact,
+          unique: false,
+          scope: {
+            taggable: 'topics'
+          }
+        },
+        foreignKey: 'topicId',
+        constraints: false
+    });
+  };
+
   return Topics;
 };

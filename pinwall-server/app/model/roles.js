@@ -22,5 +22,20 @@ module.exports = app => {
     }
   });
 
+  Roles.associate = function() {
+
+    Roles.belongsToMany(Users, {
+      through: {
+        model: UserRole,
+        unique: false,
+        scope: {
+          taggable: 'roles'
+        }
+      },
+      foreignKey: 'roleId',
+      constraints: false
+    });
+  };
+
   return Roles;
 };
