@@ -40,8 +40,7 @@ module.exports = {
       },
       updateAt: {
         type: DATE,
-        allowNull: true,
-        defaultValue: '0000-00-00 00:00:00'
+        allowNull: true
       }
     });
   },

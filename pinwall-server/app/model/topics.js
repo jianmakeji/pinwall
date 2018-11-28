@@ -1,6 +1,6 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
+module.exports  = app => {
 
   const { STRING, INTEGER, DATE, TEXT } = app.Sequelize;
 

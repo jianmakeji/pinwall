@@ -4,7 +4,7 @@ module.exports = app => {
 
   const { STRING, INTEGER, DATE, TEXT,BOOLEAN } = app.Sequelize;
 
-  const Artifacts = app.model..define('artifacts', {
+  const Artifacts = app.model.define('artifacts', {
     Id: {
       type: INTEGER,
       allowNull: false,
