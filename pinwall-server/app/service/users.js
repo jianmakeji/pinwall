@@ -17,7 +17,7 @@ class Users extends Service {
     return user;
   }
 
-  async create(user) {
+  async createUser(user) {
     if (user.email == '' || user.email == null){
       throw new Error('用户邮箱不能为空');
     }
@@ -27,11 +27,11 @@ class Users extends Service {
   }
 
   async update({ id, updates }) {
-    return this.ctx.model.Users.update({ id, updates });
+    return this.ctx.model.Users.updateUser({ id, updates });
   }
 
   async del(id) {
-    const user = await this.ctx.model.Users.del(id);
+    const user = await this.ctx.model.Users.delUserById(id);
     return user;
   }
 

@@ -21,17 +21,17 @@ class Terms extends Service {
       throw new Error('名称不能为空');
     }
     else{
-      const termObj = await this.ctx.model.Terms.create(term);
+      const termObj = await this.ctx.model.Terms.createTerm(term);
       return termObj;
     }
   }
 
   async update({ Id, updates }) {
-    const term = await this.ctx.model.Terms.update({ Id, updates });
+    const term = await this.ctx.model.Terms.updateTerm({ Id, updates });
     return term;
   }
 
-  async del(id) {
+  async delTermById(id) {
     const term = await this.ctx.model.Terms.del(id);
     return term;
   }

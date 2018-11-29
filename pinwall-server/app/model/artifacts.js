@@ -50,9 +50,9 @@ module.exports = app => {
   Artifacts.associate = function() {
     app.model.Artifacts.belongsTo(app.model.Users, {targetKey: 'Id', foreignKey: 'userId'});
     Artifacts.ArtifactAssets = app.model.Artifacts.hasMany(app.model.ArtifactAssets,{sourceKey:'Id',foreignKey: 'artifactId'});
-    app.model.Artifacts.hasMany(app.model.ArtifactComments,{sourceKey:'Id',foreignKey: 'artifactId'});
-    app.model.Artifacts.hasMany(app.model.ArtifactScores,{sourceKey:'Id',foreignKey: 'artifactId'});
-    app.model.Artifacts.hasMany(app.model.ArtifactTerm,{sourceKey:'Id',foreignKey: 'artifactId'});
+    Artifacts.ArtifactComments = app.model.Artifacts.hasMany(app.model.ArtifactComments,{sourceKey:'Id',foreignKey: 'artifactId'});
+    Artifacts.ArtifactScores = app.model.Artifacts.hasMany(app.model.ArtifactScores,{sourceKey:'Id',foreignKey: 'artifactId'});
+    Artifacts.ArtifactTerm = app.model.Artifacts.hasMany(app.model.ArtifactTerm,{sourceKey:'Id',foreignKey: 'artifactId'});
 
     app.model.Artifacts.belongsToMany(app.model.Topics, {
         through: {

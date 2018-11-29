@@ -12,21 +12,21 @@ class Topics extends Service {
   }
 
   async find(Id) {
-    const topic = await this.ctx.model.Topics.findById(Id);
+    const topic = await this.ctx.model.Topics.findTopicById(Id);
     return topic;
   }
 
   async create(topic) {
-    return this.ctx.model.Topics.create(topic);
+    return this.ctx.model.Topics.createTopic(topic);
   }
 
   async update({ Id, updates }) {
-    const topic = await this.ctx.model.Topics.update({ Id, updates });
+    const topic = await this.ctx.model.Topics.updateTopic({ Id, updates });
     return topic;
   }
 
   async del(id) {
-    const topic = await this.ctx.model.Topics.del(id);
+    const topic = await this.ctx.model.Topics.delTopicById(id);
     return topic;
   }
 
