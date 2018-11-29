@@ -21,17 +21,17 @@ class Roles extends Service {
       throw new Error('名称不能为空');
     }
     else{
-      return this.ctx.model.Roles.create(role);
+      return this.ctx.model.Roles.createRole(role);
     }
   }
 
   async update({ Id, updates }) {
-    const user = await this.ctx.model.Roles.update({ Id, updates });
+    const user = await this.ctx.model.Roles.updateRole({ Id, updates });
     return user;
   }
 
   async del(id) {
-    const user = await this.ctx.model.Roles.del(id);
+    const user = await this.ctx.model.Roles.delRoleById(id);
     return user;
   }
 
