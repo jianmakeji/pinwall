@@ -25,7 +25,17 @@ class Artifacts extends Service {
   }
 
   async del(id) {
-    return await this.ctx.model.Artifacts.delArtifactById(id);
+    let transaction;
+    try {
+      transaction = await this.ctx.model.transaction();
+      await this.ctx.model.Artifacts.delArtifactById(parms, transaction);
+      await this.ctx.model.ArtifactAssets.delAssetsByArtifactId(parms1, transaction);
+      await transaction.commit();
+      return true
+    } catch (e) {
+      await transaction.rollback();
+      return false
+    }
   }
 
 }
