@@ -15,6 +15,8 @@ module.exports  = app => {
       type: STRING(30),
       allowNull: true
     }
+  }, {
+    tableName: 'terms'
   });
 
   Terms.associate = function() {

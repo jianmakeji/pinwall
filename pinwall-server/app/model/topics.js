@@ -37,6 +37,8 @@ module.exports  = app => {
       allowNull: true,
       defaultValue: '0000-00-00 00:00:00'
     }
+  }, {
+    tableName: 'topics'
   });
 
   Topics.associate = function() {

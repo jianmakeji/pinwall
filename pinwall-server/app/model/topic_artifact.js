@@ -16,6 +16,8 @@ module.exports = app => {
       allowNull: false,
       defaultValue: '0'
     }
+  }, {
+    tableName: 'topic_artifact'
   });
 
   return TopicArtifact;

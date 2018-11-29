@@ -16,6 +16,8 @@ module.exports = app => {
       allowNull: false,
       defaultValue: '0'
     }
+  }, {
+    tableName: 'artifact_term'
   });
 
   ArtifactTerm.associate = function() {

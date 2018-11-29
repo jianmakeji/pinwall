@@ -37,6 +37,8 @@ module.exports = app => {
       type: BOOLEAN,
       allowNull: true
     }
+  }, {
+    tableName: 'artifact_comments'
   });
 
   ArtifactComments.listComments = async function ({ offset = 0, limit = 10}) {

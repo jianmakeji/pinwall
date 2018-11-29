@@ -16,6 +16,8 @@ module.exports = app => {
       allowNull: false,
       defaultValue: '0'
     }
+  }, {
+    tableName: 'user_role'
   });
 
   return UserRole;

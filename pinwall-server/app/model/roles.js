@@ -20,6 +20,8 @@ module.exports = app => {
       type: STRING(100),
       allowNull: true
     }
+  }, {
+    tableName: 'roles'
   });
 
   Roles.associate = function() {

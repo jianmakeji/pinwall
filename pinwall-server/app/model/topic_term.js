@@ -21,6 +21,8 @@ module.exports = app => {
       allowNull: false,
       defaultValue: '0'
     }
+  }, {
+    tableName: 'topic_term'
   });
 
   return TopicTerm;

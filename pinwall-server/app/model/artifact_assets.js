@@ -5,11 +5,15 @@ module.exports = app => {
   const { STRING, INTEGER, DATE, TEXT } = app.Sequelize;
 
   const ArtifactAssets = app.model.define('artifact_assets', {
-    artifactId: {
+    Id: {
       type:INTEGER,
       allowNull: false,
       defaultValue: '0',
       primaryKey: true
+    },
+    artifactId: {
+      type:INTEGER,
+      allowNull: false,
     },
     position: {
       type:INTEGER,
@@ -44,6 +48,8 @@ module.exports = app => {
       type:STRING(130),
       allowNull: true
     }
+  }, {
+    tableName: 'artifact_assets'
   });
 
   ArtifactAssets.associate = function() {

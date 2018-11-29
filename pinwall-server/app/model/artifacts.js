@@ -43,11 +43,13 @@ module.exports = app => {
       type: DATE,
       allowNull: true
     }
+  }, {
+    tableName: 'artifacts'
   });
 
   Artifacts.associate = function() {
     app.model.Artifacts.belongsTo(app.model.Users, {targetKey: 'Id', foreignKey: 'userId'});
-    app.model.Artifacts.hasMany(app.model.ArtifactAssets,{sourceKey:'Id',foreignKey: 'artifactId'});
+    Artifacts.ArtifactAssets = app.model.Artifacts.hasMany(app.model.ArtifactAssets,{sourceKey:'Id',foreignKey: 'artifactId'});
     app.model.Artifacts.hasMany(app.model.ArtifactComments,{sourceKey:'Id',foreignKey: 'artifactId'});
     app.model.Artifacts.hasMany(app.model.ArtifactScores,{sourceKey:'Id',foreignKey: 'artifactId'});
     app.model.Artifacts.hasMany(app.model.ArtifactTerm,{sourceKey:'Id',foreignKey: 'artifactId'});
@@ -95,9 +97,9 @@ module.exports = app => {
 
   Artifacts.createArtifact = async function (artifact) {
     return this.create(artifact,{
-      include:[{
-        association:Artifacts.ArtifactAssets
-      }]
+      include:[
+        Artifacts.ArtifactAssets
+      ]
     });
   }
 

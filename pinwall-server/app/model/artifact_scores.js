@@ -34,6 +34,8 @@ module.exports = app => {
       type: DATE,
       allowNull: true
     }
+  }, {
+    tableName: 'artifact_scores'
   });
 
   ArtifactScores.listArtifactScores = async function ({
