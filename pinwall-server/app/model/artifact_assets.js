@@ -46,5 +46,22 @@ module.exports = app => {
     }
   });
 
+  ArtifactAssets.associate = function() {
+      app.model.ArtifactAssets.belongsTo(app.model.Artifacts, {targetKey: 'Id', foreignKey: 'artifactId'});
+  }
+
+  ArtifactAssets.createAssets = async function (artifactAssets) {
+    return this.create(artifactAssets);
+  }
+
+  ArtifactAssets.delAssetsByArtifactId = async function (artifactId) {
+
+    return artifact.destroy({
+      where:{
+          artifactId:artifactId,
+      },
+    });
+  }
+
   return ArtifactAssets;
 };

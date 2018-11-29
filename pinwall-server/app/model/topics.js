@@ -42,30 +42,71 @@ module.exports  = app => {
   Topics.associate = function() {
     app.model.Topics.belongsTo(app.model.Users, {targetKey: 'Id', foreignKey: 'userId'});
 
-    Topics.belongsToMany(Terms, {
+    app.model.Topics.belongsToMany(app.model.Terms, {
         through: {
-          model: TopicTerm,
+          model: app.model.TopicTerm,
           unique: false,
           scope: {
-            taggable: 'topics'
+            taggable: 'topicTerms'
           }
         },
         foreignKey: 'topicId',
         constraints: false
     });
 
-    Topics.belongsToMany(Artifact, {
+    app.model.Topics.belongsToMany(app.model.Artifacts, {
         through: {
-          model: TopicArtifact,
+          model: app.model.TopicArtifact,
           unique: false,
           scope: {
-            taggable: 'topics'
+            taggable: 'topicsArtifact'
           }
         },
         foreignKey: 'topicId',
         constraints: false
     });
   };
+
+  Topics.listTopics = async function ({ offset = 0, limit = 10 }) {
+    return this.ctx.model.Topics.findAndCountAll({
+      offset,
+      limit,
+      order: [[ 'createAt', 'desc' ], [ 'Id', 'desc' ]],
+    });
+  }
+
+  Topics.findTopicById = async function (Id) {
+    const topic = await this.ctx.model.Topics.findById(Id);
+    if (!topic) {
+      this.ctx.throw(404, 'topic not found');
+    }
+    return topic;
+  }
+
+  Topics.createTopic = async function (topic) {
+    if (topic.name == '' || topic.name == null){
+      throw new Error('名称不能为空');
+    }
+    else{
+      return this.ctx.model.Topics.create(topic);
+    }
+  }
+
+  Topics.updateTopic = async function ({ Id, updates }) {
+    const topic = await this.ctx.model.Topics.findById(id);
+    if (!topic) {
+      this.ctx.throw(404, 'topic not found');
+    }
+    return topic.update(updates);
+  }
+
+  Topics.delTopicById = async function (id) {
+    const topic = await this.ctx.model.Topics.findById(id);
+    if (!topic) {
+      this.ctx.throw(404, 'topic not found');
+    }
+    return topic.destroy();
+  }
 
   return Topics;
 };

@@ -24,9 +24,9 @@ module.exports = app => {
 
   Roles.associate = function() {
 
-    Roles.belongsToMany(Users, {
+    app.model.Roles.belongsToMany(app.model.Users, {
       through: {
-        model: UserRole,
+        model: app.model.UserRole,
         unique: false,
         scope: {
           taggable: 'roles'
@@ -36,6 +36,54 @@ module.exports = app => {
       constraints: false
     });
   };
+
+  Roles.listRoles = async function ({ offset = 0, limit = 10 }) {
+    return this.findAndCountAll({
+      offset,
+      limit,
+      order: [[ 'createAt', 'desc' ], [ 'Id', 'desc' ]],
+    });
+  }
+
+  Roles.findRoleById = async function (Id) {
+    const role = await this.findById(Id);
+    if (!role) {
+      this.ctx.throw(404, 'role not found');
+    }
+    return role;
+  }
+
+  Roles.createRole = async function (role) {
+
+      const roleObj = await this.findAll({
+        where:{
+          name:role.name
+        }
+      });
+      if (roleObj.length == 0){
+        return this.create(role);
+      }
+      else{
+        return roleObj[0];
+      }
+
+  }
+
+  Roles.updateRole = async function ({ Id, updates }) {
+    const user = await this.findById(id);
+    if (!user) {
+      this.ctx.throw(404, 'user not found');
+    }
+    return user.update(updates);
+  }
+
+  Roles.delRoleById = async function (id) {
+    const user = await this.findById(id);
+    if (!user) {
+      this.ctx.throw(404, 'user not found');
+    }
+    return user.destroy();
+  }
 
   return Roles;
 };

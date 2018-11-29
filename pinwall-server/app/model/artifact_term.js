@@ -18,5 +18,23 @@ module.exports = app => {
     }
   });
 
+  ArtifactTerm.associate = function() {
+
+  }
+
+  ArtifactTerm.listArtifactTerm = async function ({
+    offset = 0,
+    limit = 10,
+    artifactId = 0
+  }) {
+    return await this.findAndCountAll({
+      offset,
+      limit,
+      where: {
+        artifactId: artifactId
+      }
+    });
+  }
+
   return ArtifactTerm;
 };

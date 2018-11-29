@@ -73,9 +73,9 @@ module.exports = app => {
     app.model.Users.hasMany(app.model.Artifacts,{sourceKey:'Id',foreignKey: 'userId'});
     app.model.Users.hasMany(app.model.Topics,{sourceKey:'Id',foreignKey: 'userId'});
 
-    Users.belongsToMany(Roles, {
+    app.model.Users.belongsToMany(app.model.Roles, {
       through: {
-        model: UserRole,
+        model: app.model.UserRole,
         unique: false,
         scope: {
           taggable: 'users'
@@ -85,6 +85,63 @@ module.exports = app => {
       constraints: false
     });
   };
+
+  Users.listUsers = async function ({ offset = 0, limit = 10 }) {
+    return this.findAndCountAll({
+      offset,
+      limit,
+      order: [[ 'createAt', 'desc' ], [ 'Id', 'desc' ]],
+    });
+  }
+
+  Users.findUserById = async function (id) {
+    const user = await this.findById(id);
+    if (!user) {
+      this.ctx.throw(404, 'user not found');
+    }
+    return user;
+  }
+
+  Users.createUser = async function (user) {
+
+      const userObj = await this.findOne({
+        where:{
+          email:user.email
+        }
+      });
+
+      if (!userObj){
+        return this.create(user);
+      }
+      else{
+        return userObj;
+      }
+  }
+
+  Users.updateUser = async function ({ id, updates }) {
+    const user = await this.findById(id);
+    if (!user) {
+      this.ctx.throw(404, 'user not found');
+    }
+    return user.update(updates);
+  }
+
+  Users.delUserById = async function (id) {
+    const user = await this.findById(id);
+    if (!user) {
+      this.ctx.throw(404, 'user not found');
+    }
+    return user.destroy();
+  }
+
+  Users.findByOpenId = async function (openId){
+
+    return await this.findAll({
+      where:{
+        openId:{[this.app.Sequelize.Op.eq]:openId}
+      }
+    });
+  }
 
   return Users;
 };

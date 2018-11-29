@@ -5,39 +5,27 @@ const Service = require('egg').Service;
 class Artifacts extends Service {
 
   async list({ offset = 0, limit = 10 }) {
-    return this.ctx.model.Artifacts.findAndCountAll({
+    return this.ctx.model.Artifacts.list({
       offset,
       limit,
-      order: [[ 'createAt', 'desc' ], [ 'Id', 'desc' ]],
     });
   }
 
   async find(id) {
     const artifact = await this.ctx.model.Artifacts.findById(id);
-    if (!artifact) {
-      this.ctx.throw(404, 'artifact not found');
-    }
     return artifact;
   }
 
   async create(artifact) {
-    return this.ctx.model.Artifacts.create(artifact);
+    return await this.ctx.model.Artifacts.createArtifact(artifact);
   }
 
   async update({ id, updates }) {
-    const artifact = await this.ctx.model.Artifacts.findById(id);
-    if (!artifact) {
-      this.ctx.throw(404, 'artifact not found');
-    }
-    return artifact.update(updates);
+    return await this.ctx.model.Artifacts.update({ id, updates });
   }
 
   async del(id) {
-    const artifact = await this.ctx.model.Artifacts.findById(id);
-    if (!artifact) {
-      this.ctx.throw(404, 'artifact not found');
-    }
-    return artifact.destroy();
+    return await this.ctx.model.Artifacts.del(id);
   }
 
 }

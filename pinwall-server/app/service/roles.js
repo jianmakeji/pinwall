@@ -3,20 +3,16 @@
 const Service = require('egg').Service;
 
 class Roles extends Service {
-  
+
   async list({ offset = 0, limit = 10 }) {
-    return this.ctx.model.Roles.findAndCountAll({
+    return this.ctx.model.Roles.listRoles({
       offset,
       limit,
-      order: [[ 'createAt', 'desc' ], [ 'Id', 'desc' ]],
     });
   }
 
   async find(Id) {
-    const role = await this.ctx.model.Roles.findById(Id);
-    if (!role) {
-      this.ctx.throw(404, 'role not found');
-    }
+    const role = await this.ctx.model.Roles.findRoleById(Id);
     return role;
   }
 
@@ -25,35 +21,18 @@ class Roles extends Service {
       throw new Error('名称不能为空');
     }
     else{
-      const roleObj = await this.ctx.model.Roles.findAll({
-        where:{
-          name:role.name
-        }
-      });
-      if (roleObj.length == 0){
-        return this.ctx.model.Roles.create(role);
-      }
-      else{
-        return roleObj[0];
-      }
+      return this.ctx.model.Roles.create(role);
     }
-
   }
 
   async update({ Id, updates }) {
-    const user = await this.ctx.model.Roles.findById(id);
-    if (!user) {
-      this.ctx.throw(404, 'user not found');
-    }
-    return user.update(updates);
+    const user = await this.ctx.model.Roles.update({ Id, updates });
+    return user;
   }
 
   async del(id) {
-    const user = await this.ctx.model.Roles.findById(id);
-    if (!user) {
-      this.ctx.throw(404, 'user not found');
-    }
-    return user.destroy();
+    const user = await this.ctx.model.Roles.del(id);
+    return user;
   }
 
 }

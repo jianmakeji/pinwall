@@ -8,12 +8,9 @@ class ArtifactScore extends Service {
     offset = 0,
     limit = 10
   }) {
-    return this.ctx.model.ArtifactScores.findAndCountAll({
+    return this.ctx.model.ArtifactScores.listArtifactScores({
       offset,
       limit,
-      order: [
-        ['createAt', 'desc']
-      ],
     });
   }
 
@@ -22,15 +19,10 @@ class ArtifactScore extends Service {
     limit = 10,
     artifactId = 0
   }) {
-    return this.ctx.model.ArtifactScores.findAndCountAll({
+    return this.ctx.model.ArtifactScores.findByArtifactIdWithPage({
       offset,
       limit,
-      order: [
-        ['createAt', 'desc']
-      ],
-      where: {
-        artifactId: artifactId,
-      }
+      artifactId
     });
   }
 
@@ -38,20 +30,14 @@ class ArtifactScore extends Service {
     scorerId = 0,
     artifactId = 0
   }) {
-    return this.ctx.model.ArtifactScores.findAndCountAll({
-      offset,
-      limit,
-      order: [
-        ['createAt', 'desc']
-      ],
-      where: {
-        artifactId: artifactId,
-      }
+    return this.ctx.model.ArtifactScores.findByArtifactIdAndScorerId({
+      scorerId,
+      artifactId
     });
   }
 
   async create(artifactScores) {
-    return this.ctx.model.ArtifactScores.create(artifactScores);
+    return this.ctx.model.ArtifactScores.createArtifactScores(artifactScores);
   }
 
   async update({
@@ -59,26 +45,13 @@ class ArtifactScore extends Service {
     scorerId = 0,
     score = 0
   }) {
-    const artifactScores = await this.ctx.model.ArtifactScores.findByArtifactIdAndScorerId(scorerId,artifactId);
-    if (!artifact) {
-      this.ctx.throw(404, 'artifact not found');
-    }
-    return artifact.update({
-      score: score
-    }, {
-      where: {
-        artifactId: artifactId,
-        scorerId: scorerId
-      }
-    });
+    const artifactScores = await this.ctx.model.ArtifactScores.updateScore(artifactId,scorerId,score);
+    return artifactScores;
   }
 
   async del(Id) {
-    const artifact = await this.ctx.model.ArtifactScores.findById(Id);
-    if (!artifact) {
-      this.ctx.throw(404, 'artifact not found');
-    }
-    return artifact.destroy();
+    const artifact = await this.ctx.model.ArtifactScores.delArtifactScores(Id);
+    return artifact;
   }
 }
 

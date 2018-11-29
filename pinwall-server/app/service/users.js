@@ -5,18 +5,15 @@ const Service = require('egg').Service;
 class Users extends Service {
 
   async list({ offset = 0, limit = 10 }) {
-    return this.ctx.model.Users.findAndCountAll({
+    return this.ctx.model.Users.listUsers({
       offset,
       limit,
-      order: [[ 'createAt', 'desc' ], [ 'Id', 'desc' ]],
     });
   }
 
   async find(id) {
-    const user = await this.ctx.model.Users.findById(id);
-    if (!user) {
-      this.ctx.throw(404, 'user not found');
-    }
+    const user = await this.ctx.model.Users.findUserById(id);
+
     return user;
   }
 
@@ -25,44 +22,21 @@ class Users extends Service {
       throw new Error('用户邮箱不能为空');
     }
     else{
-      const userObj = await this.ctx.model.Users.findAll({
-        where:{
-          email:user.email
-        }
-      });
-      if (userObj.length == 0){
-        return this.ctx.model.Users.create(user);
-      }
-      else{
-        return userObj[0];
-      }
+      return this.ctx.model.Users.create(user);
     }
-
   }
 
   async update({ id, updates }) {
-    const user = await this.ctx.model.Users.findById(id);
-    if (!user) {
-      this.ctx.throw(404, 'user not found');
-    }
-    return user.update(updates);
+    return this.ctx.model.Users.update({ id, updates });
   }
 
   async del(id) {
-    const user = await this.ctx.model.Users.findById(id);
-    if (!user) {
-      this.ctx.throw(404, 'user not found');
-    }
-    return user.destroy();
+    const user = await this.ctx.model.Users.del(id);
+    return user;
   }
 
   async findByOpenId(openId){
-
-    return await this.ctx.model.Users.findAll({
-      where:{
-        openId:{[this.app.Sequelize.Op.eq]:openId}
-      }
-    });
+    return await this.ctx.model.Users.findByOpenId(openId);
   }
 }
 
