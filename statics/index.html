@@ -10,21 +10,21 @@
 	    <script type="text/javascript" src="js/lib/iview.min.js"></script>
 	</head>
 	<body>
-		<div class="home">
+		<div class="home" v-cloak>
 			<div class="header">
 			    <row>
-			        <i-col :lg="2">图钉墙</i-col>
-			        <i-col :lg="2">精选</i-col>
-			        <i-col :lg="2">毕业展</i-col>
-			        <i-col :lg="2">作业荚</i-col>
-			        <i-col :lg="2">探索...</i-col>
-			        
-			        <i-col :lg="{span:1,offset:10}">用户</i-col>
-			        <i-col :lg="1">右侧栏</i-col>
-			        <i-col :lg="2">登陆/注册</i-col>
+					<i-col :lg="2"><i-button type="text" ghost="true" to="index.html" >图钉墙</i-button></i-col>
+			        <i-col :lg="2"><i-button type="dashed" ghost="true" to="index.html">精选</i-button></i-col>
+			        <i-col :lg="2"><i-button type="text" ghost="true" to="topicsAbout.html">毕业展</i-button></i-col>
+			        <i-col :lg="2"><i-button type="text" ghost="true"  to="topics.html">作业荚</i-button></i-col>
+			        <i-col :lg="2"><i-button type="text" ghost="true"  to="search.html">探索...</i-button></i-col>
+
+			        <i-col :lg="{span:1,offset:10}"><i-button type="text">用户</i-button></i-col>
+			        <i-col :lg="1"><i-button type="text">右侧栏</i-button></i-col>
+			        <i-col :lg="2"><i-button type="text">登陆/注册</i-button></i-col>
 			    </row>
 			</div>
-			<div class="container">
+			<div class="container" :style="containerStyle">
 				<ul class="de_project_photowall">
 					<li v-for="(item,index) in dataList" :class="setClass(index)">
 						<div class="flip">
@@ -34,20 +34,40 @@
 					        <div class="back">
 					            <div class="user_Info">
 					            	<a :href="setUserId(item.id)">
-					            		<img class="photo" src="http://pinwall.fzcloud.design-engine.org/5167/3076441136926.jpg"/>
-					            		<p class="name">桂芷欣</p>
-					            		<p class="date">{{item.time}}</p>
+					            		<img v-if="index < 3" class="photo" src="http://pinwall.fzcloud.design-engine.org/5167/3076441136926.jpg"/>
+					            		<p class="name"  v-if="index < 5">{{index}}桂芷欣</p>
+					            		<p class="date"  v-if="index < 3">{{item.time}}</p>
 					            	</a>
 					            </div>
 					            <div class="project_info">
 					            	<a href="javascript:void(0)">
-					            		<h4>ECO绿舍未来家环保洗衣机</h4>
-					            		<p class="abstract">
-                        在科技高度发达的未来，如何利用能源是关键性的问题。并且伴随着技术的进步，人们对于自然的了解也会随之不断加深。 ECO绿舍洗衣机正是对未来能源的问题上，思考未来之家在洗衣的过程中如何使用和存储能源的问题。整体造型采用了沙漏的形状，在与大自然形成的空间中又加入了时间感。通过对雨水的利用循环周期，实现了水资源小范围的循环利用，形成了自己的小生态。
-                    </p>
+					            		<h4>来{{index}}</h4>
+					            		<p class="abstract" v-if="!index">在科技高度发达的未来，如何利用能源是关键性的问题。并且伴水资源小范围的循环利用，形成了自己的小生态。</p>
 					            	</a>
 					            </div>
-					        </div>
+					            <p class="topic_title" v-if="!index">收录于
+					            	<a :href="setTopicId(item.id)">2016级2班 整合设计表达（2018-2019秋季学期）</a>
+					            </p>
+					            <div class="de_stats_tags"  v-if="index < 3">
+					            	<div class="badges" title="勋章">
+					            		<img :src="item.src"/>
+					            		<span>
+					            			{{item.id}}
+					            		</span>
+					            	</div>
+					            	<div class="likes" title="赞"><img :src="item.src"/>
+					            		<span>
+					            			{{item.id}}
+					            		<span>
+					            	</div>
+					            	<div class="comments" title="评论">
+					            		<img :src="item.src"/>
+					            		<span>
+					            			{{item.id}}
+					            		</span>
+					            	</div>
+					            </div>
+					        </span>
 					    </div>
 					</li>
 				</ul>
@@ -61,6 +81,14 @@
 		        el: '.home',
 		        data(){
 		            return{
+		            	containerStyle:{
+		            		background: "#2DB7F5",
+						    width: "100%",
+						    height: "500px",
+						    marginTop:"",
+						    overflow: "hidden",
+						    position: "relative",
+		            	},
 		            	dataList:[
 		            		{id:1,name:"1111111",content:'fgasdfasdfasdfasdfa',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5329/7703198392760.jpg?imageMogr2/thumbnail/400x400"},
 		            		{id:2,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
@@ -84,9 +112,16 @@
 			            return obj
 		            },
 		            setUserId(id){
-		            	let obj = `user/${id}`;
+		            	let obj = `users/${id}`;
+			            return obj
+		            },
+		            setTopicId(id){
+		            	let obj = `topics/${id}`;
 			            return obj
 		            }
+		        },
+		        created(){
+		        	this.containerStyle.marginTop = (document.documentElement.clientHeight - 60 - 500 - 50 ) / 2 + "px";
 		        }
 		    })
 		</script>

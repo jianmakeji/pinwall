@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>pinwall</title>
+		<link rel="stylesheet" type="text/css" href="css/src/base.css"/>
+		<link rel="stylesheet" type="text/css" href="css/lib/iview.css">
+		<link rel="stylesheet" type="text/css" href="css/src/users.css"/>
+	    <script type="text/javascript" src="js/lib/vue.min.js"></script>
+	    <script type="text/javascript" src="js/lib/iview.min.js"></script>
+        <script src="https://unpkg.com/ionicons@4.2.2/dist/ionicons.js"></script>
+	</head>
+	<body>
+		<div class="users" v-cloak>
+			<div class="header">
+			    <row>
+                    <i-col :lg="2"><i-button type="text" ghost="true" to="index.html" >图钉墙</i-button></i-col>
+			        <i-col :lg="2"><i-button type="text" ghost="true" to="index.html">精选</i-button></i-col>
+			        <i-col :lg="2"><i-button type="text" ghost="true" to="topicsAbout.html">毕业展</i-button></i-col>
+			        <i-col :lg="2"><i-button type="text" ghost="true" to="topics.html">作业荚</i-button></i-col>
+			        <i-col :lg="2"><i-button type="text" ghost="true" @click="">探索...</i-button></i-col>
+
+			        <i-col :lg="{span:1,offset:10}">用户</i-col>
+			        <i-col :lg="1">右侧栏</i-col>
+			        <i-col :lg="2">登陆/注册</i-col>
+			    </row>
+			</div>
+			<div class="container" :style="containerStyle">
+                <div class="de_topic_box">
+                    <row>
+                        <i-col :lg="1">
+                            <div class="user_info">
+                                <a :href="usersUrl(0)" class="">
+                                    <img src="http://pinwall.fzcloud.design-engine.org/group1_M00_02_A8_oYYBAFKCDz2AcHvFAAANyqipOkg958.png" alt="">
+                                    <p class="name">立秋</p>
+                                </a>
+                            </div>
+
+                        </i-col>
+                        <i-col :lg="4">
+                            <div class="topic_info">
+                                <p class="created_date">2016-10-19 注册</p>
+                                <a href="#">
+                                    <p class="topic_title">立秋的作品集</p>
+                                </a>
+                                <ul class="de_stats_tags">
+                                    <li class="uploads">
+                                        <ion-icon name="ios-cloud-upload"></ion-icon>135
+                                    </li>
+                                    <li class="badges">
+                                        <ion-icon name="bookmark"></ion-icon>135
+                                    </li>
+                                </ul>
+                            </div>
+                        </i-col>
+                        <i-col :lg="{span:18,offset:5}">
+                            <ul class="project_info">
+                                <li class="de_borderbox">
+                                    <a href="#" class="de_entity_link">
+                                        <img src="http://pinwall.fzcloud.design-engine.org/4705/7641900251635.png?imageMogr2/thumbnail/400x400" alt="">
+                                    </a>
+                                </li>
+                                <li class="de_borderbox">
+                                    <a href="#" class="de_entity_link">
+                                        <img src="http://pinwall.fzcloud.design-engine.org/4705/7641900251635.png?imageMogr2/thumbnail/400x400">
+                                    </a>
+                                </li>
+                            </ul>
+                        </i-col>
+                        <i-col :lg="1">
+                            <ul class="topic_action topic_closed">
+                                    <!-- <li class="de_topic_action_view">
+                                        <a href="#">
+                                            <img src="http://pinwall.fzcloud.design-engine.org/4705/7641900251635.png?imageMogr2/thumbnail/400x400" title="查看">
+                                        </a>
+                                    </li> -->
+                            </ul>
+                        </i-col>
+                    </row>
+                </div>
+                <p class="topic_description"></p>
+
+                <ul class="de_project_grid">
+                    <row>
+                        <i-col :md="8" :lg="8">
+                            <li class="de_card_m">
+                                <div class="user_info">
+                                    <a href="#">
+                                        <img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+                                        <p class="name">立秋</p>
+                                        <p class="date">2018-10-27</p>
+                                    </a>
+                                </div>
+                                <div class="project_info">
+                                    <a href="#">
+                                        <img class="thumb" src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400" alt="">
+                                        <h4>速写</h4>
+                                    </a>
+                                </div>
+                                <div class="de_stats_tags_p">
+                                    <div class="badges" title="勋章">
+                                        <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                        <span>
+                                            11
+                                        </span>
+                                    </div>
+                                    <div class="likes" title="赞"><img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                        <span>
+                                            11
+                                        <span>
+                                    </div>
+                                    <div class="comments" title="评论">
+                                        <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                        <span>
+                                            11
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                        </i-col>
+                            <i-col :md="8" :lg="8">
+                        <li class="de_card_m">
+                            <div class="user_info">
+                                <a href="#">
+                                    <img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+                                    <p class="name">立秋</p>
+                                    <p class="date">2018-10-27</p>
+                                </a>
+                            </div>
+                            <div class="project_info">
+                                <a href="#">
+                                    <img class="thumb" src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400" alt="">
+                                    <h4>速写</h4>
+                                </a>
+                            </div>
+                            <div class="de_stats_tags_p">
+                                <div class="badges" title="勋章">
+                                    <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                    <span>
+                                        11
+                                    </span>
+                                </div>
+                                <div class="likes" title="赞"><img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                    <span>
+                                        11
+                                    <span>
+                                </div>
+                                <div class="comments" title="评论">
+                                    <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                    <span>
+                                        11
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        </i-col>
+                            <i-col :md="8" :lg="8">
+                        <li class="de_card_m">
+                            <div class="user_info">
+                                <a href="#">
+                                    <img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+                                    <p class="name">立秋</p>
+                                    <p class="date">2018-10-27</p>
+                                </a>
+                            </div>
+                            <div class="project_info">
+                                <a href="#">
+                                    <img class="thumb" src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400" alt="">
+                                    <h4>速写</h4>
+                                </a>
+                            </div>
+                            <div class="de_stats_tags_p">
+                                <div class="badges" title="勋章">
+                                    <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                    <span>
+                                        11
+                                    </span>
+                                </div>
+                                <div class="likes" title="赞"><img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                    <span>
+                                        11
+                                    <span>
+                                </div>
+                                <div class="comments" title="评论">
+                                    <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                    <span>
+                                        11
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        </i-col>
+                            <i-col :md="8" :lg="8">
+                        <li class="de_card_m">
+                            <div class="user_info">
+                                <a href="#">
+                                    <img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+                                    <p class="name">立秋</p>
+                                    <p class="date">2018-10-27</p>
+                                </a>
+                            </div>
+                            <div class="project_info">
+                                <a href="#">
+                                    <img class="thumb" src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400" alt="">
+                                    <h4>速写</h4>
+                                </a>
+                            </div>
+                            <div class="de_stats_tags_p">
+                                <div class="badges" title="勋章">
+                                    <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                    <span>
+                                        11
+                                    </span>
+                                </div>
+                                <div class="likes" title="赞"><img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                    <span>
+                                        11
+                                    <span>
+                                </div>
+                                <div class="comments" title="评论">
+                                    <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                    <span>
+                                        11
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        </i-col>
+                    </row>
+                </ul>
+			</div>
+			<div class="footer">
+				<p>© 湖南大学设计艺术学院，保留所有权利。</p>
+			</div>
+		</div>
+		<script>
+		    var users = new Vue({
+		        el: '.users',
+		        data(){
+		            return{
+                        containerStyle:{
+                            minHeight:""
+                        },
+                        dataList:[
+
+                        ]
+                    }
+		        },
+		        methods: {
+                    usersUrl(id){
+                        let obj = `users/${id}`;
+			            return obj
+                    },
+		        },
+		        created(){
+                    this.containerStyle.minHeight = document.documentElement.clientHeight - 130 + "px";
+		        }
+		    })
+		</script>
+	</body>
+</html>
