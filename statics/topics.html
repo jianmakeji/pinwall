@@ -1,3 +1,4 @@
+<!-- 作业荚 -->
 <!DOCTYPE html>
 <html>
 	<head>
@@ -14,15 +15,15 @@
 		<div class="topics" v-cloak>
 			<div class="header">
 			    <row>
-                    <i-col :lg="2"><i-button type="text" ghost="true" to="index.html" >图钉墙</i-button></i-col>
-			        <i-col :lg="2"><i-button type="text" ghost="true" to="index.html">精选</i-button></i-col>
-			        <i-col :lg="2"><i-button type="text" ghost="true" to="topicsAbout.html">毕业展</i-button></i-col>
-			        <i-col :lg="2"><i-button type="dashed" ghost="true"  to="topics.html">作业荚</i-button></i-col>
-			        <i-col :lg="2"><i-button type="text" ghost="true" @click="openModel">探索...</i-button></i-col>
+					<i-col :xs="4" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" to="index.html">图钉墙</i-button></i-col>
+			        <i-col :xs="0" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" to="index.html">精选</i-button></i-col>
+			        <i-col :xs="4" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" to="topicsAbout.html">毕设展</i-button></i-col>
+			        <i-col :xs="0" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" to="topics.html">作业荚</i-button></i-col>
+			        <i-col :xs="4" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" @click="openModel">探索...</i-button></i-col>
 
-			        <i-col :lg="{span:1,offset:10}">用户</i-col>
-			        <i-col :lg="1">右侧栏</i-col>
-			        <i-col :lg="2">登陆/注册</i-col>
+					<i-col :xs="0" :sm="{span:2,offset:8}" :md="{span:2,offset:6}" :lg="{span:1,offset:10}"><i-button type="text" ghost="true" @click="openLogin">用户</i-col>
+			        <i-col :xs="0" :sm="2" :md="2" :lg="1"><i-button type="text" ghost="true" @click="openMenu">右侧栏</i-col>
+			        <i-col :xs="6" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" @click="openLogin">登陆/注册</i-col>
 			    </row>
 			</div>
 			<div class="container" :style="containerStyle">
@@ -95,6 +96,7 @@
                     </div>
                 </div>
 			</div>
+			<!-- search弹出层 -->
             <modal v-model="searchModel" title="搜索" footer-hide width="60%">
                <div class="search_panel">
                     <div class="search_input_result">
@@ -134,7 +136,6 @@
 		        data(){
 		            return{
                         searchValue:"",
-                        searchModelValue:"",
                         containerStyle:{
                             minHeight:""
                         },
@@ -142,14 +143,14 @@
                         checkOpenType:"text",
                         checkCloseType:"text",
                         dataList:[],
-                        searchModelDataList:[],
-                        columns1:[
-                            {title:"搜索结果",key:"name"}
-                        ],
 
                         // 搜索框弹出层
                         searchModel:false,
-                        visible:false
+                        searchModelValue:"",
+                        searchModelDataList:[],
+                        columns1:[
+                            {title:"搜索结果",key:"name"}
+                        ]
                     }
 		        },
 		        methods: {

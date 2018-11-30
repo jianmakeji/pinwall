@@ -1,0 +1,73 @@
+<!-- 作业荚 -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>pinwall</title>
+		<link rel="stylesheet" type="text/css" href="css/src/base.css"/>
+		<link rel="stylesheet" type="text/css" href="css/lib/iview.css">
+		<link rel="stylesheet" type="text/css" href="css/src/projects.css"/>
+	    <script type="text/javascript" src="js/lib/vue.min.js"></script>
+	    <script type="text/javascript" src="js/lib/iview.min.js"></script>
+        <script src="https://unpkg.com/ionicons@4.2.2/dist/ionicons.js"></script>
+	</head>
+	<body>
+		<div class="projects" v-cloak :style="projectStyle">
+            <div class="project_detail">
+                <div class="stats_tags">
+                    <div class="badges">
+                        <img style="width:30px;height:30px;" src="http://pinwall.design-engine.org/images/default_profile.jpg" title="勋章">
+                        <span>30</span>
+                    </div>
+                    <div class="likes">
+                        <img style="width:30px;height:30px;" src="http://pinwall.design-engine.org/images/default_profile.jpg" title="赞">
+                        <span>30</span>
+                    </div>
+                    <div class="comments">
+                        <img style="width:30px;height:30px;" src="http://pinwall.design-engine.org/images/default_profile.jpg" title="评论">
+                        <span>30</span>
+                    </div>
+                </div>
+                <div class="user_info">
+                    <a href="#">
+                        <img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+                        <p class="name">丁敬兰</p>
+                    </a>
+                </div>
+                <h2>萌宠APP界面设计</h2>
+                <p class="publishtime">
+                    2018-06-07，收录于
+                    <a href="#">2018届本科毕业设计作品</a>
+                </p>
+                <p class="abstract">
+                    萌宠APP是一款集合喜欢宠物的人的社区，在APP中，可以看到用户上传的各种萌宠的视频，日常的、搞笑的，给喜欢宠物的人一个记录的平台，给喜欢宠物的人带来快乐，在APP中，还可以通过商城来购买线下的萌宠动物园的门票、萌宠奶茶店的优惠券，等各种活动券，让用户去线下体验与萌宠的互动，尤其适合亲子去体验，让小朋友参与互动，具有教育意义。链接：http://106.14.221.43:8080/
+                </p>
+            </div>
+            <div class="main_content">
+
+            </div>
+			<div class="footer">
+				<p>© 湖南大学设计艺术学院，保留所有权利。</p>
+			</div>
+		</div>
+		<script>
+		    var projects = new Vue({
+		        el: '.projects',
+		        data(){
+		            return{
+                        projectStyle:{
+                            width: "100%",
+                            minHeight:""
+                        }
+                    }
+		        },
+		        methods: {
+
+		        },
+		        created(){
+                    this.projectStyle.minHeight = document.documentElement.clientHeight + "px";
+		        }
+		    })
+		</script>
+	</body>
+</html>

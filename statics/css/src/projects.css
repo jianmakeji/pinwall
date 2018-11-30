@@ -1,0 +1,85 @@
+body{
+    background:rgba(240, 240, 240, 0.95);
+}
+.project_detail{
+    width: 80%;
+    margin:60px auto;
+    background: white;
+    padding: 110px 20px 20px;
+}
+ .project_detail h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 60%;
+    color: #666;
+}
+.project_detail .publishtime a {
+    color: #07af69;
+    font-weight: bold;
+}
+
+.project_detail .user_info a {
+    color: #333;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.project_detail .user_info .photo {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 18px;
+    display: block;
+}
+.project_detail .user_info .name {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    width: 200px;
+    font-weight: bold;
+    color: #07af69;
+    margin-left: 10px;
+}
+.project_detail .stats_tags{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 180px;
+    position: absolute;
+    background: pink;
+    right: 180px;
+    top: 90px;
+}
+
+.project_detail .abstract {
+    font-size: 14px;
+    line-height: 2em;
+    letter-spacing: 2px;
+    margin: 20px 0px;
+}
+
+/* 作品图片展示 */
+.main_content
+
+
+
+
+
+
+
+.footer {
+	padding: 5px 0;
+	color: #999;
+	text-shadow: 0 1px rgba(255, 255, 255, 1);
+	font-size: 12px;
+	height: 50px;
+	line-height: 50px;
+	width: 100%;
+	overflow: hidden;
+	text-align: center;
+}
