@@ -7,7 +7,7 @@ class Users extends Service {
   async list({ offset = 0, limit = 10 }) {
     return this.ctx.model.Users.listUsers({
       offset,
-      limit,
+      limit
     });
   }
 
@@ -22,7 +22,17 @@ class Users extends Service {
       throw new Error('用户邮箱不能为空');
     }
     else{
-      return this.ctx.model.Users.create(user);
+      let transaction;
+      try {
+        transaction = await this.ctx.model.transaction();
+        const createUserObj = await this.ctx.model.Users.createUser(user,transaction);
+        await this.ctx.model.UserRole.creteUserRole(createUserObj.Id, user.roleId, transaction);
+        await transaction.commit();
+        return true
+      } catch (e) {
+        await transaction.rollback();
+        return false
+      }
     }
   }
 
@@ -31,8 +41,21 @@ class Users extends Service {
   }
 
   async del(id) {
-    const user = await this.ctx.model.Users.delUserById(id);
-    return user;
+    let transaction;
+    try {
+      transaction = await this.ctx.model.transaction();
+      await this.ctx.model.Users.delUserById(id,transaction);
+      await this.ctx.model.UserRole.delUserRoleByUserId(id, transaction);
+      await this.ctx.model.Artifacts.delArtifactById(id, transaction);
+      await this.ctx.model.ArtifactAssets.delAssetsByArtifactId(id, transaction);
+      await this.ctx.model.ArtifactAssets.delCommentByArtifactId(id, transaction);
+      await transaction.commit();
+      return true
+    } catch (e) {
+      await transaction.rollback();
+      return false
+    }
+
   }
 
   async findByOpenId(openId){

@@ -28,8 +28,10 @@ class Artifacts extends Service {
     let transaction;
     try {
       transaction = await this.ctx.model.transaction();
-      await this.ctx.model.Artifacts.delArtifactById(parms, transaction);
-      await this.ctx.model.ArtifactAssets.delAssetsByArtifactId(parms1, transaction);
+      await this.ctx.model.Artifacts.delArtifactById(id, transaction);
+      await this.ctx.model.ArtifactAssets.delAssetsByArtifactId(id, transaction);
+      await this.ctx.model.ArtifactAssets.delCommentByArtifactId(id, transaction);
+      await this.ctx.model.ArtifactAssets.delArtifactTermByArtifactId(id, transaction);
       await transaction.commit();
       return true
     } catch (e) {

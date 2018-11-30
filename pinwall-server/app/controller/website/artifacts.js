@@ -28,9 +28,9 @@ class ArtifactsController extends Controller{
     const ctx = this.ctx;
     const id = ctx.params.id;
     const updates = {
-      name: ctx.request.body.name,
-      description: ctx.request.body.description,
-      profileImage: ctx.request.body.profileImage,
+      artifactId: ctx.request.body.artifactId,
+      scorerId: ctx.request.body.scorerId,
+      score: ctx.request.body.score,
     };
     await ctx.service.artifacts.update({ id, updates });
     ctx.body = ctx.app.success('更新成功!');

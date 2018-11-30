@@ -92,5 +92,21 @@ module.exports = app => {
     return artifact.destroy();
   }
 
+  ArtifactComments.delCommentByArtifactId = async function (artifactId) {
+    return this.destroy({
+      where : {
+        artifactId:artifactId
+      }
+    });
+  }
+
+  ArtifactComments.delCommentByCommenterId = async function (commenterId) {
+    return this.destroy({
+      where : {
+        commenterId:commenterId
+      }
+    });
+  }
+
   return ArtifactComments;
 };

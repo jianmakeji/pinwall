@@ -27,17 +27,28 @@ class ArtifactScore extends Service {
   }
 
   async findByArtifactIdAndScorerId({
-    scorerId = 0,
-    artifactId = 0
+    offset = 0,
+    limit = 10,
+    scorerId = 0
   }) {
-    return this.ctx.model.ArtifactScores.findByArtifactIdAndScorerId({
-      scorerId,
-      artifactId
+    return this.ctx.model.ArtifactScores.findByScorerIdWithPage({
+      offset,
+      limit,
+      scorerId
     });
   }
 
   async create(artifactScores) {
-    return this.ctx.model.ArtifactScores.createArtifactScores(artifactScores);
+    const artifactScoreObj = await this.ctx.model.ArtifactScores.findOneByArtifactIdAndScorerId({
+      artifactId:artifactScores.artifactId,
+      scorerId:artifactScores.scorerId
+    });
+    if (!artifactScoreObj){
+      return this.ctx.model.ArtifactScores.createArtifactScores(artifactScores);
+    }
+    else{
+      return artifactScoreObj;
+    }
   }
 
   async update({
@@ -45,12 +56,12 @@ class ArtifactScore extends Service {
     scorerId = 0,
     score = 0
   }) {
-    const artifactScores = await this.ctx.model.ArtifactScores.updateScore(artifactId,scorerId,score);
+    const artifactScores = await this.ctx.model.ArtifactScores.updateScore(artifactId, scorerId, score);
     return artifactScores;
   }
 
-  async del(Id) {
-    const artifact = await this.ctx.model.ArtifactScores.delArtifactScores(Id);
+  async del(artifactId) {
+    const artifact = await this.ctx.model.ArtifactScores.delArtifactScoresByArtifactId(artifactId);
     return artifact;
   }
 }

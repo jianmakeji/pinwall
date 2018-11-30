@@ -52,6 +52,18 @@ module.exports = app => {
     });
   }
 
+  ArtifactScores.findOneByArtifactIdAndScorerId = async function({
+    artifactId = 0,
+    scorerId = 0
+  }){
+    return this.findOne({
+      where:{
+        artifactId:artifactId,
+        scorerId:scorerId,
+      }
+    });
+  };
+
   ArtifactScores.findByArtifactIdWithPage = async function ({
     offset = 0,
     limit = 10,
@@ -69,9 +81,10 @@ module.exports = app => {
     });
   }
 
-  ArtifactScores.findByArtifactIdAndScorerId = async function ({
-    scorerId = 0,
-    artifactId = 0
+  ArtifactScores.findByScorerIdWithPage = async function ({
+    offset = 0,
+    limit = 10,
+    scorerId = 0
   }) {
     return this.findAndCountAll({
       offset,
@@ -80,7 +93,7 @@ module.exports = app => {
         ['createAt', 'desc']
       ],
       where: {
-        artifactId: artifactId,
+        scorerId:scorerId
       }
     });
   }
@@ -108,12 +121,20 @@ module.exports = app => {
     });
   }
 
-  ArtifactScores.delArtifactScores = async function (Id) {
-    const artifact = await this.findById(Id);
-    if (!artifact) {
-      this.ctx.throw(404, 'artifact not found');
-    }
-    return artifact.destroy();
+  ArtifactScores.delArtifactScoresByArtifactId = async function (artifactId) {
+    return artifact.destroy({
+      where:{
+        artifactId:artifactId
+      }
+    });
+  }
+
+  ArtifactScores.delArtifactScoresByScorerId = async function (scorerId) {
+    return artifact.destroy({
+      where:{
+        scorerId:scorerId
+      }
+    });
   }
 
   return ArtifactScores;

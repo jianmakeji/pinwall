@@ -76,10 +76,7 @@ module.exports = app => {
     app.model.Users.belongsToMany(app.model.Roles, {
       through: {
         model: app.model.UserRole,
-        unique: false,
-        scope: {
-          taggable: 'users'
-        }
+        unique: false
       },
       foreignKey: 'userId',
       constraints: false
@@ -91,6 +88,9 @@ module.exports = app => {
       offset,
       limit,
       order: [[ 'createAt', 'desc' ], [ 'Id', 'desc' ]],
+      include:[
+        app.model.Roles
+      ]
     });
   }
 
@@ -109,7 +109,7 @@ module.exports = app => {
           email:user.email
         }
       });
-
+      
       if (!userObj){
         return this.create(user);
       }

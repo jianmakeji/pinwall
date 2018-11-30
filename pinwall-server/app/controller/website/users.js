@@ -20,7 +20,7 @@ class UsersController extends Controller{
 
   async create() {
     const ctx = this.ctx;
-    const user = await ctx.service.users.create(ctx.request.body);
+    const user = await ctx.service.users.createUser(ctx.request.body);
     ctx.body = ctx.app.success('创建成功!');
   }
 

@@ -72,19 +72,19 @@ module.exports = app => {
   }
 
   Roles.updateRole = async function ({ Id, updates }) {
-    const user = await this.findById(id);
-    if (!user) {
+    const role = await this.findById(id);
+    if (!role) {
       this.ctx.throw(404, 'user not found');
     }
-    return user.update(updates);
+    return role.update(updates);
   }
 
   Roles.delRoleById = async function (id) {
-    const user = await this.findById(id);
-    if (!user) {
-      this.ctx.throw(404, 'user not found');
+    const role = await this.findById(id);
+    if (!role) {
+      this.ctx.throw(404, 'role not found');
     }
-    return user.destroy();
+    return role.destroy();
   }
 
   return Roles;

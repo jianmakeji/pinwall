@@ -13,6 +13,16 @@ class ArtifactCommentController extends Controller{
     ctx.body = await ctx.service.artifactComment.list(query);
   }
 
+  async findByArtifactIdWithPage() {
+    const ctx = this.ctx;
+    const query = {
+      limit: ctx.helper.parseInt(ctx.query.limit),
+      offset: ctx.helper.parseInt(ctx.query.offset),
+      artifactId: ctx.helper.parseInt(ctx.query.artifactId),
+    };
+    ctx.body = await ctx.service.artifactComment.list(query);
+  }
+
   async show() {
     const ctx = this.ctx;
     ctx.body = await ctx.service.artifactComment.find(ctx.helper.parseInt(ctx.params.id));
@@ -28,7 +38,9 @@ class ArtifactCommentController extends Controller{
     const ctx = this.ctx;
     const id = ctx.params.id;
     const updates = {
-      mobile: ctx.request.body.mobile,
+      content: ctx.request.body.content,
+      artifactId: ctx.request.body.artifactId,
+      commenterId: ctx.request.body.commenterId
     };
     await ctx.service.artifactComment.update({ id, updates });
     ctx.body = ctx.app.success('更新成功!');
@@ -41,6 +53,14 @@ class ArtifactCommentController extends Controller{
     ctx.body = ctx.app.success('删除成功!');
   }
 
+  async setCommentVisible() {
+    const ctx = this.ctx;
+    const updates = {
+      Id:ctx.request.body.id,
+      visible: ctx.request.body.visible,
+    };
+    await ctx.service.artifactComment.update(updates);
+  }
 }
 
 module.exports = ArtifactCommentController;
