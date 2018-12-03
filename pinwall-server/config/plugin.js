@@ -23,6 +23,11 @@ exports.passport = {
   package: 'egg-passport',
 };
 
+exports.passportWeixin = {
+  enable: true,
+  package: 'egg-passport-weixin',
+};
+
 exports.nunjucks = {
   enable: true,
   package: 'egg-view-nunjucks',

@@ -45,5 +45,20 @@ module.exports = appInfo => {
       allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
   };
 
+  config.view = {
+    defaultViewEngine: 'nunjucks',
+  };
+
+  config.assets = {
+    publicPath: '/public/',
+  };
+
+  config.passportWeiXin = {
+    clientID: '',
+    secret: '',
+    callbackURL: '/auth/weixin/callback',
+    scope:'snsapi_userinfo',
+  };
+  
   return config;
 };

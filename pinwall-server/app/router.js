@@ -7,6 +7,11 @@ module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.home.index);
   router.get('/login', controller.home.loginRender);
+  router.post('/login',app.passport.authenticate('local', { successRedirect: '/authCallback' }));
+  router.get('/authCallback', controller.home.index);
+
+  app.get("/auth/weixin", app.passport.authenticate('loginByWeixinClient'));
+  app.get("/auth/weixin/callback",app.passport.authenticate('loginByWeixinClient',{ successRedirect: '/authCallback',failureRedirect: '/login' }));
 
   //网站接口
   router.resources('website.users', '/website/users', controller.website.users);
