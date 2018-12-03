@@ -41,6 +41,22 @@ class UsersController extends Controller{
     ctx.body = ctx.app.success('删除成功!');
   }
 
+  async login() {
+    const ctx = this.ctx;
+    const { username, password } = ctx.request.body;
+    //const user = await this.service.home.login(username, password);
+    ctx.session.user = {userId:1, name:"liling"};
+    const { id, schemastr } = user || {};
+    console.log(ctx.session);
+    ctx.body = {
+      data: {
+        id,
+        schemastr,
+        username,
+      },
+      message: 'success',
+    };
+ }
 }
 
 module.exports = UsersController;

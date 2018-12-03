@@ -6,6 +6,7 @@
 module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.home.index);
+  router.get('/login', controller.home.loginRender);
 
   //网站接口
   router.resources('website.users', '/website/users', controller.website.users);
