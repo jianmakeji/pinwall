@@ -46,7 +46,7 @@
                                         <ion-icon name="ios-cloud-upload"></ion-icon>135
                                     </li>
                                     <li class="badges">
-                                        <ion-icon name="bookmark"></ion-icon>135
+                                        <ion-icon name="ios-ribbon"></ion-icon>135
                                     </li>
                                 </ul>
                             </div>
@@ -66,7 +66,7 @@
                             </ul>
                         </i-col>
                         <i-col :xs="0" :sm="1" :md="1" :lg="1">
-                            <ul class="topic_action topic_closed">
+                            <ul class="topic_action">
                                     <!-- <li class="de_topic_action_view">
                                         <a href="#">
                                             <img src="http://pinwall.fzcloud.design-engine.org/4705/7641900251635.png?imageMogr2/thumbnail/400x400" title="查看">
@@ -97,18 +97,18 @@
                                 </div>
                                 <div class="de_stats_tags_p">
                                     <div class="badges" title="勋章">
-                                        <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                        <img src="./img/badge.png"/>
                                         <span>
                                             11
                                         </span>
                                     </div>
-                                    <div class="likes" title="赞"><img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                    <div class="likes" title="赞"><img src="./img/like.png"/>
                                         <span>
                                             11
                                         <span>
                                     </div>
                                     <div class="comments" title="评论">
-                                        <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
+                                        <img src="./img/comment.png"/>
                                         <span>
                                             11
                                         </span>
@@ -306,7 +306,7 @@
 					   	</form-item>
 						<form-item label="验证码">
 							<i-input type="text" v-model="formItem.activecode" style="width:200px;" placeholder="请重新图片验证码"></i-input>
-	            			<img :src="imgSrc" class="zyActiveCode" @click="tapClick">
+	            			<!-- <img :src="imgSrc" class="zyActiveCode" @click="tapClick"> -->
 					   	</form-item>
 					   	<form-item>
 						   	<i-button type="success">注册</i-button>

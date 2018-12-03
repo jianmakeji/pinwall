@@ -5,26 +5,28 @@
 		<meta charset="utf-8" />
 		<title>pinwall</title>
 		<link rel="stylesheet" type="text/css" href="css/src/base.css"/>
-		<link rel="stylesheet" type="text/css" href="css/lib/iview.css">
+    <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
 		<link rel="stylesheet" type="text/css" href="css/src/projects.css"/>
-	    <script type="text/javascript" src="js/lib/vue.min.js"></script>
-	    <script type="text/javascript" src="js/lib/iview.min.js"></script>
+    <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
         <script src="https://unpkg.com/ionicons@4.2.2/dist/ionicons.js"></script>
 	</head>
 	<body>
 		<div class="projects" v-cloak :style="projectStyle">
+			<i-button class="zan_btn" type="success" icon="md-thumbs-up" size="large" @click="zan">赞</i-button>
+			<i-button class="close_btn" type="default" shape="circle" icon="md-close" size="large" @click="closeThePage"></i-button>
             <div class="project_detail">
                 <div class="stats_tags">
                     <div class="badges">
-                        <img style="width:30px;height:30px;" src="http://pinwall.design-engine.org/images/default_profile.jpg" title="勋章">
+                        <img style="width:25px;height:25px;" src="./img/badge.png" title="勋章">
                         <span>30</span>
                     </div>
                     <div class="likes">
-                        <img style="width:30px;height:30px;" src="http://pinwall.design-engine.org/images/default_profile.jpg" title="赞">
+                        <img style="width:25px;height:25px;" src="./img/like.png" title="赞">
                         <span>30</span>
                     </div>
                     <div class="comments">
-                        <img style="width:30px;height:30px;" src="http://pinwall.design-engine.org/images/default_profile.jpg" title="评论">
+                        <img style="width:25px;height:25px;" src="./img/comment.png" title="评论">
                         <span>30</span>
                     </div>
                 </div>
@@ -42,10 +44,54 @@
                 <p class="abstract">
                     萌宠APP是一款集合喜欢宠物的人的社区，在APP中，可以看到用户上传的各种萌宠的视频，日常的、搞笑的，给喜欢宠物的人一个记录的平台，给喜欢宠物的人带来快乐，在APP中，还可以通过商城来购买线下的萌宠动物园的门票、萌宠奶茶店的优惠券，等各种活动券，让用户去线下体验与萌宠的互动，尤其适合亲子去体验，让小朋友参与互动，具有教育意义。链接：http://106.14.221.43:8080/
                 </p>
-            </div>
-            <div class="main_content">
 
+	            <div class="main_content">
+					<figure>
+						<img src="http://pinwall.fzcloud.design-engine.org/5329/12325119649072.jpg" alt="">
+					</figure>
+					<figure>
+						<img src="http://pinwall.fzcloud.design-engine.org/5329/12325119649072.jpg" alt="">
+					</figure>
+	            </div>
             </div>
+			<div class="comment_box">
+				<ul class="comment_list">
+					<li  v-show="userId">
+						<div class="user_info">
+							<a href="#">
+								<img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+							</a>
+						</div>
+						<div class="comment_wrapper">
+							<a href="#" class="name">李灵</a>
+							<span class="publishtime">2018-12-03 09:31:11</span>
+							<i-button class="delete_comment" type="error" shape="circle" icon="ios-trash-outline" @click="deleteComment"></i-button>
+							<p class="comment">贵在坚持！</p>
+						</div>
+					</li>
+				</ul>
+				<div class="comment_form" v-show="userId">
+					<div class="user_info">
+						<a href="#">
+							<img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+						</a>
+					</div>
+					<div class="comment_wrapper">
+						<a href="#" class="name">李灵</a>
+						<i-form>
+							<form-item>
+								<i-input v-model="commentValue" type="textarea" placeholder="您的评论……" /><br>
+							</form-item>
+							<form-item>
+								<i-button type="success" @click="addComment">提交</i-button>
+							</form-item>
+						</i-form>
+					</div>
+				</div>
+				<div class="comment_form" v-show="!userId">
+					<i-button type="warning" @click="login">发表评论前请先登录</i-button>
+				</div>
+			</div>
 			<div class="footer">
 				<p>© 湖南大学设计艺术学院，保留所有权利。</p>
 			</div>
@@ -58,11 +104,27 @@
                         projectStyle:{
                             width: "100%",
                             minHeight:""
-                        }
+                        },
+						commentValue:"",
+						userId:"1"
                     }
 		        },
 		        methods: {
-
+					closeThePage(){
+						console.log("closeThePage");
+					},
+					zan(event){
+						console.log(event);
+					},
+					deleteComment(){
+						console.log("deleteComment");
+					},
+					addComment(){
+						console.log("addComment");
+					},
+					login(){
+						console.log("goLogin!");
+					}
 		        },
 		        created(){
                     this.projectStyle.minHeight = document.documentElement.clientHeight + "px";

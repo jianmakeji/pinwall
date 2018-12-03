@@ -146,13 +146,16 @@ body{
     background: #fff;
     color: #666;
     font-size: 0;
-    display: inline-block;
-    border-radius: 18px;
+    display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+    border-radius: 40px;
     box-shadow: 0 6px 10px rgba(0,0,0,0.1);
     position: relative;
 }
 .topic_action li a img{
-    width: 100%;
+    width: 25px;
     height: auto;
     border-radius: 40px;
 }

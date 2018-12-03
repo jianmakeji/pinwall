@@ -1,6 +1,20 @@
 body{
     background:rgba(240, 240, 240, 0.95);
 }
+.close_btn{
+    margin: 10px;
+    position: fixed;
+    top: 0;
+    right: 5%;
+}
+.zan_btn{
+    margin: 10px;
+    position: fixed;
+    top: 0;
+    left: 4%;
+}
+
+
 .project_detail{
     width: 80%;
     margin:60px auto;
@@ -51,9 +65,15 @@ body{
     align-items: center;
     width: 180px;
     position: absolute;
-    background: pink;
-    right: 180px;
+    right: 13%;
     top: 90px;
+}
+.project_detail .stats_tags .badges,
+.project_detail .stats_tags .likes,
+.project_detail .stats_tags .comments{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .project_detail .abstract {
@@ -64,12 +84,75 @@ body{
 }
 
 /* 作品图片展示 */
-.main_content
+.main_content figure{
+    margin: 10px 0;
+    padding-top: 2em;
+    border-top: 1px #ccc dotted;
+}
+.main_content figure img{
+    width: 100%;
+}
 
-
-
-
-
+/* 评论框 */
+.comment_box{
+    margin: 40px auto;
+    background: #fff;
+    width: 80%;
+}
+/* 其他用户评论 */
+.comment_list li {
+    padding: 20px 40px 20px 20px;
+    border-bottom: #ccc 1px dotted;
+    position: relative;
+}
+.comment_box .user_info {
+    float: left;
+}
+.comment_box .user_info .photo {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 18px;
+    margin: 5px auto;
+    display: block;
+    background: #999;
+}
+.comment_box .comment_wrapper {
+    margin-left: 55px;
+}
+.comment_box .name {
+    text-decoration: none;
+    color: #09bc72;
+    font-size: 14px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+.comment_box .publishtime {
+    font-size: 12px;
+    color: #999;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+.comment_box .delete_comment {
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.comment_box .comment {
+    font-size: 14px;
+    line-height: 1.5em;
+    color: #666;
+    display: block;
+    margin: 8px 0;
+}
+/* 我的评论输入 */
+.comment_form {
+    padding: 20px;
+    position: relative;
+}
 
 
 .footer {
