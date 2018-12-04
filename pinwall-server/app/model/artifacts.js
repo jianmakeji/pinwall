@@ -40,6 +40,11 @@ module.exports = app => {
       type: BOOLEAN,
       allowNull: true
     },
+    jobTag: {
+      type: INTEGER,
+      allowNull: false,
+      defaultValue: '0'
+    },
     createAt: {
       type: DATE,
       allowNull: false,
@@ -102,19 +107,26 @@ module.exports = app => {
 
   Artifacts.listArtifacts = async function({
     offset = 0,
-    limit = 10
+    limit = 10,
+    visible = 0,
+    jobTag = 0
   }) {
-    return await this.findAndCountAll({
+
+    let condition = {
       offset,
       limit,
-      order: [
-        ['createAt', 'desc'],
-        ['Id', 'desc']
-      ],
+      order: [[ 'createAt', 'desc' ]],
       include: [{
         model: app.model.ArtifactAssets
       }],
-    });
+    };
+
+    if (jobTag != 0){
+      condition.where.jobTag = jobTag;
+    }
+    condition.where.visible = visible;
+
+    return await this.findAndCountAll(condition);
   }
 
   Artifacts.findArtifactById = async function(id) {

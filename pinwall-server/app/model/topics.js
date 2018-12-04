@@ -27,6 +27,11 @@ module.exports  = app => {
       type: INTEGER(6),
       allowNull: true
     },
+    jobTag: {
+      type: INTEGER,
+      allowNull: false,
+      defaultValue: '0'
+    },
     createAt: {
       type: DATE,
       allowNull: false,
@@ -69,12 +74,21 @@ module.exports  = app => {
     });
   };
 
-  Topics.listTopics = async function ({ offset = 0, limit = 10 }) {
-    return this.ctx.model.Topics.findAndCountAll({
+  Topics.listTopics = async function ({ offset = 0, limit = 10, jobTag = 0 }) {
+
+    let condition = {
       offset,
       limit,
-      order: [[ 'createAt', 'desc' ], [ 'Id', 'desc' ]],
-    });
+      order: [[ 'createAt', 'desc' ]],
+    };
+
+    if (jobTag != 0){
+      condition.where = {
+        jobTag:jobTag,
+      }
+    }
+
+    return this.ctx.model.Topics.findAndCountAll(condition);
   }
 
   Topics.findTopicById = async function (Id) {
