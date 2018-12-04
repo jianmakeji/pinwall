@@ -20,7 +20,18 @@ class ArtifactComment extends Service {
   }
 
   async create(artifactComments) {
-    return this.ctx.model.ArtifactComments.createComment(artifactComments);
+    let transaction;
+    try {
+      transaction = await this.ctx.model.transaction();
+      await this.ctx.model.ArtifactComments.createComment(artifactComments);
+      await this.ctx.model.Artifacts.addCommnet(artifactComments.artifactId, transaction);
+      await transaction.commit();
+      return true
+    } catch (e) {
+      await transaction.rollback();
+      return false
+    }
+
   }
 
   async update({Id = 0, visible = 0}) {

@@ -1,0 +1,54 @@
+/* jshint indent: 2 */
+
+module.exports = app => {
+
+  const { STRING, INTEGER, DATE, TEXT } = app.Sequelize;
+
+  const ArtifactMedalLike = app.model.define('artifact_medal_like', {
+    Id: {
+      type:INTEGER,
+      allowNull: false,
+      defaultValue: '0',
+      primaryKey: true
+    },
+    tag: {
+      type:INTEGER,
+      allowNull: false,
+    },
+    userId: {
+      type:INTEGER,
+      allowNull: false,
+      defaultValue: '0'
+    },
+    artifactId: {
+      type:INTEGER,
+      allowNull: true
+    },
+    createAt: {
+      type: DATE,
+      allowNull: false,
+      defaultValue: app.Sequelize.literal('CURRENT_TIMESTAMP')
+    }
+  }, {
+    tableName: 'artifact_medal_like'
+  });
+
+  ArtifactMedalLike.associate = function() {
+      app.model.ArtifactAssets.belongsTo(app.model.Artifacts, {targetKey: 'Id', foreignKey: 'artifactId'});
+  }
+
+  ArtifactMedalLike.createMedalAndLike = async function (artifactMedalLike) {
+    return this.create(artifactMedalLike);
+  }
+
+  ArtifactMedalLike.delAssetsByArtifactId = async function (artifactId) {
+
+    return artifact.destroy({
+      where:{
+          artifactId:artifactId,
+      },
+    });
+  }
+
+  return ArtifactMedalLike;
+};

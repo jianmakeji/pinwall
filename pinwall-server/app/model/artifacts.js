@@ -45,6 +45,21 @@ module.exports = app => {
       allowNull: false,
       defaultValue: '0'
     },
+    medalCount: {
+      type: INTEGER,
+      allowNull: false,
+      defaultValue: '0'
+    },
+    likeCount: {
+      type: INTEGER,
+      allowNull: false,
+      defaultValue: '0'
+    },
+    commentCount: {
+      type: INTEGER,
+      allowNull: false,
+      defaultValue: '0'
+    },
     createAt: {
       type: DATE,
       allowNull: false,
@@ -115,13 +130,15 @@ module.exports = app => {
     let condition = {
       offset,
       limit,
-      order: [[ 'createAt', 'desc' ]],
+      order: [
+        ['createAt', 'desc']
+      ],
       include: [{
         model: app.model.ArtifactAssets
       }],
     };
 
-    if (jobTag != 0){
+    if (jobTag != 0) {
       condition.where.jobTag = jobTag;
     }
     condition.where.visible = visible;
@@ -168,5 +185,34 @@ module.exports = app => {
     return artifact.destroy();
   }
 
+  Artifacts.addCommnet = async function(id) {
+    await this.update({
+      commentCount: this.app.Sequelize.fn('1 + abs', this.app.Sequelize.col('commentCount'))
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
+
+  Artifacts.addMedal = async function(id) {
+    await this.update({
+      medalCount: this.app.Sequelize.fn('1 + abs', this.app.Sequelize.col('medalCount'))
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
+
+  Artifacts.addlike = async function(id) {
+    await this.update({
+      likeCount: this.app.Sequelize.fn('1 + abs', this.app.Sequelize.col('likeCount'))
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
   return Artifacts;
 };
