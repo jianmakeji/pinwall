@@ -59,6 +59,15 @@ module.exports = appInfo => {
     callbackURL: '/auth/weixin/callback',
     scope:'snsapi_userinfo',
   };
-  
+
+  config.onerror = {
+    // 线上页面发生异常时，重定向到这个页面上
+    errorPageUrl: '/50x.html',
+  };
+
+  config.notfound: {
+    pageUrl: '/404.html',
+  };
+
   return config;
 };

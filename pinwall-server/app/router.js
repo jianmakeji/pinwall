@@ -9,6 +9,8 @@ module.exports = app => {
   router.get('/login', controller.home.loginRender);
   router.post('/login',app.passport.authenticate('local', { successRedirect: '/authCallback' }));
   router.get('/authCallback', controller.home.index);
+  router.get('/logout', controller.home.logout);
+  router.get('/upload', controller.home.uploadRender);
 
   app.get("/auth/weixin", app.passport.authenticate('loginByWeixinClient'));
   app.get("/auth/weixin/callback",app.passport.authenticate('loginByWeixinClient',{ successRedirect: '/authCallback',failureRedirect: '/login' }));
