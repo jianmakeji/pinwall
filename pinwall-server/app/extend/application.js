@@ -1,6 +1,7 @@
 'use strict';
 
 let OSS = require('ali-oss');
+const crypto = require('crypto');
 
 module.exports = {
 
@@ -85,6 +86,14 @@ module.exports = {
     } catch (e) {
       console.log(e)
     }
+  },
+
+  async cryptoPwd(password){
+    const prefix = '13640661';
+    var sha1 = crypto.createHash('sha1');
+    sha1.update(prefix + password);
+    var pwd = sha1.digest('hex');
+    return pwd;
   },
 
   randomString: (len)=> {
