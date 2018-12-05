@@ -29,7 +29,7 @@ class Email extends Service {
     if (mailType == 0){
       mailOptions.text = "您好 ";
       mailOptions.html = '<b>感谢您的访问!</b> <a href="'+ctx.app.email_verify_address
-        +'?email='+email+'&acticeCode='+acticeCode+'">请点击激活账号</a>',
+        +'?email='+email+'&acticeCode='+acticeCode+'">请点击激活账号</a>';
     }
     else if (mailType == 1){
       mailOptions.text = "您好，您的激活码为:" + acticeCode;

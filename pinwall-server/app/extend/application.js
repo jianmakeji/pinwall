@@ -33,7 +33,7 @@ module.exports = {
   email_user:'',
   email_pwd:'',
   email_send_address:'',
-  email_verify_address:''
+  email_verify_address:'',
 
   signatureUrl(objectPath,thumbName){
     const config = this.aliConfig();
@@ -94,7 +94,7 @@ module.exports = {
     }
   },
 
-  async cryptoPwd(password){
+  cryptoPwd:(password)=>{
     const prefix = '13640661';
     var sha1 = crypto.createHash('sha1');
     sha1.update(prefix + password);

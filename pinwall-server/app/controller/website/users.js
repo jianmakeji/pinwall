@@ -20,8 +20,13 @@ class UsersController extends Controller{
 
   async create() {
     const ctx = this.ctx;
-    const user = await ctx.service.users.createUser(ctx.request.body);
-    ctx.body = ctx.app.success('创建成功!');
+    try{
+      const user = await ctx.service.users.createUser(ctx.request.body);
+      ctx.body = ctx.app.success('创建成功!');
+    }
+    catch(e){
+      ctx.body = ctx.app.failure(e.message);
+    }
   }
 
   async update() {

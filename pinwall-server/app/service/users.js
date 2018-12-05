@@ -41,6 +41,7 @@ class Users extends Service {
 
           return true
         } catch (e) {
+          console.log(e.message);
           await transaction.rollback();
           return false
         }

@@ -65,7 +65,7 @@ module.exports = appInfo => {
     errorPageUrl: '/50x.html',
   };
 
-  config.notfound: {
+  config.notfound= {
     pageUrl: '/404.html',
   };
 

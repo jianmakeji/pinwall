@@ -107,19 +107,7 @@ module.exports = app => {
   }
 
   Users.createUser = async function (user) {
-
-      const userObj = await this.findOne({
-        where:{
-          email:user.email
-        }
-      });
-
-      if (!userObj){
-        return this.create(user);
-      }
-      else{
-        return userObj;
-      }
+    return this.create(user);
   }
 
   Users.updateUser = async function ({ id, updates }) {
