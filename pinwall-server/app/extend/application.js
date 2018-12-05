@@ -29,6 +29,12 @@ module.exports = {
   articleImagePath: 'articleImages/',
   qrCodePath: 'qrCode/',
 
+  email_host:'smtp.qq.com',
+  email_user:'',
+  email_pwd:'',
+  email_send_address:'',
+  email_verify_address:''
+
   signatureUrl(objectPath,thumbName){
     const config = this.aliConfig();
     let client = new OSS({
@@ -143,4 +149,12 @@ module.exports = {
     };
     return result;
   },
+
+  randomNumber:(num)=>{
+    var str = '';
+    for(var i = 0; i < num; i += 1){
+      str += Math.floor(Math.random() * 10);
+    }
+    return str;
+  }
 }

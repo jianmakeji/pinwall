@@ -41,6 +41,40 @@ class UsersController extends Controller{
     ctx.body = ctx.app.success('删除成功!');
   }
 
+  async findByUsersEmail(){
+    const ctx = this.ctx;
+    const email = ctx.query.email;
+    const user = await ctx.service.users.findByUsersEmail(email);
+    ctx.body = user;
+  }
+
+  async updateAcviveByActiveCodeAndEmail(){
+    const ctx = this.ctx;
+    const email = ctx.query.email;
+    const activeCode = ctx.query.activeCode;
+    await ctx.service.users.updateAcviveByActiveCodeAndEmail(email,activeCode);
+    ctx.body = ctx.app.success('更新成功!');
+  }
+
+  async updateAcviveByUserId(){
+    const ctx = this.ctx;
+    const userId = ctx.helper.parseInt(ctx.params.id);
+    await ctx.service.users.updateAcviveByUserId(userId);
+    ctx.body = ctx.app.success('更新成功!');
+  }
+
+  async sendBindingEmailCode(){
+    const ctx = this.ctx;
+    const email = ctx.query.email;
+    const activeCode = ctx.app.randomNumber(6);
+    const result = await ctx.service.email.sendActiveEmail(email,activeCode,1);
+    if (result){
+      ctx.body = ctx.app.success('发送成功!');
+    }
+    else{
+      ctx.body = ctx.app.success('发送失败!');
+    }
+  }
 }
 
 module.exports = UsersController;

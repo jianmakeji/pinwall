@@ -9,6 +9,8 @@ class ArtifactsController extends Controller{
     const query = {
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
+      visible: ctx.helper.parseInt(ctx.query.visible),
+      jobTag: ctx.helper.parseInt(ctx.query.jobTag),
     };
     ctx.body = await ctx.service.artifacts.list(query);
   }

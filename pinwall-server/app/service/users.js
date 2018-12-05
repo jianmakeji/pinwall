@@ -1,6 +1,7 @@
 'use strict';
 
 const Service = require('egg').Service;
+const UUID = require('uuid');
 
 class Users extends Service {
 
@@ -22,16 +23,27 @@ class Users extends Service {
       throw new Error('用户邮箱不能为空');
     }
     else{
-      let transaction;
-      try {
-        transaction = await this.ctx.model.transaction();
-        const createUserObj = await this.ctx.model.Users.createUser(user,transaction);
-        await this.ctx.model.UserRole.creteUserRole(createUserObj.Id, user.roleId, transaction);
-        await transaction.commit();
-        return true
-      } catch (e) {
-        await transaction.rollback();
-        return false
+      const userObj = await this.ctx.model.Users.findByUsersEmail(user.email);
+      if (userObj){
+        throw new Error('用户已经存在');
+      }
+      else{
+        let transaction;
+        try {
+          transaction = await this.ctx.model.transaction();
+          const app = this.ctx.app;
+          user.password = app.cryptoPwd(app.cryptoPwd(user.password));
+          user.activeCode =  UUID.v1();
+          const createUserObj = await this.ctx.model.Users.createUser(user,transaction);
+          await this.ctx.model.UserRole.creteUserRole(createUserObj.Id, user.roleId, transaction);
+          await transaction.commit();
+          await this.ctx.service.emailService.sendActiveEmail(user.email, user.acticeCode);
+
+          return true
+        } catch (e) {
+          await transaction.rollback();
+          return false
+        }
       }
     }
   }
@@ -60,6 +72,18 @@ class Users extends Service {
 
   async findByOpenId(openId){
     return await this.ctx.model.Users.findByOpenId(openId);
+  }
+
+  async findByUsersEmail(email){
+    return await this.ctx.model.User.findByUsersEmail(email);
+  }
+
+  async updateAcviveByActiveCodeAndEmail(email,activeCode){
+    return await this.ctx.model.User.findByUsersEmail(email,activeCode);
+  }
+
+  async updateAcviveByUserId(userId){
+    return await this.ctx.model.User.updateAcviveByUserId(userId);
   }
 }
 

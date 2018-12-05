@@ -56,6 +56,10 @@ module.exports = app => {
       type: BOOLEAN,
       allowNull: true
     },
+    activeCode: {
+      type: STRING(50),
+      allowNull: true
+    },
     createAt: {
       type: DATE,
       allowNull: false,
@@ -109,7 +113,7 @@ module.exports = app => {
           email:user.email
         }
       });
-      
+
       if (!userObj){
         return this.create(user);
       }
@@ -139,6 +143,45 @@ module.exports = app => {
     return await this.findAll({
       where:{
         openId:{[this.app.Sequelize.Op.eq]:openId}
+      }
+    });
+  }
+
+  Users.findByUsersEmail = async function (email){
+    return await this.findOne({
+      where:{
+        email:email
+      }
+    });
+  }
+
+  Users.updateUserActiveCodeByEmail = async function(email, activeCode){
+    return await this.update({
+      activeCode:activeCode
+    },{
+      where:{
+        email:email
+      }
+    });
+  }
+
+  Users.updateAcviveByActiveCodeAndEmail = async function(email,activeCode){
+    return await this.update({
+      active:1
+    },{
+      where:{
+        email:email,
+        activeCode:activeCode
+      }
+    });
+  }
+
+  Users.updateAcviveByUserId = async function(userId){
+    return await this.update({
+      active:1
+    },{
+      where:{
+        Id:userId
       }
     });
   }

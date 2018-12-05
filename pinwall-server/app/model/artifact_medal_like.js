@@ -41,11 +41,21 @@ module.exports = app => {
     return this.create(artifactMedalLike);
   }
 
-  ArtifactMedalLike.delAssetsByArtifactId = async function (artifactId) {
+  ArtifactMedalLike.delMedalAndLikeByArtifactId = async function (artifactId) {
 
-    return artifact.destroy({
+    return this.destroy({
       where:{
           artifactId:artifactId,
+      },
+    });
+  }
+
+  ArtifactMedalLike.findByArtifactIdAndUserId = async function (artifactMedalLike){
+    return this.findOne({
+      where:{
+        artifactId: artifactMedalLike.artifactId,
+        userId: artifactMedalLike.userId,
+        tag:tag,
       },
     });
   }

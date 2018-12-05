@@ -17,20 +17,17 @@ module.exports = app => {
   // 处理用户信息
 
   app.passport.verify(async (ctx, user) => {
-    console.log(user.provider);
-    console.log(user.username);
-    console.log(user.password);
-
-    const auth = await ctx.model.Authorization.findOne({
-      uid: user.id,
-      provider: user.provider,
-    });
-    const existsUser = await ctx.model.User.findOne({
-      id: auth.user_id
-    });
+  
+    const existsUser = await ctx.service.Users.findByUsersEmail(username);
+    const app = this.ctx.app;
 
     if (existsUser) {
-      return existsUser;
+      if (app.cryptoPwd(app.cryptoPwd(user.password)) == existsUser.password){
+        return existsUser;
+      }
+      else{
+        return {};
+      }
     } else {
       return {};
     }
