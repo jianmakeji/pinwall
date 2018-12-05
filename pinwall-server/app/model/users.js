@@ -99,7 +99,11 @@ module.exports = app => {
   }
 
   Users.findUserById = async function (id) {
-    const user = await this.findById(id);
+    const user = await this.findById(id,{
+      include:[
+        app.model.Roles
+      ]
+    });
     if (!user) {
       this.ctx.throw(404, 'user not found');
     }
