@@ -38,5 +38,13 @@ module.exports = app => {
     });
   }
 
+  ArtifactTerm.delArtifactTermByArtifactId = async function (artifactId) {
+    return this.destroy({
+      where : {
+        artifactId:artifactId
+      }
+    });
+  }
+
   return ArtifactTerm;
 };

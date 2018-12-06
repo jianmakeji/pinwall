@@ -1,7 +1,7 @@
 const { Controller } = require('egg');
 
 class BaseController extends Controller {
-  
+
   getUser() {
     return this.ctx.session.user;
   }
@@ -14,10 +14,10 @@ class BaseController extends Controller {
     };
   }
 
-  success(data) {
+  failure(data) {
     this.ctx.body = {
       success: true,
-      status:200,
+      status:500,
       data,
     };
   }
