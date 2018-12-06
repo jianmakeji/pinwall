@@ -1,11 +1,11 @@
 'use strict';
 
-const Controller = require('egg').Controller;
+const BaseController = require('../BaseController');
 const { STS } = require('ali-oss');
 const fs = require('fs');
 const path = require('path');
 
-class AliOSSController extends Controller {
+class AliOSSController extends BaseController {
 
   async getSTSSignature() {
 
@@ -55,7 +55,7 @@ class AliOSSController extends Controller {
       result.credentials.dir = dir;
       ctx.body = result;
     }).catch((err) => {
-      ctx.body = ctx.app.failure(err);
+      super.failure(err);
     });
   }
 

@@ -113,15 +113,6 @@ module.exports = {
   　　return pwd;
   },
 
-  //接口统一返回数据操作
-  success: (message)=>{
-    const result = {
-      'status':200,
-      'message':message,
-    };
-    return result;
-  },
-
   loginSuccess: (message,token,username,userId)=>{
     const result = {
       'status':200,
@@ -129,14 +120,6 @@ module.exports = {
       'token':token,
       'username':username,
       'userId':userId,
-    };
-    return result;
-  },
-
-  failure: (message)=>{
-    const result = {
-      'status':500,
-      'message':message,
     };
     return result;
   },

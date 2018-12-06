@@ -1,13 +1,23 @@
 const { Controller } = require('egg');
 
 class BaseController extends Controller {
-  get user() {
+  
+  getUser() {
     return this.ctx.session.user;
   }
 
   success(data) {
     this.ctx.body = {
       success: true,
+      status:200,
+      data,
+    };
+  }
+
+  success(data) {
+    this.ctx.body = {
+      success: true,
+      status:200,
       data,
     };
   }

@@ -3,8 +3,9 @@
 const Controller = require('egg').Controller;
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
+const BaseController = require('../BaseController');
 
-class EmailController extends Controller{
+class EmailController extends BaseController{
 
   async sendActiveEmail() {
     const ctx = this.ctx;
@@ -13,9 +14,9 @@ class EmailController extends Controller{
     const result = await this.ctx.service.emailService.sendActiveEmail(email,acticeCode);
 
     if (result) {
-      return this.ctx.app.failure('发送失败!');
+      return super.failure('发送失败!');
     } else {
-      return this.ctx.app.success('发送成功!');
+      return super.success('发送成功!');
     }
   }
 }

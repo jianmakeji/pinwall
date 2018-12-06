@@ -1,8 +1,8 @@
 'use strict'
 
-const Controller = require('egg').Controller;
+const BaseController = require('../BaseController');
 
-class ArtifactsController extends Controller{
+class ArtifactsController extends BaseController{
 
   async index() {
     const ctx = this.ctx;
@@ -12,18 +12,37 @@ class ArtifactsController extends Controller{
       visible: ctx.helper.parseInt(ctx.query.visible),
       jobTag: ctx.helper.parseInt(ctx.query.jobTag),
     };
-    ctx.body = await ctx.service.artifacts.list(query);
+
+    try{
+      const result = await ctx.service.artifacts.list(query);
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async show() {
     const ctx = this.ctx;
-    ctx.body = await ctx.service.artifacts.find(ctx.helper.parseInt(ctx.params.id));
+
+    try{
+      const result = await ctx.service.artifacts.find(ctx.helper.parseInt(ctx.params.id));
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async create() {
     const ctx = this.ctx;
-    const article = await ctx.service.artifacts.create(ctx.request.body);
-    ctx.body = ctx.app.success('创建成功!');
+    try{
+      const article = await ctx.service.artifacts.create(ctx.request.body);
+      super.success('创建成功!');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async update() {
@@ -34,15 +53,27 @@ class ArtifactsController extends Controller{
       scorerId: ctx.request.body.scorerId,
       score: ctx.request.body.score,
     };
-    await ctx.service.artifacts.update({ id, updates });
-    ctx.body = ctx.app.success('更新成功!');
+
+    try{
+      await ctx.service.artifacts.update({ id, updates });
+      super.success('更新成功!');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async destroy() {
     const ctx = this.ctx;
     const id = ctx.helper.parseInt(ctx.params.id);
-    await ctx.service.artifacts.del(id);
-    ctx.body = ctx.app.success('删除成功!');
+
+    try{
+      await ctx.service.artifacts.del(id);
+      super.success('删除成功!');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
 }

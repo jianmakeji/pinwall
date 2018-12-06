@@ -1,8 +1,8 @@
 'use strict'
 
-const Controller = require('egg').Controller;
+const BaseController = require('../BaseController');
 
-class ArtifactCommentController extends Controller{
+class ArtifactCommentController extends BaseController{
 
   async index() {
     const ctx = this.ctx;
@@ -10,7 +10,14 @@ class ArtifactCommentController extends Controller{
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
     };
-    ctx.body = await ctx.service.artifactComment.list(query);
+
+    try{
+      const result = await ctx.service.artifactComment.list(query);
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async findByArtifactIdWithPage() {
@@ -20,18 +27,37 @@ class ArtifactCommentController extends Controller{
       offset: ctx.helper.parseInt(ctx.query.offset),
       artifactId: ctx.helper.parseInt(ctx.query.artifactId),
     };
-    ctx.body = await ctx.service.artifactComment.list(query);
+
+    try{
+      const result = await ctx.service.artifactComment.list(query);
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async show() {
     const ctx = this.ctx;
     ctx.body = await ctx.service.artifactComment.find(ctx.helper.parseInt(ctx.params.id));
+    try{
+      const result = await ctx.service.artifactComment.list(query);
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async create() {
     const ctx = this.ctx;
-    const article = await ctx.service.artifactComment.create(ctx.request.body);
-    ctx.body = ctx.app.success('创建成功!');
+    try{
+      const article = await ctx.service.artifactComment.create(ctx.request.body);
+      super.success('创建成功!');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async update() {
@@ -42,15 +68,27 @@ class ArtifactCommentController extends Controller{
       artifactId: ctx.request.body.artifactId,
       commenterId: ctx.request.body.commenterId
     };
-    await ctx.service.artifactComment.update({ id, updates });
-    ctx.body = ctx.app.success('更新成功!');
+
+    try{
+      await ctx.service.artifactComment.update({ id, updates });
+      super.success('更新成功!');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async destroy() {
     const ctx = this.ctx;
     const id = ctx.helper.parseInt(ctx.params.id);
-    await ctx.service.artifactComment.del(id);
-    ctx.body = ctx.app.success('删除成功!');
+
+    try{
+      await ctx.service.artifactComment.del(id);
+      super.success('删除成功!');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async setCommentVisible() {
@@ -59,7 +97,14 @@ class ArtifactCommentController extends Controller{
       Id:ctx.request.body.id,
       visible: ctx.request.body.visible,
     };
-    await ctx.service.artifactComment.update(updates);
+    
+    try{
+      await ctx.service.artifactComment.update(updates);
+      super.success('更新成功!');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 }
 

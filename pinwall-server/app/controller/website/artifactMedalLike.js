@@ -1,13 +1,19 @@
 'use strict'
 
-const Controller = require('egg').Controller;
+const BaseController = require('../BaseController');
 
-class ArtifactMedalLikeController extends Controller{
+class ArtifactMedalLikeController extends BaseController{
 
   async create() {
     const ctx = this.ctx;
-    const article = await ctx.service.artifactComment.create(ctx.request.body);
-    ctx.body = ctx.app.success('创建成功!');
+
+    try{
+      const article = await ctx.service.artifactComment.create(ctx.request.body);
+      super.success('创建成功!');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
 }

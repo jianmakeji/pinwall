@@ -1,8 +1,8 @@
 'use strict'
 
-const Controller = require('egg').Controller;
+const BaseController = require('../BaseController');
 
-class TermsController extends Controller{
+class TermsController extends BaseController{
 
   async index() {
     const ctx = this.ctx;
@@ -10,18 +10,37 @@ class TermsController extends Controller{
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
     };
-    ctx.body = await ctx.service.terms.list(query);
+
+    try{
+      const result = await ctx.service.terms.list(query);
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async show() {
     const ctx = this.ctx;
-    ctx.body = await ctx.service.terms.find(ctx.helper.parseInt(ctx.params.id));
+
+    try{
+      const result = await ctx.service.terms.find(ctx.helper.parseInt(ctx.params.id));
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async create() {
     const ctx = this.ctx;
-    const term = await ctx.service.terms.create(ctx.request.body);
-    ctx.body = ctx.app.success('创建成功!');
+    try{
+      const term = await ctx.service.terms.create(ctx.request.body);
+      super.success('创建成功!');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async update() {
@@ -30,15 +49,27 @@ class TermsController extends Controller{
     const updates = {
       name: ctx.request.body.name,
     };
-    await ctx.service.terms.update({ id, updates });
-    ctx.body = ctx.app.success('更新成功!');
+
+    try{
+      await ctx.service.terms.update({ id, updates });
+      super.success('更新成功!');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async destroy() {
     const ctx = this.ctx;
     const id = ctx.helper.parseInt(ctx.params.id);
-    await ctx.service.terms.del(id);
-    ctx.body = ctx.app.success('删除成功!');
+
+    try{
+      await ctx.service.terms.del(id);
+      super.success('删除成功!');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
 }
