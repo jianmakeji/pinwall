@@ -13,7 +13,27 @@ body{
     top: 0;
     left: 4%;
 }
-
+.zan_box{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0px;
+    left: 20px;
+}
+.zan_box a{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+.zan_box a span{
+    font-size: 20px;
+    position: absolute;
+    top: 65px;
+    left: 30px;
+}
 
 .project_detail{
     width: 80%;

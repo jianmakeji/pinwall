@@ -1,0 +1,238 @@
+<!-- 毕设展 -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>pinwall</title>
+		<link rel="stylesheet" type="text/css" href="./../css/src/base.css"/>
+		<link rel="stylesheet" type="text/css" href="./../css/lib/iview.css">
+		<link rel="stylesheet" type="text/css" href="./../css/src/uploadWork.css"/>
+		<link rel="stylesheet" type="text/css" href="./../css/src/model.css"/>
+		<script type="text/javascript" src="./../js/lib/jquery.min.js"></script>
+	    <script type="text/javascript" src="./../js/lib/vue.min.js"></script>
+	    <script type="text/javascript" src="./../js/lib/iview.min.js"></script>
+	</head>
+	<body>
+		<div class="upload_project" v-cloak>
+			<div class="header">
+			    <row>
+                    <i-col :xs="4" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" to="index.html">图钉墙</i-button></i-col>
+			        <i-col :xs="0" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" to="index.html">精选</i-button></i-col>
+			        <i-col :xs="4" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" to="topicsAbout.html">毕设展</i-button></i-col>
+			        <i-col :xs="0" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" to="topics.html">作业荚</i-button></i-col>
+			        <i-col :xs="4" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" @click="openModel">探索...</i-button></i-col>
+
+			        <i-col :xs="0" :sm="{span:2,offset:6}" :md="{span:2,offset:6}" :lg="{span:1,offset:10}"><i-button type="text" ghost="true" @click="openLogin">用户</i-col>
+			        <i-col :xs="0" :sm="2" :md="2" :lg="1"><i-button type="text" ghost="true" @click="openMenu">右侧栏</i-col>
+			        <i-col :xs="6" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" @click="openLogin">登陆/注册</i-col>
+			    </row>
+			</div>
+			<div class="container" :style="containerStyle">
+                <h4 class="upload_title">上传至“{{userName}}的作品集”</h4>
+				<div class="step_box">
+					<steps :current="stepNum">
+				        <step title="填写基本信息"></step>
+				        <step title="上传"></step>
+				        <step title="预览提交"></step>
+				    </steps>
+				</div>
+				<div class="upload_form">
+					<i-form :model="formItem" :label-width="80">
+						<div class="step1" v-show="step1">
+							<row>
+								<i-col span="12">
+									<form-item label="标题">
+							            <i-input v-model="formItem.title" placeholder="请输入标题"></i-input>
+							        </form-item>
+									<form-item label="标签">
+
+							        </form-item>
+									<form-item label="添加标签">
+							            <i-input v-model="formItem.title" placeholder="输入并按回车确认"></i-input>
+							        </form-item>
+									<form-item label="内容说明">
+							            <i-input v-model="formItem.title" type="textarea" placeholder="请输入说明"></i-input>
+							        </form-item>
+							        <form-item>
+							            <i-button type="success" @click="goStep2">下一步</i-button>
+							        </form-item>
+								</i-col>
+								<i-col span="12">
+									<form-item label="标题">
+							            <i-button type="primary">上传作品封面</i-button>
+										<p>请上传一张正方形、宽度500-800px的jpg或png图像作为作品封面。</p>
+							        </form-item>
+									<form-item label="封面预览">
+										<img class="project_thumb" src="http://pinwall.design-engine.org/images/app/default_thumb_500.png" alt="">
+							        </form-item>
+								</i-col>
+						</div>
+						<div class="step2" v-show="step2">
+							<row>
+								<i-col span="6">
+									<!-- <i-button icon="md-add-circle" type="success" long>上传作品</i-button> -->
+									<upload action="#" style="height:35px;">
+										<i-button icon="md-add-circle" type="success">Upload files</i-button>
+									</upload>
+									<ul class="uploaded_medias">
+										<li @click="selectLi" v-for="item in [1,2,3,4,1,2,3,4,1,2,3,4]">
+											<img class="thumb" src="http://pinwall.fzcloud.design-engine.org/5961/12351269602440.png" alt="">
+											<span>0.png</span>
+											<i-button icon="md-trash" shape="circle" type="error"></i-button>
+										</li>
+									</ul>
+								</i-col>
+								<i-col span="18">
+									<p style="width:100%;height:35px;background:white;line-height: 35px;color: #666;text-align: center;border: 1px solid #CECFCF;">0.png</p>
+									<div style="display:flex;flex-direction: row;">
+										<div class="content">
+											<p class="label">图片预览</p>
+											<p class="tooltips">限2M以内的jpg或png</p><br>
+											<i-button type="default" long>更换</i-button><br>
+											<img class="thumb" style="width:75%;height:auto;margin: 0 auto;" src="http://pinwall.fzcloud.design-engine.org/5961/15439087525830.png" alt="">
+										</div>
+										<div class="other_info">
+											<div style="display: flex;flex-direction: row;justify-content: space-between;">
+												<p>绑定媒体文件 <span style="color: #3399cc;">(可选)</span></p>
+												<!-- <i-button type="primary">添加文件</i-button><br> -->
+												<dropdown>
+											        <a href="javascript:void(0)">
+											            添加文件
+											            <icon type="ios-arrow-down"></icon>
+											        </a>
+											        <dropdown-menu slot="list">
+											            <dropdown-item>
+															<upload action="//jsonplaceholder.typicode.com/posts/" :format="['png']">
+														        <i-button icon="ios-play">视频文件(MP4)</i-button>
+														    </upload>
+														</dropdown-item>
+														<dropdown-item>
+															<upload action="//jsonplaceholder.typicode.com/posts/">
+														        <i-button icon="ios-book">文档(PDF)</i-button>
+														    </upload>
+														</dropdown-item>
+														<dropdown-item>
+															<upload action="//jsonplaceholder.typicode.com/posts/">
+														        <i-button icon="ios-folder">压缩版(ZIP)</i-button>
+														    </upload>
+														</dropdown-item>
+														<dropdown-item>
+															<upload action="//jsonplaceholder.typicode.com/posts/">
+														        <i-button icon="logo-html5">HTML5应用(ZIP)</i-button>
+														    </upload>
+														</dropdown-item>
+											        </dropdown-menu>
+											    </dropdown>
+											</div>
+											<div><i-progress :percent="45" status="active" /><br></div>
+											<p>标题 <span style="color: #3399cc;">(可选)</span></p>
+											<i-input v-model="formItem.title" placeholder="请输入标题"></i-input><br>
+											<p>描述 <span style="color: #3399cc;">(可选)</span></p>
+											<i-input v-model="formItem.title" type="textarea" placeholder="请输入相应描述"></i-input><br>
+											<i-button type="success" @click="goStep1">上一步</i-button><br>
+											<i-button type="success" @click="goStep3">下一步</i-button><br>
+										</div>
+									</div>
+								</i-col>
+							</row>
+						</div>
+						<div class="step3" v-show="step3">
+							<div class="prev_upload">
+								<i-button type="success" @click="goStep2">上一步</i-button><br>
+							</div>
+							<div class="submit_upload">
+								<i-input type="submit" prefix="md-checkmark"></i-input>
+							</div>
+							<div class="user_info">
+								<a href="#">
+									<img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+									<p class="name">甘四球</p>
+								</a>
+							</div>
+							<h2>dfasdf</h2>
+							<p class="abstract">dfasdf</p>
+							<div class="main_content">
+								<figure>
+									<img class="" src="http://pinwall.fzcloud.design-engine.org/0/7719945487050.png" alt="">
+									<figcaption>
+										asdfasdfasdfasdfasd
+										<span>sdfasdfasdfasdfa</span>
+									</figcaption>
+								</figure>
+								<figure>
+									<img class="" src="http://pinwall.fzcloud.design-engine.org/0/7719945487050.png" alt="">
+									<figcaption>
+										<span>sdfasdfasdfasdfa</span>
+									</figcaption>
+								</figure>
+							</div>
+						</div>
+				    </i-form>
+
+				</div>
+			</div>
+
+			<div class="footer">
+				<p>© 湖南大学设计艺术学院，保留所有权利。</p>
+			</div>
+		</div>
+		<script>
+		    var upload_project = new Vue({
+		        el: '.upload_project',
+		        data(){
+		            return{
+						stepNum:0,
+						step1:true,
+						step2:false,
+						step3:false,
+                        containerStyle:{
+                            minHeight:""
+                        },
+                        userName:"甘四球", //用户的名称
+						formItem:{
+							title:""
+						}
+		            }
+		        },
+		        methods: {
+					goStep1(){
+						this.step1 = true;
+						this.step2 = false;
+						this.step3 = false;
+						this.stepNum = 0;
+					},
+					goStep2(){
+						this.step1 = false;
+						this.step2 = true;
+						this.step3 = false;
+						this.stepNum = 1;
+					},
+					goStep3(){
+						this.step1 = false;
+						this.step2 = false;
+						this.step3 = true;
+						this.stepNum = 2;
+					},
+                    // 弹出层
+                    openModel(){
+
+                    },
+                    // 登录
+                    openLogin(){
+
+                    },
+                    // 登录
+                    openMenu(){
+
+                    },
+					selectLi(){
+						console.log("selectLi");
+					}
+		        },
+		        created(){
+                    this.containerStyle.minHeight = document.documentElement.clientHeight - 140 + "px";
+		        }
+		    })
+		</script>
+	</body>
+</html>

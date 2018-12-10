@@ -3,10 +3,9 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>pinwall</title>
-		<link rel="stylesheet" type="text/css" href="css/src/base.css"/>
-		<!-- <link rel="stylesheet" type="text/css" href="css/lib/iview.css"> -->
-		<link rel="stylesheet" href="http://unpkg.com/iview/dist/styles/iview.css">
-		<link rel="stylesheet" type="text/css" href="css/src/users.css"/>
+		<link rel="stylesheet" type="text/css" href="./../css/src/base.css"/>
+		<link rel="stylesheet" type="text/css" href="./../css/lib/iview.css">
+		<link rel="stylesheet" type="text/css" href="./../css/src/users.css"/>
 	</head>
 	<body>
 		<div class="users" v-cloak>
@@ -43,10 +42,10 @@
                                 </a>
                                 <ul class="de_stats_tags">
                                     <li class="uploads">
-                                        <ion-icon name="ios-cloud-upload"></ion-icon>135
+                                        <icon type="ios-cloud-upload" size="20"></icon>135
                                     </li>
                                     <li class="badges">
-                                        <ion-icon name="ios-ribbon"></ion-icon>135
+                                        <icon type="ios-ribbon" size="20"></icon>135
                                     </li>
                                 </ul>
                             </div>
@@ -97,18 +96,19 @@
                                 </div>
                                 <div class="de_stats_tags_p">
                                     <div class="badges" title="勋章">
-                                        <img src="./img/badge.png"/>
+										<icon type="ios-ribbon" style="font-size: 20px;" color="#999"></icon>
                                         <span>
                                             11
                                         </span>
                                     </div>
-                                    <div class="likes" title="赞"><img src="./img/like.png"/>
+                                    <div class="likes" title="赞">
+                                        <icon type="ios-thumbs-up" style="font-size: 20px;" color="#999"></icon>
                                         <span>
                                             11
                                         <span>
                                     </div>
                                     <div class="comments" title="评论">
-                                        <img src="./img/comment.png"/>
+                                        <icon type="md-text" style="font-size: 20px;" color="#999"></icon>
                                         <span>
                                             11
                                         </span>
@@ -116,114 +116,7 @@
                                 </div>
                             </li>
                         </i-col>
-                        <i-col :xs="24" :sm="12" :md="8" :lg="8">
-	                        <li class="de_card_m">
-	                            <div class="user_info">
-	                                <a href="#">
-	                                    <img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
-	                                    <p class="name">立秋</p>
-	                                    <p class="date">2018-10-27</p>
-	                                </a>
-	                            </div>
-	                            <div class="project_info">
-	                                <a href="#">
-	                                    <img class="thumb" src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400" alt="">
-	                                    <h4>速写</h4>
-	                                </a>
-	                            </div>
-	                            <div class="de_stats_tags_p">
-	                                <div class="badges" title="勋章">
-	                                    <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
-	                                    <span>
-	                                        11
-	                                    </span>
-	                                </div>
-	                                <div class="likes" title="赞"><img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
-	                                    <span>
-	                                        11
-	                                    <span>
-	                                </div>
-	                                <div class="comments" title="评论">
-	                                    <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
-	                                    <span>
-	                                        11
-	                                    </span>
-	                                </div>
-	                            </div>
-	                        </li>
-                        </i-col>
-                        <i-col :xs="24" :sm="12" :md="8" :lg="8">
-	                        <li class="de_card_m">
-	                            <div class="user_info">
-	                                <a href="#">
-	                                    <img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
-	                                    <p class="name">立秋</p>
-	                                    <p class="date">2018-10-27</p>
-	                                </a>
-	                            </div>
-	                            <div class="project_info">
-	                                <a href="#">
-	                                    <img class="thumb" src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400" alt="">
-	                                    <h4>速写</h4>
-	                                </a>
-	                            </div>
-	                            <div class="de_stats_tags_p">
-	                                <div class="badges" title="勋章">
-	                                    <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
-	                                    <span>
-	                                        11
-	                                    </span>
-	                                </div>
-	                                <div class="likes" title="赞"><img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
-	                                    <span>
-	                                        11
-	                                    <span>
-	                                </div>
-	                                <div class="comments" title="评论">
-	                                    <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
-	                                    <span>
-	                                        11
-	                                    </span>
-	                                </div>
-	                            </div>
-	                        </li>
-                        </i-col>
-                        <i-col :xs="24" :sm="12" :md="8" :lg="8">
-	                        <li class="de_card_m">
-	                            <div class="user_info">
-	                                <a href="#">
-	                                    <img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
-	                                    <p class="name">立秋</p>
-	                                    <p class="date">2018-10-27</p>
-	                                </a>
-	                            </div>
-	                            <div class="project_info">
-	                                <a href="#">
-	                                    <img class="thumb" src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400" alt="">
-	                                    <h4>速写</h4>
-	                                </a>
-	                            </div>
-	                            <div class="de_stats_tags_p">
-	                                <div class="badges" title="勋章">
-	                                    <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
-	                                    <span>
-	                                        11
-	                                    </span>
-	                                </div>
-	                                <div class="likes" title="赞"><img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
-	                                    <span>
-	                                        11
-	                                    <span>
-	                                </div>
-	                                <div class="comments" title="评论">
-	                                    <img src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400"/>
-	                                    <span>
-	                                        11
-	                                    </span>
-	                                </div>
-	                            </div>
-	                        </li>
-                        </i-col>
+
                     </row>
                 </ul>
 			</div>
@@ -319,12 +212,9 @@
 			</div>
 
 
-		    <!-- <script type="text/javascript" src="js/lib/vue.min.js"></script> -->
-			<script src="http://vuejs.org/js/vue.min.js"></script>
-		    <!-- <script type="text/javascript" src="js/lib/iview.min.js"></script> -->
-			<script src="http://unpkg.com/iview/dist/iview.min.js"></script>
-	        <script src="https://unpkg.com/ionicons@4.2.2/dist/ionicons.js"></script>
-			<script src="js/src/users.js" charset="utf-8"></script>
+			<script type="text/javascript" src="./../js/lib/vue.min.js"></script>
+			<script type="text/javascript" src="./../js/lib/iview.min.js"></script>
+			<script src="./../js/src/users.js" charset="utf-8"></script>
 		</div>
 	</body>
 </html>

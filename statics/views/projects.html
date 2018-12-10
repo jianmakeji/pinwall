@@ -4,29 +4,45 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>pinwall</title>
-		<link rel="stylesheet" type="text/css" href="css/src/base.css"/>
-    <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
-		<link rel="stylesheet" type="text/css" href="css/src/projects.css"/>
-    <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
-    <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
-        <script src="https://unpkg.com/ionicons@4.2.2/dist/ionicons.js"></script>
+		<link rel="stylesheet" type="text/css" href="./../css/src/base.css"/>
+		<link rel="stylesheet" type="text/css" href="./../css/lib/iview.css">
+		<link rel="stylesheet" type="text/css" href="./../css/src/projects.css"/>
+	    <script type="text/javascript" src="./../js/lib/vue.min.js"></script>
+	    <script type="text/javascript" src="./../js/lib/iview.min.js"></script>
 	</head>
 	<body>
 		<div class="projects" v-cloak :style="projectStyle">
-			<i-button class="zan_btn" type="success" icon="md-thumbs-up" size="large" @click="zan">赞</i-button>
+			<div class="zan_box">
+				<a href="#">
+						 <!-- http://pinwall.design-engine.org/images/app/flag_green.png -->
+					<img src="http://pinwall.design-engine.org/images/app/flag_gray.png" alt="">
+					<icon type="ios-thumbs-up" style="font-size: 40px; position: absolute;top: 15px;left: 20px;"></icon>
+					<span>赞</span>
+				</a>
+			</div>
+			<ul>
+				<li>
+					<i-button shape="circle" icon="md-create" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 20px;"></i-button>
+				</li>
+				<li>
+					<i-button shape="circle" icon="ios-trash" size="large" style="position: absolute;top: 180px;left: 40px;width: 40px;height: 40px;font-size: 20px;"></i-button>
+				</li>
+			</ul>
 			<i-button class="close_btn" type="default" shape="circle" icon="md-close" size="large" @click="closeThePage"></i-button>
             <div class="project_detail">
                 <div class="stats_tags">
                     <div class="badges">
-                        <img style="width:25px;height:25px;" src="./img/badge.png" title="勋章">
+                        <!-- <img style="width:25px;height:25px;" src="./img/badge.png" title="勋章"> -->
+						<icon type="ios-ribbon" style="font-size: 22px;"></icon>
                         <span>30</span>
                     </div>
                     <div class="likes">
-                        <img style="width:25px;height:25px;" src="./img/like.png" title="赞">
+						<icon type="ios-thumbs-up" style="font-size: 22px;"></icon>
                         <span>30</span>
                     </div>
                     <div class="comments">
-                        <img style="width:25px;height:25px;" src="./img/comment.png" title="评论">
+                        <!-- <img style="width:25px;height:25px;" src="./img/comment.png" title="评论"> -->
+						<icon type="md-text" style="font-size: 20px;"></icon>
                         <span>30</span>
                     </div>
                 </div>
@@ -65,7 +81,7 @@
 						<div class="comment_wrapper">
 							<a href="#" class="name">李灵</a>
 							<span class="publishtime">2018-12-03 09:31:11</span>
-							<i-button class="delete_comment" type="error" shape="circle" icon="ios-trash-outline" @click="deleteComment"></i-button>
+							<i-button class="delete_comment" type="error" shape="circle" icon="md-trash" @click="deleteComment"></i-button>
 							<p class="comment">贵在坚持！</p>
 						</div>
 					</li>

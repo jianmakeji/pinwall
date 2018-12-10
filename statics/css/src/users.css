@@ -184,6 +184,7 @@ body{
  .de_card_m {
     background: #fff;
     margin:10px 1%;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .de_card_m .user_info {
     position: absolute;
@@ -274,7 +275,7 @@ body{
 }
 .de_stats_tags_p span{
 	position: absolute;
-    top: 6px;
+    top: 10px;
 	font-size: 18px;
     width: 15px;
     height: 20px;

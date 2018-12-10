@@ -11,9 +11,12 @@ body{
 	text-align: center;
     color: #ccc;
 }
-.container .container_header{
+.container .container_header {
     color: rgb(153, 153, 153);
-    margin: 20px auto;
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 60%;
 }
 
 .de_topic_box{
@@ -160,7 +163,29 @@ body{
     border-radius: 40px;
 }
 
+@media screen and (min-width: 1200px) and (max-width: 1400px){  /* 当屏幕尺寸小于1400px时，应用下面的CSS样式 */
 
+	.container .container_header {
+	    color: rgb(153, 153, 153);
+	    margin: 20px;
+	    display: flex;
+	    flex-direction: row;
+	    margin-left: 50%;
+	}
+
+}
+
+@media screen and (max-width: 1200px){  /* 当屏幕尺寸小于1200px时，应用下面的CSS样式 */
+
+	.container .container_header {
+	    color: rgb(153, 153, 153);
+	    margin: 20px;
+	    display: flex;
+	    flex-direction: row;
+	    margin-left: 2%;
+	}
+
+}
 
 .footer {
 	padding: 5px 0;
