@@ -11,6 +11,7 @@
 		<script type="text/javascript" src="./../js/lib/jquery.min.js"></script>
 	    <script type="text/javascript" src="./../js/lib/vue.min.js"></script>
 	    <script type="text/javascript" src="./../js/lib/iview.min.js"></script>
+	    <script type="text/javascript" src="./../js/lib/aliyun-oss-sdk.min.js"></script>
 	</head>
 	<body>
 		<div class="upload_project" v-cloak>
@@ -28,6 +29,10 @@
 			    </row>
 			</div>
 			<div class="container" :style="containerStyle">
+				<!-- <div class="head-img">
+				    <i-button type="success" id="my-img">下一步</i-button>
+				    <input type="file" @change="doUpload_1" id="img-upload"/>
+				</div> -->
                 <h4 class="upload_title">上传至“{{userName}}的作品集”</h4>
 				<div class="step_box">
 					<steps :current="stepNum">
@@ -59,7 +64,10 @@
 								</i-col>
 								<i-col span="12">
 									<form-item label="标题">
-							            <i-button type="primary">上传作品封面</i-button>
+										<div class="step1_upload">
+										    <i-button type="success" id="step1_upload_btn">上传作品封面</i-button>
+										    <input type="file" @change="step1_upload_change" id="step1_upload_input" accept="image/jpg,image/png" style="display:none;"/>
+										</div>
 										<p>请上传一张正方形、宽度500-800px的jpg或png图像作为作品封面。</p>
 							        </form-item>
 									<form-item label="封面预览">
@@ -70,15 +78,18 @@
 						<div class="step2" v-show="step2">
 							<row>
 								<i-col span="6">
-									<!-- <i-button icon="md-add-circle" type="success" long>上传作品</i-button> -->
-									<upload action="#" style="height:35px;">
-										<i-button icon="md-add-circle" type="success">Upload files</i-button>
-									</upload>
-									<ul class="uploaded_medias">
-										<li @click="selectLi" v-for="item in [1,2,3,4,1,2,3,4,1,2,3,4]">
+									<div class="step2_upload">
+										<i-button icon="md-add-circle" type="success" id="step2_upload_btn" long>上传图片</i-button>
+										<input type="file" @change="step2_upload_change" id="step2_upload_input" accept="image/jpg,image/png" style="display:none;"/>
+									</div>
+									<!-- <upload action="#" style="height:35px;">
+										<i-button icon="md-add-circle" type="success" long>上传图片</i-button>
+									</upload> -->
+									<ul class="uploaded_list">
+										<li @click="selectLi(index)" v-for="(item, index) in [1,2,3,4,1,2,3,4,1,2,3,4]">
 											<img class="thumb" src="http://pinwall.fzcloud.design-engine.org/5961/12351269602440.png" alt="">
-											<span>0.png</span>
-											<i-button icon="md-trash" shape="circle" type="error"></i-button>
+											<span>{{item}}.png</span>
+											<i-button icon="md-trash" shape="circle" type="error" @click.stop="deleteUploadImg(index)"></i-button>
 										</li>
 									</ul>
 								</i-col>
@@ -88,7 +99,12 @@
 										<div class="content">
 											<p class="label">图片预览</p>
 											<p class="tooltips">限2M以内的jpg或png</p><br>
-											<i-button type="default" long>更换</i-button><br>
+											<!-- <i-button type="default" long>更换</i-button><br> -->
+											<div class="step3_upload">
+												<!-- <i-button type="default" long>更换</i-button><br> -->
+												<i-button type="default" id="step3_upload_btn" long>更换</i-button>
+												<input type="file" @change="step3_upload_change" id="step3_upload_input" accept="aplication/zip" style="display:none;"/>
+											</div><br>
 											<img class="thumb" style="width:75%;height:auto;margin: 0 auto;" src="http://pinwall.fzcloud.design-engine.org/5961/15439087525830.png" alt="">
 										</div>
 										<div class="other_info">
@@ -102,24 +118,40 @@
 											        </a>
 											        <dropdown-menu slot="list">
 											            <dropdown-item>
-															<upload action="//jsonplaceholder.typicode.com/posts/" :format="['png']">
+															<div class="step3_upload">
+																<i-button icon="ios-play" id="step3_upload_btn">视频文件(MP4)</i-button>
+																<input type="file" @change="step3_upload_change" id="step3_upload_input" accept="audio/mp4,video/mp4" style="display:none;"/>
+															</div>
+															<!-- <upload action="//jsonplaceholder.typicode.com/posts/" accept="audio/mp4,video/mp4">
 														        <i-button icon="ios-play">视频文件(MP4)</i-button>
-														    </upload>
+														    </upload> -->
 														</dropdown-item>
 														<dropdown-item>
-															<upload action="//jsonplaceholder.typicode.com/posts/">
+															<div class="step3_upload">
+																<i-button icon="ios-book" id="step3_upload_btn">文档(PDF)</i-button>
+																<input type="file" @change="step3_upload_change" id="step3_upload_input" accept="application/pdf" style="display:none;"/>
+															</div>
+															<!-- <upload action="//jsonplaceholder.typicode.com/posts/" accept="application/pdf">
 														        <i-button icon="ios-book">文档(PDF)</i-button>
-														    </upload>
+														    </upload> -->
 														</dropdown-item>
 														<dropdown-item>
-															<upload action="//jsonplaceholder.typicode.com/posts/">
+															<div class="step3_upload">
+																<i-button icon="ios-folder" id="step3_upload_btn">压缩版(ZIP)</i-button>
+																<input type="file" @change="step3_upload_change" id="step3_upload_input" accept="aplication/zip" style="display:none;"/>
+															</div>
+															<!-- <upload action="//jsonplaceholder.typicode.com/posts/" accept="aplication/zip">
 														        <i-button icon="ios-folder">压缩版(ZIP)</i-button>
-														    </upload>
+														    </upload> -->
 														</dropdown-item>
 														<dropdown-item>
-															<upload action="//jsonplaceholder.typicode.com/posts/">
+															<div class="step3_upload">
+																<i-button icon="logo-html5" id="step3_upload_btn">HTML5应用(ZIP)</i-button>
+																<input type="file" @change="step3_upload_change" id="step3_upload_input" accept="aplication/zip" style="display:none;"/>
+															</div>
+															<!-- <upload action="//jsonplaceholder.typicode.com/posts/" accept="application/x-zip-compressed">
 														        <i-button icon="logo-html5">HTML5应用(ZIP)</i-button>
-														    </upload>
+														    </upload> -->
 														</dropdown-item>
 											        </dropdown-menu>
 											    </dropdown>
@@ -177,6 +209,7 @@
 			</div>
 		</div>
 		<script>
+
 		    var upload_project = new Vue({
 		        el: '.upload_project',
 		        data(){
@@ -225,14 +258,38 @@
                     openMenu(){
 
                     },
-					selectLi(){
-						console.log("selectLi");
+					selectLi(index){
+						console.log("selectLi",index);
+					},
+					deleteUploadImg(index){
+						console.log("deleteUploadImg",index);
+					},
+					step1_upload_change(){
+
+					},
+					step2_upload_change(){
+
+					},
+					step3_upload_change(){
+						console.log("++++++++++");
 					}
 		        },
 		        created(){
                     this.containerStyle.minHeight = document.documentElement.clientHeight - 140 + "px";
 		        }
 		    })
+
+			$(document).ready(function(){
+			    $('#step1_upload_btn').click(function(){
+			        $('#step1_upload_input').click();
+			    });
+				$('#step2_upload_btn').click(function(){
+			        $('#step2_upload_input').click();
+			    });
+				$('#step3_upload_btn').click(function(){
+			        $('#step3_upload_input').click();
+			    });
+			});
 		</script>
 	</body>
 </html>

@@ -84,12 +84,8 @@ body{
     line-height: 1.5em;
     display: block;
 }
-.item-0 .topic_title>a {
+.item-0 .topic_title_url {
     color: #fff;
-    text-decoration: none;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
 }
 .item-0 .de_stats_tags {
     padding: 10px 20px;

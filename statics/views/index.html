@@ -40,7 +40,7 @@
 					<li v-for="(item,index) in dataList" :class="setClass(index)">
 						<div class="flip">
 					        <div class="front">
-					            <img src="http://pinwall.fzcloud.design-engine.org/5329/7703198392760.jpg?imageMogr2/thumbnail/400x400" alt="">
+					            <img :src="item.src" alt="">
 					        </div>
 					        <div class="back">
 					            <div class="user_Info">
@@ -52,13 +52,12 @@
 					            </div>
 					            <div class="project_info">
 					            	<a href="javascript:void(0)">
-					            		<h4>来{{index}}</h4>
+					            		<h4>来dfsasdfasdfasdfas{{index}}</h4>
 					            		<p class="abstract" v-if="!index">在科技高度发达的未来，如何利用能源是关键性的问题。并且伴水资源小范围的循环利用，形成了自己的小生态。</p>
 					            	</a>
 					            </div>
-					            <p class="topic_title" v-if="!index">收录于
-					            	<a :href="setTopicId(item.id)">2016级2班 整合设计表达（2018-2019秋季学期）</a>
-					            </p>
+					            <p class="topic_title" v-if="!index">收录于</p>
+					            <a class="topic_title_url" :href="setTopicId(item.id)" v-if="!index">2016级2班 整合设计表达（2018-2019秋季学期）</a>
 					            <div class="de_stats_tags"  v-if="index < 3">
 					            	<div class="badges" title="勋章">
 					            		<icon type="ios-ribbon" style="font-size: 20px;" color="#fff"></icon>
@@ -209,7 +208,7 @@
 			   	</div>
 			</modal>
 			<div class="rightMenu">
-				<drawer title="我的···" :closable="false" v-model="drawerShow" :mask="false">
+				<drawer title="我的" :closable="false" v-model="drawerShow" :mask="false">
 			        <ul class="de_ext_nav">
 						<li style="display:flex;flex-direction: row;margin:5px auto;">
 							<i-button icon="md-book" type="default" size="large" long style="text-align: left;">我的作品集</i-button>

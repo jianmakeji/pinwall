@@ -40,12 +40,12 @@ var index = new Vue({
 
             dataList:[
                 {id:1,name:"1111111",content:'fgasdfasdfasdfasdfa',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5329/7703198392760.jpg?imageMogr2/thumbnail/400x400"},
-                {id:2,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
-                {id:3,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
-                {id:4,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
-                {id:5,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
-                {id:6,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
-                {id:7,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
+                {id:2,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5330/6162447272844.jpg?imageMogr2/thumbnail/400x400"},
+                {id:3,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5112/10784533438329.png?imageMogr2/thumbnail/400x400"},
+                {id:4,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5480/9183531151812.png?imageMogr2/thumbnail/400x400"},
+                {id:5,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/4863/9177059372340.jpg?imageMogr2/thumbnail/400x400"},
+                {id:6,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5480/12245454459312.jpg?imageMogr2/thumbnail/400x400"},
+                {id:7,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5837/13780046984490.jpg?imageMogr2/thumbnail/400x400"},
                 {id:8,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
                 {id:9,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
                 {id:10,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
@@ -116,7 +116,7 @@ var index = new Vue({
         },
     },
     created(){
-        this.containerStyle.marginTop = (document.documentElement.clientHeight - 60 - 500 - 50 ) / 2 + "px";
+        this.containerStyle.marginTop = (document.documentElement.clientHeight - 100 - 500 - 50 ) / 2 + "px";
         if(document.documentElement.clientWidth > 1200){
             this.modelWidth = "768px";
         }else if(document.documentElement.clientWidth < 1200){
