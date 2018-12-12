@@ -7,8 +7,6 @@
 		<link rel="stylesheet" type="text/css" href="./../css/src/base.css"/>
 		<link rel="stylesheet" type="text/css" href="./../css/lib/iview.css">
 		<link rel="stylesheet" type="text/css" href="./../css/src/projects.css"/>
-	    <script type="text/javascript" src="./../js/lib/vue.min.js"></script>
-	    <script type="text/javascript" src="./../js/lib/iview.min.js"></script>
 	</head>
 	<body>
 		<div class="projects" v-cloak :style="projectStyle">
@@ -110,40 +108,9 @@
 				<p>© 湖南大学设计艺术学院，保留所有权利。</p>
 			</div>
 		</div>
-		<script>
-		    var projects = new Vue({
-		        el: '.projects',
-		        data(){
-		            return{
-                        projectStyle:{
-                            width: "100%",
-                            minHeight:""
-                        },
-						commentValue:"",
-						userId:"1"
-                    }
-		        },
-		        methods: {
-					closeThePage(){
-						console.log("closeThePage");
-					},
-					zan(event){
-						console.log(event);
-					},
-					deleteComment(){
-						console.log("deleteComment");
-					},
-					addComment(){
-						console.log("addComment");
-					},
-					login(){
-						console.log("goLogin!");
-					}
-		        },
-		        created(){
-                    this.projectStyle.minHeight = document.documentElement.clientHeight + "px";
-		        }
-		    })
-		</script>
+
+	    <script type="text/javascript" src="./../js/lib/vue.min.js"></script>
+	    <script type="text/javascript" src="./../js/lib/iview.min.js"></script>
+	    <script type="text/javascript" src="./../js/src/projects.js"></script>
 	</body>
 </html>

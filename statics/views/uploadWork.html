@@ -8,10 +8,6 @@
 		<link rel="stylesheet" type="text/css" href="./../css/lib/iview.css">
 		<link rel="stylesheet" type="text/css" href="./../css/src/uploadWork.css"/>
 		<link rel="stylesheet" type="text/css" href="./../css/src/model.css"/>
-		<script type="text/javascript" src="./../js/lib/jquery.min.js"></script>
-	    <script type="text/javascript" src="./../js/lib/vue.min.js"></script>
-	    <script type="text/javascript" src="./../js/lib/iview.min.js"></script>
-	    <script type="text/javascript" src="./../js/lib/aliyun-oss-sdk.min.js"></script>
 	</head>
 	<body>
 		<div class="upload_project" v-cloak>
@@ -29,37 +25,30 @@
 			    </row>
 			</div>
 			<div class="container" :style="containerStyle">
-				<!-- <div class="head-img">
-				    <i-button type="success" id="my-img">下一步</i-button>
-				    <input type="file" @change="doUpload_1" id="img-upload"/>
-				</div> -->
                 <h4 class="upload_title">上传至“{{userName}}的作品集”</h4>
-				<div class="step_box">
-					<steps :current="stepNum">
-				        <step title="填写基本信息"></step>
-				        <step title="上传"></step>
-				        <step title="预览提交"></step>
-				    </steps>
-				</div>
+				<nav class="step_nav">
+					<ul class="step_nav_ul">
+						<li class="step_nav_li" :class="{active:stepOneActive}" @click="goStep1">1.添加基本信息&nbsp;&nbsp;&nbsp;&nbsp;></li>
+						<li class="step_nav_li" :class="{active:stepTwoActive}" @click="goStep2">2.上传&nbsp;&nbsp;&nbsp;&nbsp;></li>
+						<li class="step_nav_li" :class="{active:stepThreeActive}" @click="goStep3">3.预览并提交</li>
+					</ul>
+				</nav>
 				<div class="upload_form">
 					<i-form :model="formItem" :label-width="80">
-						<div class="step1" v-show="step1">
+						<div class="step1" v-show="stepOneActive">
 							<row>
 								<i-col span="12">
 									<form-item label="标题">
 							            <i-input v-model="formItem.title" placeholder="请输入标题"></i-input>
 							        </form-item>
-									<form-item label="标签">
-
+									<form-item label="标签" id="label_formitem">
+										<i-button id="label_btn" type="success" size="small" icon="ios-brush" @click="deleteLabel(index)" v-for="(item,index) in [1,2,3,4]" style="margin-right:5px;">{{item}}</i-button>
 							        </form-item>
 									<form-item label="添加标签">
 							            <i-input v-model="formItem.title" placeholder="输入并按回车确认"></i-input>
 							        </form-item>
 									<form-item label="内容说明">
 							            <i-input v-model="formItem.title" type="textarea" placeholder="请输入说明"></i-input>
-							        </form-item>
-							        <form-item>
-							            <i-button type="success" @click="goStep2">下一步</i-button>
 							        </form-item>
 								</i-col>
 								<i-col span="12">
@@ -75,7 +64,7 @@
 							        </form-item>
 								</i-col>
 						</div>
-						<div class="step2" v-show="step2">
+						<div class="step2" v-show="stepTwoActive">
 							<row>
 								<i-col span="6">
 									<div class="step2_upload">
@@ -156,22 +145,18 @@
 											        </dropdown-menu>
 											    </dropdown>
 											</div>
-											<div><i-progress :percent="45" status="active" /><br></div>
+											<div><i-progress :percent="0" /><br></div>
 											<p>标题 <span style="color: #3399cc;">(可选)</span></p>
 											<i-input v-model="formItem.title" placeholder="请输入标题"></i-input><br>
 											<p>描述 <span style="color: #3399cc;">(可选)</span></p>
 											<i-input v-model="formItem.title" type="textarea" placeholder="请输入相应描述"></i-input><br>
-											<i-button type="success" @click="goStep1">上一步</i-button><br>
-											<i-button type="success" @click="goStep3">下一步</i-button><br>
+
 										</div>
 									</div>
 								</i-col>
 							</row>
 						</div>
-						<div class="step3" v-show="step3">
-							<div class="prev_upload">
-								<i-button type="success" @click="goStep2">上一步</i-button><br>
-							</div>
+						<div class="step3" v-show="stepThreeActive">
 							<div class="submit_upload">
 								<i-input type="submit" prefix="md-checkmark"></i-input>
 							</div>
@@ -185,6 +170,7 @@
 							<p class="abstract">dfasdf</p>
 							<div class="main_content">
 								<figure>
+									<!-- <i-button type="success" icon=""></i-button> -->
 									<img class="" src="http://pinwall.fzcloud.design-engine.org/0/7719945487050.png" alt="">
 									<figcaption>
 										asdfasdfasdfasdfasd
@@ -208,88 +194,10 @@
 				<p>© 湖南大学设计艺术学院，保留所有权利。</p>
 			</div>
 		</div>
-		<script>
-
-		    var upload_project = new Vue({
-		        el: '.upload_project',
-		        data(){
-		            return{
-						stepNum:0,
-						step1:true,
-						step2:false,
-						step3:false,
-                        containerStyle:{
-                            minHeight:""
-                        },
-                        userName:"甘四球", //用户的名称
-						formItem:{
-							title:""
-						}
-		            }
-		        },
-		        methods: {
-					goStep1(){
-						this.step1 = true;
-						this.step2 = false;
-						this.step3 = false;
-						this.stepNum = 0;
-					},
-					goStep2(){
-						this.step1 = false;
-						this.step2 = true;
-						this.step3 = false;
-						this.stepNum = 1;
-					},
-					goStep3(){
-						this.step1 = false;
-						this.step2 = false;
-						this.step3 = true;
-						this.stepNum = 2;
-					},
-                    // 弹出层
-                    openModel(){
-
-                    },
-                    // 登录
-                    openLogin(){
-
-                    },
-                    // 登录
-                    openMenu(){
-
-                    },
-					selectLi(index){
-						console.log("selectLi",index);
-					},
-					deleteUploadImg(index){
-						console.log("deleteUploadImg",index);
-					},
-					step1_upload_change(){
-
-					},
-					step2_upload_change(){
-
-					},
-					step3_upload_change(){
-						console.log("++++++++++");
-					}
-		        },
-		        created(){
-                    this.containerStyle.minHeight = document.documentElement.clientHeight - 140 + "px";
-		        }
-		    })
-
-			$(document).ready(function(){
-			    $('#step1_upload_btn').click(function(){
-			        $('#step1_upload_input').click();
-			    });
-				$('#step2_upload_btn').click(function(){
-			        $('#step2_upload_input').click();
-			    });
-				$('#step3_upload_btn').click(function(){
-			        $('#step3_upload_input').click();
-			    });
-			});
-		</script>
+		<script type="text/javascript" src="./../js/lib/jquery.min.js"></script>
+	    <script type="text/javascript" src="./../js/lib/vue.min.js"></script>
+	    <script type="text/javascript" src="./../js/lib/iview.min.js"></script>
+	    <script type="text/javascript" src="./../js/lib/aliyun-oss-sdk.min.js"></script>
+	    <script type="text/javascript" src="./../js/src/uploadWork.js"></script>
 	</body>
 </html>
