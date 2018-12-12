@@ -31,6 +31,20 @@ class Topics extends Service {
     }
   }
 
+  async transferTopicArtifact(){
+    const client1 = this.app.mysql.get('db1');
+    const client2 = this.app.mysql.get('db2');
+
+    const topic_artifacts = await client1.select("topic_artifact");
+
+    for (const topic_artifact of topic_artifacts){
+      let data = {
+        topicId:topic_artifact.topic_id,
+        artifactId:topic_artifact.artifact_id,
+      };
+      await client2.insert("topic_artifact",data);
+    }
+  }
 }
 
 module.exports = Topics;

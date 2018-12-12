@@ -15,6 +15,16 @@ class TopicsController extends Controller {
     }
   }
 
+  async transferTopicArtifact(){
+    const ctx = this.ctx;
+    try{
+      await ctx.service.topics.transferTopicArtifact();
+      ctx.body = '操作成功';
+    }
+    catch(e){
+      ctx.body = e.message;
+    }
+  }
 }
 
 module.exports = TopicsController;

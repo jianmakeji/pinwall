@@ -22,7 +22,7 @@ module.exports = appInfo => {
         // 密码
         password: 'root',
         // 数据库名
-        database: 'design_pinwall',
+        database: 'design_pinwall2',
       },
       db2: {
         // host
