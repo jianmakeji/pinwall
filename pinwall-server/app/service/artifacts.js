@@ -40,6 +40,17 @@ class Artifacts extends Service {
     }
   }
 
+  async getMedalDataByRandom(limit){
+    const listData = await this.ctx.model.Artifacts.getMedalDataByRandom();
+    const max = listData.length;
+    let result = new Array();
+    for (let i = 0; i < limit; i++){
+      let rand = Math.random();
+      let num = Math.floor(rand * max);
+      result.push(listData[num]);
+    }
+    return result;
+  }
 }
 
 module.exports = Artifacts;

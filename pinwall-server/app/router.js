@@ -31,6 +31,7 @@ module.exports = app => {
   router.resources('website.artifactScores', '/website/artifactScores', controller.website.artifactScores);
 
   //自定义接口
+  router.get('/website/artifacts/getMedalDataByRandom/:limit', controller.website.artifacts.getMedalDataByRandom);
   router.get('/website/artifactScores/findByArtifactIdWithPage', controller.website.artifactScores.findByArtifactIdWithPage);
   router.get('/website/artifactScores/findByScorerIdWithPage', controller.website.artifactScores.findByScorerIdWithPage);
 

@@ -187,7 +187,7 @@ module.exports = app => {
 
   Artifacts.addCommnet = async function(id) {
     await this.update({
-      commentCount: this.app.Sequelize.fn('1 + abs', this.app.Sequelize.col('commentCount'))
+      commentCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('commentCount'))
     }, {
       where: {
         Id: id
@@ -197,7 +197,7 @@ module.exports = app => {
 
   Artifacts.addMedal = async function(id) {
     await this.update({
-      medalCount: this.app.Sequelize.fn('1 + abs', this.app.Sequelize.col('medalCount'))
+      medalCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('medalCount'))
     }, {
       where: {
         Id: id
@@ -207,12 +207,25 @@ module.exports = app => {
 
   Artifacts.addlike = async function(id) {
     await this.update({
-      likeCount: this.app.Sequelize.fn('1 + abs', this.app.Sequelize.col('likeCount'))
+      likeCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('likeCount'))
     }, {
       where: {
         Id: id
       }
     });
   }
+
+  Artifacts.getMedalDataByRandom = async function(){
+    return this.findAll({
+      where:{
+        medalCount:{
+          [app.Sequelize.Op.gt]:0
+        },
+        visible:0
+      },
+      attributes:['Id','userId','name','profileImage']
+    });
+  }
+
   return Artifacts;
 };
