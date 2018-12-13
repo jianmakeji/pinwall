@@ -1,12 +1,15 @@
-var users = new Vue({
-    el: '.users',
+var index = new Vue({
+    el: '.index',
     data(){
         return{
+            userId:"1",
+
             screenWidth:"",
             containerStyle:{
                 minHeight:""
             },
             dataList:[],
+
             // 搜索弹出层
             searchModel:false,  /* 搜索弹出层model */
             searchModelValue:"",    /*搜索内容*/
@@ -27,6 +30,14 @@ var users = new Vue({
             // 注册弹出层
             registerModel:false,
             imgSrc:"user/getCode",	//图片验证码路径
+            // 修改资料弹出层
+            resetInfoModel:false,
+            // 修改密码弹出层
+            resetPwdModel:false,
+            //右侧抽屉
+            drawerShow:false,
+
+            imgSrc:"user/getCode",	//图片验证码路径
         }
     },
     methods: {
@@ -36,6 +47,19 @@ var users = new Vue({
         },
         openModel(){
             this.searchModel = true;
+        },
+        // 打开search弹出层
+        openModel(){
+            console.log("openModel");
+            this.searchModel = true;
+        },
+        // 修改密码弹出层
+        openResetInfoModel(){
+            this.resetInfoModel = true;
+        },
+        // 修改密码弹出层
+        openResetPwdModel(){
+            this.resetPwdModel = true;
         },
         // 回车搜索
         searchModelData(){
@@ -52,21 +76,16 @@ var users = new Vue({
         selectItem(index){
             console.log("selectItem",index);
         },
-        // 右侧字段搜索
-        toSearch(value){
-            console.log("toSearch",value);
-        },
-        openMenu(){
-
-        },
-        // 登陆弹出层
+        // 打开登陆弹出层
         openLogin(){
             this.loginModel = true;
         },
+        // 忘记密码
         onRecoverPwd(){
             this.loginModel = false;
             this.recoverPwdModel = true;
         },
+        // 注册
         onRegister(){
             this.loginModel = false;
             this.registerModel = true;

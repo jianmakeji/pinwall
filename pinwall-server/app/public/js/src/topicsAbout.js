@@ -1,7 +1,9 @@
-var topicsAbout = new Vue({
-    el: '.topicsAbout',
+var index = new Vue({
+    el: '.index',
     data(){
         return{
+            userId:"1",
+
             searchValue:"",
             containerStyle:{
                 minHeight:""
@@ -31,6 +33,12 @@ var topicsAbout = new Vue({
             // 注册弹出层
             registerModel:false,
             imgSrc:"user/getCode",	//图片验证码路径
+            // 修改资料弹出层
+            resetInfoModel:false,
+            // 修改密码弹出层
+            resetPwdModel:false,
+            //右侧抽屉
+            drawerShow:false,
 
             dataList:[{}]
         }
@@ -76,6 +84,14 @@ var topicsAbout = new Vue({
             console.log("openModel");
             this.searchModel = true;
         },
+        // 修改密码弹出层
+        openResetInfoModel(){
+            this.resetInfoModel = true;
+        },
+        // 修改密码弹出层
+        openResetPwdModel(){
+            this.resetPwdModel = true;
+        },
         // 回车搜索
         searchModelData(){
             console.log("searchModelData");
@@ -95,22 +111,16 @@ var topicsAbout = new Vue({
         openLogin(){
             this.loginModel = true;
         },
+        // 忘记密码
         onRecoverPwd(){
             this.loginModel = false;
             this.recoverPwdModel = true;
         },
+        // 注册
         onRegister(){
             this.loginModel = false;
             this.registerModel = true;
         },
-        tapClick() {
-            var timeStamp = '?' + new Date().getTime() + 'r' + Math.random();
-            this.imgSrc = "user/getCode"+timeStamp;
-        },
-        // 打开右侧栏弹出层
-        openMenu(){
-            console.log("openMenu");
-        }
     },
     created(){
         this.containerStyle.minHeight = document.documentElement.clientHeight - 130 + "px";

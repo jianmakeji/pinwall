@@ -1,5 +1,5 @@
-var upload_project = new Vue({
-    el: '.upload_project',
+var index = new Vue({
+    el: '.index',
     data(){
         return{
             // step1

@@ -1,7 +1,9 @@
-var topics = new Vue({
-    el: '.topics',
+var index = new Vue({
+    el: '.index',
     data(){
         return{
+            userId:"1",
+
             searchValue:"",
             containerStyle:{
                 minHeight:""
@@ -31,6 +33,14 @@ var topics = new Vue({
             recoverPwdModel:false,
             // 注册弹出层
             registerModel:false,
+            imgSrc:"user/getCode",	//图片验证码路径
+            // 修改资料弹出层
+            resetInfoModel:false,
+            // 修改密码弹出层
+            resetPwdModel:false,
+            //右侧抽屉
+            drawerShow:false,
+
             imgSrc:"user/getCode",	//图片验证码路径
         }
     },
@@ -84,6 +94,19 @@ var topics = new Vue({
             console.log("openModel");
             this.searchModel = true;
         },
+        // 打开search弹出层
+        openModel(){
+            console.log("openModel");
+            this.searchModel = true;
+        },
+        // 修改密码弹出层
+        openResetInfoModel(){
+            this.resetInfoModel = true;
+        },
+        // 修改密码弹出层
+        openResetPwdModel(){
+            this.resetPwdModel = true;
+        },
         // 回车搜索
         searchModelData(){
             console.log("searchModelData");
@@ -101,30 +124,17 @@ var topics = new Vue({
         },
         // 打开登陆弹出层
         openLogin(){
-            console.log("openLogin");
             this.loginModel = true;
         },
+        // 忘记密码
         onRecoverPwd(){
             this.loginModel = false;
             this.recoverPwdModel = true;
         },
+        // 注册
         onRegister(){
             this.loginModel = false;
             this.registerModel = true;
-        },
-        tapClick() {
-            var timeStamp = '?' + new Date().getTime() + 'r' + Math.random();
-            this.imgSrc = "user/getCode"+timeStamp;
-        },
-        // 打开右侧栏弹出层
-        openMenu(){
-            console.log("openMenu");
-        },
-        openModel(){
-            this.searchModel = true;
-        },
-        toSearch(value){
-            console.log("toSearch",value);
         }
     },
     created(){
@@ -137,3 +147,9 @@ var topics = new Vue({
         }
     }
 })
+
+$(document).ready(function() {
+    $("#index").addClass('text').removeClass('dashed');
+    $("#topicsAbout").addClass('text').removeClass('dashed');
+    $("#topics").addClass('dashed').removeClass('text');
+});

@@ -1,5 +1,5 @@
-var projects = new Vue({
-    el: '.projects',
+var index = new Vue({
+    el: '.index',
     data(){
         return{
             projectStyle:{
