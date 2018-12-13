@@ -223,7 +223,10 @@ module.exports = app => {
         },
         visible:0
       },
-      attributes:['Id','userId','name','profileImage']
+      include: [{
+          model: app.model.Users
+      }],
+      //attributes:['Id','userId','name','profileImage']
     });
   }
 
