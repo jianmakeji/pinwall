@@ -6,11 +6,17 @@
 module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.home.index);
-  router.get('/login', controller.home.loginRender);
+  router.get('/login', controller.home.login);
   router.post('/login',app.passport.authenticate('local', { successRedirect: '/authCallback' }));
   router.get('/authCallback', controller.home.index);
   router.get('/logout', controller.home.logout);
-  router.get('/upload', controller.home.uploadRender);
+  router.get('/upload', controller.home.upload);
+  router.get('/uploadWork', controller.home.uploadWork);
+  router.get('/project', controller.home.project);
+  router.get('/topics', controller.home.topics);
+  router.get('/topicsAbout', controller.home.topicsAbout);
+  router.get('/users', controller.home.users);
+  router.get('/children', controller.home.children);
 
   app.get("/auth/weixin", app.passport.authenticate('loginByWeixinClient'));
   app.get("/auth/weixin/callback",app.passport.authenticate('loginByWeixinClient',{ successRedirect: '/authCallback',failureRedirect: '/login' }));

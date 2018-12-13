@@ -1,3 +1,4 @@
+{% block header %}
 <!-- 精选页 -->
 <!DOCTYPE html>
 <html>
@@ -36,52 +37,7 @@
 			</div>
 			<!-- 翻转内容 -->
 			<div class="container" :style="containerStyle">
-				<ul class="de_project_photowall">
-					<li v-for="(item,index) in dataList" :class="setClass(index)">
-						<div class="flip">
-					        <div class="front">
-					            <img :src="item.src" alt="">
-					        </div>
-					        <div class="back">
-					            <div class="user_Info">
-					            	<a :href="setUserId(item.id)">
-					            		<img v-if="index < 3" class="photo" src="http://pinwall.fzcloud.design-engine.org/5167/3076441136926.jpg"/>
-					            		<p class="name"  v-if="index < 5">{{index}}桂芷欣</p>
-					            		<p class="date"  v-if="index < 3">{{item.time}}</p>
-					            	</a>
-					            </div>
-					            <div class="project_info">
-					            	<a href="javascript:void(0)">
-					            		<h4>来dfsasdfasdfasdfas{{index}}</h4>
-					            		<p class="abstract" v-if="!index">在科技高度发达的未来，如何利用能源是关键性的问题。并且伴水资源小范围的循环利用，形成了自己的小生态。</p>
-					            	</a>
-					            </div>
-					            <p class="topic_title" v-if="!index">收录于</p>
-					            <a class="topic_title_url" :href="setTopicId(item.id)" v-if="!index">2016级2班 整合设计表达（2018-2019秋季学期）</a>
-					            <div class="de_stats_tags"  v-if="index < 3">
-					            	<div class="badges" title="勋章">
-					            		<icon type="ios-ribbon" style="font-size: 20px;" color="#fff"></icon>
-					            		<span>
-					            			{{item.id}}
-					            		</span>
-					            	</div>
-					            	<div class="likes" title="赞">
-										<icon type="ios-thumbs-up" style="font-size: 20px;" color="#fff"></icon>
-					            		<span>
-					            			{{item.id}}
-					            		<span>
-					            	</div>
-					            	<div class="comments" title="评论">
-					            		<icon type="md-text" style="font-size: 20px;" color="#fff"></icon>
-					            		<span>
-					            			{{item.id}}
-					            		</span>
-					            	</div>
-					            </div>
-					        </span>
-					    </div>
-					</li>
-				</ul>
+
 			</div>
 			<!-- 搜索弹出层 -->
 			<modal v-model="searchModel" title="探索" footer-hide :width="modelWidth">
@@ -241,3 +197,15 @@
 	    <script type="text/javascript" src="public/js/src/index.js"></script>
 	</body>
 </html>
+
+{% endblock %}
+
+<section class="left">
+  {% block left %}{% endblock %}
+</section>
+
+<section class="right">
+  {% block right %}
+  This is more content
+  {% endblock %}
+</section>
