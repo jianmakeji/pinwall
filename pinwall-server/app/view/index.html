@@ -1,62 +1,63 @@
 {% extends "parent.html" %}
 
 {% block cssfolder %}
-	<link rel="stylesheet" type="text/css" href="public/css/src/base.css"/>
 	<link rel="stylesheet" type="text/css" href="public/css/lib/iview.css">
-	<link rel="stylesheet" type="text/css" href="public/css/src/index.css"/>
+	<link rel="stylesheet" type="text/css" href="public/css/src/base.css"/>
 	<link rel="stylesheet" type="text/css" href="public/css/src/model.css">
+	<link rel="stylesheet" type="text/css" href="public/css/src/index.css"/>
 {% endblock %}
 
 {% block head_btn %}
-	<i-col :xs="0" :sm="2" :md="2" :lg="2"><i-button type="dashed" ghost="true" to="/">精选</i-button></i-col>
-	<i-col :xs="4" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" to="/topicsAbout">毕设展</i-button></i-col>
-	<i-col :xs="0" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" to="/topics">作业荚</i-button></i-col>
+	<i-col :xs="0" :sm="2" :md="2" :lg="2"><a href="/" style="display: flex;flex-direction: row;justify-content: center;width: 100%;height: 100%;background:#222222;color: white;">精选</a></i-col>
+	<i-col :xs="4" :sm="2" :md="2" :lg="2"><a href="/topicsAbout" style="display: flex;flex-direction: row;justify-content: center;width: 100%;height: 100%;background:#333;color: white;">毕设展</a></i-col>
+	<i-col :xs="0" :sm="2" :md="2" :lg="2"><a href="/topics" style="display: flex;flex-direction: row;justify-content: center;width: 100%;height: 100%;background:#333;color: white;">作业荚</a></i-col>
 {% endblock %}
 
 {% block container %}
 	<div class="container" :style="containerStyle">
 		<ul class="de_project_photowall">
-			<li v-for="(item,index) in dataList" :class="setClass(index)">
+
+			<li v-for="(item, index) in dataList" :class="'item-'+index">
 				<div class="flip">
 			        <div class="front">
-			            <img :src="item.src" alt="">
+			            <img :src="item.profileImage">
 			        </div>
 			        <div class="back">
 			            <div class="user_Info">
-			            	<a :href="setUserId(item.id)">
-			            		<img v-if="index < 3" class="photo" src="http://pinwall.fzcloud.design-engine.org/5167/3076441136926.jpg"/>
-			            		<p class="name"  v-if="index < 5">{{index}}桂芷欣</p>
-			            		<p class="date"  v-if="index < 3">{{item.time}}</p>
+			            	<a :href="'users/'+item.user.Id">
+			            		<img v-if="index < 3" class="photo" :src="item.profileImage"/>
+			            		<p class="name" v-text="item.Id"></p>
+			            		<p class="date">{{item.Id}}</p>
 			            	</a>
 			            </div>
-			            <div class="project_info">
+			            <!-- <div class="project_info">
 			            	<a href="javascript:void(0)">
-			            		<h4>来dfsasdfasdfasdfas{{index}}</h4>
-			            		<p class="abstract" v-if="!index">在科技高度发达的未来，如何利用能源是关键性的问题。并且伴水资源小范围的循环利用，形成了自己的小生态。</p>
+			            		<h4>{{item.Id}}</h4>
+			            		<p class="abstract" v-if="!index">{{item.Id}}</p>
 			            	</a>
 			            </div>
 			            <p class="topic_title" v-if="!index">收录于</p>
-			            <a class="topic_title_url" :href="setTopicId(item.id)" v-if="!index">2016级2班 整合设计表达（2018-2019秋季学期）</a>
+			            <a class="topic_title_url" :href="'topics/'+item.Id" v-if="!index">2016级2班 整合设计表达（2018-2019秋季学期）</a>
 			            <div class="de_stats_tags"  v-if="index < 3">
 			            	<div class="badges" title="勋章">
 			            		<icon type="ios-ribbon" style="font-size: 20px;" color="#fff"></icon>
 			            		<span>
-			            			{{item.id}}
+				            		{{item.medalCount}}
 			            		</span>
 			            	</div>
 			            	<div class="likes" title="赞">
 								<icon type="ios-thumbs-up" style="font-size: 20px;" color="#fff"></icon>
 			            		<span>
-			            			{{item.id}}
+			            			{{item.likeCount}}
 			            		<span>
 			            	</div>
 			            	<div class="comments" title="评论">
 			            		<icon type="md-text" style="font-size: 20px;" color="#fff"></icon>
 			            		<span>
-			            			{{item.id}}
+			            			{{item.commentCount}}
 			            		</span>
 			            	</div>
-			            </div>
+			            </div> -->
 					</div>
 			    </div>
 			</li>

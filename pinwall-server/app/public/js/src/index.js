@@ -38,20 +38,7 @@ var index = new Vue({
             // 修改密码弹出层
             resetPwdModel:false,
 
-            dataList:[
-                {id:1,name:"1111111",content:'fgasdfasdfasdfasdfa',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5329/7703198392760.jpg?imageMogr2/thumbnail/400x400"},
-                {id:2,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5330/6162447272844.jpg?imageMogr2/thumbnail/400x400"},
-                {id:3,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5112/10784533438329.png?imageMogr2/thumbnail/400x400"},
-                {id:4,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5480/9183531151812.png?imageMogr2/thumbnail/400x400"},
-                {id:5,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/4863/9177059372340.jpg?imageMogr2/thumbnail/400x400"},
-                {id:6,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5480/12245454459312.jpg?imageMogr2/thumbnail/400x400"},
-                {id:7,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5837/13780046984490.jpg?imageMogr2/thumbnail/400x400"},
-                {id:8,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
-                {id:9,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
-                {id:10,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
-                {id:11,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"},
-                {id:12,name:"2222222",content:'asdfasdfasdfasdfasd',time:"2018-1-1",src:"http://pinwall.fzcloud.design-engine.org/5354/15405721054080.png?imageMogr2/thumbnail/400x400"}
-            ]
+            dataList:[]
         }
     },
     methods: {
@@ -60,14 +47,7 @@ var index = new Vue({
             obj[`item-${index}`] = true;
             return obj
         },
-        setUserId(id){
-            let obj = `users/${id}`;
-            return obj
-        },
-        setTopicId(id){
-            let obj = `topics/${id}`;
-            return obj
-        },
+
         // 打开search弹出层
         openModel(){
             console.log("openModel");
@@ -124,5 +104,26 @@ var index = new Vue({
         }else if(document.documentElement.clientWidth < 992){
             this.modelWidth = "80%";
         }
+
+        var that = this;
+        $.ajax({
+            url: "/website/artifacts/getMedalDataByRandom/12",
+            type: "get",
+            dataType: "json",
+            success: function (res) {
+                console.log("res", res);
+                setTimeout(function(){
+                    that.dataList = res;
+                    console.log(that.dataList[0].Id);
+                },2000);
+
+            },
+            error: function (err) {
+                console.log("err",err);
+            }
+        })
+    },
+    mounted(){
+
     }
 })
