@@ -1,0 +1,116 @@
+<!-- 作业荚 -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>pinwall</title>
+		<link rel="stylesheet" type="text/css" href="./../css/src/base.css"/>
+		<link rel="stylesheet" type="text/css" href="./../css/lib/iview.css">
+		<link rel="stylesheet" type="text/css" href="./../css/src/projects.css"/>
+	</head>
+	<body>
+		<div class="projects" v-cloak :style="projectStyle">
+			<div class="zan_box">
+				<a href="#">
+						<!-- http://pinwall.design-engine.org/images/app/flag_green.png -->
+					<img src="http://pinwall.design-engine.org/images/app/flag_gray.png" alt="">
+					<icon type="ios-thumbs-up" style="font-size: 40px; position: absolute;top: 15px;left: 20px;"></icon>
+					<span>赞</span>
+				</a>
+			</div>
+			<ul>
+				<li>
+					<i-button shape="circle" icon="md-create" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 20px;"></i-button>
+				</li>
+				<li>
+					<i-button shape="circle" icon="ios-trash" size="large" style="position: absolute;top: 180px;left: 40px;width: 40px;height: 40px;font-size: 20px;"></i-button>
+				</li>
+			</ul>
+			<i-button class="close_btn" type="default" shape="circle" icon="md-close" size="large" @click="closeThePage"></i-button>
+            <div class="project_detail">
+                <div class="stats_tags">
+                    <div class="badges">
+						<icon type="ios-ribbon" style="font-size: 22px;color:#999;"></icon>
+                        <span>30</span>
+                    </div>
+                    <div class="likes">
+						<icon type="ios-thumbs-up" style="font-size: 22px;color:#999;"></icon>
+                        <span>30</span>
+                    </div>
+                    <div class="comments">
+						<icon type="md-text" style="font-size: 20px;color:#999;"></icon>
+                        <span>30</span>
+                    </div>
+                </div>
+                <div class="user_info">
+                    <a href="#">
+                        <img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+                        <p class="name">丁敬兰</p>
+                    </a>
+                </div>
+                <h2>萌宠APP界面设计</h2>
+                <p class="publishtime">
+                    2018-06-07，收录于
+                    <a href="#">2018届本科毕业设计作品</a>
+                </p>
+                <p class="abstract">
+                    萌宠APP是一款集合喜欢宠物的人的社区，在APP中，可以看到用户上传的各种萌宠的视频，日常的、搞笑的，给喜欢宠物的人一个记录的平台，给喜欢宠物的人带来快乐，在APP中，还可以通过商城来购买线下的萌宠动物园的门票、萌宠奶茶店的优惠券，等各种活动券，让用户去线下体验与萌宠的互动，尤其适合亲子去体验，让小朋友参与互动，具有教育意义。链接：http://106.14.221.43:8080/
+                </p>
+
+	            <div class="main_content">
+					<figure>
+						<img src="http://pinwall.fzcloud.design-engine.org/5329/12325119649072.jpg" alt="">
+					</figure>
+					<figure>
+						<img src="http://pinwall.fzcloud.design-engine.org/5329/12325119649072.jpg" alt="">
+					</figure>
+	            </div>
+            </div>
+			<div class="comment_box">
+				<ul class="comment_list">
+					<li  v-show="userId">
+						<div class="user_info">
+							<a href="#">
+								<img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+							</a>
+						</div>
+						<div class="comment_wrapper">
+							<a href="#" class="name">李灵</a>
+							<span class="publishtime">2018-12-03 09:31:11</span>
+							<i-button class="delete_comment" type="error" shape="circle" icon="md-trash" @click="deleteComment"></i-button>
+							<p class="comment">贵在坚持！</p>
+						</div>
+					</li>
+				</ul>
+				<div class="comment_form" v-show="userId">
+					<div class="user_info">
+						<a href="#">
+							<img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+						</a>
+					</div>
+					<div class="comment_wrapper">
+						<a href="#" class="name">李灵</a>
+						<i-form>
+							<form-item>
+								<i-input v-model="commentValue" type="textarea" placeholder="您的评论……" /><br>
+							</form-item>
+							<form-item>
+								<i-button type="success" @click="addComment">提交</i-button>
+							</form-item>
+						</i-form>
+					</div>
+				</div>
+				<div class="comment_form" v-show="!userId">
+					<i-button type="warning" @click="login">发表评论前请先登录</i-button>
+				</div>
+			</div>
+			<div class="footer">
+				<p>© 湖南大学设计艺术学院，保留所有权利。</p>
+			</div>
+		</div>
+
+	    <script type="text/javascript" src="./../js/lib/vue.min.js"></script>
+	    <script type="text/javascript" src="./../js/lib/iview.min.js"></script>
+	    <script type="text/javascript" src="./../js/src/projects.js"></script>
+	</body>
+</html>
