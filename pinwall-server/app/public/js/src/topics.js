@@ -4,6 +4,12 @@ var index = new Vue({
         return{
             userId:"1",
 
+            // 数据请求
+            aoData:{limit:10,jobTag:1,offset:0},
+            dataList:[],
+            scrollModel:true,
+            spinShow:true,
+
             searchValue:"",
             containerStyle:{
                 minHeight:""
@@ -138,6 +144,7 @@ var index = new Vue({
         }
     },
     created(){
+        let that = this;
         if(document.documentElement.clientWidth > 1200){
             this.modelWidth = "60%";
         }else if(document.documentElement.clientWidth < 1200){
@@ -145,11 +152,77 @@ var index = new Vue({
         }else if(document.documentElement.clientWidth < 992){
             this.modelWidth = "80%";
         }
+
+        this.$Loading.start();
+        $.ajax({
+            url: config.ajaxUrls.getTopicAboutData,
+            type: "get",
+            data:this.aoData,
+            dataType: "json",
+            success: function (res) {
+                if( res.status == 200){
+                    that.$Loading.finish();
+                    that.spinShow = false;
+                    console.log("初始化加载数据", res);
+                    that.dataList = res.data.rows;
+                    if (that.dataList.length == res.data.count) {
+                        that.scrollModel = false;
+                    }
+                    for(let i=0; i < that.dataList.length; i++){
+                        // 修改创建时间格式
+                        that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
+                        // 用户头像转换
+                        if(that.dataList[i].user.avatarUrl == null){
+                            that.dataList[i].user.avatarUrl = config.default_profile;
+                        }
+                    }
+                }
+            },
+            error: function (err) {
+                that.$Loading.error();
+            }
+        })
     }
 })
 
 $(document).ready(function() {
-    $("#index").addClass('text').removeClass('dashed');
-    $("#topicsAbout").addClass('text').removeClass('dashed');
-    $("#topics").addClass('dashed').removeClass('text');
+
+    $('html,body').animate({scrollTop:0});                          //每次刷新界面滚动条置顶
+
+    $(window).scroll(function() {                                   //滚动加载数据
+
+        if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
+            index.aoData.offset += 10;
+            index.$Loading.start();
+            index.spinShow = true;
+            $.ajax({
+                url: config.ajaxUrls.getTopicAboutData,
+                type: "get",
+                data:index.aoData,
+                dataType: "json",
+                success: function (res) {
+                    if( res.status == 200){
+                        index.$Loading.finish();
+                        index.spinShow = false;
+
+                        console.log("滚动至底加载数据", res);
+                        index.dataList = index.dataList.concat(res.data.rows);
+                        if (index.dataList.length == res.data.count) {
+                            index.scrollModel = false;
+                        }
+                        for(let i=0; i < index.dataList.length; i++){
+                            index.dataList[i].createAt = index.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
+
+                            if(index.dataList[i].user.avatarUrl == null){
+                                index.dataList[i].user.avatarUrl =config.default_profile;
+                            }
+                        }
+                    }
+                },
+                error: function (err) {
+                    index.$Loading.error();
+                }
+            })
+        }
+    })
 });

@@ -15,6 +15,7 @@
 
 {% block container %}
 	<div class="container" :style="containerStyle">
+		<Spin size="large" fix v-if="spinShow"></Spin>
 		<div class="container_header">
 			<div style="height: 35px;line-height: 35px;text-align: right;width: 170px;">
 				显示作业荚:
@@ -32,44 +33,40 @@
 				<row>
 					<i-col :xs="12" :sm="2" :md="1" :lg="1">
 						<div class="user_info">
-							<a :href="usersUrl(index)" class="">
-								<img src="http://pinwall.fzcloud.design-engine.org/group1_M00_02_A8_oYYBAFKCDz2AcHvFAAANyqipOkg958.png" alt="">
-								<p class="name">湖南大学设计艺术学院</p>
+							<a :href="'users/'+item.user.Id">
+								<img :src="item.user.avatarUrl" alt="">
+								<p class="name" v-text="item.user.fullname"></p>
 							</a>
 						</div>
-
 					</i-col>
 					<i-col :xs="12" :sm="4" :md="4" :lg="4">
 						<div class="topic_info">
-							<p class="created_date">2018-05-18 13:26:59 创建</p>
-							<a href="#">
-								<p class="topic_title">2018届本科毕业设计作品</p>
+							<p class="created_date" v-text="item.createAt"></p>
+							<a :href="'topics/'+item.Id">
+								<p class="topic_title" v-text="item.name"></p>
 							</a>
 							<ul class="de_stats_tags">
 								<li class="uploads">
-									<icon type="ios-cloud-upload" size="20"></icon>135
+									<icon type="ios-cloud-upload" size="20"></icon>
+									<span v-text="item.artifacts.length"></span>
 								</li>
 							</ul>
 						</div>
 					</i-col>
 					<i-col :xs="0" :sm="{span:15,offset:8}" :md="{span:17,offset:6}" :lg="{span:18,offset:5}">
 						<ul class="project_info">
-							<li class="de_borderbox">
+							<li class="de_borderbox" v-for="subItem in item.artifacts">
 								<a href="#" class="de_entity_link">
-									<img src="http://pinwall.fzcloud.design-engine.org/4705/7641900251635.png?imageMogr2/thumbnail/400x400" alt="">
+									<img :src="subItem.profileImage" alt="">
 								</a>
 							</li>
-							<li class="de_borderbox">
-								<a href="#" class="de_entity_link">
-									<img src="http://pinwall.fzcloud.design-engine.org/4705/7641900251635.png?imageMogr2/thumbnail/400x400">
-								</a>
-							</li>
+							<li v-if="item.artifacts.length == 0"></li>
 						</ul>
 					</i-col>
 					<i-col :xs="0" :sm="1" :md="1" :lg="1">
 						<ul class="topic_action topic_closed">
 							<li class="de_topic_action_view">
-								<i-button type="checkCloseType" shape="circle" icon="md-eye" @click="checkClose"></i-button>
+								<i-button type="checkCloseType" shape="circle" icon="md-eye" @click="checkClose" title="查看"></i-button>
 							</li>
 						</ul>
 					</i-col>
@@ -83,5 +80,6 @@
 	<script type="text/javascript" src="public/js/lib/jquery.min.js"></script>
 	<script type="text/javascript" src="public/js/lib/vue.min.js"></script>
 	<script type="text/javascript" src="public/js/lib/iview.min.js"></script>
+	<script type="text/javascript" src="public/js/src/config.js"></script>
 	<script type="text/javascript" src="public/js/src/topicsAbout.js"></script>
 {% endblock %}

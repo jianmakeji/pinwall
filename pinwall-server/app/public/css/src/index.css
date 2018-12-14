@@ -80,7 +80,6 @@ body{
 }
 .item-0 .topic_title {
 	font-size: 14px;
-    color: #333;
     line-height: 1.5em;
     display: block;
 }
@@ -112,7 +111,7 @@ body{
 .item-0 .de_stats_tags span{
 	position: absolute;
     top: 10px;
-	font-size: 18px;
+	font-size: 14px;
     width: 15px;
     height: 25px;
     color: white;
@@ -177,7 +176,7 @@ body{
 .item-2 .de_stats_tags span{
 	position: absolute;
     top: 10px;
-	font-size: 18px;
+	font-size: 14px;
     width: 15px;
     height: 25px;
     color: #fff;
@@ -201,10 +200,9 @@ body{
 	position: absolute;top: 20px;margin: auto;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;font-size: 12px;font-weight: bold;text-align: left;color: #fff;
 	}
 .item-3 .project_info h4,.item-4 .project_info h4{
-	font-size: 16px;
+	font-size: 12px;
     text-align: left;
     color: #fff;
-    margin-top: 20px;
     line-height: 1.5em;
     white-space: nowrap;
     overflow: hidden;
@@ -258,14 +256,14 @@ body{
 .item-7 .project_info h4,.item-8 .project_info h4,
 .item-9 .project_info h4,.item-10 .project_info h4,
 .item-11 .project_info h4{
-	font-size: 10px;
+	font-size: 4px;
     text-align: left;
     color: #fff;
-    margin-top: 10px;
-    line-height: 1.5em;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
 }
 
 

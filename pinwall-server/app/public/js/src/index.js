@@ -42,12 +42,6 @@ var index = new Vue({
         }
     },
     methods: {
-        setClass(index){
-            let obj = {}
-            obj[`item-${index}`] = true;
-            return obj
-        },
-
         // 打开search弹出层
         openModel(){
             console.log("openModel");
@@ -112,18 +106,18 @@ var index = new Vue({
             dataType: "json",
             success: function (res) {
                 console.log("res", res);
-                setTimeout(function(){
-                    that.dataList = res;
-                    console.log(that.dataList[0].Id);
-                },2000);
+                that.dataList = res;
+                for(let i=0; i < that.dataList.length; i++){
+                    that.dataList[i].createAt = that.dataList[i].createAt.split("T")[0];
+                    if(that.dataList[i].user.avatarUrl == null){
+                        that.dataList[i].user.avatarUrl = "http://pinwall.design-engine.org/images/default_profile.jpg";
+                    }
+                }
 
             },
             error: function (err) {
                 console.log("err",err);
             }
         })
-    },
-    mounted(){
-
     }
 })
