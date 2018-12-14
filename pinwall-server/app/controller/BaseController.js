@@ -15,6 +15,7 @@ class BaseController extends Controller {
   }
 
   failure(data) {
+
     this.ctx.body = {
       success: true,
       status:500,

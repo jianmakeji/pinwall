@@ -14,7 +14,7 @@ class TopicsController extends BaseController{
     };
 
     try{
-      const result = await ctx.service.topics.list(query);
+      let result = await ctx.service.topics.list(query);
       super.success(result);
     }
     catch(e){

@@ -106,6 +106,7 @@ module.exports  = app => {
 
     resultData.forEach((element, index)=>{
       const artifactSize = element.artifacts.length;
+      element.status = artifactSize;
       if (artifactSize > subLimit && subLimit != 0){
         let tempArray = element.artifacts.slice(0, subLimit);
         element.artifacts.length = 0;
