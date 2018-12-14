@@ -4,10 +4,13 @@ const Service = require('egg').Service;
 
 class Artifacts extends Service {
 
-  async list({ offset = 0, limit = 10 }) {
+  async list({ offset = 0, limit = 10, visible = 0, jobTag = 0}) {
+    
     return this.ctx.model.Artifacts.listArtifacts({
       offset,
       limit,
+      visible,
+      jobTag,
     });
   }
 

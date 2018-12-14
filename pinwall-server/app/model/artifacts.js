@@ -6,8 +6,7 @@ module.exports = app => {
     STRING,
     INTEGER,
     DATE,
-    TEXT,
-    BOOLEAN
+    TEXT
   } = app.Sequelize;
 
   const Artifacts = app.model.define('artifacts', {
@@ -37,7 +36,7 @@ module.exports = app => {
       defaultValue: ''
     },
     visible: {
-      type: BOOLEAN,
+      type: INTEGER,
       allowNull: true
     },
     jobTag: {
@@ -136,14 +135,19 @@ module.exports = app => {
       include: [{
         model: app.model.ArtifactAssets
       }],
+      where:{}
     };
 
     if (jobTag != 0) {
       condition.where.jobTag = jobTag;
     }
-    condition.where.visible = visible;
 
-    return await this.findAndCountAll(condition);
+    condition.where.visible = 0;
+
+    let result = {};
+    result.rows = await this.findAll(condition);
+    result.count = await this.count();
+    return result;
   }
 
   Artifacts.findArtifactById = async function(id) {

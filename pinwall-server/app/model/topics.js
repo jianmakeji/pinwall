@@ -99,8 +99,8 @@ module.exports  = app => {
       }
     }
     let result = {};
-    result.topics = await this.findAll(condition);
-    result.rows = await this.count();
+    result.rows = await this.findAll(condition);
+    result.count = await this.count();
     return result;
   }
 

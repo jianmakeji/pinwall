@@ -20,5 +20,7 @@ module.exports = app => {
     tableName: 'topic_artifact'
   });
 
+
+
   return TopicArtifact;
 };
