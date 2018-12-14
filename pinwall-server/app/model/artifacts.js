@@ -138,15 +138,22 @@ module.exports = app => {
       where:{}
     };
 
+    let countCondition = {
+      where:{
+        1:1
+      }
+    };
+
     if (jobTag != 0) {
       condition.where.jobTag = jobTag;
+      countCondition.where.jobTag = jobTag;
     }
 
     condition.where.visible = 0;
 
     let result = {};
     result.rows = await this.findAll(condition);
-    result.count = await this.count();
+    result.count = await this.count(countCondition);
     return result;
   }
 

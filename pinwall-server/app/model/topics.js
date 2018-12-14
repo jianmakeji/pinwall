@@ -52,10 +52,7 @@ module.exports  = app => {
     app.model.Topics.belongsToMany(app.model.Terms, {
         through: {
           model: app.model.TopicTerm,
-          unique: false,
-          // scope: {
-          //   taggable: 'topicTerms'
-          // }
+          unique: false
         },
         foreignKey: 'topicId',
         constraints: false
@@ -64,10 +61,7 @@ module.exports  = app => {
     app.model.Topics.belongsToMany(app.model.Artifacts, {
         through: {
           model: app.model.TopicArtifact,
-          unique: false,
-          // scope: {
-          //   taggable: 'topicsArtifact'
-          // }
+          unique: false
         },
         foreignKey: 'topicId',
         constraints: false
@@ -86,21 +80,44 @@ module.exports  = app => {
         },{
           model: app.model.Artifacts,
           through:{
-            limit:subLimit
+            attributes:['topicId','artifactId'],
           },
-          attributes:['Id','profileImage'],
+          attributes:['Id','profileImage']
         }
       ]
     };
 
+    let countCondition = {
+      where:{
+        1:1
+      }
+    };
     if (jobTag != 0){
       condition.where = {
         jobTag:jobTag,
       }
+
+      countCondition.where = {
+        jobTag:jobTag,
+      }
     }
+
+    let resultData = await this.findAll(condition);
+
+    resultData.forEach((element, index)=>{
+      const artifactSize = element.artifacts.length;
+      if (artifactSize > subLimit && subLimit != 0){
+        let tempArray = element.artifacts.slice(0, subLimit);
+        element.artifacts.length = 0;
+        tempArray.forEach((artifact, index)=>{
+          element.artifacts.push(artifact);
+        });
+      }
+    });
+
     let result = {};
-    result.rows = await this.findAll(condition);
-    result.count = await this.count();
+    result.rows = resultData;
+    result.count = await this.count(countCondition);
     return result;
   }
 
