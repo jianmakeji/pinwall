@@ -4,10 +4,12 @@ const Service = require('egg').Service;
 
 class Topics extends Service {
 
-  async list({ offset = 0, limit = 10 }) {
+  async list({ offset = 0, limit = 10,jobTag = 0, subLimit = 10 }) {
     return this.ctx.model.Topics.listTopics({
       offset,
       limit,
+      jobTag,
+      subLimit,
     });
   }
 

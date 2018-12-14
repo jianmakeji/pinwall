@@ -15,6 +15,10 @@ module.exports = app => {
       type: STRING(64),
       allowNull: true
     },
+    fullname:{
+      type: STRING(30),
+      allowNull: true
+    },
     mobile: {
       type: STRING(15),
       allowNull: true

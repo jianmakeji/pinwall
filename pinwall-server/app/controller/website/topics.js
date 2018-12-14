@@ -9,6 +9,7 @@ class TopicsController extends BaseController{
     const query = {
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
+      subLimit: ctx.helper.parseInt(ctx.query.subLimit),
     };
 
     try{

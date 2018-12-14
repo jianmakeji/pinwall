@@ -53,9 +53,9 @@ module.exports  = app => {
         through: {
           model: app.model.TopicTerm,
           unique: false,
-          scope: {
-            taggable: 'topicTerms'
-          }
+          // scope: {
+          //   taggable: 'topicTerms'
+          // }
         },
         foreignKey: 'topicId',
         constraints: false
@@ -65,21 +65,32 @@ module.exports  = app => {
         through: {
           model: app.model.TopicArtifact,
           unique: false,
-          scope: {
-            taggable: 'topicsArtifact'
-          }
+          // scope: {
+          //   taggable: 'topicsArtifact'
+          // }
         },
         foreignKey: 'topicId',
         constraints: false
     });
   };
 
-  Topics.listTopics = async function ({ offset = 0, limit = 10, jobTag = 0 }) {
+  Topics.listTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0 }) {
 
     let condition = {
       offset,
       limit,
       order: [[ 'createAt', 'desc' ]],
+      include:[
+        {
+          model: app.model.Users
+        },{
+          model: app.model.Artifacts,
+          through:{
+            limit:subLimit
+          },
+          attributes:['Id','profileImage'],
+        }
+      ]
     };
 
     if (jobTag != 0){
@@ -87,8 +98,10 @@ module.exports  = app => {
         jobTag:jobTag,
       }
     }
-
-    return this.ctx.model.Topics.findAndCountAll(condition);
+    let result = {};
+    result.topics = await this.findAll(condition);
+    result.rows = await this.count();
+    return result;
   }
 
   Topics.findTopicById = async function (Id) {
@@ -104,7 +117,7 @@ module.exports  = app => {
       throw new Error('名称不能为空');
     }
     else{
-      return this.ctx.model.Topics.create(topic);
+      return await this.create(topic);
     }
   }
 
@@ -113,7 +126,7 @@ module.exports  = app => {
     if (!topic) {
       this.ctx.throw(404, 'topic not found');
     }
-    return topic.update(updates);
+    return await topic.update(updates);
   }
 
   Topics.delTopicById = async function (id) {
@@ -121,7 +134,7 @@ module.exports  = app => {
     if (!topic) {
       this.ctx.throw(404, 'topic not found');
     }
-    return topic.destroy();
+    return await topic.destroy();
   }
 
   return Topics;
