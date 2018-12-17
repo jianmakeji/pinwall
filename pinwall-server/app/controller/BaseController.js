@@ -7,10 +7,17 @@ class BaseController extends Controller {
   }
 
   success(data) {
+    console.log('--------------------------');
+
+    data.rows.forEach((element, index)=>{
+      console.log(element);
+    });
+
+
     this.ctx.body = {
       success: true,
       status:200,
-      data,
+      data:data,
     };
   }
 

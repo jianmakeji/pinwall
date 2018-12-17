@@ -76,7 +76,8 @@ module.exports  = app => {
       order: [[ 'createAt', 'desc' ]],
       include:[
         {
-          model: app.model.Users
+          model: app.model.Users,
+          attributes:['Id','email','fullname','nickname','avatarUrl']
         },{
           model: app.model.Artifacts,
           through:{
@@ -103,10 +104,13 @@ module.exports  = app => {
     }
 
     let resultData = await this.findAll(condition);
+    let aaData = {};
+    this.ctx.model.Topics.deepCopy(resultData,aaData);
 
-    resultData.forEach((element, index)=>{
+    aaData.forEach((element, index)=>{
       const artifactSize = element.artifacts.length;
-      element.status = artifactSize;
+      element.artifactCount = artifactSize;
+
       if (artifactSize > subLimit && subLimit != 0){
         let tempArray = element.artifacts.slice(0, subLimit);
         element.artifacts.length = 0;
@@ -117,7 +121,7 @@ module.exports  = app => {
     });
 
     let result = {};
-    result.rows = resultData;
+    result.rows = aaData;
     result.count = await this.count(countCondition);
     return result;
   }
@@ -154,6 +158,19 @@ module.exports  = app => {
     }
     return await topic.destroy();
   }
+
+  Topics.deepCopy = function (p, c) {
+　　　　var c = c || {};
+　　　　for (var i in p) {
+　　　　　　if (typeof p[i] === 'object') {
+　　　　　　　　c[i] = (p[i].constructor === Array) ? [] : {};
+　　　　　　　　deepCopy(p[i], c[i]);
+　　　　　　} else {
+　　　　　　　　　c[i] = p[i];
+　　　　　　}
+　　　　}
+　　　　return c;
+　　}
 
   return Topics;
 };
