@@ -15,7 +15,6 @@ class TopicsController extends BaseController{
 
     try{
       let result = await ctx.service.topics.list(query);
-      console.log("=================:"+result.rows[0].artifactCount);
       super.success(result);
     }
     catch(e){
