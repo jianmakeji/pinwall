@@ -104,12 +104,10 @@ module.exports  = app => {
     }
 
     let resultData = await this.findAll(condition);
-    let aaData = {};
-    this.ctx.model.Topics.deepCopy(resultData,aaData);
 
-    aaData.forEach((element, index)=>{
+    resultData.forEach((element, index)=>{
       const artifactSize = element.artifacts.length;
-      element.artifactCount = artifactSize;
+      element.user.gender = artifactSize;
 
       if (artifactSize > subLimit && subLimit != 0){
         let tempArray = element.artifacts.slice(0, subLimit);
@@ -121,7 +119,7 @@ module.exports  = app => {
     });
 
     let result = {};
-    result.rows = aaData;
+    result.rows = resultData;
     result.count = await this.count(countCondition);
     return result;
   }
@@ -158,19 +156,6 @@ module.exports  = app => {
     }
     return await topic.destroy();
   }
-
-  Topics.deepCopy = function (p, c) {
-　　　　var c = c || {};
-　　　　for (var i in p) {
-　　　　　　if (typeof p[i] === 'object') {
-　　　　　　　　c[i] = (p[i].constructor === Array) ? [] : {};
-　　　　　　　　deepCopy(p[i], c[i]);
-　　　　　　} else {
-　　　　　　　　　c[i] = p[i];
-　　　　　　}
-　　　　}
-　　　　return c;
-　　}
 
   return Topics;
 };
