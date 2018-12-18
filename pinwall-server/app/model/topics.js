@@ -95,23 +95,13 @@ module.exports  = app => {
     };
 
     if (jobTag != 0){
-      condition.where = {
-        jobTag:jobTag,
-      }
-
-      countCondition.where = {
-        jobTag:jobTag,
-      }
+      condition.where.jobTag = jobTag;
+      countCondition.where.jobTag = jobTag;
     }
 
     if (status != -1){
-      condition.where = {
-        status:status,
-      }
-
-      countCondition.where = {
-        status:status,
-      }
+      condition.where.status = status;
+      countCondition.where.status = status;
     }
 
     let resultData = await this.findAll(condition);
