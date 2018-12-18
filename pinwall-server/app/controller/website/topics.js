@@ -11,6 +11,7 @@ class TopicsController extends BaseController{
       offset: ctx.helper.parseInt(ctx.query.offset),
       jobTag: ctx.helper.parseInt(ctx.query.jobTag),
       subLimit: ctx.helper.parseInt(ctx.query.subLimit),
+      status: ctx.helper.parseInt(ctx.query.status),
     };
 
     try{

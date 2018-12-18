@@ -68,7 +68,7 @@ module.exports  = app => {
     });
   };
 
-  Topics.listTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0 }) {
+  Topics.listTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0 }) {
 
     let condition = {
       offset,
@@ -93,6 +93,7 @@ module.exports  = app => {
         1:1
       }
     };
+
     if (jobTag != 0){
       condition.where = {
         jobTag:jobTag,
@@ -100,6 +101,16 @@ module.exports  = app => {
 
       countCondition.where = {
         jobTag:jobTag,
+      }
+    }
+
+    if (status != -1){
+      condition.where = {
+        status:status,
+      }
+
+      countCondition.where = {
+        status:status,
       }
     }
 

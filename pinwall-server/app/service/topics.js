@@ -10,6 +10,7 @@ class Topics extends Service {
       limit,
       jobTag,
       subLimit,
+      status,
     });
   }
 
