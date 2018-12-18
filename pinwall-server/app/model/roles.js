@@ -50,7 +50,7 @@ module.exports = app => {
   Roles.findRoleById = async function (Id) {
     const role = await this.findById(Id);
     if (!role) {
-      this.ctx.throw(404, 'role not found');
+      throw new Error('role not found');
     }
     return role;
   }
@@ -74,7 +74,7 @@ module.exports = app => {
   Roles.updateRole = async function ({ Id, updates }) {
     const role = await this.findById(id);
     if (!role) {
-      this.ctx.throw(404, 'user not found');
+      throw new Error('role not found');
     }
     return role.update(updates);
   }
@@ -82,7 +82,7 @@ module.exports = app => {
   Roles.delRoleById = async function (id) {
     const role = await this.findById(id);
     if (!role) {
-      this.ctx.throw(404, 'role not found');
+      throw new Error('role not found');
     }
     return role.destroy();
   }

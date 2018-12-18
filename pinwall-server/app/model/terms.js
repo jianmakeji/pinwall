@@ -46,7 +46,7 @@ module.exports  = app => {
   Terms.findTermById = async function (Id) {
     const term = await this.ctx.model.Terms.findById(Id);
     if (!term) {
-      this.ctx.throw(404, 'term not found');
+      throw new Error('term not found');
     }
     return term;
   }
@@ -66,7 +66,7 @@ module.exports  = app => {
   Terms.updateTerm = async function ({ Id, updates }) {
     const term = await this.ctx.model.Terms.findById(id);
     if (!term) {
-      this.ctx.throw(404, 'term not found');
+      throw new Error('term not found');
     }
     return term.update(updates);
   }
@@ -74,7 +74,7 @@ module.exports  = app => {
   Terms.delTermById = async function (id) {
     const term = await this.ctx.model.Terms.findById(id);
     if (!term) {
-      this.ctx.throw(404, 'term not found');
+      throw new Error('term not found');
     }
     return term.destroy();
   }

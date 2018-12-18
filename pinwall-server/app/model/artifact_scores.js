@@ -109,7 +109,7 @@ module.exports = app => {
   }) {
     const artifactScores = await this.findByArtifactIdAndScorerId(scorerId,artifactId);
     if (!artifact) {
-      this.ctx.throw(404, 'artifact not found');
+      throw new Error('artifact not found');
     }
     return artifact.update({
       score: score

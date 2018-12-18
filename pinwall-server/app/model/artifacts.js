@@ -164,7 +164,7 @@ module.exports = app => {
       }]
     });
     if (!artifact) {
-      this.ctx.throw(404, 'artifact not found');
+      throw new Error('artifact not found');
     }
     return artifact;
   }
@@ -183,7 +183,7 @@ module.exports = app => {
   }) {
     const artifact = await this.findById(id);
     if (!artifact) {
-      this.ctx.throw(404, 'artifact not found');
+      throw new Error('artifact not found');
     }
     return artifact.update(updates);
   }
@@ -191,7 +191,7 @@ module.exports = app => {
   Artifacts.delArtifactById = async function(id) {
     const artifact = await this.findById(id);
     if (!artifact) {
-      this.ctx.throw(404, 'artifact not found');
+      throw new Error('artifact not found');
     }
     return artifact.destroy();
   }

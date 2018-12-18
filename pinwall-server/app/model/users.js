@@ -109,7 +109,7 @@ module.exports = app => {
       ]
     });
     if (!user) {
-      this.ctx.throw(404, 'user not found');
+      throw new Error('user not found');
     }
     return user;
   }
@@ -121,7 +121,7 @@ module.exports = app => {
   Users.updateUser = async function ({ id, updates }) {
     const user = await this.findById(id);
     if (!user) {
-      this.ctx.throw(404, 'user not found');
+      throw new Error('user not found');
     }
     return user.update(updates);
   }
@@ -129,7 +129,7 @@ module.exports = app => {
   Users.delUserById = async function (id) {
     const user = await this.findById(id);
     if (!user) {
-      this.ctx.throw(404, 'user not found');
+      throw new Error('user not found');
     }
     return user.destroy();
   }

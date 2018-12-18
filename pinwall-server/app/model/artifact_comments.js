@@ -42,10 +42,10 @@ module.exports = app => {
   });
 
   ArtifactComments.listComments = async function ({ offset = 0, limit = 10}) {
-    return this.ctx.model.ArtifactComments.list({
+    return await this.findAndCountAll({
       offset,
       limit,
-      order: [[ 'createAt', 'desc' ]],
+      order: [[ 'commentAt', 'desc' ]],
     });
   }
 
@@ -87,7 +87,7 @@ module.exports = app => {
   ArtifactComments.delCommentById = async function (Id) {
     const artifact = await this.findById(Id);
     if (!artifact) {
-      this.ctx.throw(404, 'artifact not found');
+      throw new Error('artifact not found');
     }
     return artifact.destroy();
   }

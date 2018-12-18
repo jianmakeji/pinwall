@@ -127,7 +127,7 @@ module.exports  = app => {
   Topics.findTopicById = async function (Id) {
     const topic = await this.ctx.model.Topics.findById(Id);
     if (!topic) {
-      this.ctx.throw(404, 'topic not found');
+      throw new Error('topic not found');
     }
     return topic;
   }
@@ -144,7 +144,7 @@ module.exports  = app => {
   Topics.updateTopic = async function ({ Id, updates }) {
     const topic = await this.ctx.model.Topics.findById(id);
     if (!topic) {
-      this.ctx.throw(404, 'topic not found');
+      throw new Error('topic not found');
     }
     return await topic.update(updates);
   }
@@ -152,7 +152,7 @@ module.exports  = app => {
   Topics.delTopicById = async function (id) {
     const topic = await this.ctx.model.Topics.findById(id);
     if (!topic) {
-      this.ctx.throw(404, 'topic not found');
+      throw new Error('topic not found');
     }
     return await topic.destroy();
   }
