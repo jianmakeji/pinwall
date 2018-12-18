@@ -14,16 +14,13 @@ class TopicsController extends BaseController{
       status: ctx.helper.parseInt(ctx.query.status),
     };
 
-    let result = await ctx.service.topics.list(query);
-    super.success(result);
-    /*
     try{
       let result = await ctx.service.topics.list(query);
       super.success(result);
     }
     catch(e){
       super.failure(e.message);
-    }*/
+    }
   }
 
   async show() {
