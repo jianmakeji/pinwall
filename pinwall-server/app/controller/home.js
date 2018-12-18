@@ -60,6 +60,21 @@ class HomeController extends Controller {
     await ctx.render('users.html');
   }
 
+  async userManager(){
+    const ctx = this.ctx;
+    await ctx.render('userManager.html');
+  }
+
+  async workManager(){
+    const ctx = this.ctx;
+    await ctx.render('workManager.html');
+  }
+
+  async commentManager(){
+    const ctx = this.ctx;
+    await ctx.render('commentManager.html');
+  }
+
   async children(){
     const ctx = this.ctx;
     await ctx.render('children.html');

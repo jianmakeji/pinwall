@@ -88,8 +88,18 @@ var index = new Vue({
             var timeStamp = '?' + new Date().getTime() + 'r' + Math.random();
             this.imgSrc = "user/getCode"+timeStamp;
         },
+        userManager(){
+
+        },
+        workManager(){
+
+        },
+        commentManager(){
+
+        }
     },
     created(){
+        this.$Loading.start();
         this.containerStyle.marginTop = (document.documentElement.clientHeight - 100 - 500 - 50 ) / 2 + "px";
         if(document.documentElement.clientWidth > 1200){
             this.modelWidth = "768px";
@@ -100,24 +110,26 @@ var index = new Vue({
         }
 
         var that = this;
-        $.ajax({
-            url: "/website/artifacts/getMedalDataByRandom/12",
-            type: "get",
-            dataType: "json",
-            success: function (res) {
-                console.log("res", res);
-                that.dataList = res;
+        this.$http({
+            url: config.ajaxUrls.getIndexData,
+            method:"GET",
+            params:{
+                num:12
+            }
+        }).then(function(res){
+            // console.log("--------",res);
+            if (res.status == 200) {
+                that.$Loading.finish();
+                that.dataList = res.body;
                 for(let i=0; i < that.dataList.length; i++){
                     that.dataList[i].createAt = that.dataList[i].createAt.split("T")[0];
                     if(that.dataList[i].user.avatarUrl == null){
                         that.dataList[i].user.avatarUrl = "http://pinwall.design-engine.org/images/default_profile.jpg";
                     }
                 }
-
-            },
-            error: function (err) {
-                console.log("err",err);
             }
+        },function(err){
+            that.$Loading.error();
         })
     }
 })

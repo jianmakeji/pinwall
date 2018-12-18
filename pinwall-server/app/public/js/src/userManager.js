@@ -2,6 +2,60 @@ var index = new Vue({
     el: '.index',
     data(){
         return{
+            groupModel:0,       //搜索筛选选项
+            columns:[
+                { title: '用户名',key: 'fullname', align: 'center',
+                    render: (h, params) => {
+                        return h('a', {
+                                props: {
+                                    type: 'primary',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click: () => {
+                                        this.clickUserName(params.row.id)
+                                    }
+                                }
+                            }, params.row.fullname);
+                    }
+                },
+                { title: '邮箱',key: 'email', align: 'center'},
+                { title: '上传作品数',key: 'email', align: 'center'},
+                { title: '发表言论',key: 'email', align: 'center'},
+                { title: '获得奖章',key: 'email', align: 'center'},
+                { title: '状态',key: 'email', align: 'center'},
+                { title: '权限',key: 'email', align: 'center'},
+                { title: '操作',key: 'opt', align: 'center',
+            	   render: (h, params) => {
+                       return h('div', [
+                           h('Button', {
+                               props: {
+                                   type: 'primary',
+                                   size: 'small'
+                               },
+                               style: {
+                                   marginRight: '5px'
+                               },
+                               on: {
+                                   click: () => {
+                                       this.becomeVIP(params.index)
+                                   }
+                               }
+                           }, '设为VIP')
+                       ]);
+                   }
+               }
+            ],
+            dataList:[
+                {id:"1",fullname:"111",email:"111"}
+            ],
+            totalPage:"100",
+
+
+
             userId:"1",
             drawerShow:false,
             modelWidth:"",
@@ -32,80 +86,27 @@ var index = new Vue({
             resetInfoModel:false,
             // 修改密码弹出层
             resetPwdModel:false,
-            // step1
-            buttonType:"success",	//error
-            iconImg:"ios-brush",	//md-close
-            // stepNum:0,
-            stepOneActive:true,
-            stepTwoActive:false,
-            stepThreeActive:false,
-            // step1:true,
-            // step2:false,
-            // step3:false,
-            containerStyle:{
-                minHeight:""
-            },
-            userName:"甘四球", //用户的名称
-            formItem:{
-                title:""
-            }
+
         }
     },
     methods: {
-        /* 步骤调整事件 */
-        goStep1(){
-            this.stepOneActive = true;
-            this.stepTwoActive = false;
-            this.stepThreeActive = false;
-            // this.stepNum = 0;
+        groupCheck(value){
+            console.log(value);
         },
-        goStep2(){
-            this.stepOneActive = false;
-            this.stepTwoActive = true;
-            this.stepThreeActive = false;
-            // this.stepNum = 1;
+        pageChange(page){
+            console.log(page);
         },
-        goStep3(){
-            this.stepOneActive = false;
-            this.stepTwoActive = false;
-            this.stepThreeActive = true;
-            // this.stepNum = 2;
+        clickUserName(id){
+            console.log(id);
         },
-        /* step1 事件 */
-        // 标签点击删除
-        deleteLabel(index){
-            console.log("deleteLabel",index);
-
+        becomeVIP(value){
+            console.log(value);
         },
 
 
-        // 弹出层
-        openModel(){
 
-        },
-        // 登录
-        openLogin(){
 
-        },
-        // 登录
-        openMenu(){
 
-        },
-        selectLi(index){
-            console.log("selectLi",index);
-        },
-        deleteUploadImg(index){
-            console.log("deleteUploadImg",index);
-        },
-        step1_upload_change(){
-
-        },
-        step2_upload_change(){
-
-        },
-        step3_upload_change(){
-            console.log("++++++++++");
-        },
         // 打开search弹出层
         openModel(){
             console.log("openModel");
@@ -163,7 +164,7 @@ var index = new Vue({
         }
     },
     created(){
-        this.containerStyle.minHeight = document.documentElement.clientHeight - 140 + "px";
+        this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
         if(document.documentElement.clientWidth > 1200){
             this.modelWidth = "768px";
         }else if(document.documentElement.clientWidth < 1200){
@@ -171,24 +172,7 @@ var index = new Vue({
         }else if(document.documentElement.clientWidth < 992){
             this.modelWidth = "80%";
         }
+
+
     }
 })
-
-$(document).ready(function(){
-    $('#step1_upload_btn').click(function(){
-        $('#step1_upload_input').click();
-    });
-    $('#step2_upload_btn').click(function(){
-        $('#step2_upload_input').click();
-    });
-    $('#label_formitem button').each(function() {
-        $(this).hover(function(event) {
-            $(this).addClass("ivu-btn-error").removeClass("ivu-btn-success");
-            $(this).children("i").addClass("ivu-icon-md-close").removeClass("ivu-icon-ios-brush");
-        });
-        $(this).mouseleave(function(event) {
-            $(this).addClass("ivu-btn-success").removeClass("ivu-btn-error");
-            $(this).children("i").addClass("ivu-icon-ios-brush").removeClass("ivu-icon-md-close");
-        });
-    });
-});

@@ -15,7 +15,6 @@
 
 {% block container %}
 	<div class="container" :style="containerStyle">
-		<Spin size="large" fix v-if="spinShow"></Spin>
 		<div class="container_header">
 			<div style="height: 35px;line-height: 35px;text-align: right;width: 170px;">
 				显示作业荚:
@@ -34,7 +33,7 @@
 					<i-col :xs="12" :sm="2" :md="1" :lg="1">
 						<div class="user_info">
 							<a :href="'users/'+item.user.Id">
-								<img :src="item.user.avatarUrl" alt="">
+								<img :src="item.user.avatarUrl">
 								<p class="name" v-text="item.user.fullname"></p>
 							</a>
 						</div>
@@ -48,7 +47,7 @@
 							<ul class="de_stats_tags">
 								<li class="uploads">
 									<icon type="ios-cloud-upload" size="20"></icon>
-									<span v-text="item.status"></span>
+									<span v-text="item.user.gender"></span>
 								</li>
 							</ul>
 						</div>
@@ -57,16 +56,19 @@
 						<ul class="project_info">
 							<li class="de_borderbox" v-for="subItem in item.artifacts">
 								<a href="#" class="de_entity_link">
-									<img :src="subItem.profileImage" alt="">
+									<img :src="subItem.profileImage">
 								</a>
 							</li>
 							<li v-if="item.artifacts.length == 0"></li>
 						</ul>
 					</i-col>
 					<i-col :xs="0" :sm="1" :md="1" :lg="1">
-						<ul class="topic_action topic_closed">
-							<li class="de_topic_action_view">
-								<i-button type="checkCloseType" shape="circle" icon="md-eye" @click="checkClose" title="查看"></i-button>
+						<ul :class="{topic_action:!item.status, topic_closed:item.status}">
+							<li class="de_topic_action_view" v-if="item.status == 1">
+								<i-button type="checkCloseType" shape="circle" icon="md-eye" @click="checkThisTopic(item.Id)" title="查看"></i-button>
+							</li>
+							<li class="de_topic_action_view" v-if="item.status == 0">
+								<i-button type="checkCloseType" shape="circle" icon="md-cloud-upload" @click="uploadToTopic(item.Id)" title="上传"></i-button>
 							</li>
 						</ul>
 					</i-col>
@@ -80,6 +82,7 @@
 	<script type="text/javascript" src="public/js/lib/jquery.min.js"></script>
 	<script type="text/javascript" src="public/js/lib/vue.min.js"></script>
 	<script type="text/javascript" src="public/js/lib/iview.min.js"></script>
+	<script type="text/javascript" src="public/js/lib/vue-resource.js"></script>
 	<script type="text/javascript" src="public/js/src/config.js"></script>
 	<script type="text/javascript" src="public/js/src/topicsAbout.js"></script>
 {% endblock %}

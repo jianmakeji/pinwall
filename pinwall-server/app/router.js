@@ -16,6 +16,9 @@ module.exports = app => {
   router.get('/topics', controller.home.topics);
   router.get('/topicsAbout', controller.home.topicsAbout);
   router.get('/users', controller.home.users);
+  router.get('/userManager', controller.home.userManager);
+  router.get('/workManager', controller.home.workManager);
+  router.get('/commentManager', controller.home.commentManager);
   router.get('/children', controller.home.children);
 
   app.get("/auth/weixin", app.passport.authenticate('loginByWeixinClient'));
