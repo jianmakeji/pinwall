@@ -29,7 +29,7 @@ class ArtifactCommentController extends BaseController{
     };
 
     try{
-      const result = await ctx.service.artifactComment.list(query);
+      const result = await ctx.service.artifactComment.findByArtifactIdWithPage(query);
       super.success(result);
     }
     catch(e){
@@ -39,9 +39,9 @@ class ArtifactCommentController extends BaseController{
 
   async show() {
     const ctx = this.ctx;
-    ctx.body = await ctx.service.artifactComment.find(ctx.helper.parseInt(ctx.params.id));
+
     try{
-      const result = await ctx.service.artifactComment.list(query);
+      const result = await ctx.service.artifactComment.findCommentById(ctx.helper.parseInt(ctx.params.id));
       super.success(result);
     }
     catch(e){
@@ -53,7 +53,7 @@ class ArtifactCommentController extends BaseController{
     const ctx = this.ctx;
     try{
       const article = await ctx.service.artifactComment.create(ctx.request.body);
-      super.success('创建成功!');
+      super.success('操作成功!');
     }
     catch(e){
       super.failure(e.message);
@@ -97,7 +97,7 @@ class ArtifactCommentController extends BaseController{
       Id:ctx.request.body.id,
       visible: ctx.request.body.visible,
     };
-    
+
     try{
       await ctx.service.artifactComment.update(updates);
       super.success('更新成功!');

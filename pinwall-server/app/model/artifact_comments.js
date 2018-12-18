@@ -58,13 +58,21 @@ module.exports = app => {
       offset,
       limit,
       order: [
-        ['createAt', 'desc'],
+        ['commentAt', 'desc'],
         ['Id', 'desc']
       ],
       where: {
         artifactId: artifactId
       }
     });
+  }
+
+  ArtifactComments.findCommentById = async function (Id) {
+    const comment = await this.findById(Id);
+    if (!comment) {
+      throw new Error('comment not found');
+    }
+    return comment;
   }
 
   ArtifactComments.createComment = async function (artifactComments) {

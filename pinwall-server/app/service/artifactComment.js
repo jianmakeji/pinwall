@@ -19,6 +19,10 @@ class ArtifactComment extends Service {
     });
   }
 
+  async findCommentById(id) {
+    return this.ctx.model.ArtifactComments.findCommentById(id);
+  }
+
   async create(artifactComments) {
     let transaction;
     try {
