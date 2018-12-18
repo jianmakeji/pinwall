@@ -74,6 +74,9 @@ module.exports  = app => {
       offset,
       limit,
       order: [[ 'createAt', 'desc' ]],
+      where:{
+
+      },
       include:[
         {
           model: app.model.Users,
@@ -90,7 +93,7 @@ module.exports  = app => {
 
     let countCondition = {
       where:{
-        1:1
+        
       }
     };
 
