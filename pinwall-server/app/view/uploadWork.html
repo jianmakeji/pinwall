@@ -7,6 +7,12 @@
 	<link rel="stylesheet" type="text/css" href="public/css/src/model.css"/>
 {% endblock %}
 
+{% block head_btn %}
+	<i-col :xs="0" :sm="2" :md="2" :lg="2"><a href="/" style="display: flex;flex-direction: row;justify-content: center;width: 100%;height: 100%;background:#333;color: white;">精选</a></i-col>
+	<i-col :xs="4" :sm="2" :md="2" :lg="2"><a href="/topicsAbout" style="display: flex;flex-direction: row;justify-content: center;width: 100%;height: 100%;background:#333;color: white;">毕设展</a></i-col>
+	<i-col :xs="0" :sm="2" :md="2" :lg="2"><a href="/topics" style="display: flex;flex-direction: row;justify-content: center;width: 100%;height: 100%;background:#333;color: white;">作业荚</a></i-col>
+{% endblock %}
+
 {% block container %}
 	<div class="container" :style="containerStyle">
 		<h4 class="upload_title">上传至“{{userName}}的作品集”</h4>
@@ -26,7 +32,7 @@
 								<i-input v-model="formItem.title" placeholder="请输入标题"></i-input>
 							</form-item>
 							<form-item label="标签" id="label_formitem">
-								<i-button id="label_btn" type="success" size="small" icon="ios-brush" @click="deleteLabel(index)" v-for="(item,index) in [1,2,3,4]" style="margin-right:5px;">{{item}}</i-button>
+								<i-button type="success" size="small" icon="ios-brush" @click="deleteLabel(index)" v-for="(item,index) in [1,2,3,4]" style="margin-right:5px;"><span v-text="item"></span></i-button>
 							</form-item>
 							<form-item label="添加标签">
 								<i-input v-model="formItem.title" placeholder="输入并按回车确认"></i-input>

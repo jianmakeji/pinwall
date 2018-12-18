@@ -25,12 +25,8 @@
 	margin-left:30px;
 	white-space: normal;
 }
-.ivu-table th{
-	display: none;
-}
-.ivu-table td, .ivu-table th{
-	height:48px;
-}
+
+
 
 /* 登陆弹出层 */
 .login_panel{

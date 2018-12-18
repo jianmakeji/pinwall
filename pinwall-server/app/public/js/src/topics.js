@@ -5,10 +5,9 @@ var index = new Vue({
             userId:"1",
 
             // 数据请求
-            aoData:{limit:10,jobTag:1,offset:0},
+            aoData:{limit:10,jobTag:1,offset:0,status:-1},
             dataList:[],
             scrollModel:true,
-            spinShow:true,
 
             searchValue:"",
             containerStyle:{
@@ -51,9 +50,110 @@ var index = new Vue({
         }
     },
     methods: {
-        usersUrl(id){
-            let obj = `usera/${id}`;
-            return obj
+        checkAll(){
+            this.checkAllType = "default";
+            this.checkOpenType = "text";
+            this.checkCloseType = "text";
+            this.checkMyType = "text";
+
+            let that = this;
+            this.$Loading.start();
+            this.aoData.status = -1;
+            this.$http({
+                url: config.ajaxUrls.getTopicAboutData,
+                method:"GET",
+                params:this.aoData
+            }).then(function(res){
+                if( res.body.status == 200){
+                    that.$Loading.finish();
+                    console.log("初始化加载数据", res);
+                    that.dataList = res.body.data.rows;
+                    if (that.dataList.length == res.body.data.count) {
+                        that.scrollModel = false;
+                    }
+                    for(let i=0; i < that.dataList.length; i++){
+                        that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
+                        if(that.dataList[i].user.avatarUrl == null){
+                            that.dataList[i].user.avatarUrl = config.default_profile;
+                        }
+                    }
+                }
+
+            },function(err){
+                that.$Loading.error();
+            })
+        },
+        checkOpen(){
+            this.checkAllType = "text";
+            this.checkOpenType = "default";
+            this.checkCloseType = "text";
+            this.checkMyType = "text";
+            let that = this;
+            this.$Loading.start();
+            this.aoData.status = 0;
+            this.$http({
+                url: config.ajaxUrls.getTopicAboutData,
+                method:"GET",
+                params:this.aoData
+            }).then(function(res){
+                if( res.body.status == 200){
+                    that.$Loading.finish();
+                    console.log("初始化加载数据", res);
+                    that.dataList = res.body.data.rows;
+                    if (that.dataList.length == res.body.data.count) {
+                        that.scrollModel = false;
+                    }
+                    for(let i=0; i < that.dataList.length; i++){
+                        that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
+                        if(that.dataList[i].user.avatarUrl == null){
+                            that.dataList[i].user.avatarUrl = config.default_profile;
+                        }
+                    }
+                }
+
+            },function(err){
+                that.$Loading.error();
+            })
+        },
+        checkClose(){
+            this.checkAllType = "text";
+            this.checkOpenType = "text";
+            this.checkCloseType = "default";
+            this.checkMyType = "text";
+
+            let that = this;
+            this.$Loading.start();
+            this.aoData.status = 1;
+            this.$http({
+                url: config.ajaxUrls.getTopicAboutData,
+                method:"GET",
+                params:this.aoData
+            }).then(function(res){
+                if( res.body.status == 200){
+                    that.$Loading.finish();
+                    console.log("初始化加载数据", res);
+                    that.dataList = res.body.data.rows;
+                    if (that.dataList.length == res.body.data.count) {
+                        that.scrollModel = false;
+                    }
+                    for(let i=0; i < that.dataList.length; i++){
+                        that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
+                        if(that.dataList[i].user.avatarUrl == null){
+                            that.dataList[i].user.avatarUrl = config.default_profile;
+                        }
+                    }
+                }
+
+            },function(err){
+                that.$Loading.error();
+            })
+        },
+        checkMy(){
+            console.log("checkMy");
+            this.checkAllType = "text";
+            this.checkOpenType = "text";
+            this.checkCloseType = "text";
+            this.checkMyType = "default";
         },
         searchData(){
             console.log("searchData");
@@ -68,34 +168,7 @@ var index = new Vue({
                 {id:5,name:"55555555555"}
             ]
         },
-        checkAll(){
-            console.log("checkAll");
-            this.checkAllType = "default";
-            this.checkOpenType = "text";
-            this.checkCloseType = "text";
-            this.checkMyType = "text";
-        },
-        checkOpen(){
-            console.log("checkOpen");
-            this.checkAllType = "text";
-            this.checkOpenType = "default";
-            this.checkCloseType = "text";
-            this.checkMyType = "text";
-        },
-        checkClose(){
-            console.log("checkClose");
-            this.checkAllType = "text";
-            this.checkOpenType = "text";
-            this.checkCloseType = "default";
-            this.checkMyType = "text";
-        },
-        checkMy(){
-            console.log("checkMy");
-            this.checkAllType = "text";
-            this.checkOpenType = "text";
-            this.checkCloseType = "text";
-            this.checkMyType = "default";
-        },					// 打开search弹出层
+        // 打开search弹出层
         openModel(){
             console.log("openModel");
             this.searchModel = true;
@@ -141,6 +214,15 @@ var index = new Vue({
         onRegister(){
             this.loginModel = false;
             this.registerModel = true;
+        },
+        userManager(){
+
+        },
+        workManager(){
+
+        },
+        commentManager(){
+
         }
     },
     created(){
@@ -154,74 +236,64 @@ var index = new Vue({
         }
 
         this.$Loading.start();
-        $.ajax({
+        this.$http({
             url: config.ajaxUrls.getTopicAboutData,
-            type: "get",
-            data:this.aoData,
-            dataType: "json",
-            success: function (res) {
-                if( res.status == 200){
-                    that.$Loading.finish();
-                    that.spinShow = false;
-                    console.log("初始化加载数据", res);
-                    that.dataList = res.data.rows;
-                    if (that.dataList.length == res.data.count) {
-                        that.scrollModel = false;
-                    }
-                    for(let i=0; i < that.dataList.length; i++){
-                        // 修改创建时间格式
-                        that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
-                        // 用户头像转换
-                        if(that.dataList[i].user.avatarUrl == null){
-                            that.dataList[i].user.avatarUrl = config.default_profile;
-                        }
+            method:"GET",
+            params:that.aoData
+        }).then(function(res){
+            if( res.body.status == 200){
+                that.$Loading.finish();
+                console.log("初始化加载数据", res);
+                that.dataList = res.body.data.rows;
+                if (that.dataList.length == res.body.data.count) {
+                    that.scrollModel = false;
+                }
+                for(let i=0; i < that.dataList.length; i++){
+                    that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
+                    if(that.dataList[i].user.avatarUrl == null){
+                        that.dataList[i].user.avatarUrl = config.default_profile;
                     }
                 }
-            },
-            error: function (err) {
-                that.$Loading.error();
             }
+
+        },function(err){
+            that.$Loading.error();
         })
     }
 })
 
 $(document).ready(function() {
-
-    $('html,body').animate({scrollTop:0});                          //每次刷新界面滚动条置顶
-
-    $(window).scroll(function() {                                   //滚动加载数据
-
+    //每次刷新界面滚动条置顶
+    $('html,body').animate({scrollTop:0});
+    /**
+     * 滚动条滚动监听
+     */
+    $(window).scroll(function() {
         if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
             index.aoData.offset += 10;
             index.$Loading.start();
-            index.spinShow = true;
-            $.ajax({
+            index.$http({
                 url: config.ajaxUrls.getTopicAboutData,
-                type: "get",
-                data:index.aoData,
-                dataType: "json",
-                success: function (res) {
-                    if( res.status == 200){
-                        index.$Loading.finish();
-                        index.spinShow = false;
+                method:"GET",
+                params:index.aoData
+            }).then(function(res){
+                if( res.body.status == 200){
+                    index.$Loading.finish();
 
-                        console.log("滚动至底加载数据", res);
-                        index.dataList = index.dataList.concat(res.data.rows);
-                        if (index.dataList.length == res.data.count) {
-                            index.scrollModel = false;
-                        }
-                        for(let i=0; i < index.dataList.length; i++){
-                            index.dataList[i].createAt = index.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
-
-                            if(index.dataList[i].user.avatarUrl == null){
-                                index.dataList[i].user.avatarUrl =config.default_profile;
-                            }
+                    console.log("滚动至底加载数据", res);
+                    index.dataList = index.dataList.concat(res.body.data.rows);
+                    if (index.dataList.length == res.body.data.count) {
+                        index.scrollModel = false;
+                    }
+                    for(let i=0; i < index.dataList.length; i++){
+                        index.dataList[i].createAt = index.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
+                        if(index.dataList[i].user.avatarUrl == null){
+                            index.dataList[i].user.avatarUrl = config.default_profile;
                         }
                     }
-                },
-                error: function (err) {
-                    index.$Loading.error();
                 }
+            },function(err){
+                index.$Loading.error();
             })
         }
     })

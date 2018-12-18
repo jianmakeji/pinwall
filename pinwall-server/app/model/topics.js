@@ -68,12 +68,15 @@ module.exports  = app => {
     });
   };
 
-  Topics.listTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0 }) {
+  Topics.listTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0 }) {
 
     let condition = {
       offset,
       limit,
       order: [[ 'createAt', 'desc' ]],
+      where:{
+
+      },
       include:[
         {
           model: app.model.Users,
@@ -90,17 +93,18 @@ module.exports  = app => {
 
     let countCondition = {
       where:{
-        1:1
+
       }
     };
-    if (jobTag != 0){
-      condition.where = {
-        jobTag:jobTag,
-      }
 
-      countCondition.where = {
-        jobTag:jobTag,
-      }
+    if (jobTag != 0){
+      condition.where.jobTag = jobTag;
+      countCondition.where.jobTag = jobTag;
+    }
+
+    if (status != -1){
+      condition.where.status = status;
+      countCondition.where.status = status;
     }
 
     let resultData = await this.findAll(condition);

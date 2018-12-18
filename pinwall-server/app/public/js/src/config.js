@@ -1,6 +1,7 @@
 var config = {
     // 数据请求url
     ajaxUrls:{
+        getIndexData:"/website/artifacts/getMedalDataByRandom/{num}",
         getTopicAboutData:"website/topics"
     },
     viewUrls:{

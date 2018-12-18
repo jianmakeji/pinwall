@@ -266,6 +266,12 @@ body{
 	-webkit-box-orient: vertical;
 }
 
+.ivu-table th{
+	display: none;
+}
+.ivu-table td, .ivu-table th{
+	height:48px;
+}
 
 .footer {
 	padding: 5px 0;
