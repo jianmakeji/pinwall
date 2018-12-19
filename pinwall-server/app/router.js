@@ -12,7 +12,7 @@ module.exports = app => {
   router.get('/logout', controller.home.logout);
   router.get('/upload', controller.home.upload);
   router.get('/uploadWork', controller.home.uploadWork);
-  router.get('/project', controller.home.project);
+  router.get('/project/:id', controller.home.project);
   router.get('/topics', controller.home.topics);
   router.get('/topicsAbout', controller.home.topicsAbout);
   router.get('/users', controller.home.users);

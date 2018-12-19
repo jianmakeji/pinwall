@@ -1,8 +1,9 @@
 'use strict';
 
 const Controller = require('egg').Controller;
+const BaseController = require('./BaseController');
 
-class HomeController extends Controller {
+class HomeController extends BaseController {
   async index() {
     const ctx = this.ctx;
     await ctx.render('index.html');
@@ -42,7 +43,14 @@ class HomeController extends Controller {
 
   async project(){
     const ctx = this.ctx;
-    await ctx.render('search.html');
+    try{
+      const data = await ctx.service.artifact.find(ctx.helper.parseInt(ctx.params.id));
+      await ctx.render('projects.html',data);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+
   }
 
   async topics(){

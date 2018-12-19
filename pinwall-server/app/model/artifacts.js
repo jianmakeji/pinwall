@@ -155,7 +155,7 @@ module.exports = app => {
     if (visible != -1){
       condition.where.visible = visible;
     }
-    
+
     let result = {};
     result.rows = await this.findAll(condition);
     result.count = await this.count(countCondition);
@@ -166,6 +166,9 @@ module.exports = app => {
     const artifact = await this.findById(id, {
       include: [{
         model: app.model.ArtifactAssets
+      },{
+        model: app.model.Users,
+        attributes:['Id','fullname','avatarUrl']
       }]
     });
     if (!artifact) {
