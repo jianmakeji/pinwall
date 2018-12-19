@@ -9,8 +9,9 @@ class Users extends Service {
     const client2 = this.app.mysql.get('db2');
 
     const users = await client1.select("users");
-
+    console.log(users.length);
     for (const user of users){
+      console.log(user.id);
       let data = {
         Id:user.id,
         email:user.email,
@@ -21,11 +22,29 @@ class Users extends Service {
       };
 
       if (user.active == 't'){
-        user.active = 1;
+        data.active = 1;
       }
       else{
-        user.active = 0;
+        data.active = 0;
       }
+
+      const resultCount1 = await client2.query('select medalCount,likeCount,commentCount from artifacts aml where aml.userId = ?', [user.id]);
+      let likeCount = 0;
+      let medalCount = 0;
+      let commentCount = 0;
+
+      for (const artifact of resultCount1){
+        likeCount = likeCount + artifact.likeCount;
+        medalCount = medalCount + artifact.medalCount;
+        commentCount = commentCount + artifact.commentCount;
+      }
+
+      data.likeCount = likeCount;
+      data.medalCount = medalCount;
+      data.commentCount = commentCount;
+
+      const resultCount2 = await client2.query('select count(*)  as count from artifacts ars where ars.userId = ? ', [user.id]);
+      data.artifactCount = resultCount2[0].count;
 
       await client2.insert("users",data);
     }

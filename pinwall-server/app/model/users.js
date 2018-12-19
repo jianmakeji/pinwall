@@ -64,6 +64,22 @@ module.exports = app => {
       type: STRING(50),
       allowNull: true
     },
+    commentCount: {
+      type: INTEGER,
+      allowNull: true
+    },
+    artifactCount: {
+      type: INTEGER,
+      allowNull: true
+    },
+    medalCount: {
+      type: INTEGER,
+      allowNull: true
+    },
+    likeCount: {
+      type: INTEGER,
+      allowNull: true
+    },
     createAt: {
       type: DATE,
       allowNull: false,
