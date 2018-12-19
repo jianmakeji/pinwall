@@ -44,7 +44,7 @@ class HomeController extends BaseController {
   async project(){
     const ctx = this.ctx;
     try{
-      const data = await ctx.service.artifact.find(ctx.helper.parseInt(ctx.params.id));
+      const data = await ctx.service.artifacts.find(ctx.helper.parseInt(ctx.params.id));
       await ctx.render('projects.html',data);
     }
     catch(e){
