@@ -134,13 +134,16 @@ module.exports = app => {
       ],
       include: [{
         model: app.model.ArtifactAssets
+      },{
+        model: app.model.Users,
+        attributes:['Id','fullname']
       }],
       where:{}
     };
 
     let countCondition = {
       where:{
-        
+
       }
     };
 
@@ -149,7 +152,7 @@ module.exports = app => {
       countCondition.where.jobTag = jobTag;
     }
 
-    condition.where.visible = 0;
+    condition.where.visible = visible;
 
     let result = {};
     result.rows = await this.findAll(condition);
