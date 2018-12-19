@@ -140,7 +140,7 @@ module.exports = app => {
 
     let countCondition = {
       where:{
-        1:1
+        
       }
     };
 
