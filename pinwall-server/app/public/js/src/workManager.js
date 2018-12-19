@@ -2,9 +2,10 @@ var index = new Vue({
     el: '.index',
     data(){
         return{
+            aoData:{limit:12,offset:0,visible:-1,jobTag:1},
             groupModel:0,       //搜索筛选选项
             columns:[
-                { title: '作品名',key: 'email', align: 'center',
+                { title: '作品名',key: 'name', align: 'center',
                     render: (h, params) => {
                         return h('a', {
                                 props: {
@@ -19,10 +20,10 @@ var index = new Vue({
                                         this.clickUserName(params.row.id)
                                     }
                                 }
-                            }, params.row.email);
+                            }, params.row.name);
                     }
                 },
-                { title: '上传者',key: 'email', align: 'center',
+                { title: '上传者',key: 'filename', align: 'center',
                     render: (h, params) => {
                         return h('a', {
                                 props: {
@@ -37,52 +38,56 @@ var index = new Vue({
                                         this.clickUserName(params.row.id)
                                     }
                                 }
-                            }, params.row.email);
+                            }, this.dataList[params.index].user.fullname);
                     }
                 },
-                { title: '上传时间',key: 'email', align: 'center',width:150},
-                { title: '评论数',key: 'email', align: 'center',width:80},
-                { title: '获赞数',key: 'email', align: 'center',width:80},
-                { title: '奖章数',key: 'email', align: 'center',width:80},
-                { title: '操作',key: 'opt', align: 'center',width:150,
-            	   render: (h, params) => {
-                       return h('div', [
-                           h('Button', {
-                               props: {
-                                   type: 'primary',
-                                   size: 'small'
-                               },
-                               style: {
-                                   marginRight: '5px'
-                               },
-                               on: {
-                                   click: () => {
-                                       this.becomeVIP(params.index)
-                                   }
-                               }
-                           }, '编辑'),
-                           h('Button', {
-                               props: {
-                                   type: 'error',
-                                   size: 'small'
-                               },
-                               style: {
-                                   marginRight: '5px'
-                               },
-                               on: {
-                                   click: () => {
-                                       this.becomeVIP(params.index)
-                                   }
-                               }
-                           }, '删除')
-                       ]);
-                   }
-               }
+                { title: '上传时间',key: 'createAt', align: 'center',
+                    render:(h,params)=>{
+                        return h('p',{
+
+                        },this.dataList[params.index].createAt.split("T")[0])
+                    }
+                },
+                { title: '评论数',key: 'commentCount', align: 'center'},
+                { title: '获赞数',key: 'likeCount', align: 'center'},
+                { title: '奖章数',key: 'medalCount', align: 'center'},
+                { title: '操作',key: 'opt', align: 'center',
+            	    render: (h, params) => {
+                        return h('div', [
+                            h('Button', {
+                                props: {
+                                    type: 'primary',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click: () => {
+                                        this.becomeVIP(params.index)
+                                    }
+                                }
+                            }, '编辑'),
+                            h('Button', {
+                                props: {
+                                    type: 'error',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click: () => {
+                                        this.becomeVIP(params.index)
+                                    }
+                                }
+                            }, '删除')
+                        ]);
+                    }
+                }
             ],
-            dataList:[
-                {id:"1",fullname:"111",email:"111"}
-            ],
-            totalPage:"100",
+            dataList:[],
+            totalPage:"",
 
 
 
@@ -124,7 +129,22 @@ var index = new Vue({
             console.log(value);
         },
         pageChange(page){
-            console.log(page);
+            this.aoData.offset = (page-1) * 12;
+            var that = this;
+            this.$Loading.start();
+            this.$http({
+                url: "/website/artifacts",
+                method:"GET",
+                params:this.aoData
+            }).then(function(res){
+                if (res.body.status == 200) {
+                    that.$Loading.finish();
+                    that.totalPage = res.body.data.count;
+                    that.dataList = res.body.data.rows;
+                }
+            },function(err){
+                that.$Loading.error();
+            })
         },
         clickUserName(id){
             console.log(id);
@@ -202,5 +222,21 @@ var index = new Vue({
         }else if(document.documentElement.clientWidth < 992){
             this.modelWidth = "80%";
         }
+
+        var that = this;
+        this.$Loading.start();
+        this.$http({
+            url: "/website/artifacts",
+            method:"GET",
+            params:this.aoData
+        }).then(function(res){
+            if (res.body.status == 200) {
+                that.$Loading.finish();
+                that.totalPage = res.body.data.count;
+                that.dataList = res.body.data.rows;
+            }
+        },function(err){
+            that.$Loading.error();
+        })
     }
 })

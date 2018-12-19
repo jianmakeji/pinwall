@@ -26,7 +26,7 @@
             <i-input class="search_input" placeholder="输入搜索信息" prefix="ios-search"></i-input>
 		</div>
         <i-table :columns="columns" :data="dataList" style="margin-top:20px;" ></i-table>
-        <page v-model="totalPage" :current="1" :total="totalPage" @on-change="pageChange" show-total style="margin-top:20px;text-align:center;"></page>
+        <page v-model="totalPage" :page-size="12" :current="1" :total="totalPage" @on-change="pageChange" show-total style="margin-top:20px;text-align:center;"></page>
 	</div>
 {% endblock %}
 

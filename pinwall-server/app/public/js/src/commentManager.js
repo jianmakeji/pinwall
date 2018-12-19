@@ -2,9 +2,10 @@ var index = new Vue({
     el: '.index',
     data(){
         return{
+            aoData:{limit:12,offset:0},
             groupModel:0,       //搜索筛选选项
             columns:[
-                { title: '评论',key: 'email', align: 'center'},
+                { title: '评论',key: 'content', align: 'center'},
                 { title: '评论者',key: 'email', align: 'center',width:150,
                     render: (h, params) => {
                         return h('a', {
@@ -20,7 +21,7 @@ var index = new Vue({
                                         this.clickUserName(params.row.id)
                                     }
                                 }
-                            }, params.row.email);
+                            }, params.row.user.fullname);
                     }
                 },
                 { title: '评论作品',key: 'email', align: 'center',width:250,
@@ -38,10 +39,16 @@ var index = new Vue({
                                         this.clickUserName(params.row.id)
                                     }
                                 }
-                            }, params.row.email);
+                            }, params.row.artifact.name);
                     }
                 },
-                { title: '评论时间',key: 'email', align: 'center',width:150},
+                { title: '评论时间',key: 'email', align: 'center',width:150,
+                    render:(h, params)=>{
+                        return h('p',{
+
+                        },this.dataList[params.index].commentAt.split("T")[0])
+                    }
+                },
                 { title: '操作',key: 'opt', align: 'center',width:150,
             	   render: (h, params) => {
                        return h('div', [
@@ -63,13 +70,8 @@ var index = new Vue({
                    }
                }
             ],
-            dataList:[
-                {id:"1",fullname:"111",email:"111"},
-                {id:"1",fullname:"111",email:"111"},
-                {id:"1",fullname:"111",email:"111"},
-                {id:"1",fullname:"111",email:"111"}
-            ],
-            totalPage:"100",
+            dataList:[],
+            totalPage:"",
 
 
 
@@ -112,6 +114,22 @@ var index = new Vue({
         },
         pageChange(page){
             console.log(page);
+            var that = this;
+            this.aoData.offset = (page - 1) * 12;
+            this.$Loading.start();
+            this.$http({
+                url: "/website/artifactComment",
+                method:"GET",
+                params:this.aoData
+            }).then(function(res){
+                if (res.body.status == 200) {
+                    that.$Loading.finish();
+                    that.totalPage = res.body.data.count;
+                    that.dataList = res.body.data.rows;
+                }
+            },function(err){
+                that.$Loading.error();
+            })
         },
         clickUserName(id){
             console.log(id);
@@ -189,5 +207,22 @@ var index = new Vue({
         }else if(document.documentElement.clientWidth < 992){
             this.modelWidth = "80%";
         }
+
+        var that = this;
+        this.$Loading.start();
+        this.$http({
+            url: "/website/artifactComment",
+            method:"GET",
+            params:this.aoData
+        }).then(function(res){
+            console.log("--------",res.body.data.rows[0]);
+            if (res.body.status == 200) {
+                that.$Loading.finish();
+                that.totalPage = res.body.data.count;
+                that.dataList = res.body.data.rows;
+            }
+        },function(err){
+            that.$Loading.error();
+        })
     }
 })
