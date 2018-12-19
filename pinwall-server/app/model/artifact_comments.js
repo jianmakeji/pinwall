@@ -82,7 +82,14 @@ module.exports = app => {
       ],
       where: {
         artifactId: artifactId
-      }
+      },
+      include: [{
+        model: app.model.Artifacts,
+        attributes:['Id','name']
+      },{
+        model: app.model.Users,
+        attributes:['Id','fullname','avatarUrl']
+      }],
     });
   }
 
