@@ -41,11 +41,30 @@ module.exports = app => {
     tableName: 'artifact_comments'
   });
 
+  ArtifactComments.associate = function() {
+    app.model.ArtifactComments.belongsTo(app.model.Users, {
+      targetKey: 'Id',
+      foreignKey: 'commenterId'
+    });
+
+    app.model.ArtifactComments.belongsTo(app.model.Artifacts, {
+      targetKey: 'Id',
+      foreignKey: 'artifactId'
+    });
+  };
+
   ArtifactComments.listComments = async function ({ offset = 0, limit = 10}) {
     return await this.findAndCountAll({
       offset,
       limit,
       order: [[ 'commentAt', 'desc' ]],
+      include: [{
+        model: app.model.Artifacts,
+        attributes:['Id','name']
+      },{
+        model: app.model.Users,
+        attributes:['Id','fullname']
+      }],
     });
   }
 
