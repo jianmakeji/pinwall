@@ -1,7 +1,9 @@
 var index = new Vue({
-    el: '.index',
+    el: '.projects',
+    delimiters: ['${', '}'],
     data(){
         return{
+            success:"1",
             projectStyle:{
                 width: "100%",
                 minHeight:""

@@ -9,7 +9,9 @@
 		<link rel="stylesheet" type="text/css" href="../public/css/src/projects.css"/>
 	</head>
 	<body>
+		<p>{{ name }}</p>
 		<div class="projects" v-cloak :style="projectStyle">
+
 			<div class="zan_box">
 				<a href="#">
 						<!-- http://pinwall.design-engine.org/images/app/flag_green.png -->
@@ -31,15 +33,15 @@
                 <div class="stats_tags">
                     <div class="badges">
 						<icon type="ios-ribbon" style="font-size: 22px;color:#999;"></icon>
-                        <span>30</span>
+                        <span>{{data.medalCount}}</span>
                     </div>
                     <div class="likes">
 						<icon type="ios-thumbs-up" style="font-size: 22px;color:#999;"></icon>
-                        <span>30</span>
+                        <span>{{data.likeCount}}</span>
                     </div>
                     <div class="comments">
 						<icon type="md-text" style="font-size: 20px;color:#999;"></icon>
-                        <span>30</span>
+                        <span>{{data.commentCount}}</span>
                     </div>
                 </div>
                 <div class="user_info">

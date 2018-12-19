@@ -117,7 +117,7 @@ var index = new Vue({
                 num:12
             }
         }).then(function(res){
-            // console.log("--------",res);
+            console.log("--------",res.body[0]);
             if (res.status == 200) {
                 that.$Loading.finish();
                 that.dataList = res.body;
