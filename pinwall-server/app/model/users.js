@@ -198,5 +198,85 @@ module.exports = app => {
     });
   }
 
+  Users.addCommnet = async function(id) {
+    await this.update({
+      commentCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('commentCount'))
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
+
+  Users.addMedal = async function(id) {
+    await this.update({
+      medalCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('medalCount'))
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
+
+  Users.addlike = async function(id) {
+    await this.update({
+      likeCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('likeCount'))
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
+
+  Users.addArtifact = async function(id) {
+    await this.update({
+      artifactCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('artifactCount'))
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
+
+  Users.reduceMedal = async function(id, num) {
+    await this.update({
+      medalCount: app.Sequelize.literal('medalCount' - num)
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
+
+  Users.reducelike = async function(id,num) {
+    await this.update({
+      likeCount: app.Sequelize.literal('likeCount' - num)
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
+
+  Users.reduceComment = async function(id,num) {
+    await this.update({
+      likeCount: app.Sequelize.literal('commentCount' - num)
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
+
+  Users.reduceArtifact = async function(id) {
+    await this.update({
+      artifactCount: app.Sequelize.literal('artifactCount' - 1)
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
+
   return Users;
 };

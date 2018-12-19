@@ -51,6 +51,12 @@ class ArtifactCommentController extends BaseController{
 
   async create() {
     const ctx = this.ctx;
+    let data = {
+      content:ctx.query.content,
+      commenterId:ctx.helper.parseInt(ctx.query.commenterId),
+      artifactId:ctx.helper.parseInt(ctx.query.artifactId),
+      artifactUserId:ctx.helper.parseInt(ctx.query.artifactUserId),
+    };
     try{
       const article = await ctx.service.artifactComment.create(ctx.request.body);
       super.success('操作成功!');

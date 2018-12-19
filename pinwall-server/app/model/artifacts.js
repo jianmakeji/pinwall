@@ -226,6 +226,26 @@ module.exports = app => {
     });
   }
 
+  Artifacts.reduceMedal = async function(id) {
+    await this.update({
+      medalCount: app.Sequelize.literal('medalCount' - 1)
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
+
+  Artifacts.reducelike = async function(id) {
+    await this.update({
+      likeCount: app.Sequelize.literal('likeCount' - 1)
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
+
   Artifacts.getMedalDataByRandom = async function(){
     return this.findAll({
       where:{

@@ -17,9 +17,11 @@ class ArtifactMedalLike extends Service {
         await this.ctx.model.ArtifactMedalLike.createMedalAndLike(artifactMedalLike, transaction);
         if (artifactMedalLike.tag == 1){
           await this.ctx.model.Artifacts.addMedal(artifactMedalLike.artifactId, transaction);
+          await this.ctx.model.Users.addMedal(artifactMedalLike.artifactUserId, transaction);
         }
         else if (artifactMedalLike.tag == 2){
           await this.ctx.model.Artifacts.addlike(artifactMedalLike.artifactId, transaction);
+          await this.ctx.model.Users.addlike(artifactMedalLike.artifactUserId, transaction);
         }
 
         await transaction.commit();

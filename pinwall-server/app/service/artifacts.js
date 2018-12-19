@@ -5,7 +5,7 @@ const Service = require('egg').Service;
 class Artifacts extends Service {
 
   async list({ offset = 0, limit = 10, visible = 0, jobTag = 0}) {
-    
+
     return this.ctx.model.Artifacts.listArtifacts({
       offset,
       limit,
@@ -31,10 +31,16 @@ class Artifacts extends Service {
     let transaction;
     try {
       transaction = await this.ctx.model.transaction();
+      const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
       await this.ctx.model.Artifacts.delArtifactById(id, transaction);
       await this.ctx.model.ArtifactAssets.delAssetsByArtifactId(id, transaction);
       await this.ctx.model.ArtifactAssets.delCommentByArtifactId(id, transaction);
       await this.ctx.model.ArtifactAssets.delArtifactTermByArtifactId(id, transaction);
+      await this.ctx.model.Users.reduceArtifact(artifact.userId, transaction);
+      await this.ctx.model.Users.reduceMedal(artifact.userId, artifact.medalCount, transaction);
+      await this.ctx.model.Users.reducelike(artifact.userId, artifact.likeCount, transaction);
+      await this.ctx.model.Users.reduceComment(artifact.userId, artifact.commentCount, transaction);
+
       await transaction.commit();
       return true
     } catch (e) {
