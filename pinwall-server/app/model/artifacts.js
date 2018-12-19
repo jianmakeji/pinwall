@@ -98,9 +98,6 @@ module.exports = app => {
       through: {
         model: app.model.TopicArtifact,
         unique: false,
-        scope: {
-          taggable: 'artifacts'
-        }
       },
       foreignKey: 'artifactId',
       constraints: false
@@ -110,9 +107,6 @@ module.exports = app => {
       through: {
         model: app.model.ArtifactTerm,
         unique: false,
-        scope: {
-          taggable: 'artifacts'
-        }
       },
       foreignKey: 'artifactId',
       constraints: false
@@ -169,6 +163,12 @@ module.exports = app => {
       },{
         model: app.model.Users,
         attributes:['Id','fullname','avatarUrl']
+      },{
+        model: app.model.Topics,
+        through:{
+          attributes:['topicId','artifactId'],
+        },
+        attributes:['Id','name']
       }]
     });
     if (!artifact) {
