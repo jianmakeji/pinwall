@@ -152,8 +152,10 @@ module.exports = app => {
       countCondition.where.jobTag = jobTag;
     }
 
-    condition.where.visible = visible;
-
+    if (visible != -1){
+      condition.where.visible = visible;
+    }
+    
     let result = {};
     result.rows = await this.findAll(condition);
     result.count = await this.count(countCondition);
