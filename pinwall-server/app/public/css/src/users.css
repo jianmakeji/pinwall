@@ -195,13 +195,13 @@ body{
 }
  .de_card_m {
     background: #fff;
-    margin:10px 1%;
+    margin:10px 2%;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .de_card_m .user_info {
     position: absolute;
     top: 20px;
-    left: 55%;
+    left: 51%;
     right: 10px;
 }
 .de_card_m .user_info .name {
@@ -254,7 +254,7 @@ body{
     font-size: 14px;
     text-align: left;
     position: absolute;
-    left: 55%;
+    left: 51%;
     top: 70px;
     right: 10px;
     bottom: 40px;
@@ -267,7 +267,7 @@ body{
     padding: 10px 20px;
     position: absolute;
     bottom: 15px;
-    left: 50%;
+    left: 48%;
     right: 0;
     display: flex;
     flex-direction: row;

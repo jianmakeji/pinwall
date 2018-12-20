@@ -9,7 +9,6 @@
 		<link rel="stylesheet" type="text/css" href="../public/css/src/projects.css"/>
 	</head>
 	<body>
-		<p>{{ data.name }}</p>
 		<div class="projects" v-cloak :style="projectStyle">
 
 			<div class="zan_box">
@@ -46,41 +45,54 @@
                 </div>
                 <div class="user_info">
                     <a href="#">
+						{% if data.user.avatarUrl %}
+						<img class="photo" src="{{data.user.avatarUrl}}" alt="">
+						{% else %}
                         <img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
-                        <p class="name">丁敬兰</p>
+						{% endif %}
+                        <p class="name">{{data.user.fullname}}</p>
                     </a>
                 </div>
                 <h2>{{data.name}}</h2>
                 <p class="publishtime">
-                    2018-06-07，收录于
-                    <a href="#">2018届本科毕业设计作品</a>
+                    {{data.createAt}}，收录于
+						{% for item in data.topics %}
+	                    	<a href="#">{{item.name}}</a>
+						{% endfor %}
                 </p>
                 <p class="abstract">
-                    萌宠APP是一款集合喜欢宠物的人的社区，在APP中，可以看到用户上传的各种萌宠的视频，日常的、搞笑的，给喜欢宠物的人一个记录的平台，给喜欢宠物的人带来快乐，在APP中，还可以通过商城来购买线下的萌宠动物园的门票、萌宠奶茶店的优惠券，等各种活动券，让用户去线下体验与萌宠的互动，尤其适合亲子去体验，让小朋友参与互动，具有教育意义。链接：http://106.14.221.43:8080/
+                    {{data.description}}
                 </p>
 
 	            <div class="main_content">
-					<figure>
-						<img src="http://pinwall.fzcloud.design-engine.org/5329/12325119649072.jpg" alt="">
-					</figure>
-					<figure>
-						<img src="http://pinwall.fzcloud.design-engine.org/5329/12325119649072.jpg" alt="">
-					</figure>
+					{% for item in data.artifact_assets %}
+						{% if item.viewUrl %}
+							<figure>
+								<i-button shape="circle" icon="md-arrow-dropright-circle" size="large" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
+								<a href="{{item.mediaFile}}" target="_blank">
+									<img src="{{item.profileImage}}" alt="">
+								</a>
+							</figure>
+						{% else %}
+							<figure>
+								<img src="{{item.profileImage}}" alt="">
+							</figure>
+						{% endif %}
+					{% endfor %}
 	            </div>
             </div>
 			<div class="comment_box">
 				<ul class="comment_list">
-					<li  v-show="userId">
+					<li  v-show="userId" v-for="item in dataList">
 						<div class="user_info">
-							<a href="#">
-								<img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+							<a :href="'user/'+item.user.Id">
+								<img class="photo" :src="item.user.avatarUrl ? item.user.avatarUrl : 'http://pinwall.design-engine.org/images/default_profile.jpg'">
 							</a>
 						</div>
 						<div class="comment_wrapper">
-							<a href="#" class="name">李灵</a>
-							<span class="publishtime">2018-12-03 09:31:11</span>
-							<i-button class="delete_comment" type="error" shape="circle" icon="md-trash" @click="deleteComment"></i-button>
-							<p class="comment">贵在坚持！</p>
+							<a href="#" class="name">${ item.user.fullname }</a>
+							<i-button class="delete_comment" type="error" shape="circle" icon="md-trash" @click="deleteComment(item.Id)"></i-button>
+							<p class="comment">${item.content}</p>
 						</div>
 					</li>
 				</ul>
@@ -111,6 +123,7 @@
 			</div>
 		</div>
 
+		<script type="text/javascript" src="../public/js/lib/jquery.min.js"></script>
 	    <script type="text/javascript" src="../public/js/lib/vue.min.js"></script>
 	    <script type="text/javascript" src="../public/js/lib/iview.min.js"></script>
 	    <script type="text/javascript" src="../public/js/src/projects.js"></script>

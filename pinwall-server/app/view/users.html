@@ -1,9 +1,9 @@
 {% extends "parent.html" %}
 
 {% block cssfolder %}
-	<link rel="stylesheet" type="text/css" href="public/css/src/base.css"/>
-	<link rel="stylesheet" type="text/css" href="public/css/lib/iview.css">
-	<link rel="stylesheet" type="text/css" href="public/css/src/users.css"/>
+	<link rel="stylesheet" type="text/css" href="../public/css/src/base.css"/>
+	<link rel="stylesheet" type="text/css" href="../public/css/lib/iview.css">
+	<link rel="stylesheet" type="text/css" href="../public/css/src/users.css"/>
 {% endblock %}
 
 {% block head_btn %}
@@ -13,44 +13,42 @@
 {% endblock %}
 
 {% block container %}
-	<div class="container" :style="containerStyle">
+	<div class="container" :style="containerStyle" v-cloak>
+		<Spin size="large" fix v-if="spinShow"></Spin>
 		<div class="de_topic_box">
 			<row>
 				<i-col :xs="12" :sm="2" :md="1" :lg="1">
 					<div class="user_info">
-						<a :href="usersUrl(0)" class="">
-							<img src="http://pinwall.fzcloud.design-engine.org/group1_M00_02_A8_oYYBAFKCDz2AcHvFAAANyqipOkg958.png" alt="">
-							<p class="name">立秋</p>
+						<a>
+							<img :src="userInfo.avatarUrl ? userInfo.avatarUrl : 'http://pinwall.design-engine.org/images/default_profile.jpg'" alt="">
+							<p class="name" v-text="userInfo.fullname"></p>
 						</a>
 					</div>
 
 				</i-col>
 				<i-col :xs="12" :sm="4" :md="4" :lg="4">
 					<div class="topic_info">
-						<p class="created_date">2016-10-19 注册</p>
-						<a href="#">
-							<p class="topic_title">立秋的作品集</p>
+						<p class="created_date" v-text="userInfo.createAt"></p>
+						<a>
+							<p class="topic_title" v-text="userInfo.fullname + '的作品集'"></p>
 						</a>
 						<ul class="de_stats_tags">
 							<li class="uploads">
-								<icon type="ios-cloud-upload" size="20"></icon>135
+								<icon type="ios-cloud-upload" size="20"></icon>
+								<span v-text="userInfo.artifactCount"></span>
 							</li>
 							<li class="badges">
-								<icon type="ios-ribbon" size="20"></icon>135
+								<icon type="ios-ribbon" size="20"></icon>
+								<span v-text="userInfo.medalCount"></span>
 							</li>
 						</ul>
 					</div>
 				</i-col>
 				<i-col :xs="0" :sm="{span:17,offset:6}" :md="{span:18,offset:5}" :lg="{span:18,offset:5}">
 					<ul class="project_info">
-						<li class="de_borderbox">
-							<a href="#" class="de_entity_link">
-								<img src="http://pinwall.fzcloud.design-engine.org/4705/7641900251635.png?imageMogr2/thumbnail/400x400" alt="">
-							</a>
-						</li>
-						<li class="de_borderbox">
-							<a href="#" class="de_entity_link">
-								<img src="http://pinwall.fzcloud.design-engine.org/4705/7641900251635.png?imageMogr2/thumbnail/400x400">
+						<li class="de_borderbox" v-for="item in headDataList">
+							<a :href="'/project/' + item.Id" class="de_entity_link">
+								<img :src="item.profileImage">
 							</a>
 						</li>
 					</ul>
@@ -66,43 +64,37 @@
 				</i-col>
 			</row>
 		</div>
-		<p class="topic_description">湖南大学设计艺术学院官方小喇叭</p>
+		<p class="topic_description"></p>
 
 		<ul class="de_project_grid">
 			<row>
-				<i-col :xs="24" :sm="12" :md="8" :lg="8">
+				<i-col :xs="24" :sm="12" :md="8" :lg="8" v-for="item in dataList">
 					<li class="de_card_m">
 						<div class="user_info">
-							<a href="#">
-								<img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
-								<p class="name">立秋</p>
-								<p class="date">2018-10-27</p>
+							<a :href="'/project/'+item.Id">
+								<img class="photo" :src="userInfo.avatarUrl ? userInfo.avatarUrl : 'http://pinwall.design-engine.org/images/default_profile.jpg'" alt="">
+								<p class="name" v-text="item.user.fullname"></p>
+								<p class="date" v-text="item.createAt.split('T')[0]"></p>
 							</a>
 						</div>
 						<div class="project_info">
-							<a href="#">
-								<img class="thumb" src="http://pinwall.fzcloud.design-engine.org/5112/10784586692236.jpg?imageMogr2/thumbnail/400x400" alt="">
-								<h4>速写</h4>
+							<a :href="'/project/'+item.Id">
+								<img class="thumb" :src="item.profileImage" alt="">
+								<h4 v-text="item.name"></h4>
 							</a>
 						</div>
 						<div class="de_stats_tags_p">
 							<div class="badges" title="勋章">
 								<icon type="ios-ribbon" style="font-size: 20px;" color="#999"></icon>
-								<span>
-									11
-								</span>
+								<span v-text="item.medalCount"></span>
 							</div>
 							<div class="likes" title="赞">
 								<icon type="ios-thumbs-up" style="font-size: 20px;" color="#999"></icon>
-								<span>
-									11
-								<span>
+								<span v-text="item.likeCount"></span>
 							</div>
 							<div class="comments" title="评论">
 								<icon type="md-text" style="font-size: 20px;" color="#999"></icon>
-								<span>
-									11
-								</span>
+								<span v-text="item.commentCount"></span>
 							</div>
 						</div>
 					</li>
@@ -114,7 +106,8 @@
 {% endblock %}
 
 {% block jsfolder %}
-	<script type="text/javascript" src="public/js/lib/vue.min.js"></script>
-	<script type="text/javascript" src="public/js/lib/iview.min.js"></script>
-	<script type="text/javascript" src="public/js/src/users.js"></script>
+	<script type="text/javascript" src="../public/js/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="../public/js/lib/vue.min.js"></script>
+	<script type="text/javascript" src="../public/js/lib/iview.min.js"></script>
+	<script type="text/javascript" src="../public/js/src/users.js"></script>
 {% endblock %}

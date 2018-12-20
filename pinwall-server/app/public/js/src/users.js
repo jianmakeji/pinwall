@@ -2,13 +2,20 @@ var index = new Vue({
     el: '.index',
     data(){
         return{
-            userId:"1",
 
-            screenWidth:"",
+            aoData:{limit:12,offset:0,userId:0,jobTag:1},
+            userInfo:{userName:"",userTotal:""},
+            headDataList:[],
+            dataList:[],
             containerStyle:{
                 minHeight:""
             },
-            dataList:[],
+            spinShow:true,
+            scrollModel:true,
+
+
+            screenWidth:"",
+            userId:"1",
 
             // 搜索弹出层
             searchModel:false,  /* 搜索弹出层model */
@@ -94,10 +101,20 @@ var index = new Vue({
     		var timeStamp = '?' + new Date().getTime() + 'r' + Math.random();
     		this.imgSrc = "user/getCode"+timeStamp;
         },
+        userManager(){
+
+        },
+        workManager(){
+
+        },
+        commentManager(){
+
+        }
     },
     created(){
         this.screenWidth = document.documentElement.clientWidth;
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
+        this.aoData.userId = window.location.href.split("users/")[1];
         if(document.documentElement.clientWidth > 1200){
             this.modelWidth = "60%";
         }else if(document.documentElement.clientWidth < 1200){
@@ -105,5 +122,52 @@ var index = new Vue({
         }else if(document.documentElement.clientWidth < 992){
             this.modelWidth = "80%";
         }
+        this.$Loading.start();
+        let that = this;
+        $.ajax({
+            url: '/website/artifacts/getPersonalJobByUserId',
+            type: 'GET',
+            data: this.aoData,
+            success:function(res){
+                if (res.status == 200) {
+                    that.$Loading.finish();
+                    that.spinShow = false;
+                    that.userInfo = res.data.rows[0].user;
+                    that.userInfo.createAt = that.userInfo.createAt.split("T")[0] + " 注册";
+                    that.dataList = res.data.rows;
+                    that.headDataList = res.data.rows;
+                    if (that.dataList.length == res.data.count) {
+                        that.scrollModel = false;
+                    }
+                    console.log(res,that.dataList,that.userInfo);
+                }
+            }
+        })
     }
 })
+
+$(document).ready(function() {
+    $('html,body').animate({scrollTop:0});                          //每次刷新界面滚动条置顶
+    $(window).scroll(function() {                                   //滚动加载数据
+        if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
+            index.aoData.offset += 12;
+            index.$Loading.start();
+            index.spinShow = true;
+            $.ajax({
+                url: '/website/artifacts/getPersonalJobByUserId',
+                type: 'GET',
+                data: index.aoData,
+                success:function(res){
+                    if (res.status == 200) {
+                        index.$Loading.finish();
+                        index.spinShow = false;
+                        index.dataList = index.dataList.concat(res.data.rows);
+                        if (index.dataList.length == res.data.count) {
+                            index.scrollModel = false;
+                        }
+                    }
+                }
+            })
+        }
+    })
+});
