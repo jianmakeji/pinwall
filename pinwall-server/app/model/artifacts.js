@@ -174,7 +174,7 @@ module.exports = app => {
         model: app.model.ArtifactAssets
       },{
         model: app.model.Users,
-        attributes:['Id','fullname']
+        attributes:['Id','fullname','commentCount','artifactCount','medalCount','likeCount','createAt']
       }],
       where:{
         userId:userId,
