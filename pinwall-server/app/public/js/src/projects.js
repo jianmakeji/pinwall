@@ -43,6 +43,7 @@ var projects = new Vue({
             data: this.aoData,
             success:function(res){
                 if (res.status == 200) {
+                    that.$Loading.finish();
                     that.dataList = res.data.rows;
                     if (that.dataList.length == res.data.count) {
                         that.scrollModel = false;
@@ -78,4 +79,13 @@ $(document).ready(function() {
             })
         }
     })
+
+    $(".attach_figure").each(function(i) {
+        $(".attach_figure").mouseover(function() {
+            $(this).children("button").addClass('ivu-btn-success').removeClass('ivu-btn-default');
+        });
+        $(".attach_figure").mouseleave(function() {
+            $(this).children("button").addClass('ivu-btn-default').removeClass('ivu-btn-success');
+        });
+    });
 });

@@ -67,8 +67,8 @@
 	            <div class="main_content">
 					{% for item in data.artifact_assets %}
 						{% if item.viewUrl %}
-							<figure>
-								<i-button shape="circle" icon="md-arrow-dropright-circle" size="large" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
+							<figure class="attach_figure">
+								<i-button shape="circle" icon="md-arrow-dropright-circle" type="default" size="large" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
 								<a href="{{item.mediaFile}}" target="_blank">
 									<img src="{{item.profileImage}}" alt="">
 								</a>
