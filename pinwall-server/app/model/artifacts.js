@@ -148,6 +148,50 @@ module.exports = app => {
 
     if (visible != -1){
       condition.where.visible = visible;
+      countCondition.where.visible = visible;
+    }
+
+    let result = {};
+    result.rows = await this.findAll(condition);
+    result.count = await this.count(countCondition);
+    return result;
+  }
+
+  Artifacts.getPersonalJobByUserId = async function({
+    offset = 0,
+    limit = 10,
+    userId = 0,
+    jobTag = 0
+  }) {
+
+    let condition = {
+      offset,
+      limit,
+      order: [
+        ['createAt', 'desc']
+      ],
+      include: [{
+        model: app.model.ArtifactAssets
+      },{
+        model: app.model.Users,
+        attributes:['Id','fullname']
+      }],
+      where:{
+        userId:userId,
+        visible:0
+      }
+    };
+
+    let countCondition = {
+      where:{
+        userId:userId,
+        visible:0
+      }
+    };
+
+    if (jobTag != 0) {
+      condition.where.jobTag = jobTag;
+      countCondition.where.jobTag = jobTag;
     }
 
     let result = {};

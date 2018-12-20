@@ -65,7 +65,12 @@ class HomeController extends BaseController {
 
   async users(){
     const ctx = this.ctx;
-    await ctx.render('users.html');
+    try{
+      await ctx.render('users.html');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async userManager(){

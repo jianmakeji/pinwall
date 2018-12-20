@@ -86,6 +86,24 @@ class ArtifactsController extends BaseController{
       super.failure(e.message);
     }
   }
+
+  async getPersonalJobByUserId() {
+    const ctx = this.ctx;
+    const query = {
+      limit: ctx.helper.parseInt(ctx.query.limit),
+      offset: ctx.helper.parseInt(ctx.query.offset),
+      userId: ctx.helper.parseInt(ctx.query.userId),
+      jobTag: ctx.helper.parseInt(ctx.query.jobTag),
+    };
+
+    try{
+      const result = await ctx.service.artifacts.getPersonalJobByUserId(query);
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
 }
 
 module.exports = ArtifactsController;

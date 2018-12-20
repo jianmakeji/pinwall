@@ -60,6 +60,10 @@ class Artifacts extends Service {
     }
     return result;
   }
+
+  async getPersonalJobByUserId(query) {
+    return await this.ctx.model.Artifacts.getPersonalJobByUserId(query);
+  }
 }
 
 module.exports = Artifacts;

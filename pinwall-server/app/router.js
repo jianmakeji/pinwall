@@ -15,7 +15,7 @@ module.exports = app => {
   router.get('/project/:id', controller.home.project);
   router.get('/topics', controller.home.topics);
   router.get('/topicsAbout', controller.home.topicsAbout);
-  router.get('/users', controller.home.users);
+  router.get('/users/:id', controller.home.users);
   router.get('/userManager', controller.home.userManager);
   router.get('/workManager', controller.home.workManager);
   router.get('/commentManager', controller.home.commentManager);
@@ -26,6 +26,8 @@ module.exports = app => {
 
   //自定义接口
   router.get('/website/artifacts/getMedalDataByRandom/:limit', controller.website.artifacts.getMedalDataByRandom);
+  router.get('/website/artifacts/getPersonalJobByUserId',controller.website.artifacts.getPersonalJobByUserId);
+
   router.get('/website/artifactScores/findByArtifactIdWithPage', controller.website.artifactScores.findByArtifactIdWithPage);
   router.get('/website/artifactScores/findByScorerIdWithPage', controller.website.artifactScores.findByScorerIdWithPage);
 
