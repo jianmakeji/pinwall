@@ -23,6 +23,11 @@ exports.passport = {
   package: 'egg-passport',
 };
 
+exports.elasticsearch = {
+  enable: true,
+  package: 'egg-elasticsearch',
+};
+
 // exports.passportWeixin = {
 //   enable: true,
 //   package: 'egg-passport-weixin',

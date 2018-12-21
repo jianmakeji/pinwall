@@ -32,6 +32,20 @@ module.exports = appInfo => {
     },
   };
 
+  config.elasticsearch = {
+   app: true,
+   client: {
+        host: [
+          {
+            host: '192.168.3.110',
+            auth: 'pinwall:pinwall@1221',
+            protocol: 'http',
+            port: 9200
+          }
+        ]
+      }
+  };
+
   config.security = {
     csrf:{
       enable:false,

@@ -313,5 +313,22 @@ module.exports = app => {
     });
   }
 
+  Artifacts.transferArtifacts = async function() {
+
+    let condition = {
+      order: [
+        ['createAt', 'desc']
+      ],
+      include: [{
+        model: app.model.Users,
+        attributes:['Id','fullname']
+      }]
+    };
+
+
+    let result  = await this.findAll(condition);
+    return result;
+  }
+
   return Artifacts;
 };
