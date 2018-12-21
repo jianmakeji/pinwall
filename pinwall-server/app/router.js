@@ -39,6 +39,7 @@ module.exports = app => {
   router.put('website.users.updateAcviveByUserId', '/website/users/updateAcviveByUserId/:id', controller.website.users.updateAcviveByUserId);
 
   router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
+  router.get('website.topics.getTopicAndArtifactById', '/website/topics/getTopicAndArtifactById', controller.website.topics.getTopicAndArtifactById);
 
   //网站接口
   router.resources('website.users', '/website/users', controller.website.users);

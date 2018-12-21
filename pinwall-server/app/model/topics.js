@@ -128,6 +128,50 @@ module.exports  = app => {
     return result;
   }
 
+  Topics.getTopicAndArtifactById = async function ({ offset = 0, limit = 10, topicId = 0 }) {
+
+    let condition = {
+      order: [[ 'createAt', 'desc' ]],
+      where:{
+        Id:topicId
+      },
+      include:[
+        {
+          model: app.model.Users,
+          attributes:['Id','email','fullname','nickname','avatarUrl']
+        },{
+          model: app.model.Artifacts,
+          through:{
+            attributes:['topicId','artifactId'],
+          },
+          attributes:['Id','profileImage']
+        }
+      ]
+    };
+
+    let resultData = await this.findAll(condition);
+    const artifactSize = resultData[0].artifacts.length;
+
+    let tempArray = [];
+
+    if (artifactSize >= (limit + offset)){
+      tempArray = resultData[0].artifacts.slice(offset,limit);
+    }
+    else{
+      tempArray = resultData[0].artifacts.slice(offset,artifactSize);
+    }
+
+    resultData[0].artifacts.length = 0;
+    tempArray.forEach((artifact, index)=>{
+      resultData[0].artifacts.push(artifact);
+    });
+
+    let result = {};
+    result.rows = resultData[0];
+    result.count = artifactSize;
+    return result;
+  }
+
   Topics.findTopicById = async function (Id) {
     const topic = await this.findById(Id);
     if (!topic) {

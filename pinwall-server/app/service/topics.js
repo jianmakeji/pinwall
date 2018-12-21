@@ -33,6 +33,14 @@ class Topics extends Service {
     return topic;
   }
 
+  async getTopicAndArtifactById({ offset = 0, limit = 10, topicId = 0 }) {
+    const topic = await this.ctx.model.Topics.getTopicAndArtifactById({
+      offset,
+      limit,
+      topicId
+    });
+    return topic;
+  }
 }
 
 module.exports = Topics;
