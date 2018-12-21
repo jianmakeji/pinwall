@@ -59,6 +59,3 @@ typings/
 
 # next.js build output
 .next
-pinwall-server/config/config.default.js
-pinwall-server/package.json
-pinwall-server/config/config.default.js
