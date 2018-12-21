@@ -141,6 +141,10 @@ module.exports  = app => {
           attributes:['Id','email','fullname','nickname','avatarUrl']
         },{
           model: app.model.Artifacts,
+          include:[{
+            model:app.model.Users,
+            attributes:['Id','fullname','avatarUrl','commentCount','artifactCount','medalCount','likeCount','createAt']
+          }],
           through:{
             attributes:['topicId','artifactId'],
           },
