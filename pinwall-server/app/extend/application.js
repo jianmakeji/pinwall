@@ -24,10 +24,11 @@ module.exports = {
   wx_secret: '8c05c4d7e9970ca9cd1520fd8b857572',
   wx_appid: 'wx781d229c4c3bd932',
 
-  courseImagePath:'courseImages/',
-  courseVideoPath:'courseVideos/',
-  articleImagePath: 'articleImages/',
-  qrCodePath: 'qrCode/',
+  imagePath: 'images/',
+  othersPath: 'others/',
+  pdfPath: 'pdf/',
+  rar_zipPath: 'rar_zip/',
+  videoPath: 'video',
 
   email_host:'smtp.qq.com',
   email_user:'',

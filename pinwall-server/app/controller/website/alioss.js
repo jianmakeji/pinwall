@@ -13,15 +13,22 @@ class AliOSSController extends BaseController {
     const aliConfigObj = ctx.app.aliConfig();
 
     const fileType = ctx.params.fileType;
+    
     let dir = '';
     if (fileType == 1){
-      dir = ctx.app.courseImagePath;
+      dir = ctx.app.imagePath;
     }
     else if (fileType == 2){
-      dir = ctx.app.courseVideoPath;
+      dir = ctx.app.pdfPath;
     }
     else if (fileType == 3){
-      dir = ctx.app.articleImagePath;
+      dir = ctx.app.rar_zipPath;
+    }
+    else if (fileType == 4){
+      dir = ctx.app.videoPath;
+    }
+    else{
+      dir = ctx.app.othersPath;
     }
 
     let host = "http://" + aliConfigObj.bucket + "." + aliConfigObj.endpoint;
