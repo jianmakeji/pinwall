@@ -148,7 +148,7 @@ module.exports  = app => {
           through:{
             attributes:['topicId','artifactId'],
           },
-          attributes:['Id','profileImage']
+          attributes:['Id','profileImage','name','medalCount','likeCount','commentCount','createAt']
         }
       ]
     };
