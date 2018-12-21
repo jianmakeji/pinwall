@@ -93,6 +93,11 @@ class HomeController extends BaseController {
     await ctx.render('commentManager.html');
   }
 
+  async topicsUpdate(){
+    const ctx = this.ctx;
+    await ctx.render('topicsUpdate.html');
+  }
+
   async children(){
     const ctx = this.ctx;
     await ctx.render('children.html');

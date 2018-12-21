@@ -2,14 +2,15 @@ var index = new Vue({
     el: '.index',
     data(){
         return{
-            aoData:{limit:12,offset:0,userId:0,jobTag:1},
-            userInfo:{userName:"",userTotal:""},
+            aoData:{limit:12,offset:0,topicId:0},
             headDataList:[],
+            uploadTotal:"",
             dataList:[],
+            headInfo:{fullname:"",date:"",name:"",count:""},
             containerStyle:{
                 minHeight:""
             },
-            spinShow:false,
+            spinShow:true,
             scrollModel:true,
 
 
@@ -113,7 +114,7 @@ var index = new Vue({
     created(){
         this.screenWidth = document.documentElement.clientWidth;
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
-        this.aoData.userId = window.location.href.split("users/")[1];
+        this.aoData.topicId = window.location.href.split("workFolder/")[1];
         if(document.documentElement.clientWidth > 1200){
             this.modelWidth = "60%";
         }else if(document.documentElement.clientWidth < 1200){
@@ -121,52 +122,61 @@ var index = new Vue({
         }else if(document.documentElement.clientWidth < 992){
             this.modelWidth = "80%";
         }
-        // this.$Loading.start();
+        this.$Loading.start();
         let that = this;
-        // $.ajax({
-        //     url: '/website/topics/getPersonalJobByUserId',
-        //     type: 'GET',
-        //     data: this.aoData,
-        //     success:function(res){
-        //         if (res.status == 200) {
-        //             that.$Loading.finish();
-        //             that.spinShow = false;
-        //             that.userInfo = res.data.rows[0].user;
-        //             that.userInfo.createAt = that.userInfo.createAt.split("T")[0] + " 注册";
-        //             that.dataList = res.data.rows;
-        //             that.headDataList = res.data.rows;
-        //             if (that.dataList.length == res.data.count) {
-        //                 that.scrollModel = false;
-        //             }
-        //             console.log(res,that.dataList,that.userInfo);
-        //         }
-        //     }
-        // })
+        $.ajax({
+            url: '/website/topics/getTopicAndArtifactById',
+            type: 'GET',
+            data: this.aoData,
+            success:function(res){
+                console.log(res.data);
+                if (res.status == 200) {
+                    that.$Loading.finish();
+                    that.spinShow = false;
+
+                    that.dataList = res.data.rows.artifacts;
+                    that.headDataList = res.data.rows.artifacts;
+                    that.uploadTotal = res.count;
+
+                    that.headInfo.avatarUrl = res.data.rows.user.avatarUrl;
+                    that.headInfo.fullname = res.data.rows.user.fullname;
+                    that.headInfo.date = res.data.rows.createAt.split("T")[0] + " 发布";
+                    that.headInfo.name = res.data.rows.name;
+                    that.headInfo.count = res.data.count;
+
+                    if (that.dataList.length == res.data.count) {
+                        that.scrollModel = false;
+                    }
+                }
+            }
+        })
     }
 })
 
-// $(document).ready(function() {
-//     $('html,body').animate({scrollTop:0});                          //每次刷新界面滚动条置顶
-//     $(window).scroll(function() {                                   //滚动加载数据
-//         if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
-//             index.aoData.offset += 12;
-//             index.$Loading.start();
-//             index.spinShow = true;
-//             $.ajax({
-//                 url: '/website/artifacts/getPersonalJobByUserId',
-//                 type: 'GET',
-//                 data: index.aoData,
-//                 success:function(res){
-//                     if (res.status == 200) {
-//                         index.$Loading.finish();
-//                         index.spinShow = false;
-//                         index.dataList = index.dataList.concat(res.data.rows);
-//                         if (index.dataList.length == res.data.count) {
-//                             index.scrollModel = false;
-//                         }
-//                     }
-//                 }
-//             })
-//         }
-//     })
-// });
+$(document).ready(function() {
+    $('html,body').animate({scrollTop:0});                          //每次刷新界面滚动条置顶
+    $(window).scroll(function() {                                   //滚动加载数据
+        if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
+            index.aoData.offset += 12;
+            index.$Loading.start();
+            index.spinShow = true;
+            $.ajax({
+                url: '/website/topics/getTopicAndArtifactById',
+                type: 'GET',
+                data: index.aoData,
+                success:function(res){
+                    console.log("--------------",res.data.rows);
+                    if (res.status == 200) {
+                        index.$Loading.finish();
+                        index.spinShow = false;
+                        index.dataList = index.dataList.concat(res.data.rows.artifacts);
+                        console.log(index.dataList);
+                        if (index.dataList.length == res.data.count) {
+                            index.scrollModel = false;
+                        }
+                    }
+                }
+            })
+        }
+    })
+});

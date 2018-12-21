@@ -2,17 +2,17 @@ var index = new Vue({
     el: '.index',
     data(){
         return{
-            userId:"1",
-            drawerShow:false,
-            modelWidth:"",
-            containerStyle:{
-                // background: "#2DB7F5",
-                width: "100%",
-                height: "500px",
-                marginTop:"",
-                overflow: "hidden",
-                position: "relative",
+            formItem:{
+                input:""
             },
+            containerStyle:{
+                minHeight:""
+            },
+            spinShow:false,
+
+            screenWidth:"",
+            userId:"1",
+
             // 搜索弹出层
             searchModel:false,  /* 搜索弹出层model */
             searchModelValue:"",    /*搜索内容*/
@@ -37,11 +37,20 @@ var index = new Vue({
             resetInfoModel:false,
             // 修改密码弹出层
             resetPwdModel:false,
+            //右侧抽屉
+            drawerShow:false,
 
-            dataList:[]
+            imgSrc:"user/getCode",	//图片验证码路径
         }
     },
     methods: {
+
+        deleteLabel(index){
+            
+        },
+        openModel(){
+            this.searchModel = true;
+        },
         // 打开search弹出层
         openModel(){
             console.log("openModel");
@@ -84,43 +93,42 @@ var index = new Vue({
             this.loginModel = false;
             this.registerModel = true;
         },
-        tapClick() {
-            var timeStamp = '?' + new Date().getTime() + 'r' + Math.random();
-            this.imgSrc = "user/getCode"+timeStamp;
+    	tapClick() {
+    		var timeStamp = '?' + new Date().getTime() + 'r' + Math.random();
+    		this.imgSrc = "user/getCode"+timeStamp;
+        },
+        userManager(){
+
+        },
+        workManager(){
+
+        },
+        commentManager(){
+
         }
     },
     created(){
-        this.$Loading.start();
-        this.containerStyle.marginTop = (document.documentElement.clientHeight - 100 - 500 - 50 ) / 2 + "px";
+        this.screenWidth = document.documentElement.clientWidth;
+        this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
         if(document.documentElement.clientWidth > 1200){
-            this.modelWidth = "768px";
+            this.modelWidth = "60%";
         }else if(document.documentElement.clientWidth < 1200){
             this.modelWidth = "70%";
         }else if(document.documentElement.clientWidth < 992){
             this.modelWidth = "80%";
         }
-
-        var that = this;
-        this.$http({
-            url: config.ajaxUrls.getIndexData,
-            method:"GET",
-            params:{
-                num:12
-            }
-        }).then(function(res){
-            console.log("--------",res.body[0]);
-            if (res.status == 200) {
-                that.$Loading.finish();
-                that.dataList = res.body;
-                for(let i=0; i < that.dataList.length; i++){
-                    that.dataList[i].createAt = that.dataList[i].createAt.split("T")[0];
-                    if(that.dataList[i].user.avatarUrl == null){
-                        that.dataList[i].user.avatarUrl = "http://pinwall.design-engine.org/images/default_profile.jpg";
-                    }
-                }
-            }
-        },function(err){
-            that.$Loading.error();
-        })
     }
 })
+
+$(document).ready(function() {
+    $('#label_formitem button').each(function() {
+        $(this).hover(function(event) {
+            $(this).addClass("ivu-btn-error").removeClass("ivu-btn-success");
+            $(this).children("i").addClass("ivu-icon-md-close").removeClass("ivu-icon-ios-brush");
+        });
+        $(this).mouseleave(function(event) {
+            $(this).addClass("ivu-btn-success").removeClass("ivu-btn-error");
+            $(this).children("i").addClass("ivu-icon-ios-brush").removeClass("ivu-icon-md-close");
+        });
+    });
+});

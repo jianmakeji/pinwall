@@ -65,14 +65,20 @@
 					</i-col>
 					<i-col :xs="0" :sm="1" :md="1" :lg="1">
 						<ul :class="{topic_action:!item.status, topic_closed:item.status}">
-							<li class="de_topic_action_view">
-								<i-button type="checkCloseType" shape="circle" icon="md-cloud-upload" @click="checkClose"></i-button>
+							<li class="de_topic_action_view" v-if="item.status == 1">
+								<i-button type="checkCloseType" size="large" shape="circle" icon="md-eye" @click="checkThisTopic(item.Id)" title="查看"></i-button>
+							</li>
+							<li class="de_topic_action_view" v-if="item.status == 1">
+								<i-button type="checkCloseType" size="large" shape="circle" icon="md-lock" @click="checkThisTopic(item.Id)" title="锁定"></i-button>
+							</li>
+							<li class="de_topic_action_view" v-if="item.status == 0">
+								<i-button type="checkCloseType" size="large" shape="circle" icon="md-cloud-upload" @click="uploadToTopic(item.Id)" title="上传"></i-button>
+							</li>
+							<li class="de_topic_action_view" v-if="item.status == 0">
+								<i-button type="checkCloseType" size="large" shape="circle" icon="md-unlock" @click="checkThisTopic(item.Id)" title="解锁"></i-button>
 							</li>
 							<li class="de_topic_action_view">
-								<i-button type="checkCloseType" shape="circle" icon="md-cloud-upload" @click="checkClose"></i-button>
-							</li>
-							<li class="de_topic_action_view">
-								<i-button type="checkCloseType" shape="circle" icon="md-cloud-upload" @click="checkClose"></i-button>
+								<i-button type="checkCloseType" size="large" shape="circle" icon="ios-cog" @click="checkThisTopic(item.Id)" title="设置"></i-button>
 							</li>
 						</ul>
 					</i-col>
