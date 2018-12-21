@@ -159,7 +159,7 @@ module.exports  = app => {
     let tempArray = [];
 
     if (artifactSize >= (limit + offset)){
-      tempArray = resultData[0].artifacts.slice(offset,limit);
+      tempArray = resultData[0].artifacts.slice(offset,limit + offset);
     }
     else{
       tempArray = resultData[0].artifacts.slice(offset,artifactSize);
