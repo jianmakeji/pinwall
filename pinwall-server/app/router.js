@@ -16,6 +16,7 @@ module.exports = app => {
   router.get('/topics', controller.home.topics);
   router.get('/topicsAbout', controller.home.topicsAbout);
   router.get('/users/:id', controller.home.users);
+  router.get('/workFolder', controller.home.workFolder);
   router.get('/userManager', controller.home.userManager);
   router.get('/workManager', controller.home.workManager);
   router.get('/commentManager', controller.home.commentManager);

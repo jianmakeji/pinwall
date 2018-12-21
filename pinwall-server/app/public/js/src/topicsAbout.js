@@ -212,7 +212,7 @@ function getData(that, aoData){
         if( res.body.status == 200){
             that.$Loading.finish();
             console.log("初始化加载数据", res);
-            that.dataList = res.body.data.rows;
+            that.dataList = that.dataList.concat(res.body.data.rows);
             if (that.dataList.length == res.body.data.count) {
                 that.scrollModel = false;
             }

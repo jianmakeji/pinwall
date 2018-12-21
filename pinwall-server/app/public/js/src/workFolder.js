@@ -2,7 +2,6 @@ var index = new Vue({
     el: '.index',
     data(){
         return{
-
             aoData:{limit:12,offset:0,userId:0,jobTag:1},
             userInfo:{userName:"",userTotal:""},
             headDataList:[],
@@ -10,7 +9,7 @@ var index = new Vue({
             containerStyle:{
                 minHeight:""
             },
-            spinShow:true,
+            spinShow:false,
             scrollModel:true,
 
 
@@ -122,52 +121,52 @@ var index = new Vue({
         }else if(document.documentElement.clientWidth < 992){
             this.modelWidth = "80%";
         }
-        this.$Loading.start();
+        // this.$Loading.start();
         let that = this;
-        $.ajax({
-            url: '/website/artifacts/getPersonalJobByUserId',
-            type: 'GET',
-            data: this.aoData,
-            success:function(res){
-                if (res.status == 200) {
-                    that.$Loading.finish();
-                    that.spinShow = false;
-                    that.userInfo = res.data.rows[0].user;
-                    that.userInfo.createAt = that.userInfo.createAt.split("T")[0] + " 注册";
-                    that.dataList = res.data.rows;
-                    that.headDataList = res.data.rows;
-                    if (that.dataList.length == res.data.count) {
-                        that.scrollModel = false;
-                    }
-                    console.log(res,that.dataList,that.userInfo);
-                }
-            }
-        })
+        // $.ajax({
+        //     url: '/website/topics/getPersonalJobByUserId',
+        //     type: 'GET',
+        //     data: this.aoData,
+        //     success:function(res){
+        //         if (res.status == 200) {
+        //             that.$Loading.finish();
+        //             that.spinShow = false;
+        //             that.userInfo = res.data.rows[0].user;
+        //             that.userInfo.createAt = that.userInfo.createAt.split("T")[0] + " 注册";
+        //             that.dataList = res.data.rows;
+        //             that.headDataList = res.data.rows;
+        //             if (that.dataList.length == res.data.count) {
+        //                 that.scrollModel = false;
+        //             }
+        //             console.log(res,that.dataList,that.userInfo);
+        //         }
+        //     }
+        // })
     }
 })
 
-$(document).ready(function() {
-    $('html,body').animate({scrollTop:0});                          //每次刷新界面滚动条置顶
-    $(window).scroll(function() {                                   //滚动加载数据
-        if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
-            index.aoData.offset += 12;
-            index.$Loading.start();
-            index.spinShow = true;
-            $.ajax({
-                url: '/website/artifacts/getPersonalJobByUserId',
-                type: 'GET',
-                data: index.aoData,
-                success:function(res){
-                    if (res.status == 200) {
-                        index.$Loading.finish();
-                        index.spinShow = false;
-                        index.dataList = index.dataList.concat(res.data.rows);
-                        if (index.dataList.length == res.data.count) {
-                            index.scrollModel = false;
-                        }
-                    }
-                }
-            })
-        }
-    })
-});
+// $(document).ready(function() {
+//     $('html,body').animate({scrollTop:0});                          //每次刷新界面滚动条置顶
+//     $(window).scroll(function() {                                   //滚动加载数据
+//         if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
+//             index.aoData.offset += 12;
+//             index.$Loading.start();
+//             index.spinShow = true;
+//             $.ajax({
+//                 url: '/website/artifacts/getPersonalJobByUserId',
+//                 type: 'GET',
+//                 data: index.aoData,
+//                 success:function(res){
+//                     if (res.status == 200) {
+//                         index.$Loading.finish();
+//                         index.spinShow = false;
+//                         index.dataList = index.dataList.concat(res.data.rows);
+//                         if (index.dataList.length == res.data.count) {
+//                             index.scrollModel = false;
+//                         }
+//                     }
+//                 }
+//             })
+//         }
+//     })
+// });

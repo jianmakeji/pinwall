@@ -73,6 +73,11 @@ class HomeController extends BaseController {
     }
   }
 
+  async workFolder(){
+    const ctx = this.ctx;
+    await ctx.render('workFolder.html');
+  }
+
   async userManager(){
     const ctx = this.ctx;
     await ctx.render('userManager.html');

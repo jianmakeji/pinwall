@@ -41,7 +41,7 @@
 					<i-col :xs="12" :sm="4" :md="4" :lg="4">
 						<div class="topic_info">
 							<p class="created_date" v-text="item.createAt"></p>
-							<a :href="'topics/'+item.Id">
+							<a :href="'users/'+item.Id">
 								<p class="topic_title" v-text="item.name"></p>
 							</a>
 							<ul class="de_stats_tags">
@@ -55,7 +55,7 @@
 					<i-col :xs="0" :sm="{span:15,offset:8}" :md="{span:17,offset:6}" :lg="{span:18,offset:5}">
 						<ul class="project_info">
 							<li class="de_borderbox" v-for="subItem in item.artifacts">
-								<a href="#" class="de_entity_link">
+								<a :href="'project/'+subItem.Id" class="de_entity_link">
 									<img :src="subItem.profileImage">
 								</a>
 							</li>

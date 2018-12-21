@@ -3,7 +3,7 @@
 {% block cssfolder %}
 	<link rel="stylesheet" type="text/css" href="../public/css/src/base.css"/>
 	<link rel="stylesheet" type="text/css" href="../public/css/lib/iview.css">
-	<link rel="stylesheet" type="text/css" href="../public/css/src/users.css"/>
+	<link rel="stylesheet" type="text/css" href="../public/css/src/workFolder.css"/>
 {% endblock %}
 
 {% block head_btn %}
@@ -20,35 +20,35 @@
 				<i-col :xs="12" :sm="2" :md="1" :lg="1">
 					<div class="user_info">
 						<a>
-							<img :src="userInfo.avatarUrl ? userInfo.avatarUrl : 'http://pinwall.design-engine.org/images/default_profile.jpg'" alt="">
-							<p class="name" v-text="userInfo.fullname"></p>
+							<img src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+							<p class="name" >111fullname</p>
 						</a>
 					</div>
 
 				</i-col>
 				<i-col :xs="12" :sm="4" :md="4" :lg="4">
 					<div class="topic_info">
-						<p class="created_date" v-text="userInfo.createAt"></p>
+						<p class="created_date" >userInfocreateAt</p>
 						<a>
-							<p class="topic_title" v-text="userInfo.fullname + '的作品集'"></p>
+							<p class="topic_title" >12</p>
 						</a>
 						<ul class="de_stats_tags">
 							<li class="uploads">
 								<icon type="ios-cloud-upload" size="20"></icon>
-								<span v-text="userInfo.artifactCount"></span>
+								<span >123</span>
 							</li>
 							<li class="badges">
 								<icon type="ios-ribbon" size="20"></icon>
-								<span v-text="userInfo.medalCount"></span>
+								<span >12</span>
 							</li>
 						</ul>
 					</div>
 				</i-col>
 				<i-col :xs="0" :sm="{span:17,offset:6}" :md="{span:18,offset:5}" :lg="{span:18,offset:5}">
 					<ul class="project_info">
-						<li class="de_borderbox" v-for="item in headDataList">
-							<a :href="'/project/' + item.Id" class="de_entity_link">
-								<img :src="item.profileImage">
+						<li class="de_borderbox" >
+							<a href="#" class="de_entity_link">
+								<img src="http://pinwall.design-engine.org/images/default_profile.jpg">
 							</a>
 						</li>
 					</ul>
@@ -68,33 +68,33 @@
 
 		<ul class="de_project_grid">
 			<row>
-				<i-col :xs="24" :sm="12" :md="8" :lg="8" v-for="item in dataList">
+				<i-col :xs="24" :sm="12" :md="8" :lg="8">
 					<li class="de_card_m">
 						<div class="user_info">
-							<a :href="'/project/'+item.Id">
-								<img class="photo" :src="userInfo.avatarUrl ? userInfo.avatarUrl : 'http://pinwall.design-engine.org/images/default_profile.jpg'" alt="">
-								<p class="name" v-text="item.user.fullname"></p>
-								<p class="date" v-text="item.createAt.split('T')[0]"></p>
+							<a href="#">
+								<img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+								<p class="name" >fullname</p>
+								<p class="date" >第三发的说法</p>
 							</a>
 						</div>
 						<div class="project_info">
-							<a :href="'/project/'+item.Id">
-								<img class="thumb" :src="item.profileImage" alt="">
-								<h4 v-text="item.name"></h4>
+							<a href="#">
+								<img class="thumb" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
+								<h4 >name</h4>
 							</a>
 						</div>
 						<div class="de_stats_tags_p">
 							<div class="badges" title="勋章">
 								<icon type="ios-ribbon" style="font-size: 20px;" color="#999"></icon>
-								<span v-text="item.medalCount"></span>
+								<span >12</span>
 							</div>
 							<div class="likes" title="赞">
 								<icon type="ios-thumbs-up" style="font-size: 20px;" color="#999"></icon>
-								<span v-text="item.likeCount"></span>
+								<span  >12</span>
 							</div>
 							<div class="comments" title="评论">
 								<icon type="md-text" style="font-size: 20px;" color="#999"></icon>
-								<span v-text="item.commentCount"></span>
+								<span >12</span>
 							</div>
 						</div>
 					</li>
@@ -109,5 +109,5 @@
 	<script type="text/javascript" src="../public/js/lib/jquery.min.js"></script>
 	<script type="text/javascript" src="../public/js/lib/vue.min.js"></script>
 	<script type="text/javascript" src="../public/js/lib/iview.min.js"></script>
-	<script type="text/javascript" src="../public/js/src/users.js"></script>
+	<script type="text/javascript" src="../public/js/src/workFolder.js"></script>
 {% endblock %}
