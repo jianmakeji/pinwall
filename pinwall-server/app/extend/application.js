@@ -36,6 +36,9 @@ module.exports = {
   email_send_address:'',
   email_verify_address:'',
 
+  es_index:'pinwall',
+  es_type:'artifacts',
+
   signatureUrl(objectPath,thumbName){
     const config = this.aliConfig();
     let client = new OSS({

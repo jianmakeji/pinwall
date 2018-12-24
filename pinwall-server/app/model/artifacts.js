@@ -89,10 +89,6 @@ module.exports = app => {
       sourceKey: 'Id',
       foreignKey: 'artifactId'
     });
-    Artifacts.ArtifactTerm = app.model.Artifacts.hasMany(app.model.ArtifactTerm, {
-      sourceKey: 'Id',
-      foreignKey: 'artifactId'
-    });
 
     app.model.Artifacts.belongsToMany(app.model.Topics, {
       through: {
@@ -213,6 +209,12 @@ module.exports = app => {
           attributes:['topicId','artifactId'],
         },
         attributes:['Id','name']
+      },{
+        model: app.model.Terms,
+        through:{
+          attributes:['termId','artifactId'],
+        },
+        attributes:['Id','name']
       }]
     });
     if (!artifact) {
@@ -321,7 +323,19 @@ module.exports = app => {
       ],
       include: [{
         model: app.model.Users,
-        attributes:['Id','fullname']
+        attributes:['Id','fullname','avatarUrl']
+      },{
+        model: app.model.Topics,
+        through:{
+          attributes:['topicId','artifactId'],
+        },
+        attributes:['Id','name']
+      },{
+        model: app.model.Terms,
+        through:{
+          attributes:['termId','artifactId'],
+        },
+        attributes:['Id','name']
       }]
     };
 
@@ -329,6 +343,7 @@ module.exports = app => {
     let result  = await this.findAll(condition);
     return result;
   }
+
 
   return Artifacts;
 };

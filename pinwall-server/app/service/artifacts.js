@@ -24,7 +24,9 @@ class Artifacts extends Service {
   }
 
   async update({ id, updates }) {
-    return await this.ctx.model.Artifacts.updateArtifact({ id, updates });
+     let updateObject = await this.ctx.model.Artifacts.updateArtifact({ id, updates });
+     await this.ctx.service.esUtils.updateobject(id, updates);
+     return updateObject;
   }
 
   async del(id) {
@@ -36,11 +38,8 @@ class Artifacts extends Service {
       await this.ctx.model.ArtifactAssets.delAssetsByArtifactId(id, transaction);
       await this.ctx.model.ArtifactAssets.delCommentByArtifactId(id, transaction);
       await this.ctx.model.ArtifactAssets.delArtifactTermByArtifactId(id, transaction);
-      await this.ctx.model.Users.reduceArtifact(artifact.userId, transaction);
-      await this.ctx.model.Users.reduceMedal(artifact.userId, artifact.medalCount, transaction);
-      await this.ctx.model.Users.reducelike(artifact.userId, artifact.likeCount, transaction);
-      await this.ctx.model.Users.reduceComment(artifact.userId, artifact.commentCount, transaction);
-
+      await this.ctx.model.Users.reduceAllAggData(artifact.userId, artifact.medalCount, artifact.likeCount, artifact.commentCount, transaction);
+      await this.ctx.service.esUtils.deleteObjectById(id);
       await transaction.commit();
       return true
     } catch (e) {

@@ -6,19 +6,20 @@ class SearchController extends BaseController{
 
   async searchByKeywords() {
     const ctx = this.ctx;
-    const query = {
-      limit: ctx.helper.parseInt(ctx.query.limit),
-      offset: ctx.helper.parseInt(ctx.query.offset),
-      keyword: ctx.query.keyword,
-    };
+
+    const limit = ctx.helper.parseInt(ctx.query.limit);
+    const offset = ctx.helper.parseInt(ctx.query.offset);
+    const keyword = ctx.query.keyword;
 
     try{
       let hits = await ctx.app.elasticsearch.search({
-        index: 'megacorp',
+        index: 'pinwall',
         body: {
+          from : offset,
+          size : limit,
           query: {
-            term: {
-              "about": 'albums'
+            query_string: {
+              query: keyword
             }
           }
         }
@@ -41,16 +42,9 @@ class SearchController extends BaseController{
   async transferData(){
     const ctx = this.ctx;
     let transferData = await ctx.service.artifacts.transferArtifacts();
-    for (let object of transferData){
-      console.log(object.Id);
-      await ctx.app.elasticsearch.create({
-        index: 'pinwall',
-        type: 'artifacts',
-        id: object.Id,
-        body: object
-      });
-    }
-
+    console.log(transferData.length);
+    await await ctx.service.esUtils.batchCreateObject(transferData);
+    console.log('end...');
   }
 }
 

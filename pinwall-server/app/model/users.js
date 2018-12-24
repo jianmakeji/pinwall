@@ -260,7 +260,7 @@ module.exports = app => {
 
   Users.reduceComment = async function(id,num) {
     await this.update({
-      likeCount: app.Sequelize.literal('commentCount' - num)
+      commentCount: app.Sequelize.literal('commentCount' - num)
     }, {
       where: {
         Id: id
@@ -270,6 +270,19 @@ module.exports = app => {
 
   Users.reduceArtifact = async function(id) {
     await this.update({
+      artifactCount: app.Sequelize.literal('artifactCount' - 1)
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
+
+  Users.reduceAllAggData = async function(id,medalNum,likeNum,commentNum) {
+    await this.update({
+      medalCount: app.Sequelize.literal('medalCount' - medalNum),
+      likeCount: app.Sequelize.literal('likeCount' - likeNum),
+      commentCount: app.Sequelize.literal('commentCount' - commentNum),
       artifactCount: app.Sequelize.literal('artifactCount' - 1)
     }, {
       where: {
