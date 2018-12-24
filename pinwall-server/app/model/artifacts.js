@@ -223,8 +223,9 @@ module.exports = app => {
     return artifact;
   }
 
-  Artifacts.createArtifact = async function(artifact) {
+  Artifacts.createArtifact = async function(artifact,transaction) {
     return this.create(artifact, {
+      transaction:transaction,
       include: [
         Artifacts.ArtifactAssets
       ]
@@ -242,12 +243,16 @@ module.exports = app => {
     return artifact.update(updates);
   }
 
-  Artifacts.delArtifactById = async function(id) {
-    const artifact = await this.findById(id);
+  Artifacts.delArtifactById = async function(id, transaction) {
+    const artifact = await this.findById(id,{
+      transaction:transaction
+    });
     if (!artifact) {
       throw new Error('artifact not found');
     }
-    return artifact.destroy();
+    return artifact.destroy({
+      transaction:transaction
+    });
   }
 
   Artifacts.addCommnet = async function(id) {

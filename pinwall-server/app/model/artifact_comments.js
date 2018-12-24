@@ -126,16 +126,18 @@ module.exports = app => {
     return artifact.destroy();
   }
 
-  ArtifactComments.delCommentByArtifactId = async function (artifactId) {
+  ArtifactComments.delCommentByArtifactId = async function (artifactId,transaction) {
     return this.destroy({
+      transaction:transaction,
       where : {
         artifactId:artifactId
       }
     });
   }
 
-  ArtifactComments.delCommentByCommenterId = async function (commenterId) {
+  ArtifactComments.delCommentByCommenterId = async function (commenterId,transaction) {
     return this.destroy({
+      transaction:transaction,
       where : {
         commenterId:commenterId
       }

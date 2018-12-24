@@ -60,9 +60,10 @@ module.exports = app => {
     return this.create(artifactAssets);
   }
 
-  ArtifactAssets.delAssetsByArtifactId = async function (artifactId) {
+  ArtifactAssets.delAssetsByArtifactId = async function (artifactId,transaction) {
 
     return artifact.destroy({
+      transaction:transaction,
       where:{
           artifactId:artifactId,
       },

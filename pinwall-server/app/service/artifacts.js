@@ -20,7 +20,24 @@ class Artifacts extends Service {
   }
 
   async create(artifact) {
-    return await this.ctx.model.Artifacts.createArtifact(artifact);
+    artifact.userId = 4862;
+    let transaction;
+    try {
+      transaction = await this.ctx.model.transaction();
+      const artiObj = await this.ctx.model.Artifacts.createArtifact(artifact,transaction);
+      let terms = artifact.terms;
+      for (let term of terms){
+        const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
+        await this.ctx.model.ArtifactTerm.createArtifactTerm({
+          artifactId:artiObj.Id,
+          termId:termObj.Id
+        },transaction);
+      }
+      return true
+    } catch (e) {
+      await transaction.rollback();
+      return false
+    }
   }
 
   async update({ id, updates }) {
@@ -36,8 +53,8 @@ class Artifacts extends Service {
       const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
       await this.ctx.model.Artifacts.delArtifactById(id, transaction);
       await this.ctx.model.ArtifactAssets.delAssetsByArtifactId(id, transaction);
-      await this.ctx.model.ArtifactAssets.delCommentByArtifactId(id, transaction);
-      await this.ctx.model.ArtifactAssets.delArtifactTermByArtifactId(id, transaction);
+      await this.ctx.model.ArtifactComments.delCommentByArtifactId(id, transaction);
+      await this.ctx.model.ArtifactTerm.delArtifactTermByArtifactId(id, transaction);
       await this.ctx.model.Users.reduceAllAggData(artifact.userId, artifact.medalCount, artifact.likeCount, artifact.commentCount, transaction);
       await this.ctx.service.esUtils.deleteObjectById(id);
       await transaction.commit();

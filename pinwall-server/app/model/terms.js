@@ -51,12 +51,17 @@ module.exports  = app => {
     return term;
   }
 
-  Terms.createTerm = async function (term){
-    const termObj = await this.findOne({where:{
-      name:term.name
-    }});
+  Terms.createTerm = async function (term,transaction){
+    const termObj = await this.findOne({
+      transaction:transaction,
+      where:{
+        name:term.name
+      }
+    });
     if (!termObj){
-       return this.create(term);
+       return this.create(term,{
+         transaction:transaction
+       });
     }
     else{
        return termObj;
