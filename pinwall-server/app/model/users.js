@@ -198,40 +198,44 @@ module.exports = app => {
     });
   }
 
-  Users.addCommnet = async function(id) {
+  Users.addCommnet = async function(id,transaction) {
     await this.update({
       commentCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('commentCount'))
     }, {
+      transaction:transaction,
       where: {
         Id: id
       }
     });
   }
 
-  Users.addMedal = async function(id) {
+  Users.addMedal = async function(id,transaction) {
     await this.update({
       medalCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('medalCount'))
     }, {
+      transaction:transaction,
       where: {
         Id: id
       }
     });
   }
 
-  Users.addlike = async function(id) {
+  Users.addlike = async function(id,transaction) {
     await this.update({
       likeCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('likeCount'))
     }, {
+      transaction:transaction,
       where: {
         Id: id
       }
     });
   }
 
-  Users.addArtifact = async function(id) {
+  Users.addArtifact = async function(id,transaction) {
     await this.update({
       artifactCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('artifactCount'))
     }, {
+      transaction:transaction,
       where: {
         Id: id
       }
