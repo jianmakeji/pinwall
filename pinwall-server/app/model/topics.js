@@ -201,12 +201,17 @@ module.exports  = app => {
     return await this.update(updates);
   }
 
-  Topics.delTopicById = async function (id) {
+  Topics.delTopicById = async function (id,transaction) {
     const topic = await this.findById(id);
     if (!topic) {
       throw new Error('topic not found');
     }
-    return await this.destroy();
+    return await this.destroy({
+      transaction:transaction,
+      where:{
+        Id:id
+      }
+    });
   }
 
   return Topics;

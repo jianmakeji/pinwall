@@ -25,5 +25,14 @@ module.exports = app => {
     tableName: 'topic_term'
   });
 
+  TopicTerm.delTopicTermByTopicId = async function (topicId,transaction) {
+    return this.destroy({
+      transaction:transaction,
+      where : {
+        topicId:topicId
+      }
+    });
+  }
+
   return TopicTerm;
 };

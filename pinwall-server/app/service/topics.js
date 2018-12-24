@@ -29,8 +29,16 @@ class Topics extends Service {
   }
 
   async del(id) {
-    const topic = await this.ctx.model.Topics.delTopicById(id);
-    return topic;
+    let transaction;
+    try {
+      transaction = await this.ctx.model.transaction();
+      await this.ctx.model.Topics.delTopicById(id,transaction);
+      await this.ctx.model.TopicTerm.delTopicTermByTopicId(id,transaction);
+      return true
+    } catch (e) {
+      await transaction.rollback();
+      return false
+    }
   }
 
   async getTopicAndArtifactById({ offset = 0, limit = 10, topicId = 0 }) {
