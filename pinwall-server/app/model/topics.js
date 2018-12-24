@@ -198,7 +198,7 @@ module.exports  = app => {
     if (!topic) {
       throw new Error('topic not found');
     }
-    return await topic.update(updates);
+    return await this.update(updates);
   }
 
   Topics.delTopicById = async function (id) {
@@ -206,7 +206,7 @@ module.exports  = app => {
     if (!topic) {
       throw new Error('topic not found');
     }
-    return await topic.destroy();
+    return await this.destroy();
   }
 
   return Topics;

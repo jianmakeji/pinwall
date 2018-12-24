@@ -45,7 +45,27 @@ class Artifacts extends Service {
     try {
       transaction = await this.ctx.model.transaction();
       let updateObject = await this.ctx.model.Artifacts.updateArtifact({ id, updates },transaction);
-      await this.ctx.service.esUtils.updateobject(id, updates);
+      if (updates.artifactAssets.length > 0){
+        await this.ctx.model.ArtifactAssets.delAssetsByArtifactId(id,transaction);
+        await this.ctx.model.ArtifactAssets.createAssets(updates.artifactAssets);
+      }
+
+      if (updates.addTerms.length > 0){
+        for (let term of updates.addTerms){
+          const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
+          await this.ctx.model.ArtifactTerm.createArtifactTerm({
+            artifactId:artiObj.Id,
+            termId:termObj.Id
+          },transaction);
+        }
+      }
+
+      if (updates.deleteTerms.length > 0){
+        await this.ctx.model.ArtifactTerm.delArtifactTermByArtifactIdAndtermId(id,updates.deleteTerms,transaction);
+      }
+
+      let esObject = await this.ctx.model.Artifacts.findArtifactById(id);
+      await this.ctx.service.esUtils.updateobject(id, esObject);
       return true
     } catch (e) {
       await transaction.rollback();

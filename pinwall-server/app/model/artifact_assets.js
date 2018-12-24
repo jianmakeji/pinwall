@@ -56,8 +56,10 @@ module.exports = app => {
       app.model.ArtifactAssets.belongsTo(app.model.Artifacts, {targetKey: 'Id', foreignKey: 'artifactId'});
   }
 
-  ArtifactAssets.createAssets = async function (artifactAssets) {
-    return this.create(artifactAssets);
+  ArtifactAssets.createAssets = async function (artifactAssets,transaction) {
+    return this.create(artifactAssets,{
+      transaction:transaction
+    });
   }
 
   ArtifactAssets.delAssetsByArtifactId = async function (artifactId,transaction) {
