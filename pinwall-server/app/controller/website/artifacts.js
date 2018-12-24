@@ -36,11 +36,12 @@ class ArtifactsController extends BaseController{
 
   async create() {
     const ctx = this.ctx;
-    try{
-      const article = await ctx.service.artifacts.create(ctx.request.body);
+
+    let result = await ctx.service.artifacts.create(ctx.request.body);
+    if(result){
       super.success('创建成功!');
     }
-    catch(e){
+    else{
       super.failure(e.message);
     }
   }
@@ -54,11 +55,11 @@ class ArtifactsController extends BaseController{
       score: ctx.request.body.score,
     };
 
-    try{
-      await ctx.service.artifacts.update({ id, updates });
+    let result = await ctx.service.artifacts.update({ id, updates });
+    if(result){
       super.success('更新成功!');
     }
-    catch(e){
+    else{
       super.failure(e.message);
     }
   }
@@ -66,12 +67,11 @@ class ArtifactsController extends BaseController{
   async destroy() {
     const ctx = this.ctx;
     const id = ctx.helper.parseInt(ctx.params.id);
-
-    try{
-      await ctx.service.artifacts.del(id);
+    let result = await ctx.service.artifacts.del(id);
+    if(result){
       super.success('删除成功!');
     }
-    catch(e){
+    else{
       super.failure(e.message);
     }
   }

@@ -41,9 +41,16 @@ class Artifacts extends Service {
   }
 
   async update({ id, updates }) {
-     let updateObject = await this.ctx.model.Artifacts.updateArtifact({ id, updates });
-     await this.ctx.service.esUtils.updateobject(id, updates);
-     return updateObject;
+    let transaction;
+    try {
+      transaction = await this.ctx.model.transaction();
+      let updateObject = await this.ctx.model.Artifacts.updateArtifact({ id, updates },transaction);
+      await this.ctx.service.esUtils.updateobject(id, updates);
+      return true
+    } catch (e) {
+      await transaction.rollback();
+      return false
+    }
   }
 
   async del(id) {
