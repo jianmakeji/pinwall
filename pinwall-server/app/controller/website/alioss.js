@@ -13,7 +13,7 @@ class AliOSSController extends BaseController {
     const aliConfigObj = ctx.app.aliConfig();
 
     const fileType = ctx.params.fileType;
-    
+
     let dir = '';
     if (fileType == 1){
       dir = ctx.app.imagePath;
@@ -68,7 +68,8 @@ class AliOSSController extends BaseController {
 
   async getUrlSignature(){
     const ctx = this.ctx;
-    ctx.body = ctx.app.signatureUrl(ctx.query.objectPath);
+
+    ctx.body = ctx.app.signatureUrl(ctx.query.objectPath,ctx.query.thumbName);
   }
 }
 

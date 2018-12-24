@@ -23,6 +23,7 @@ module.exports = app => {
   router.get('/topicsUpdate', controller.home.topicsUpdate);
   router.get('/children', controller.home.children);
   router.get('/getSTSSignature/:fileType', controller.website.alioss.getSTSSignature);
+  router.get('/getUrlSignature', controller.website.alioss.getUrlSignature);
 
   app.get("/auth/weixin", app.passport.authenticate('loginByWeixinClient'));
   app.get("/auth/weixin/callback",app.passport.authenticate('loginByWeixinClient',{ successRedirect: '/authCallback',failureRedirect: '/login' }));
