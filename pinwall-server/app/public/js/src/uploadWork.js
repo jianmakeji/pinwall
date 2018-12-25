@@ -127,7 +127,6 @@ var container = new Vue({
                             data:{objectPath:objectPath,thumbName:"thumb_120_120"},
                             success:function(res){
                                 console.log("上传封面图");
-                                // that.dataItem.artifact_assets.push(that.artifact_assets_obj);
                                 that.step2_upload_neirong_src = that.step2_upload_neirong_src.concat(res);
 
                                 let subarr = new Object();

@@ -2,25 +2,27 @@ var index = new Vue({
     el: '.index',
     data(){
         return{
-            userId:"1",
-            drawerShow:false,
-            modelWidth:"",
             containerStyle:{
-                // background: "#2DB7F5",
                 width: "100%",
                 height: "500px",
                 marginTop:"",
                 overflow: "hidden",
                 position: "relative",
             },
+            drawerShow:false,
+            modelWidth:"",
             // 搜索弹出层
             searchModel:false,  /* 搜索弹出层model */
             searchModelValue:"",    /*搜索内容*/
             searchModelDataList:[],
-            modelWidth:"",
             columns1:[
                 {title:"搜索结果",key:"name"}
             ],
+
+
+
+
+            userId:"1",
             // 注册弹出层
             loginModel:false,
             formItem:{
@@ -44,9 +46,41 @@ var index = new Vue({
     methods: {
         // 打开search弹出层
         openModel(){
-            console.log("openModel");
             this.searchModel = true;
         },
+        // 回车搜索
+        searchModelData(){
+            console.log("searchModelData",this.searchModelValue);
+            this.searchModelDataList = [
+                {id:1,name:"11111111111"},
+                {id:2,name:"22222222222"},
+                {id:3,name:"33333333333"},
+                {id:4,name:"44444444444"},
+                {id:5,name:"55555555555"}
+            ]
+
+            $.ajax({
+                url: '/website/search/searchByKeywords',
+                type: 'GET',
+                data: {limit:4,offset:0,keyword:""}
+            })
+            .done(function() {
+                console.log("success");
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+
+
+        },
+
+
+
+
+
         // 修改密码弹出层
         openResetInfoModel(){
             this.resetInfoModel = true;
@@ -55,17 +89,7 @@ var index = new Vue({
         openResetPwdModel(){
             this.resetPwdModel = true;
         },
-        // 回车搜索
-        searchModelData(){
-            console.log("searchModelData");
-            this.searchModelDataList = [
-                {id:1,name:"11111111111"},
-                {id:2,name:"22222222222"},
-                {id:3,name:"33333333333"},
-                {id:4,name:"44444444444"},
-                {id:5,name:"55555555555"}
-            ]
-        },
+
         // 搜索结果字段选择
         selectItem(index){
             console.log("selectItem",index);
