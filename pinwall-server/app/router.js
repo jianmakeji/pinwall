@@ -22,6 +22,7 @@ module.exports = app => {
   router.get('/commentManager', controller.home.commentManager);
   router.get('/topicsUpdate', controller.home.topicsUpdate);
   router.get('/children', controller.home.children);
+  router.get('/search', controller.home.search);
   router.get('/getSTSSignature/:fileType', controller.website.alioss.getSTSSignature);
   router.get('/getUrlSignature', controller.website.alioss.getUrlSignature);
 

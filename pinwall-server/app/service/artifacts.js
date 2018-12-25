@@ -33,6 +33,8 @@ class Artifacts extends Service {
           termId:termObj.Id
         },transaction);
       }
+      let esObject = await this.ctx.model.Artifacts.findArtifactById(artiObj.Id);
+      await this.ctx.service.esUtils.createObject(artiObj.Id, esObject);
       return true
     } catch (e) {
       await transaction.rollback();
