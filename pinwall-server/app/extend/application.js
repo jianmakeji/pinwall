@@ -30,12 +30,16 @@ module.exports = {
   rar_zipPath: 'rar_zip/',
   videoPath: 'video/',
 
-  email_host:'smtp.qq.com',
-  email_user:'',
-  email_pwd:'',
+  email_host:'smtp.exmail.qq.com',
+  email_user:'admin@design-engine.org',
+  email_pwd:'hnuManager001',
   email_send_address:'',
   email_verify_address:'',
-
+  email_smtp.socketFactory.fallback:false,
+  email_smtp.socketFactory.class:SSL_FACTORY,
+  email_smtp.port:25,
+  email.protocol:smtp,
+  
   es_index:'pinwall',
   es_type:'artifacts',
 
