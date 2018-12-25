@@ -13,7 +13,7 @@ class SearchController extends BaseController{
 
     try{
       let hits = await ctx.app.elasticsearch.search({
-        index: 'pinwall',
+        index: ctx.app.es_index,
         body: {
           from : offset,
           size : limit,

@@ -8,7 +8,7 @@ class esUtils extends Service {
     const ctx = this.ctx;
     await ctx.app.elasticsearch.create({
       index: ctx.app.es_index,
-      type: 'artifacts',
+      type: ctx.app.es_type,
       id: searchObject.Id,
       body: searchObject
     });
@@ -17,8 +17,8 @@ class esUtils extends Service {
   async deleteObjectById(id){
     const ctx = this.ctx;
     await ctx.app.elasticsearch.delete({
-      index: 'pinwall',
-      type: 'artifacts',
+      index: ctx.app.es_index,
+      type: ctx.app.es_type,
       id: id
     });
   }
@@ -26,8 +26,8 @@ class esUtils extends Service {
   async updateobject(id, updateObject){
 
     const response = await ctx.app.elasticsearch.update({
-      index: 'pinwall',
-      type: 'artifacts',
+      index: ctx.app.es_index,
+      type: ctx.app.es_type,
       id: id,
       body: {
         doc: updateObject
@@ -39,8 +39,8 @@ class esUtils extends Service {
     const ctx = this.ctx;
     for (let object of batchObject){
       await ctx.app.elasticsearch.create({
-        index: 'pinwall',
-        type: 'artifacts',
+        index: ctx.app.es_index,
+        type: ctx.app.es_type,
         id: object.Id,
         body: object
       });

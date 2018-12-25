@@ -28,7 +28,7 @@ module.exports = {
   othersPath: 'others/',
   pdfPath: 'pdf/',
   rar_zipPath: 'rar_zip/',
-  videoPath: 'video',
+  videoPath: 'video/',
 
   email_host:'smtp.qq.com',
   email_user:'',
