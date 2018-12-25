@@ -197,7 +197,7 @@ module.exports = app => {
   }
 
   Artifacts.findArtifactById = async function(id) {
-    const artifact = await this.findById(id, {
+    const artifact = await this.findByPk(id,{
       include: [{
         model: app.model.ArtifactAssets
       },{
@@ -236,7 +236,7 @@ module.exports = app => {
     id,
     updates
   }) {
-    const artifact = await this.findById(id);
+    const artifact = await this.findByPk(id);
     if (!artifact) {
       throw new Error('artifact not found');
     }

@@ -33,10 +33,12 @@ class Artifacts extends Service {
           termId:termObj.Id
         },transaction);
       }
+      await transaction.commit();
       let esObject = await this.ctx.model.Artifacts.findArtifactById(artiObj.Id);
       await this.ctx.service.esUtils.createObject(artiObj.Id, esObject);
       return true
     } catch (e) {
+      console.log(e.message);
       await transaction.rollback();
       return false
     }
@@ -65,7 +67,7 @@ class Artifacts extends Service {
       if (updates.deleteTerms.length > 0){
         await this.ctx.model.ArtifactTerm.delArtifactTermByArtifactIdAndtermId(id,updates.deleteTerms,transaction);
       }
-
+      await transaction.commit();
       let esObject = await this.ctx.model.Artifacts.findArtifactById(id);
       await this.ctx.service.esUtils.updateobject(id, esObject);
       return true

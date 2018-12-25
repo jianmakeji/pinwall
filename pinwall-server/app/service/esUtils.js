@@ -4,12 +4,12 @@ const Service = require('egg').Service;
 
 class esUtils extends Service {
 
-  async createObject(searchObject){
+  async createObject(id, searchObject){
     const ctx = this.ctx;
     await ctx.app.elasticsearch.create({
       index: ctx.app.es_index,
       type: ctx.app.es_type,
-      id: searchObject.Id,
+      id: id,
       body: searchObject
     });
   }
