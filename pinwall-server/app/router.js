@@ -11,7 +11,7 @@ module.exports = app => {
   router.get('/authCallback', controller.home.index);
   router.get('/logout', controller.home.logout);
   router.get('/upload', controller.home.upload);
-  router.get('/uploadWork', controller.home.uploadWork);
+  router.get('/uploadWork/:jobTag', controller.home.uploadWork);
   router.get('/project/:id', controller.home.project);
   router.get('/topics', controller.home.topics);
   router.get('/topicsAbout', controller.home.topicsAbout);
