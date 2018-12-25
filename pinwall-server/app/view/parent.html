@@ -187,11 +187,11 @@
 			        <ul class="de_ext_nav">
 						<li style="display:flex;flex-direction: row;margin:5px auto;">
 							<i-button icon="md-book" type="default" size="large" long style="text-align: left;">我的作品集</i-button>
-							<i-button type="default" to="/uploadWork"><icon type="md-add" size="20"></icon></i-button>
+							<i-button type="default" to="/uploadWork/2"><icon type="md-add" size="20"></icon></i-button>
 						</li>
 						<li style="display:flex;flex-direction: row;margin:5px auto;">
 							<i-button icon="md-book" type="default" size="large" long style="text-align: left;">我的作业荚</i-button>
-							<i-button type="default"><icon type="md-add" size="20"></icon></i-button>
+							<i-button type="default" to="/uploadWork/1"><icon type="md-add" size="20"></icon></i-button>
 						</li>
 						<li style="margin:5px auto;">
 							<i-button icon="md-card" type="default" size="large" long style="text-align: left;" @click="openResetInfoModel">修改个人信息</i-button>
@@ -200,13 +200,13 @@
 							<i-button icon="md-key" type="default" size="large" long style="text-align: left;"  @click="openResetPwdModel">密码修改</i-button>
 						</li>
 						<li style="margin:5px auto;">
-							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;" to="userManager">用户管理</i-button>
+							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;" to="/userManager">用户管理</i-button>
 						</li>
 						<li style="margin:5px auto;">
-							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;" to="workManager">作品管理</i-button>
+							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;" to="/workManager">作品管理</i-button>
 						</li>
 						<li style="margin:5px auto;">
-							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;" to="commentManager">评论管理</i-button>
+							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;" to="/commentManager">评论管理</i-button>
 						</li>
 			        	<li style="margin:5px auto;">
 							<i-button icon="md-log-out" type="default" size="large" long style="text-align: left;">退出登录</i-button>

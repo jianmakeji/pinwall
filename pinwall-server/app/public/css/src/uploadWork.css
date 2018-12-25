@@ -74,6 +74,7 @@
 .upload_form .step2{
     padding: 20px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	min-height: 460px;
 }
 .upload_form .step2 .uploaded_list{
     height: 460px;
@@ -195,7 +196,11 @@
 .upload_form .step3 figure img {
     width: 100%;
 }
-.upload_form .step3 figcaption {
+.upload_form .step3 figcaption{
+    text-align: center;
+    color: #999;
+}
+.upload_form .step3 figcaption .title{
     font-size: 0.8em;
     font-weight: bold;
     line-height: 2em;
@@ -203,7 +208,27 @@
     text-align: center;
     color: #999;
 }
-
+.submit_box{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 185px;
+    left: 72%;
+}
+.submit_box a{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+.submit_box a span{
+    font-size: 20px;
+    position: absolute;
+    top: 65px;
+    left: 20px;
+}
 .upload_form .step3 .submit_upload {
 	position: absolute;
 	top: 185px;

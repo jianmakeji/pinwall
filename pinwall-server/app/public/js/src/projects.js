@@ -16,8 +16,21 @@ var projects = new Vue({
         }
     },
     methods: {
+        /**
+         * 有附件时监听点击
+         *  url [附件路径]
+         */
+        downAttach(url){
+            window.location.href = url;
+        },
+        /**
+         * 点击close按键返回上一级界面
+         * @return {[type]} [description]
+         */
         closeThePage(){
-            console.log("closeThePage");
+            window.history.back(-1);
+
+
         },
         zan(event){
             console.log(event);

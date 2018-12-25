@@ -1,10 +1,10 @@
 {% extends "parent.html" %}
 
 {% block cssfolder %}
-	<link rel="stylesheet" type="text/css" href="public/css/src/base.css"/>
-	<link rel="stylesheet" type="text/css" href="public/css/lib/iview.css">
-	<link rel="stylesheet" type="text/css" href="public/css/src/uploadWork.css"/>
-	<link rel="stylesheet" type="text/css" href="public/css/src/model.css"/>
+	<link rel="stylesheet" type="text/css" href="../public/css/src/base.css"/>
+	<link rel="stylesheet" type="text/css" href="../public/css/lib/iview.css">
+	<link rel="stylesheet" type="text/css" href="../public/css/src/uploadWork.css"/>
+	<link rel="stylesheet" type="text/css" href="../public/css/src/model.css"/>
 {% endblock %}
 
 {% block head_btn %}
@@ -15,7 +15,7 @@
 
 {% block container %}
 	<div class="container" :style="containerStyle">
-		<h4 class="upload_title">上传至“{{userName}}的作品集”</h4>
+		<h4 class="upload_title" v-text="'上传至' + userName + '的作品集'"></h4>
 		<nav class="step_nav">
 			<ul class="step_nav_ul">
 				<li class="step_nav_li" :class="{active:stepOneActive}" @click="goStep1">1.添加基本信息&nbsp;&nbsp;&nbsp;&nbsp;></li>
@@ -24,33 +24,33 @@
 			</ul>
 		</nav>
 		<div class="upload_form">
-			<i-form :model="formItem" :label-width="80">
+			<i-form :model="dataItem" :label-width="80" @keydown.native.enter.prevent ="keyDownEvent">
 				<div class="step1" v-show="stepOneActive">
 					<row>
 						<i-col span="12">
 							<form-item label="标题">
-								<i-input v-model="formItem.title" placeholder="请输入标题"></i-input>
+								<i-input v-model="dataItem.name" placeholder="请输入标题"></i-input>
 							</form-item>
 							<form-item label="标签" id="label_formitem">
-								<i-button type="success" size="small" icon="ios-brush" @click="deleteLabel(index)" v-for="(item,index) in [1,2,3,4]" style="margin-right:5px;"><span v-text="item"></span></i-button>
+								<i-button type="success" size="small" icon="ios-brush" @click="deleteLabel(index)" v-for="(item,index) in terms_arr" style="margin-right:5px;"><span v-text="item.name"></span></i-button>
 							</form-item>
 							<form-item label="添加标签">
-								<i-input v-model="formItem.title" placeholder="输入并按回车确认"></i-input>
+								<i-input class="terms_input" placeholder="输入并按回车确认" @on-enter="createTerm" @on-blur="createTerm" v-model="terms_value"></i-input>
 							</form-item>
 							<form-item label="内容说明">
-								<i-input v-model="formItem.title" type="textarea" placeholder="请输入说明"></i-input>
+								<i-input v-model="dataItem.description" type="textarea" placeholder="请输入作品内容说明"></i-input>
 							</form-item>
 						</i-col>
 						<i-col span="12">
 							<form-item label="标题">
 								<div class="step1_upload">
-									<i-button type="success" id="step1_upload_btn">上传作品封面</i-button>
-									<input type="file" @change="step1_upload_change" id="step1_upload_input" accept="image/jpg,image/png" style="display:none;"/>
+									<i-button type="success" id="step1_upload_fengmian">上传作品封面</i-button>
+									<input type="file" @change="step1_upload_fengmian_change" id="step1_upload_fengmian_input" accept="image/jpg,image/png" style="display:none;"/>
 								</div>
-								<p>请上传一张正方形、宽度500-800px的jpg或png图像作为作品封面。</p>
+								<p>请上传一张正方形、宽度500~800px的jpg或png图像作为作品封面。</p>
 							</form-item>
 							<form-item label="封面预览">
-								<img class="project_thumb" src="http://pinwall.design-engine.org/images/app/default_thumb_500.png" alt="">
+								<img class="project_thumb" :src="step1_upload_fengmian_src ? step1_upload_fengmian_src : 'http://pinwall.design-engine.org/images/app/default_thumb_500.png'">
 							</form-item>
 						</i-col>
 				</div>
@@ -59,96 +59,87 @@
 						<i-col span="6">
 							<div class="step2_upload">
 								<i-button icon="md-add-circle" type="success" id="step2_upload_btn" long>上传图片</i-button>
-								<input type="file" @change="step2_upload_change" id="step2_upload_input" accept="image/jpg,image/png" style="display:none;"/>
+								<input type="file" @change="step2_upload_neirong_change" id="step2_upload_input" accept="image/jpg,image/png" style="display:none;"/>
 							</div>
-							<!-- <upload action="#" style="height:35px;">
-								<i-button icon="md-add-circle" type="success" long>上传图片</i-button>
-							</upload> -->
-							<ul class="uploaded_list">
-								<li @click="selectLi(index)" v-for="(item, index) in [1,2,3,4,1,2,3,4,1,2,3,4]">
-									<img class="thumb" src="http://pinwall.fzcloud.design-engine.org/5961/12351269602440.png" alt="">
-									<span>{{item}}.png</span>
+							<ul class="uploaded_list" id="uploaded_list"><!-- v-show="step2_upload_neirong_src.length"-->
+								<li @click="selectLi(index)" v-for="(item, index) in step2_upload_neirong_src">
+									<img class="thumb" :src="item" />
+									<!-- <span v-text="item+'.png'"></span> -->
 									<i-button icon="md-trash" shape="circle" type="error" @click.stop="deleteUploadImg(index)"></i-button>
 								</li>
 							</ul>
 						</i-col>
 						<i-col span="18">
-							<p style="width:100%;height:35px;background:white;line-height: 35px;color: #666;text-align: center;border: 1px solid #CECFCF;">0.png</p>
-							<div style="display:flex;flex-direction: row;">
-								<div class="content">
+							<p style="width:100%;height:35px;background:white;line-height: 35px;color: #666;text-align: center;border: 1px solid #CECFCF;">图片详情</p>
+							<div style="display:flex;flex-direction:row;">
+								<div class="content" v-show="step2_upload_neirong_src.length">
 									<p class="label">图片预览</p>
 									<p class="tooltips">限2M以内的jpg或png</p><br>
-									<!-- <i-button type="default" long>更换</i-button><br> -->
 									<div class="step3_upload">
-										<!-- <i-button type="default" long>更换</i-button><br> -->
-										<i-button type="default" id="step3_upload_btn" long>更换</i-button>
-										<input type="file" @change="step3_upload_change" id="step3_upload_input" accept="aplication/zip" style="display:none;"/>
+										<i-button type="default" class="step2_change_upload_btn" long>更换</i-button>
+										<input type="file" @change="step2_upload_change" class="step2_change_upload_input" accept="aplication/zip" style="display:none;"/>
 									</div><br>
-									<img class="thumb" style="width:75%;height:auto;margin: 0 auto;" src="http://pinwall.fzcloud.design-engine.org/5961/15439087525830.png" alt="">
+									<img class="thumb" style="width:75%;height:auto;margin: 0 auto;" :src="yulan_img" alt="">
 								</div>
-								<div class="other_info">
+								<div class="other_info" id="other_info" v-show="step2_upload_neirong_src.length"><!-- v-show="step2_upload_neirong_src.length"-->
 									<div style="display: flex;flex-direction: row;justify-content: space-between;">
 										<p>绑定媒体文件 <span style="color: #3399cc;">(可选)</span></p>
-										<!-- <i-button type="primary">添加文件</i-button><br> -->
-										<dropdown>
+										<dropdown >
 											<a href="javascript:void(0)">
 												添加文件
 												<icon type="ios-arrow-down"></icon>
 											</a>
 											<dropdown-menu slot="list">
 												<dropdown-item>
-													<div class="step3_upload">
-														<i-button icon="ios-play" id="step3_upload_btn">视频文件(MP4)</i-button>
-														<input type="file" @change="step3_upload_change" id="step3_upload_input" accept="audio/mp4,video/mp4" style="display:none;"/>
+													<div class="step2_upload">
+														<i-button icon="ios-play" id="step2_upload_MP4_btn">视频文件(MP4)</i-button>
+														<input type="file" @change="step2_upload_MP4_change" id="step2_upload_MP4_input" accept="audio/mp4,video/mp4" style="display:none;"/>
 													</div>
-													<!-- <upload action="//jsonplaceholder.typicode.com/posts/" accept="audio/mp4,video/mp4">
-														<i-button icon="ios-play">视频文件(MP4)</i-button>
-													</upload> -->
 												</dropdown-item>
 												<dropdown-item>
-													<div class="step3_upload">
-														<i-button icon="ios-book" id="step3_upload_btn">文档(PDF)</i-button>
-														<input type="file" @change="step3_upload_change" id="step3_upload_input" accept="application/pdf" style="display:none;"/>
+													<div class="step2_upload">
+														<i-button icon="ios-book" id="step2_upload_PDF_btn">文档(PDF)</i-button>
+														<input type="file" @change="step3_upload_PDF_change" id="step2_upload_PDF_btninput" accept="application/pdf" style="display:none;"/>
 													</div>
-													<!-- <upload action="//jsonplaceholder.typicode.com/posts/" accept="application/pdf">
-														<i-button icon="ios-book">文档(PDF)</i-button>
-													</upload> -->
 												</dropdown-item>
 												<dropdown-item>
-													<div class="step3_upload">
-														<i-button icon="ios-folder" id="step3_upload_btn">压缩版(ZIP)</i-button>
-														<input type="file" @change="step3_upload_change" id="step3_upload_input" accept="aplication/zip" style="display:none;"/>
+													<div class="step2_upload">
+														<i-button icon="ios-folder" id="step2_upload_ZIP_btn">压缩版(ZIP)</i-button>
+														<input type="file" @change="step3_upload_ZIP_change" id="step2_upload_ZIP_input" accept="aplication/zip" style="display:none;"/>
 													</div>
-													<!-- <upload action="//jsonplaceholder.typicode.com/posts/" accept="aplication/zip">
-														<i-button icon="ios-folder">压缩版(ZIP)</i-button>
-													</upload> -->
 												</dropdown-item>
 												<dropdown-item>
-													<div class="step3_upload">
-														<i-button icon="logo-html5" id="step3_upload_btn">HTML5应用(ZIP)</i-button>
-														<input type="file" @change="step3_upload_change" id="step3_upload_input" accept="aplication/zip" style="display:none;"/>
+													<div class="step2_upload">
+														<i-button icon="logo-html5" id="step2_upload_HTML5_btn">HTML5应用(ZIP)</i-button>
+														<input type="file" @change="step3_upload_HTML5_change" id="step2_upload_HTML5_input" accept="aplication/zip" style="display:none;"/>
 													</div>
-													<!-- <upload action="//jsonplaceholder.typicode.com/posts/" accept="application/x-zip-compressed">
-														<i-button icon="logo-html5">HTML5应用(ZIP)</i-button>
-													</upload> -->
 												</dropdown-item>
 											</dropdown-menu>
 										</dropdown>
 									</div>
-									<div><i-progress :percent="0" /><br></div>
-									<p>标题 <span style="color: #3399cc;">(可选)</span></p>
-									<i-input v-model="formItem.title" placeholder="请输入标题"></i-input><br>
-									<p>描述 <span style="color: #3399cc;">(可选)</span></p>
-									<i-input v-model="formItem.title" type="textarea" placeholder="请输入相应描述"></i-input><br>
-
+									<div  v-for="(item,index) in step2_between_arr" v-if="which_artifact_assets === index">
+										<div><i-progress :percent="file_otherinof_arr[index].progress" /><br></div>
+										<p v-text="'文件名:' + file_otherinof_arr[index].fileTrueName"></p>
+										<p>标题 <span style="color: #3399cc;">(可选)</span></p>
+										<i-input placeholder="请输入标题" v-model="step2_between_arr[index].name"></i-input><br>
+										<p>描述 <span style="color: #3399cc;">(可选)</span></p>
+										<i-input type="textarea" placeholder="请输入相应描述" v-model="step2_between_arr[index].description"></i-input><br>
+									</div>
 								</div>
 							</div>
 						</i-col>
 					</row>
 				</div>
 				<div class="step3" v-show="stepThreeActive">
-					<div class="submit_upload">
-						<i-input type="submit" prefix="md-checkmark"></i-input>
+					<!-- <div class="submit_upload" @click="submitData">
+						<i-input type="submit" @click.prevent="keyDownEvent" prefix="md-checkmark"></i-input>
+					</div> -->
+					<div class="submit_box">
+						<a @click="submitData">
+							<img src="http://pinwall.design-engine.org/images/app/flag_green.png" alt="">
+							<icon type="ios-thumbs-up" style="font-size: 40px; position: absolute;top: 15px;left: 20px;"></icon>
+							<span>提交</span>
+						</a>
 					</div>
 					<div class="user_info">
 						<a href="#">
@@ -156,21 +147,14 @@
 							<p class="name">甘四球</p>
 						</a>
 					</div>
-					<h2>dfasdf</h2>
-					<p class="abstract">dfasdf</p>
+					<h2 v-text="dataItem.name"></h2>
+					<p class="abstract" v-text="dataItem.description"></p>
 					<div class="main_content">
-						<figure>
-							<!-- <i-button type="success" icon=""></i-button> -->
-							<img class="" src="http://pinwall.fzcloud.design-engine.org/0/7719945487050.png" alt="">
+						<figure v-for="item in dataItem.artifact_assets">
+							<img :src="item.viewImgUrl">
 							<figcaption>
-								asdfasdfasdfasdfasd
-								<span>sdfasdfasdfasdfa</span>
-							</figcaption>
-						</figure>
-						<figure>
-							<img class="" src="http://pinwall.fzcloud.design-engine.org/0/7719945487050.png" alt="">
-							<figcaption>
-								<span>sdfasdfasdfasdfa</span>
+								<span class="title" v-text="item.name"></span>
+								<span v-text="item.description"></span>
 							</figcaption>
 						</figure>
 					</div>
@@ -182,9 +166,9 @@
 {% endblock %}
 
 {% block jsfolder %}
-	<script type="text/javascript" src="public/js/lib/jquery.min.js"></script>
-	<script type="text/javascript" src="public/js/lib/vue.min.js"></script>
-	<script type="text/javascript" src="public/js/lib/iview.min.js"></script>
-	<script type="text/javascript" src="public/js/lib/aliyun-oss-sdk.min.js"></script>
-	<script type="text/javascript" src="public/js/src/uploadWork.js"></script>
+	<script type="text/javascript" src="../public/js/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="../public/js/lib/vue.min.js"></script>
+	<script type="text/javascript" src="../public/js/lib/iview.min.js"></script>
+	<script type="text/javascript" src="../public/js/lib/aliyun-oss-sdk.min.js"></script>
+	<script type="text/javascript" src="../public/js/src/uploadWork.js"></script>
 {% endblock %}
