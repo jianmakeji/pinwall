@@ -35,11 +35,11 @@ module.exports = {
   email_pwd:'hnuManager001',
   email_send_address:'',
   email_verify_address:'',
-  email_smtp.socketFactory.fallback:false,
-  email_smtp.socketFactory.class:SSL_FACTORY,
-  email_smtp.port:25,
-  email.protocol:smtp,
-  
+  // email_smtp.socketFactory.fallback:false,
+  // email_smtp.socketFactory.class:SSL_FACTORY,
+  // email_smtp.port:25,
+  // email.protocol:smtp,
+
   es_index:'pinwall',
   es_type:'artifacts',
 
