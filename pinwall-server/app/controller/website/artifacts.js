@@ -42,7 +42,7 @@ class ArtifactsController extends BaseController{
       super.success('创建成功!');
     }
     else{
-      super.failure(e.message);
+      super.failure("操作失败");
     }
   }
 
@@ -60,7 +60,7 @@ class ArtifactsController extends BaseController{
       super.success('更新成功!');
     }
     else{
-      super.failure(e.message);
+      super.failure("操作失败");
     }
   }
 
@@ -72,7 +72,7 @@ class ArtifactsController extends BaseController{
       super.success('删除成功!');
     }
     else{
-      super.failure(e.message);
+      super.failure('操作失败');
     }
   }
 
