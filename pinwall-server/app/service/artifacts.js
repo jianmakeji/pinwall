@@ -34,11 +34,16 @@ class Artifacts extends Service {
         },transaction);
       }
       await transaction.commit();
-      let esObject = await this.ctx.model.Artifacts.findArtifactById(artiObj.Id);
-      await this.ctx.service.esUtils.createObject(artiObj.Id, esObject);
+      try{
+        let esObject = await this.ctx.model.Artifacts.findArtifactById(artiObj.Id);
+        await this.ctx.service.esUtils.createObject(artiObj.Id, esObject);
+      }
+      catch(e){
+        console.log("ID:"+artiObj.Id+": "+e.message);
+      }
+
       return true
     } catch (e) {
-      console.log(e.message);
       await transaction.rollback();
       return false
     }
@@ -68,8 +73,15 @@ class Artifacts extends Service {
         await this.ctx.model.ArtifactTerm.delArtifactTermByArtifactIdAndtermId(id,updates.deleteTerms,transaction);
       }
       await transaction.commit();
-      let esObject = await this.ctx.model.Artifacts.findArtifactById(id);
-      await this.ctx.service.esUtils.updateobject(id, esObject);
+
+      try{
+        let esObject = await this.ctx.model.Artifacts.findArtifactById(id);
+        await this.ctx.service.esUtils.updateobject(id, esObject);
+      }
+      catch(e){
+        console.log("ID:"+artiObj.Id+": "+e.message);
+      }
+    
       return true
     } catch (e) {
       await transaction.rollback();

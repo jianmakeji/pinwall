@@ -25,7 +25,7 @@ class SearchController extends BaseController{
         }
       }).then(function (resp) {
         console.log(resp.hits.hits);
-          var hits = resp.hits.hits;
+          var hits = resp.hits;
 
           return hits;
       }, function (err) {
