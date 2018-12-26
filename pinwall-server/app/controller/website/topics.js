@@ -37,11 +37,12 @@ class TopicsController extends BaseController{
 
   async create() {
     const ctx = this.ctx;
-    try{
-      const topic = await ctx.service.topics.create(ctx.request.body);
+    const result = await ctx.service.topics.create(ctx.request.body);
+
+    if(result){
       super.success('创建成功!');
     }
-    catch(e){
+    else{
       super.failure(e.message);
     }
   }
@@ -49,17 +50,13 @@ class TopicsController extends BaseController{
   async update() {
     const ctx = this.ctx;
     const id = ctx.params.id;
-    const updates = {
-      name: ctx.request.body.name,
-      description: ctx.request.body.description,
-      status: ctx.request.body.status,
-    };
 
-    try{
-      await ctx.service.topics.update({ id, updates });
-      super.success('更新成功!');
+    const result = await ctx.service.topics.update({ id, ctx.request.body });
+
+    if(result){
+      super.success('修改成功!');
     }
-    catch(e){
+    else{
       super.failure(e.message);
     }
   }
