@@ -24,6 +24,7 @@ module.exports = app => {
   router.get('/children', controller.home.children);
   router.get('/search', controller.home.search);
   router.get('/resetInfo', controller.home.resetInfo);
+  router.get('/createTopics', controller.home.createTopics);
   router.get('/getSTSSignature/:fileType', controller.website.alioss.getSTSSignature);
   router.get('/getUrlSignature', controller.website.alioss.getUrlSignature);
 

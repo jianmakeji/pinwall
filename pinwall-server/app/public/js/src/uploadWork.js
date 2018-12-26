@@ -25,10 +25,11 @@ var container = new Vue({
             },
             step2_between_arr:[],           //存放step2的数据数组 最后赋值给dataitem
             which_artifact_assets:"",
-            file_otherinof_arr:[],         //进度条
+            file_otherinof_arr:[],         //附加信息
+            neirong_truename_arr:[],
             terms_value:"",
             terms_arr:[],
-
+            upload_show:false,
 
 
 
@@ -70,6 +71,7 @@ var container = new Vue({
         }
     },
     methods: {
+        keyDownEvent(){},
         /**
          * 步骤一：上传作品封面事件
          * @param  {[type]} files [上传作品详情]
@@ -90,7 +92,7 @@ var container = new Vue({
                         bucket:bucket
                 	});
                     client.multipartUpload('images/'+ fileName, file).then(function (res) {
-                        let objectPath = res.res.requestUrls[0].split("http://pinwall.oss-cn-hangzhou.aliyuncs.com/")[1];
+                        let objectPath = 'images/' + fileName;
                         $.ajax({
                             url: '/getUrlSignature',
                             type: 'GET',
@@ -120,7 +122,8 @@ var container = new Vue({
                         bucket:bucket
                 	});
                     client.multipartUpload('images/'+ fileName, file).then(function (res) {
-                        let objectPath = res.res.requestUrls[0].split("http://pinwall.oss-cn-hangzhou.aliyuncs.com/")[1];
+                        console.log("---------",res.res.requestUrls[0]);
+                        let objectPath = 'images/' + fileName;
                         $.ajax({
                             url: '/getUrlSignature',
                             type: 'GET',
@@ -144,7 +147,8 @@ var container = new Vue({
                                 let progress_subarr = new Object();
                                 progress_subarr.progress = 0;
                                 progress_subarr.fileTrueName = "";
-                                that.file_otherinof_arr.push(progress_subarr)
+                                that.file_otherinof_arr.push(progress_subarr);
+                                that.neirong_truename_arr.push(files.target.files[0].name);
 
                             }
                         })
@@ -275,27 +279,52 @@ var container = new Vue({
                 }
             })
         },
-        keyDownEvent(){},
         /**
          * 添加标签
          */
         createTerm(){
-            if(this.terms_value){
+            let XO = true;
+            for(let i=0;i<this.terms_arr.length;i++){
+                if (this.terms_arr[i].name == this.terms_value) {
+                    XO = false;
+                    this.$Notice.error({title:"该标签已添加!"});
+                }
+            }
+            if(this.terms_value && XO){
                 let subterm = new Object();
                 subterm.name = this.terms_value;
                 this.terms_arr.push(subterm);
+                this.terms_value = "";
             }
+        },
+        /**
+         * 删除标签
+         */
+        deleteLabel(index){
+            this.terms_arr.splice(index,1);
         },
         /**
          * 步骤二：点击左侧列表，控制图片预览src
          */
         selectLi(index){
+            this.upload_show = true;
             console.log("点击index",index,this.step2_between_arr[index].name);
             this.yulan_img = this.step2_upload_neirong_src[index];
             this.which_artifact_assets = index;
         },
+        /**
+         * 步骤二：点击列表删除
+         */
+        deleteUploadImg(index){
 
-
+            this.step2_upload_neirong_src.splice(index,1);
+            this.step2_between_arr.splice(index,1);
+            this.file_otherinof_arr.splice(index,1);
+            this.neirong_truename_arr.splice(index,1);
+            if (this.step2_upload_neirong_src.length == 0) {
+                this.upload_show = false;
+            }
+        },
         /* 步骤调整事件 */
         goStep1(){
             this.stepOneActive = true;
@@ -309,22 +338,17 @@ var container = new Vue({
             this.dataItem.terms = this.terms_arr;
         },
         goStep3(){
+            console.log(this.step2_between_arr);
             this.stepOneActive = false;
             this.stepTwoActive = false;
             this.stepThreeActive = true;
             this.dataItem.artifact_assets = this.step2_between_arr;
             for(let i=0;i<this.step2_upload_neirong_src.length;i++){
-                console.log(this.step2_upload_neirong_src);
                 let profileImage_url = new String();
                 profileImage_url = this.step2_upload_neirong_src[i];
                 this.dataItem.artifact_assets[i].profileImage = profileImage_url.split("?")[0].split("images/")[1];
             }
             console.log(this.dataItem);
-        },
-        /* step1 事件 */
-        // 标签点击删除
-        deleteLabel(index){
-            console.log("deleteLabel",index);
         },
         submitData(){
             console.log(this.dataItem);
@@ -334,7 +358,15 @@ var container = new Vue({
                 method:"POST",
                 data:this.dataItem,
                 success:function(res){
-                    console.log(res);
+                    if (res.status == 200) {
+                        that.$Notice.success({
+                            title:"上传作品成功，2秒后返回!",
+                            duration:2,
+                            onClose:function(){
+                                window.location.href = "/uploadWork/2";
+                            }
+                        })
+                    }
                 }
             })
         },
@@ -350,10 +382,6 @@ var container = new Vue({
         // 登录
         openMenu(){
 
-        },
-
-        deleteUploadImg(index){
-            console.log("deleteUploadImg",index);
         },
         step1_upload_change(){
 
@@ -407,15 +435,6 @@ var container = new Vue({
         tapClick() {
             var timeStamp = '?' + new Date().getTime() + 'r' + Math.random();
             this.imgSrc = "user/getCode"+timeStamp;
-        },
-        userManager(){
-
-        },
-        workManager(){
-
-        },
-        commentManager(){
-
         }
     },
     created(){
@@ -459,23 +478,6 @@ $(document).ready(function(){
     $('#step2_upload_HTML5_btn').click(function(){
         $('#step2_upload_HTML5_input').click();
     });
-
-    $('#label_formitem button').each(function() {
-        $(this).hover(function(event) {
-            $(this).addClass("ivu-btn-error").removeClass("ivu-btn-success");
-            $(this).children("i").addClass("ivu-icon-md-close").removeClass("ivu-icon-ios-brush");
-        });
-        $(this).mouseleave(function(event) {
-            $(this).addClass("ivu-btn-success").removeClass("ivu-btn-error");
-            $(this).children("i").addClass("ivu-icon-ios-brush").removeClass("ivu-icon-md-close");
-        });
-    });
-    $("#uploaded_list").children('li').each(function() {
-        $(this).click(function(event) {
-            $("#uploaded_list").children('li').css('background', 'white');
-            $(this).css('background', '#EFEFEF');
-        });
-    });
 });
 
 /**
@@ -504,7 +506,7 @@ function get_suffix(filename) {
 function calculate_object_name(filename) {
 
 	suffix = get_suffix(filename);
-	g_object_name = random_string(10) + suffix;
+	g_object_name = random_string(20) + suffix;
 
     return g_object_name;
 }

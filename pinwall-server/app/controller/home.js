@@ -112,6 +112,11 @@ class HomeController extends BaseController {
     const ctx = this.ctx;
     await ctx.render('resetInfo.html');
   }
+
+  async createTopics(){
+    const ctx = this.ctx;
+    await ctx.render('createTopics.html');
+  }
 }
 
 module.exports = HomeController;

@@ -41,7 +41,13 @@ body{
     padding: 40px 20px;
     background: #fff;
 }
-
+.topic_form button:hover{
+    background-color: #ed4014;
+	border-color: #ed4014;
+}
+.topic_form .ivu-icon-ios-brush:hover:before{
+    content:"\f379";
+}
 
 .footer {
 	padding: 5px 0;

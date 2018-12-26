@@ -1,6 +1,9 @@
 [v-cloak]{
 	display: none;
 }
+body{
+	background-color: #efefef;
+}
 .upload_project{
 	background: #EFEFEF;
 }
@@ -64,13 +67,23 @@
     margin: 10px auto;
     background-color: #fff;
 }
+
 .upload_form .step1{
-    padding-top: 40px;box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding-top: 50px;box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	min-height: 500px;
 }
 .upload_form .step1 .project_thumb{
     width: 80%;
     margin: 10px auto;
 }
+.upload_form .step1 #label_formitem button:hover{
+    background-color: #ed4014;
+	border-color: #ed4014;
+}
+.upload_form .step1 #label_formitem .ivu-icon-ios-brush:hover:before{
+    content:"\f379";
+}
+
 .upload_form .step2{
     padding: 20px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -107,6 +120,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+}
+.upload_form .step2 .uploaded_list li:hover {
+    background-color: #EFEFEF;
 }
 .upload_form .step2 .uploaded_list .thumb {
     width: 42px;

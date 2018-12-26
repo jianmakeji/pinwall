@@ -35,7 +35,7 @@
 								<i-button type="success" size="small" icon="ios-brush" @click="deleteLabel(index)" v-for="(item,index) in terms_arr" style="margin-right:5px;"><span v-text="item.name"></span></i-button>
 							</form-item>
 							<form-item label="添加标签">
-								<i-input class="terms_input" placeholder="输入并按回车确认" @on-enter="createTerm" @on-blur="createTerm" v-model="terms_value"></i-input>
+								<i-input class="terms_input" placeholder="输入并按回车确认" @on-enter="createTerm" v-model="terms_value" clearable></i-input>
 							</form-item>
 							<form-item label="内容说明">
 								<i-input v-model="dataItem.description" type="textarea" placeholder="请输入作品内容说明"></i-input>
@@ -64,14 +64,14 @@
 							<ul class="uploaded_list" id="uploaded_list">
 								<li @click="selectLi(index)" v-for="(item, index) in step2_upload_neirong_src">
 									<img class="thumb" :src="item" />
-									<!-- <span v-text="item+'.png'"></span> -->
+									<span v-text="neirong_truename_arr[index]"></span>
 									<i-button icon="md-trash" shape="circle" type="error" @click.stop="deleteUploadImg(index)"></i-button>
 								</li>
 							</ul>
 						</i-col>
 						<i-col span="18">
-							<p style="width:100%;height:35px;background:white;line-height: 35px;color: #666;text-align: center;border: 1px solid #CECFCF;">图片详情</p>
-							<div style="display:flex;flex-direction:row;">
+							<p style="width:100%;height:35px;background:white;line-height: 35px;color: #666;text-align: center;border: 1px solid #CECFCF;" v-text="neirong_truename_arr[which_artifact_assets]"></p>
+							<div style="display:flex;flex-direction:row;" v-show="upload_show">
 								<div class="content" v-show="step2_upload_neirong_src.length">
 									<p class="label">图片预览</p>
 									<p class="tooltips">限2M以内的jpg或png</p><br>
@@ -79,9 +79,9 @@
 										<i-button type="default" class="step2_change_upload_btn" long>更换</i-button>
 										<input type="file" @change="step2_upload_change" class="step2_change_upload_input" accept="aplication/zip" style="display:none;"/>
 									</div><br>
-									<img class="thumb" style="width:75%;height:auto;margin: 0 auto;" :src="yulan_img">
+									<img class="thumb" style="width:75%;height:auto;margin: 0 auto;" :src="step2_upload_neirong_src[which_artifact_assets]">
 								</div>
-								<div class="other_info" id="other_info" v-show="step2_upload_neirong_src.length"><!-- v-show="step2_upload_neirong_src.length"-->
+								<div class="other_info" id="other_info" v-show="step2_upload_neirong_src.length">
 									<div style="display: flex;flex-direction: row;justify-content: space-between;">
 										<p>绑定媒体文件 <span style="color: #3399cc;">(可选)</span></p>
 										<dropdown >
@@ -119,9 +119,9 @@
 									</div>
 									<div  v-for="(item,index) in step2_between_arr" v-if="which_artifact_assets === index">
 										<div><i-progress :percent="file_otherinof_arr[index].progress" /><br></div>
-										<p v-text="'文件名:' + file_otherinof_arr[index].fileTrueName"></p>
+										<p v-text="'文件名:' + file_otherinof_arr[index].fileTrueName"></p><br><br>
 										<p>标题 <span style="color: #3399cc;">(可选)</span></p>
-										<i-input placeholder="请输入标题" v-model="step2_between_arr[index].name"></i-input><br>
+										<i-input placeholder="请输入标题" v-model="step2_between_arr[index].name"></i-input><br><br>
 										<p>描述 <span style="color: #3399cc;">(可选)</span></p>
 										<i-input type="textarea" placeholder="请输入相应描述" v-model="step2_between_arr[index].description"></i-input><br>
 									</div>
