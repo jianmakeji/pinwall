@@ -34,5 +34,21 @@ module.exports = app => {
     });
   }
 
+  TopicTerm.delTopicTermByTopicIdAndtermIds = async function (topicId,termIds,transaction) {
+    return this.destroy({
+      transaction:transaction,
+      where : {
+        artifactId:artifactId,
+        termId:{
+          [app.Sequelize.Op.in]:termIds,
+        },
+      }
+    });
+  }
+
+  TopicTerm.createTopicTerm = async function(topicTerm,transaction){
+    return this.create(topicTerm,transaction);
+  }
+
   return TopicTerm;
 };

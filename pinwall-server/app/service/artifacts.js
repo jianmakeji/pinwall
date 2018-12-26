@@ -39,7 +39,7 @@ class Artifacts extends Service {
         await this.ctx.service.esUtils.createObject(artiObj.Id, esObject);
       }
       catch(e){
-        console.log("ID:"+artiObj.Id+": "+e.message);
+        this.ctx.getLogger('elasticLogger').info("ID:"+artiObj.Id+": "+e.message+"\n");
       }
 
       return true
@@ -79,9 +79,9 @@ class Artifacts extends Service {
         await this.ctx.service.esUtils.updateobject(id, esObject);
       }
       catch(e){
-        console.log("ID:"+artiObj.Id+": "+e.message);
+        this.ctx.getLogger('elasticLogger').info("ID:"+artiObj.Id+": "+e.message+"\n");
       }
-    
+
       return true
     } catch (e) {
       await transaction.rollback();

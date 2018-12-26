@@ -20,12 +20,53 @@ class Topics extends Service {
   }
 
   async create(topic) {
-    return this.ctx.model.Topics.createTopic(topic);
+    let transaction;
+    try {
+      transaction = await this.ctx.model.transaction();
+      const topicObj = await this.ctx.model.Topics.createTopic(topic,transaction);
+      let terms = topic.terms;
+      for (let term of terms){
+        const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
+        await this.ctx.model.TopicTerm.createTopicTerm({
+          topicId:topicObj.Id,
+          termId:termObj.Id
+        },transaction);
+      }
+      await transaction.commit();
+      return true
+    } catch (e) {
+      await transaction.rollback();
+      return false
+    }
   }
 
   async update({ Id, updates }) {
-    const topic = await this.ctx.model.Topics.updateTopic({ Id, updates });
-    return topic;
+
+    let transaction;
+    try {
+      transaction = await this.ctx.model.transaction();
+      let updateObject = await this.ctx.model.Topics.updateTopic({ id, updates },transaction);
+
+      if (updates.addTerms.length > 0){
+        for (let term of updates.addTerms){
+          const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
+          await this.ctx.model.TopicTerm.createTopicTerm({
+            topicId:topicObj.Id,
+            termId:termObj.Id
+          },transaction);
+        }
+      }
+
+      if (updates.deleteTerms.length > 0){
+        await this.ctx.model.TopicTerm.delTopicTermByTopicIdAndtermIds(id,updates.deleteTerms,transaction);
+      }
+      await transaction.commit();
+
+      return true
+    } catch (e) {
+      await transaction.rollback();
+      return false
+    }
   }
 
   async del(id) {

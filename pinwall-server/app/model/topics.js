@@ -184,12 +184,12 @@ module.exports  = app => {
     return topic;
   }
 
-  Topics.createTopic = async function (topic) {
+  Topics.createTopic = async function (topic,transaction) {
     if (topic.name == '' || topic.name == null){
       throw new Error('名称不能为空');
     }
     else{
-      return await this.create(topic);
+      return await this.create(topic,transaction);
     }
   }
 
