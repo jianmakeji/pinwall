@@ -35,6 +35,7 @@ class Topics extends Service {
       await transaction.commit();
       return true
     } catch (e) {
+     console.log(e.message);
       await transaction.rollback();
       return false
     }
