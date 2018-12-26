@@ -1,0 +1,58 @@
+[v-cloak]{
+	display: none;
+}
+body{
+    background: #efefef;
+}
+.upload_project{
+	background: #EFEFEF;
+}
+
+.header {
+	background: #333;
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+    color: #ccc;
+}
+
+.header .user_profile{
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+	font-size: 12px;
+	color: white;
+}
+.header .user_profile .photo{
+	width:40px;height:40px;border-radius: 40px;
+}
+.container .title{
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+    color: #bbb;
+    font-weight: normal;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.topic_form{
+    width: 950px;
+    margin: 20px auto;
+    padding: 40px 20px;
+    background: #fff;
+}
+
+
+.footer {
+	padding: 5px 0;
+	color: #999;
+	text-shadow: 0 1px rgba(255, 255, 255, 1);
+	font-size: 12px;
+	height: 50px;
+	line-height: 50px;
+	width: 100%;
+	overflow: hidden;
+	text-align: center;
+    position: absolute;
+    bottom: 10px;
+}
