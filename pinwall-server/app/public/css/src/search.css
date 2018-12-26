@@ -29,7 +29,7 @@
 .container .searchResult {
     font-size: 14px;
     color: #999;
-    margin: 20px 30px;
+    margin: 20px 50px;
     text-shadow: 0 1px rgba(255,255,255,1);
     font-weight: bold;
 }
@@ -160,6 +160,4 @@
 	width: 100%;
 	overflow: hidden;
 	text-align: center;
-	position: absolute;
-	bottom: 0px;
 }

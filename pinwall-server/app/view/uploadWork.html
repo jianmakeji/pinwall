@@ -61,7 +61,7 @@
 								<i-button icon="md-add-circle" type="success" id="step2_upload_btn" long>上传图片</i-button>
 								<input type="file" @change="step2_upload_neirong_change" id="step2_upload_input" accept="image/jpg,image/png" style="display:none;"/>
 							</div>
-							<ul class="uploaded_list" id="uploaded_list"><!-- v-show="step2_upload_neirong_src.length"-->
+							<ul class="uploaded_list" id="uploaded_list">
 								<li @click="selectLi(index)" v-for="(item, index) in step2_upload_neirong_src">
 									<img class="thumb" :src="item" />
 									<!-- <span v-text="item+'.png'"></span> -->
@@ -79,7 +79,7 @@
 										<i-button type="default" class="step2_change_upload_btn" long>更换</i-button>
 										<input type="file" @change="step2_upload_change" class="step2_change_upload_input" accept="aplication/zip" style="display:none;"/>
 									</div><br>
-									<img class="thumb" style="width:75%;height:auto;margin: 0 auto;" :src="yulan_img" alt="">
+									<img class="thumb" style="width:75%;height:auto;margin: 0 auto;" :src="yulan_img">
 								</div>
 								<div class="other_info" id="other_info" v-show="step2_upload_neirong_src.length"><!-- v-show="step2_upload_neirong_src.length"-->
 									<div style="display: flex;flex-direction: row;justify-content: space-between;">
