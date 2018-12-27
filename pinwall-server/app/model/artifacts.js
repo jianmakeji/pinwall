@@ -235,12 +235,14 @@ module.exports = app => {
   Artifacts.updateArtifact = async function({
     id,
     updates
-  }) {
+    },transaction) {
     const artifact = await this.findByPk(id);
     if (!artifact) {
       throw new Error('artifact not found');
     }
-    return artifact.update(updates);
+    return artifact.update(updates,{
+        transaction:transaction
+    });
   }
 
   Artifacts.delArtifactById = async function(id, transaction) {

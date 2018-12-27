@@ -38,7 +38,7 @@ module.exports = app => {
     return this.destroy({
       transaction:transaction,
       where : {
-        artifactId:artifactId,
+        topicId:topicId,
         termId:{
           [app.Sequelize.Op.in]:termIds,
         },
@@ -47,7 +47,9 @@ module.exports = app => {
   }
 
   TopicTerm.createTopicTerm = async function(topicTerm,transaction){
-    return this.create(topicTerm,transaction);
+    return this.create(topicTerm,{
+        transaction:transaction
+    });
   }
 
   return TopicTerm;

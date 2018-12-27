@@ -4,13 +4,14 @@ const Service = require('egg').Service;
 
 class Topics extends Service {
 
-  async list({ offset = 0, limit = 10,jobTag = 0, subLimit = 10, status = 0 }) {
+  async list({ offset = 0, limit = 10,jobTag = 0, subLimit = 10, status = 0,userId=0 }) {
     return this.ctx.model.Topics.listTopics({
       offset,
       limit,
       jobTag,
       subLimit,
       status,
+      userId,
     });
   }
 
@@ -41,30 +42,32 @@ class Topics extends Service {
     }
   }
 
-  async update({ Id, updates }) {
+  async update(updateData) {
 
     let transaction;
     try {
       transaction = await this.ctx.model.transaction();
-      let updateObject = await this.ctx.model.Topics.updateTopic({ id, updates },transaction);
 
-      if (updates.addTerms.length > 0){
+      let updateObject = await this.ctx.model.Topics.updateTopic(updateData,transaction);
+      const updates = updateData.data;
+      if (updates.addTerms && updates.addTerms.length > 0){
         for (let term of updates.addTerms){
           const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
           await this.ctx.model.TopicTerm.createTopicTerm({
-            topicId:topicObj.Id,
+            topicId:updateData.Id,
             termId:termObj.Id
           },transaction);
         }
       }
 
-      if (updates.deleteTerms.length > 0){
-        await this.ctx.model.TopicTerm.delTopicTermByTopicIdAndtermIds(id,updates.deleteTerms,transaction);
+      if (updates.deleteTerms && updates.deleteTerms.length > 0){
+        await this.ctx.model.TopicTerm.delTopicTermByTopicIdAndtermIds(updateData.Id,updates.deleteTerms,transaction);
       }
       await transaction.commit();
 
       return true
     } catch (e) {
+     console.log(e.message);
       await transaction.rollback();
       return false
     }

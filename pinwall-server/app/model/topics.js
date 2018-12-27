@@ -203,16 +203,24 @@ module.exports  = app => {
       throw new Error('名称不能为空');
     }
     else{
-      return await this.create(topic,transaction);
+      return await this.create(topic,{
+          transaction:transaction
+      });
     }
   }
 
-  Topics.updateTopic = async function ({ Id, updates }) {
-    const topic = await this.findById(id);
+  Topics.updateTopic = async function (updateData,transaction) {
+
+    const topic = await this.findByPk(updateData.Id);
     if (!topic) {
       throw new Error('topic not found');
     }
-    return await this.update(updates);
+    return await this.update(updateData.data,{
+        transaction:transaction,
+        where:{
+            Id:updateData.Id
+        }
+    });
   }
 
   Topics.updateTopicStatus = async function (topicId,status) {

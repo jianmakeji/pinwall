@@ -60,7 +60,7 @@ class Artifacts extends Service {
         await this.ctx.model.ArtifactAssets.createAssets(updates.artifactAssets);
       }
 
-      if (updates.addTerms.length > 0){
+      if (updates.addTerms && updates.addTerms.length > 0){
         for (let term of updates.addTerms){
           const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
           await this.ctx.model.ArtifactTerm.createArtifactTerm({
@@ -70,7 +70,7 @@ class Artifacts extends Service {
         }
       }
 
-      if (updates.deleteTerms.length > 0){
+      if (updates.deleteTerms && updates.deleteTerms.length > 0){
         await this.ctx.model.ArtifactTerm.delArtifactTermByArtifactIdAndtermId(id,updates.deleteTerms,transaction);
       }
       await transaction.commit();
@@ -109,6 +109,9 @@ class Artifacts extends Service {
         if (deleteAliOSSArray.length > 0){
           this.ctx.app.deleteOssMultiObject(deleteAliOSSArray);
         }
+      }
+      catch(e){
+          this.ctx.getLogger('aliossLogger').info("delete ID:"+deleteAliOSSArray.join(',')+": "+e.message+"\n");
       }
 
       return true
