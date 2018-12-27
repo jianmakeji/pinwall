@@ -51,6 +51,8 @@ module.exports = app => {
   router.get('website.search.searchByKeywords','/website/search/searchByKeywords', controller.website.search.searchByKeywords);
   router.get('website.search.transferData','/website/search/transferData', controller.website.search.transferData);
 
+  router.put('website.topics.updateTopicStatus','/website/topics/updateTopicStatus', controller.website.topics.updateTopicStatus);
+
   //网站接口
   router.resources('website.users', '/website/users', controller.website.users);
   router.resources('website.artifactComment', '/website/artifactComment', controller.website.artifactComment);

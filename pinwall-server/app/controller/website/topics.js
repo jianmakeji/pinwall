@@ -50,9 +50,9 @@ class TopicsController extends BaseController{
   async update() {
     const ctx = this.ctx;
     const id = ctx.params.id;
-    const data = ctx.request.body;
-    const result = await ctx.service.topics.update({ id, data});
 
+    const data = ctx.request.body;
+     const result = await ctx.service.topics.update({ id, data});
     if(result){
       super.success('修改成功!');
     }
@@ -89,6 +89,20 @@ class TopicsController extends BaseController{
     catch(e){
       super.failure(e.message);
     }
+  }
+
+  async updateTopicStatus(){
+     const ctx = this.ctx;
+     const topicId = ctx.query.topicId;
+     const status = ctx.query.status;
+
+     try{
+       await ctx.service.topics.updateTopicStatus(topicId,status);
+       super.success("操作成功!");
+     }
+     catch(e){
+       super.failure(e.message);
+     }
   }
 
 }

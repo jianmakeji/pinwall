@@ -200,6 +200,17 @@ module.exports  = app => {
     return await this.update(updates);
   }
 
+  Topics.updateTopicStatus = async function (topicId,status) {
+
+    return await this.update({
+      status:status
+    },{
+      where:{
+        Id:topicId
+      }
+    });
+  }
+
   Topics.delTopicById = async function (id,transaction) {
     const topic = await this.findById(id);
     if (!topic) {

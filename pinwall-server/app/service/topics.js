@@ -91,6 +91,10 @@ class Topics extends Service {
     });
     return topic;
   }
+
+  async updateTopicStatus(topicId,status){
+    return await this.ctx.model.Topics.updateTopicStatus(topicId,status);
+  }
 }
 
 module.exports = Topics;
