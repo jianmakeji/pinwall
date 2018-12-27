@@ -50,8 +50,8 @@ class TopicsController extends BaseController{
   async update() {
     const ctx = this.ctx;
     const id = ctx.params.id;
-
-    const result = await ctx.service.topics.update({ id, ctx.request.body });
+    const data = ctx.request.body;
+    const result = await ctx.service.topics.update({ id, data});
 
     if(result){
       super.success('修改成功!');
