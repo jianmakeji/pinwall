@@ -117,6 +117,16 @@ class HomeController extends BaseController {
     const ctx = this.ctx;
     await ctx.render('createTopics.html');
   }
+
+  async forgetPwd(){
+    const ctx = this.ctx;
+    await ctx.render('forgetPwd.html');
+  }
+
+  async register(){
+    const ctx = this.ctx;
+    await ctx.render('register.html');
+  }
 }
 
 module.exports = HomeController;

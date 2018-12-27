@@ -2,12 +2,17 @@ var index = new Vue({
     el: '.index',
     data(){
         return{
-            formItem:{
-                input:""
-            },
             containerStyle:{
                 minHeight:""
             },
+            topicsId:"",
+            formItem:{
+                name:"",
+                description:"",
+                status:""
+            },
+
+
             spinShow:false,
 
             screenWidth:"",
@@ -44,9 +49,26 @@ var index = new Vue({
         }
     },
     methods: {
+        updateTopicStatus(){
+            console.log(this.topicsId);
+            let that = this;
+            $.ajax({
+                url: '/website/topics/updateTopicStatus',
+                type: 'PUT',
+                data: {topicId:this.topicsId,status:this.formItem.status},
+                success:function(res){
+                    console.log(res);
+                }
+            });
+
+        },
+
+
+
+
 
         deleteLabel(index){
-            
+
         },
         openModel(){
             this.searchModel = true;
@@ -108,8 +130,10 @@ var index = new Vue({
         }
     },
     created(){
+        let that = this;
         this.screenWidth = document.documentElement.clientWidth;
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
+        this.topicsId = window.location.href.split("topicsUpdate/")[1];
         if(document.documentElement.clientWidth > 1200){
             this.modelWidth = "60%";
         }else if(document.documentElement.clientWidth < 1200){
@@ -117,6 +141,18 @@ var index = new Vue({
         }else if(document.documentElement.clientWidth < 992){
             this.modelWidth = "80%";
         }
+
+        $.ajax({
+            url: '/website/topics/' + this.topicsId,
+            type: 'GET',
+            success:function(res){
+                console.log(res);
+                if(res.status == 200){
+                    that.formItem = res.data;
+                }
+            }
+        });
+
     }
 })
 

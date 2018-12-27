@@ -1,10 +1,10 @@
 {% extends "parent.html" %}
 
 {% block cssfolder %}
-	<link rel="stylesheet" type="text/css" href="public/css/src/base.css"/>
-	<link rel="stylesheet" type="text/css" href="public/css/lib/iview.css">
-	<link rel="stylesheet" type="text/css" href="public/css/src/topicsUpdate.css"/>
-	<link rel="stylesheet" type="text/css" href="public/css/src/model.css"/>
+	<link rel="stylesheet" type="text/css" href="../public/css/src/base.css"/>
+	<link rel="stylesheet" type="text/css" href="../public/css/lib/iview.css">
+	<link rel="stylesheet" type="text/css" href="../public/css/src/topicsUpdate.css"/>
+	<link rel="stylesheet" type="text/css" href="../public/css/src/model.css"/>
 {% endblock %}
 
 {% block head_btn %}
@@ -20,7 +20,7 @@
             <div class="form_box">
                 <div class="left_form">
                     <form-item label="标题:">
-                        <i-input v-model="formItem.input" placeholder="请输入作业荚名称"></i-input>
+                        <i-input v-model="formItem.name" placeholder="请输入作业荚名称"></i-input>
                     </form-item>
                     <form-item label="标签:" id="label_formitem">
                         <i-button type="success" size="small" icon="ios-brush" @click="deleteLabel(index)" v-for="(item,index) in [1,2,3,4]" style="margin-right:5px;"><span v-text="item"></span></i-button>
@@ -30,14 +30,16 @@
                         <i-input v-model="formItem.input" placeholder="请输入新标签"></i-input>
                     </form-item>
                     <form-item label="内容说明:">
-                        <i-input v-model="formItem.input" type="textarea" placeholder="请输入说明内容"></i-input>
+                        <i-input v-model="formItem.description" type="textarea" placeholder="请输入说明内容"></i-input>
                     </form-item>
                 </div>
                 <div class="right_form">
                     <div class="status">
                         <h5>作业荚状态</h5>
-                        <span class="current_state">关闭</span>
-						<a>设为开放</a>
+						<span v-if="formItem.status == 1"  class="current_state">关闭</span>
+                        <span v-if="formItem.status == 0"  class="current_state">开放</span>
+						<a v-if="formItem.status == 1" @click="updateTopicStatus">设为开放</a>
+						<a v-if="formItem.status == 0" @click="updateTopicStatus">设为关闭</a>
                     </div>
                     <p class="error_infromation">作业荚关闭后，用户将无法修改或删除已上传到作业荚的作品，也不能上传其他新的作品到作业荚。</p>
                     <div class="info">
@@ -57,10 +59,10 @@
 {% endblock %}
 
 {% block jsfolder %}
-	<script type="text/javascript" src="public/js/lib/jquery.min.js"></script>
-	<script type="text/javascript" src="public/js/lib/vue.min.js"></script>
-	<script type="text/javascript" src="public/js/lib/iview.min.js"></script>
-	<script type="text/javascript" src="public/js/lib/vue-resource.js"></script>
-	<script type="text/javascript" src="public/js/src/config.js"></script>
-	<script type="text/javascript" src="public/js/src/topicsUpdate.js"></script>
+	<script type="text/javascript" src="../public/js/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="../public/js/lib/vue.min.js"></script>
+	<script type="text/javascript" src="../public/js/lib/iview.min.js"></script>
+	<script type="text/javascript" src="../public/js/lib/vue-resource.js"></script>
+	<script type="text/javascript" src="../public/js/src/config.js"></script>
+	<script type="text/javascript" src="../public/js/src/topicsUpdate.js"></script>
 {% endblock %}

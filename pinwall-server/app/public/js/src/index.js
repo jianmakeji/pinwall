@@ -22,7 +22,7 @@ var index = new Vue({
 
 
 
-            userId:"1",
+            userId:"",
             // 注册弹出层
             loginModel:false,
             formItem:{

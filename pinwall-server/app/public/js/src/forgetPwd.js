@@ -10,6 +10,7 @@ var index = new Vue({
                 name:"",
                 password:""
             },
+            imgSrc:"",
 
 
             userId:"1",
@@ -17,11 +18,8 @@ var index = new Vue({
         }
     },
     methods: {
-        onRegister(){
-            console.log("onRegister");
-        },
-        onRecoverPwd (){
-            console.log("onRecoverPwd");
+        tapClick(){
+
         }
     },
     created(){

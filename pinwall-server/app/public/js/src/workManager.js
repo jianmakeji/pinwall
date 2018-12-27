@@ -105,8 +105,6 @@ var index = new Vue({
             columns1:[
                 {title:"搜索结果",key:"name"}
             ],
-            // 注册弹出层
-            loginModel:false,
             formItem:{
                 username:"",
                 email:"",
@@ -152,66 +150,6 @@ var index = new Vue({
         becomeVIP(value){
             console.log(value);
         },
-
-
-
-
-
-        // 打开search弹出层
-        openModel(){
-            console.log("openModel");
-            this.searchModel = true;
-        },
-        // 修改密码弹出层
-        openResetInfoModel(){
-            this.resetInfoModel = true;
-        },
-        // 修改密码弹出层
-        openResetPwdModel(){
-            this.resetPwdModel = true;
-        },
-        // 回车搜索
-        searchModelData(){
-            console.log("searchModelData");
-            this.searchModelDataList = [
-                {id:1,name:"11111111111"},
-                {id:2,name:"22222222222"},
-                {id:3,name:"33333333333"},
-                {id:4,name:"44444444444"},
-                {id:5,name:"55555555555"}
-            ]
-        },
-        // 搜索结果字段选择
-        selectItem(index){
-            console.log("selectItem",index);
-        },
-        // 打开登陆弹出层
-        openLogin(){
-            this.loginModel = true;
-        },
-        // 忘记密码
-        onRecoverPwd(){
-            this.loginModel = false;
-            this.recoverPwdModel = true;
-        },
-        // 注册
-        onRegister(){
-            this.loginModel = false;
-            this.registerModel = true;
-        },
-        tapClick() {
-            var timeStamp = '?' + new Date().getTime() + 'r' + Math.random();
-            this.imgSrc = "user/getCode"+timeStamp;
-        },
-        userManager(){
-
-        },
-        workManager(){
-
-        },
-        commentManager(){
-
-        }
     },
     created(){
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";

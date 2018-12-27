@@ -20,10 +20,12 @@ module.exports = app => {
   router.get('/userManager', controller.home.userManager);
   router.get('/workManager', controller.home.workManager);
   router.get('/commentManager', controller.home.commentManager);
-  router.get('/topicsUpdate', controller.home.topicsUpdate);
+  router.get('/topicsUpdate/:id', controller.home.topicsUpdate);
   router.get('/children', controller.home.children);
   router.get('/search', controller.home.search);
   router.get('/resetInfo', controller.home.resetInfo);
+  router.get('/forgetPwd', controller.home.forgetPwd);
+  router.get('/register', controller.home.register);
   router.get('/createTopics', controller.home.createTopics);
   router.get('/getSTSSignature/:fileType', controller.website.alioss.getSTSSignature);
   router.get('/getUrlSignature', controller.website.alioss.getUrlSignature);
@@ -50,6 +52,8 @@ module.exports = app => {
 
   router.get('website.search.searchByKeywords','/website/search/searchByKeywords', controller.website.search.searchByKeywords);
   router.get('website.search.transferData','/website/search/transferData', controller.website.search.transferData);
+
+  router.put('website.topics.updateTopicStatus','/website/topics/updateTopicStatus', controller.website.topics.updateTopicStatus);
 
   //网站接口
   router.resources('website.users', '/website/users', controller.website.users);

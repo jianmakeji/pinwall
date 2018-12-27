@@ -104,7 +104,12 @@ var index = new Vue({
          */
         checkThisTopic(id){
             console.log("checkThisTopic",id);
+            window.location.href = "/topicsUpdate/" + id;
         },
+
+
+
+
         /**
          * [uploadToTopic 上传作品至该作业荚]
          * @param  {[type]} id [作业荚id]
