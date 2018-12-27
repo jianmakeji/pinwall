@@ -11,7 +11,7 @@ var index = new Vue({
                 minHeight:""
             },
             // 数据请求
-            aoData:{limit:10,jobTag:2,offset:0,status:-1},
+            aoData:{limit:10,jobTag:2,offset:0,status:-1,userId:-1},
             dataList:[],
             scrollModel:true,
 
@@ -66,6 +66,7 @@ var index = new Vue({
             let that = this;
             this.$Loading.start();
             this.aoData.status = -1;
+            this.aoData.userId = -1;
 
             getData(this, this.aoData);
         },
@@ -81,6 +82,7 @@ var index = new Vue({
             let that = this;
             this.$Loading.start();
             this.aoData.status = 0;
+            this.aoData.userId = -1;
             getData(this, this.aoData);
         },
         /**
@@ -96,6 +98,19 @@ var index = new Vue({
             let that = this;
             this.$Loading.start();
             this.aoData.status = 1;
+            this.aoData.userId = -1;
+
+            getData(this, this.aoData);
+        },
+        checkMy(){
+            console.log("checkMy");
+            this.checkAllType = "text";
+            this.checkOpenType = "text";
+            this.checkCloseType = "text";
+            this.checkMyType = "default";
+            this.aoData.status = 1;
+            this.aoData.userId = 1;
+
             getData(this, this.aoData);
         },
         /**
@@ -119,13 +134,7 @@ var index = new Vue({
         },
 
 
-        checkMy(){
-            console.log("checkMy");
-            this.checkAllType = "text";
-            this.checkOpenType = "text";
-            this.checkCloseType = "text";
-            this.checkMyType = "default";
-        },
+
         searchData(){
             console.log("searchData");
         },

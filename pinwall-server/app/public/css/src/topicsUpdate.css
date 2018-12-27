@@ -41,6 +41,15 @@ body{
 	width: 50%;
 	padding: 40px 20px;
 }
+.container .form_box .left_form #label_formitem button:hover{
+	background-color: #ed4014;
+	border-color: #ed4014;
+}
+.container .form_box .left_form #label_formitem .ivu-icon-ios-brush:hover:before{
+    content:"\f379";
+}
+
+
 .container .form_box .right_form{
 	width: 50%;
 	padding: 40px 20px;

@@ -23,11 +23,11 @@
                         <i-input v-model="formItem.name" placeholder="请输入作业荚名称"></i-input>
                     </form-item>
                     <form-item label="标签:" id="label_formitem">
-                        <i-button type="success" size="small" icon="ios-brush" @click="deleteLabel(index)" v-for="(item,index) in [1,2,3,4]" style="margin-right:5px;"><span v-text="item"></span></i-button>
+                        <i-button type="success" size="small" icon="ios-brush" @click="deleteTerm(index)" v-for="(item,index) in terms_arr" style="margin-right:5px;"><span v-text="item.name"></span></i-button>
                     </form-item>
                     <form-item>
 						<p>在下方输入新标签，按回车确认。</p>
-                        <i-input v-model="formItem.input" placeholder="请输入新标签"></i-input>
+                        <i-input v-model="term_value" @on-enter="addTerm" placeholder="请输入新标签"></i-input>
                     </form-item>
                     <form-item label="内容说明:">
                         <i-input v-model="formItem.description" type="textarea" placeholder="请输入说明内容"></i-input>
@@ -36,21 +36,23 @@
                 <div class="right_form">
                     <div class="status">
                         <h5>作业荚状态</h5>
-						<span v-if="formItem.status == 1"  class="current_state">关闭</span>
-                        <span v-if="formItem.status == 0"  class="current_state">开放</span>
-						<a v-if="formItem.status == 1" @click="updateTopicStatus">设为开放</a>
-						<a v-if="formItem.status == 0" @click="updateTopicStatus">设为关闭</a>
+						<span v-if="formItem.status == 0"  class="current_state">关闭</span>
+                        <span v-if="formItem.status == 1"  class="current_state">开放</span>
+						<a v-if="formItem.status == 0" @click="updateTopicStatus">设为开放</a>
+						<a v-if="formItem.status == 1" @click="updateTopicStatus">设为关闭</a>
                     </div>
                     <p class="error_infromation">作业荚关闭后，用户将无法修改或删除已上传到作业荚的作品，也不能上传其他新的作品到作业荚。</p>
-                    <div class="info">
+                    <!-- <div class="info">
                         <h5>作业荚中的作品</h5>
                         <span class="total">135</span>
                         <a>查看</a>
-                    </div>
-                    <i-button type="error" long style="margin:20px 0;">删除作业荚及其中的所有作品 (无法恢复，谨慎操作)</i-button>
+                    </div> -->
+					<poptip confirm transfer placement="right" width="200" title="确定要删除?" @on-ok="deleteTopics">
+				        <i-button type="error" long style="margin:20px 0;">删除作业荚及其中的所有作品 (无法恢复，谨慎操作)</i-button>
+				    </poptip>
                     <div class="submit_box">
-                        <i-button type="success">确定</i-button>
-                        <i-button type="default">取消</i-button>
+                        <i-button type="success" @click="updata_submit">确定</i-button>
+                        <i-button type="default" @click="updata_cancel">取消</i-button>
                     </div>
                 </div>
             </div>
