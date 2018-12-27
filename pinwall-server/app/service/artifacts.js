@@ -54,6 +54,7 @@ class Artifacts extends Service {
     try {
       transaction = await this.ctx.model.transaction();
       let updateObject = await this.ctx.model.Artifacts.updateArtifact({ id, updates },transaction);
+      const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
       if (updates.artifactAssets.length > 0){
         await this.ctx.model.ArtifactAssets.delAssetsByArtifactId(id,transaction);
         await this.ctx.model.ArtifactAssets.createAssets(updates.artifactAssets);
@@ -80,6 +81,34 @@ class Artifacts extends Service {
       }
       catch(e){
         this.ctx.getLogger('elasticLogger').info("ID:"+artiObj.Id+": "+e.message+"\n");
+      }
+
+      try{
+        let deleteAliOSSArray = new Array();
+        if ((updates.profileImage != '' || updates.profileImage != null) && updates.profileImage != artifact.profileImage){
+          deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
+        }
+
+        for (const artifactAssets of artifact.artifactAssets){
+          if (artifactAssets.type == 1){
+            deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
+          }
+          else if(artifactAssets.type == 2){
+            deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
+            deleteAliOSSArray.push(ctx.app.pdfPath + artifact.mediaFile);
+          }
+          else if(artifactAssets.type == 3){
+            deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
+            deleteAliOSSArray.push(ctx.app.rar_zipPath + artifact.mediaFile);
+          }
+          else if(artifactAssets.type == 4){
+            deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
+            deleteAliOSSArray.push(ctx.app.videoPath + artifact.mediaFile);
+          }
+        }
+        if (deleteAliOSSArray.length > 0){
+          this.ctx.app.deleteOssMultiObject(deleteAliOSSArray);
+        }
       }
 
       return true
@@ -133,7 +162,7 @@ class Artifacts extends Service {
 
       }
       catch(e){
-
+          this.ctx.getLogger('aliossLogger').info("delete ID:"+deleteAliOSSArray.join(',')+": "+e.message+"\n");
       }
       await transaction.commit();
       return true

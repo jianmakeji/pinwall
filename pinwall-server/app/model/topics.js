@@ -67,7 +67,7 @@ module.exports  = app => {
     });
   };
 
-  Topics.listTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0 }) {
+  Topics.listTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0 }) {
 
     let condition = {
       offset,
@@ -104,6 +104,11 @@ module.exports  = app => {
     if (status != -1){
       condition.where.status = status;
       countCondition.where.status = status;
+    }
+
+    if (userId != -1){
+      condition.where.userId = userId;
+      countCondition.where.userId = userId;
     }
 
     let resultData = await this.findAll(condition);
