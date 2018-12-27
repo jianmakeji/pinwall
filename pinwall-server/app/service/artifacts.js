@@ -99,7 +99,42 @@ class Artifacts extends Service {
       await this.ctx.model.ArtifactComments.delCommentByArtifactId(id, transaction);
       await this.ctx.model.ArtifactTerm.delArtifactTermByArtifactId(id, transaction);
       await this.ctx.model.Users.reduceAllAggData(artifact.userId, artifact.medalCount, artifact.likeCount, artifact.commentCount, transaction);
-      await this.ctx.service.esUtils.deleteObjectById(id);
+
+      try{
+        await this.ctx.service.esUtils.deleteObjectById(id);
+      }
+      catch(e){
+        this.ctx.getLogger('elasticLogger').info("delete ID:"+id+": "+e.message+"\n");
+      }
+
+      try{
+        let deleteAliOSSArray = new Array();
+        deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
+        for (const artifactAssets of artifact.artifactAssets){
+          if (artifactAssets.type == 1){
+            deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
+          }
+          else if(artifactAssets.type == 2){
+            deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
+            deleteAliOSSArray.push(ctx.app.pdfPath + artifact.mediaFile);
+          }
+          else if(artifactAssets.type == 3){
+            deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
+            deleteAliOSSArray.push(ctx.app.rar_zipPath + artifact.mediaFile);
+          }
+          else if(artifactAssets.type == 4){
+            deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
+            deleteAliOSSArray.push(ctx.app.videoPath + artifact.mediaFile);
+          }
+        }
+        if (deleteAliOSSArray.length > 0){
+          this.ctx.app.deleteOssMultiObject(deleteAliOSSArray);
+        }
+
+      }
+      catch(e){
+
+      }
       await transaction.commit();
       return true
     } catch (e) {

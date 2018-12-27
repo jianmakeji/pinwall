@@ -176,7 +176,17 @@ module.exports  = app => {
   }
 
   Topics.findTopicById = async function (Id) {
-    const topic = await this.findById(Id);
+    const topic = await this.findById(Id,{
+      include:[
+        {
+          model: app.model.Terms,
+          through:{
+            attributes:['topicId','termId'],
+          },
+          attributes:['Id','name']
+        }
+      ]
+    });
     if (!topic) {
       throw new Error('topic not found');
     }
