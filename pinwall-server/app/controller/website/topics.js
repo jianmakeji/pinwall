@@ -43,7 +43,7 @@ class TopicsController extends BaseController{
       super.success('创建成功!');
     }
     else{
-      super.failure(e.message);
+      super.failure('创建失败!');
     }
   }
 
@@ -57,7 +57,7 @@ class TopicsController extends BaseController{
       super.success('修改成功!');
     }
     else{
-      super.failure(e.message);
+      super.failure('修改失败！');
     }
   }
 
@@ -69,7 +69,7 @@ class TopicsController extends BaseController{
       super.success('删除成功!');
     }
     catch(e){
-      super.failure(e.message);
+      super.failure('删除失败！');
     }
 
   }
