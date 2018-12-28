@@ -49,12 +49,7 @@ class ArtifactsController extends BaseController{
   async update() {
     const ctx = this.ctx;
     const id = ctx.params.id;
-    const updates = {
-      artifactId: ctx.request.body.artifactId,
-      scorerId: ctx.request.body.scorerId,
-      score: ctx.request.body.score,
-    };
-
+    const updates = ctx.request.body;
     let result = await ctx.service.artifacts.update({ id, updates });
     if(result){
       super.success('更新成功!');

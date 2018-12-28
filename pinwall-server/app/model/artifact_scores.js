@@ -111,7 +111,7 @@ module.exports = app => {
     if (!artifact) {
       throw new Error('artifact not found');
     }
-    return artifact.update({
+    return this.update({
       score: score
     }, {
       where: {
@@ -122,7 +122,7 @@ module.exports = app => {
   }
 
   ArtifactScores.delArtifactScoresByArtifactId = async function (artifactId) {
-    return artifact.destroy({
+    return this.destroy({
       where:{
         artifactId:artifactId
       }
@@ -130,7 +130,7 @@ module.exports = app => {
   }
 
   ArtifactScores.delArtifactScoresByScorerId = async function (scorerId) {
-    return artifact.destroy({
+    return this.destroy({
       where:{
         scorerId:scorerId
       }

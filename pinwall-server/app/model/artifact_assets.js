@@ -64,10 +64,22 @@ module.exports = app => {
 
   ArtifactAssets.delAssetsByArtifactId = async function (artifactId,transaction) {
 
-    return artifact.destroy({
+    return this.destroy({
       transaction:transaction,
       where:{
           artifactId:artifactId,
+      },
+    });
+  }
+
+  ArtifactAssets.delAssetsByArtifactAssetsId = async function (assetsId,transaction) {
+
+    return this.destroy({
+      transaction:transaction,
+      where:{
+          Id:{
+            [app.Sequelize.Op.in]:assetsId,
+          },
       },
     });
   }
