@@ -6,16 +6,58 @@ class Artifacts extends Service {
 
   async list({ offset = 0, limit = 10, visible = 0, jobTag = 0}) {
 
-    return this.ctx.model.Artifacts.listArtifacts({
+    let resultObj = await this.ctx.model.Artifacts.listArtifacts({
       offset,
       limit,
       visible,
       jobTag,
     });
+
+    const app = this.ctx.app;
+    resultObj.rows.forEach((element, index)=>{
+      if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
+        element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
+
+        for (let subElement of element.artifact_assets){
+          subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
+          if (subElement.type == 2 && subElement.mediaFile != null){
+            subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
+          }
+          else if (subElement.type == 3 && subElement.mediaFile != null){
+            subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
+          }
+          else if (subElement.type == 4 && subElement.mediaFile != null){
+            subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
+          }
+        }
+      }
+
+    });
+
+    return resultObj;
   }
 
   async find(id) {
     const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
+    const app = this.ctx.app;
+
+    if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
+      artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
+
+        for (let subElement of artifact.artifact_assets){
+          subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
+          if (subElement.type == 2 && subElement.mediaFile != null){
+            subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
+          }
+          else if (subElement.type == 3 && subElement.mediaFile != null){
+            subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
+          }
+          else if (subElement.type == 4 && subElement.mediaFile != null){
+            subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
+          }
+        }
+    }
+
     return artifact;
   }
 
