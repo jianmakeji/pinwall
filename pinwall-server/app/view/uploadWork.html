@@ -64,7 +64,7 @@
 							<ul class="uploaded_list" id="uploaded_list">
 								<li @click="selectLi(index)" v-for="(item, index) in step2_upload_neirong_src">
 									<img class="thumb" :src="item" />
-									<span v-text="neirong_truename_arr[index]"></span>
+									<span style="width: 60px;overflow-x: hidden;word-break: keep-all;" v-text="neirong_truename_arr[index].split('.')[0]"></span>
 									<i-button icon="md-trash" shape="circle" type="error" @click.stop="deleteUploadImg(index)"></i-button>
 								</li>
 							</ul>
@@ -118,7 +118,7 @@
 										</dropdown>
 									</div>
 									<div  v-for="(item,index) in step2_between_arr" v-if="which_artifact_assets === index">
-										<div><i-progress :percent="file_otherinof_arr[index].progress" /><br></div>
+										<div><i-progress :percent="file_otherinof_arr[index].progress ? file_otherinof_arr[index].progress: 0" /><br></div>
 										<p v-text="'文件名:' + file_otherinof_arr[index].fileTrueName"></p><br><br>
 										<p>标题 <span style="color: #3399cc;">(可选)</span></p>
 										<i-input placeholder="请输入标题" v-model="step2_between_arr[index].name"></i-input><br><br>

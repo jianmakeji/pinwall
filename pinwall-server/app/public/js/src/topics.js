@@ -165,7 +165,7 @@ var index = new Vue({
             let that = this;
             this.$Loading.start();
             this.aoData.status = -1;
-            this.aoData.userId = 1;
+            this.aoData.userId = 4862;
             this.$http({
                 url: config.ajaxUrls.getTopicAboutData,
                 method:"GET",

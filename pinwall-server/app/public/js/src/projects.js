@@ -3,6 +3,7 @@ var projects = new Vue({
     delimiters: ['${', '}'],
     data(){
         return{
+            artifactId:"",
             aoData:{limit:10,offset:0,artifactId:0},
             scrollModel:true,
             dataList:[],
@@ -16,6 +17,9 @@ var projects = new Vue({
         }
     },
     methods: {
+        editArtifact(){
+            window.location.href = "/editUploadWork?id=" + this.aoData.artifactId + "&jobTag=2";
+        },
         /**
          * 有附件时监听点击
          *  url [附件路径]
@@ -48,6 +52,7 @@ var projects = new Vue({
     created(){
         this.projectStyle.minHeight = document.documentElement.clientHeight + "px";
         this.aoData.artifactId = window.location.href.split("project/")[1];
+        this.artifactId = window.location.href.split("project/")[1];
         let that = this;
         this.$Loading.start();
         $.ajax({

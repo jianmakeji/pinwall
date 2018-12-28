@@ -18,36 +18,6 @@ var index = new Vue({
             // //右侧抽屉
             drawerShow:false,
 
-            //
-            // screenWidth:"",
-
-            //
-            // // 搜索弹出层
-            // searchModel:false,  /* 搜索弹出层model */
-            // searchModelValue:"",    /*搜索内容*/
-            // searchModelDataList:[],
-            // modelWidth:"",
-            // columns1:[
-            //     {title:"搜索结果",key:"name"}
-            // ],
-            // // 注册弹出层
-            // loginModel:false,
-            // formItem:{
-            //     username:"",
-            //     email:"",
-            //     password:""
-            // },
-            // // 忘记密码弹出层
-            // recoverPwdModel:false,
-            // // 注册弹出层
-            // registerModel:false,
-            // imgSrc:"user/getCode",	//图片验证码路径
-            // // 修改资料弹出层
-            // resetInfoModel:false,
-            // // 修改密码弹出层
-            // resetPwdModel:false,
-            //
-            // imgSrc:"user/getCode",	//图片验证码路径
         }
     },
     methods: {

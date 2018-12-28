@@ -108,8 +108,8 @@ var index = new Vue({
             this.checkOpenType = "text";
             this.checkCloseType = "text";
             this.checkMyType = "default";
-            this.aoData.status = 1;
-            this.aoData.userId = 1;
+            this.aoData.status = -1;
+            this.aoData.userId = 4862;
 
             getData(this, this.aoData);
         },

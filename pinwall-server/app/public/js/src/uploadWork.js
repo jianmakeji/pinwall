@@ -16,12 +16,15 @@ var container = new Vue({
             step2_upload_neirong_src:[],    //列表图片上传列表
             yulan_img:"",                   //步骤二图片预览img的src
             dataItem:{
+                Id:"",
                 name:"",                    //作品名
                 description:"",             //描述
                 profileImage:"",            //封面图
                 jobTag:"",                  //0 作品集 1 作业荚
                 artifact_assets:[],         //详情数组
-                terms:[]                    //标签数组
+                terms:[],                    //标签数组
+                // addTerms:[],
+                // deleteTerms:[]
             },
             step2_between_arr:[],           //存放step2的数据数组 最后赋值给dataitem
             which_artifact_assets:"",
@@ -29,6 +32,8 @@ var container = new Vue({
             neirong_truename_arr:[],
             terms_value:"",
             terms_arr:[],
+            addTerms:[],
+            deleteTerms:[],
             upload_show:false,
 
 
@@ -74,7 +79,6 @@ var container = new Vue({
         keyDownEvent(){},
         /**
          * 步骤一：上传作品封面事件
-         * @param  {[type]} files [上传作品详情]
          */
         step1_upload_fengmian_change(files){
             let that = this;
@@ -96,11 +100,10 @@ var container = new Vue({
                         $.ajax({
                             url: '/getUrlSignature',
                             type: 'GET',
-                            data:{objectPath:objectPath,thumbName:"thumb_120_120"},
+                            data:{objectPath:objectPath},
                             success:function(res){
-                                console.log("封面图",res.split("?")[0].split("images/")[1]);
                                 that.step1_upload_fengmian_src = res;
-                                that.dataItem.profileImage = res.split("?")[0].split("images/")[1];
+                                that.dataItem.profileImage = fileName;
                             }
                         })
                 	});
@@ -122,23 +125,25 @@ var container = new Vue({
                         bucket:bucket
                 	});
                     client.multipartUpload('images/'+ fileName, file).then(function (res) {
-                        console.log("---------",res.res.requestUrls[0]);
                         let objectPath = 'images/' + fileName;
                         $.ajax({
                             url: '/getUrlSignature',
                             type: 'GET',
-                            data:{objectPath:objectPath,thumbName:"thumb_120_120"},
+                            data:{objectPath:objectPath},
                             success:function(res){
-                                console.log("上传封面图");
                                 that.step2_upload_neirong_src = that.step2_upload_neirong_src.concat(res);
 
                                 let subarr = new Object();
-                                subarr.position = "";
+                                if (that.dataItem.Id) {
+                                    subarr.position = that.step2_upload_neirong_src.length;
+                                }else{
+                                    subarr.position = "";
+                                }
                     			subarr.name = "";
                     			subarr.filename = "";
                     			subarr.description = "";
                     			subarr.type = "";
-                    			subarr.profileImage = "";
+                    			subarr.profileImage = fileName;
                     			subarr.mediaFile = "";
                     			subarr.viewUrl = "";
                                 subarr.viewImgUrl = res;
@@ -178,28 +183,13 @@ var container = new Vue({
                         $.ajax({
                             url: '/getUrlSignature',
                             type: 'GET',
-                            data:{objectPath:objectPath,thumbName:"thumb_120_120"},
+                            data:{objectPath:objectPath},
                             success:function(res){
-                                console.log("上传封面图");
-                                that.step2_upload_neirong_src = that.step2_upload_neirong_src.concat(res);
-
-                                let subarr = new Object();
-                                subarr.position = "";
-                    			subarr.name = "";
-                    			subarr.filename = "";
-                    			subarr.description = "";
-                    			subarr.type = "";
-                    			subarr.profileImage = "";
-                    			subarr.mediaFile = "";
-                    			subarr.viewUrl = "";
-                                subarr.viewImgUrl = res;
-                                that.step2_between_arr.push(subarr);
-
-                                let progress_subarr = new Object();
-                                progress_subarr.progress = 0;
-                                progress_subarr.fileTrueName = "";
-                                that.file_otherinof_arr.push(progress_subarr);
-                                that.neirong_truename_arr.push(files.target.files[0].name);
+                                that.step2_upload_neirong_src.splice(that.which_artifact_assets,1,res);
+                                that.step2_between_arr[that.which_artifact_assets].viewImgUrl = res;
+                                that.step2_between_arr[that.which_artifact_assets].profileImage = fileName;
+                                that.file_otherinof_arr[that.which_artifact_assets].fileTrueName = files.target.files[0].name;
+                                that.neirong_truename_arr[that.which_artifact_assets] = files.target.files[0].name;
 
                             }
                         })
@@ -231,7 +221,7 @@ var container = new Vue({
                         that.step2_between_arr[that.which_artifact_assets].filename = fileTrueName;
                         that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                         that.step2_between_arr[that.which_artifact_assets].type = 4;
-                        that.step2_between_arr[that.which_artifact_assets].mediaFile = res.res.requestUrls[0].split("?")[0].split("video/")[1];
+                        that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                         that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("video/")[1];
                 	});
                 }
@@ -261,7 +251,7 @@ var container = new Vue({
                         that.step2_between_arr[that.which_artifact_assets].filename = fileTrueName;
                         that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                         that.step2_between_arr[that.which_artifact_assets].type = 2;
-                        that.step2_between_arr[that.which_artifact_assets].mediaFile = res.res.requestUrls[0].split("?")[0].split("pdf/")[1];
+                        that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                         that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("pdf/")[1];
                 	});
                 }
@@ -291,7 +281,7 @@ var container = new Vue({
                         that.step2_between_arr[that.which_artifact_assets].filename = fileTrueName;
                         that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                         that.step2_between_arr[that.which_artifact_assets].type = 3;
-                        that.step2_between_arr[that.which_artifact_assets].mediaFile = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
+                        that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                         that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
                 	});
                 }
@@ -321,7 +311,7 @@ var container = new Vue({
                         that.step2_between_arr[that.which_artifact_assets].filename = fileTrueName;
                         that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                         that.step2_between_arr[that.which_artifact_assets].type = 3;
-                        that.step2_between_arr[that.which_artifact_assets].mediaFile = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
+                        that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                         that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
                 	});
                 }
@@ -331,32 +321,71 @@ var container = new Vue({
          * 添加标签
          */
         createTerm(){
-            let XO = true;
-            for(let i=0;i<this.terms_arr.length;i++){
-                if (this.terms_arr[i].name == this.terms_value) {
-                    XO = false;
-                    this.$Notice.error({title:"该标签已添加!"});
+            console.log(this.dataItem.Id);
+            if (this.dataItem.Id) {
+                console.log("修改");
+                let XO = true;
+                for(let i=0;i<this.terms_arr.length;i++){
+                    console.log(this.terms_arr[i].name);
+                    if (this.terms_arr[i].name == this.terms_value) {
+                        XO = false;
+                        this.terms_value = "";
+                        this.$Notice.error({title:"该标签已添加!"});
+                    }
                 }
-            }
-            if(this.terms_value && XO){
-                let subterm = new Object();
-                subterm.name = this.terms_value;
-                this.terms_arr.push(subterm);
-                this.terms_value = "";
+                if(this.terms_value && XO){
+                    let aa = new Object();
+                    aa.name = this.terms_value;
+                    this.terms_arr.push(aa);
+                    this.addTerms.push(aa);
+                    this.terms_value = "";
+                }
+            }else{
+                console.log("新建");
+                // 新建
+                let XO = true;
+                for(let i=0;i<this.terms_arr.length;i++){
+                    if (this.terms_arr[i].name == this.terms_value) {
+                        XO = false;
+                        this.$Notice.error({title:"该标签已添加!"});
+                    }
+                }
+                if(this.terms_value && XO){
+                    let subterm = new Object();
+                    subterm.name = this.terms_value;
+                    this.terms_arr.push(subterm);
+                    this.terms_value = "";
+                }
             }
         },
         /**
          * 删除标签
          */
         deleteLabel(index){
-            this.terms_arr.splice(index,1);
+            console.log(this.dataItem.Id);
+            if (this.dataItem.Id) {
+                console.log("修改");
+                let XO = false;
+                for (var i = 0; i < this.dataItem.terms.length; i++) {
+                    if (this.terms_arr[index].name == this.dataItem.terms[i].name) {
+                        XO = true;
+                        break;
+                    }
+                }
+                if(XO){
+                    this.deleteTerms.push(this.terms_arr[index].Id);
+                    this.terms_arr.splice(index,1);
+                }
+            }else{
+                console.log("新建");
+                this.terms_arr.splice(index,1);
+            }
         },
         /**
          * 步骤二：点击左侧列表，控制图片预览src
          */
         selectLi(index){
             this.upload_show = true;
-            console.log("点击index",index,this.step2_between_arr[index].name);
             this.yulan_img = this.step2_upload_neirong_src[index];
             this.which_artifact_assets = index;
         },
@@ -364,7 +393,6 @@ var container = new Vue({
          * 步骤二：点击列表删除
          */
         deleteUploadImg(index){
-
             this.step2_upload_neirong_src.splice(index,1);
             this.step2_between_arr.splice(index,1);
             this.file_otherinof_arr.splice(index,1);
@@ -380,6 +408,11 @@ var container = new Vue({
             this.stepThreeActive = false;
         },
         goStep2(){
+            console.log(this.addTerms,this.deleteTerms);
+            if(this.dataItem.Id){
+                this.dataItem.addTerms = this.addTerms;
+                this.dataItem.deleteTerms = this.deleteTerms;
+            }
             this.stepOneActive = false;
             this.stepTwoActive = true;
             this.stepThreeActive = false;
@@ -399,35 +432,106 @@ var container = new Vue({
             console.log(this.dataItem);
         },
         submitData(){
-            console.log(this.dataItem);
             let that = this;
-            $.ajax({
-                url: '/website/artifacts',
-                method:"POST",
-                data:this.dataItem,
-                success:function(res){
-                    if (res.status == 200) {
-                        that.$Notice.success({
-                            title:"上传作品成功，2秒后返回!",
-                            duration:2,
-                            onClose:function(){
-                                window.location.href = "/uploadWork/2";
-                            }
-                        })
+            console.log(this.dataItem);
+            if (this.dataItem.Id) {
+                console.log("------------");
+                $.ajax({
+                    url: '/website/artifacts/'+this.dataItem.Id,
+                    method:"PUT",
+                    data:this.dataItem,
+                    success:function(res){
+                        if (res.status == 200) {
+                            that.$Notice.success({
+                                title:"上传作品成功，2秒后返回!",
+                                duration:2,
+                                onClose:function(){
+                                    window.location.href = "/uploadWork/2";
+                                }
+                            })
+                        }
                     }
-                }
-            })
+                })
+            }else{
+                console.log("新建");
+                $.ajax({
+                    url: '/website/artifacts',
+                    method:"POST",
+                    data:this.dataItem,
+                    success:function(res){
+                        if (res.status == 200) {
+                            that.$Notice.success({
+                                title:"上传作品成功，2秒后返回!",
+                                duration:2,
+                                onClose:function(){
+                                    window.location.href = "/uploadWork/2";
+                                }
+                            })
+                        }
+                    }
+                })
+            }
         }
     },
     created(){
+        let that = this;
         this.containerStyle.minHeight = document.documentElement.clientHeight - 140 + "px";
-        this.dataItem.jobTag = window.location.href.split("uploadWork/")[1];
         if(document.documentElement.clientWidth > 1200){
             this.modelWidth = "768px";
         }else if(document.documentElement.clientWidth < 1200){
             this.modelWidth = "70%";
         }else if(document.documentElement.clientWidth < 992){
             this.modelWidth = "80%";
+        }
+
+        if(window.location.href.indexOf("editUploadWork") > 0){
+            this.dataItem.Id = window.location.search.split("?id=")[1].split("&jobTag=")[0];
+            this.dataItem.jobTag = window.location.search.split("?id=")[1].split("&jobTag=")[1];
+            $.ajax({
+                url: '/website/artifacts/' + this.dataItem.Id,
+                type: 'GET',
+                success(res){
+                    console.log(res);
+                    that.dataItem.name = res.data.name;
+                    that.dataItem.artifact_assets = res.data.artifact_assets;
+                    that.dataItem.description = res.data.description;
+
+                    that.step1_upload_fengmian_src = res.data.profileImage;
+                    that.dataItem.profileImage = res.data.profileImage.split("/")[res.data.profileImage.split("/").length - 1].split("?")[0];
+
+                    that.dataItem.terms = res.data.terms;
+                    for(let i=0;i<res.data.terms.length;i++){
+                        let term = new Object();
+                        term = res.data.terms[i];
+                        that.terms_arr.push(term);
+                    }
+
+                    for (var i = 0; i < res.data.artifact_assets.length; i++) {
+                        that.step2_upload_neirong_src.push(res.data.artifact_assets[i].profileImage);
+
+                        let bet = new Object();
+                        bet.position = res.data.artifact_assets[i].position;
+                        bet.name = res.data.artifact_assets[i].name;
+                        bet.filename = res.data.artifact_assets[i].filename;
+                        bet.description = res.data.artifact_assets[i].description;
+                        bet.type = res.data.artifact_assets[i].type;
+                        bet.profileImage = res.data.artifact_assets[i].profileImage;
+                        bet.mediaFile = res.data.artifact_assets[i].mediaFile.split("?")[0].split("/")[res.data.artifact_assets[i].mediaFile.split("?")[0].split("/").length - 1];
+                        bet.viewUrl = res.data.artifact_assets[i].viewUrl;
+                        bet.viewImgUrl = res.data.artifact_assets[i].profileImage;
+                        that.step2_between_arr.push(bet);
+
+                        let other = new Object();
+                        other.fileTrueName = res.data.artifact_assets[i].filename;
+                        other.progress =  res.data.artifact_assets[i].filename ? '100' : "0";
+                        that.file_otherinof_arr.push(other);
+
+                        that.neirong_truename_arr.push(res.data.artifact_assets[i].name);
+                    }
+                }
+            });
+        }else{
+            this.dataItem.jobTag = window.location.href.split("uploadWork/")[1];
         }
     }
 })
