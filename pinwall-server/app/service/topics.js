@@ -5,7 +5,7 @@ const Service = require('egg').Service;
 class Topics extends Service {
 
   async list({ offset = 0, limit = 10,jobTag = 0, subLimit = 10, status = 0,userId=0 }) {
-    let resultObj = this.ctx.model.Topics.listTopics({
+    let resultObj = await this.ctx.model.Topics.listTopics({
       offset,
       limit,
       jobTag,
@@ -15,23 +15,15 @@ class Topics extends Service {
     });
 
     const app = this.ctx.app;
-    resultObj.artifacts.forEach((element, index)=>{
-      if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
-      element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
+    resultObj.rows.forEach((element, index)=>{
 
-      for (let subElement of element.artifact_assets){
-        subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
-        if (subElement.type == 2 && subElement.mediaFile != null){
-          subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
+          element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
+
+          for (let subElement of element.artifacts){
+              if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1){
+            subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_360_360");
+          }
         }
-        else if (subElement.type == 3 && subElement.mediaFile != null){
-          subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
-        }
-        else if (subElement.type == 4 && subElement.mediaFile != null){
-          subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
-        }
-      }
-    }
     });
 
     return resultObj;
@@ -115,23 +107,11 @@ class Topics extends Service {
 
     const app = this.ctx.app;
 
-    topic.artifacts.forEach((element, index)=>{
+    topic.rows.artifacts.forEach((element, index)=>{
       if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
       element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
 
-      for (let subElement of element.artifact_assets){
-        subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
-        if (subElement.type == 2 && subElement.mediaFile != null){
-          subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
         }
-        else if (subElement.type == 3 && subElement.mediaFile != null){
-          subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
-        }
-        else if (subElement.type == 4 && subElement.mediaFile != null){
-          subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
-        }
-      }
-    }
     });
 
     return topic;

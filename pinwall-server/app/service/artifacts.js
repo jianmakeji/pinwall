@@ -41,7 +41,7 @@ class Artifacts extends Service {
     const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
     const app = this.ctx.app;
 
-    if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
+    if (artifact.profileImage.indexOf('pinwall.fzcloud') == -1){
       artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
 
         for (let subElement of artifact.artifact_assets){
