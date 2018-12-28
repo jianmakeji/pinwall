@@ -75,16 +75,16 @@ class Users extends Service {
     return await this.ctx.model.Users.findByOpenId(openId);
   }
 
-  async findByUsersEmail(email){
-    return await this.ctx.model.User.findByUsersEmail(email);
+  async findByUserWithEmail(email){
+    return await this.ctx.model.Users.findByUserWithEmail(email);
   }
 
   async updateAcviveByActiveCodeAndEmail(email,activeCode){
-    return await this.ctx.model.User.findByUsersEmail(email,activeCode);
+    return await this.ctx.model.Users.findByUsersEmail(email,activeCode);
   }
 
   async updateAcviveByUserId(userId){
-    return await this.ctx.model.User.updateAcviveByUserId(userId);
+    return await this.ctx.model.Users.updateAcviveByUserId(userId);
   }
 }
 

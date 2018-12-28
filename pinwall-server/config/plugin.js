@@ -23,6 +23,11 @@ exports.passport = {
   package: 'egg-passport',
 };
 
+exports.passportLocal = {
+  enable: true,
+  package: 'egg-passport-local',
+};
+
 exports.elasticsearch = {
   enable: true,
   package: 'egg-elasticsearch',

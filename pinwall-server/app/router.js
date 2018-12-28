@@ -7,6 +7,7 @@ module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.home.index);
   router.get('/login', controller.home.login);
+
   router.post('/login',app.passport.authenticate('local', {
       successRedirect: '/topics',successFlash: true,
       failureRedirect: '/login',failureFlash: true }));
@@ -16,7 +17,7 @@ module.exports = app => {
   router.get('/upload', controller.home.upload);
   router.get('/uploadWork/:jobTag', controller.home.uploadWork);
   router.get('/editUploadWork', controller.home.uploadWork);
-  
+
   router.get('/project/:id', controller.home.project);
   router.get('/topics', controller.home.topics);
   router.get('/topicsAbout', controller.home.topicsAbout);

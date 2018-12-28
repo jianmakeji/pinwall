@@ -7,7 +7,7 @@ var index = new Vue({
             },
             drawerShow:false,
             formItem:{
-                name:"",
+                username:"",
                 password:""
             },
 
@@ -19,6 +19,16 @@ var index = new Vue({
     methods: {
         onRegister(){
             console.log("onRegister");
+
+            $.ajax({
+              url: '/login',
+              type: 'POST',
+              data: this.formItem,
+              success(res){
+                console.log(res);
+              }
+            });
+
         },
         onRecoverPwd (){
             console.log("onRecoverPwd");
@@ -34,5 +44,18 @@ var index = new Vue({
         }else if(document.documentElement.clientWidth < 992){
             this.modelWidth = "80%";
         }
+
+        $(document).ready(function() {
+          $(".ivu-form").attr('action', '/login');
+          $(".ivu-form").attr('method', 'post');
+
+                      console.log("*****",$(".ivu-form").attr("action"));
+                      console.log("*****",$(".ivu-form").attr("method"));
+          $("#submitBtn").click(function(){
+
+            $(".ivu-form").submit();
+          });
+
+        });
     }
 })

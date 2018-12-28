@@ -42,32 +42,30 @@ class Topics extends Service {
     }
   }
 
-  async update(updateData) {
+  async update({ Id, updates }) {
 
     let transaction;
     try {
       transaction = await this.ctx.model.transaction();
+      let updateObject = await this.ctx.model.Topics.updateTopic({ id, updates },transaction);
 
-      let updateObject = await this.ctx.model.Topics.updateTopic(updateData,transaction);
-      const updates = updateData.data;
-      if (updates.addTerms && updates.addTerms.length > 0){
+      if (updates.addTerms.length > 0){
         for (let term of updates.addTerms){
           const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
           await this.ctx.model.TopicTerm.createTopicTerm({
-            topicId:updateData.Id,
+            topicId:topicObj.Id,
             termId:termObj.Id
           },transaction);
         }
       }
 
-      if (updates.deleteTerms && updates.deleteTerms.length > 0){
-        await this.ctx.model.TopicTerm.delTopicTermByTopicIdAndtermIds(updateData.Id,updates.deleteTerms,transaction);
+      if (updates.deleteTerms.length > 0){
+        await this.ctx.model.TopicTerm.delTopicTermByTopicIdAndtermIds(id,updates.deleteTerms,transaction);
       }
       await transaction.commit();
 
       return true
     } catch (e) {
-     console.log(e.message);
       await transaction.rollback();
       return false
     }
@@ -79,7 +77,6 @@ class Topics extends Service {
       transaction = await this.ctx.model.transaction();
       await this.ctx.model.Topics.delTopicById(id,transaction);
       await this.ctx.model.TopicTerm.delTopicTermByTopicId(id,transaction);
-      await transaction.commit();
       return true
     } catch (e) {
       await transaction.rollback();

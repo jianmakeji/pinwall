@@ -159,7 +159,7 @@ module.exports = app => {
     });
   }
 
-  Users.findByUsersEmail = async function (email){
+  Users.findByUserWithEmail = async function (email){
     return await this.findOne({
       where:{
         email:email

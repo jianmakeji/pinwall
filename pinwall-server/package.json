@@ -11,6 +11,7 @@
     "egg-elasticsearch": "^1.0.0",
     "egg-mysql": "^3.0.0",
     "egg-passport": "^2.0.1",
+    "egg-passport-local": "^1.2.1",
     "egg-passport-weixin": "0.0.5",
     "egg-scripts": "^2.5.0",
     "egg-sequelize": "^4.2.0",

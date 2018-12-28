@@ -18,18 +18,21 @@ module.exports = app => {
 
   app.passport.verify(async (ctx, user) => {
 
-    const existsUser = await ctx.service.Users.findByUsersEmail(username);
-    const app = this.ctx.app;
+    console.log('hello passport...');
+    const existsUser = await ctx.service.users.findByUserWithEmail(user.username);
 
     if (existsUser) {
+      console.log(existsUser.password);
+      console.log(app.cryptoPwd(app.cryptoPwd(user.password)));
       if (app.cryptoPwd(app.cryptoPwd(user.password)) == existsUser.password){
         return existsUser;
       }
       else{
-        return {};
-      }
-    } else {
-      return {};
+         return null;
+       }
+    }
+    else {
+       return null;
     }
   });
 
@@ -60,6 +63,8 @@ module.exports = app => {
   app.passport.serializeUser(async (ctx, user) => {
     // 处理 user
     // ...
+    console.log("save user to session...."+ctx.url);
+
     return user;
   });
 
