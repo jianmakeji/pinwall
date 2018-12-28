@@ -5,7 +5,7 @@ var index = new Vue({
             userId:"1",
 
             // 数据请求
-            aoData:{limit:10,jobTag:1,offset:0,status:-1},
+            aoData:{limit:10,jobTag:1,offset:0,status:-1,userId:-1},
             dataList:[],
             scrollModel:true,
 
@@ -59,6 +59,7 @@ var index = new Vue({
             let that = this;
             this.$Loading.start();
             this.aoData.status = -1;
+            this.aoData.userId = -1;
             this.$http({
                 url: config.ajaxUrls.getTopicAboutData,
                 method:"GET",
@@ -91,6 +92,7 @@ var index = new Vue({
             let that = this;
             this.$Loading.start();
             this.aoData.status = 0;
+            this.aoData.userId = -1;
             this.$http({
                 url: config.ajaxUrls.getTopicAboutData,
                 method:"GET",
@@ -124,6 +126,7 @@ var index = new Vue({
             let that = this;
             this.$Loading.start();
             this.aoData.status = 1;
+            this.aoData.userId = -1;
             this.$http({
                 url: config.ajaxUrls.getTopicAboutData,
                 method:"GET",
@@ -148,13 +151,57 @@ var index = new Vue({
                 that.$Loading.error();
             })
         },
+        /**
+         * 由我创建
+         * @return {[type]} [description]
+         */
         checkMy(){
             console.log("checkMy");
             this.checkAllType = "text";
             this.checkOpenType = "text";
             this.checkCloseType = "text";
             this.checkMyType = "default";
+
+            let that = this;
+            this.$Loading.start();
+            this.aoData.status = -1;
+            this.aoData.userId = 1;
+            this.$http({
+                url: config.ajaxUrls.getTopicAboutData,
+                method:"GET",
+                params:this.aoData
+            }).then(function(res){
+                if( res.body.status == 200){
+                    that.$Loading.finish();
+                    console.log("初始化加载数据", res);
+                    that.dataList = res.body.data.rows;
+                    if (that.dataList.length == res.body.data.count) {
+                        that.scrollModel = false;
+                    }
+                    for(let i=0; i < that.dataList.length; i++){
+                        that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
+                        if(that.dataList[i].user.avatarUrl == null){
+                            that.dataList[i].user.avatarUrl = config.default_profile;
+                        }
+                    }
+                }
+
+            },function(err){
+                that.$Loading.error();
+            })
         },
+        /**
+         * [checkThisTopic 查看该作业荚]
+         * @param  {[type]}  id [作业荚id]
+         */
+        checkThisTopic(id){
+            console.log("checkThisTopic",id);
+            window.location.href = "/topicsUpdate/" + id;
+        },
+
+
+
+
         searchData(){
             console.log("searchData");
         },
@@ -168,6 +215,8 @@ var index = new Vue({
                 {id:5,name:"55555555555"}
             ]
         },
+
+
         // 打开search弹出层
         openModel(){
             console.log("openModel");

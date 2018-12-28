@@ -156,8 +156,56 @@ var container = new Vue({
                 }
             })
         },
+        /**
+         * 更换图片
+         */
         step2_upload_change(files){
+            let that = this;
+            let file = files.target.files[0];
+            let fileName = calculate_object_name(files.target.files[0].name);
+            $.ajax({
+                url: '/getSTSSignature/1',
+                type: 'GET',
+                success:function(res){
+                    let client = new OSS({
+                  		accessKeyId: res.credentials.AccessKeyId,
+                  		accessKeySecret: res.credentials.AccessKeySecret,
+                  		stsToken: res.credentials.SecurityToken,
+                        bucket:bucket
+                	});
+                    client.multipartUpload('images/'+ fileName, file).then(function (res) {
+                        let objectPath = 'images/' + fileName;
+                        $.ajax({
+                            url: '/getUrlSignature',
+                            type: 'GET',
+                            data:{objectPath:objectPath,thumbName:"thumb_120_120"},
+                            success:function(res){
+                                console.log("上传封面图");
+                                that.step2_upload_neirong_src = that.step2_upload_neirong_src.concat(res);
 
+                                let subarr = new Object();
+                                subarr.position = "";
+                    			subarr.name = "";
+                    			subarr.filename = "";
+                    			subarr.description = "";
+                    			subarr.type = "";
+                    			subarr.profileImage = "";
+                    			subarr.mediaFile = "";
+                    			subarr.viewUrl = "";
+                                subarr.viewImgUrl = res;
+                                that.step2_between_arr.push(subarr);
+
+                                let progress_subarr = new Object();
+                                progress_subarr.progress = 0;
+                                progress_subarr.fileTrueName = "";
+                                that.file_otherinof_arr.push(progress_subarr);
+                                that.neirong_truename_arr.push(files.target.files[0].name);
+
+                            }
+                        })
+                	});
+                }
+            })
         },
         step2_upload_MP4_change(files){
             let that = this;
@@ -369,72 +417,6 @@ var container = new Vue({
                     }
                 }
             })
-        },
-
-        // 弹出层
-        openModel(){
-
-        },
-        // 登录
-        openLogin(){
-
-        },
-        // 登录
-        openMenu(){
-
-        },
-        step1_upload_change(){
-
-        },
-
-        step3_upload_change(){
-            console.log("++++++++++");
-        },
-        // 打开search弹出层
-        openModel(){
-            console.log("openModel");
-            this.searchModel = true;
-        },
-        // 修改密码弹出层
-        openResetInfoModel(){
-            this.resetInfoModel = true;
-        },
-        // 修改密码弹出层
-        openResetPwdModel(){
-            this.resetPwdModel = true;
-        },
-        // 回车搜索
-        searchModelData(){
-            console.log("searchModelData");
-            this.searchModelDataList = [
-                {id:1,name:"11111111111"},
-                {id:2,name:"22222222222"},
-                {id:3,name:"33333333333"},
-                {id:4,name:"44444444444"},
-                {id:5,name:"55555555555"}
-            ]
-        },
-        // 搜索结果字段选择
-        selectItem(index){
-            console.log("selectItem",index);
-        },
-        // 打开登陆弹出层
-        openLogin(){
-            this.loginModel = true;
-        },
-        // 忘记密码
-        onRecoverPwd(){
-            this.loginModel = false;
-            this.recoverPwdModel = true;
-        },
-        // 注册
-        onRegister(){
-            this.loginModel = false;
-            this.registerModel = true;
-        },
-        tapClick() {
-            var timeStamp = '?' + new Date().getTime() + 'r' + Math.random();
-            this.imgSrc = "user/getCode"+timeStamp;
         }
     },
     created(){
