@@ -94,27 +94,37 @@ class HomeController extends BaseController {
 
   async workFolder(){
     const ctx = this.ctx;
-    await ctx.render('workFolder.html');
+    await ctx.render('workFolder.html',{
+        user:ctx.user
+    });
   }
 
   async userManager(){
     const ctx = this.ctx;
-    await ctx.render('userManager.html');
+    await ctx.render('userManager.html',{
+        user:ctx.user
+    });
   }
 
   async workManager(){
     const ctx = this.ctx;
-    await ctx.render('workManager.html');
+    await ctx.render('workManager.html',{
+        user:ctx.user
+    });
   }
 
   async commentManager(){
     const ctx = this.ctx;
-    await ctx.render('commentManager.html');
+    await ctx.render('commentManager.html',{
+        user:ctx.user
+    });
   }
 
   async topicsUpdate(){
     const ctx = this.ctx;
-    await ctx.render('topicsUpdate.html');
+    await ctx.render('topicsUpdate.html',{
+        user:ctx.user
+    });
   }
 
   async children(){
@@ -124,17 +134,23 @@ class HomeController extends BaseController {
 
   async search(){
     const ctx = this.ctx;
-    await ctx.render('search.html');
+    await ctx.render('search.html',{
+        user:ctx.user
+    });
   }
 
   async resetInfo(){
     const ctx = this.ctx;
-    await ctx.render('resetInfo.html');
+    await ctx.render('resetInfo.html',{
+        user:ctx.user
+    });
   }
 
   async createTopics(){
     const ctx = this.ctx;
-    await ctx.render('createTopics.html');
+    await ctx.render('createTopics.html',{
+        user:ctx.user
+    });
   }
 
   async forgetPwd(){
