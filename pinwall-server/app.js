@@ -28,11 +28,11 @@ module.exports = app => {
         return existsUser;
       }
       else{
-         throw new Error("密码错误");
+         throw(401,"密码错误");
        }
     }
     else {
-      throw new Error("用户不存在");
+      throw(401,"用户不存在");
     }
   });
 
