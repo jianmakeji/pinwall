@@ -5,12 +5,15 @@
  */
 module.exports = app => {
   const { router, controller } = app;
+
+  const loginCheck = app.middleware.loginCheck();
+
   router.get('/', controller.home.index);
   router.get('/login', controller.home.login);
 
   router.post('/login',app.passport.authenticate('local', {
       successRedirect: '/topics',successFlash: true,
-      failureRedirect: '/login',failureFlash: true }));
+      failureRedirect: '/login',failureFlash: true }),loginCheck);
 
   router.get('/logout', controller.home.logout);
 
