@@ -163,28 +163,6 @@ body{
     overflow: hidden;
     background: repeating-linear-gradient( 45deg, #ddd, #ddd 10px, #eee 10px, #eee 20px);
 }
-/* .topic_action li {
-    margin: 5px;
-}
-.topic_action li a {
-    width: 40px;
-    height: 40px;
-    background: #fff;
-    color: #666;
-    font-size: 0;
-    display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-    border-radius: 40px;
-    box-shadow: 0 6px 10px rgba(0,0,0,0.1);
-    position: relative;
-}
-.topic_action li a img{
-    width: 25px;
-    height: auto;
-    border-radius: 40px;
-} */
 
 .ivu-table th{
 	display: none;

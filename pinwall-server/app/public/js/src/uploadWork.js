@@ -17,6 +17,7 @@ var container = new Vue({
             yulan_img:"",                   //步骤二图片预览img的src
             dataItem:{
                 Id:"",
+                topicId:"",
                 name:"",                    //作品名
                 description:"",             //描述
                 profileImage:"",            //封面图
@@ -104,6 +105,7 @@ var container = new Vue({
                             success:function(res){
                                 that.step1_upload_fengmian_src = res;
                                 that.dataItem.profileImage = fileName;
+                                console.log();
                             }
                         })
                 	});
@@ -135,12 +137,12 @@ var container = new Vue({
 
                                 let subarr = new Object();
                                 if (that.dataItem.Id) {
-                                    subarr.position = that.step2_upload_neirong_src.length;
+                                    subarr.position = that.step2_upload_neirong_src.length - 1;
                                 }else{
                                     subarr.position = "";
                                 }
                     			subarr.name = "";
-                    			subarr.filename = "";
+                    			subarr.filename = files.target.files[0].name.split(".")[0];
                     			subarr.description = "";
                     			subarr.type = "";
                     			subarr.profileImage = fileName;
@@ -186,9 +188,10 @@ var container = new Vue({
                             data:{objectPath:objectPath},
                             success:function(res){
                                 that.step2_upload_neirong_src.splice(that.which_artifact_assets,1,res);
+                                that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name.split(".")[0];
                                 that.step2_between_arr[that.which_artifact_assets].viewImgUrl = res;
                                 that.step2_between_arr[that.which_artifact_assets].profileImage = fileName;
-                                that.file_otherinof_arr[that.which_artifact_assets].fileTrueName = files.target.files[0].name;
+                                // that.file_otherinof_arr[that.which_artifact_assets].fileTrueName = files.target.files[0].name;
                                 that.neirong_truename_arr[that.which_artifact_assets] = files.target.files[0].name;
 
                             }
@@ -218,7 +221,6 @@ var container = new Vue({
                 		progress: progress
                 	}).then(function (res) {
                         console.log("上传成功",res);
-                        that.step2_between_arr[that.which_artifact_assets].filename = fileTrueName;
                         that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                         that.step2_between_arr[that.which_artifact_assets].type = 4;
                         that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
@@ -248,7 +250,6 @@ var container = new Vue({
                 		progress: progress
                 	}).then(function (res) {
                         console.log("上传成功",res);
-                        that.step2_between_arr[that.which_artifact_assets].filename = fileTrueName;
                         that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                         that.step2_between_arr[that.which_artifact_assets].type = 2;
                         that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
@@ -278,7 +279,6 @@ var container = new Vue({
                 		progress: progress
                 	}).then(function (res) {
                         console.log("上传成功",res);
-                        that.step2_between_arr[that.which_artifact_assets].filename = fileTrueName;
                         that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                         that.step2_between_arr[that.which_artifact_assets].type = 3;
                         that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
@@ -308,7 +308,6 @@ var container = new Vue({
                 		progress: progress
                 	}).then(function (res) {
                         console.log("上传成功",res);
-                        that.step2_between_arr[that.which_artifact_assets].filename = fileTrueName;
                         that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                         that.step2_between_arr[that.which_artifact_assets].type = 3;
                         that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
@@ -408,7 +407,7 @@ var container = new Vue({
             this.stepThreeActive = false;
         },
         goStep2(){
-            console.log(this.addTerms,this.deleteTerms);
+            console.log("=======dataItem=====",this.dataItem);
             if(this.dataItem.Id){
                 this.dataItem.addTerms = this.addTerms;
                 this.dataItem.deleteTerms = this.deleteTerms;
@@ -419,7 +418,8 @@ var container = new Vue({
             this.dataItem.terms = this.terms_arr;
         },
         goStep3(){
-            console.log(this.step2_between_arr);
+            console.log("=======dataItem=====",this.dataItem);
+            console.log("-------step2_between_arr--------",this.step2_between_arr);
             this.stepOneActive = false;
             this.stepTwoActive = false;
             this.stepThreeActive = true;
@@ -429,11 +429,9 @@ var container = new Vue({
                 profileImage_url = this.step2_upload_neirong_src[i];
                 this.dataItem.artifact_assets[i].profileImage = profileImage_url.split("?")[0].split("images/")[1];
             }
-            console.log(this.dataItem);
         },
         submitData(){
             let that = this;
-            console.log(this.dataItem);
             if (this.dataItem.Id) {
                 console.log("------------");
                 $.ajax({
@@ -522,16 +520,17 @@ var container = new Vue({
                         that.step2_between_arr.push(bet);
 
                         let other = new Object();
-                        other.fileTrueName = res.data.artifact_assets[i].filename;
+                        other.fileTrueName = res.data.artifact_assets[i].mediaFile.split("?")[0].split("/")[res.data.artifact_assets[i].mediaFile.split("?")[0].split("/").length - 1];;
                         other.progress =  res.data.artifact_assets[i].filename ? '100' : "0";
                         that.file_otherinof_arr.push(other);
 
-                        that.neirong_truename_arr.push(res.data.artifact_assets[i].name);
+                        that.neirong_truename_arr.push(res.data.artifact_assets[i].filename);
                     }
                 }
             });
         }else{
-            this.dataItem.jobTag = window.location.href.split("uploadWork/")[1];
+            this.dataItem.jobTag = window.location.href.split("uploadWork/")[1].split("?")[0];
+            this.dataItem.topicId = window.location.href.split("topicId=")[1];
         }
     }
 })

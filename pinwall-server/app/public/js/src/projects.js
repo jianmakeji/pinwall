@@ -25,7 +25,8 @@ var projects = new Vue({
          *  url [附件路径]
          */
         downAttach(url){
-            window.location.href = url;
+            // window.location.href = url;
+            window.open(url);
         },
         /**
          * 点击close按键返回上一级界面

@@ -11,7 +11,6 @@ var index = new Vue({
             terms_arr:[],
             formItem:{
                 type:"",
-                userId:"4862",
                 name:"",
                 terms:[],
                 description:"",

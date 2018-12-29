@@ -106,7 +106,7 @@ class ArtifactsController extends BaseController{
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
       userId: ctx.helper.parseInt(ctx.query.userId),
-      jobTag: 2,
+      jobTag: ctx.helper.parseInt(ctx.query.jobTag),
     };
 
     try{

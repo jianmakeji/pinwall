@@ -165,7 +165,7 @@ var index = new Vue({
             let that = this;
             this.$Loading.start();
             this.aoData.status = -1;
-            this.aoData.userId = 4862;
+            this.aoData.userId = 0;
             this.$http({
                 url: config.ajaxUrls.getTopicAboutData,
                 method:"GET",
@@ -198,81 +198,27 @@ var index = new Vue({
             console.log("checkThisTopic",id);
             window.location.href = "/topicsUpdate/" + id;
         },
-
-
-
-
-        searchData(){
-            console.log("searchData");
+        /**
+         * [uploadToTopic 上传作品至该作业荚]
+         */
+        uploadToTopic(id){
+            console.log("uploadToTopic",id);
+            window.location.href = "/uploadWork/1?topicId=" + id;
         },
-        searchModelData(){
-            console.log("searchModelData");
-            this.searchModelDataList = [
-                {id:1,name:"11111111111"},
-                {id:2,name:"22222222222"},
-                {id:3,name:"33333333333"},
-                {id:4,name:"44444444444"},
-                {id:5,name:"55555555555"}
-            ]
-        },
-
-
-        // 打开search弹出层
-        openModel(){
-            console.log("openModel");
-            this.searchModel = true;
-        },
-        // 打开search弹出层
-        openModel(){
-            console.log("openModel");
-            this.searchModel = true;
-        },
-        // 修改密码弹出层
-        openResetInfoModel(){
-            this.resetInfoModel = true;
-        },
-        // 修改密码弹出层
-        openResetPwdModel(){
-            this.resetPwdModel = true;
-        },
-        // 回车搜索
-        searchModelData(){
-            console.log("searchModelData");
-            this.searchModelDataList = [
-                {id:1,name:"11111111111"},
-                {id:2,name:"22222222222"},
-                {id:3,name:"33333333333"},
-                {id:4,name:"44444444444"},
-                {id:5,name:"55555555555"}
-            ]
-        },
-        // 搜索结果字段选择
-        selectItem(index){
-            console.log("selectItem",index);
-        },
-        // 打开登陆弹出层
-        openLogin(){
-            this.loginModel = true;
-        },
-        // 忘记密码
-        onRecoverPwd(){
-            this.loginModel = false;
-            this.recoverPwdModel = true;
-        },
-        // 注册
-        onRegister(){
-            this.loginModel = false;
-            this.registerModel = true;
-        },
-        userManager(){
+        /**
+         * 锁定该作业荚
+         */
+        cockThisTopic(id){
 
         },
-        workManager(){
-
+        /**
+         * [searchData description]
+         * @return {[type]} [description]
+         */
+        settingThisTopic(id){
+            console.log("settingThisTopic");
+            window.location.href = '/topicsUpdate/' + id;
         },
-        commentManager(){
-
-        }
     },
     created(){
         let that = this;
@@ -282,6 +228,17 @@ var index = new Vue({
             this.modelWidth = "70%";
         }else if(document.documentElement.clientWidth < 992){
             this.modelWidth = "80%";
+        }
+
+        //老师点击我的作业荚
+        let myTopics = new String();
+        if (window.location.href.split("?")[1]) {
+            myTopics = window.location.href.split("=")[1];
+            this.aoData.userId = 0;
+            this.checkAllType = "text";
+            this.checkOpenType = "text";
+            this.checkCloseType = "text";
+            this.checkMyType = "default";
         }
 
         this.$Loading.start();
@@ -304,7 +261,6 @@ var index = new Vue({
                     }
                 }
             }
-
         },function(err){
             that.$Loading.error();
         })
@@ -347,3 +303,29 @@ $(document).ready(function() {
         }
     })
 });
+
+// function getData(that, that.aoData){
+//     this.$Loading.start();
+//     this.$http({
+//         url: config.ajaxUrls.getTopicAboutData,
+//         method:"GET",
+//         params:that.aoData
+//     }).then(function(res){
+//         if( res.body.status == 200){
+//             that.$Loading.finish();
+//             console.log("初始化加载数据", res);
+//             that.dataList = res.body.data.rows;
+//             if (that.dataList.length == res.body.data.count) {
+//                 that.scrollModel = false;
+//             }
+//             for(let i=0; i < that.dataList.length; i++){
+//                 that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
+//                 if(that.dataList[i].user.avatarUrl == null){
+//                     that.dataList[i].user.avatarUrl = config.default_profile;
+//                 }
+//             }
+//         }
+//     },function(err){
+//         that.$Loading.error();
+//     })
+// }

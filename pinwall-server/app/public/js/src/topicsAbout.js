@@ -109,8 +109,8 @@ var index = new Vue({
             this.checkCloseType = "text";
             this.checkMyType = "default";
             this.aoData.status = -1;
-            this.aoData.userId = 4862;
-
+            this.aoData.userId = 0;
+            this.$Loading.start();
             getData(this, this.aoData);
         },
         /**
@@ -119,76 +119,31 @@ var index = new Vue({
          */
         checkThisTopic(id){
             console.log("checkThisTopic",id);
-            window.location.href = "/topicsUpdate/" + id;
+            window.location.href = "/workFolder/" + id;
         },
+        /**
+         * 锁定该作业荚
+         */
+        cockThisTopic(id){
 
-
-
-
+        },
         /**
          * [uploadToTopic 上传作品至该作业荚]
-         * @param  {[type]} id [作业荚id]
          */
         uploadToTopic(id){
             console.log("uploadToTopic",id);
+            window.location.href = "/uploadWork/1?topicId=" + id;
+        },
+        /**
+         * [searchData description]
+         * @return {[type]} [description]
+         */
+        settingThisTopic(id){
+            console.log("settingThisTopic");
+            window.location.href = '/topicsUpdate/' + id;
         },
 
 
-
-        searchData(){
-            console.log("searchData");
-        },
-        // 打开search弹出层
-        openModel(){
-            console.log("openModel");
-            this.searchModel = true;
-        },
-        // 修改密码弹出层
-        openResetInfoModel(){
-            this.resetInfoModel = true;
-        },
-        // 修改密码弹出层
-        openResetPwdModel(){
-            this.resetPwdModel = true;
-        },
-        // 回车搜索
-        searchModelData(){
-            console.log("searchModelData");
-            this.searchModelDataList = [
-                {id:1,name:"11111111111"},
-                {id:2,name:"22222222222"},
-                {id:3,name:"33333333333"},
-                {id:4,name:"44444444444"},
-                {id:5,name:"55555555555"}
-            ]
-        },
-        // 搜索结果字段选择
-        selectItem(index){
-            console.log("selectItem",index);
-        },
-        // 打开登陆弹出层
-        openLogin(){
-            this.loginModel = true;
-        },
-        // 忘记密码
-        onRecoverPwd(){
-            this.loginModel = false;
-            this.recoverPwdModel = true;
-        },
-        // 注册
-        onRegister(){
-            this.loginModel = false;
-            this.registerModel = true;
-        },
-        userManager(){
-
-        },
-        workManager(){
-
-        },
-        commentManager(){
-
-        }
     },
     created(){
         let that = this;
@@ -207,17 +162,43 @@ $(document).ready(function() {
             index.aoData.offset += 10;
             index.$Loading.start();
 
-            getData(this, this.aoData);
+            getMoreData(index, index.aoData);
         }
     })
 });
 
 /**
  * [getData 获取毕设展界面数据]
- * @param  {[type]} that   [Vue的index对象]
- * @param  {[type]} aoData [请求参数]
  */
 function getData(that, aoData){
+    that.$http({
+        url: config.ajaxUrls.getTopicAboutData,
+        method:"GET",
+        params:aoData
+    }).then(function(res){
+        if( res.body.status == 200){
+            that.$Loading.finish();
+            console.log("初始化加载数据", res);
+            that.dataList = res.body.data.rows;
+            if (that.dataList.length == res.body.data.count) {
+                that.scrollModel = false;
+            }
+            for(let i=0; i < that.dataList.length; i++){
+                that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
+                if(that.dataList[i].user.avatarUrl == null){
+                    that.dataList[i].user.avatarUrl = config.default_profile;
+                }
+            }
+        }
+
+    },function(err){
+        that.$Loading.error();
+    })
+}
+/**
+ * 获取更多数据（滚动条触底）
+ */
+function getMoreData(that, aoData){
     that.$http({
         url: config.ajaxUrls.getTopicAboutData,
         method:"GET",

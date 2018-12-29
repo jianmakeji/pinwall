@@ -32,7 +32,7 @@
 				<row>
 					<i-col :xs="12" :sm="2" :md="1" :lg="1">
 						<div class="user_info">
-							<a :href="'users/'+item.user.Id">
+							<a :href="'users/'+item.user.Id + '?jobTag=1'">
 								<img :src="item.user.avatarUrl">
 								<p class="name" v-text="item.user.fullname"></p>
 							</a>
@@ -64,20 +64,20 @@
 					</i-col>
 					<i-col :xs="0" :sm="1" :md="1" :lg="1">
 						<ul :class="{topic_action:!item.status, topic_closed:item.status}">
-							<li class="de_topic_action_view" v-if="item.status == 1">
+							<li class="de_topic_action_view" v-if="item.status == 1" style="margin-top:5px;">
 								<i-button type="checkCloseType" size="large" shape="circle" icon="md-eye" @click="checkThisTopic(item.Id)" title="查看"></i-button>
 							</li>
-							<li class="de_topic_action_view" v-if="item.status == 1">
-								<i-button type="checkCloseType" size="large" shape="circle" icon="md-lock" @click="checkThisTopic(item.Id)" title="锁定"></i-button>
+							<li class="de_topic_action_view" v-if="item.status == 1" style="margin-top:5px;">
+								<i-button type="checkCloseType" size="large" shape="circle" icon="md-lock" @click="cockThisTopic(item.Id)" title="锁定"></i-button>
 							</li>
-							<li class="de_topic_action_view" v-if="item.status == 0">
+							<li class="de_topic_action_view" v-if="item.status == 0" style="margin-top:5px;">
 								<i-button type="checkCloseType" size="large" shape="circle" icon="md-cloud-upload" @click="uploadToTopic(item.Id)" title="上传"></i-button>
 							</li>
-							<li class="de_topic_action_view" v-if="item.status == 0">
-								<i-button type="checkCloseType" size="large" shape="circle" icon="md-unlock" @click="checkThisTopic(item.Id)" title="解锁"></i-button>
+							<li class="de_topic_action_view" v-if="item.status == 0" style="margin-top:5px;">
+								<i-button type="checkCloseType" size="large" shape="circle" icon="md-unlock" @click="cockThisTopic(item.Id)" title="解锁"></i-button>
 							</li>
-							<li class="de_topic_action_view">
-								<i-button type="checkCloseType" size="large" shape="circle" icon="ios-cog" @click="checkThisTopic(item.Id)" title="设置"></i-button>
+							<li class="de_topic_action_view" style="margin-top:5px;">
+								<i-button type="checkCloseType" size="large" shape="circle" icon="ios-cog" @click="settingThisTopic(item.Id)" title="设置"></i-button>
 							</li>
 						</ul>
 					</i-col>
