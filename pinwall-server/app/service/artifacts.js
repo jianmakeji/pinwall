@@ -66,6 +66,11 @@ class Artifacts extends Service {
     try {
       transaction = await this.ctx.model.transaction();
       const artiObj = await this.ctx.model.Artifacts.createArtifact(artifact,transaction);
+      await this.ctx.model.TopicArtifact.createTopicArtifact(
+          {
+            artifactId:artiObj.Id,
+            topicId:artifact.topicId
+          },transaction);
       let terms = artifact.terms;
       for (let term of terms){
         const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
