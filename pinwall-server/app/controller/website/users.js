@@ -127,6 +127,22 @@ class UsersController extends BaseController{
       super.failure(e.message);
     }
   }
+
+  async register(){
+    const query = {
+      password: ctx.query.password,
+      email: ctx.query.email),
+      fullname: ctx.query.fullname,
+    };
+    query.roleId = 1;
+    try{
+      const user = await ctx.service.users.createUser(query);
+      super.success('创建成功!');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
 }
 
 module.exports = UsersController;

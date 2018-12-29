@@ -53,11 +53,13 @@ module.exports = app => {
   router.get('/website/artifactScores/findByScorerIdWithPage', controller.website.artifactScores.findByScorerIdWithPage);
 
   router.get('/website/artifactComment/findByArtifactIdWithPage', controller.website.artifactComment.findByArtifactIdWithPage);
-  router.get('/website/artifactComment/setCommentVisible', controller.website.artifactComment.setCommentVisible);
+  router.get('/website/artifactComment/setCommentVisible', loginCheck, controller.website.artifactComment.setCommentVisible);
 
   router.get('website.users.findByUsersEmail', '/website/users/findByUsersEmail', controller.website.users.findByUsersEmail);
   router.put('website.users.updateAcviveByActiveCodeAndEmail', '/website/users/updateAcviveByActiveCodeAndEmail', controller.website.users.updateAcviveByActiveCodeAndEmail);
-  router.put('website.users.updateAcviveByUserId', '/website/users/updateAcviveByUserId/:id', controller.website.users.updateAcviveByUserId);
+  router.put('website.users.updateAcviveByUserId', loginCheck, '/website/users/updateAcviveByUserId/:id', controller.website.users.updateAcviveByUserId);
+  router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
+  router.get('website.users.register', '/website/users/register', controller.website.users.register);
 
   router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
   router.get('website.topics.getTopicAndArtifactById', '/website/topics/getTopicAndArtifactById', controller.website.topics.getTopicAndArtifactById);
@@ -68,10 +70,10 @@ module.exports = app => {
   router.put('website.topics.updateTopicStatus','/website/topics/updateTopicStatus', controller.website.topics.updateTopicStatus);
 
   //网站接口
-  router.resources('website.users', '/website/users', controller.website.users);
-  router.resources('website.artifactComment', '/website/artifactComment', controller.website.artifactComment);
+  router.resources('website.users', loginCheck, '/website/users', controller.website.users);
+  router.resources('website.artifactComment', loginCheck, '/website/artifactComment', controller.website.artifactComment);
   router.resources('website.artifacts', '/website/artifacts', controller.website.artifacts);
-  router.resources('website.roles', '/website/roles', controller.website.roles);
+  router.resources('website.roles', loginCheck, '/website/roles', controller.website.roles);
   router.resources('website.terms', '/website/terms', controller.website.terms);
   router.resources('website.topics', '/website/topics', controller.website.topics);
   router.resources('website.artifactScores', '/website/artifactScores', controller.website.artifactScores);
