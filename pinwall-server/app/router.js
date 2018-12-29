@@ -40,7 +40,9 @@ module.exports = app => {
   router.get('/createTopics', loginCheck, controller.home.createTopics);
   router.get('/getSTSSignature/:fileType', loginCheck, controller.website.alioss.getSTSSignature);
   router.get('/getUrlSignature', loginCheck, controller.website.alioss.getUrlSignature);
-
+  router.get('/getCaptcha',controller.website.users.getCaptcha);
+  router.get('/checkCaptcha',controller.website.users.checkCaptcha);
+  
   app.get("/auth/weixin", app.passport.authenticate('loginByWeixinClient'));
   app.get("/auth/weixin/callback",app.passport.authenticate('loginByWeixinClient',{ successRedirect: '/authCallback',failureRedirect: '/login' }));
 
