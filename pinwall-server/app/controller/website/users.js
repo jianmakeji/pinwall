@@ -131,7 +131,7 @@ class UsersController extends BaseController{
   async register(){
     const query = {
       password: ctx.query.password,
-      email: ctx.query.email),
+      email: ctx.query.email,
       fullname: ctx.query.fullname,
     };
     query.roleId = 1;
