@@ -46,7 +46,8 @@ module.exports = app => {
 
   //自定义接口
   router.get('/website/artifacts/getMedalDataByRandom/:limit', controller.website.artifacts.getMedalDataByRandom);
-  router.get('/website/artifacts/getPersonalJobByUserId', loginCheck, controller.website.artifacts.getPersonalJobByUserId);
+  router.get('/website/artifacts/getPersonalJob', loginCheck, controller.website.artifacts.getPersonalJob);
+  router.get('/website/artifacts/getPersonalJobByUserId', controller.website.artifacts.getPersonalJobByUserId);
 
   router.get('/website/artifactScores/findByArtifactIdWithPage', controller.website.artifactScores.findByArtifactIdWithPage);
   router.get('/website/artifactScores/findByScorerIdWithPage', controller.website.artifactScores.findByScorerIdWithPage);
