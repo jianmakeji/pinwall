@@ -38,7 +38,9 @@ class TopicsController extends BaseController{
 
   async create() {
     const ctx = this.ctx;
-    const result = await ctx.service.topics.create(ctx.request.body);
+    let topic = ctx.request.body;
+    topic.userId = ctx.user.Id;
+    const result = await ctx.service.topics.create(topic);
 
     if(result){
       super.success('创建成功!');

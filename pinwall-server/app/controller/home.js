@@ -22,6 +22,13 @@ class HomeController extends BaseController {
     });
   }
 
+  async relogin(){
+    const ctx = this.ctx;
+    await ctx.render('login.html', {
+      message:'用户名或者密码错误!'
+    });
+  }
+
   async upload() {
     const ctx = this.ctx;
     if (ctx.isAuthenticated()){

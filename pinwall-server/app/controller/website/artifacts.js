@@ -36,7 +36,8 @@ class ArtifactsController extends BaseController{
 
   async create() {
     const ctx = this.ctx;
-
+    let artifact = ctx.request.body;
+    artifact.userId = ctx.user.Id;
     let result = await ctx.service.artifacts.create(ctx.request.body);
     if(result){
       super.success('创建成功!');

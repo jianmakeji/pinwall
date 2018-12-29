@@ -163,7 +163,17 @@ module.exports = app => {
     return await this.findOne({
       where:{
         email:email
-      }
+      },
+      include:[
+        {
+          model: app.model.Roles,
+          through:{
+            attributes:['userId','roleId'],
+          },
+          attributes:['Id','name']
+        }
+      ],
+      attributes:['Id','email','fullname','nickname','avatarUrl','password']
     });
   }
 

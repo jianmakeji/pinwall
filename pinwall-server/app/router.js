@@ -9,16 +9,18 @@ module.exports = app => {
   const loginCheck = app.middleware.loginCheck();
 
   router.get('/', controller.home.index);
+  router.get('/index', controller.home.index);
   router.get('/login', controller.home.login);
+  router.get('/relogin', controller.home.relogin);
 
   router.post('/login',app.passport.authenticate('local', {
-      successRedirect: '/topics',successFlash: true,
-      failureRedirect: '/login',failureFlash: true }),loginCheck);
+       successReturnToOrRedirect : '/index',successFlash: true,
+       failureRedirect: '/relogin',failureFlash: true }));
 
   router.get('/logout', controller.home.logout);
 
   router.get('/upload', controller.home.upload);
-  router.get('/uploadWork/:jobTag', controller.home.uploadWork);
+  router.get('/uploadWork/:jobTag', loginCheck, controller.home.uploadWork);
   router.get('/editUploadWork', controller.home.uploadWork);
 
   router.get('/project/:id', controller.home.project);
@@ -26,18 +28,18 @@ module.exports = app => {
   router.get('/topicsAbout', controller.home.topicsAbout);
   router.get('/users/:id', controller.home.users);
   router.get('/workFolder/:id', controller.home.workFolder);
-  router.get('/userManager', controller.home.userManager);
-  router.get('/workManager', controller.home.workManager);
-  router.get('/commentManager', controller.home.commentManager);
-  router.get('/topicsUpdate/:id', controller.home.topicsUpdate);
+  router.get('/userManager', loginCheck, controller.home.userManager);
+  router.get('/workManager', loginCheck, controller.home.workManager);
+  router.get('/commentManager', loginCheck, controller.home.commentManager);
+  router.get('/topicsUpdate/:id', loginCheck, controller.home.topicsUpdate);
   router.get('/children', controller.home.children);
   router.get('/search', controller.home.search);
   router.get('/resetInfo', controller.home.resetInfo);
   router.get('/forgetPwd', controller.home.forgetPwd);
   router.get('/register', controller.home.register);
-  router.get('/createTopics', controller.home.createTopics);
-  router.get('/getSTSSignature/:fileType', controller.website.alioss.getSTSSignature);
-  router.get('/getUrlSignature', controller.website.alioss.getUrlSignature);
+  router.get('/createTopics', loginCheck, controller.home.createTopics);
+  router.get('/getSTSSignature/:fileType', loginCheck, controller.website.alioss.getSTSSignature);
+  router.get('/getUrlSignature', loginCheck, controller.website.alioss.getUrlSignature);
 
   app.get("/auth/weixin", app.passport.authenticate('loginByWeixinClient'));
   app.get("/auth/weixin/callback",app.passport.authenticate('loginByWeixinClient',{ successRedirect: '/authCallback',failureRedirect: '/login' }));

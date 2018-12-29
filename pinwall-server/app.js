@@ -20,19 +20,19 @@ module.exports = app => {
   // 处理用户信息
 
   app.passport.verify(async (ctx, user) => {
-
     const existsUser = await ctx.service.users.findByUserWithEmail(user.username);
 
     if (existsUser) {
       if (app.cryptoPwd(app.cryptoPwd(user.password)) == existsUser.password){
+        existsUser.password = '';
         return existsUser;
       }
       else{
-         throw(401,"密码错误");
+         return false;
        }
     }
     else {
-      throw(401,"用户不存在");
+      return false;
     }
   });
 

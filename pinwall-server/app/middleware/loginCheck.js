@@ -1,10 +1,12 @@
 module.exports = () => {
   return async (ctx, next) => {
-    try{
-      await next();
-    }
-    catch(e){
-      console.log(e.message);
-    }
+    if (ctx.isAuthenticated()){
+       await  next();
+      }
+      else{
+        ctx.session.returnTo = ctx.path;
+        ctx.redirect('/login');
+      }
+
   }
 };

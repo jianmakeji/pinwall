@@ -62,7 +62,6 @@ class Artifacts extends Service {
   }
 
   async create(artifact) {
-    artifact.userId = 4862;
     let transaction;
     try {
       transaction = await this.ctx.model.transaction();
