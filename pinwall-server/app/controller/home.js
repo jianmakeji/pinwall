@@ -6,7 +6,9 @@ const BaseController = require('./BaseController');
 class HomeController extends BaseController {
   async index() {
     const ctx = this.ctx;
-    await ctx.render('index.html');
+    await ctx.render('index.html',{
+        user:ctx.user
+    });
   }
 
   async logout(){
@@ -46,7 +48,9 @@ class HomeController extends BaseController {
 
   async uploadWork(){
     const ctx = this.ctx;
-    await ctx.render('uploadWork.html');
+    await ctx.render('uploadWork.html',{
+        user:ctx.user
+    });
   }
 
   async project(){
@@ -63,12 +67,17 @@ class HomeController extends BaseController {
 
   async topics(){
     const ctx = this.ctx;
-    await ctx.render('topics.html',{user:ctx.user});
+    await ctx.render('topics.html',{
+        user:ctx.user
+    });
   }
 
   async topicsAbout(){
     const ctx = this.ctx;
-    await ctx.render('topicsAbout.html');
+    console.log(ctx.user);
+    await ctx.render('topicsAbout.html', {
+        user:ctx.user
+    });
   }
 
   async users(){
