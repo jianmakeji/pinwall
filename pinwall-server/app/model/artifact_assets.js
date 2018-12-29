@@ -37,7 +37,7 @@ module.exports = app => {
       allowNull: true
     },
     profileImage: {
-      type:STRING(20),
+      type:STRING(26),
       allowNull: true
     },
     mediaFile: {
@@ -63,6 +63,8 @@ module.exports = app => {
   }
 
   ArtifactAssets.delAssetsByArtifactId = async function (artifactId,transaction) {
+
+
 
     return this.destroy({
       transaction:transaction,
