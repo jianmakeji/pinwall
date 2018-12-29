@@ -8,31 +8,31 @@ module.exports = app => {
     // format user
     const user = {
       provider: 'local',
+      message: '',
+      success: false,
       username,
       password,
     };
     app.passport.doVerify(req, user, done);
+
   }));
 
   // 处理用户信息
 
   app.passport.verify(async (ctx, user) => {
 
-    console.log('hello passport...');
     const existsUser = await ctx.service.users.findByUserWithEmail(user.username);
 
     if (existsUser) {
-      console.log(existsUser.password);
-      console.log(app.cryptoPwd(app.cryptoPwd(user.password)));
       if (app.cryptoPwd(app.cryptoPwd(user.password)) == existsUser.password){
         return existsUser;
       }
       else{
-         return null;
+         throw(401,"密码错误");
        }
     }
     else {
-       return null;
+      throw(401,"用户不存在");
     }
   });
 
@@ -63,8 +63,6 @@ module.exports = app => {
   app.passport.serializeUser(async (ctx, user) => {
     // 处理 user
     // ...
-    console.log("save user to session...."+ctx.url);
-
     return user;
   });
 

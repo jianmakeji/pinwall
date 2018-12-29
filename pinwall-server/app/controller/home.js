@@ -30,6 +30,7 @@ class HomeController extends BaseController {
       });
     }
     else{
+      ctx.session.returnTo = ctx.path;
       await ctx.render('login.html', {
 
       });
