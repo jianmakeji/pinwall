@@ -29,7 +29,7 @@
 				</div>
 				<div>
 					<object type="" data="/getCaptcha">
-						
+
 					</object>
 				</div>
 				<div class="rememberPwd">
@@ -45,6 +45,9 @@
 			<h3>第一次来？请创建一个帐号。</h3>
 			<i-button to="/register">注册</i-button>
 		</div>
+		<div id="login_container">
+
+			</div>
 	</div>
 </div>
 {% endblock %}
@@ -55,5 +58,18 @@
 <script type="text/javascript" src="public/js/lib/iview.min.js"></script>
 <script type="text/javascript" src="public/js/lib/vue-resource.js"></script>
 <script type="text/javascript" src="public/js/src/config.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
 <script type="text/javascript" src="public/js/src/login.js"></script>
+<script type="text/javascript">
+	var obj = new WxLogin({
+	 self_redirect:true,
+	 id:"login_container",
+	 appid: "wxe7bac3b26bdd1205",
+	 scope: "snsapi_login",
+	 redirect_uri: "http%3a%2f%2fpinwall.design-engine.org%2f",
+	 state: "",
+	 style: "",
+	 href: ""
+ });
+</script>
 {% endblock %}

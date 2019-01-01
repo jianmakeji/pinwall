@@ -1,4 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
+const WeixinStrategy = require('passport-weixin');
 
 module.exports = app => {
 
@@ -36,15 +37,17 @@ module.exports = app => {
     }
   });
 
-  // app.passport.use('loginByWeixin', new WeixinStrategy({
-  //   clientID: 'CLIENTID',
-  //   clientSecret: 'CLIENT SECRET',
-  //   callbackURL: 'CALLBACK URL',
-  //   requireState: false,
-  //   scope: 'snsapi_login'
-  // }, function(accessToken, refreshToken, profile, done) {
-  //   app.passport.doVerify(req, profile, done);
-  // }));
+  app.passport.use('loginByWeixin', new WeixinStrategy({
+    clientID: 'wxe7bac3b26bdd1205',
+    clientSecret: '4ba159f4548a64e8eb5567e860c4f067',
+    callbackURL: 'http://pinwall.design-engine.org',
+    requireState: true,
+    scope: 'snsapi_login',
+
+  }, function(accessToken, refreshToken, profile, done) {
+    console.log("**********************"+profile);
+    app.passport.doVerify(req, profile, done);
+  }));
   //
   // //微信客户端登录
   // //微信官网文档：http://mp.weixin.qq.com/wiki/17/c0f37d5704f0b64713d5d2c37b468d75.html

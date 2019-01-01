@@ -17,6 +17,9 @@ module.exports = app => {
        successReturnToOrRedirect : '/index',successFlash: true,
        failureRedirect: '/relogin',failureFlash: true }));
 
+  router.get('/loginByWeixin',app.passport.authenticate('loginByWeixin', {
+       successReturnToOrRedirect : '/index',successFlash: true,
+       failureRedirect: '/relogin',failureFlash: true,state: 'hello-pinwall', }));
   router.get('/logout', controller.home.logout);
 
   router.get('/upload', controller.home.upload);
@@ -42,7 +45,7 @@ module.exports = app => {
   router.get('/getUrlSignature', loginCheck, controller.website.alioss.getUrlSignature);
   router.get('/getCaptcha',controller.website.users.getCaptcha);
   router.get('/checkCaptcha',controller.website.users.checkCaptcha);
-  
+
   app.get("/auth/weixin", app.passport.authenticate('loginByWeixinClient'));
   app.get("/auth/weixin/callback",app.passport.authenticate('loginByWeixinClient',{ successRedirect: '/authCallback',failureRedirect: '/login' }));
 
