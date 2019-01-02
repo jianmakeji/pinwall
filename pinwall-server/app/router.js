@@ -48,9 +48,6 @@ module.exports = app => {
   router.get('/getCaptcha',controller.website.users.getCaptcha);
   router.get('/checkCaptcha',controller.website.users.checkCaptcha);
 
-  app.get("/auth/weixin", app.passport.authenticate('loginByWeixinClient'));
-  app.get("/auth/weixin/callback",app.passport.authenticate('loginByWeixinClient',{ successRedirect: '/authCallback',failureRedirect: '/login' }));
-
   //自定义接口
   router.get('/website/artifacts/getMedalDataByRandom/:limit', controller.website.artifacts.getMedalDataByRandom);
   router.get('/website/artifacts/getPersonalJob', loginCheck, controller.website.artifacts.getPersonalJob);
@@ -67,6 +64,12 @@ module.exports = app => {
   router.put('website.users.updateAcviveByUserId', '/website/users/updateAcviveByUserId/:id', loginCheck, controller.website.users.updateAcviveByUserId);
   router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
   router.get('website.users.register', '/website/users/register', controller.website.users.register);
+  router.get('website.users.bindWeixin', '/website/users/bindWeixin', controller.website.users.bindWeixin);
+
+  router.get('website.users.bindWeixin', '/website/users/bindWeixin', controller.website.users.bindWeixin);
+  router.get('website.users.bindWeixinInfoByEmail', '/website/users/bindWeixinInfoByEmail', controller.website.users.bindWeixinInfoByEmail);
+  router.get('website.users.updateWxActive', '/website/users/updateWxActive', controller.website.users.updateWxActive);
+
 
   router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
   router.get('website.topics.getTopicAndArtifactById', '/website/topics/getTopicAndArtifactById', controller.website.topics.getTopicAndArtifactById);

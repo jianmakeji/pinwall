@@ -163,24 +163,6 @@ class HomeController extends BaseController {
     await ctx.render('register.html');
   }
 
-  async bindWeixin(){
-    const ctx = this.ctx;
-    const openid = ctx.user.openid;
-    const user = await ctx.service.users.findByOpenId(openId);
-    if(user){
-      if(user.Id && user.email){
-        //信息完整直接跳转
-        ctx.redirect('');
-      }else{
-        //绑定邮箱后跳转激活后重新登录
-      }
-
-    }
-    else{
-      //createUser
-
-    }
-
   async completeInfo(){
     const ctx = this.ctx;
     await ctx.render('completeInfo.html');

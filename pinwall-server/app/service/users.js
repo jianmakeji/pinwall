@@ -86,6 +86,32 @@ class Users extends Service {
   async updateAcviveByUserId(userId){
     return await this.ctx.model.Users.updateAcviveByUserId(userId);
   }
+
+  async bindWeixinInfoByEmail(email,user){
+    let wxInfo = {};
+    wxInfo.email = email;
+    wxInfo.openId = user.openid;
+    wxInfo.nickname = user.nickname;
+    wxInfo.avatarUrl = user.headimageurl;
+    wxInfo.gender = user.sex;
+    wxInfo.province = user.province;
+    wxInfo.city = user.city;
+    wxInfo.country = user.country;
+    wxInfo.activeCode = UUID.v1();
+
+    try{
+      await this.ctx.model.Users.updateWxInfoByEmail(wxInfo);
+      await this.ctx.service.users.sendWxActiveEmail(email,user.openid,wxInfo.activeCode);
+      return true;
+    }
+    catch(e){
+      return false;
+    }
+  }
+
+  async updateWxActiveByActiveCodeAndOpenId(openId,activeCode){
+    return await this.ctx.model.Users.updateWxActiveByActiveCodeAndOpenId(openId,activeCode,1);
+  }
 }
 
 module.exports = Users;

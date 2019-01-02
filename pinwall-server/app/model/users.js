@@ -60,6 +60,10 @@ module.exports = app => {
       type: BOOLEAN,
       allowNull: true
     },
+    wxActive: {
+      type: BOOLEAN,
+      allowNull: true
+    },
     activeCode: {
       type: STRING(50),
       allowNull: true
@@ -187,9 +191,9 @@ module.exports = app => {
     });
   }
 
-  Users.updateAcviveByActiveCodeAndEmail = async function(email,activeCode){
+  Users.updateAcviveByActiveCodeAndEmail = async function(email,activeCode,active){
     return await this.update({
-      active:1
+      active:active
     },{
       where:{
         email:email,
@@ -198,12 +202,49 @@ module.exports = app => {
     });
   }
 
-  Users.updateAcviveByUserId = async function(userId){
+  Users.updateAcviveByUserId = async function(userId,active){
     return await this.update({
-      active:1
+      active:active
     },{
       where:{
         Id:userId
+      }
+    });
+  }
+
+  Users.updateWxActiveByActiveCodeAndOpenId = async function(openId,activeCode,wxActive){
+    return await this.update({
+      wxActive:wxActive
+    },{
+      where:{
+        openId:openId,
+        activeCode:activeCode
+      }
+    });
+  }
+
+  Users.findUserByEmail = async function(email){
+    return await this.findOne({
+      where:{
+        email:email
+      }
+    });
+  }
+
+  Users.updateWxInfoByEmail = async function(wxInfo){
+    return await this.update({
+      openId:wxInfo.openId,
+      nickname:wxInfo.nickname,
+      avatarUrl:wxInfo.avatarUrl,
+      gender:wxInfo.gender,
+      province:wxInfo.province,
+      city:wxInfo.city,
+      country:wxInfo.country,
+      wxActive:0,
+      activeCode:wxInfo.activeCode,
+    },{
+      where:{
+        email:email
       }
     });
   }

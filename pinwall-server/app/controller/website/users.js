@@ -132,6 +132,7 @@ class UsersController extends BaseController{
   }
 
   async register(){
+    const ctx = this.ctx;
     const query = {
       password: ctx.query.password,
       email: ctx.query.email,
@@ -192,7 +193,53 @@ class UsersController extends BaseController{
 
   async getUserByOpenId(){
     const openId = this.ctx.query.openId;
-    return await ctx.service.users.findByOpenId(openId);   
+    return await ctx.service.users.findByOpenId(openId);
+  }
+
+  async bindWeixin(){
+    const ctx = this.ctx;
+    const openId = ctx.user.openid;
+    const user = await ctx.service.users.findByOpenId(openId);
+    if(user){
+      if(user.Id && user.email){
+        ctx.redirect('/index');
+      }else{
+        ctx.redirect('/completeInfo');
+      }
+    }
+    else{
+      ctx.redirect('/completeInfo');
+    }
+  }
+
+  async bindWeixinInfoByEmail(){
+    const ctx = this.ctx;
+    const email = ctx.query.email;
+    const result = await ctx.service.users.bindWeixinInfoByEmail(email,ctx.user);
+    if (result){
+      super.success('绑定成功，请进入邮箱激活!');
+    }
+    else{
+      super.success('绑定失败!');
+    }
+  }
+
+  async updateWxActive(){
+    const ctx = this.ctx;
+    const openId = ctx.query.openId;
+    const activeCode = ctx.query.activeCode;
+    try{
+      await ctx.service.users.updateWxActiveByActiveCodeAndOpenId(openId,activeCode);
+      if (ctx.user){
+        ctx.redirect('/index');
+      }
+      else{
+        ctx.redirect('/login');
+      }
+    }
+    catch(e){
+      super.failure('激活失败,请稍后重试!');
+    }
   }
 }
 
