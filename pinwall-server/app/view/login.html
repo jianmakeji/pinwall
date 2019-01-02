@@ -31,11 +31,12 @@
 					<label>验证码</label>
 					<i-input type="text" v-model="captchaText" @on-change="checkCaptcha" clearable style="width:120px;" placeholder="请输入验证码"></i-input>
 					<object style="width: 120px;"></object>
-					<i-button class="verification_btn" type="dashed" icon="ios-refresh" @click="tapClick"></i-button>
+					<icon type="md-refresh" size="30" @click="tapClick" style="cursor:pointer;"></icon>
 				</div>
 
 				<div class="rememberPwd">
 					<checkbox v-model="single">记住密码</checkbox>
+					<i-button type="success" to="/completeInfo" style="border:none;margin-left:100px;" ghost>微信登陆</i-button>
 				</div>
 
 				<input class="submit" type="submit" @click="localStorage" name="submit" value="登录">
@@ -47,9 +48,7 @@
 			<h3>第一次来？请创建一个帐号。</h3>
 			<i-button to="/register">注册</i-button>
 
-			<div id="login_container" style="display:none;">
-
-			</div>
+			<div id="login_container" style="display:none;"></div>
 		</div>
 	</div>
 </div>
