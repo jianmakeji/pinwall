@@ -42,6 +42,7 @@ module.exports = app => {
   router.get('/forgetPwd', controller.home.forgetPwd);
   router.get('/register', controller.home.register);
   router.get('/createTopics', loginCheck, controller.home.createTopics);
+  router.get("/completeInfo", controller.home.completeInfo);
   router.get('/getSTSSignature/:fileType', loginCheck, controller.website.alioss.getSTSSignature);
   router.get('/getUrlSignature', loginCheck, controller.website.alioss.getUrlSignature);
   router.get('/getCaptcha',controller.website.users.getCaptcha);

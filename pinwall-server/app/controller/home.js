@@ -162,6 +162,11 @@ class HomeController extends BaseController {
     const ctx = this.ctx;
     await ctx.render('register.html');
   }
+
+  async completeInfo(){
+    const ctx = this.ctx;
+    await ctx.render('completeInfo.html');
+  }
 }
 
 module.exports = HomeController;
