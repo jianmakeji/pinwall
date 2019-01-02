@@ -21,8 +21,8 @@ module.exports = {
   },
 
   jwtSlot: 'LTAIkUgFNkgDjcr8zklMJfJUoAgdcT',
-  wx_secret: '8c05c4d7e9970ca9cd1520fd8b857572',
-  wx_appid: 'wx781d229c4c3bd932',
+  wx_secret: '4ba159f4548a64e8eb5567e860c4f067',
+  wx_appid: 'wxe7bac3b26bdd1205',
 
   imagePath: 'images/',
   othersPath: 'others/',

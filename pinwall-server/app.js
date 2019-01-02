@@ -40,13 +40,12 @@ module.exports = app => {
   app.passport.use('loginByWeixin', new WeixinStrategy({
     clientID: 'wxe7bac3b26bdd1205',
     clientSecret: '4ba159f4548a64e8eb5567e860c4f067',
-    callbackURL: 'http://pinwall.design-engine.org',
+    callbackURL: '/loginByWeixin',
     requireState: true,
     scope: 'snsapi_login',
 
   }, function(accessToken, refreshToken, profile, done) {
-    console.log("**********************"+profile);
-    app.passport.doVerify(req, profile, done);
+    done(null,profile);
   }));
   //
   // //微信客户端登录

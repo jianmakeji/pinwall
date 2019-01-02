@@ -21,6 +21,7 @@ module.exports = app => {
        successReturnToOrRedirect : '/index',successFlash: true,
        failureRedirect: '/relogin',failureFlash: true,state: 'hello-pinwall', }));
   router.get('/logout', controller.home.logout);
+  router.get('/wxLogin', controller.website.users.wxLogin);
 
   router.get('/upload', controller.home.upload);
   router.get('/uploadWork/:jobTag', loginCheck, controller.home.uploadWork);

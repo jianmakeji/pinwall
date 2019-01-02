@@ -2,6 +2,8 @@
 
 const BaseController = require('../BaseController');
 const Captcha = require('svg-captcha');
+const request = require('request');
+const wxUtil = require('../../utils/wxUtils');
 
 class UsersController extends BaseController{
 
@@ -165,6 +167,26 @@ class UsersController extends BaseController{
     }
     else{
       super.failure('校验失败!');
+    }
+  }
+
+  async wxLogin(){
+    const code = this.ctx.query.code;
+    const state = this.ctx.query.state;
+    if (state == 'hello-pinwall'){
+
+      const accessTempObject = await wxUtil.getAccessToken(this.ctx.app.wx_appid,this.ctx.app.wx_secret,code);
+      const accessObject = JSON.parse(accessTempObject);
+      if(!accessObject.errcode){
+        const userObject = await wxUtil.getUserInfo(accessObject.access_token,accessObject.openid);
+        super.success(userObject);
+      }
+      else{
+        super.failure(accessObject.errmsg);
+      }
+    }
+    else{
+      super.failure('授权失败!');
     }
   }
 }
