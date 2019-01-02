@@ -27,11 +27,13 @@
 					<label>密码</label>
 					<input type="password" name="password" v-model="password" value="">
 				</div>
-				<div>
-					<object type="" data="/getCaptcha">
-
-					</object>
+				<div class="captcha">
+					<label>验证码</label>
+					<i-input type="text" v-model="captchaText" @on-change="checkCaptcha" clearable style="width:120px;" placeholder="请输入验证码"></i-input>
+					<object style="width: 120px;"></object>
+					<i-button class="verification_btn" type="dashed" icon="ios-refresh" @click="tapClick"></i-button>
 				</div>
+
 				<div class="rememberPwd">
 					<checkbox v-model="single">记住密码</checkbox>
 				</div>
@@ -44,10 +46,11 @@
 		<div class="register">
 			<h3>第一次来？请创建一个帐号。</h3>
 			<i-button to="/register">注册</i-button>
-		</div>
-		<div id="login_container">
+
+			<div id="login_container" style="display:none;">
 
 			</div>
+		</div>
 	</div>
 </div>
 {% endblock %}
@@ -58,18 +61,18 @@
 <script type="text/javascript" src="public/js/lib/iview.min.js"></script>
 <script type="text/javascript" src="public/js/lib/vue-resource.js"></script>
 <script type="text/javascript" src="public/js/src/config.js"></script>
-<script type="text/javascript" src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+<script type="text/javascript" src="public/js/lib/wxLogin.js"></script>
 <script type="text/javascript" src="public/js/src/login.js"></script>
 <script type="text/javascript">
 	var obj = new WxLogin({
-	 self_redirect:true,
-	 id:"login_container",
-	 appid: "wxe7bac3b26bdd1205",
-	 scope: "snsapi_login",
-	 redirect_uri: "http%3a%2f%2fpinwall.design-engine.org%2f",
-	 state: "",
-	 style: "",
-	 href: ""
- });
+		self_redirect: true,
+		id: "login_container",
+		appid: "wxe7bac3b26bdd1205",
+		scope: "snsapi_login",
+		redirect_uri: "http%3a%2f%2fpinwall.design-engine.org%2f",
+		state: "",
+		style: "",
+		href: ""
+	});
 </script>
 {% endblock %}

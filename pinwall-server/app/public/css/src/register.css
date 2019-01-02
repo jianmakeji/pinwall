@@ -38,6 +38,13 @@ body{
     font-weight: bold;
     text-align: center;
 }
+.register_panel .captcha{
+	position: absolute;
+    width: 150px;
+    height: 60px;
+    top: -15px;
+    left: 220px;
+}
 
 .footer {
 	padding: 5px 0;
