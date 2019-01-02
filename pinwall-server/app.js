@@ -45,7 +45,23 @@ module.exports = app => {
     scope: 'snsapi_login',
 
   }, function(accessToken, refreshToken, profile, done) {
-    done(null,profile);
+
+    const user = {
+      Id:0,
+      email:'',
+      fullname:'',
+    };
+    user.openid = profile._json.openid;
+    user.nickname = profile._json.nickname;
+    user.sex = profile._json.sex;
+    user.language = profile._json.language;
+    user.city = profile._json.city;
+    user.province = profile._json.province;
+    user.country = profile._json.country;
+    user.headimageurl = profile._json.headimageurl;
+    user.unionid = profile._json.unionid;
+
+    done(null,user);
   }));
   //
   // //微信客户端登录

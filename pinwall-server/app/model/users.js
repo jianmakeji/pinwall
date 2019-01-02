@@ -152,7 +152,7 @@ module.exports = app => {
 
   Users.findByOpenId = async function (openId){
 
-    return await this.findAll({
+    return await this.findOne({
       where:{
         openId:{[this.app.Sequelize.Op.eq]:openId}
       }

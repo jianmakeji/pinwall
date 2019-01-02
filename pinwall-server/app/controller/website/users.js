@@ -189,6 +189,11 @@ class UsersController extends BaseController{
       super.failure('授权失败!');
     }
   }
+
+  async getUserByOpenId(){
+    const openId = this.ctx.query.openId;
+    return await ctx.service.users.findByOpenId(openId);   
+  }
 }
 
 module.exports = UsersController;
