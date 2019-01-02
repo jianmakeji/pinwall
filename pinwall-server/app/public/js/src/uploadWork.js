@@ -24,8 +24,6 @@ var container = new Vue({
                 jobTag:"",                  //0 作品集 1 作业荚
                 artifact_assets:[],         //详情数组
                 terms:[],                    //标签数组
-                // addTerms:[],
-                // deleteTerms:[]
             },
             step2_between_arr:[],           //存放step2的数据数组 最后赋值给dataitem
             which_artifact_assets:"",

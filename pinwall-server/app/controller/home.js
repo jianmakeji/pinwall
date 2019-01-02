@@ -163,6 +163,7 @@ class HomeController extends BaseController {
     await ctx.render('register.html');
   }
 
+<<<<<<< HEAD
   async bindWeixin(){
     const ctx = this.ctx;
     const openid = ctx.user.openid;
@@ -180,6 +181,11 @@ class HomeController extends BaseController {
       //createUser
 
     }
+=======
+  async completeInfo(){
+    const ctx = this.ctx;
+    await ctx.render('completeInfo.html');
+>>>>>>> b5174c11c3ca544c828039cf4613cf3665de5a01
   }
 }
 

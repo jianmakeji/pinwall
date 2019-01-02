@@ -13,6 +13,8 @@ var index = new Vue({
             verification:false,
             captchaText:"",
 
+            WXcode:false,
+
             userId: "1",
 
         }

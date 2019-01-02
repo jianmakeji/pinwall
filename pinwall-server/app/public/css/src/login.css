@@ -85,7 +85,9 @@ body{
 	width: 70%;
 }
 .login_panel .login_info .rememberPwd{
-	margin: 10px 80px;
+	margin: 10px 0px 10px 80px;
+	display: flex;
+	flex-direction: row;
 }
 .login_panel .login_info .rememberPwd .ivu-checkbox-inner{
 	top: -9px;
@@ -137,12 +139,6 @@ body{
 	font-size: 16px;
 	color: #09bc72;
 	margin: 15px 0;
-}
-.login_panel .register #login_container{
-	width: 100%;
-	background: pink;
-	height: 210px;
-	margin-top: 20px;
 }
 
 
