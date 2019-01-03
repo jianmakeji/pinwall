@@ -18,7 +18,7 @@ module.exports = app => {
        failureRedirect: '/relogin',failureFlash: true }));
 
   router.get('/loginByWeixin',app.passport.authenticate('loginByWeixin', {
-       successReturnToOrRedirect : '/index',successFlash: true,
+       successReturnToOrRedirect : '/website/users/bindWeixin',successFlash: true,
        failureRedirect: '/relogin',failureFlash: true,state: 'hello-pinwall', }));
   router.get('/logout', controller.home.logout);
   router.get('/wxLogin', controller.website.users.wxLogin);
@@ -64,12 +64,11 @@ module.exports = app => {
   router.put('website.users.updateAcviveByUserId', '/website/users/updateAcviveByUserId/:id', loginCheck, controller.website.users.updateAcviveByUserId);
   router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
   router.get('website.users.register', '/website/users/register', controller.website.users.register);
-  router.get('website.users.bindWeixin', '/website/users/bindWeixin', controller.website.users.bindWeixin);
 
   router.get('website.users.bindWeixin', '/website/users/bindWeixin', controller.website.users.bindWeixin);
   router.get('website.users.bindWeixinInfoByEmail', '/website/users/bindWeixinInfoByEmail', controller.website.users.bindWeixinInfoByEmail);
   router.get('website.users.updateWxActive', '/website/users/updateWxActive', controller.website.users.updateWxActive);
-
+  router.get('website.users.createWxUser', '/website/users/createWxUser', controller.website.users.createWxUser);
 
   router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
   router.get('website.topics.getTopicAndArtifactById', '/website/topics/getTopicAndArtifactById', controller.website.topics.getTopicAndArtifactById);

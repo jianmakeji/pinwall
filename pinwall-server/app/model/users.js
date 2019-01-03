@@ -158,7 +158,7 @@ module.exports = app => {
 
     return await this.findOne({
       where:{
-        openId:{[this.app.Sequelize.Op.eq]:openId}
+        openId:{[app.Sequelize.Op.eq]:openId}
       }
     });
   }

@@ -241,6 +241,50 @@ class UsersController extends BaseController{
       super.failure('激活失败,请稍后重试!');
     }
   }
+
+  async createWxUser(){
+    const ctx = this.ctx;
+    const email = ctx.query.email;
+    const fullname = ctx.query.fullname;
+    const password = ctx.query.password;
+    const captcha = ctx.query.captchaText;
+
+    if (captcha == ctx.session.captcha){
+      if (ctx.user){
+        let user = {
+          email:email,
+          fullname:fullname,
+          password:password,
+          openId:user.openid,
+          nickname:user.nickname,
+          gender:user.sex,
+          city:user.city,
+          province:user.province,
+          country:user.country,
+          avatarUrl:user.headimageurl,
+        };
+        try{
+          const result = await ctx.service.users.createUser(user);
+          if (result){
+            super.success('操作成功！请到邮箱激活');
+          }
+          else{
+            super.failure('操作失败！请重新操作');
+          }
+        }
+        catch(e){
+          super.failure(e.message);
+        }
+
+      }
+      else{
+        super.failure('微信扫描信息有误，请重新扫描!');
+      }
+    }
+    else{
+      super.failure('验证码不正确!');
+    }
+  }
 }
 
 module.exports = UsersController;
