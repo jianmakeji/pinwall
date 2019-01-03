@@ -60,6 +60,7 @@ var index = new Vue({
             }
         },
         submit(name){
+            let that = this;
             if (this.newOrOld == "0") {     //new
                 let subUrl = "/website/users/createWxUser";
                 console.log(this.formItem);
