@@ -37,8 +37,15 @@ class UsersController extends BaseController{
   async create() {
     const ctx = this.ctx;
     try{
-      const user = await ctx.service.users.createUser(ctx.request.body);
-      super.success('创建成功!');
+      let data = ctx.request.body;
+      if (data.captchaText == this.ctx.session.captcha){
+        super.failure('验证码错误!');
+      }
+      else{
+        const user = await ctx.service.users.createUser(data);
+        super.success('创建成功!');
+      }
+
     }
     catch(e){
       super.failure(e.message);
@@ -131,23 +138,6 @@ class UsersController extends BaseController{
     }
   }
 
-  async register(){
-    const ctx = this.ctx;
-    const query = {
-      password: ctx.query.password,
-      email: ctx.query.email,
-      fullname: ctx.query.fullname,
-    };
-    query.roleId = 1;
-    try{
-      const user = await ctx.service.users.createUser(query);
-      super.success('创建成功!');
-    }
-    catch(e){
-      super.failure(e.message);
-    }
-  }
-
   async getCaptcha(){
     let codeConfig = {
         size: 5,// 验证码长度
@@ -202,7 +192,16 @@ class UsersController extends BaseController{
     const user = await ctx.service.users.findByOpenId(openId);
     if(user){
       if(user.Id && user.email){
-        ctx.redirect('/index');
+        if(user.wxActive == 0){
+          await this.ctx.service.emailService.sendWxActiveEmail(user.email, openId, user.acticeCode);
+          super.success('绑定成功，请先进入邮箱激活!');
+        }
+        else{
+          ctx.user.Id = user.Id;
+          ctx.user.email = user.email;
+          ctx.user.fullname = user.fullname;
+          ctx.redirect('/index');
+        }
       }else{
         ctx.redirect('/completeInfo');
       }

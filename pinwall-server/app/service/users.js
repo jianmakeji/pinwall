@@ -79,6 +79,10 @@ class Users extends Service {
     return await this.ctx.model.Users.findByUserWithEmail(email);
   }
 
+  async loginFindByUserWithEmail(email){
+    return await this.ctx.model.Users.loginFindByUserWithEmail(email);
+  }
+
   async updateAcviveByActiveCodeAndEmail(email,activeCode){
     return await this.ctx.model.Users.findByUsersEmail(email,activeCode);
   }
