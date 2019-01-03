@@ -263,7 +263,7 @@ module.exports = app => {
       activeCode:wxInfo.activeCode,
     },{
       where:{
-        email:email
+        email:wxInfo.email
       }
     });
   }

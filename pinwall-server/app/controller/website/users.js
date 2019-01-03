@@ -42,7 +42,7 @@ class UsersController extends BaseController{
         super.failure('验证码错误!');
       }
       else{
-        const user = await ctx.service.users.createUser(data);
+        const user = await ctx.service.users.createUser(data,0);
         super.success('创建成功!');
       }
 
@@ -213,9 +213,10 @@ class UsersController extends BaseController{
 
   async bindWeixinInfoByEmail(){
     const ctx = this.ctx;
-    const email = ctx.query.email;
+    const email = ctx.request.body.email;
     const result = await ctx.service.users.bindWeixinInfoByEmail(email,ctx.user);
     if (result){
+      ctx.logout();
       super.success('绑定成功，请进入邮箱激活!');
     }
     else{
@@ -243,10 +244,10 @@ class UsersController extends BaseController{
 
   async createWxUser(){
     const ctx = this.ctx;
-    const email = ctx.query.email;
-    const fullname = ctx.query.fullname;
-    const password = ctx.query.password;
-    const captcha = ctx.query.captchaText;
+    const email = ctx.request.body.email;
+    const fullname = ctx.request.body.fullname;
+    const password = ctx.request.body.password;
+    const captcha = ctx.request.body.captchaText;
 
     if (captcha == ctx.session.captcha){
       if (ctx.user){
@@ -254,17 +255,18 @@ class UsersController extends BaseController{
           email:email,
           fullname:fullname,
           password:password,
-          openId:user.openid,
-          nickname:user.nickname,
-          gender:user.sex,
-          city:user.city,
-          province:user.province,
-          country:user.country,
-          avatarUrl:user.headimageurl,
+          openId:ctx.user.openid,
+          nickname:ctx.user.nickname,
+          gender:ctx.user.sex,
+          city:ctx.user.city,
+          province:ctx.user.province,
+          country:ctx.user.country,
+          avatarUrl:ctx.user.headimageurl,
         };
         try{
-          const result = await ctx.service.users.createUser(user);
+          const result = await ctx.service.users.createUser(user,1);
           if (result){
+            ctx.logout();
             super.success('操作成功！请到邮箱激活');
           }
           else{

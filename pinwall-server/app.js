@@ -58,7 +58,7 @@ module.exports = app => {
     user.city = profile._json.city;
     user.province = profile._json.province;
     user.country = profile._json.country;
-    user.headimageurl = profile._json.headimageurl;
+    user.headimageurl = profile._json.headimgurl;
     user.unionid = profile._json.unionid;
 
     done(null,user);
