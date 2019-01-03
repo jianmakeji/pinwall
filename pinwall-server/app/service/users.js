@@ -23,7 +23,7 @@ class Users extends Service {
       throw new Error('用户邮箱不能为空');
     }
     else{
-      const userObj = await this.ctx.model.Users.findByUsersEmail(user.email);
+      const userObj = await this.ctx.model.Users.findUserByEmail(user.email);
       if (userObj){
         throw new Error('用户已经存在');
       }
@@ -35,9 +35,9 @@ class Users extends Service {
           user.password = app.cryptoPwd(app.cryptoPwd(user.password));
           user.activeCode =  UUID.v1();
           const createUserObj = await this.ctx.model.Users.createUser(user,transaction);
-          await this.ctx.model.UserRole.creteUserRole(createUserObj.Id, user.roleId, transaction);
+          await this.ctx.model.UserRole.creteUserRole(createUserObj.Id, 1, transaction);
           await transaction.commit();
-          await this.ctx.service.emailService.sendActiveEmail(user.email, user.acticeCode);
+          await this.ctx.service.emailService.sendActiveEmail(user.email, user.activeCode);
 
           return true
         } catch (e) {
@@ -80,7 +80,7 @@ class Users extends Service {
   }
 
   async updateAcviveByActiveCodeAndEmail(email,activeCode){
-    return await this.ctx.model.Users.findByUsersEmail(email,activeCode);
+    return await this.ctx.model.Users.updateAcviveByActiveCodeAndEmail(email,activeCode,1);
   }
 
   async updateAcviveByUserId(userId){

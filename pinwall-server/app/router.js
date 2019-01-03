@@ -60,7 +60,7 @@ module.exports = app => {
   router.get('/website/artifactComment/setCommentVisible', loginCheck, controller.website.artifactComment.setCommentVisible);
 
   router.get('website.users.findByUsersEmail', '/website/users/findByUsersEmail', controller.website.users.findByUsersEmail);
-  router.put('website.users.updateAcviveByActiveCodeAndEmail', '/website/users/updateAcviveByActiveCodeAndEmail', controller.website.users.updateAcviveByActiveCodeAndEmail);
+  router.get('website.users.updateAcviveByActiveCodeAndEmail', '/website/users/updateAcviveByActiveCodeAndEmail', controller.website.users.updateAcviveByActiveCodeAndEmail);
   router.put('website.users.updateAcviveByUserId', '/website/users/updateAcviveByUserId/:id', loginCheck, controller.website.users.updateAcviveByUserId);
   router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
   router.get('website.users.register', '/website/users/register', controller.website.users.register);
