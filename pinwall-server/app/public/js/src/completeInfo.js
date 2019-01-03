@@ -6,7 +6,23 @@ var index = new Vue({
                 email:"",
                 fullname:"",
                 password:"",
+                confirmPassword:"",
                 captchaText:""
+            },
+            ruleValidate:{
+            	email:[
+        	       {required: true, message: '邮箱不能为空', trigger: 'blur'},
+        	       {type:"email", message: '请输入正确邮箱格式', trigger: 'blur'}
+            	],
+            	fullname:{required: true, message: '用户名不能为空', trigger: 'blur'},
+            	password:[
+            	    {required: true, message: '请输入密码', trigger: 'blur'},
+              	    {min:6, message: '密码至少为6位', trigger: 'blur'}
+            	],
+            	confirmPassword:[
+            	    {required: true, message: '请输入密码', trigger: 'blur'},
+              	    {min:6, message: '密码至少为6位', trigger: 'blur'}
+            	]
             },
             newOrOld:"0",
             isRegister:true,
@@ -17,12 +33,10 @@ var index = new Vue({
     methods: {
         radioChange(value){
             if(value == "0"){				//  new
-                console.log("new");
                 this.isRegister = true;
                 this.disableSbt = true;
                 init_form(this);
     		}else if(value == "1"){			//  old
-                console.log("old");
                 this.isRegister = false;
                 this.disableSbt = false;
                 init_form(this);
@@ -39,7 +53,11 @@ var index = new Vue({
             });
         },
         conPwdBlur(){
-
+            if(this.formItem.password && this.formItem.confirmPassword != this.formItem.password){
+    			this.$Notice.error({ title: '输入的密码不一致', duration:3});
+                this.formItem.password = "";
+                this.formItem.confirmPassword = "";
+    		}
         },
         checkCaptcha(event){
             let that = this;
@@ -52,11 +70,9 @@ var index = new Vue({
                         if (res.status == 200){
                             that.disableSbt = false;
                             that.$Notice.success({title:res.data});
-                            that.verification = true;
                         }else{
                             that.$Notice.error({title:res.data});
                             that.disableSbt = true;
-                            that.verification = false;
                         }
                     }
                 });
@@ -80,7 +96,6 @@ var index = new Vue({
                         }
                     }
                 });
-
             } else {
                 let subUrl = "/website/users/bindWeixinInfoByEmail";
                 $.ajax({
@@ -114,6 +129,7 @@ var index = new Vue({
 function init_form(that){
     that.formItem.email = "";
     that.formItem.fullname = "";
+    that.formItem.password = "";
     that.formItem.password = "";
     that.formItem.captchaText = "";
 }
