@@ -34,7 +34,9 @@ module.exports = {
   email_user:'admin@design-engine.org',
   email_pwd:'hnuManager001',
   email_send_address:'admin@design-engine.org',
-  email_verify_address:'http://locahost:7001/website/users/updateAcviveByActiveCodeAndEmail',
+  email_verify_address:'https://beta.pinwall.design-engine.org/website/users/updateAcviveByActiveCodeAndEmail',
+  wx_email_verify_address:'https://beta.pinwall.design-engine.org/website/users/updateWxActive',
+
   // email_smtp.socketFactory.fallback:false,
   // email_smtp.socketFactory.class:SSL_FACTORY,
   // email_smtp.port:25,
