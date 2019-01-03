@@ -34,40 +34,7 @@ var container = new Vue({
             addTerms:[],
             deleteTerms:[],
             upload_show:false,
-
-
-
-
-            formItem:{
-                username:"",
-                email:"",
-                password:""
-            },
-            userId:"1",
             drawerShow:false,
-            modelWidth:"",
-            // 搜索弹出层
-            searchModel:false,  /* 搜索弹出层model */
-            searchModelValue:"",    /*搜索内容*/
-            searchModelDataList:[],
-            columns1:[
-                {title:"搜索结果",key:"name"}
-            ],
-            // 注册弹出层
-            loginModel:false,
-            // 忘记密码弹出层
-            recoverPwdModel:false,
-            // 注册弹出层
-            registerModel:false,
-            imgSrc:"user/getCode",	//图片验证码路径
-            // 修改资料弹出层
-            resetInfoModel:false,
-            // 修改密码弹出层
-            resetPwdModel:false,
-            // step1
-            buttonType:"success",	//error
-            iconImg:"ios-brush",	//md-close
-            // stepNum:0,
             stepOneActive:true,
             stepTwoActive:false,
             stepThreeActive:false,
@@ -189,7 +156,6 @@ var container = new Vue({
                                 that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name.split(".")[0];
                                 that.step2_between_arr[that.which_artifact_assets].viewImgUrl = res;
                                 that.step2_between_arr[that.which_artifact_assets].profileImage = fileName;
-                                // that.file_otherinof_arr[that.which_artifact_assets].fileTrueName = files.target.files[0].name;
                                 that.neirong_truename_arr[that.which_artifact_assets] = files.target.files[0].name;
 
                             }
@@ -227,7 +193,7 @@ var container = new Vue({
                 }
             })
         },
-        step3_upload_PDF_change(files){
+        step2_upload_PDF_change(files){
             let that = this;
             let file = files.target.files[0];
             let fileTrueName = files.target.files[0].name;
@@ -256,7 +222,7 @@ var container = new Vue({
                 }
             })
         },
-        step3_upload_ZIP_change(files){
+        step2_upload_ZIP_change(files){
             let that = this;
             let file = files.target.files[0];
             let fileTrueName = files.target.files[0].name;
@@ -472,13 +438,6 @@ var container = new Vue({
     created(){
         let that = this;
         this.containerStyle.minHeight = document.documentElement.clientHeight - 140 + "px";
-        if(document.documentElement.clientWidth > 1200){
-            this.modelWidth = "768px";
-        }else if(document.documentElement.clientWidth < 1200){
-            this.modelWidth = "70%";
-        }else if(document.documentElement.clientWidth < 992){
-            this.modelWidth = "80%";
-        }
 
         if(window.location.href.indexOf("editUploadWork") > 0){
             this.dataItem.Id = window.location.search.split("?id=")[1].split("&jobTag=")[0];

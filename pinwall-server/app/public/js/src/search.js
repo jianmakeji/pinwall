@@ -16,11 +16,7 @@ var index = new Vue({
             columns1:[
                 {title:"搜索结果",key:"name"}
             ],
-            dataList:[],
-
-
-
-            userId:"1",
+            dataList:[]
         }
     },
     methods: {

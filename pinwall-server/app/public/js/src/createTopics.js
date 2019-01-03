@@ -63,14 +63,6 @@ var index = new Vue({
         }
     },
     created(){
-        this.screenWidth = document.documentElement.clientWidth;
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
-        if(document.documentElement.clientWidth > 1200){
-            this.modelWidth = "60%";
-        }else if(document.documentElement.clientWidth < 1200){
-            this.modelWidth = "70%";
-        }else if(document.documentElement.clientWidth < 992){
-            this.modelWidth = "80%";
-        }
     }
 })

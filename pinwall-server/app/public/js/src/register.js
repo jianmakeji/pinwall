@@ -8,10 +8,11 @@ var index = new Vue({
             },
             drawerShow:false,
             formItem:{
-                name:"",
-                password:""
-            },
-            captchaText:"",
+                username:"",
+                email:"",
+                password:"",
+                captchaText:""
+            }
 
 
         }
@@ -33,7 +34,7 @@ var index = new Vue({
                 $.ajax({
                     url: '/checkCaptcha',
                     type: 'GET',
-                    data:{captchaText:this.captchaText},
+                    data:{captchaText:this.formItem.captchaText},
                     success(res){
                         if (res.status == 200){
                             that.$Notice.success({title:res.data});
@@ -43,18 +44,22 @@ var index = new Vue({
                     }
                 });
             }
+        },
+        registerSubmit(){
+            $.ajax({
+                url: '/website/users',
+                type: 'POST',
+                data: this.formItem,
+                success(res){
+                    console.log(res);
+                }
+            });
+
         }
     },
     created(){
         this.containerStyle.margin = (document.documentElement.clientHeight - 400 ) / 2 - 90 + "px auto";
         let that = this;
-        if(document.documentElement.clientWidth > 1200){
-            this.modelWidth = "60%";
-        }else if(document.documentElement.clientWidth < 1200){
-            this.modelWidth = "70%";
-        }else if(document.documentElement.clientWidth < 992){
-            this.modelWidth = "80%";
-        }
 
         $.ajax({
             url: '/getCaptcha',

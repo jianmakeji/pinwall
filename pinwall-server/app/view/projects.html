@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="user_info">
-                    <a href="#">
+                    <a href="/users/{{data.user.Id}}">
 						{% if data.user.avatarUrl %}
 						<img class="photo" src="{{data.user.avatarUrl}}" alt="">
 						{% else %}
@@ -57,7 +57,7 @@
                 <p class="publishtime">
                     {{data.createAt}}，收录于
 						{% for item in data.topics %}
-	                    	<a href="#">{{item.name}}</a>
+	                    	<a href="/workFolder/{{data.topics[0].Id}}">{{item.name}}</a>
 						{% endfor %}
                 </p>
                 <p class="abstract">
@@ -71,11 +71,29 @@
 								<i-button shape="circle" icon="md-arrow-dropright-circle" type="default" size="large" @click="downAttach('{{item.mediaFile}}')" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
 								<a href="{{item.mediaFile}}" target="_blank">
 									<img src="{{item.profileImage}}" alt="">
+									<figcaption>
+										{% if item.name %}
+										<span>{{item.name}}</span>
+										{% endif %}
+										{% if item.description %}
+										<span class="description">{{item.description}}</span>
+										{% endif %}
+									</figcaption>
 								</a>
 							</figure>
 						{% else %}
 							<figure>
 								<img src="{{item.profileImage}}" alt="">
+
+								<figcaption>
+									{% if item.name %}
+									<span>{{item.name}}</span>
+									{% endif %}
+									{% if item.description %}
+									<span class="description">{{item.description}}</span>
+									{% endif %}
+								</figcaption>
+
 							</figure>
 						{% endif %}
 					{% endfor %}

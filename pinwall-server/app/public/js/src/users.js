@@ -11,17 +11,12 @@ var index = new Vue({
             containerStyle:{
                 minHeight:""
             },
-            spinShow:true,
             scrollModel:true,
-            drawerShow:false,
-
-
-            screenWidth:"",
-
+            drawerShow:false
         }
     },
     methods: {
-
+        
     },
     created(){
         let that = this;
@@ -35,16 +30,7 @@ var index = new Vue({
             this.aoUrl = config.ajaxUrls.getPersonalJobByUserId;
         }
         this.aoData.jobTag = window.location.href.split("jobTag=")[1];
-
-        this.screenWidth = document.documentElement.clientWidth;
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
-        if(document.documentElement.clientWidth > 1200){
-            this.modelWidth = "60%";
-        }else if(document.documentElement.clientWidth < 1200){
-            this.modelWidth = "70%";
-        }else if(document.documentElement.clientWidth < 992){
-            this.modelWidth = "80%";
-        }
 
         this.$Loading.start();
         $.ajax({
@@ -56,16 +42,16 @@ var index = new Vue({
                 if (res.status == 200) {
                     that.$Loading.finish();
                     if (res.data.count > 0){
-                        that.spinShow = false;
                         that.userInfo = res.data.rows[0].user;
                         that.userInfo.createAt = that.userInfo.createAt.split("T")[0] + " 注册";
                         that.dataList = res.data.rows;
                         that.headDataList = res.data.rows;
                         if (that.dataList.length == res.data.count) {
                             that.scrollModel = false;
+                        }else {
+                            that.scrollModel = true;
                         }
                     }else{
-                        that.spinShow = false;
                         that.$Notice.error({title:"用户暂无作品集！"})
                     }
                 }
@@ -80,7 +66,6 @@ $(document).ready(function() {
         if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
             index.aoData.offset += 12;
             index.$Loading.start();
-            index.spinShow = true;
             $.ajax({
                 url: index.aoUrl,
                 type: 'GET',
@@ -88,10 +73,11 @@ $(document).ready(function() {
                 success:function(res){
                     if (res.status == 200) {
                         index.$Loading.finish();
-                        index.spinShow = false;
                         index.dataList = index.dataList.concat(res.data.rows);
                         if (index.dataList.length == res.data.count) {
                             index.scrollModel = false;
+                        }else{
+                            index.scrollModel = true;
                         }
                     }
                 }

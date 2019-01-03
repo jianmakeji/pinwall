@@ -10,45 +10,45 @@ var index = new Vue({
 
             username: "",
             password: "",
-            verification:false,
-            captchaText:"",
+            verification: false,
+            captchaText: "",
 
-            WXcode:false,
+            WXcode: false,
 
             userId: "1",
 
         }
     },
     methods: {
-        tapClick(){
+        tapClick() {
             let that = this;
             $.ajax({
                 url: '/getCaptcha',
                 type: 'GET',
-                success(res){
+                success(res) {
                     document.getElementsByTagName("object")[0].innerHTML = res;
                 }
             });
         },
-        checkCaptcha(event){
-            let that = this;
-            if(event.target.value.length == 5){
-                $.ajax({
-                    url: '/checkCaptcha',
-                    type: 'GET',
-                    data:{captchaText:this.captchaText},
-                    success(res){
-                        if (res.status == 200){
-                            that.$Notice.success({title:res.data});
-                            that.verification = true;
-                        }else{
-                            that.$Notice.error({title:res.data});
-                            that.verification = false;
-                        }
-                    }
-                });
-            }
-        },
+        // checkCaptcha(event){
+        //     let that = this;
+        //     if(event.target.value.length == 5){
+        //         $.ajax({
+        //             url: '/checkCaptcha',
+        //             type: 'GET',
+        //             data:{captchaText:this.captchaText},
+        //             success(res){
+        //                 if (res.status == 200){
+        //                     that.$Notice.success({title:res.data});
+        //                     that.verification = true;
+        //                 }else{
+        //                     that.$Notice.error({title:res.data});
+        //                     that.verification = false;
+        //                 }
+        //             }
+        //         });
+        //     }
+        // },
         localStorage() {
             if (this.single) {
                 window.localStorage.setItem("username", this.username);
@@ -78,19 +78,10 @@ var index = new Vue({
         $.ajax({
             url: '/getCaptcha',
             type: 'GET',
-            success(res){
+            success(res) {
                 document.getElementsByTagName("object")[0].innerHTML = res;
             }
         });
-        // $(document).ready(function() {
-        //     $(".ivu-form").attr('action', '/login');
-        //     $(".ivu-form").attr('method', 'post');
-        //     // $(".submit").click(function() {
-        //     //     $(".ivu-form").submit();
-        //     // });
-        //
-        //
-        // });
     }
 })
 
@@ -98,14 +89,46 @@ function check(form) {
     var usernameExp = new RegExp("^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$");
     // var passwordExp = new RegExp("^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$");
     if (!usernameExp.test(form.username.value)) {
-        index.$Notice.error({title:"请输入正确的邮箱格式或者验证码！",duration:2});
+        index.$Notice.error({
+            title: "请输入正确的邮箱格式或者验证码！",
+            duration: 2
+        });
         form.username.focus();
         return false
     }
     if (form.password.value.length < 6) {
-        index.$Notice.error({title:"密码位数至少6位！",duration:2});
+        index.$Notice.error({
+            title: "密码位数至少6位！",
+            duration: 2
+        });
         form.password.focus();
+        return false
+    }
+    if (index.verification == false) {
+        index.$Notice.error({title:"验证码错误",duration:2});
+        form.captchaText.focus();
         return false
     }
     return true;
 }
+$(document).ready(function() {
+    $(".captcha_input").bind("input propertychange", function() {
+        let captchaStr = $(".captcha_input").val();
+        if (captchaStr.length == 5) {
+            $.ajax({
+                url: '/checkCaptcha',
+                type: 'GET',
+                data:{captchaText:index.captchaText},
+                success(res){
+                    if (res.status == 200){
+                        index.$Notice.success({title:res.data});
+                        index.verification = true;
+                    }else{
+                        index.$Notice.error({title:res.data});
+                        index.verification = false;
+                    }
+                }
+            });
+        }
+    });
+});

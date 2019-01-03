@@ -8,7 +8,6 @@ var index = new Vue({
             aoData:{limit:10,jobTag:1,offset:0,status:-1,userId:-1},
             dataList:[],
             scrollModel:true,
-
             searchValue:"",
             containerStyle:{
                 minHeight:""
@@ -18,35 +17,9 @@ var index = new Vue({
             checkCloseType:"text",
             checkMyType:"text",
             dataList:[],
-
-            // 搜索弹出层
-            searchModel:false,  /* 搜索弹出层model */
-            searchModelValue:"",    /*搜索内容*/
-            searchModelDataList:[],
-            modelWidth:"",
-            columns1:[
-                {title:"搜索结果",key:"name"}
-            ],
-            // 注册弹出层
-            loginModel:false,
-            formItem:{
-                username:"",
-                email:"",
-                password:""
-            },
-            // 忘记密码弹出层
-            recoverPwdModel:false,
-            // 注册弹出层
-            registerModel:false,
-            imgSrc:"user/getCode",	//图片验证码路径
-            // 修改资料弹出层
-            resetInfoModel:false,
-            // 修改密码弹出层
-            resetPwdModel:false,
             //右侧抽屉
-            drawerShow:false,
+            drawerShow:false
 
-            imgSrc:"user/getCode",	//图片验证码路径
         }
     },
     methods: {
@@ -57,32 +30,10 @@ var index = new Vue({
             this.checkMyType = "text";
 
             let that = this;
-            this.$Loading.start();
             this.aoData.status = -1;
             this.aoData.userId = -1;
-            this.$http({
-                url: config.ajaxUrls.getTopicAboutData,
-                method:"GET",
-                params:this.aoData
-            }).then(function(res){
-                if( res.body.status == 200){
-                    that.$Loading.finish();
-                    console.log("初始化加载数据", res);
-                    that.dataList = res.body.data.rows;
-                    if (that.dataList.length == res.body.data.count) {
-                        that.scrollModel = false;
-                    }
-                    for(let i=0; i < that.dataList.length; i++){
-                        that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
-                        if(that.dataList[i].user.avatarUrl == null){
-                            that.dataList[i].user.avatarUrl = config.default_profile;
-                        }
-                    }
-                }
-
-            },function(err){
-                that.$Loading.error();
-            })
+            this.aoData.offset = 0;
+            getData(this, this.aoData);
         },
         checkOpen(){
             this.checkAllType = "text";
@@ -90,32 +41,10 @@ var index = new Vue({
             this.checkCloseType = "text";
             this.checkMyType = "text";
             let that = this;
-            this.$Loading.start();
             this.aoData.status = 0;
             this.aoData.userId = -1;
-            this.$http({
-                url: config.ajaxUrls.getTopicAboutData,
-                method:"GET",
-                params:this.aoData
-            }).then(function(res){
-                if( res.body.status == 200){
-                    that.$Loading.finish();
-                    console.log("初始化加载数据", res);
-                    that.dataList = res.body.data.rows;
-                    if (that.dataList.length == res.body.data.count) {
-                        that.scrollModel = false;
-                    }
-                    for(let i=0; i < that.dataList.length; i++){
-                        that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
-                        if(that.dataList[i].user.avatarUrl == null){
-                            that.dataList[i].user.avatarUrl = config.default_profile;
-                        }
-                    }
-                }
-
-            },function(err){
-                that.$Loading.error();
-            })
+            this.aoData.offset = 0;
+            getData(this, this.aoData);
         },
         checkClose(){
             this.checkAllType = "text";
@@ -124,32 +53,10 @@ var index = new Vue({
             this.checkMyType = "text";
 
             let that = this;
-            this.$Loading.start();
             this.aoData.status = 1;
             this.aoData.userId = -1;
-            this.$http({
-                url: config.ajaxUrls.getTopicAboutData,
-                method:"GET",
-                params:this.aoData
-            }).then(function(res){
-                if( res.body.status == 200){
-                    that.$Loading.finish();
-                    console.log("初始化加载数据", res);
-                    that.dataList = res.body.data.rows;
-                    if (that.dataList.length == res.body.data.count) {
-                        that.scrollModel = false;
-                    }
-                    for(let i=0; i < that.dataList.length; i++){
-                        that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
-                        if(that.dataList[i].user.avatarUrl == null){
-                            that.dataList[i].user.avatarUrl = config.default_profile;
-                        }
-                    }
-                }
-
-            },function(err){
-                that.$Loading.error();
-            })
+            this.aoData.offset = 0;
+            getData(this, this.aoData);
         },
         /**
          * 由我创建
@@ -163,32 +70,10 @@ var index = new Vue({
             this.checkMyType = "default";
 
             let that = this;
-            this.$Loading.start();
             this.aoData.status = -1;
             this.aoData.userId = 0;
-            this.$http({
-                url: config.ajaxUrls.getTopicAboutData,
-                method:"GET",
-                params:this.aoData
-            }).then(function(res){
-                if( res.body.status == 200){
-                    that.$Loading.finish();
-                    console.log("初始化加载数据", res);
-                    that.dataList = res.body.data.rows;
-                    if (that.dataList.length == res.body.data.count) {
-                        that.scrollModel = false;
-                    }
-                    for(let i=0; i < that.dataList.length; i++){
-                        that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
-                        if(that.dataList[i].user.avatarUrl == null){
-                            that.dataList[i].user.avatarUrl = config.default_profile;
-                        }
-                    }
-                }
-
-            },function(err){
-                that.$Loading.error();
-            })
+            this.aoData.offset = 0;
+            getData(this, this.aoData);
         },
         /**
          * [checkThisTopic 查看该作业荚]
@@ -212,7 +97,7 @@ var index = new Vue({
 
         },
         /**
-         * [searchData description]
+         * [searchData 设置作业荚]
          * @return {[type]} [description]
          */
         settingThisTopic(id){
@@ -222,13 +107,6 @@ var index = new Vue({
     },
     created(){
         let that = this;
-        if(document.documentElement.clientWidth > 1200){
-            this.modelWidth = "60%";
-        }else if(document.documentElement.clientWidth < 1200){
-            this.modelWidth = "70%";
-        }else if(document.documentElement.clientWidth < 992){
-            this.modelWidth = "80%";
-        }
 
         //老师点击我的作业荚
         let myTopics = new String();
@@ -241,29 +119,7 @@ var index = new Vue({
             this.checkMyType = "default";
         }
 
-        this.$Loading.start();
-        this.$http({
-            url: config.ajaxUrls.getTopicAboutData,
-            method:"GET",
-            params:that.aoData
-        }).then(function(res){
-            if( res.body.status == 200){
-                that.$Loading.finish();
-                console.log("初始化加载数据", res);
-                that.dataList = res.body.data.rows;
-                if (that.dataList.length == res.body.data.count) {
-                    that.scrollModel = false;
-                }
-                for(let i=0; i < that.dataList.length; i++){
-                    that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
-                    if(that.dataList[i].user.avatarUrl == null){
-                        that.dataList[i].user.avatarUrl = config.default_profile;
-                    }
-                }
-            }
-        },function(err){
-            that.$Loading.error();
-        })
+        getData(this, this.aoData);
     }
 })
 
@@ -289,6 +145,8 @@ $(document).ready(function() {
                     index.dataList = index.dataList.concat(res.body.data.rows);
                     if (index.dataList.length == res.body.data.count) {
                         index.scrollModel = false;
+                    }else{
+                        index.scrollModel = true;
                     }
                     for(let i=0; i < index.dataList.length; i++){
                         index.dataList[i].createAt = index.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
@@ -304,28 +162,30 @@ $(document).ready(function() {
     })
 });
 
-// function getData(that, that.aoData){
-//     this.$Loading.start();
-//     this.$http({
-//         url: config.ajaxUrls.getTopicAboutData,
-//         method:"GET",
-//         params:that.aoData
-//     }).then(function(res){
-//         if( res.body.status == 200){
-//             that.$Loading.finish();
-//             console.log("初始化加载数据", res);
-//             that.dataList = res.body.data.rows;
-//             if (that.dataList.length == res.body.data.count) {
-//                 that.scrollModel = false;
-//             }
-//             for(let i=0; i < that.dataList.length; i++){
-//                 that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
-//                 if(that.dataList[i].user.avatarUrl == null){
-//                     that.dataList[i].user.avatarUrl = config.default_profile;
-//                 }
-//             }
-//         }
-//     },function(err){
-//         that.$Loading.error();
-//     })
-// }
+function getData(that, aoData){
+    that.$Loading.start();
+    that.$http({
+        url: config.ajaxUrls.getTopicAboutData,
+        method:"GET",
+        params:aoData
+    }).then(function(res){
+        if( res.body.status == 200){
+            that.$Loading.finish();
+            console.log("初始化加载数据", res);
+            that.dataList = res.body.data.rows;
+            if (that.dataList.length == res.body.data.count) {
+                that.scrollModel = false;
+            }else{
+                that.scrollModel = true;
+            }
+            for(let i=0; i < that.dataList.length; i++){
+                that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
+                if(that.dataList[i].user.avatarUrl == null){
+                    that.dataList[i].user.avatarUrl = config.default_profile;
+                }
+            }
+        }
+    },function(err){
+        that.$Loading.error();
+    })
+}

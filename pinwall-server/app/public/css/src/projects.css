@@ -112,6 +112,18 @@ body{
 .main_content figure img{
     width: 100%;
 }
+.main_content figure figcaption{
+    font-weight: bold;
+    margin: 20px 30px 40px;
+    text-align: center;
+    color: #999;
+}
+.main_content figure figcaption .description{
+    font-weight: normal;
+    margin-left: 10px;
+}
+
+
 
 /* 评论框 */
 .comment_box{

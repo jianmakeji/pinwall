@@ -17,7 +17,7 @@ var index = new Vue({
                                 },
                                 on: {
                                     click: () => {
-                                        this.clickUserName(params.row.id)
+                                        this.clickWorkName(params.index)
                                     }
                                 }
                             }, params.row.name);
@@ -35,7 +35,7 @@ var index = new Vue({
                                 },
                                 on: {
                                     click: () => {
-                                        this.clickUserName(params.row.id)
+                                        this.clickUserName(params.index)
                                     }
                                 }
                             }, this.dataList[params.index].user.fullname);
@@ -64,7 +64,7 @@ var index = new Vue({
                                 },
                                 on: {
                                     click: () => {
-                                        this.becomeVIP(params.index)
+                                        this.editWork(params.index)
                                     }
                                 }
                             }, '编辑'),
@@ -78,7 +78,7 @@ var index = new Vue({
                                 },
                                 on: {
                                     click: () => {
-                                        this.becomeVIP(params.index)
+                                        this.deleteWork(params.index)
                                     }
                                 }
                             }, '删除')
@@ -88,38 +88,11 @@ var index = new Vue({
             ],
             dataList:[],
             totalPage:"",
-
-
-
-            userId:"1",
             drawerShow:false,
-            modelWidth:"",
             containerStyle:{
                 minHeight:"",
             },
-            // 搜索弹出层
-            searchModel:false,  /* 搜索弹出层model */
-            searchModelValue:"",    /*搜索内容*/
-            searchModelDataList:[],
-            modelWidth:"",
-            columns1:[
-                {title:"搜索结果",key:"name"}
-            ],
-            formItem:{
-                username:"",
-                email:"",
-                password:""
-            },
-            // 忘记密码弹出层
-            recoverPwdModel:false,
-            // 注册弹出层
-            registerModel:false,
-            imgSrc:"user/getCode",	//图片验证码路径
-            // 修改资料弹出层
-            resetInfoModel:false,
-            // 修改密码弹出层
-            resetPwdModel:false,
-
+            searchValue:""
         }
     },
     methods: {
@@ -144,22 +117,22 @@ var index = new Vue({
                 that.$Loading.error();
             })
         },
-        clickUserName(id){
-            console.log(id);
+        clickWorkName(index){
+            window.location.href = "/project/" + this.dataList[index].Id;
         },
-        becomeVIP(value){
+        clickUserName(index){
+            window.location.href = "/users/" + this.dataList[index].user.Id;
+        },
+        editWork(index){
+            console.log(this.dataList[index]);
+            window.location.href = "/editUploadWork?id=" + this.dataList[index].Id + "&jobTag=2";
+        },
+        deleteWork(value){
             console.log(value);
         },
     },
     created(){
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
-        if(document.documentElement.clientWidth > 1200){
-            this.modelWidth = "768px";
-        }else if(document.documentElement.clientWidth < 1200){
-            this.modelWidth = "70%";
-        }else if(document.documentElement.clientWidth < 992){
-            this.modelWidth = "80%";
-        }
 
         var that = this;
         this.$Loading.start();

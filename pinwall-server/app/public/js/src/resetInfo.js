@@ -32,49 +32,17 @@ var index = new Vue({
                 email:"",
                 password:""
             },
-            userId:"1",
             drawerShow:false,
-            modelWidth:"",
-            // 搜索弹出层
-            searchModel:false,  /* 搜索弹出层model */
-            searchModelValue:"",    /*搜索内容*/
-            searchModelDataList:[],
-            columns1:[
-                {title:"搜索结果",key:"name"}
-            ],
+
             // 注册弹出层
-            loginModel:false,
-            // 忘记密码弹出层
-            recoverPwdModel:false,
-            // 注册弹出层
-            registerModel:false,
-            imgSrc:"user/getCode",	//图片验证码路径
-            // 修改资料弹出层
-            resetInfoModel:false,
-            // 修改密码弹出层
-            resetPwdModel:false,
-            // step1
-            buttonType:"success",	//error
-            iconImg:"ios-brush",	//md-close
-            // stepNum:0,
-            stepOneActive:true,
-            stepTwoActive:false,
-            stepThreeActive:false,
             userName:"甘四球", //用户的名称
         }
     },
     methods: {
-        
+
     },
     created(){
         this.containerStyle.minHeight = document.documentElement.clientHeight - 140 + "px";
         this.dataItem.jobTag = window.location.href.split("uploadWork/")[1];
-        if(document.documentElement.clientWidth > 1200){
-            this.modelWidth = "768px";
-        }else if(document.documentElement.clientWidth < 1200){
-            this.modelWidth = "70%";
-        }else if(document.documentElement.clientWidth < 992){
-            this.modelWidth = "80%";
-        }
     }
 })

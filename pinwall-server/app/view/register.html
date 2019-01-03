@@ -31,12 +31,12 @@
                     <i-input type="password" v-model="formItem.password" clearable placeholder="请输入密码"></i-input>
                 </form-item>
                 <form-item label="验证码" class="captcha_box">
-                    <i-input type="text" v-model="captchaText" @on-change="checkCaptcha" clearable style="width:200px;margin-top:-35px;" placeholder="请重新图片验证码"></i-input>
+                    <i-input type="text" v-model="formItem.captchaText" @on-change="checkCaptcha" clearable style="width:200px;margin-top:-35px;" placeholder="请重新图片验证码"></i-input>
 					<object style="width: 160px;height: 60px;"></object>
 					<icon type="md-refresh" size="30" @click="tapClick" style="margin-top: -35px;cursor:pointer;"></icon>
                 </form-item>
                 <form-item>
-                    <i-button type="success">注册</i-button>
+                    <i-button type="success" @click="registerSubmit">注册</i-button>
                 </form-item>
 				<div id="login_container" style="display:none;">
 
