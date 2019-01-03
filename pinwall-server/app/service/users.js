@@ -18,7 +18,7 @@ class Users extends Service {
     return user;
   }
 
-  async createUser(user) {
+  async createUser(user,category) {
     if (user.email == '' || user.email == null){
       throw new Error('用户邮箱不能为空');
     }
@@ -37,7 +37,12 @@ class Users extends Service {
           const createUserObj = await this.ctx.model.Users.createUser(user,transaction);
           await this.ctx.model.UserRole.creteUserRole(createUserObj.Id, 1, transaction);
           await transaction.commit();
-          await this.ctx.service.emailService.sendActiveEmail(user.email, user.activeCode);
+          if (category == 0){
+            await this.ctx.service.emailService.sendActiveEmail(user.email, user.activeCode);
+          }
+          else if(category == 1){
+            await this.ctx.service.emailService.sendWxActiveEmail(user.email, user.openId, user.acticeCode);
+          }
 
           return true
         } catch (e) {
@@ -105,7 +110,7 @@ class Users extends Service {
 
     try{
       await this.ctx.model.Users.updateWxInfoByEmail(wxInfo);
-      await this.ctx.service.users.sendWxActiveEmail(email,user.openid,wxInfo.activeCode);
+      await this.ctx.service.emailService.sendWxActiveEmail(email,user.openid,wxInfo.activeCode);
       return true;
     }
     catch(e){

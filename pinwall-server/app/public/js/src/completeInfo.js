@@ -67,7 +67,7 @@ var index = new Vue({
                 $.ajax({
                     url: subUrl,
                     type: 'POST',
-                    data: JSON.stringify(this.formItem),
+                    data: this.formItem,
                     success(res){
                         if (res.status == 200) {
                             console.log(res);
