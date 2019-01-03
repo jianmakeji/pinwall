@@ -3,11 +3,15 @@ var index = new Vue({
     data() {
         return {
             formItem:{
-                newOrOld:"0"
+                email:"",
+                fullname:"",
+                password:"",
+                captchaText:""
             },
-            captchaText:"",
+            newOrOld:"0",
+            // captchaText:"",
             isRegister:true,
-            disableSbt:true,
+            disableSbt:false,
             drawerShow: false,
         }
     },
@@ -16,7 +20,7 @@ var index = new Vue({
             if(value == "0"){				//  new
                 console.log("new");
                 this.isRegister = true;
-                this.disableSbt = true;
+                this.disableSbt = false;
     		}else if(value == "1"){			//  old
                 console.log("old");
                 this.isRegister = false;
@@ -42,7 +46,7 @@ var index = new Vue({
                 $.ajax({
                     url: '/checkCaptcha',
                     type: 'GET',
-                    data:{captchaText:this.captchaText},
+                    data:{captchaText:this.formItem.captchaText},
                     success(res){
                         if (res.status == 200){
                             that.$Notice.success({title:res.data});
@@ -56,7 +60,40 @@ var index = new Vue({
             }
         },
         submit(name){
+            if (this.newOrOld == "0") {     //new
+                let subUrl = "/website/users/createWxUser";
+                console.log(this.formItem);
+                $.ajax({
+                    url: subUrl,
+                    type: 'POST',
+                    data: this.formItem,
+                    success(res){
+                        if (res.status == 200) {
+                            console.log(res);
+                            that.$Notice.success({title:"注册成功！请前往邮箱激活!"});
+                        }else{
+                            that.$Notice.error({title:"注册失败!"});
+                        }
+                    }
+                });
 
+            } else {
+                let subUrl = "/website/users/bindWeixinInfoByEmail";
+                console.log(this.formItem);
+                $.ajax({
+                    url: subUrl,
+                    type: 'POST',
+                    data: this.formItem,
+                    success(res){
+                        if (res.status == 200) {
+                            console.log(res);
+                            that.$Notice.success({title:"绑定成功！请前往邮箱激活!"});
+                        }else{
+                            that.$Notice.error({title:"绑定失败!"});
+                        }
+                    }
+                });
+            }
         }
     },
     created() {

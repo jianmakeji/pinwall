@@ -84,6 +84,20 @@ body{
 .login_panel .login_info .password input{
 	width: 70%;
 }
+.login_panel .login_info .captcha{
+	display: flex;
+	flex-direction: row;
+	margin-top: 20px;
+}
+.login_panel .login_info .captcha label{
+	width: 80px;
+	text-align: center;
+}
+.login_panel .login_info .captcha input{
+	width: 30%;
+}
+
+
 .login_panel .login_info .rememberPwd{
 	margin: 10px 0px 10px 80px;
 	display: flex;
@@ -154,4 +168,6 @@ body{
 	width: 100%;
 	overflow: hidden;
 	text-align: center;
+	position: absolute;
+	bottom: 0px;
 }
