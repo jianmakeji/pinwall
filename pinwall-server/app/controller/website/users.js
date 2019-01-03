@@ -216,6 +216,7 @@ class UsersController extends BaseController{
     const email = ctx.request.body.email;
     const result = await ctx.service.users.bindWeixinInfoByEmail(email,ctx.user);
     if (result){
+      ctx.logout();
       super.success('绑定成功，请进入邮箱激活!');
     }
     else{
@@ -265,6 +266,7 @@ class UsersController extends BaseController{
         try{
           const result = await ctx.service.users.createUser(user,1);
           if (result){
+            ctx.logout();
             super.success('操作成功！请到邮箱激活');
           }
           else{
