@@ -9,9 +9,8 @@ var index = new Vue({
                 captchaText:""
             },
             newOrOld:"0",
-            // captchaText:"",
             isRegister:true,
-            disableSbt:false,
+            disableSbt:true,
             drawerShow: false,
         }
     },
@@ -20,11 +19,13 @@ var index = new Vue({
             if(value == "0"){				//  new
                 console.log("new");
                 this.isRegister = true;
-                this.disableSbt = false;
+                this.disableSbt = true;
+                init_form(this);
     		}else if(value == "1"){			//  old
                 console.log("old");
                 this.isRegister = false;
                 this.disableSbt = false;
+                init_form(this);
     		}
         },
         tapClick(){
@@ -49,29 +50,31 @@ var index = new Vue({
                     data:{captchaText:this.formItem.captchaText},
                     success(res){
                         if (res.status == 200){
+                            that.disableSbt = false;
                             that.$Notice.success({title:res.data});
                             that.verification = true;
                         }else{
                             that.$Notice.error({title:res.data});
+                            that.disableSbt = true;
                             that.verification = false;
                         }
                     }
                 });
             }
         },
-        submit(name){
+        submit(){
             let that = this;
             if (this.newOrOld == "0") {     //new
                 let subUrl = "/website/users/createWxUser";
-                console.log(this.formItem);
                 $.ajax({
                     url: subUrl,
                     type: 'POST',
-                    data: JSON.stringify(this.formItem),
+                    data: this.formItem,
                     success(res){
                         if (res.status == 200) {
-                            console.log(res);
                             that.$Notice.success({title:"注册成功！请前往邮箱激活!"});
+                            that.disableSbt = false;
+                            init_form(that);
                         }else{
                             that.$Notice.error({title:"注册失败!"});
                         }
@@ -80,15 +83,14 @@ var index = new Vue({
 
             } else {
                 let subUrl = "/website/users/bindWeixinInfoByEmail";
-                console.log(this.formItem);
                 $.ajax({
                     url: subUrl,
                     type: 'POST',
                     data: this.formItem,
                     success(res){
                         if (res.status == 200) {
-                            console.log(res);
                             that.$Notice.success({title:"绑定成功！请前往邮箱激活!"});
+                            init_form(that);
                         }else{
                             that.$Notice.error({title:"绑定失败!"});
                         }
@@ -108,13 +110,10 @@ var index = new Vue({
         });
     }
 })
-var obj = new WxLogin({
-    self_redirect: true,
-    id: "login_container",
-    appid: "wxe7bac3b26bdd1205",
-    scope: "snsapi_login",
-    redirect_uri: "http%3a%2f%2fpinwall.design-engine.org%2f",
-    state: "",
-    style: "",
-    href: ""
-});
+
+function init_form(that){
+    that.formItem.email = "";
+    that.formItem.fullname = "";
+    that.formItem.password = "";
+    that.formItem.captchaText = "";
+}
