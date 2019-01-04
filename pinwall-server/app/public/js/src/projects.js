@@ -68,6 +68,13 @@ var projects = new Vue({
                         that.scrollModel = false;
                     }
                     console.log(that.dataList);
+                }else if (res.status == 999) {
+                    that.$Notice.error({
+                        title:"没有操作权限，请登录",
+                        onClose(){
+                            window.location.href = "/login";
+                        }
+                    })
                 }
                 console.log(res);
             }
@@ -93,6 +100,13 @@ $(document).ready(function() {
                         if (projects.dataList.length == res.data.count) {
                             projects.scrollModel = false;
                         }
+                    }else if (res.status == 999) {
+                        that.$Notice.error({
+                            title:"没有操作权限，请登录",
+                            onClose(){
+                                window.location.href = "/login";
+                            }
+                        })
                     }
                 }
             })

@@ -55,25 +55,35 @@ var container = new Vue({
                 url: '/getSTSSignature/1',
                 type: 'GET',
                 success:function(res){
-                    let client = new OSS({
-                  		accessKeyId: res.credentials.AccessKeyId,
-                  		accessKeySecret: res.credentials.AccessKeySecret,
-                  		stsToken: res.credentials.SecurityToken,
-                        bucket:bucket
-                	});
-                    client.multipartUpload('images/'+ fileName, file).then(function (res) {
-                        let objectPath = 'images/' + fileName;
-                        $.ajax({
-                            url: '/getUrlSignature',
-                            type: 'GET',
-                            data:{objectPath:objectPath},
-                            success:function(res){
-                                that.step1_upload_fengmian_src = res;
-                                that.dataItem.profileImage = fileName;
-                                console.log();
+                    if (res.state == 200){
+                        let client = new OSS({
+                      		accessKeyId: res.credentials.AccessKeyId,
+                      		accessKeySecret: res.credentials.AccessKeySecret,
+                      		stsToken: res.credentials.SecurityToken,
+                            bucket:bucket
+                    	});
+                        client.multipartUpload('images/'+ fileName, file).then(function (res) {
+                            let objectPath = 'images/' + fileName;
+                            $.ajax({
+                                url: '/getUrlSignature',
+                                type: 'GET',
+                                data:{objectPath:objectPath},
+                                success:function(res){
+                                    that.step1_upload_fengmian_src = res;
+                                    that.dataItem.profileImage = fileName;
+                                    console.log();
+                                }
+                            })
+                    	});
+                    }else if (res.status == 999) {
+                        that.$Notice.error({
+                            title:res.data,
+                            duration:3,
+                            onClose(){
+                                window.location.href = "/login";
                             }
-                        })
-                	});
+                        });
+                    }
                 }
             })
         },
@@ -85,46 +95,56 @@ var container = new Vue({
                 url: '/getSTSSignature/1',
                 type: 'GET',
                 success:function(res){
-                    let client = new OSS({
-                  		accessKeyId: res.credentials.AccessKeyId,
-                  		accessKeySecret: res.credentials.AccessKeySecret,
-                  		stsToken: res.credentials.SecurityToken,
-                        bucket:bucket
-                	});
-                    client.multipartUpload('images/'+ fileName, file).then(function (res) {
-                        let objectPath = 'images/' + fileName;
-                        $.ajax({
-                            url: '/getUrlSignature',
-                            type: 'GET',
-                            data:{objectPath:objectPath},
-                            success:function(res){
-                                that.step2_upload_neirong_src = that.step2_upload_neirong_src.concat(res);
+                    if (res.status == 200) {
+                        let client = new OSS({
+                      		accessKeyId: res.credentials.AccessKeyId,
+                      		accessKeySecret: res.credentials.AccessKeySecret,
+                      		stsToken: res.credentials.SecurityToken,
+                            bucket:bucket
+                    	});
+                        client.multipartUpload('images/'+ fileName, file).then(function (res) {
+                            let objectPath = 'images/' + fileName;
+                            $.ajax({
+                                url: '/getUrlSignature',
+                                type: 'GET',
+                                data:{objectPath:objectPath},
+                                success:function(res){
+                                    that.step2_upload_neirong_src = that.step2_upload_neirong_src.concat(res);
 
-                                let subarr = new Object();
-                                if (that.dataItem.Id) {
-                                    subarr.position = that.step2_upload_neirong_src.length - 1;
-                                }else{
-                                    subarr.position = "";
+                                    let subarr = new Object();
+                                    if (that.dataItem.Id) {
+                                        subarr.position = that.step2_upload_neirong_src.length - 1;
+                                    }else{
+                                        subarr.position = "";
+                                    }
+                        			subarr.name = "";
+                        			subarr.filename = files.target.files[0].name.split(".")[0];
+                        			subarr.description = "";
+                        			subarr.type = "";
+                        			subarr.profileImage = fileName;
+                        			subarr.mediaFile = "";
+                        			subarr.viewUrl = "";
+                                    subarr.viewImgUrl = res;
+                                    that.step2_between_arr.push(subarr);
+
+                                    let progress_subarr = new Object();
+                                    progress_subarr.progress = 0;
+                                    progress_subarr.fileTrueName = "";
+                                    that.file_otherinof_arr.push(progress_subarr);
+                                    that.neirong_truename_arr.push(files.target.files[0].name);
+
                                 }
-                    			subarr.name = "";
-                    			subarr.filename = files.target.files[0].name.split(".")[0];
-                    			subarr.description = "";
-                    			subarr.type = "";
-                    			subarr.profileImage = fileName;
-                    			subarr.mediaFile = "";
-                    			subarr.viewUrl = "";
-                                subarr.viewImgUrl = res;
-                                that.step2_between_arr.push(subarr);
-
-                                let progress_subarr = new Object();
-                                progress_subarr.progress = 0;
-                                progress_subarr.fileTrueName = "";
-                                that.file_otherinof_arr.push(progress_subarr);
-                                that.neirong_truename_arr.push(files.target.files[0].name);
-
+                            })
+                    	});
+                    } else if (res.status == 999) {
+                        that.$Notice.error({
+                            title:res.data,
+                            duration:3,
+                            onClose(){
+                                window.location.href = "/login";
                             }
-                        })
-                	});
+                        });
+                    }
                 }
             })
         },
@@ -139,28 +159,38 @@ var container = new Vue({
                 url: '/getSTSSignature/1',
                 type: 'GET',
                 success:function(res){
-                    let client = new OSS({
-                  		accessKeyId: res.credentials.AccessKeyId,
-                  		accessKeySecret: res.credentials.AccessKeySecret,
-                  		stsToken: res.credentials.SecurityToken,
-                        bucket:bucket
-                	});
-                    client.multipartUpload('images/'+ fileName, file).then(function (res) {
-                        let objectPath = 'images/' + fileName;
-                        $.ajax({
-                            url: '/getUrlSignature',
-                            type: 'GET',
-                            data:{objectPath:objectPath},
-                            success:function(res){
-                                that.step2_upload_neirong_src.splice(that.which_artifact_assets,1,res);
-                                that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name.split(".")[0];
-                                that.step2_between_arr[that.which_artifact_assets].viewImgUrl = res;
-                                that.step2_between_arr[that.which_artifact_assets].profileImage = fileName;
-                                that.neirong_truename_arr[that.which_artifact_assets] = files.target.files[0].name;
+                    if (res.status == 200) {
+                        let client = new OSS({
+                      		accessKeyId: res.credentials.AccessKeyId,
+                      		accessKeySecret: res.credentials.AccessKeySecret,
+                      		stsToken: res.credentials.SecurityToken,
+                            bucket:bucket
+                    	});
+                        client.multipartUpload('images/'+ fileName, file).then(function (res) {
+                            let objectPath = 'images/' + fileName;
+                            $.ajax({
+                                url: '/getUrlSignature',
+                                type: 'GET',
+                                data:{objectPath:objectPath},
+                                success:function(res){
+                                    that.step2_upload_neirong_src.splice(that.which_artifact_assets,1,res);
+                                    that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name.split(".")[0];
+                                    that.step2_between_arr[that.which_artifact_assets].viewImgUrl = res;
+                                    that.step2_between_arr[that.which_artifact_assets].profileImage = fileName;
+                                    that.neirong_truename_arr[that.which_artifact_assets] = files.target.files[0].name;
 
+                                }
+                            })
+                    	});
+                    } else if (res.status == 999) {
+                        that.$Notice.error({
+                            title:res.data,
+                            duration:3,
+                            onClose(){
+                                window.location.href = "/login";
                             }
-                        })
-                	});
+                        });
+                    }
                 }
             })
         },
@@ -174,22 +204,31 @@ var container = new Vue({
                 url: '/getSTSSignature/4',
                 type: 'GET',
                 success:function(res){
-                    console.log("获取签名",res);
-                    let client = new OSS({
-                  		accessKeyId: res.credentials.AccessKeyId,
-                  		accessKeySecret: res.credentials.AccessKeySecret,
-                  		stsToken: res.credentials.SecurityToken,
-                        bucket:bucket
-                	});
-                    client.multipartUpload('video/'+ fileName, file, {
-                		progress: progress
-                	}).then(function (res) {
-                        console.log("上传成功",res);
-                        that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
-                        that.step2_between_arr[that.which_artifact_assets].type = 4;
-                        that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
-                        that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("video/")[1];
-                	});
+                    if (res.status == 200) {
+                        let client = new OSS({
+                      		accessKeyId: res.credentials.AccessKeyId,
+                      		accessKeySecret: res.credentials.AccessKeySecret,
+                      		stsToken: res.credentials.SecurityToken,
+                            bucket:bucket
+                    	});
+                        client.multipartUpload('video/'+ fileName, file, {
+                    		progress: progress
+                    	}).then(function (res) {
+                            console.log("上传成功",res);
+                            that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
+                            that.step2_between_arr[that.which_artifact_assets].type = 4;
+                            that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
+                            that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("video/")[1];
+                    	});
+                    } else if (res.status == 999) {
+                        that.$Notice.error({
+                            title:res.data,
+                            duration:3,
+                            onClose(){
+                                window.location.href = "/login";
+                            }
+                        });
+                    }
                 }
             })
         },
@@ -203,22 +242,32 @@ var container = new Vue({
                 url: '/getSTSSignature/2',
                 type: 'GET',
                 success:function(res){
-                    console.log("获取签名",res);
-                    let client = new OSS({
-                  		accessKeyId: res.credentials.AccessKeyId,
-                  		accessKeySecret: res.credentials.AccessKeySecret,
-                  		stsToken: res.credentials.SecurityToken,
-                        bucket:bucket
-                	});
-                    client.multipartUpload('pdf/'+ fileName, file, {
-                		progress: progress
-                	}).then(function (res) {
-                        console.log("上传成功",res);
-                        that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
-                        that.step2_between_arr[that.which_artifact_assets].type = 2;
-                        that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
-                        that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("pdf/")[1];
-                	});
+
+                    if (res.status == 200) {
+                        let client = new OSS({
+                      		accessKeyId: res.credentials.AccessKeyId,
+                      		accessKeySecret: res.credentials.AccessKeySecret,
+                      		stsToken: res.credentials.SecurityToken,
+                            bucket:bucket
+                    	});
+                        client.multipartUpload('pdf/'+ fileName, file, {
+                    		progress: progress
+                    	}).then(function (res) {
+                            console.log("上传成功",res);
+                            that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
+                            that.step2_between_arr[that.which_artifact_assets].type = 2;
+                            that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
+                            that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("pdf/")[1];
+                    	});
+                    } else if (res.status == 999) {
+                        that.$Notice.error({
+                            title:res.data,
+                            duration:3,
+                            onClose(){
+                                window.location.href = "/login";
+                            }
+                        });
+                    }
                 }
             })
         },
@@ -232,22 +281,31 @@ var container = new Vue({
                 url: '/getSTSSignature/3',
                 type: 'GET',
                 success:function(res){
-                    console.log("获取签名",res);
-                    let client = new OSS({
-                  		accessKeyId: res.credentials.AccessKeyId,
-                  		accessKeySecret: res.credentials.AccessKeySecret,
-                  		stsToken: res.credentials.SecurityToken,
-                        bucket:bucket
-                	});
-                    client.multipartUpload('rar_zip/'+ fileName, file, {
-                		progress: progress
-                	}).then(function (res) {
-                        console.log("上传成功",res);
-                        that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
-                        that.step2_between_arr[that.which_artifact_assets].type = 3;
-                        that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
-                        that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
-                	});
+                    if (res.status == 200) {
+                        let client = new OSS({
+                      		accessKeyId: res.credentials.AccessKeyId,
+                      		accessKeySecret: res.credentials.AccessKeySecret,
+                      		stsToken: res.credentials.SecurityToken,
+                            bucket:bucket
+                    	});
+                        client.multipartUpload('rar_zip/'+ fileName, file, {
+                    		progress: progress
+                    	}).then(function (res) {
+                            console.log("上传成功",res);
+                            that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
+                            that.step2_between_arr[that.which_artifact_assets].type = 3;
+                            that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
+                            that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
+                    	});
+                    } else if (res.status == 999) {
+                        that.$Notice.error({
+                            title:res.data,
+                            duration:3,
+                            onClose(){
+                                window.location.href = "/login";
+                            }
+                        });
+                    }
                 }
             })
         },
@@ -261,22 +319,31 @@ var container = new Vue({
                 url: '/getSTSSignature/3',
                 type: 'GET',
                 success:function(res){
-                    console.log("获取签名",res);
-                    let client = new OSS({
-                  		accessKeyId: res.credentials.AccessKeyId,
-                  		accessKeySecret: res.credentials.AccessKeySecret,
-                  		stsToken: res.credentials.SecurityToken,
-                        bucket:bucket
-                	});
-                    client.multipartUpload('rar_zip/'+ fileName, file, {
-                		progress: progress
-                	}).then(function (res) {
-                        console.log("上传成功",res);
-                        that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
-                        that.step2_between_arr[that.which_artifact_assets].type = 3;
-                        that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
-                        that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
-                	});
+                    if (res.status == 200) {
+                        let client = new OSS({
+                      		accessKeyId: res.credentials.AccessKeyId,
+                      		accessKeySecret: res.credentials.AccessKeySecret,
+                      		stsToken: res.credentials.SecurityToken,
+                            bucket:bucket
+                    	});
+                        client.multipartUpload('rar_zip/'+ fileName, file, {
+                    		progress: progress
+                    	}).then(function (res) {
+                            console.log("上传成功",res);
+                            that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
+                            that.step2_between_arr[that.which_artifact_assets].type = 3;
+                            that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
+                            that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
+                    	});
+                    } else if (res.status == 999) {
+                        that.$Notice.error({
+                            title:res.data,
+                            duration:3,
+                            onClose(){
+                                window.location.href = "/login";
+                            }
+                        });
+                    }
                 }
             })
         },

@@ -30,25 +30,6 @@ var index = new Vue({
                 }
             });
         },
-        // checkCaptcha(event){
-        //     let that = this;
-        //     if(event.target.value.length == 5){
-        //         $.ajax({
-        //             url: '/checkCaptcha',
-        //             type: 'GET',
-        //             data:{captchaText:this.captchaText},
-        //             success(res){
-        //                 if (res.status == 200){
-        //                     that.$Notice.success({title:res.data});
-        //                     that.verification = true;
-        //                 }else{
-        //                     that.$Notice.error({title:res.data});
-        //                     that.verification = false;
-        //                 }
-        //             }
-        //         });
-        //     }
-        // },
         localStorage() {
             if (this.single) {
                 window.localStorage.setItem("username", this.username);
@@ -87,7 +68,6 @@ var index = new Vue({
 
 function check(form) {
     var usernameExp = new RegExp("^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$");
-    // var passwordExp = new RegExp("^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$");
     if (!usernameExp.test(form.username.value)) {
         index.$Notice.error({
             title: "请输入正确的邮箱格式或者验证码！",

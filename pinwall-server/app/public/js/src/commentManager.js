@@ -126,6 +126,13 @@ var index = new Vue({
                     that.$Loading.finish();
                     that.totalPage = res.body.data.count;
                     that.dataList = res.body.data.rows;
+                }else if (res.body.status == 999) {
+                    that.$Notice.error({
+                        title:"没有操作权限，请登录";
+                        onClose(){
+                            window.location.href = "/login";
+                        }
+                    })
                 }
             },function(err){
                 that.$Loading.error();
@@ -220,6 +227,13 @@ var index = new Vue({
                 that.$Loading.finish();
                 that.totalPage = res.body.data.count;
                 that.dataList = res.body.data.rows;
+            }else if (res.body.status == 999) {
+                that.$Notice.error({
+                    title:"没有操作权限，请登录";
+                    onClose(){
+                        window.location.href = "/login";
+                    }
+                })
             }
         },function(err){
             that.$Loading.error();

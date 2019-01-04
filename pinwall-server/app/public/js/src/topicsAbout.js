@@ -1,5 +1,6 @@
 var index = new Vue({
     el: '.index',
+    delimiters: ['${', '}'],
     data(){
         return{
             // 选择按键显示类型

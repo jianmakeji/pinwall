@@ -91,6 +91,13 @@ var index = new Vue({
                             that.$Notice.success({title:res.data});
                             that.disableSbt = false;
                             init_form(that);
+                        }else if(res.status == 999){
+                            that.$Notice.error({
+                                title:"没有操作权限，请登录",
+                                onClose(){
+                                    window.location.href = "/login";
+                                }
+                            });
                         }else{
                             that.$Notice.error({title:res.data});
                             init_form(that);
@@ -111,6 +118,13 @@ var index = new Vue({
                         if (res.status == 200) {
                             that.$Notice.success({title:res.data});
                             init_form(that);
+                        }else if(res.status == 999){
+                            that.$Notice.error({
+                                title:"没有操作权限，请登录",
+                                onClose(){
+                                    window.location.href = "/login";
+                                }
+                            });
                         }else{
                             that.$Notice.error({title:res.data});
                             init_form(that);
