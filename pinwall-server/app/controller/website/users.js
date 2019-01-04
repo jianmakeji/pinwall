@@ -34,11 +34,11 @@ class UsersController extends BaseController{
     }
   }
 
-  async create() {
+  async createUser() {
     const ctx = this.ctx;
     try{
       let data = ctx.request.body;
-      if (data.captchaText == this.ctx.session.captcha){
+      if (data.captchaText != this.ctx.session.captcha){
         super.failure('验证码错误!');
       }
       else{
@@ -193,8 +193,8 @@ class UsersController extends BaseController{
     if(user){
       if(user.Id && user.email){
         if(user.wxActive == 0){
-          await this.ctx.service.emailService.sendWxActiveEmail(user.email, openId, user.acticeCode);
-          super.success('绑定成功，请先进入邮箱激活!');
+          await this.ctx.service.emailService.sendWxActiveEmail(user.email, openId, user.activeCode);
+          ctx.redirect('/wxRelogin');
         }
         else{
           ctx.user.Id = user.Id;

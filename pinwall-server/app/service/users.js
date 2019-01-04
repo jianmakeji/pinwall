@@ -41,7 +41,7 @@ class Users extends Service {
             await this.ctx.service.emailService.sendActiveEmail(user.email, user.activeCode);
           }
           else if(category == 1){
-            await this.ctx.service.emailService.sendWxActiveEmail(user.email, user.openId, user.acticeCode);
+            await this.ctx.service.emailService.sendWxActiveEmail(user.email, user.openId, user.activeCode);
           }
 
           return true

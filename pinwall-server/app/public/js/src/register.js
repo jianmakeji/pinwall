@@ -81,7 +81,7 @@ var index = new Vue({
         registerSubmit(){
             let that = this;
             $.ajax({
-                url: '/website/users',
+                url: '/website/users/createUser',
                 type: 'POST',
                 data: this.formItem,
                 success(res){

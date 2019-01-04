@@ -27,7 +27,14 @@ class HomeController extends BaseController {
   async relogin(){
     const ctx = this.ctx;
     await ctx.render('login.html', {
-      message:'用户名或者密码错误!'
+      message:'用户名密码错误，或者未激活!'
+    });
+  }
+
+  async wxRelogin(){
+    const ctx = this.ctx;
+    await ctx.render('login.html', {
+      message:'绑定成功，请先进入邮箱激活!!'
     });
   }
 

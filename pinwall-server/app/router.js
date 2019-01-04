@@ -12,6 +12,7 @@ module.exports = app => {
   router.get('/index', controller.home.index);
   router.get('/login', controller.home.login);
   router.get('/relogin', controller.home.relogin);
+  router.get('/wxRelogin', controller.home.wxRelogin);
 
   router.post('/login',app.passport.authenticate('local', {
        successReturnToOrRedirect : '/index',successFlash: true,
@@ -68,6 +69,7 @@ module.exports = app => {
   router.post('website.users.bindWeixinInfoByEmail', '/website/users/bindWeixinInfoByEmail', controller.website.users.bindWeixinInfoByEmail);
   router.get('website.users.updateWxActive', '/website/users/updateWxActive', controller.website.users.updateWxActive);
   router.post('website.users.createWxUser', '/website/users/createWxUser', controller.website.users.createWxUser);
+  router.post('website.users.createUser', '/website/users/createUser', controller.website.users.createUser);
 
   router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
   router.get('website.topics.getTopicAndArtifactById', '/website/topics/getTopicAndArtifactById', controller.website.topics.getTopicAndArtifactById);
