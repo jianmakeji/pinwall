@@ -208,7 +208,7 @@ module.exports = app => {
         through:{
           attributes:['topicId','artifactId'],
         },
-        attributes:['Id','name']
+        attributes:['Id','name','userId']
       },{
         model: app.model.Terms,
         through:{

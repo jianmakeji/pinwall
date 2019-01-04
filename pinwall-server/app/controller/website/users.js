@@ -200,6 +200,7 @@ class UsersController extends BaseController{
           ctx.user.Id = user.Id;
           ctx.user.email = user.email;
           ctx.user.fullname = user.fullname;
+          ctx.user.roles = user.roles;
           ctx.redirect('/index');
         }
       }else{
