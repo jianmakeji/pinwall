@@ -29,7 +29,7 @@ class Email extends Service {
 
     if (mailType == 0){
       mailOptions.text = "您好 ";
-      mailOptions.html = '<b>感谢您的访问!</b> <a href="'+ctx.app.email_verify_address
+      mailOptions.html = '<b>感谢您访问图钉墙!</b> <a href="'+ctx.app.email_verify_address
         +'?email='+email+'&activeCode='+activeCode+'">请点击激活账号</a>';
     }
     else if (mailType == 1){
@@ -69,7 +69,7 @@ class Email extends Service {
     }
 
     mailOptions.text = "您好 ";
-      mailOptions.html = '<b>感谢您的访问!</b> <a href="'+ctx.app.wx_email_verify_address
+      mailOptions.html = '<b>感谢您访问图钉墙!</b> <a href="'+ctx.app.wx_email_verify_address
         +'?openId='+openId+'&activeCode='+activeCode+'">请点击激活账号</a>';
 
     // 发送邮件
