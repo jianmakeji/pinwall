@@ -55,7 +55,8 @@ var container = new Vue({
                 url: '/getSTSSignature/1',
                 type: 'GET',
                 success:function(res){
-                    if (res.state == 200){
+                    console.log(res);
+                    if (res.res.status == 200){
                         let client = new OSS({
                       		accessKeyId: res.credentials.AccessKeyId,
                       		accessKeySecret: res.credentials.AccessKeySecret,
@@ -63,19 +64,21 @@ var container = new Vue({
                             bucket:bucket
                     	});
                         client.multipartUpload('images/'+ fileName, file).then(function (res) {
+                            console.log("============",res);
                             let objectPath = 'images/' + fileName;
                             $.ajax({
                                 url: '/getUrlSignature',
                                 type: 'GET',
                                 data:{objectPath:objectPath},
                                 success:function(res){
+                                    console.log("--------",res);
                                     that.step1_upload_fengmian_src = res;
                                     that.dataItem.profileImage = fileName;
                                     console.log();
                                 }
                             })
                     	});
-                    }else if (res.status == 999) {
+                    }else if (res.res.status == 999) {
                         that.$Notice.error({
                             title:res.data,
                             duration:3,
@@ -95,7 +98,7 @@ var container = new Vue({
                 url: '/getSTSSignature/1',
                 type: 'GET',
                 success:function(res){
-                    if (res.status == 200) {
+                    if (res.res.status == 200) {
                         let client = new OSS({
                       		accessKeyId: res.credentials.AccessKeyId,
                       		accessKeySecret: res.credentials.AccessKeySecret,
@@ -114,13 +117,17 @@ var container = new Vue({
                                     let subarr = new Object();
                                     if (that.dataItem.Id) {
                                         subarr.position = that.step2_upload_neirong_src.length - 1;
+                                    }else if(that.dataItem.topicId){
+                                        subarr.position = that.step2_upload_neirong_src.length - 1;
+                                    }else if(that.dataItem.jobTag == 2){
+                                        subarr.position = that.step2_upload_neirong_src.length - 1;
                                     }else{
                                         subarr.position = "";
                                     }
                         			subarr.name = "";
                         			subarr.filename = files.target.files[0].name.split(".")[0];
                         			subarr.description = "";
-                        			subarr.type = "";
+                        			subarr.type = 1;
                         			subarr.profileImage = fileName;
                         			subarr.mediaFile = "";
                         			subarr.viewUrl = "";
@@ -136,7 +143,7 @@ var container = new Vue({
                                 }
                             })
                     	});
-                    } else if (res.status == 999) {
+                    } else if (res.res.status == 999) {
                         that.$Notice.error({
                             title:res.data,
                             duration:3,
@@ -159,7 +166,7 @@ var container = new Vue({
                 url: '/getSTSSignature/1',
                 type: 'GET',
                 success:function(res){
-                    if (res.status == 200) {
+                    if (res.res.status == 200) {
                         let client = new OSS({
                       		accessKeyId: res.credentials.AccessKeyId,
                       		accessKeySecret: res.credentials.AccessKeySecret,
@@ -182,7 +189,7 @@ var container = new Vue({
                                 }
                             })
                     	});
-                    } else if (res.status == 999) {
+                    } else if (res.res.status == 999) {
                         that.$Notice.error({
                             title:res.data,
                             duration:3,
@@ -204,7 +211,7 @@ var container = new Vue({
                 url: '/getSTSSignature/4',
                 type: 'GET',
                 success:function(res){
-                    if (res.status == 200) {
+                    if (res.res.status == 200) {
                         let client = new OSS({
                       		accessKeyId: res.credentials.AccessKeyId,
                       		accessKeySecret: res.credentials.AccessKeySecret,
@@ -220,7 +227,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("video/")[1];
                     	});
-                    } else if (res.status == 999) {
+                    } else if (res.res.status == 999) {
                         that.$Notice.error({
                             title:res.data,
                             duration:3,
@@ -243,7 +250,7 @@ var container = new Vue({
                 type: 'GET',
                 success:function(res){
 
-                    if (res.status == 200) {
+                    if (res.res.status == 200) {
                         let client = new OSS({
                       		accessKeyId: res.credentials.AccessKeyId,
                       		accessKeySecret: res.credentials.AccessKeySecret,
@@ -259,7 +266,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("pdf/")[1];
                     	});
-                    } else if (res.status == 999) {
+                    } else if (res.res.status == 999) {
                         that.$Notice.error({
                             title:res.data,
                             duration:3,
@@ -281,7 +288,7 @@ var container = new Vue({
                 url: '/getSTSSignature/3',
                 type: 'GET',
                 success:function(res){
-                    if (res.status == 200) {
+                    if (res.res.status == 200) {
                         let client = new OSS({
                       		accessKeyId: res.credentials.AccessKeyId,
                       		accessKeySecret: res.credentials.AccessKeySecret,
@@ -297,7 +304,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
                     	});
-                    } else if (res.status == 999) {
+                    } else if (res.res.status == 999) {
                         that.$Notice.error({
                             title:res.data,
                             duration:3,
@@ -319,7 +326,7 @@ var container = new Vue({
                 url: '/getSTSSignature/3',
                 type: 'GET',
                 success:function(res){
-                    if (res.status == 200) {
+                    if (res.res.status == 200) {
                         let client = new OSS({
                       		accessKeyId: res.credentials.AccessKeyId,
                       		accessKeySecret: res.credentials.AccessKeySecret,
@@ -335,7 +342,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
                     	});
-                    } else if (res.status == 999) {
+                    } else if (res.res.status == 999) {
                         that.$Notice.error({
                             title:res.data,
                             duration:3,
@@ -552,9 +559,12 @@ var container = new Vue({
                     }
                 }
             });
-        }else{
+        }else if(window.location.href.indexOf("topicId") > 0){
             this.dataItem.jobTag = window.location.href.split("uploadWork/")[1].split("?")[0];
             this.dataItem.topicId = window.location.href.split("topicId=")[1];
+        }else{
+            this.dataItem.jobTag = window.location.href.split("uploadWork/")[1].split("?")[0];
+            console.log(this.dataItem.jobTag);
         }
     }
 })

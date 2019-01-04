@@ -72,13 +72,13 @@
 								<i-button type="checkCloseType" size="large" shape="circle" icon="md-cloud-upload" @click="uploadToTopic(item.Id)" title="上传"></i-button>
 							</li>
 							{% if user.roles[0].name != 'user' %}
-							<li class="de_topic_action_view" v-if="item.status == 1" style="margin-top:5px;">
+							<li class="de_topic_action_view" v-if="item.status == 1 && ('{{user.Id}}' == item.userId || '{{user.roles[0].name}}' == 'admin')" style="margin-top:5px;">
 								<i-button type="checkCloseType" size="large" shape="circle" icon="md-lock" @click="cockThisTopic(item.Id)" title="锁定"></i-button>
 							</li>
-							<li class="de_topic_action_view" v-if="item.status == 0" style="margin-top:5px;">
+							<li class="de_topic_action_view" v-if="item.status == 0 && ('{{user.Id}}' == item.userId || '{{user.roles[0].name}}' == 'admin')" style="margin-top:5px;">
 								<i-button type="checkCloseType" size="large" shape="circle" icon="md-unlock" @click="cockThisTopic(item.Id)" title="解锁"></i-button>
 							</li>
-							<li class="de_topic_action_view" style="margin-top:5px;">
+							<li class="de_topic_action_view" v-if=" '{{user.roles[0].name}}' == 'admin' || '{{user.Id}}' == item.userId " style="margin-top:5px;">
 								<i-button type="checkCloseType" size="large" shape="circle" icon="ios-cog" @click="settingThisTopic(item.Id)" title="设置"></i-button>
 							</li>
 							{% endif %}

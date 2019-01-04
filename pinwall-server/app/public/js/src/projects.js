@@ -12,13 +12,18 @@ var projects = new Vue({
                 width: "100%",
                 minHeight:""
             },
-            commentValue:"",
-            userId:"1"
+            commentValue:""
         }
     },
     methods: {
         editArtifact(){
             window.location.href = "/editUploadWork?id=" + this.aoData.artifactId + "&jobTag=2";
+        },
+        deleteArtifact(){
+            console.log("点击删除");
+        },
+        showArtifact(){
+            console.log("点击隐藏、显示");
         },
         /**
          * 有附件时监听点击
@@ -34,20 +39,28 @@ var projects = new Vue({
          */
         closeThePage(){
             window.history.back(-1);
-
-
         },
-        zan(event){
-            console.log(event);
+        zan(userId,userRole){
+            console.log(userId,userRole);
+            if (userRole == "") {
+                this.$Notice.error({
+                    title:"请先登录再点赞！",
+                    duration:1,
+                    onClose(){
+                        window.location.href = "/login";
+                    }
+                })
+            } else if(userRole == "user"){
+                console.log("登录user用户点赞");
+            }else {
+                console.log("特殊权限用户点赞");
+            }
         },
         deleteComment(id){
             console.log("deleteComment",id);
         },
-        addComment(){
-            console.log("addComment");
-        },
-        login(){
-            console.log("goLogin!");
+        addComment(id){
+            console.log("addComment",id);
         }
     },
     created(){

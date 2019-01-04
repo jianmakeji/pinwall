@@ -90,6 +90,7 @@ class Artifacts extends Service {
 
       return true
     } catch (e) {
+        console.log(e);
       await transaction.rollback();
       return false
     }
@@ -251,7 +252,7 @@ class Artifacts extends Service {
     for (let item of setData.values()) {
       result.push(listData[item]);
     }
-  
+
     return result;
   }
 

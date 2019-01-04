@@ -12,20 +12,57 @@
 		<div class="projects" v-cloak :style="projectStyle">
 
 			<div class="zan_box">
-				<a href="#">
-						<!-- http://pinwall.design-engine.org/images/app/flag_green.png -->
-					<img src="http://pinwall.design-engine.org/images/app/flag_gray.png" alt="">
-					<icon type="ios-thumbs-up" style="font-size: 40px; position: absolute;top: 15px;left: 20px;"></icon>
-					<span>赞</span>
-				</a>
+				{% if user.roles[0].name == 'user' %}
+					<a @click="zan('{{user.Id}}','{{user.roles[0].name}}')">
+							<!-- http://pinwall.design-engine.org/images/app/flag_green.png -->
+						<img src="http://pinwall.design-engine.org/images/app/flag_gray.png" alt="">
+						<icon type="ios-thumbs-up" style="font-size: 40px; position: absolute;top: 15px;left: 20px;"></icon>
+						<span>赞</span>
+					</a>
+				{% elif user.roles[0].name != 'user' %}
+					<a @click="zan('{{user.Id}}','{{user.roles[0].name}}')">
+							<!-- http://pinwall.design-engine.org/images/app/flag_green.png -->
+						<img src="http://pinwall.design-engine.org/images/app/flag_gray.png" alt="">
+						<icon type="ios-thumbs-up" style="font-size: 40px; position: absolute;top: 15px;left: 20px;"></icon>
+						<span>赞</span>
+					</a>
+				{% endif %}
 			</div>
 			<ul>
-				<li>
-					<i-button shape="circle" icon="md-create" @click="editArtifact" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 24px;"></i-button>
-				</li>
-				<li>
-					<i-button shape="circle" icon="ios-trash" size="large" style="position: absolute;top: 180px;left: 40px;width: 40px;height: 40px;font-size: 20px;"></i-button>
-				</li>
+
+				{% if user.roles[0].name == 'admin' %}
+					<li>
+						<i-button shape="circle" icon="md-create" @click="editArtifact" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 24px;"></i-button>
+					</li>
+				{% elif data.topics[0].userId == user.Id %}
+					<li>
+						<i-button shape="circle" icon="md-create" @click="editArtifact" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 24px;"></i-button>
+					</li>
+				{% elif data.userId == user.Id %}
+					<li>
+						<i-button shape="circle" icon="md-create" @click="editArtifact" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 24px;"></i-button>
+					</li>
+				{% endif %}
+
+				{% if user.roles[0].name == 'admin' %}
+					<li>
+						<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large" style="position: absolute;top: 180px;left: 40px;width: 40px;height: 40px;font-size: 20px;"></i-button>
+					</li>
+				{% elif data.topics[0].userId == user.Id %}
+					<li>
+						<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large" style="position: absolute;top: 180px;left: 40px;width: 40px;height: 40px;font-size: 20px;"></i-button>
+					</li>
+				{% elif data.userId == user.Id %}
+					<li>
+						<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large" style="position: absolute;top: 180px;left: 40px;width: 40px;height: 40px;font-size: 20px;"></i-button>
+					</li>
+				{% endif %}
+
+				{% if user.roles[0].name == 'admin' %}
+					<li>
+						<i-button shape="circle" icon="md-eye" @click="showArtifact" size="large" style="position: absolute;top: 230px;left: 40px;width: 40px;height: 40px;font-size: 20px;"></i-button>
+					</li>
+				{% endif %}
 			</ul>
 			<i-button class="close_btn" type="default" shape="circle" icon="md-close" size="large" @click="closeThePage"></i-button>
             <div class="project_detail">
@@ -63,7 +100,6 @@
                 <p class="abstract">
                     {{data.description}}
                 </p>
-
 	            <div class="main_content">
 					{% for item in data.artifact_assets %}
 						{% if item.viewUrl %}
@@ -101,7 +137,7 @@
             </div>
 			<div class="comment_box">
 				<ul class="comment_list">
-					<li  v-show="userId" v-for="item in dataList">
+					<li v-for="item in dataList">
 						<div class="user_info">
 							<a :href="'user/'+item.user.Id">
 								<img class="photo" :src="item.user.avatarUrl ? item.user.avatarUrl : 'http://pinwall.design-engine.org/images/default_profile.jpg'">
@@ -109,32 +145,37 @@
 						</div>
 						<div class="comment_wrapper">
 							<a href="#" class="name">${ item.user.fullname }</a>
-							<i-button class="delete_comment" type="error" shape="circle" icon="md-trash" @click="deleteComment(item.Id)"></i-button>
+							{% if user.roles[0].name == 'admin' %}
+								<i-button class="delete_comment" type="error" shape="circle" icon="md-trash" @click="deleteComment(item.Id)"></i-button>
+							{% endif %}
 							<p class="comment">${item.content}</p>
 						</div>
 					</li>
 				</ul>
-				<div class="comment_form" v-show="userId">
+				{% if user.Id %}
+				<div class="comment_form">
 					<div class="user_info">
 						<a href="#">
 							<img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
 						</a>
 					</div>
 					<div class="comment_wrapper">
-						<a href="#" class="name">李灵</a>
+						<a href="#" class="name">{{user.fullname}}</a>
 						<i-form>
 							<form-item>
 								<i-input v-model="commentValue" type="textarea" placeholder="您的评论……" /><br>
 							</form-item>
 							<form-item>
-								<i-button type="success" @click="addComment">提交</i-button>
+								<i-button type="success" @click="addComment('{{user.Id}}')">提交</i-button>
 							</form-item>
 						</i-form>
 					</div>
 				</div>
-				<div class="comment_form" v-show="!userId">
-					<i-button type="warning" @click="login">发表评论前请先登录</i-button>
+				{% else %}
+				<div class="comment_form">
+					<i-button type="warning" to="/login">发表评论前请先登录</i-button>
 				</div>
+				{% endif %}
 			</div>
 			<div class="footer">
 				<p>© 湖南大学设计艺术学院，保留所有权利。</p>
