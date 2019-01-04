@@ -88,12 +88,17 @@ var index = new Vue({
                     data: this.formItem,
                     success(res){
                         if (res.status == 200) {
-                            that.$Notice.success({title:"注册成功！请前往邮箱激活!"});
+                            that.$Notice.success({title:res.data});
                             that.disableSbt = false;
                             init_form(that);
                         }else{
-                            that.$Notice.error({title:"注册失败!"});
+                            that.$Notice.error({title:res.data});
+                            init_form(that);
                         }
+                    },
+                    error(err){
+                        that.$Notice.error({title:err.data});
+                        init_form(that);
                     }
                 });
             } else {
@@ -104,11 +109,16 @@ var index = new Vue({
                     data: this.formItem,
                     success(res){
                         if (res.status == 200) {
-                            that.$Notice.success({title:"绑定成功！请前往邮箱激活!"});
+                            that.$Notice.success({title:res.data});
                             init_form(that);
                         }else{
-                            that.$Notice.error({title:"绑定失败!"});
+                            that.$Notice.error({title:res.data});
+                            init_form(that);
                         }
+                    },
+                    error(err){
+                        that.$Notice.error({title:err.data});
+                        init_form(that);
                     }
                 });
             }
