@@ -4,7 +4,7 @@ module.exports = () => {
        await  next();
       }
       else{
-        ctx.session.returnTo = ctx.path;
+        ctx.session.returnTo = ctx.url;
         ctx.redirect('/login');
       }
 

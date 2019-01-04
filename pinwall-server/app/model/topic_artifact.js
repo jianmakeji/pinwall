@@ -20,7 +20,7 @@ module.exports = app => {
     tableName: 'topic_artifact'
   });
 
-  TopicArtifact.createTopicArtifact = async function(topicTerm,transaction){
+  TopicArtifact.createTopicArtifact = async function(topicArtifact,transaction){
     return this.create(topicArtifact,{
         transaction:transaction
     });

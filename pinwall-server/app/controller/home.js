@@ -64,7 +64,10 @@ class HomeController extends BaseController {
     const ctx = this.ctx;
     try{
       const data = await ctx.service.artifacts.find(ctx.helper.parseInt(ctx.params.id));
-      await ctx.render('projects.html',{data:data});
+      await ctx.render('projects.html',{
+          data:data,
+          user:ctx.user
+      });
     }
     catch(e){
       super.failure(e.message);
