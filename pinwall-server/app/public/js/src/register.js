@@ -12,9 +12,33 @@ var index = new Vue({
                 email:"",
                 password:"",
                 captchaText:""
+            },
+            captchaBol:false,
+            ruleValidate:{
+                username:{required: true, message: '用户名不能为空', trigger: 'blur'},
+                email:[
+        	       {required: true, message: '邮箱不能为空', trigger: 'blur'},
+        	       {type:"email", message: '请输入正确邮箱格式', trigger: 'blur'}
+            	],
+                password:[
+            	    {required: true, message: '请输入密码', trigger: 'blur'},
+              	    {min:6, message: '密码至少为6位', trigger: 'blur'}
+            	],
+            	confirmPassword:[
+            	    {required: true, message: '请输入密码', trigger: 'blur'},
+              	    {min:6, message: '密码至少为6位', trigger: 'blur'}
+            	]
             }
 
-
+        }
+    },
+    computed:{
+        disabledBtn(){
+            if (this.formItem.username && this.formItem.email && this.formItem.password && this.captchaBol) {
+                return false;
+            } else {
+                return true;
+            }
         }
     },
     methods: {
@@ -28,6 +52,13 @@ var index = new Vue({
                 }
             });
         },
+        conPwdBlur(){
+            if(this.formItem.password && this.formItem.confirmPassword != this.formItem.password){
+    			this.$Notice.error({ title: '输入的密码不一致', duration:3});
+                this.formItem.password = "";
+                this.formItem.confirmPassword = "";
+    		}
+        },
         checkCaptcha(event){
             let that = this;
             if(event.target.value.length == 5){
@@ -38,20 +69,31 @@ var index = new Vue({
                     success(res){
                         if (res.status == 200){
                             that.$Notice.success({title:res.data});
+                            that.captchaBol = true;
                         }else{
                             that.$Notice.error({title:res.data});
+                            that.captchaBol = false;
                         }
                     }
                 });
             }
         },
         registerSubmit(){
+            let that = this;
             $.ajax({
                 url: '/website/users',
                 type: 'POST',
                 data: this.formItem,
                 success(res){
-                    console.log(res);
+                    if (res.status == 200) {
+                        that.$Notice.success({
+                            title:"注册成功!请前往邮箱激活",
+                            duration:3,
+                            onClose(){
+                                window.location.href = "/login";
+                            }
+                        })
+                    }
                 }
             });
 
@@ -66,19 +108,8 @@ var index = new Vue({
             type: 'GET',
             success(res){
                 document.getElementsByTagName("object")[0].innerHTML = res;
-
             }
         });
 
     }
 })
-var obj = new WxLogin({
-    self_redirect: true,
-    id: "login_container",
-    appid: "wxe7bac3b26bdd1205",
-    scope: "snsapi_login",
-    redirect_uri: "http%3a%2f%2fpinwall.design-engine.org%2f",
-    state: "",
-    style: "",
-    href: ""
-});
