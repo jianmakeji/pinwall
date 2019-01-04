@@ -159,7 +159,17 @@ module.exports = app => {
     return await this.findOne({
       where:{
         openId:{[app.Sequelize.Op.eq]:openId}
-      }
+      },
+      include:[
+        {
+          model: app.model.Roles,
+          through:{
+            attributes:['userId','roleId'],
+          },
+          attributes:['Id','name']
+        }
+      ],
+      attributes:['Id','email','fullname']
     });
   }
 
