@@ -6,25 +6,40 @@ var index = new Vue({
                 email:"",
                 fullname:"",
                 password:"",
+                confirmPassword:"",
                 captchaText:""
             },
+            ruleValidate:{
+            	email:[
+        	       {required: true, message: '邮箱不能为空', trigger: 'blur'},
+        	       {type:"email", message: '请输入正确邮箱格式', trigger: 'blur'}
+            	],
+            	fullname:{required: true, message: '用户名不能为空', trigger: 'blur'},
+            	password:[
+            	    {required: true, message: '请输入密码', trigger: 'blur'},
+              	    {min:6, message: '密码至少为6位', trigger: 'blur'}
+            	],
+            	confirmPassword:[
+            	    {required: true, message: '请输入密码', trigger: 'blur'},
+              	    {min:6, message: '密码至少为6位', trigger: 'blur'}
+            	]
+            },
             newOrOld:"0",
-            // captchaText:"",
             isRegister:true,
-            disableSbt:false,
+            disableSbt:true,
             drawerShow: false,
         }
     },
     methods: {
         radioChange(value){
             if(value == "0"){				//  new
-                console.log("new");
                 this.isRegister = true;
-                this.disableSbt = false;
+                this.disableSbt = true;
+                init_form(this);
     		}else if(value == "1"){			//  old
-                console.log("old");
                 this.isRegister = false;
                 this.disableSbt = false;
+                init_form(this);
     		}
         },
         tapClick(){
@@ -38,7 +53,11 @@ var index = new Vue({
             });
         },
         conPwdBlur(){
-
+            if(this.formItem.password && this.formItem.confirmPassword != this.formItem.password){
+    			this.$Notice.error({ title: '输入的密码不一致', duration:3});
+                this.formItem.password = "";
+                this.formItem.confirmPassword = "";
+    		}
         },
         checkCaptcha(event){
             let that = this;
@@ -49,46 +68,44 @@ var index = new Vue({
                     data:{captchaText:this.formItem.captchaText},
                     success(res){
                         if (res.status == 200){
+                            that.disableSbt = false;
                             that.$Notice.success({title:res.data});
-                            that.verification = true;
                         }else{
                             that.$Notice.error({title:res.data});
-                            that.verification = false;
+                            that.disableSbt = true;
                         }
                     }
                 });
             }
         },
-        submit(name){
+        submit(){
             let that = this;
             if (this.newOrOld == "0") {     //new
                 let subUrl = "/website/users/createWxUser";
-                console.log(this.formItem);
                 $.ajax({
                     url: subUrl,
                     type: 'POST',
                     data: this.formItem,
                     success(res){
                         if (res.status == 200) {
-                            console.log(res);
                             that.$Notice.success({title:"注册成功！请前往邮箱激活!"});
+                            that.disableSbt = false;
+                            init_form(that);
                         }else{
                             that.$Notice.error({title:"注册失败!"});
                         }
                     }
                 });
-
             } else {
                 let subUrl = "/website/users/bindWeixinInfoByEmail";
-                console.log(this.formItem);
                 $.ajax({
                     url: subUrl,
                     type: 'POST',
                     data: this.formItem,
                     success(res){
                         if (res.status == 200) {
-                            console.log(res);
                             that.$Notice.success({title:"绑定成功！请前往邮箱激活!"});
+                            init_form(that);
                         }else{
                             that.$Notice.error({title:"绑定失败!"});
                         }
@@ -108,13 +125,11 @@ var index = new Vue({
         });
     }
 })
-var obj = new WxLogin({
-    self_redirect: true,
-    id: "login_container",
-    appid: "wxe7bac3b26bdd1205",
-    scope: "snsapi_login",
-    redirect_uri: "http%3a%2f%2fpinwall.design-engine.org%2f",
-    state: "",
-    style: "",
-    href: ""
-});
+
+function init_form(that){
+    that.formItem.email = "";
+    that.formItem.fullname = "";
+    that.formItem.password = "";
+    that.formItem.password = "";
+    that.formItem.captchaText = "";
+}
