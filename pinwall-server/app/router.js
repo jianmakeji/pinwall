@@ -74,7 +74,7 @@ module.exports = app => {
   router.post('website.users.createUser', '/website/users/createUser', controller.website.users.createUser);
   router.put('website.users.updatePwd', '/website/users/updatePwd', controller.website.users.updatePwd);
   router.put('website.users.updatePwdWithEmailAndActiveCode', '/website/users/updatePwdWithEmailAndActiveCode', controller.website.users.updatePwdWithEmailAndActiveCode);
-  router.put('website.users.getBackPwdWithEmail', '/website/users/getBackPwdWithEmail', controller.website.users.getBackPwdWithEmail);
+  router.get('website.users.getBackPwdWithEmail', '/website/users/getBackPwdWithEmail', controller.website.users.getBackPwdWithEmail);
 
   router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
   router.get('website.topics.getTopicAndArtifactById', '/website/topics/getTopicAndArtifactById', controller.website.topics.getTopicAndArtifactById);
