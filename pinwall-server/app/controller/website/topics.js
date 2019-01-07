@@ -113,6 +113,19 @@ class TopicsController extends BaseController{
      }
   }
 
+  async findArtifactByTopicId() {
+    const ctx = this.ctx;
+    const topicId = ctx.helper.parseInt(ctx.query.topicId);
+
+    try{
+      let result = await ctx.service.topics.findArtifactByTopicId(topicId);
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
 }
 
 module.exports = TopicsController;
