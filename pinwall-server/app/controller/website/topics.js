@@ -72,12 +72,12 @@ class TopicsController extends BaseController{
   async destroy() {
     const ctx = this.ctx;
     const id = ctx.helper.parseInt(ctx.params.id);
-    try{
-      await ctx.service.topics.del(id);
-      super.success('删除成功!');
+    const result = await ctx.service.topics.del(id);
+    if(result){
+        super.success('删除成功!');
     }
-    catch(e){
-      super.failure('删除失败！');
+    else{
+        super.failure('删除失败！');
     }
 
   }

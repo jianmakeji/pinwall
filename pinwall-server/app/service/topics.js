@@ -91,6 +91,7 @@ class Topics extends Service {
       transaction = await this.ctx.model.transaction();
       await this.ctx.model.Topics.delTopicById(id,transaction);
       await this.ctx.model.TopicTerm.delTopicTermByTopicId(id,transaction);
+      await transaction.commit();
       return true
     } catch (e) {
       await transaction.rollback();
