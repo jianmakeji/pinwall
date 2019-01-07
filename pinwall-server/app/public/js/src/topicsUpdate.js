@@ -79,15 +79,19 @@ var index = new Vue({
                 type: 'DELETE',
                 data: {id : this.topicId},
                 success(res){
+                    console.log(res);
                     if (res.status == 200) {
                         that.$Notice.success({
                             title:"作业荚删除成功！2秒后返回首页。",
                             duration:2,
                             onClose:function(){
-                                window.location.href = "/";
+                                window.location.href = "/topics";
                             }
                         })
                     }
+                },
+                error(e){
+                    console.log("----e--",e);
                 }
             });
         },
