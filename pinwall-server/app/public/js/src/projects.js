@@ -16,8 +16,8 @@ var projects = new Vue({
         }
     },
     methods: {
-        editArtifact(){
-            window.location.href = "/editUploadWork?id=" + this.aoData.artifactId + "&jobTag=2";
+        editArtifact(jobTag){
+            window.location.href = "/editUploadWork?id=" + this.aoData.artifactId + "&jobTag=" + jobTag;
         },
         deleteArtifact(){
             console.log("点击删除");
@@ -38,7 +38,8 @@ var projects = new Vue({
          * @return {[type]} [description]
          */
         closeThePage(){
-            window.history.back(-1);
+            // window.history.back(-1);
+            window.close();
         },
         zan(userId,userRole){
             console.log(userId,userRole);

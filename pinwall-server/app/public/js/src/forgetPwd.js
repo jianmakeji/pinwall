@@ -6,31 +6,34 @@ var index = new Vue({
                 "margin":"",
             },
             drawerShow:false,
-            formItem:{
-                name:"",
-                password:""
-            },
-            imgSrc:"",
-
-
-            userId:"1",
-
+            email:""
         }
     },
     methods: {
-        tapClick(){
+        submit(){
+            let that = this;
+            $.ajax({
+                url: '/website/users/getBackPwdWithEmail?email=' + this.email,
+                type: 'GET',
+                success(res){
+                    if (res.status == 200) {
+                        that.$Notice.success({
+                            title:res.data,
+                            onClose(){
+                                window.location.href = "/forgetPwd";
+                            }
+                        })
+                    } else if (res.status == 500) {
+                        that.$Notice.error({
+                            title:res.data
+                        })
+                    }
+                }
+            });
 
         }
     },
     created(){
         this.containerStyle.margin = (document.documentElement.clientHeight - 400 ) / 2 - 90 + "px auto";
-        let that = this;
-        if(document.documentElement.clientWidth > 1200){
-            this.modelWidth = "60%";
-        }else if(document.documentElement.clientWidth < 1200){
-            this.modelWidth = "70%";
-        }else if(document.documentElement.clientWidth < 992){
-            this.modelWidth = "80%";
-        }
     }
 })

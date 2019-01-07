@@ -15,7 +15,7 @@
 
 {% block container %}
 	<div class="container" :style="containerStyle">
-		<h4 class="upload_title" v-text="'上传至' + userName + '的作品集'"></h4>
+		<h4 class="upload_title" v-text="'上传/修改' + '{{user.fullname}}' + '的' + jobTagName"></h4>
 		<nav class="step_nav">
 			<ul class="step_nav_ul">
 				<li class="step_nav_li" :class="{active:stepOneActive}" @click="goStep1">1.添加基本信息&nbsp;&nbsp;&nbsp;&nbsp;></li>
@@ -24,6 +24,7 @@
 			</ul>
 		</nav>
 		<div class="upload_form">
+			<back-top></back-top>
 			<i-form :model="dataItem" :label-width="80" @keydown.native.enter.prevent ="keyDownEvent">
 				<div class="step1" v-show="stepOneActive">
 					<row>

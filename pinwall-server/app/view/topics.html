@@ -56,7 +56,7 @@
 					<i-col :xs="0" :sm="{span:15,offset:8}" :md="{span:17,offset:6}" :lg="{span:18,offset:5}">
 						<ul class="project_info">
 							<li class="de_borderbox" v-for="subItem in item.artifacts">
-								<a :href="'/project/'+subItem.Id" class="de_entity_link">
+								<a :href="'/project/'+subItem.Id" target="_blank" class="de_entity_link">
 									<img :src="subItem.profileImage">
 								</a>
 							</li>

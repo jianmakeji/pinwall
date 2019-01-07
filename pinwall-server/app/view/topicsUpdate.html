@@ -36,10 +36,10 @@
                 <div class="right_form">
                     <div class="status">
                         <h5>作业荚状态</h5>
-						<span v-if="formItem.status == 0"  class="current_state">关闭</span>
-                        <span v-if="formItem.status == 1"  class="current_state">开放</span>
-						<a v-if="formItem.status == 0" @click="updateTopicStatus">设为开放</a>
-						<a v-if="formItem.status == 1" @click="updateTopicStatus">设为关闭</a>
+						<span v-if="formItem.status == 0"  class="current_state">开放</span>
+                        <span v-if="formItem.status == 1"  class="current_state">关闭</span>
+						<a v-if="formItem.status == 0" @click="updateTopicStatus">设为关闭</a>
+						<a v-if="formItem.status == 1" @click="updateTopicStatus">设为开放</a>
                     </div>
                     <p class="error_infromation">作业荚关闭后，用户将无法修改或删除已上传到作业荚的作品，也不能上传其他新的作品到作业荚。</p>
                     <!-- <div class="info">

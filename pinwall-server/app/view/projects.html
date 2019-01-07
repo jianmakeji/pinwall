@@ -10,7 +10,6 @@
 	</head>
 	<body>
 		<div class="projects" v-cloak :style="projectStyle">
-
 			<div class="zan_box">
 				{% if user.roles[0].name == 'user' %}
 					<a @click="zan('{{user.Id}}','{{user.roles[0].name}}')">
@@ -32,15 +31,15 @@
 
 				{% if user.roles[0].name == 'admin' %}
 					<li>
-						<i-button shape="circle" icon="md-create" @click="editArtifact" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 24px;"></i-button>
+						<i-button shape="circle" icon="md-create" @click="editArtifact('{{data.jobTag}}')" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 24px;"></i-button>
 					</li>
 				{% elif data.topics[0].userId == user.Id %}
 					<li>
-						<i-button shape="circle" icon="md-create" @click="editArtifact" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 24px;"></i-button>
+						<i-button shape="circle" icon="md-create" @click="editArtifact('{{data.jobTag}}')" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 24px;"></i-button>
 					</li>
 				{% elif data.userId == user.Id %}
 					<li>
-						<i-button shape="circle" icon="md-create" @click="editArtifact" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 24px;"></i-button>
+						<i-button shape="circle" icon="md-create" @click="editArtifact('{{data.jobTag}}')" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 24px;"></i-button>
 					</li>
 				{% endif %}
 
@@ -65,6 +64,7 @@
 				{% endif %}
 			</ul>
 			<i-button class="close_btn" type="default" shape="circle" icon="md-close" size="large" @click="closeThePage"></i-button>
+			<back-top></back-top>
             <div class="project_detail">
                 <div class="stats_tags">
                     <div class="badges">

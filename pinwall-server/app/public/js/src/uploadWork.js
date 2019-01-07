@@ -39,6 +39,7 @@ var container = new Vue({
             stepTwoActive:false,
             stepThreeActive:false,
             userName:"甘四球", //用户的名称
+            jobTagName:"",
         }
     },
     methods: {
@@ -86,6 +87,10 @@ var container = new Vue({
                                 window.location.href = "/login";
                             }
                         });
+                    }else if(res.status == 500){
+                        that.$Notice.error({
+                            title:"上传出现异常，请刷新界面重试！"
+                        })
                     }
                 }
             })
@@ -151,6 +156,10 @@ var container = new Vue({
                                 window.location.href = "/login";
                             }
                         });
+                    }else if(res.status == 500){
+                        that.$Notice.error({
+                            title:"上传出现异常，请刷新界面重试！"
+                        })
                     }
                 }
             })
@@ -197,6 +206,10 @@ var container = new Vue({
                                 window.location.href = "/login";
                             }
                         });
+                    }else if(res.status == 500){
+                        that.$Notice.error({
+                            title:"上传出现异常，请刷新界面重试！"
+                        })
                     }
                 }
             })
@@ -235,6 +248,10 @@ var container = new Vue({
                                 window.location.href = "/login";
                             }
                         });
+                    }else if(res.status == 500){
+                        that.$Notice.error({
+                            title:"上传出现异常，请刷新界面重试！"
+                        })
                     }
                 }
             })
@@ -274,6 +291,10 @@ var container = new Vue({
                                 window.location.href = "/login";
                             }
                         });
+                    }else if(res.status == 500){
+                        that.$Notice.error({
+                            title:"上传出现异常，请刷新界面重试！"
+                        })
                     }
                 }
             })
@@ -312,6 +333,10 @@ var container = new Vue({
                                 window.location.href = "/login";
                             }
                         });
+                    }else if(res.status == 500){
+                        that.$Notice.error({
+                            title:"上传出现异常，请刷新界面重试！"
+                        })
                     }
                 }
             })
@@ -350,6 +375,10 @@ var container = new Vue({
                                 window.location.href = "/login";
                             }
                         });
+                    }else if(res.status == 500){
+                        that.$Notice.error({
+                            title:"上传出现异常，请刷新界面重试！"
+                        })
                     }
                 }
             })
@@ -516,6 +545,11 @@ var container = new Vue({
         if(window.location.href.indexOf("editUploadWork") > 0){
             this.dataItem.Id = window.location.search.split("?id=")[1].split("&jobTag=")[0];
             this.dataItem.jobTag = window.location.search.split("?id=")[1].split("&jobTag=")[1];
+            if(this.dataItem.jobTag == 1){
+                this.jobTagName = "作业";
+            }else{
+                this.jobTagName = "作品集";
+            }
             $.ajax({
                 url: '/website/artifacts/' + this.dataItem.Id,
                 type: 'GET',
@@ -552,7 +586,7 @@ var container = new Vue({
 
                         let other = new Object();
                         other.fileTrueName = res.data.artifact_assets[i].mediaFile.split("?")[0].split("/")[res.data.artifact_assets[i].mediaFile.split("?")[0].split("/").length - 1];;
-                        other.progress =  res.data.artifact_assets[i].filename ? '100' : "0";
+                        other.progress =  res.data.artifact_assets[i].mediaFile ? '100' : "0";
                         that.file_otherinof_arr.push(other);
 
                         that.neirong_truename_arr.push(res.data.artifact_assets[i].filename);
@@ -562,8 +596,19 @@ var container = new Vue({
         }else if(window.location.href.indexOf("topicId") > 0){
             this.dataItem.jobTag = window.location.href.split("uploadWork/")[1].split("?")[0];
             this.dataItem.topicId = window.location.href.split("topicId=")[1];
+            if(this.dataItem.jobTag == 1){
+                this.jobTagName = "作业";
+            }else{
+                this.jobTagName = "作品集";
+            }
         }else{
             this.dataItem.jobTag = window.location.href.split("uploadWork/")[1].split("?")[0];
+            this.dataItem.topicId = 0;
+            if(this.dataItem.jobTag == 1){
+                this.jobTagName = "作业";
+            }else{
+                this.jobTagName = "作品集";
+            }
             console.log(this.dataItem.jobTag);
         }
     }

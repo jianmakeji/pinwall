@@ -14,7 +14,6 @@ var index = new Vue({
             addTerms:[],
             deleteTerms:[],
 
-            userId:"1",
             // //右侧抽屉
             drawerShow:false,
 
