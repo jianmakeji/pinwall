@@ -38,6 +38,10 @@ module.exports = app => {
     tableName: 'artifact_scores'
   });
 
+  ArtifactScores.associate = function() {
+      app.model.ArtifactScores.belongsTo(app.model.Artifacts, {targetKey: 'Id', foreignKey: 'artifactId'});
+  }
+
   ArtifactScores.listArtifactScores = async function ({
     offset = 0,
     limit = 10

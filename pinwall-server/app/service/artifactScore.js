@@ -39,15 +39,17 @@ class ArtifactScore extends Service {
   }
 
   async create(artifactScores) {
+    artifactScores.scorerId = ctx.user.Id;
     const artifactScoreObj = await this.ctx.model.ArtifactScores.findOneByArtifactIdAndScorerId({
       artifactId:artifactScores.artifactId,
       scorerId:artifactScores.scorerId
     });
+
     if (!artifactScoreObj){
-      return this.ctx.model.ArtifactScores.createArtifactScores(artifactScores);
+      return await this.ctx.model.ArtifactScores.createArtifactScores(artifactScores);
     }
     else{
-      return artifactScoreObj;
+      return await this.ctx.model.ArtifactScores.updateScore(artifactScores.artifactId, artifactScores.scorerId, artifactScores.score);
     }
   }
 

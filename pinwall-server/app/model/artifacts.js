@@ -81,6 +81,10 @@ module.exports = app => {
       sourceKey: 'Id',
       foreignKey: 'artifactId'
     });
+    Artifacts.ArtifactScores = app.model.Artifacts.hasMany(app.model.ArtifactScores, {
+      sourceKey: 'Id',
+      foreignKey: 'artifactId'
+    });
     Artifacts.ArtifactComments = app.model.Artifacts.hasMany(app.model.ArtifactComments, {
       sourceKey: 'Id',
       foreignKey: 'artifactId'
@@ -215,6 +219,8 @@ module.exports = app => {
           attributes:['termId','artifactId'],
         },
         attributes:['Id','name']
+      },{
+        model: app.model.ArtifactScores
       }]
     });
     if (!artifact) {
