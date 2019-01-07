@@ -302,7 +302,7 @@ class UsersController extends BaseController{
           super.success('修改成功');
         }
         else{
-          super.success('修改失败');
+          super.failure('修改失败');
         }
       }
     }
