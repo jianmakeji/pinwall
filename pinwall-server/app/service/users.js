@@ -121,6 +121,17 @@ class Users extends Service {
   async updateWxActiveByActiveCodeAndOpenId(openId,activeCode){
     return await this.ctx.model.Users.updateWxActiveByActiveCodeAndOpenId(openId,activeCode,1);
   }
+
+  async updatePwd(userId,newPwd){
+    try{
+       await this.ctx.model.Users.updatePwd(userId, newPwd);
+       return true;
+    }
+    catch(e){
+       return false;
+    }
+
+  }
 }
 
 module.exports = Users;

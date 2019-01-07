@@ -278,6 +278,16 @@ module.exports = app => {
     });
   }
 
+  Users.updatePwd = async function(userId, newPwd){
+    return await this.update({
+      password:newPwd,
+    },{
+      where:{
+        Id:userId
+      }
+    });
+  }
+
   Users.addCommnet = async function(id,transaction) {
     await this.update({
       commentCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('commentCount'))

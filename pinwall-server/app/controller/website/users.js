@@ -285,6 +285,31 @@ class UsersController extends BaseController{
       super.failure('验证码不正确!');
     }
   }
+
+  async updatePwd(){
+    const ctx = this.ctx;
+    const password = ctx.request.body.password;
+    const newPwd = ctx.request.body.newPwd;
+    if(ctx.user){
+      const userObject = await ctx.service.users.find(ctx.user.Id);
+      const app = this.ctx.app;
+      if(userObject.password != app.cryptoPwd(app.cryptoPwd(password))){
+        super.failure('旧密码不正确!');
+      }
+      else{
+        const result = await ctx.service.users.updatePwd(ctx.user.Id, newPwd);
+        if (result){
+          super.success('修改成功');
+        }
+        else{
+          super.success('修改失败');
+        }
+      }
+    }
+    else{
+      ctx.redirect('/login');
+    }
+  }
 }
 
 module.exports = UsersController;
