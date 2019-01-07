@@ -122,6 +122,10 @@ class Topics extends Service {
   async updateTopicStatus(topicId,status){
     return await this.ctx.model.Topics.updateTopicStatus(topicId,status);
   }
+
+  async findArtifactByTopicId(topicId){
+    return await this.ctx.model.Topics.findArtifactByTopicId(topicId);
+  }
 }
 
 module.exports = Topics;

@@ -180,6 +180,33 @@ module.exports  = app => {
     return result;
   }
 
+  Topics.findArtifactByTopicId = async function(topicId){
+    let condition = {
+      order: [[ 'createAt', 'desc' ]],
+      where:{
+        Id:topicId
+      },
+      include:[
+        {
+          model: app.model.Artifacts,
+          include:[{
+            model:app.model.Users,
+            attributes:['Id','fullname','createAt']
+          },{
+            model:app.model.ArtifactScores,
+            attributes:['scorerId','score']
+          }],
+          through:{
+            attributes:['topicId','artifactId'],
+          },
+          attributes:['Id','name','medalCount','likeCount','commentCount','createAt']
+        }
+      ]
+    };
+
+    return await this.findAll(condition);
+  }
+
   Topics.findTopicById = async function (Id) {
     const topic = await this.findById(Id,{
       include:[
