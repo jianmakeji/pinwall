@@ -310,6 +310,38 @@ class UsersController extends BaseController{
       ctx.redirect('/login');
     }
   }
+
+  async getBackPwdWithEmail(){
+    const ctx = this.ctx;
+    const email = ctx.query.email;
+    const userObj = await ctx.service.users.findByUserWithEmail(email);
+    if (userObj){
+      const result = await ctx.service.users.getBackPwdWithEmail(email);
+      if(result){
+        super.success('邮件发送成功,请点开邮箱链接更改密码!');
+      }
+      else{
+        super.failure('邮件发送失败');
+      }
+    }
+    else{
+      super.failure('邮箱不存在!');
+    }
+  }
+
+  async updatePwdWithEmailAndActiveCode(){
+    const ctx = this.ctx;
+    const email = ctx.request.body.email;
+    const activeCode = ctx.request.body.activeCode;
+    const newPwd = ctx.request.body.newPwd;
+    const result = await ctx.service.users.updatePwdWithEmailAndActiveCode(email, activeCode, newPwd);
+    if (result){
+      super.success('修改成功');
+    }
+    else{
+      super.success('修改失败');
+    }
+  }
 }
 
 module.exports = UsersController;

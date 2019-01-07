@@ -177,6 +177,11 @@ class HomeController extends BaseController {
     const ctx = this.ctx;
     await ctx.render('completeInfo.html');
   }
+
+  async sendBackPwdEmail(){
+    const ctx = this.ctx;
+    await ctx.render('sendBackPwdEmail.html');
+  }
 }
 
 module.exports = HomeController;

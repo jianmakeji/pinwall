@@ -241,6 +241,17 @@ module.exports = app => {
     });
   }
 
+  Users.updatePwdWithEmailAndActiveCode = async function(email, activeCode, newPwd){
+    return await this.update({
+      password:newPwd
+    },{
+      where:{
+        email:email,
+        activeCode:activeCode,
+      }
+    });
+  }
+
   Users.updateWxActiveByActiveCodeAndOpenId = async function(openId,activeCode,wxActive){
     return await this.update({
       wxActive:wxActive

@@ -49,6 +49,7 @@ module.exports = app => {
   router.get('/getUrlSignature', controller.website.alioss.getUrlSignature);
   router.get('/getCaptcha',controller.website.users.getCaptcha);
   router.get('/checkCaptcha',controller.website.users.checkCaptcha);
+  router.get('/sendBackPwdEmail',controller.home.sendBackPwdEmail);
 
   //自定义接口
   router.get('/website/artifacts/getMedalDataByRandom/:limit', controller.website.artifacts.getMedalDataByRandom);
@@ -71,7 +72,7 @@ module.exports = app => {
   router.get('website.users.updateWxActive', '/website/users/updateWxActive', controller.website.users.updateWxActive);
   router.post('website.users.createWxUser', '/website/users/createWxUser', controller.website.users.createWxUser);
   router.post('website.users.createUser', '/website/users/createUser', controller.website.users.createUser);
-  router.post('website.users.updatePwd', '/website/users/updatePwd', controller.website.users.updatePwd);
+  router.post('website.users.updatePwd', '/website/users/updatePwd',ajaxAuthCheck, controller.website.users.updatePwd);
 
   router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
   router.get('website.topics.getTopicAndArtifactById', '/website/topics/getTopicAndArtifactById', controller.website.topics.getTopicAndArtifactById);

@@ -132,6 +132,30 @@ class Users extends Service {
     }
 
   }
+
+  async getBackPwdWithEmail(email){
+    try{
+        const activeCode =  UUID.v1();
+        await this.ctx.model.Users.updateUserActiveCodeByEmail(email, activeCode);
+        await this.ctx.service.emailService.sendBackPwdEmail(email, activeCode);
+        return true;
+    }
+    catch(e){
+      return false;
+    }
+  }
+
+  async updatePwdWithEmailAndActiveCode(email, activeCode, newPwd){
+    try{
+      const app = this.ctx.app;
+      const password = app.cryptoPwd(app.cryptoPwd(newPwd));
+      await this.ctx.model.Users.updatePwdWithEmailAndActiveCode(email, activeCode, password);
+      return true;
+    }
+    catch(e){
+      return false;
+    }
+  }
 }
 
 module.exports = Users;
