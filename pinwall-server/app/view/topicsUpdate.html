@@ -42,11 +42,6 @@
 						<a v-if="formItem.status == 1" @click="updateTopicStatus">设为开放</a>
                     </div>
                     <p class="error_infromation">作业荚关闭后，用户将无法修改或删除已上传到作业荚的作品，也不能上传其他新的作品到作业荚。</p>
-                    <!-- <div class="info">
-                        <h5>作业荚中的作品</h5>
-                        <span class="total">135</span>
-                        <a>查看</a>
-                    </div> -->
 					<poptip confirm transfer placement="right" width="200" title="确定要删除?" @on-ok="deleteTopics">
 				        <i-button type="error" long style="margin:20px 0;">删除作业荚及其中的所有作品 (无法恢复，谨慎操作)</i-button>
 				    </poptip>

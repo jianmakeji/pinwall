@@ -1,7 +1,7 @@
 [v-cloak]{
 	display: none;
 }
-.upload_project{
+body{
 	background: #EFEFEF;
 }
 
@@ -37,8 +37,9 @@
 	flex-direction: row;
 	width: 50%;
 	margin: 40px auto;
-	background: #efefef;
-	border-radius: 15px;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .resetInfo_panel .photo_field{
     width: 100px;
@@ -93,8 +94,9 @@
 	padding: 5px 10px;
 	margin: 0 auto;
 	border-top: #ccc 1px dotted;
-	background: #efefef;
-	border-radius: 15px;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .footer {

@@ -25,11 +25,11 @@
 		</nav>
 		<div class="upload_form">
 			<back-top></back-top>
-			<i-form :model="dataItem" :label-width="80" @keydown.native.enter.prevent ="keyDownEvent">
+			<i-form :model="dataItem" :label-width="80" @keydown.native.enter.prevent ="keyDownEvent" :rules="ruleValidate">
 				<div class="step1" v-show="stepOneActive">
 					<row>
-						<i-col span="12">
-							<form-item label="标题">
+						<i-col span="10" push="1">
+							<form-item label="标题" prop="name">
 								<i-input v-model="dataItem.name" placeholder="请输入标题"></i-input>
 							</form-item>
 							<form-item label="标签" id="label_formitem">
@@ -38,11 +38,11 @@
 							<form-item label="添加标签">
 								<i-input class="terms_input" placeholder="输入并按回车确认" @on-enter="createTerm" v-model="terms_value" clearable></i-input>
 							</form-item>
-							<form-item label="内容说明">
+							<form-item label="内容说明" prop="description">
 								<i-input v-model="dataItem.description" type="textarea" placeholder="请输入作品内容说明"></i-input>
 							</form-item>
 						</i-col>
-						<i-col span="12">
+						<i-col span="10" push="2">
 							<form-item label="标题">
 								<div class="step1_upload">
 									<i-button type="success" id="step1_upload_fengmian">上传作品封面</i-button>
@@ -50,7 +50,7 @@
 								</div>
 								<p>请上传一张正方形、宽度500~800px的jpg或png图像作为作品封面。</p>
 							</form-item>
-							<form-item label="封面预览">
+							<form-item label="封面预览" prop="profileImage">
 								<img class="project_thumb" :src="step1_upload_fengmian_src ? step1_upload_fengmian_src : 'http://pinwall.design-engine.org/images/app/default_thumb_500.png'">
 							</form-item>
 						</i-col>
