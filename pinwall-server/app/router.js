@@ -72,7 +72,8 @@ module.exports = app => {
   router.get('website.users.updateWxActive', '/website/users/updateWxActive', controller.website.users.updateWxActive);
   router.post('website.users.createWxUser', '/website/users/createWxUser', controller.website.users.createWxUser);
   router.post('website.users.createUser', '/website/users/createUser', controller.website.users.createUser);
-  router.post('website.users.updatePwd', '/website/users/updatePwd',ajaxAuthCheck, controller.website.users.updatePwd);
+  router.put('website.users.updatePwd', '/website/users/updatePwd',ajaxAuthCheck, controller.website.users.updatePwd);
+  router.put('website.users.updatePwdWithEmailAndActiveCode', '/website/users/updatePwdWithEmailAndActiveCode', controller.website.users.updatePwdWithEmailAndActiveCode);
 
   router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
   router.get('website.topics.getTopicAndArtifactById', '/website/topics/getTopicAndArtifactById', controller.website.topics.getTopicAndArtifactById);

@@ -36,7 +36,7 @@ module.exports = {
   email_send_address:'admin@design-engine.org',
   email_verify_address:'https://beta.pinwall.design-engine.org/website/users/updateAcviveByActiveCodeAndEmail',
   wx_email_verify_address:'https://beta.pinwall.design-engine.org/website/users/updateWxActive',
-  getBackPwd_email_verify_address:'https://beta.pinwall.design-engine.org/sendBackPwdEmail',
+  getBackPwd_email_verify_address:'https://beta.pinwall.design-engine.org/updatePwd',
   // email_smtp.socketFactory.fallback:false,
   // email_smtp.socketFactory.class:SSL_FACTORY,
   // email_smtp.port:25,
