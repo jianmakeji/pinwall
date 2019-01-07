@@ -178,9 +178,9 @@ class HomeController extends BaseController {
     await ctx.render('completeInfo.html');
   }
 
-  async sendBackPwdEmail(){
+  async updatePwd(){
     const ctx = this.ctx;
-    await ctx.render('sendBackPwdEmail.html');
+    await ctx.render('updatePwd.html');
   }
 }
 

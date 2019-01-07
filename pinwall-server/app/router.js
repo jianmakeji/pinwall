@@ -45,11 +45,11 @@ module.exports = app => {
   router.get('/register', controller.home.register);
   router.get('/createTopics', pageAuthCheck, controller.home.createTopics);
   router.get("/completeInfo", controller.home.completeInfo);
+  router.get('/updatePwd',controller.home.updatePwd);
   router.get('/getSTSSignature/:fileType', ajaxAuthCheck, controller.website.alioss.getSTSSignature);
   router.get('/getUrlSignature', controller.website.alioss.getUrlSignature);
   router.get('/getCaptcha',controller.website.users.getCaptcha);
   router.get('/checkCaptcha',controller.website.users.checkCaptcha);
-  router.get('/sendBackPwdEmail',controller.home.sendBackPwdEmail);
 
   //自定义接口
   router.get('/website/artifacts/getMedalDataByRandom/:limit', controller.website.artifacts.getMedalDataByRandom);
