@@ -61,9 +61,9 @@ class Topics extends Service {
     let transaction;
     try {
       transaction = await this.ctx.model.transaction();
-      let updateObject = await this.ctx.model.Topics.updateTopic({ id, updates },transaction);
+      let updateObject = await this.ctx.model.Topics.updateTopic({ Id, updates },transaction);
 
-      if (updates.addTerms.length > 0){
+      if (updates.addTerms && updates.addTerms.length > 0){
         for (let term of updates.addTerms){
           const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
           await this.ctx.model.TopicTerm.createTopicTerm({
@@ -73,13 +73,14 @@ class Topics extends Service {
         }
       }
 
-      if (updates.deleteTerms.length > 0){
+      if (updates.deleteTerms && updates.deleteTerms.length > 0){
         await this.ctx.model.TopicTerm.delTopicTermByTopicIdAndtermIds(id,updates.deleteTerms,transaction);
       }
       await transaction.commit();
 
       return true
     } catch (e) {
+        console.log(e);
       await transaction.rollback();
       return false
     }

@@ -215,7 +215,7 @@ module.exports  = app => {
     if (!topic) {
       throw new Error('topic not found');
     }
-    return await this.update(updateData.data,{
+    return await this.update(updateData.updates,{
         transaction:transaction,
         where:{
             Id:updateData.Id

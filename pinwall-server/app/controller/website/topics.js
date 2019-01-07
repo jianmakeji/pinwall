@@ -58,7 +58,7 @@ class TopicsController extends BaseController{
     const data = ctx.request.body;
     const updateData = {
         Id:id,
-        data:data
+        updates:data
     };
      const result = await ctx.service.topics.update(updateData);
     if(result){
