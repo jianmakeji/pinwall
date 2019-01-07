@@ -343,6 +343,19 @@ class UsersController extends BaseController{
       super.success('修改失败');
     }
   }
+
+  async updateUserRole(){
+    const ctx = this.ctx;
+    const userId = ctx.request.body.userId;
+    const operation = ctx.request.body.operation;
+    const result = await ctx.service.users.updateUserRole(userId,operation);
+    if (result){
+      super.success('设置成功');
+    }
+    else{
+      super.success('设置失败');
+    }
+  }
 }
 
 module.exports = UsersController;

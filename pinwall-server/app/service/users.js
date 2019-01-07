@@ -156,6 +156,16 @@ class Users extends Service {
       return false;
     }
   }
+
+  async updateUserRole(userId, operation){
+    try{
+      await this.ctx.model.UserRole.updateUserRole(userId,operation);
+      return true;
+    }
+    catch(e){
+      return false;
+    }
+  }
 }
 
 module.exports = Users;

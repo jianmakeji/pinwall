@@ -49,5 +49,22 @@ module.exports = app => {
     });
   }
 
+  UserRole.updateUserRole = async function(userId, operation){
+    let roleId = 1;
+    if (operation == 'user'){
+      roleId = 1;
+    }
+    else if (operation == 'vip'){
+      roleId = 2;
+    }
+    return await this.update({
+      roleId:roleId
+    },{
+      where:{
+        userId:userId
+      }
+    });
+  }
+
   return UserRole;
 };
