@@ -27,6 +27,7 @@ body{
     margin: 0 auto;
     padding: 20px 20px 30px;
     background: white;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .register_panel .title{

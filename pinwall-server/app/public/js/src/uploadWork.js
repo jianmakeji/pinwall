@@ -25,6 +25,11 @@ var container = new Vue({
                 artifact_assets:[],         //详情数组
                 terms:[],                    //标签数组
             },
+            ruleValidate:{
+                name:{required: true, message: '用户名不能为空', trigger: 'blur'},
+                description:{required: true, message: '用户名不能为空', trigger: 'blur'},
+                profileImage:{required: true}
+            },
             step2_between_arr:[],           //存放step2的数据数组 最后赋值给dataitem
             which_artifact_assets:"",
             file_otherinof_arr:[],         //附加信息
@@ -38,7 +43,6 @@ var container = new Vue({
             stepOneActive:true,
             stepTwoActive:false,
             stepThreeActive:false,
-            userName:"甘四球", //用户的名称
             jobTagName:"",
         }
     },
@@ -51,12 +55,10 @@ var container = new Vue({
             let that = this;
             let file = files.target.files[0];
             let fileName = calculate_object_name(files.target.files[0].name);
-
             $.ajax({
                 url: '/getSTSSignature/1',
                 type: 'GET',
                 success:function(res){
-                    console.log(res);
                     if (res.res.status == 200){
                         let client = new OSS({
                       		accessKeyId: res.credentials.AccessKeyId,
@@ -65,17 +67,22 @@ var container = new Vue({
                             bucket:bucket
                     	});
                         client.multipartUpload('images/'+ fileName, file).then(function (res) {
-                            console.log("============",res);
                             let objectPath = 'images/' + fileName;
                             $.ajax({
                                 url: '/getUrlSignature',
                                 type: 'GET',
                                 data:{objectPath:objectPath},
                                 success:function(res){
-                                    console.log("--------",res);
-                                    that.step1_upload_fengmian_src = res;
-                                    that.dataItem.profileImage = fileName;
-                                    console.log();
+                                    let img = new Image();
+                                    img.src = res;
+                                    img.onload = function(){
+                                        if(img.width == img.height && img.width >= 600 && img.width <= 800){
+                                            that.step1_upload_fengmian_src = res;
+                                            that.dataItem.profileImage = fileName;
+                                        }else{
+                                            that.$Notice.error({title:"图片不符合尺寸要求！，请重新上传……"});
+                                        }
+                                    }
                                 }
                             })
                     	});
@@ -234,7 +241,6 @@ var container = new Vue({
                         client.multipartUpload('video/'+ fileName, file, {
                     		progress: progress
                     	}).then(function (res) {
-                            console.log("上传成功",res);
                             that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                             that.step2_between_arr[that.which_artifact_assets].type = 4;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
@@ -277,7 +283,6 @@ var container = new Vue({
                         client.multipartUpload('pdf/'+ fileName, file, {
                     		progress: progress
                     	}).then(function (res) {
-                            console.log("上传成功",res);
                             that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                             that.step2_between_arr[that.which_artifact_assets].type = 2;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
@@ -319,7 +324,6 @@ var container = new Vue({
                         client.multipartUpload('rar_zip/'+ fileName, file, {
                     		progress: progress
                     	}).then(function (res) {
-                            console.log("上传成功",res);
                             that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                             that.step2_between_arr[that.which_artifact_assets].type = 3;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
@@ -361,7 +365,6 @@ var container = new Vue({
                         client.multipartUpload('rar_zip/'+ fileName, file, {
                     		progress: progress
                     	}).then(function (res) {
-                            console.log("上传成功",res);
                             that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                             that.step2_between_arr[that.which_artifact_assets].type = 3;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
@@ -387,12 +390,9 @@ var container = new Vue({
          * 添加标签
          */
         createTerm(){
-            console.log(this.dataItem.Id);
             if (this.dataItem.Id) {
-                console.log("修改");
                 let XO = true;
                 for(let i=0;i<this.terms_arr.length;i++){
-                    console.log(this.terms_arr[i].name);
                     if (this.terms_arr[i].name == this.terms_value) {
                         XO = false;
                         this.terms_value = "";
@@ -407,7 +407,6 @@ var container = new Vue({
                     this.terms_value = "";
                 }
             }else{
-                console.log("新建");
                 // 新建
                 let XO = true;
                 for(let i=0;i<this.terms_arr.length;i++){
@@ -428,9 +427,7 @@ var container = new Vue({
          * 删除标签
          */
         deleteLabel(index){
-            console.log(this.dataItem.Id);
             if (this.dataItem.Id) {
-                console.log("修改");
                 let XO = false;
                 for (var i = 0; i < this.dataItem.terms.length; i++) {
                     if (this.terms_arr[index].name == this.dataItem.terms[i].name) {
@@ -443,7 +440,6 @@ var container = new Vue({
                     this.terms_arr.splice(index,1);
                 }
             }else{
-                console.log("新建");
                 this.terms_arr.splice(index,1);
             }
         },
@@ -474,33 +470,39 @@ var container = new Vue({
             this.stepThreeActive = false;
         },
         goStep2(){
-            console.log("=======dataItem=====",this.dataItem);
-            if(this.dataItem.Id){
-                this.dataItem.addTerms = this.addTerms;
-                this.dataItem.deleteTerms = this.deleteTerms;
+
+            if (this.dataItem.name && this.dataItem.description && this.dataItem.profileImage) {
+                if(this.dataItem.Id){
+                    this.dataItem.addTerms = this.addTerms;
+                    this.dataItem.deleteTerms = this.deleteTerms;
+                }
+                this.stepOneActive = false;
+                this.stepTwoActive = true;
+                this.stepThreeActive = false;
+                this.dataItem.terms = this.terms_arr;
+            }else{
+                this.$Notice.error({title:"请输入必填信息！"})
             }
-            this.stepOneActive = false;
-            this.stepTwoActive = true;
-            this.stepThreeActive = false;
-            this.dataItem.terms = this.terms_arr;
+
         },
         goStep3(){
-            console.log("=======dataItem=====",this.dataItem);
-            console.log("-------step2_between_arr--------",this.step2_between_arr);
-            this.stepOneActive = false;
-            this.stepTwoActive = false;
-            this.stepThreeActive = true;
-            this.dataItem.artifact_assets = this.step2_between_arr;
-            for(let i=0;i<this.step2_upload_neirong_src.length;i++){
-                let profileImage_url = new String();
-                profileImage_url = this.step2_upload_neirong_src[i];
-                this.dataItem.artifact_assets[i].profileImage = profileImage_url.split("?")[0].split("images/")[1];
+            if (this.step2_upload_neirong_src.length) {
+                this.stepOneActive = false;
+                this.stepTwoActive = false;
+                this.stepThreeActive = true;
+                this.dataItem.artifact_assets = this.step2_between_arr;
+                for(let i=0;i<this.step2_upload_neirong_src.length;i++){
+                    let profileImage_url = new String();
+                    profileImage_url = this.step2_upload_neirong_src[i];
+                    this.dataItem.artifact_assets[i].profileImage = profileImage_url.split("?")[0].split("images/")[1];
+                }
+            }else{
+                this.$Notice.error({title:"请输入必填信息！"})
             }
         },
         submitData(){
             let that = this;
             if (this.dataItem.Id) {
-                console.log("------------");
                 $.ajax({
                     url: '/website/artifacts/'+this.dataItem.Id,
                     method:"PUT",
@@ -518,7 +520,6 @@ var container = new Vue({
                     }
                 })
             }else{
-                console.log("新建");
                 $.ajax({
                     url: '/website/artifacts',
                     method:"POST",
@@ -554,7 +555,6 @@ var container = new Vue({
                 url: '/website/artifacts/' + this.dataItem.Id,
                 type: 'GET',
                 success(res){
-                    console.log(res);
                     that.dataItem.name = res.data.name;
                     that.dataItem.artifact_assets = res.data.artifact_assets;
                     that.dataItem.description = res.data.description;
@@ -609,7 +609,6 @@ var container = new Vue({
             }else{
                 this.jobTagName = "作品集";
             }
-            console.log(this.dataItem.jobTag);
         }
     }
 })

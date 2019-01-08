@@ -6,9 +6,10 @@ var index = new Vue({
                 minHeight:"",
             },
             aoData:{limit:12,offset:0},
+            userRoleData:{userId:"",operation:""},
             groupModel:0,       //搜索筛选选项
             columns:[
-                { title: '用户名',key: 'fullname', align: 'center',
+                { title: '用户名',key: 'fullname', align: 'center',minWidth:200,
                     render: (h, params) => {
                         return h('a', {
                                 props: {
@@ -26,7 +27,7 @@ var index = new Vue({
                             }, params.row.fullname);
                     }
                 },
-                { title: '邮箱',key: 'email', align: 'center'},
+                { title: '邮箱',key: 'email', align: 'center',minWidth:200},
                 { title: '上传作品数',key: 'artifactCount', align: 'center'},
                 { title: '点赞数',key: 'likeCount', align: 'center'},
                 { title: '发表言论',key: 'commentCount', align: 'center'},
@@ -118,8 +119,44 @@ var index = new Vue({
         clickUserName(id){
             window.location.href = "/users/" + id;
         },
-        becomeVIP(value){
-            console.log(value);
+        becomeVIP(index){
+            let that = this;
+            this.userRoleData.userId = this.dataList[index].Id;
+            if(this.dataList[index].roles[0].name == "user"){
+                this.userRoleData.operation = "vip";
+            }else{
+                this.userRoleData.operation = "user";
+            }
+            $.ajax({
+                url: '/website/users/updateUserRole',
+                type: 'PUT',
+                data: this.userRoleData,
+                success(res){
+                    if (res.status == 200) {
+                        that.$Notice.success({
+                            title:res.data,
+                            duration:2,
+                            onClose(){
+                                this.$http({
+                                    url: "/website/users",
+                                    method:"GET",
+                                    params:that.aoData
+                                }).then(function(res){
+                                    if (res.body.status == 200) {
+                                        that.$Loading.finish();
+                                        that.totalPage = res.body.data.count;
+                                        that.dataList = res.body.data.rows;
+                                    }
+                                },function(err){
+                                    that.$Loading.error();
+                                })
+                            }
+                        })
+                    } else {
+                        that.$Notice.error({title:res.data});
+                    }
+                }
+            });
         }
     },
     created(){

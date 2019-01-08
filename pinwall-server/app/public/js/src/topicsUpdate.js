@@ -66,7 +66,9 @@ var index = new Vue({
                     console.log(res);
                     if (res.status == 200) {
                         that.formItem.status = newstatus;
-                        that.$Notice.success({title:"操作成功！"})
+                        that.$Notice.success({title:"操作成功！"});
+                    }else{
+                        that.$Notice.error({title:res.data0});
                     }
                 }
             });
@@ -79,7 +81,6 @@ var index = new Vue({
                 type: 'DELETE',
                 data: {id : this.topicId},
                 success(res){
-                    console.log(res);
                     if (res.status == 200) {
                         that.$Notice.success({
                             title:"作业荚删除成功！2秒后返回首页。",
@@ -88,10 +89,9 @@ var index = new Vue({
                                 window.location.href = "/topics";
                             }
                         })
+                    }else{
+                        that.$Notice.error({title:res.data});
                     }
-                },
-                error(e){
-                    console.log("----e--",e);
                 }
             });
         },
@@ -106,7 +106,18 @@ var index = new Vue({
                 type: 'PUT',
                 data: this.formItem,
                 success(res){
-                    console.log(res);
+                    if (res.status == 200) {
+                        that.$Notice.success({
+                            title:res.data,
+                            onClose(){
+                                window.history.back(-1);
+                            }
+                        })
+                    } else {
+                        that.$Notice.error({
+                            title:res.data
+                        })
+                    }
                 }
             });
 
@@ -120,13 +131,6 @@ var index = new Vue({
         this.screenWidth = document.documentElement.clientWidth;
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
         this.topicId = window.location.href.split("topicsUpdate/")[1];
-        if(document.documentElement.clientWidth > 1200){
-            this.modelWidth = "60%";
-        }else if(document.documentElement.clientWidth < 1200){
-            this.modelWidth = "70%";
-        }else if(document.documentElement.clientWidth < 992){
-            this.modelWidth = "80%";
-        }
 
         $.ajax({
             url: '/website/topics/' + this.topicId,
