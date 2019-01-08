@@ -36,9 +36,10 @@ class ArtifactScoresController extends BaseController{
     const ctx = this.ctx;
     try{
       const article = await ctx.service.artifactScore.create(ctx.request.body);
-      super.success('创建成功!');
+      super.success('打分成功!');
     }
     catch(e){
+        console.log(e);
       super.failure(e.message);
     }
   }

@@ -39,6 +39,7 @@ class ArtifactScore extends Service {
   }
 
   async create(artifactScores) {
+    const ctx = this.ctx;
     artifactScores.scorerId = ctx.user.Id;
     const artifactScoreObj = await this.ctx.model.ArtifactScores.findOneByArtifactIdAndScorerId({
       artifactId:artifactScores.artifactId,
