@@ -106,15 +106,12 @@ module.exports = app => {
     return this.create(artifactScores);
   }
 
-  ArtifactScores.updateScore = async function ({
-    artifactId = 0,
-    scorerId = 0,
-    score = 0
-  }) {
-    const artifactScores = await this.findByArtifactIdAndScorerId(scorerId,artifactId);
-    if (!artifact) {
-      throw new Error('artifact not found');
-    }
+  ArtifactScores.updateScore = async function (
+    artifactId,
+    scorerId,
+    score
+  ) {
+
     return this.update({
       score: score
     }, {
