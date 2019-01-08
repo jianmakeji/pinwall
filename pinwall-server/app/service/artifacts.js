@@ -104,6 +104,7 @@ class Artifacts extends Service {
     let transaction;
     try {
       transaction = await this.ctx.model.transaction();
+      updates.updateAt = new Date();
       let updateObject = await this.ctx.model.Artifacts.updateArtifact({ id, updates },transaction);
       const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
 
