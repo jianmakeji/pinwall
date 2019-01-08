@@ -1,6 +1,9 @@
 'use strict'
 
 const BaseController = require('../BaseController');
+const Excel = require('exceljs');
+const path = require('path');
+const fs = require('fs');
 
 class TopicsController extends BaseController{
 
@@ -119,13 +122,55 @@ class TopicsController extends BaseController{
 
     try{
       let result = await ctx.service.topics.findArtifactByTopicId(topicId);
-      super.success(result);
+      ctx.body = result;
     }
     catch(e){
+      console.log(e);
       super.failure(e.message);
     }
   }
 
+  async exportExcelByTopicId(){
+    const ctx = this.ctx;
+    const topicId = ctx.helper.parseInt(ctx.query.topicId);
+
+    try{
+      let topicObject = await ctx.service.topics.findArtifactByTopicId(topicId);
+      let workbook = new Excel.Workbook();
+      var worksheet = workbook.addWorksheet(topicObject.name);
+      worksheet.columns = [
+          { header: '作业名称', key: 'title', width: 60 },
+          { header: '学生姓名', key: 'name', width: 20 },
+          { header: '提交时间', key: 'createTime', width: 20 },
+          { header: '得分', key: 'score', width: 20 },
+      ];
+
+
+      let filename = "没有可导出数据.xlsx";
+
+      if(topicObject.length > 0){
+        topicObject[0].artifacts.forEach((element,index)=>{
+          worksheet.addRow({title: element.name, name: element.user.fullname, createTime: element.createAt, score:element.artifact_scores.score});
+        });
+        filename = topicObject[0].name + ".xlsx";
+      }
+      ctx.attachment(filename);
+      ctx.set('Content-Type','application/octet-stream');
+      const filePath =  path.resolve(this.app.config.static.dir,'excel');
+
+      if(!fs.existsSync(filePath)){
+        fs.mkdirSync(filePath);
+      }
+      filename = path.resolve(filePath,filename);
+      
+      await workbook.xlsx.writeFile(filename);
+      ctx.body = fs.createReadStream(filename);
+    }
+    catch(e){
+      console.log(e);
+      super.failure(e.message);
+    }
+  }
 }
 
 module.exports = TopicsController;

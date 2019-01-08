@@ -29,7 +29,7 @@ module.exports = {
   pdfPath: 'pdf/',
   rar_zipPath: 'rar_zip/',
   videoPath: 'video/',
-
+  
   email_host:'smtp.exmail.qq.com',
   email_user:'admin@design-engine.org',
   email_pwd:'hnuManager001',
@@ -150,6 +150,4 @@ module.exports = {
     }
     return str;
   }
-
-
 }

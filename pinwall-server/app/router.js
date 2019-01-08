@@ -81,6 +81,7 @@ module.exports = app => {
   router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
   router.get('website.topics.getTopicAndArtifactById', '/website/topics/getTopicAndArtifactById', controller.website.topics.getTopicAndArtifactById);
   router.get('website.topics.findArtifactByTopicId', '/website/topics/findArtifactByTopicId', controller.website.topics.findArtifactByTopicId);
+  router.get('website.topics.exportExcelByTopicId', '/website/topics/exportExcelByTopicId', controller.website.topics.exportExcelByTopicId);
 
   router.get('website.search.searchByKeywords','/website/search/searchByKeywords', controller.website.search.searchByKeywords);
   router.get('website.search.transferData','/website/search/transferData', controller.website.search.transferData);

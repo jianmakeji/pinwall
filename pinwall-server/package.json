@@ -17,6 +17,7 @@
     "egg-sequelize": "^4.2.0",
     "egg-validate": "^2.0.2",
     "egg-view-nunjucks": "^2.2.0",
+    "exceljs": "^1.6.3",
     "mysql2": "^1.6.4",
     "nodemailer": "^4.7.0",
     "nodemailer-smtp-transport": "^2.7.4",
