@@ -74,6 +74,9 @@ var index = new Vue({
             });
 
         },
+        exportExcel(){
+            window.open('/website/topics/exportExcelByTopicId?topicId=' + this.formItem.Id);
+        },
         deleteTopics(){
             let that = this;
             $.ajax({
@@ -99,7 +102,6 @@ var index = new Vue({
             let that = this;
             this.formItem.addTerms = this.addTerms;
             this.formItem.deleteTerms = this.deleteTerms;
-            console.log(this.formItem);
 
             $.ajax({
                 url: '/website/topics/'+this.topicId,
@@ -139,6 +141,7 @@ var index = new Vue({
                 console.log(res);
                 if(res.status == 200){
                     that.formItem = res.data;
+                        console.log(that.formItem);
                     for (let i = 0; i < that.formItem.terms.length; i++) {
                         let term = new Object();
                         term = that.formItem.terms[i];

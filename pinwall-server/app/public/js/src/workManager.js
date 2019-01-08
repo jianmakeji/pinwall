@@ -10,15 +10,15 @@ var index = new Vue({
                         return h('a', {
                                 props: {
                                     type: 'primary',
-                                    size: 'small'
+                                    size: 'small',
+                                    target:'_blank'
+                                },
+                                attrs:{
+                                    target:'_blank',
+                                    href:'/project/' + this.dataList[params.index].Id
                                 },
                                 style: {
                                     marginRight: '5px'
-                                },
-                                on: {
-                                    click: () => {
-                                        this.clickWorkName(params.index)
-                                    }
                                 }
                             }, params.row.name);
                     }
@@ -30,13 +30,11 @@ var index = new Vue({
                                     type: 'primary',
                                     size: 'small'
                                 },
+                                attrs:{
+                                    href:'/users/' + this.dataList[params.index].user.Id
+                                },
                                 style: {
                                     marginRight: '5px'
-                                },
-                                on: {
-                                    click: () => {
-                                        this.clickUserName(params.index)
-                                    }
                                 }
                             }, this.dataList[params.index].user.fullname);
                     }
@@ -117,15 +115,8 @@ var index = new Vue({
                 that.$Loading.error();
             })
         },
-        clickWorkName(index){
-            window.location.href = "/project/" + this.dataList[index].Id;
-        },
-        clickUserName(index){
-            window.location.href = "/users/" + this.dataList[index].user.Id;
-        },
         editWork(index){
-            console.log(this.dataList[index]);
-            window.location.href = "/editUploadWork?id=" + this.dataList[index].Id + "&jobTag=2";
+            window.location.href = "/editUploadWork?id=" + this.dataList[index].Id + "&jobTag=" + this.dataList[index].jobTag;
         },
         deleteWork(value){
             console.log(value);

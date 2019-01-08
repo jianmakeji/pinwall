@@ -128,7 +128,7 @@ var index = new Vue({
                     that.dataList = res.body.data.rows;
                 }else if (res.body.status == 999) {
                     that.$Notice.error({
-                        title:"没有操作权限，请登录";
+                        title:"没有操作权限，请登录",
                         onClose(){
                             window.location.href = "/login";
                         }
@@ -229,7 +229,7 @@ var index = new Vue({
                 that.dataList = res.body.data.rows;
             }else if (res.body.status == 999) {
                 that.$Notice.error({
-                    title:"没有操作权限，请登录";
+                    title:"没有操作权限，请登录",
                     onClose(){
                         window.location.href = "/login";
                     }

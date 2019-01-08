@@ -35,11 +35,35 @@ body{
     left: 30px;
 }
 
+.opt_ul .edit_btn .ivu-btn{
+    position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 24px;
+}
+.opt_ul .delete_btn .ivu-btn{
+    position: absolute;top: 180px;left: 40px;width: 40px;height: 40px;font-size: 24px;
+}
+.opt_ul .show_btn .ivu-btn{
+    position: absolute;top: 230px;left: 40px;width: 40px;height: 40px;font-size: 24px;
+}
+
 .project_detail{
     width: 80%;
     margin:60px auto;
     background: white;
-    padding: 110px 20px 20px;
+    padding: 70px 20px 20px;
+}
+.project_detail .score_box{
+    display: flex;
+    flex-direction: row;
+    margin:20px auto;
+    align-items: center;
+}
+.project_detail .score_box label{
+    width: 100px;
+    text-align: center;
+}
+.project_detail .score_box .ivu-input-wrapper{
+    width: 150px;
+    margin-right: 20px;
 }
  .project_detail h2 {
     margin-top: 20px;

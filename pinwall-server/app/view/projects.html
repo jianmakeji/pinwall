@@ -27,47 +27,29 @@
 					</a>
 				{% endif %}
 			</div>
-			<ul>
-
-				{% if user.roles[0].name == 'admin' %}
-					<li>
-						<i-button shape="circle" icon="md-create" @click="editArtifact('{{data.jobTag}}')" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 24px;"></i-button>
-					</li>
-				{% elif data.topics[0].userId == user.Id %}
-					<li>
-						<i-button shape="circle" icon="md-create" @click="editArtifact('{{data.jobTag}}')" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 24px;"></i-button>
-					</li>
-				{% elif data.userId == user.Id %}
-					<li>
-						<i-button shape="circle" icon="md-create" @click="editArtifact('{{data.jobTag}}')" size="large" style="position: absolute;top: 130px;left: 40px;width: 40px;height: 40px;font-size: 24px;"></i-button>
-					</li>
-				{% endif %}
+			<ul class="opt_ul">
+				<li class="edit_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}' || '{{data.userId}}' == '{{user.Id}}'">
+					<i-button shape="circle" icon="md-create" @click="editArtifact('{{data.jobTag}}')" size="large"></i-button>
+				</li>
 
 				{% if data.topics[0].status == 0 %}
-					{% if user.roles[0].name == 'admin' %}
-						<li>
-							<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large" style="position: absolute;top: 180px;left: 40px;width: 40px;height: 40px;font-size: 20px;"></i-button>
-						</li>
-					{% elif data.topics[0].userId == user.Id %}
-						<li>
-							<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large" style="position: absolute;top: 180px;left: 40px;width: 40px;height: 40px;font-size: 20px;"></i-button>
-						</li>
-					{% elif data.userId == user.Id %}
-						<li>
-							<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large" style="position: absolute;top: 180px;left: 40px;width: 40px;height: 40px;font-size: 20px;"></i-button>
-						</li>
-					{% endif %}
-				{% endif %}
-
-				{% if user.roles[0].name == 'admin' %}
-					<li>
-						<i-button shape="circle" icon="md-eye" @click="showArtifact" size="large" style="position: absolute;top: 230px;left: 40px;width: 40px;height: 40px;font-size: 20px;"></i-button>
+					<li class="delete_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}' || '{{data.userId}}' == '{{user.Id}}'">
+						<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large"></i-button>
 					</li>
 				{% endif %}
+
+				<li class="show_btn" v-if="'{{user.roles[0].name}}' == 'admin'">
+					<i-button shape="circle" icon="md-eye" @click="showArtifact" size="large"></i-button>
+				</li>
 			</ul>
 			<i-button class="close_btn" type="default" shape="circle" icon="md-close" size="large" @click="closeThePage"></i-button>
 			<back-top></back-top>
             <div class="project_detail">
+				<div class="score_box" v-if="'{{data.topics[0].userId}}' == '{{user.Id}}'">
+					<label>作品分数：</label>
+					<i-input type="text" value="{{data.artifact_scores[0].score}}" @on-change="scoreChange(event,{{data.Id}})" placeholder="0~100之间的整数" size="large" number autofocus></i-input>
+					<i-button type="success" @click="submitScore">打分</i-button>
+				</div>
                 <div class="stats_tags">
                     <div class="badges">
 						<icon type="ios-ribbon" style="font-size: 22px;color:#999;"></icon>
@@ -94,7 +76,7 @@
                 </div>
                 <h2>{{data.name}}</h2>
                 <p class="publishtime">
-                    {{data.createAt}}，收录于
+                    {{data.createAt.getFullYear()}}-{{data.createAt.getMonth() + 1}}-{{data.createAt.getDate()}}，收录于
 						{% for item in data.topics %}
 	                    	<a href="/workFolder/{{data.topics[0].Id}}">{{item.name}}</a>
 						{% endfor %}

@@ -43,7 +43,7 @@
 				<i-col :xs="0" :sm="{span:17,offset:6}" :md="{span:18,offset:5}" :lg="{span:18,offset:5}">
 					<ul class="project_info">
 						<li class="de_borderbox" v-for="item in headDataList">
-							<a :href="'/project/' + item.Id" class="de_entity_link">
+							<a :href="'/project/' + item.Id" target="_blank" class="de_entity_link">
 								<img :src="item.profileImage">
 							</a>
 						</li>
@@ -68,14 +68,14 @@
 				<i-col :xs="24" :sm="12" :md="8" :lg="8" v-for="item in dataList">
 					<li class="de_card_m">
 						<div class="user_info">
-							<a :href="'/project/' + item.Id">
+							<a :href="'/project/' + item.Id" target="_blank">
 								<img class="photo" :src="item.user.avatarUrl ? item.user.avatarUrl : 'http://pinwall.design-engine.org/images/default_profile.jpg'" alt="">
 								<p class="name" v-text="item.user.fullname"></p>
 								<p class="date" v-text="item.createAt.split('T')[0]"></p>
 							</a>
 						</div>
 						<div class="project_info">
-							<a :href="'/project/' + item.Id">
+							<a :href="'/project/' + item.Id" target="_blank">
 								<img class="thumb" :src="item.profileImage">
 								<h4 v-text="item.name"></h4>
 							</a>
