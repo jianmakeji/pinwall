@@ -214,6 +214,10 @@ module.exports  = app => {
             attributes:['topicId','termId'],
           },
           attributes:['Id','name']
+        },
+        {
+          model:app.model.Users,
+          attributes:['Id','fullname']
         }
       ]
     });
