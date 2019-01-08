@@ -9,6 +9,7 @@ module.exports = app => {
   const pageAuthCheck = app.middleware.pageAuthCheck();
   const ajaxAuthCheck = app.middleware.ajaxAuthCheck();
   const adminAuthCheck = app.middleware.adminAuthCheck();
+  const vipAuthCheck = app.middleware.vipAuthCheck();
 
   router.get('/', controller.home.index);
   router.get('/index', controller.home.index);
@@ -95,7 +96,7 @@ module.exports = app => {
   router.resources('website.roles', '/website/roles', ajaxAuthCheck, controller.website.roles);
   router.resources('website.terms', '/website/terms', controller.website.terms);
   router.resources('website.topics', '/website/topics', controller.website.topics);
-  router.resources('website.artifactScores', '/website/artifactScores', controller.website.artifactScores);
+  router.resources('website.artifactScores', '/website/artifactScores', vipAuthCheck, controller.website.artifactScores);
 
 
 };
