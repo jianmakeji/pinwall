@@ -27,7 +27,7 @@ class ArtifactComment extends Service {
     let transaction;
     try {
       transaction = await this.ctx.model.transaction();
-      await this.ctx.model.ArtifactComments.createComment(artifactComments);
+      await this.ctx.model.ArtifactComments.createComment(artifactComments, transaction);
       await this.ctx.model.Artifacts.addCommnet(artifactComments.artifactId, transaction);
       await this.ctx.model.Users.addCommnet(artifactComments.artifactUserId, transaction);
       await transaction.commit();

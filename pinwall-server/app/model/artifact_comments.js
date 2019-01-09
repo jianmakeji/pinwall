@@ -101,8 +101,10 @@ module.exports = app => {
     return comment;
   }
 
-  ArtifactComments.createComment = async function (artifactComments) {
-    return await this.create(artifactComments);
+  ArtifactComments.createComment = async function (artifactComments,transaction) {
+    return await this.create(artifactComments,{
+      transaction:transaction
+    });
   }
 
   ArtifactComments.setVisible = async function ({
