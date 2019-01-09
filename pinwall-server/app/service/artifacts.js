@@ -37,7 +37,7 @@ class Artifacts extends Service {
     return resultObj;
   }
 
-  async find(id,userId,tag) {
+  async find(id) {
 
     const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
     const app = this.ctx.app;
@@ -63,41 +63,54 @@ class Artifacts extends Service {
   }
 
   async create(artifact) {
-    let transaction;
-    try {
-      transaction = await this.ctx.model.transaction();
-      artifact.visible = 0;
-      const artiObj = await this.ctx.model.Artifacts.createArtifact(artifact,transaction);
-      if (artifact.topicId != 0){
-          await this.ctx.model.TopicArtifact.createTopicArtifact(
-              {
-                artifactId:artiObj.Id,
-                topicId:artifact.topicId
-              },transaction);
+    const topic = await this.ctx.model.Topics.findTopicById(artifact.topicId);
+    if(topic){
+      if(topic.status == 0)
+      {
+        let transaction;
+        try {
+          transaction = await this.ctx.model.transaction();
+          artifact.visible = 0;
+          const artiObj = await this.ctx.model.Artifacts.createArtifact(artifact,transaction);
+          if (artifact.topicId != 0){
+              await this.ctx.model.TopicArtifact.createTopicArtifact(
+                  {
+                    artifactId:artiObj.Id,
+                    topicId:artifact.topicId
+                  },transaction);
+          }
+
+          let terms = artifact.terms;
+          for (let term of terms){
+            const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
+            await this.ctx.model.ArtifactTerm.createArtifactTerm({
+              artifactId:artiObj.Id,
+              termId:termObj.Id
+            },transaction);
+          }
+          await transaction.commit();
+          try{
+            let esObject = await this.ctx.model.Artifacts.findArtifactById(artiObj.Id);
+            await this.ctx.service.esUtils.createObject(artiObj.Id, esObject);
+          }
+          catch(e){
+            this.ctx.getLogger('elasticLogger').info("ID:"+artiObj.Id+": "+e.message+"\n");
+          }
+
+          return true
+        } catch (e) {
+            console.log(e);
+          await transaction.rollback();
+          return false
+        }
+      }
+      else if(topic.status == 1){
+        return false;
       }
 
-      let terms = artifact.terms;
-      for (let term of terms){
-        const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
-        await this.ctx.model.ArtifactTerm.createArtifactTerm({
-          artifactId:artiObj.Id,
-          termId:termObj.Id
-        },transaction);
-      }
-      await transaction.commit();
-      try{
-        let esObject = await this.ctx.model.Artifacts.findArtifactById(artiObj.Id);
-        await this.ctx.service.esUtils.createObject(artiObj.Id, esObject);
-      }
-      catch(e){
-        this.ctx.getLogger('elasticLogger').info("ID:"+artiObj.Id+": "+e.message+"\n");
-      }
-
-      return true
-    } catch (e) {
-        console.log(e);
-      await transaction.rollback();
-      return false
+    }
+    else{
+      return false;
     }
   }
 
