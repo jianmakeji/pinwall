@@ -39,10 +39,11 @@ class ArtifactMedalLikeController extends BaseController{
       else if (ctx.user.roles[0].name == 'user'){
         tag = 2;
       }
+      
       let artifactMedalLike = {
           tag:tag,
           userId:ctx.user.Id,
-          artifactId:ctx.request.body.artifactId
+          artifactId:ctx.query.artifactId
       }
 
       const result = await ctx.service.artifactMedalLike.getMedalLikeDataByUserIdAndArtifactsId(artifactMedalLike);
