@@ -51,7 +51,6 @@ var index = new Vue({
             }
         },
         updateTopicStatus(){
-            console.log(this.topicId);
             let newstatus = new String();
             if (this.formItem.status == 0) {
                 newstatus = 1;
@@ -63,7 +62,6 @@ var index = new Vue({
                 url: '/website/topics/updateTopicStatus?topicId='+this.topicId+'&status='+newstatus,
                 type: 'PUT',
                 success(res){
-                    console.log(res);
                     if (res.status == 200) {
                         that.formItem.status = newstatus;
                         that.$Notice.success({title:"操作成功！"});
@@ -138,10 +136,8 @@ var index = new Vue({
             url: '/website/topics/' + this.topicId,
             type: 'GET',
             success:function(res){
-                console.log(res);
                 if(res.status == 200){
                     that.formItem = res.data;
-                        console.log(that.formItem);
                     for (let i = 0; i < that.formItem.terms.length; i++) {
                         let term = new Object();
                         term = that.formItem.terms[i];

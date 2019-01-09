@@ -32,7 +32,7 @@ var index = new Vue({
         submit(){
             let that = this;
             $.ajax({
-                url: '/website/users/updatePwdWithEmailAndActiveCode',
+                url: config.ajaxUrls.updatePwdWithEmailAndActiveCode,
                 type: 'PUT',
                 data: this.formItem,
                 success(res){

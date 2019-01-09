@@ -69,7 +69,7 @@ var container = new Vue({
                         client.multipartUpload('images/'+ fileName, file).then(function (res) {
                             let objectPath = 'images/' + fileName;
                             $.ajax({
-                                url: '/getUrlSignature',
+                                url: config.ajaxUrls.getUrlSignature,
                                 type: 'GET',
                                 data:{objectPath:objectPath},
                                 success:function(res){
@@ -120,7 +120,7 @@ var container = new Vue({
                         client.multipartUpload('images/'+ fileName, file).then(function (res) {
                             let objectPath = 'images/' + fileName;
                             $.ajax({
-                                url: '/getUrlSignature',
+                                url: config.ajaxUrls.getUrlSignature,
                                 type: 'GET',
                                 data:{objectPath:objectPath},
                                 success:function(res){
@@ -192,7 +192,7 @@ var container = new Vue({
                         client.multipartUpload('images/'+ fileName, file).then(function (res) {
                             let objectPath = 'images/' + fileName;
                             $.ajax({
-                                url: '/getUrlSignature',
+                                url: config.ajaxUrls.getUrlSignature,
                                 type: 'GET',
                                 data:{objectPath:objectPath},
                                 success:function(res){
@@ -228,7 +228,7 @@ var container = new Vue({
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
             $.ajax({
-                url: '/getSTSSignature/4',
+                url: config.ajaxUrls.getSTSSignature.replace(":type",4),
                 type: 'GET',
                 success:function(res){
                     if (res.res.status == 200) {
@@ -269,7 +269,7 @@ var container = new Vue({
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
             $.ajax({
-                url: '/getSTSSignature/2',
+                url: config.ajaxUrls.getSTSSignature.replace(":type",2),
                 type: 'GET',
                 success:function(res){
 
@@ -311,7 +311,7 @@ var container = new Vue({
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
             $.ajax({
-                url: '/getSTSSignature/3',
+                url: config.ajaxUrls.getSTSSignature.replace(":type",3),
                 type: 'GET',
                 success:function(res){
                     if (res.res.status == 200) {
@@ -345,14 +345,14 @@ var container = new Vue({
                 }
             })
         },
-        step3_upload_HTML5_change(files){
+        step2_upload_HTML5_change(files){
             let that = this;
             let file = files.target.files[0];
             let fileTrueName = files.target.files[0].name;
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
             $.ajax({
-                url: '/getSTSSignature/3',
+                url: config.ajaxUrls.getSTSSignature.replace(":type",3),
                 type: 'GET',
                 success:function(res){
                     if (res.res.status == 200) {
@@ -504,7 +504,7 @@ var container = new Vue({
             let that = this;
             if (this.dataItem.Id) {
                 $.ajax({
-                    url: '/website/artifacts/'+this.dataItem.Id,
+                    url: config.ajaxUrls.getArtifactsWithId.replace(":id",this.dataItem.Id),
                     method:"PUT",
                     data:this.dataItem,
                     success:function(res){
@@ -521,7 +521,7 @@ var container = new Vue({
                 })
             }else{
                 $.ajax({
-                    url: '/website/artifacts',
+                    url: config.ajaxUrls.getArtifacts,
                     method:"POST",
                     data:this.dataItem,
                     success:function(res){
@@ -552,7 +552,7 @@ var container = new Vue({
                 this.jobTagName = "作品集";
             }
             $.ajax({
-                url: '/website/artifacts/' + this.dataItem.Id,
+                url: config.ajaxUrls.getArtifactsWithId.replace(":id",this.dataItem.Id),
                 type: 'GET',
                 success(res){
                     that.dataItem.name = res.data.name;

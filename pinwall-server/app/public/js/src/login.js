@@ -12,10 +12,7 @@ var index = new Vue({
             password: "",
             verification: false,
             captchaText: "",
-
             WXcode: false,
-
-            userId: "1",
 
         }
     },

@@ -23,10 +23,8 @@ var index = new Vue({
     methods: {
         /**
          * [checkAll 点击全部]
-         * @return {[type]} [description]
          */
         checkAll(){
-            console.log("checkAll");
             this.checkAllType = "default";
             this.checkOpenType = "text";
             this.checkCloseType = "text";
@@ -58,7 +56,6 @@ var index = new Vue({
          * [checkOpen 点击已关闭]
          */
         checkClose(){
-            console.log("checkClose");
             this.checkAllType = "text";
             this.checkOpenType = "text";
             this.checkCloseType = "default";
@@ -75,7 +72,6 @@ var index = new Vue({
          * [checkOpen 点击由我创建]
          */
         checkMy(){
-            console.log("checkMy");
             this.checkAllType = "text";
             this.checkOpenType = "text";
             this.checkCloseType = "text";
@@ -90,7 +86,7 @@ var index = new Vue({
          * @param  {[type]}  id [作业荚id]
          */
         checkThisTopic(id){
-            window.location.href = "/workFolder/" + id;
+            window.location.href = config.viewUrl.workFolder.replace(":id",id);
         },
         /**
          * 锁定/解锁该作业荚
@@ -102,16 +98,14 @@ var index = new Vue({
          * [uploadToTopic 上传作品至该作业荚]
          */
         uploadToTopic(id){
-            console.log("uploadToTopic",id);
-            window.location.href = "/uploadWork/1?topicId=" + id;
+            window.location.href = config.viewUrl.uploadWork.replace(":id",id);
         },
         /**
          * [searchData 设置作业荚]
          * @return {[type]} [description]
          */
         settingThisTopic(id){
-            console.log("settingThisTopic");
-            window.location.href = '/topicsUpdate/' + id;
+            window.location.href = config.viewUrl.uploadWork.replace(":id",id);
         },
 
 

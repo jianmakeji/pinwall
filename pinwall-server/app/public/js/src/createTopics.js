@@ -21,7 +21,6 @@ var index = new Vue({
     },
     methods: {
         createTerm(){
-            console.log(this.terms_value);
             let XO = true;
             for(let i=0;i<this.terms_arr.length;i++){
                 if (this.terms_arr[i].name == this.terms_value) {
@@ -42,13 +41,11 @@ var index = new Vue({
         submitData(){
             let that = this;
             this.formItem.terms = this.terms_arr;
-            console.log("submitData",this.formItem);
             $.ajax({
-                url: '/website/topics',
+                url: config.ajaxUrls.getTopicsData,
                 type: 'POST',
                 data: this.formItem,
                 success:function(res){
-                    console.log(res);
                     if (res.status == 200) {
                         that.$Notice.success({
                             title:"作业荚创建成功，2秒后返回主页",

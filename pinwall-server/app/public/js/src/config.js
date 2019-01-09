@@ -2,12 +2,35 @@ var config = {
     // 数据请求url
     ajaxUrls: {
         getIndexData: "/website/artifacts/getMedalDataByRandom/{num}",
-        getTopicAboutData: "website/topics",
+        // TopicAbout
+        getTopicAboutData: "/website/topics",
+        // topics
+        getTopicsData:"/website/topics",
+        // search
+        searchByKeywords:'/website/search/searchByKeywords',
+        // workFolder
+        getTopicAndArtifactById:'/website/topics/getTopicAndArtifactById',
+        // uploadWork
+        getUrlSignature:'/getUrlSignature',
+        getSTSSignature:'/getSTSSignature/:type',
+        // artifacts
+        getArtifacts:'/website/artifacts',
+        getArtifactsWithId:'/website/artifacts/:id',
         getPersonalJob: "/website/artifacts/getPersonalJob", //获取我的作品集
         getPersonalJobByUserId: "/website/artifacts/getPersonalJobByUserId", //获取别人的作品集
+        // user
+        getUserData:"/website/users",
+        updatePwdWithEmailAndActiveCode:'/website/users/updatePwdWithEmailAndActiveCode',
+        updateUserRole:'/website/users/updateUserRole',
+        getCaptcha:'/getCaptcha',
+        checkCaptcha:'/checkCaptcha',
+        createWxUser:"/website/users/createWxUser",
+        bindWeixinInfoByEmail:"/website/users/bindWeixinInfoByEmail"
     },
-    viewUrls: {
-
+    viewUrl:{
+        workFolder:'/workFolder/:id',
+        uploadWork:'/uploadWork/1?topicId=:id',
+        topicsUpdate:'/topicsUpdate/:id'
     },
     default_profile: "http://pinwall.design-engine.org/images/default_profile.jpg"
 }

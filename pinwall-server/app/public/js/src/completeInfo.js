@@ -45,7 +45,7 @@ var index = new Vue({
         tapClick(){
             let that = this;
             $.ajax({
-                url: '/getCaptcha',
+                url: config.ajaxUrls.getCaptcha,
                 type: 'GET',
                 success(res){
                     document.getElementsByTagName("object")[0].innerHTML = res;
@@ -63,7 +63,7 @@ var index = new Vue({
             let that = this;
             if(event.target.value.length == 5){
                 $.ajax({
-                    url: '/checkCaptcha',
+                    url: config.ajaxUrls.checkCaptcha,
                     type: 'GET',
                     data:{captchaText:this.formItem.captchaText},
                     success(res){
@@ -81,7 +81,7 @@ var index = new Vue({
         submit(){
             let that = this;
             if (this.newOrOld == "0") {     //new
-                let subUrl = "/website/users/createWxUser";
+                let subUrl = config.ajaxUrls.createWxUser;
                 $.ajax({
                     url: subUrl,
                     type: 'POST',
@@ -109,7 +109,7 @@ var index = new Vue({
                     }
                 });
             } else {
-                let subUrl = "/website/users/bindWeixinInfoByEmail";
+                let subUrl = config.ajaxUrls.bindWeixinInfoByEmail;
                 $.ajax({
                     url: subUrl,
                     type: 'POST',
@@ -141,7 +141,7 @@ var index = new Vue({
     created() {
         let that = this;
         $.ajax({
-            url: '/getCaptcha',
+            url: config.ajaxUrls.getCaptcha,
             type: 'GET',
             success(res){
                 document.getElementsByTagName("object")[0].innerHTML = res;
