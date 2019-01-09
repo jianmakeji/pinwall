@@ -43,7 +43,7 @@ class ArtifactsController extends BaseController{
       super.success('创建成功!');
     }
     else{
-      super.failure("操作失败");
+      super.failure("操作失败或者作业荚已关闭!");
     }
   }
 
@@ -56,7 +56,7 @@ class ArtifactsController extends BaseController{
       super.success('更新成功!');
     }
     else{
-      super.failure("操作失败");
+      super.failure("更新失败");
     }
   }
 
@@ -68,7 +68,7 @@ class ArtifactsController extends BaseController{
       super.success('删除成功!');
     }
     else{
-      super.failure('操作失败');
+      super.failure('删除失败');
     }
   }
 
