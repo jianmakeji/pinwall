@@ -51,12 +51,11 @@ class ArtifactCommentController extends BaseController{
 
   async create() {
     const ctx = this.ctx;
-    
-    try{
-      const article = await ctx.service.artifactComment.create(ctx.request.body);
+    const result = await ctx.service.artifactComment.create(ctx.request.body);
+    if(result){
       super.success('操作成功!');
     }
-    catch(e){
+    else{
       super.failure(e.message);
     }
   }

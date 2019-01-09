@@ -299,9 +299,9 @@ module.exports = app => {
     });
   }
 
-  Users.addCommnet = async function(id,transaction) {
+  Users.addComment = async function(id,transaction) {
     await this.update({
-      commentCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('commentCount'))
+      commentCount: app.Sequelize.fn('1 + abs', app.Sequelize.col('commentCount'))
     }, {
       transaction:transaction,
       where: {
@@ -312,7 +312,7 @@ module.exports = app => {
 
   Users.addMedal = async function(id,transaction) {
     await this.update({
-      medalCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('medalCount'))
+      medalCount: app.Sequelize.fn('1 + abs', app.Sequelize.col('medalCount'))
     }, {
       transaction:transaction,
       where: {
@@ -323,7 +323,7 @@ module.exports = app => {
 
   Users.addlike = async function(id,transaction) {
     await this.update({
-      likeCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('likeCount'))
+      likeCount: app.Sequelize.fn('1 + abs', app.Sequelize.col('likeCount'))
     }, {
       transaction:transaction,
       where: {
@@ -334,7 +334,7 @@ module.exports = app => {
 
   Users.addArtifact = async function(id,transaction) {
     await this.update({
-      artifactCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('artifactCount'))
+      artifactCount: app.Sequelize.fn('1 + abs', app.Sequelize.col('artifactCount'))
     }, {
       transaction:transaction,
       where: {

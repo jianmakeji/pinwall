@@ -263,9 +263,9 @@ module.exports = app => {
     });
   }
 
-  Artifacts.addCommnet = async function(id) {
+  Artifacts.addComment = async function(id) {
     await this.update({
-      commentCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('commentCount'))
+      commentCount: app.Sequelize.fn('1 + abs', app.Sequelize.col('commentCount'))
     }, {
       where: {
         Id: id
@@ -275,7 +275,7 @@ module.exports = app => {
 
   Artifacts.addMedal = async function(id) {
     await this.update({
-      medalCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('medalCount'))
+      medalCount: app.Sequelize.fn('1 + abs', app.Sequelize.col('medalCount'))
     }, {
       where: {
         Id: id
@@ -285,7 +285,7 @@ module.exports = app => {
 
   Artifacts.addlike = async function(id) {
     await this.update({
-      likeCount: app.Sequelize.fn('1 + abs', this.app.Sequelize.col('likeCount'))
+      likeCount: app.Sequelize.fn('1 + abs', app.Sequelize.col('likeCount'))
     }, {
       where: {
         Id: id
