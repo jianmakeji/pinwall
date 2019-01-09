@@ -97,6 +97,7 @@ module.exports = app => {
   router.resources('website.terms', '/website/terms', controller.website.terms);
   router.resources('website.topics', '/website/topics', controller.website.topics);
   router.resources('website.artifactScores', '/website/artifactScores', vipAuthCheck, controller.website.artifactScores);
+  router.resources('website.artifactMedalLike', '/website/artifactMedalLike', ajaxAuthCheck, controller.website.artifactMedalLike);
 
 
 };
