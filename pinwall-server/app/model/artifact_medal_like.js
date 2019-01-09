@@ -67,7 +67,7 @@ module.exports = app => {
     return this.findOne({
       where:{
         artifactId: artifactMedalLike.artifactId,
-        userId: artifactMedalLike.artifactUserId,
+        userId: artifactMedalLike.userId,
         tag:artifactMedalLike.tag,
       },
     });
