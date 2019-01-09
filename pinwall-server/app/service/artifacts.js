@@ -37,7 +37,8 @@ class Artifacts extends Service {
     return resultObj;
   }
 
-  async find(id) {
+  async find(id,userId,tag) {
+
     const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
     const app = this.ctx.app;
 

@@ -89,6 +89,9 @@ module.exports = app => {
 
   router.put('website.topics.updateTopicStatus','/website/topics/updateTopicStatus', controller.website.topics.updateTopicStatus);
 
+  router.get('website.artifactMedalLike.getMedalLikeDataByUserIdAndArtifactsId', '/website/artifactMedalLike/getMedalLikeDataByUserIdAndArtifactsId', ajaxAuthCheck, controller.website.artifactMedalLike.getMedalLikeDataByUserIdAndArtifactsId);
+
+
   //网站接口
   router.resources('website.users', '/website/users',  ajaxAuthCheck, controller.website.users);
   router.resources('website.artifactComment', '/website/artifactComment', ajaxAuthCheck, controller.website.artifactComment);

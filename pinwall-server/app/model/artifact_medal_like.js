@@ -37,8 +37,10 @@ module.exports = app => {
       app.model.ArtifactAssets.belongsTo(app.model.Artifacts, {targetKey: 'Id', foreignKey: 'artifactId'});
   }
 
-  ArtifactMedalLike.createMedalAndLike = async function (artifactMedalLike) {
-    return this.create(artifactMedalLike);
+  ArtifactMedalLike.createMedalAndLike = async function (artifactMedalLike,transaction) {
+    return this.create(artifactMedalLike,{
+        transaction:transaction
+    });
   }
 
   ArtifactMedalLike.delMedalAndLikeByArtifactId = async function (artifactId) {
@@ -50,12 +52,23 @@ module.exports = app => {
     });
   }
 
+  ArtifactMedalLike.delMedalAndLikeByArtifactIdAndUserId = async function(artifactMedalLike,transaction){
+      return this.destroy({
+          transaction:transaction,
+          where:{
+              artifactId: artifactMedalLike.artifactId,
+              userId: artifactMedalLike.artifactUserId,
+              tag:artifactMedalLike.tag,
+          }
+      });
+  }
+
   ArtifactMedalLike.findByArtifactIdAndUserId = async function (artifactMedalLike){
     return this.findOne({
       where:{
         artifactId: artifactMedalLike.artifactId,
-        userId: artifactMedalLike.userId,
-        tag:tag,
+        userId: artifactMedalLike.artifactUserId,
+        tag:artifactMedalLike.tag,
       },
     });
   }

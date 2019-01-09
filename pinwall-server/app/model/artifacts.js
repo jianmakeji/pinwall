@@ -89,7 +89,7 @@ module.exports = app => {
       sourceKey: 'Id',
       foreignKey: 'artifactId'
     });
-    Artifacts.ArtifactScores = app.model.Artifacts.hasMany(app.model.ArtifactScores, {
+    Artifacts.ArtifactMedalLike = app.model.Artifacts.hasMany(app.model.ArtifactMedalLike, {
       sourceKey: 'Id',
       foreignKey: 'artifactId'
     });
@@ -295,7 +295,7 @@ module.exports = app => {
 
   Artifacts.reduceMedal = async function(id) {
     await this.update({
-      medalCount: app.Sequelize.literal('medalCount' - 1)
+      medalCount: app.Sequelize.literal('`medalCount` - 1')
     }, {
       where: {
         Id: id
@@ -305,7 +305,7 @@ module.exports = app => {
 
   Artifacts.reducelike = async function(id) {
     await this.update({
-      likeCount: app.Sequelize.literal('likeCount' - 1)
+      likeCount: app.Sequelize.literal('`likeCount` - 1')
     }, {
       where: {
         Id: id

@@ -343,30 +343,33 @@ module.exports = app => {
     });
   }
 
-  Users.reduceMedal = async function(id, num) {
+  Users.reduceMedal = async function(id, num,transaction) {
     await this.update({
-      medalCount: app.Sequelize.literal('medalCount' - num)
+      medalCount: app.Sequelize.literal('`medalCount` - ' + num)
     }, {
+      transaction:transaction,
       where: {
         Id: id
       }
     });
   }
 
-  Users.reducelike = async function(id,num) {
+  Users.reducelike = async function(id,num,transaction) {
     await this.update({
-      likeCount: app.Sequelize.literal('likeCount' - num)
+      likeCount: app.Sequelize.literal('`likeCount` - ' + num)
     }, {
+      transaction:transaction,
       where: {
         Id: id
       }
     });
   }
 
-  Users.reduceComment = async function(id,num) {
+  Users.reduceComment = async function(id,num,transaction) {
     await this.update({
-      commentCount: app.Sequelize.literal('commentCount' - num)
+      commentCount: app.Sequelize.literal('`commentCount` - ' + num)
     }, {
+      transaction:transaction,
       where: {
         Id: id
       }
@@ -375,7 +378,7 @@ module.exports = app => {
 
   Users.reduceArtifact = async function(id) {
     await this.update({
-      artifactCount: app.Sequelize.literal('artifactCount' - 1)
+      artifactCount: app.Sequelize.literal('`artifactCount` - 1')
     }, {
       where: {
         Id: id
