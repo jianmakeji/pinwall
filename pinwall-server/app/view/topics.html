@@ -22,7 +22,7 @@
 			<i-button :type="checkAllType" @click="checkAll">全部</i-button>
 			<i-button :type="checkOpenType" @click="checkOpen">开放中</i-button>
 			<i-button :type="checkCloseType" @click="checkClose">已关闭</i-button>
-			<i-button :type="checkMyType" @click="checkMy">由我创建</i-button>
+			<i-button :type="checkMyType" @click="checkMy" v-if="'{{user.Id}}'">由我创建</i-button>
 			<div class="">
 				<i-input v-model="searchValue" prefix="ios-search" placeholder="请输入搜索词"/>
 			</div>
