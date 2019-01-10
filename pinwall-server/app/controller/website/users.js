@@ -340,7 +340,7 @@ class UsersController extends BaseController{
       super.success('修改成功');
     }
     else{
-      super.success('修改失败');
+      super.failure('修改失败');
     }
   }
 
@@ -353,7 +353,45 @@ class UsersController extends BaseController{
       super.success('设置成功');
     }
     else{
-      super.success('设置失败');
+      super.failure('设置失败');
+    }
+  }
+
+  async searchByUsername(){
+    const ctx = this.ctx;
+    const limit = ctx.query.limit;
+    const offset = ctx.query.offset;
+    const fullname = ctx.query.fullname;
+    const query = {
+      limit:limit,
+      offset:offset,
+      fullname:fullname
+    };
+    try{
+      let result = await ctx.service.users.searchByUsername(query);
+      super.success(result);
+    }
+    catch(e){
+      super.failure('设置失败');
+    }
+  }
+
+  async searchByEmail(){
+    const ctx = this.ctx;
+    const limit = ctx.query.limit;
+    const offset = ctx.query.offset;
+    const email = ctx.query.email;
+    const query = {
+      limit:limit,
+      offset:offset,
+      fullname:fullname
+    };
+    try{
+      let result = await ctx.service.users.searchByUsername(query);
+      super.success(result);
+    }
+    catch(e){
+      super.failure('设置失败');
     }
   }
 }

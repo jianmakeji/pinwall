@@ -400,5 +400,43 @@ module.exports = app => {
     });
   }
 
+  Users.searchByUsername = async function({ offset = 0, limit = 10, fullname='' }){
+    let condition = {
+      offset,
+      limit,
+      order: [[ 'createAt', 'desc' ], [ 'Id', 'desc' ]],
+      include:[
+        app.model.Roles
+      ]
+    };
+
+    if(fullname != null && fullname !=''){
+      condition.where.fullname = {
+        [app.Sequelize.Op.like]: '%'+fullname+'%'
+      }
+    }
+
+    return this.findAndCountAll(condition);
+  }
+
+  Users.searchByEmail = async function({ offset = 0, limit = 10, email='' }){
+    let condition = {
+      offset,
+      limit,
+      order: [[ 'createAt', 'desc' ], [ 'Id', 'desc' ]],
+      include:[
+        app.model.Roles
+      ]
+    };
+
+    if(email != null && email !=''){
+      condition.where.email = {
+        [app.Sequelize.Op.like]: '%'+email+'%'
+      }
+    }
+
+    return this.findAndCountAll(condition);
+  }
+
   return Users;
 };

@@ -78,6 +78,8 @@ module.exports = app => {
   router.put('website.users.updatePwdWithEmailAndActiveCode', '/website/users/updatePwdWithEmailAndActiveCode', controller.website.users.updatePwdWithEmailAndActiveCode);
   router.get('website.users.getBackPwdWithEmail', '/website/users/getBackPwdWithEmail', controller.website.users.getBackPwdWithEmail);
   router.put('website.users.updateUserRole', '/website/users/updateUserRole', adminAuthCheck, controller.website.users.updateUserRole);
+  router.get('website.users.searchByUsername', '/website/users/searchByUsername', controller.website.users.searchByUsername);
+  router.get('website.users.searchByEmail', '/website/users/searchByEmail', adminAuthCheck, controller.website.users.searchByEmail);
 
   router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
   router.get('website.topics.getTopicAndArtifactById', '/website/topics/getTopicAndArtifactById', controller.website.topics.getTopicAndArtifactById);

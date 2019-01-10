@@ -166,6 +166,14 @@ class Users extends Service {
       return false;
     }
   }
+
+  async searchByUsername({ offset = 0, limit = 10, fullname='' }){
+    return await this.ctx.model.Users.searchByUsername(offset,limit,fullname);
+  }
+
+  async searchByEmail({ offset = 0, limit = 10, email='' }){
+    return await this.ctx.model.Users.searchByEmail(offset,limit,email);
+  }
 }
 
 module.exports = Users;
