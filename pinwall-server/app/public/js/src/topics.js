@@ -14,10 +14,9 @@ var index = new Vue({
             checkOpenType:"text",
             checkCloseType:"text",
             checkMyType:"text",
-            dataList:[],
             //右侧抽屉
-            drawerShow:false
-
+            drawerShow:false,
+            searchData:{limit:10,jobTag:1,offset:0,status:-1,userId:-1,keyword:""}
         }
     },
     methods: {
@@ -26,12 +25,18 @@ var index = new Vue({
             this.checkOpenType = "text";
             this.checkCloseType = "text";
             this.checkMyType = "text";
-
-            let that = this;
             this.aoData.status = -1;
             this.aoData.userId = -1;
             this.aoData.offset = 0;
-            getData(this, this.aoData);
+            this.searchData.status = -1;
+            this.searchData.userId = -1;
+            this.searchData.offset = 0;
+            if (this.searchValue) {
+                getSearchData(this, this.searchData);
+            } else {
+                getData(this, this.aoData);
+            }
+
         },
         checkOpen(){
             this.checkAllType = "text";
@@ -42,7 +47,14 @@ var index = new Vue({
             this.aoData.status = 0;
             this.aoData.userId = -1;
             this.aoData.offset = 0;
-            getData(this, this.aoData);
+            this.searchData.status = 0;
+            this.searchData.userId = -1;
+            this.searchData.offset = 0;
+            if (this.searchValue) {
+                getSearchData(this, this.searchData);
+            } else {
+                getData(this, this.aoData);
+            }
         },
         checkClose(){
             this.checkAllType = "text";
@@ -54,7 +66,14 @@ var index = new Vue({
             this.aoData.status = 1;
             this.aoData.userId = -1;
             this.aoData.offset = 0;
-            getData(this, this.aoData);
+            this.searchData.status = 1;
+            this.searchData.userId = -1;
+            this.searchData.offset = 0;
+            if (this.searchValue) {
+                getSearchData(this, this.searchData);
+            } else {
+                getData(this, this.aoData);
+            }
         },
         /**
          * 由我创建
@@ -70,7 +89,20 @@ var index = new Vue({
             this.aoData.status = -1;
             this.aoData.userId = 0;
             this.aoData.offset = 0;
-            getData(this, this.aoData);
+            this.searchData.status = -1;
+            this.searchData.userId = 0;
+            this.searchData.offset = 0;
+            if (this.searchValue) {
+                getSearchData(this, this.searchData);
+            } else {
+                getData(this, this.aoData);
+            }
+        },
+        searchTopics(){
+            let that = this;
+            this.searchData.keyword = this.searchValue;
+            this.searchData.offset = 0;
+            getSearchData(this, this.searchData);
         },
         /**
          * [checkThisTopic 查看该作业荚]
@@ -122,31 +154,13 @@ $(document).ready(function() {
      */
     $(window).scroll(function() {
         if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
-            index.aoData.offset += 10;
-            index.$Loading.start();
-            index.$http({
-                url: config.ajaxUrls.getTopicAboutData,
-                method:"GET",
-                params:index.aoData
-            }).then(function(res){
-                if( res.body.status == 200){
-                    index.$Loading.finish();
-                    index.dataList = index.dataList.concat(res.body.data.rows);
-                    if (index.dataList.length == res.body.data.count) {
-                        index.scrollModel = false;
-                    }else{
-                        index.scrollModel = true;
-                    }
-                    for(let i=0; i < index.dataList.length; i++){
-                        index.dataList[i].createAt = index.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
-                        if(index.dataList[i].user.avatarUrl == null){
-                            index.dataList[i].user.avatarUrl = config.default_profile;
-                        }
-                    }
-                }
-            },function(err){
-                index.$Loading.error();
-            })
+            if (index.searchValue) {
+                index.searchData.offset += 10;
+                getMoreSearchData(index, index.searchData);
+            } else {
+                index.aoData.offset += 10;
+                getMoreData(index, index.aoData);
+            }
         }
     })
 });
@@ -161,6 +175,89 @@ function getData(that, aoData){
         if( res.body.status == 200){
             that.$Loading.finish();
             that.dataList = res.body.data.rows;
+            if (that.dataList.length == res.body.data.count) {
+                that.scrollModel = false;
+            }else{
+                that.scrollModel = true;
+            }
+            for(let i=0; i < that.dataList.length; i++){
+                that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
+                if(that.dataList[i].user.avatarUrl == null){
+                    that.dataList[i].user.avatarUrl = config.default_profile;
+                }
+            }
+        }
+    },function(err){
+        that.$Loading.error();
+    })
+}
+/**
+ * 获取更多数据（滚动条触底）
+ */
+function getMoreData(that, aoData){
+    that.$Loading.start();
+    that.$http({
+        url: config.ajaxUrls.getTopicAboutData,
+        method:"GET",
+        params:aoData
+    }).then(function(res){
+        if( res.body.status == 200){
+            that.$Loading.finish();
+            that.dataList = that.dataList.concat(res.body.data.rows);
+            if (that.dataList.length == res.body.data.count) {
+                that.scrollModel = false;
+            }else{
+                that.scrollModel = true;
+            }
+            for(let i=0; i < that.dataList.length; i++){
+                that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
+                if(that.dataList[i].user.avatarUrl == null){
+                    that.dataList[i].user.avatarUrl = config.default_profile;
+                }
+            }
+        }
+
+    },function(err){
+        that.$Loading.error();
+    })
+}
+function getSearchData(that, searchData){
+    that.$Loading.start();
+    that.$http({
+        url: config.ajaxUrls.searchByKeywordsAndJobtag,
+        method:"GET",
+        params:searchData
+    }).then(function(res){
+        if( res.body.status == 200){
+            that.$Loading.finish();
+            that.dataList = res.body.data.rows;
+            if (that.dataList.length == res.body.data.count) {
+                that.scrollModel = false;
+            }else{
+                that.scrollModel = true;
+            }
+            for(let i=0; i < that.dataList.length; i++){
+                that.dataList[i].createAt = that.dataList[i].createAt.replace("T"," ").replace("000Z","创建");
+                if(that.dataList[i].user.avatarUrl == null){
+                    that.dataList[i].user.avatarUrl = config.default_profile;
+                }
+            }
+        }
+
+    },function(err){
+        that.$Loading.error();
+    })
+}
+function getMoreSearchData(that, searchData){
+    that.$Loading.start();
+    that.$http({
+        url: config.ajaxUrls.searchByKeywordsAndJobtag,
+        method:"GET",
+        params:searchData
+    }).then(function(res){
+        if( res.body.status == 200){
+            that.$Loading.finish();
+            that.dataList = that.dataList.concat(res.body.data.rows);
             if (that.dataList.length == res.body.data.count) {
                 that.scrollModel = false;
             }else{

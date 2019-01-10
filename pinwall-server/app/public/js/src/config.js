@@ -9,6 +9,8 @@ var config = {
         // search
         searchByKeywords:'/website/search/searchByKeywords',
         suggestKeyWords: '/website/search/suggestKeyWords',
+        suggestKeyWordsWithJobtag: '/website/search/suggestKeyWordsWithJobtag',
+        searchByKeywordsAndJobtag: '/website/search/searchByKeywordsAndJobtag',
         // workFolder
         getTopicAndArtifactById:'/website/topics/getTopicAndArtifactById',
         // uploadWork

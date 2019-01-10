@@ -28,7 +28,6 @@ var index = new Vue({
                 type: 'GET',
                 data: {keyword: value},
                 success(res){
-                    console.log(res);
                     if (res.status == 200) {
                         that.searchModelDataList = res.data;
                     }
@@ -52,7 +51,6 @@ var index = new Vue({
         // 搜索结果字段选择
         selectItem(data){
             let that = this;
-            console.log("selectItem",data);
             this.searchModelValue = data.text;
             this.searchModel = false;
             this.aoData.keyword = data.text;
