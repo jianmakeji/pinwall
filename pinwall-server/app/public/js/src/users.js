@@ -2,7 +2,6 @@ var index = new Vue({
     el: '.index',
     data(){
         return{
-
             aoData:{limit:12,offset:0,userId:0,jobTag:0},
             aoUrl:"",
             userInfo:{userName:"",userTotal:""},
@@ -11,12 +10,10 @@ var index = new Vue({
             containerStyle:{
                 minHeight:""
             },
+            total:"",
             scrollModel:true,
             drawerShow:false
         }
-    },
-    methods: {
-
     },
     created(){
         let that = this;
@@ -40,6 +37,7 @@ var index = new Vue({
             success:function(res){
                 if (res.status == 200) {
                     that.$Loading.finish();
+                    that.total = res.data.count;
                     if (res.data.count > 0){
                         that.userInfo = res.data.rows[0].user;
                         that.userInfo.createAt = that.userInfo.createAt.split("T")[0] + " 注册";

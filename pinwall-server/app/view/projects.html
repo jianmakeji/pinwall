@@ -11,16 +11,15 @@
 	<body>
 		<div class="projects" v-cloak :style="projectStyle">
 			<div class="zan_box">
-				{% if user.roles[0].name == 'user' %}
-					<a @click="zan('{{user.Id}}','{{user.roles[0].name}}')">
-							<!-- http://pinwall.design-engine.org/images/app/flag_green.png -->
-						<img src="http://pinwall.design-engine.org/images/app/flag_gray.png" alt="">
+				<p v-show="!'{{data.userId}}'">{{data.userId}}</p>
+				{% if user.roles[0].name != "" %}
+					<a @click="zan('{{data.userId}}','{{user.roles[0].name}}')">
+						<img :src="artifactZanTag ? 'http://pinwall.design-engine.org/images/app/flag_green.png' : 'http://pinwall.design-engine.org/images/app/flag_gray.png'" alt="">
 						<icon type="ios-thumbs-up" style="font-size: 40px; position: absolute;top: 15px;left: 20px;"></icon>
 						<span>赞</span>
 					</a>
-				{% elif user.roles[0].name != 'user' %}
-					<a @click="zan('{{user.Id}}','{{user.roles[0].name}}')">
-							<!-- http://pinwall.design-engine.org/images/app/flag_green.png -->
+				{% else %}
+					<a @click="zan('{{data.userId}}','{{user.roles[0].name}}')">
 						<img src="http://pinwall.design-engine.org/images/app/flag_gray.png" alt="">
 						<icon type="ios-thumbs-up" style="font-size: 40px; position: absolute;top: 15px;left: 20px;"></icon>
 						<span>赞</span>
@@ -37,6 +36,10 @@
 						<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large"></i-button>
 					</li>
 				{% endif %}
+
+				<li class="delete_btn" v-if="'{{data.jobTag}}' == '2' && '{{data.userId}}' == '{{user.Id}}'">
+					<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large"></i-button>
+				</li>
 
 				<li class="show_btn" v-if="'{{user.roles[0].name}}' == 'admin'">
 					<i-button shape="circle" icon="md-eye" @click="showArtifact" size="large"></i-button>
@@ -147,7 +150,7 @@
 						<a href="#" class="name">{{user.fullname}}</a>
 						<i-form>
 							<form-item>
-								<i-input v-model="commentValue" type="textarea" placeholder="您的评论……" /><br>
+								<i-input v-model="artifactCommentData.content" type="textarea" placeholder="您的评论……" /><br>
 							</form-item>
 							<form-item>
 								<i-button type="success" @click="addComment('{{user.Id}}')">提交</i-button>

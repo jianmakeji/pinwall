@@ -16,11 +16,20 @@ var projects = new Vue({
                 width: "100%",
                 minHeight: ""
             },
-            commentValue: "",
+            artifactCommentData:{
+                content:"",
+                commenterId:"",
+                artifactId:""
+            },
+            artifactLikeData:{
+                artifactId:"",
+                artifactUserId:""
+            },
             artifactScoreData: {
                 artifactId: "",
                 score: ""
-            }
+            },
+            artifactZanTag:0
         }
     },
     methods: {
@@ -39,8 +48,8 @@ var projects = new Vue({
         closeThePage() {
             window.close();
         },
-        zan(userId, userRole) {
-            console.log(userId, userRole);
+        zan(artifactUserId,userRole) {
+            let that = this;
             if (userRole == "") {
                 this.$Notice.error({
                     title: "请先登录再点赞！",
@@ -49,17 +58,63 @@ var projects = new Vue({
                         window.location.href = "/login";
                     }
                 })
-            } else if (userRole == "user") {
-                console.log("登录user用户点赞");
             } else {
-                console.log("特殊权限用户点赞");
+                this.artifactLikeData.artifactUserId = artifactUserId;
+                $.ajax({
+                    url: '/website/artifactMedalLike',
+                    type: 'POST',
+                    data: this.artifactLikeData,
+                    success(res){
+                        console.log(res);
+                        if(res.status == 200){
+                            that.$Notice.success({title:res.data});
+                            that.artifactZanTag = !that.artifactZanTag;
+                        }
+                    }
+                });
+
             }
         },
         deleteComment(id) {
             console.log("deleteComment", id);
         },
         addComment(id) {
-            console.log("addComment", id);
+            let that = this;
+            this.artifactCommentData.commenterId = id;
+            this.$Loading.start();
+            $.ajax({
+                url: '/website/artifactComment',
+                type: 'POST',
+                data: this.artifactCommentData,
+                success(res){
+                    if(res.status == 200){
+                        that.$Loading.finish();
+                        that.$Notice.success({title:"评论成功！"});
+                        that.artifactCommentData.content = "";
+                        $.ajax({
+                            url: '/website/artifactComment/findByArtifactIdWithPage',
+                            type: 'GET',
+                            data: that.aoData,
+                            success: function(res) {
+                                if (res.status == 200) {
+                                    that.dataList = res.data.rows;
+                                    if (that.dataList.length == res.data.count) {
+                                        that.scrollModel = false;
+                                    }
+                                } else if (res.status == 999) {
+                                    that.$Notice.error({
+                                        title: "没有操作权限，请登录",
+                                        onClose() {
+                                            window.location.href = "/login";
+                                        }
+                                    })
+                                }
+                            }
+                        })
+                    }
+                }
+            });
+
         },
         scoreChange(event, scoreId) {
             let regex = /^100$|^(\d|[1-9]\d)$/;
@@ -96,6 +151,8 @@ var projects = new Vue({
         this.projectStyle.minHeight = document.documentElement.clientHeight + "px";
         this.aoData.artifactId = window.location.href.split("project/")[1];
         this.artifactId = window.location.href.split("project/")[1];
+        this.artifactCommentData.artifactId = window.location.href.split("project/")[1];
+        this.artifactLikeData.artifactId = window.location.href.split("project/")[1];
         let that = this;
         this.$Loading.start();
         $.ajax({
@@ -109,7 +166,6 @@ var projects = new Vue({
                     if (that.dataList.length == res.data.count) {
                         that.scrollModel = false;
                     }
-                    console.log(res, that.dataList);
                 } else if (res.status == 999) {
                     that.$Notice.error({
                         title: "没有操作权限，请登录",
@@ -121,9 +177,25 @@ var projects = new Vue({
             }
         })
     }
-})
-
+});
 $(document).ready(function() {
+    if ($(".zan_box p").html()) {
+        let artifactId = window.location.href.split("project/")[1];
+        $.ajax({
+            url: '/website/artifactMedalLike/getMedalLikeDataByUserIdAndArtifactsId',
+            type: 'GET',
+            data: {artifactId: artifactId},
+            success(res){
+                console.log(res);
+                if (res.status == 200) {
+                    projects.artifactZanTag = 1;
+                }else if(res.status == 200){
+                    projects.artifactZanTag = 0;
+                }
+            }
+        });
+
+    }
     $('html,body').animate({
         scrollTop: 0
     }); //每次刷新界面滚动条置顶
@@ -163,4 +235,6 @@ $(document).ready(function() {
             $(this).children("button").addClass('ivu-btn-default').removeClass('ivu-btn-success');
         });
     });
+
+
 });

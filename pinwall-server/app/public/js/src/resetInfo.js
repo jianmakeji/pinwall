@@ -15,7 +15,6 @@ var index = new Vue({
     },
     methods: {
         restPwd(){
-            console.log(this.pwdItem);
             let that = this;
             $.ajax({
                 url: '/website/users/updatePwd',
@@ -37,7 +36,6 @@ var index = new Vue({
                     }
                 }
             });
-
         }
     },
     created(){

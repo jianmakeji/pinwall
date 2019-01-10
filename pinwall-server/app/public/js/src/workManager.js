@@ -102,7 +102,7 @@ var index = new Vue({
             var that = this;
             this.$Loading.start();
             this.$http({
-                url: "/website/artifacts",
+                url: config.ajaxUrls.getArtifacts,
                 method:"GET",
                 params:this.aoData
             }).then(function(res){
@@ -128,7 +128,7 @@ var index = new Vue({
         var that = this;
         this.$Loading.start();
         this.$http({
-            url: "/website/artifacts",
+            url: config.ajaxUrls.getArtifacts,
             method:"GET",
             params:this.aoData
         }).then(function(res){

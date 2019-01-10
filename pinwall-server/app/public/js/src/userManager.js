@@ -99,11 +99,10 @@ var index = new Vue({
          * [pageChange 分页控件切换]
          */
         pageChange(page){
-            console.log(page);
             let that = this;
             this.aoData.offset = (page - 1) * 12;
             this.$http({
-                url: "/website/users",
+                url: config.ajaxUrls.getUserData,
                 method:"GET",
                 params:this.aoData
             }).then(function(res){
@@ -128,29 +127,24 @@ var index = new Vue({
                 this.userRoleData.operation = "user";
             }
             $.ajax({
-                url: '/website/users/updateUserRole',
+                url: config.ajaxUrls.updateUserRole,
                 type: 'PUT',
                 data: this.userRoleData,
                 success(res){
                     if (res.status == 200) {
-                        that.$Notice.success({
-                            title:res.data,
-                            duration:2,
-                            onClose(){
-                                this.$http({
-                                    url: "/website/users",
-                                    method:"GET",
-                                    params:that.aoData
-                                }).then(function(res){
-                                    if (res.body.status == 200) {
-                                        that.$Loading.finish();
-                                        that.totalPage = res.body.data.count;
-                                        that.dataList = res.body.data.rows;
-                                    }
-                                },function(err){
-                                    that.$Loading.error();
-                                })
+                        that.$Notice.success({title:res.data});
+                        that.$http({
+                            url: config.ajaxUrls.getUserData,
+                            method:"GET",
+                            params:that.aoData
+                        }).then(function(res){
+                            if (res.body.status == 200) {
+                                that.$Loading.finish();
+                                that.totalPage = res.body.data.count;
+                                that.dataList = res.body.data.rows;
                             }
+                        },function(err){
+                            that.$Loading.error();
                         })
                     } else {
                         that.$Notice.error({title:res.data});
@@ -164,7 +158,7 @@ var index = new Vue({
 
         var that = this;
         this.$http({
-            url: "/website/users",
+            url: config.ajaxUrls.getUserData,
             method:"GET",
             params:this.aoData
         }).then(function(res){
@@ -172,7 +166,6 @@ var index = new Vue({
                 that.$Loading.finish();
                 that.totalPage = res.body.data.count;
                 that.dataList = res.body.data.rows;
-                console.log("--------",that.dataList);
             }
         },function(err){
             that.$Loading.error();

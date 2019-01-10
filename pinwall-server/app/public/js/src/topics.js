@@ -2,8 +2,6 @@ var index = new Vue({
     el: '.index',
     data(){
         return{
-            userId:"1",
-
             // 数据请求
             aoData:{limit:10,jobTag:1,offset:0,status:-1,userId:-1},
             dataList:[],
@@ -63,7 +61,6 @@ var index = new Vue({
          * @return {[type]} [description]
          */
         checkMy(){
-            console.log("checkMy");
             this.checkAllType = "text";
             this.checkOpenType = "text";
             this.checkCloseType = "text";
@@ -77,18 +74,15 @@ var index = new Vue({
         },
         /**
          * [checkThisTopic 查看该作业荚]
-         * @param  {[type]}  id [作业荚id]
          */
         checkThisTopic(id){
-            console.log("checkThisTopic",id);
-            window.location.href = "/topicsUpdate/" + id;
+            window.location.href = config.viewUrl.workFolder.replace(":id",id);
         },
         /**
          * [uploadToTopic 上传作品至该作业荚]
          */
         uploadToTopic(id){
-            console.log("uploadToTopic",id);
-            window.location.href = "/uploadWork/1?topicId=" + id;
+            window.location.href = config.viewUrl.uploadWork.replace(":id",id);
         },
         /**
          * 锁定该作业荚
@@ -98,16 +92,13 @@ var index = new Vue({
         },
         /**
          * [searchData 设置作业荚]
-         * @return {[type]} [description]
          */
         settingThisTopic(id){
-            console.log("settingThisTopic");
-            window.location.href = '/topicsUpdate/' + id;
+            window.location.href = config.viewUrl.uploadWork.replace(":id",id);
         },
     },
     created(){
         let that = this;
-
         //老师点击我的作业荚
         let myTopics = new String();
         if (window.location.href.split("?")[1]) {
@@ -140,8 +131,6 @@ $(document).ready(function() {
             }).then(function(res){
                 if( res.body.status == 200){
                     index.$Loading.finish();
-
-                    console.log("滚动至底加载数据", res);
                     index.dataList = index.dataList.concat(res.body.data.rows);
                     if (index.dataList.length == res.body.data.count) {
                         index.scrollModel = false;
@@ -171,7 +160,6 @@ function getData(that, aoData){
     }).then(function(res){
         if( res.body.status == 200){
             that.$Loading.finish();
-            console.log("初始化加载数据", res);
             that.dataList = res.body.data.rows;
             if (that.dataList.length == res.body.data.count) {
                 that.scrollModel = false;

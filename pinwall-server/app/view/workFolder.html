@@ -14,12 +14,11 @@
 
 {% block container %}
 	<div class="container" :style="containerStyle" v-cloak>
-		<Spin size="large" fix v-if="spinShow"></Spin>
 		<div class="de_topic_box">
 			<row>
 				<i-col :xs="12" :sm="2" :md="1" :lg="1">
 					<div class="user_info">
-						<a>
+						<a :href="'/users/' + headInfo.Id">
 							<img :src="headInfo.avatarUrl ? headInfo.avatarUrl : 'http://pinwall.design-engine.org/images/default_profile.jpg'">
 							<p class="name" v-text="headInfo.fullname"></p>
 						</a>
@@ -35,7 +34,7 @@
 						<ul class="de_stats_tags">
 							<li class="uploads">
 								<icon type="ios-cloud-upload" size="20"></icon>
-								<span v-text="headInfo.count"></span>
+								<span v-text="uploadTotal"></span>
 							</li>
 						</ul>
 					</div>
@@ -52,11 +51,6 @@
 				</i-col>
 				<i-col :xs="0" :sm="1" :md="1" :lg="1">
 					<ul class="topic_action">
-							<!-- <li class="de_topic_action_view">
-								<a href="#">
-									<img src="http://pinwall.fzcloud.design-engine.org/4705/7641900251635.png?imageMogr2/thumbnail/400x400" title="查看">
-								</a>
-							</li> -->
 					</ul>
 				</i-col>
 			</row>
@@ -68,7 +62,7 @@
 				<i-col :xs="24" :sm="12" :md="8" :lg="8" v-for="item in dataList">
 					<li class="de_card_m">
 						<div class="user_info">
-							<a :href="'/project/' + item.Id" target="_blank">
+							<a :href="'/users/' + item.user.Id">
 								<img class="photo" :src="item.user.avatarUrl ? item.user.avatarUrl : 'http://pinwall.design-engine.org/images/default_profile.jpg'" alt="">
 								<p class="name" v-text="item.user.fullname"></p>
 								<p class="date" v-text="item.createAt.split('T')[0]"></p>
@@ -106,5 +100,6 @@
 	<script type="text/javascript" src="../public/js/lib/jquery.min.js"></script>
 	<script type="text/javascript" src="../public/js/lib/vue.min.js"></script>
 	<script type="text/javascript" src="../public/js/lib/iview.min.js"></script>
+	<script type="text/javascript" src="../public/js/src/config.js"></script>
 	<script type="text/javascript" src="../public/js/src/workFolder.js"></script>
 {% endblock %}

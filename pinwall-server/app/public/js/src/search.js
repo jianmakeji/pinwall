@@ -25,43 +25,14 @@ var index = new Vue({
             let that = this;
             this.searchModel = false;
             this.aoData.keyword = this.searchModelValue;
-            this.$Loading.start();
-            $.ajax({
-                url: '/website/search/searchByKeywords',
-                type: 'GET',
-                data: this.aoData,
-                success:function(res){
-                    console.log(res);
-                    if (res.status == 200) {
-                        that.$Loading.finish();
-                        that.dataList = res.data.hits;
-                        if (that.dataList.length == res.data.total) {
-                            that.scrollModel = false;
-                        }
-                    }
-                }
-            })
+            getData(that);
         },
         toSearch(value){
             let that = this;
             this.searchModelValue = value;
             this.searchModel = false;
             this.aoData.keyword = value;
-            $.ajax({
-                url: '/website/search/searchByKeywords',
-                type: 'GET',
-                data: this.aoData,
-                success:function(res){
-                    console.log(res);
-                    if (res.status == 200) {
-                        that.$Loading.finish();
-                        that.dataList = res.data.hits;
-                        if (that.dataList.length == res.data.total) {
-                            that.scrollModel = false;
-                        }
-                    }
-                }
-            })
+            getData(that);
         },
         // 搜索结果字段选择
         selectItem(index){
@@ -89,21 +60,46 @@ $(document).ready(function() {
     $(window).scroll(function() {
         if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
             index.aoData.offset += 12;
-            index.$Loading.start();
             index.aoData.keyword = index.searchModelValue;
 
-            $.ajax({
-                url: '/website/search/searchByKeywords',
-                type: 'GET',
-                data: index.aoData,
-                success:function(res){
-                    index.$Loading.finish();
-                    index.dataList = index.dataList.concat(res.data.hits);
-                    if (index.dataList.length == res.data.total) {
-                        index.scrollModel = false;
-                    }
-                }
-            })
+            getMoreData(index);
         }
     })
 });
+
+function getData(that){
+    that.$Loading.start();
+    $.ajax({
+        url: config.ajaxUrls.searchByKeywords,
+        type: 'GET',
+        data: that.aoData,
+        success:function(res){
+            if (res.status == 200) {
+                that.$Loading.finish();
+                that.dataList = res.data.hits;
+                if (that.dataList.length == res.data.total) {
+                    that.scrollModel = false;
+                }else {
+                    index.scrollModel = true;
+                }
+            }
+        }
+    })
+}
+function getMoreData(index){
+    index.$Loading.start();
+    $.ajax({
+        url: config.ajaxUrls.searchByKeywords,
+        type: 'GET',
+        data: index.aoData,
+        success:function(res){
+            index.$Loading.finish();
+            index.dataList = index.dataList.concat(res.data.hits);
+            if (index.dataList.length == res.data.total) {
+                index.scrollModel = false;
+            }else {
+                index.scrollModel = true;
+            }
+        }
+    })
+}

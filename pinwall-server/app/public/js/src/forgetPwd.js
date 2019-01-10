@@ -30,7 +30,6 @@ var index = new Vue({
                     }
                 }
             });
-
         }
     },
     created(){
