@@ -49,7 +49,9 @@ class esUtils extends Service {
 
   async batchCreateSuggestObject(batchObject){
     const ctx = this.ctx;
+    let i = 0;
     for (let object of batchObject){
+      console.log(i++);
       await ctx.app.elasticsearch.create({
         index: ctx.app.es_search_suggest_index,
         type: ctx.app.es_search_suggest_type,

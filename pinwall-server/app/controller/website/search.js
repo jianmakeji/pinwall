@@ -24,7 +24,6 @@ class SearchController extends BaseController{
           }
         }
       }).then(function (resp) {
-        console.log(resp.hits.hits);
           var hits = resp.hits;
 
           return hits;
@@ -74,15 +73,57 @@ class SearchController extends BaseController{
     }
   }
 
+  async suggestKeyWordsWithJobtag() {
+    const ctx = this.ctx;
+    const keyword = ctx.query.keyword;
+    const jobTag = ctx.query.jobTag;
+    const limit = ctx.query.limit;
+    const offset = ctx.query.offset;
+
+    try{
+      let condition = {
+        'from':offset,
+        'size' : limit,
+        'query': {
+          'bool': {
+            'must':[
+              {'match':{'topics.jobTag':jobTag}},
+              {'multi_match':{
+                'query':keyword,
+                'fields': ['name','topics.name','terms.name','description','user.fullname']
+              }}
+            ]
+          }
+        }
+      };
+
+      let hits = await ctx.app.elasticsearch.search({
+        index: ctx.app.es_index,
+        body: condition
+      }).then(function (resp) {
+        var hits = resp.hits;
+
+        return hits;
+      }, function (err) {
+          console.log(err.message);
+      });
+
+      super.success(hits);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
   async transferData(){
     const ctx = this.ctx;
     let transferData = await ctx.service.artifacts.transferArtifacts();
     console.log(transferData.length);
-    //await ctx.service.esUtils.batchCreateObject(transferData);
+    await ctx.service.esUtils.batchCreateObject(transferData);
 
     let result = new Array();
     transferData.forEach((element,index)=>{
-      console.log(index);
+
       let object = {};
       object.Id = element.Id;
       object.suggest = new Array();
@@ -108,7 +149,7 @@ class SearchController extends BaseController{
     });
     console.log('end...');
 
-    await ctx.service.esUtils.batchCreateSuggestObject(result);
+    //await ctx.service.esUtils.batchCreateSuggestObject(result);
     //ctx.body = transferData;
   }
 }

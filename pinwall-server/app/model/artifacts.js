@@ -342,7 +342,7 @@ module.exports = app => {
         through:{
           attributes:['topicId','artifactId'],
         },
-        attributes:['Id','name']
+        attributes:['Id','name','jobTag']
       },{
         model: app.model.Terms,
         through:{
