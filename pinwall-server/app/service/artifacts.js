@@ -301,7 +301,9 @@ class Artifacts extends Service {
   }
 
   async transferArtifacts() {
-    return await this.ctx.model.Artifacts.transferArtifacts();
+    let data = await this.ctx.model.Artifacts.transferArtifacts();
+
+    return data;
   }
 }
 

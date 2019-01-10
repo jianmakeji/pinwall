@@ -85,6 +85,8 @@ module.exports = app => {
   router.get('website.topics.exportExcelByTopicId', '/website/topics/exportExcelByTopicId', controller.website.topics.exportExcelByTopicId);
 
   router.get('website.search.searchByKeywords','/website/search/searchByKeywords', controller.website.search.searchByKeywords);
+  router.get('website.search.suggestKeyWords','/website/search/suggestKeyWords', controller.website.search.suggestKeyWords);
+
   router.get('website.search.transferData','/website/search/transferData', controller.website.search.transferData);
 
   router.put('website.topics.updateTopicStatus','/website/topics/updateTopicStatus', controller.website.topics.updateTopicStatus);

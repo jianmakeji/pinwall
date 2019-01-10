@@ -37,9 +37,12 @@ module.exports = {
   email_verify_address:'https://beta.pinwall.design-engine.org/website/users/updateAcviveByActiveCodeAndEmail',
   wx_email_verify_address:'https://beta.pinwall.design-engine.org/website/users/updateWxActive',
   getBackPwd_email_verify_address:'https://beta.pinwall.design-engine.org/updatePwd',
-  
+
   es_index:'pinwall',
   es_type:'artifacts',
+
+  es_search_suggest_index:'pinwall_search_suggest',
+  es_search_suggest_type:'pinwall_suggest',
 
   signatureUrl(objectPath,thumbName){
     const config = this.aliConfig();

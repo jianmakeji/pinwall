@@ -47,6 +47,17 @@ class esUtils extends Service {
     }
   }
 
+  async batchCreateSuggestObject(batchObject){
+    const ctx = this.ctx;
+    for (let object of batchObject){
+      await ctx.app.elasticsearch.create({
+        index: ctx.app.es_search_suggest_index,
+        type: ctx.app.es_search_suggest_type,
+        id: object.Id,
+        body: object
+      });
+    }
+  }
 }
 
 module.exports = esUtils;
