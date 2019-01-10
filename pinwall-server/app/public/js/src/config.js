@@ -8,6 +8,7 @@ var config = {
         getTopicsData:"/website/topics",
         // search
         searchByKeywords:'/website/search/searchByKeywords',
+        suggestKeyWords: '/website/search/suggestKeyWords',
         // workFolder
         getTopicAndArtifactById:'/website/topics/getTopicAndArtifactById',
         // uploadWork

@@ -186,7 +186,6 @@ $(document).ready(function() {
             type: 'GET',
             data: {artifactId: artifactId},
             success(res){
-                console.log(res);
                 if (res.status == 200) {
                     projects.artifactZanTag = 1;
                 }else if(res.status == 200){

@@ -14,12 +14,27 @@ var index = new Vue({
             searchModelValue:"",    /*搜索内容*/
             searchModelDataList:[],
             columns1:[
-                {title:"搜索结果",key:"name"}
+                {title:"搜索结果",key:"text"}
             ],
             dataList:[]
         }
     },
     methods: {
+        searchDataChange(data){
+            let value = data.target.value;
+            let that = this;
+            $.ajax({
+                url: config.ajaxUrls.suggestKeyWords,
+                type: 'GET',
+                data: {keyword: value},
+                success(res){
+                    console.log(res);
+                    if (res.status == 200) {
+                        that.searchModelDataList = res.data;
+                    }
+                }
+            });
+        },
         // 回车搜索
         searchModelData(){
             let that = this;
@@ -35,15 +50,20 @@ var index = new Vue({
             getData(that);
         },
         // 搜索结果字段选择
-        selectItem(index){
-            console.log("selectItem",index);
+        selectItem(data){
+            let that = this;
+            console.log("selectItem",data);
+            this.searchModelValue = data.text;
+            this.searchModel = false;
+            this.aoData.keyword = data.text;
+            getData(that);
         },
     },
     created(){
         let that = this;
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
         if(document.documentElement.clientWidth > 1200){
-            this.modelWidth = "60%";
+            this.modelWidth = "950px";
         }else if(document.documentElement.clientWidth < 1200){
             this.modelWidth = "70%";
         }else if(document.documentElement.clientWidth < 992){

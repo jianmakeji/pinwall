@@ -24,14 +24,14 @@
 			        </div>
 			        <div class="back">
 			            <div class="user_Info">
-			            	<a :href="'users/'+item.user.Id">
+			            	<a :href="'/users/'+item.user.Id">
 			            		<img v-if="index < 3" class="photo" :src="item.user.avatarUrl ? item.user.avatarUrl : 'http://pinwall.design-engine.org/images/default_profile.jpg'"/>
 			            		<p v-if="index < 3" class="name" v-text="item.user.fullname"></p>
 			            		<p v-if="index < 3" class="date" v-text="item.createAt"></p>
 			            	</a>
 			            </div>
 			            <div class="project_info">
-			            	<a :href="'project/'+item.Id">
+			            	<a :href="'/project/'+item.Id" target="_blank">
 			            		<h4 v-text="item.name"></h4>
 			            		<p class="abstract" v-if="!index" v-text="item.description"></p>
 			            	</a>

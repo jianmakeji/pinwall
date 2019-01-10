@@ -57,7 +57,7 @@
 	<modal v-model="searchModel" title="探索" footer-hide :width="modelWidth">
 	   <div class="search_panel">
 			<div class="search_input_result">
-				<i-input v-model="searchModelValue" @on-enter="searchModelData" placeholder="作品关键词/课程/学生/老师" style="width:80%;margin-left:10%;margin-top:30px;" clearable autofocus></i-input>
+				<i-input v-model="searchModelValue" @on-enter="searchModelData" @on-change="searchDataChange" placeholder="作品关键词/课程/学生/老师" style="width:80%;margin-left:10%;margin-top:30px;" clearable autofocus></i-input>
 				<div style="width:80%;margin-left:10%;">
 					<i-table v-show="searchModelDataList.length" :columns="columns1" :data="searchModelDataList" @on-row-click="selectItem"></i-table>
 				</div>
