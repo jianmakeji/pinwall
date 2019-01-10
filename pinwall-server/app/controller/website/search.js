@@ -115,6 +115,27 @@ class SearchController extends BaseController{
     }
   }
 
+  async searchByKeywordsAndJobtag() {
+    const ctx = this.ctx;
+    const query = {
+      limit: ctx.helper.parseInt(ctx.query.limit),
+      offset: ctx.helper.parseInt(ctx.query.offset),
+      jobTag: ctx.helper.parseInt(ctx.query.jobTag),
+      subLimit: ctx.helper.parseInt(ctx.query.subLimit),
+      status: ctx.helper.parseInt(ctx.query.status),
+      userId: ctx.helper.parseInt(ctx.query.userId),
+      keyword: ctx.query.keyword;
+    };
+
+    try{
+      const result = await ctx.service.topics.searchTopics(query);
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
   async transferData(){
     const ctx = this.ctx;
     let transferData = await ctx.service.artifacts.transferArtifacts();

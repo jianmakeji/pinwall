@@ -37,7 +37,9 @@ class esUtils extends Service {
 
   async batchCreateObject(batchObject){
     const ctx = this.ctx;
+    let i = 0;
     for (let object of batchObject){
+      console.log(i++);
       await ctx.app.elasticsearch.create({
         index: ctx.app.es_index,
         type: ctx.app.es_type,

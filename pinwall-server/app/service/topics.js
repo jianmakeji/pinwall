@@ -29,6 +29,33 @@ class Topics extends Service {
     return resultObj;
   }
 
+  async searchTopics({ offset = 0, limit = 10,jobTag = 0, subLimit = 10, status = 0,userId=0,keyword='' }) {
+    let resultObj = await this.ctx.model.Topics.listTopics({
+      offset,
+      limit,
+      jobTag,
+      subLimit,
+      status,
+      userId,
+      keyword,
+    });
+
+    const app = this.ctx.app;
+    resultObj.rows.forEach((element, index)=>{
+
+          element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
+
+          for (let subElement of element.artifacts){
+              if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1){
+            subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_360_360");
+          }
+        }
+    });
+
+    return resultObj;
+  }
+
+
   async find(Id) {
     const topic = await this.ctx.model.Topics.findTopicById(Id);
     return topic;
