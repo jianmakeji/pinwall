@@ -126,7 +126,10 @@ class SearchController extends BaseController{
       userId: ctx.helper.parseInt(ctx.query.userId),
       keyword: ctx.query.keyword,
     };
-
+    if (query.userId == 0 && ctx.user){
+        query.userId = ctx.user.Id;
+    }
+    
     try{
       const result = await ctx.service.topics.searchTopics(query);
       super.success(result);
