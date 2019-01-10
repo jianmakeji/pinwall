@@ -30,7 +30,7 @@ class Topics extends Service {
   }
 
   async searchTopics({ offset = 0, limit = 10,jobTag = 0, subLimit = 10, status = 0,userId=0,keyword='' }) {
-    let resultObj = await this.ctx.model.Topics.listTopics({
+    let resultObj = await this.ctx.model.Topics.searchTopics({
       offset,
       limit,
       jobTag,

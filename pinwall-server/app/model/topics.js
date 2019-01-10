@@ -174,8 +174,12 @@ module.exports  = app => {
       countCondition.where.userId = userId;
     }
 
+    console.log(keyword);
     if (keyword != null && keyword != ''){
       condition.where.name = {
+        [app.Sequelize.Op.like]: '%'+keyword+'%',
+      };
+      countCondition.where.name = {
         [app.Sequelize.Op.like]: '%'+keyword+'%',
       };
     }

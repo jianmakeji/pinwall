@@ -124,7 +124,7 @@ class SearchController extends BaseController{
       subLimit: ctx.helper.parseInt(ctx.query.subLimit),
       status: ctx.helper.parseInt(ctx.query.status),
       userId: ctx.helper.parseInt(ctx.query.userId),
-      keyword: ctx.query.keyword;
+      keyword: ctx.query.keyword,
     };
 
     try{
