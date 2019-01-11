@@ -48,25 +48,30 @@ var index = new Vue({
                     }
                 },
                 { title: '操作',key: 'opt', align: 'center',width:150,
-            	   render: (h, params) => {
-                       return h('div', [
-                           h('Button', {
-                               props: {
-                                   type: 'error',
-                                   size: 'small'
-                               },
-                               style: {
-                                   marginRight: '5px'
-                               },
-                               on: {
-                                   click: () => {
-                                       this.deleteComment(params.index)
-                                   }
-                               }
-                           }, '删除')
-                       ]);
-                   }
-               }
+            	    render: (h, params) => {
+                        return h('div', [
+                            h('poptip',{
+                        	    props: {
+                        		    confirm: true,
+                        		    transfer:true,
+                        		    title: '确定删除此项？'
+                                },
+                                on: {
+                            	    "on-ok": () => {
+                                        this.deleteComment(params.index)
+                                    }
+                                }
+                            }, [
+                                h('Button',{
+                            	    props: {
+	                                    type: 'error',
+	                                    size: 'small'
+                            	    }
+                                },"删除")
+                            ])
+                        ]);
+                    }
+                }
             ],
             dataList:[],
             currentPage:1,
@@ -94,10 +99,26 @@ var index = new Vue({
             this.aoData.offset = (page - 1) * 12;
             getData(this, this.aoData);
         },
-        deleteComment(value){
-            console.log(value);
+        deleteComment(index){
+            let that = this;
+            $.ajax({
+                url: '/website/artifactComment/'+this.dataList[index].Id,
+                type: 'DELETE',
+                data: {id: this.dataList[index].Id},
+                success(res){
+                    console.log(res);
+                    if(res.status == 200){
+                        that.$Notice.success({
+                            title:res.data,
+                            duration:1,
+                            onClose(){
+                                getData(that, that.aoData);
+                            }
+                        })
+                    }
+                }
+            });
         },
-
     },
     created(){
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";

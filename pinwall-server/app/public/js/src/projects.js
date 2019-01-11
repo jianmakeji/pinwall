@@ -37,7 +37,25 @@ var projects = new Vue({
             window.location.href = "/editUploadWork?id=" + this.aoData.artifactId + "&jobTag=" + jobTag;
         },
         deleteArtifact() {
-            console.log("点击删除");
+            let that = this;
+            $.ajax({
+                url: '/website/artifacts/'+this.artifactId,
+                type: 'DELETE',
+                data: {id: this.artifactId},
+                success(res){
+                    if (res.status == 200) {
+                        that.$Notice.success({
+                            title:res.data,
+                            duration:1,
+                            onClose(){
+                                window.close();
+                            }
+                        })
+                    }else{
+                        that.$Notice.error({title:res.data});
+                    }
+                }
+            });
         },
         showArtifact() {
             console.log("点击隐藏、显示");
@@ -65,10 +83,11 @@ var projects = new Vue({
                     type: 'POST',
                     data: this.artifactLikeData,
                     success(res){
-                        console.log(res);
                         if(res.status == 200){
                             that.$Notice.success({title:res.data});
                             that.artifactZanTag = !that.artifactZanTag;
+                        }else{
+                            that.$Notice.error({title:res.data});
                         }
                     }
                 });
@@ -76,7 +95,42 @@ var projects = new Vue({
             }
         },
         deleteComment(id) {
-            console.log("deleteComment", id);
+            let that = this;
+            this.$Loading.start();
+            $.ajax({
+                url: '/website/artifactComment/'+id,
+                type: 'DELETE',
+                data: {id: id},
+                success(res){
+                    if (res.status == 200) {
+                        that.$Notice.success({
+                            title:res.data,
+                            duration:1,
+                            onClose(){
+                                $.ajax({
+                                    url: '/website/artifactComment/findByArtifactIdWithPage',
+                                    type: 'GET',
+                                    data: that.aoData,
+                                    success: function(res) {
+                                        if (res.status == 200) {
+                                            that.$Loading.finish();
+                                            that.dataList = res.data.rows;
+                                            if (that.dataList.length == res.data.count) {
+                                                that.scrollModel = false;
+                                            }else{
+                                                that.scrollModel = true;
+                                            }
+                                        }
+                                    }
+                                })
+                            }
+                        })
+                    }else {
+
+                    }
+                }
+            });
+
         },
         addComment(id) {
             let that = this;
@@ -91,26 +145,7 @@ var projects = new Vue({
                         that.$Loading.finish();
                         that.$Notice.success({title:"评论成功！"});
                         that.artifactCommentData.content = "";
-                        $.ajax({
-                            url: '/website/artifactComment/findByArtifactIdWithPage',
-                            type: 'GET',
-                            data: that.aoData,
-                            success: function(res) {
-                                if (res.status == 200) {
-                                    that.dataList = res.data.rows;
-                                    if (that.dataList.length == res.data.count) {
-                                        that.scrollModel = false;
-                                    }
-                                } else if (res.status == 999) {
-                                    that.$Notice.error({
-                                        title: "没有操作权限，请登录",
-                                        onClose() {
-                                            window.location.href = "/login";
-                                        }
-                                    })
-                                }
-                            }
-                        })
+                        getConmentData(that, that.aoData);
                     }
                 }
             });
@@ -153,29 +188,7 @@ var projects = new Vue({
         this.artifactId = window.location.href.split("project/")[1];
         this.artifactCommentData.artifactId = window.location.href.split("project/")[1];
         this.artifactLikeData.artifactId = window.location.href.split("project/")[1];
-        let that = this;
-        this.$Loading.start();
-        $.ajax({
-            url: '/website/artifactComment/findByArtifactIdWithPage',
-            type: 'GET',
-            data: this.aoData,
-            success: function(res) {
-                if (res.status == 200) {
-                    that.$Loading.finish();
-                    that.dataList = res.data.rows;
-                    if (that.dataList.length == res.data.count) {
-                        that.scrollModel = false;
-                    }
-                } else if (res.status == 999) {
-                    that.$Notice.error({
-                        title: "没有操作权限，请登录",
-                        onClose() {
-                            window.location.href = "/login";
-                        }
-                    })
-                }
-            }
-        })
+        getConmentData(this, this.aoData);
     }
 });
 $(document).ready(function() {
@@ -237,3 +250,31 @@ $(document).ready(function() {
 
 
 });
+
+function getConmentData(that, aoData){
+    that.$Loading.start();
+    $.ajax({
+        url: '/website/artifactComment/findByArtifactIdWithPage',
+        type: 'GET',
+        data: aoData,
+        success: function(res) {
+            if (res.status == 200) {
+                that.$Loading.finish();
+                that.dataList = res.data.rows;
+                if (that.dataList.length == res.data.count) {
+                    that.scrollModel = false;
+                }else {
+                    that.scrollModel = true;
+                }
+            } else if (res.status == 999) {
+                that.$Loading.error();
+                that.$Notice.error({
+                    title: "没有操作权限，请登录",
+                    onClose() {
+                        window.location.href = "/login";
+                    }
+                })
+            }
+        }
+    })
+}

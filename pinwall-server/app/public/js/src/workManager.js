@@ -65,20 +65,25 @@ var index = new Vue({
                                     }
                                 }
                             }, '编辑'),
-                            h('Button', {
-                                props: {
-                                    type: 'error',
-                                    size: 'small'
-                                },
-                                style: {
-                                    marginRight: '5px'
+                            h('poptip',{
+                        	    props: {
+                        		    confirm: true,
+                        		    transfer:true,
+                        		    title: '确定删除此项？'
                                 },
                                 on: {
-                                    click: () => {
+                            	    "on-ok": () => {
                                         this.deleteWork(params.index)
                                     }
                                 }
-                            }, '删除')
+                            }, [
+                                h('Button',{
+                            	    props: {
+	                                    type: 'error',
+	                                    size: 'small'
+                            	    }
+                                },"删除")
+                            ])
                         ]);
                     }
                 }
@@ -100,22 +105,18 @@ var index = new Vue({
             if (this.searchValue) {
                 this.searchData.offset = 0;
                 this.searchData.keyword = this.searchValue;
-                this.dataList = [];
                 searchArtifactsByNameOrTermName(this, this.searchData);
             } else {
                 this.aoData.offset = 0;
-                this.dataList = [];
                 initData(this, this.aoData);
             }
         },
         pageChange(page){
             this.currentPage = page;
             if (this.searchValue) {
-                this.dataList = [];
                 this.searchData.offset = (page - 1) * 12;
                 searchArtifactsByNameOrTermName(this, this.searchData);
             } else {
-                this.dataList = [];
                 this.aoData.offset = (page-1) * 12;
                 initData(this, this.aoData);
             }
@@ -123,8 +124,32 @@ var index = new Vue({
         editWork(index){
             window.location.href = "/editUploadWork?id=" + this.dataList[index].Id + "&jobTag=" + this.dataList[index].jobTag;
         },
-        deleteWork(value){
-            console.log(value);
+        deleteWork(index){
+            let that = this;
+            this.$Loading.start();
+            $.ajax({
+                url: '/website/artifacts/'+this.dataList[index].Id,
+                type: 'DELETE',
+                data: {id: this.dataList[index].Id},
+                success(res){
+                    if (res.status == 200) {
+                        that.$Loading.finish();
+                        that.$Notice.success({
+                            title:res.data,
+                            duration:1,
+                            onClose(){
+                                if (that.searchValue) {
+                                    searchArtifactsByNameOrTermName(that, that.searchData);
+                                } else {
+                                    initData(that, that.aoData);
+                                }
+                            }
+                        });
+                    }else{
+                        that.$Notice.error({title:res.data});
+                    }
+                }
+            });
         },
     },
     created(){
@@ -134,6 +159,7 @@ var index = new Vue({
 })
 
 function initData(that, aoData){
+    that.dataList = [];
     that.$Loading.start();
     that.$http({
         url: config.ajaxUrls.getArtifacts,
@@ -151,6 +177,7 @@ function initData(that, aoData){
 }
 
 function searchArtifactsByNameOrTermName(that, searchData){
+    that.dataList = [];
     that.$Loading.start();
     that.$http({
         url: config.ajaxUrls.searchArtifactsByNameOrTermName,

@@ -23,7 +23,7 @@
 		        <i-option :value="1" :key="1">用户名</i-option>
                 <i-option :value="2" :key="2">注册邮箱</i-option>
 		    </i-select>
-            <i-input class="search_input" v-model="searchValue" placeholder="输入搜索信息" prefix="ios-brush-outline" @on-enter="searchUser"></i-input>
+            <i-input class="search_input" v-model="searchValue" placeholder="输入搜索信息" prefix="ios-brush-outline" @on-enter="searchUser" clearable></i-input>
 			<i-button type="default" icon="ios-search" @click="searchUser">筛选</i-button>
 		</div>
         <i-table stripe :columns="columns" :data="dataList" style="margin-top:20px;" ></i-table>

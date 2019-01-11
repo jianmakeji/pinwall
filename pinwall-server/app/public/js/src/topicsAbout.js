@@ -118,8 +118,36 @@ var index = new Vue({
         /**
          * 锁定/解锁该作业荚
          */
-        cockThisTopic(id){
-
+        cockThisTopic(id, status){
+            let that = this;
+            let topicStatus = "";
+            if (status == 1) {
+                topicStatus = 0;
+            } else {
+                topicStatus = 1;
+            }
+            $.ajax({
+                url: '/website/topics/'+id,
+                type: 'PUT',
+                data: {topicId: id,status:topicStatus},
+                success(res){
+                    if (res.status == 200) {
+                        that.$Notice.success({
+                            title:res.data,
+                            duration:1,
+                            onClose(){
+                                if (that.searchValue) {
+                                    getSearchData(that, that.searchData);
+                                } else {
+                                    getData(that, that.aoData);
+                                }
+                            }
+                        });
+                    } else {
+                        that.$Notice.error({title:res.data});
+                    }
+                }
+            });
         },
         /**
          * [uploadToTopic 上传作品至该作业荚]

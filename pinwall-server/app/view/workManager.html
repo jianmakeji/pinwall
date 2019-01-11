@@ -19,7 +19,7 @@
 		<i-col span="24">作品管理</i-col><br/><br/>
         <div class="search_box" style="">
 			<label>筛选内容：</label>
-            <i-input class="search_input" v-model="searchValue" placeholder="输入搜索信息" prefix="ios-brush-outline" @on-enter="searchWork"></i-input>
+            <i-input class="search_input" v-model="searchValue" placeholder="输入搜索信息" prefix="ios-brush-outline" @on-enter="searchWork" clearable></i-input>
 			<i-button type="default" icon="ios-search" @click="searchWork">筛选</i-button>
 		</div>
         <i-table stripe :columns="columns" :data="dataList" style="margin-top:20px;" ></i-table>
