@@ -14,7 +14,7 @@ var index = new Vue({
                 name:"",
                 terms:[],
                 description:"",
-                status:1,
+                status:0,
                 jobTag:1,
             }
         }
@@ -48,10 +48,14 @@ var index = new Vue({
                 success:function(res){
                     if (res.status == 200) {
                         that.$Notice.success({
-                            title:"作业荚创建成功，2秒后返回主页",
+                            title:"作业荚创建成功，2秒后返回",
                             duration:2,
                             onClose:function(){
-                                window.location.href = "/";
+                                if (that.formItem.jobTag == 1) {
+                                    window.location.href = "/topics";
+                                } else {
+                                    window.location.href = "/topicsAbout";
+                                }
                             }
                         })
                     }
@@ -61,5 +65,9 @@ var index = new Vue({
     },
     created(){
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
+        let topicJobtog = window.location.href.split("?jobTag=")[1];
+        if (topicJobtog == 2) {
+            this.formItem.jobTag = 2;
+        }
     }
 })
