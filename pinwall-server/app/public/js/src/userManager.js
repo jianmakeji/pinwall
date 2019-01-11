@@ -7,7 +7,7 @@ var index = new Vue({
             },
             aoData:{limit:12,offset:0},
             userRoleData:{userId:"",operation:""},
-            groupModel:0,       //搜索筛选选项
+            groupModel:1,       //搜索筛选选项
             columns:[
                 { title: '用户名',key: 'fullname', align: 'center',minWidth:200,
                     render: (h, params) => {
@@ -19,10 +19,8 @@ var index = new Vue({
                                 style: {
                                     marginRight: '5px'
                                 },
-                                on: {
-                                    click: () => {
-                                        this.clickUserName(params.row.Id)
-                                    }
+                                attrs:{
+                                    href:'/users/' + this.dataList[params.index].user.Id
                                 }
                             }, params.row.fullname);
                     }
@@ -83,8 +81,11 @@ var index = new Vue({
                }
             ],
             dataList:[],
+            currentPage:1,
             totalPage:"",
             drawerShow:false,
+            searchUserNameData:{fullname:"",offset:0,limit:12},
+            searchEmailData:{email:"",offset:0,limit:12},
             searchValue:""
         }
     },
@@ -93,27 +94,32 @@ var index = new Vue({
          * [groupCheck 用户搜索标签选择事件]
          */
         groupCheck(value){
-            console.log(value);
+            this.groupModel = value;
+        },
+        searchUser(){
+            this.currentPage = 1;
+            if (this.groupModel == 1) {
+                this.searchUserNameData.offset = 0;
+                this.searchUserNameData.fullname = this.searchValue;
+                initDataByUsername(this, this.searchUserNameData);
+            } else if(this.groupModel == 2){
+                this.searchEmailData.offset = 0;
+                this.searchEmailData.email = this.searchValue;
+                initDataByEmail(this, this.searchEmailData);
+            }
         },
         /**
          * [pageChange 分页控件切换]
          */
         pageChange(page){
-            let that = this;
-            this.aoData.offset = (page - 1) * 12;
-            this.$http({
-                url: config.ajaxUrls.getUserData,
-                method:"GET",
-                params:this.aoData
-            }).then(function(res){
-                if (res.body.status == 200) {
-                    that.$Loading.finish();
-                    that.totalPage = res.body.data.count;
-                    that.dataList = res.body.data.rows;
-                }
-            },function(err){
-                that.$Loading.error();
-            })
+            this.currentPage = page;
+            if (this.groupModel == "1") {
+                this.searchUserNameData.offset = (page - 1) * 12;
+                initDataByUsername(this, this.searchUserNameData);
+            } else if(this.groupModel == "2"){
+                this.searchEmailData.offset = (page - 1) * 12;
+                initDataByEmail(this, this.searchEmailData);
+            }
         },
         clickUserName(id){
             window.location.href = "/users/" + id;
@@ -133,19 +139,11 @@ var index = new Vue({
                 success(res){
                     if (res.status == 200) {
                         that.$Notice.success({title:res.data});
-                        that.$http({
-                            url: config.ajaxUrls.getUserData,
-                            method:"GET",
-                            params:that.aoData
-                        }).then(function(res){
-                            if (res.body.status == 200) {
-                                that.$Loading.finish();
-                                that.totalPage = res.body.data.count;
-                                that.dataList = res.body.data.rows;
-                            }
-                        },function(err){
-                            that.$Loading.error();
-                        })
+                        if (that.groupModel == "1") {
+                            initDataByUsername(that, that.searchUserNameData);
+                        } else if(that.groupModel == "2"){
+                            initDataByEmail(that, that.searchEmailData);
+                        }
                     } else {
                         that.$Notice.error({title:res.data});
                     }
@@ -155,20 +153,41 @@ var index = new Vue({
     },
     created(){
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
-
-        var that = this;
-        this.$http({
-            url: config.ajaxUrls.getUserData,
-            method:"GET",
-            params:this.aoData
-        }).then(function(res){
-            if (res.body.status == 200) {
-                that.$Loading.finish();
-                that.totalPage = res.body.data.count;
-                that.dataList = res.body.data.rows;
-            }
-        },function(err){
-            that.$Loading.error();
-        })
+        initDataByUsername(this, this.searchUserNameData);
     }
 })
+
+function initDataByUsername(that,searchUserNameData){
+    that.$Loading.start();
+    that.$http({
+        url: config.ajaxUrls.searchByUsername,
+        method:"GET",
+        params:searchUserNameData
+    }).then(function(res){
+        if (res.body.status == 200) {
+            console.log(res);
+            that.$Loading.finish();
+            that.totalPage = res.body.data.count;
+            that.dataList = res.body.data.rows;
+        }
+    },function(err){
+        that.$Loading.error();
+    })
+}
+function initDataByEmail(that, searchEmailData){
+    that.$Loading.start();
+    that.$http({
+        url: config.ajaxUrls.searchByEmail,
+        method:"GET",
+        params:searchEmailData
+    }).then(function(res){
+        if (res.body.status == 200) {
+            console.log(res);
+            that.$Loading.finish();
+            that.totalPage = res.body.data.count;
+            that.dataList = res.body.data.rows;
+        }
+    },function(err){
+        that.$Loading.error();
+    })
+}

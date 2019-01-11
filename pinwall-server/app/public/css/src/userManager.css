@@ -26,7 +26,7 @@ body{
 	margin: 20px 60px;
 }
 .search_box{
-	display:flex;flex-direction: row;margin-left:60px;
+	display:flex;flex-direction: row;margin-left:60px;align-items: center;
 }
 .search_box label{
 	height: 30px;
@@ -37,7 +37,9 @@ body{
     width: 200px;
 	margin-left: 10px;
 }
-
+.search_box button{
+	margin-left: 10px;
+}
 
 
 

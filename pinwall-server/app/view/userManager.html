@@ -17,16 +17,17 @@
 {% block container %}
 	<div class="container" :style="containerStyle">
 		<i-col span="24">用户管理</i-col><br/><br/>
-        <div class="search_box" style="">
+        <div class="search_box">
 			<label>筛选规则：</label>
 			<i-select :value="groupModel" style="width:120px" @on-change="groupCheck">
-		        <i-option :value="0" :key="0">用户名</i-option>
-                <i-option :value="1" :key="1">注册邮箱</i-option>
+		        <i-option :value="1" :key="1">用户名</i-option>
+                <i-option :value="2" :key="2">注册邮箱</i-option>
 		    </i-select>
-            <i-input class="search_input" v-model="searchValue" placeholder="输入搜索信息" prefix="ios-search"></i-input>
+            <i-input class="search_input" v-model="searchValue" placeholder="输入搜索信息" prefix="ios-brush-outline" @on-enter="searchUser"></i-input>
+			<i-button type="default" icon="ios-search" @click="searchUser">筛选</i-button>
 		</div>
         <i-table stripe :columns="columns" :data="dataList" style="margin-top:20px;" ></i-table>
-        <page v-model="totalPage" :page-size="12" :current="1" :total="totalPage" @on-change="pageChange" show-total style="margin-top:20px;text-align:center;"></page>
+        <page v-model="totalPage" :page-size="12" :current="currentPage" :total="totalPage" @on-change="pageChange" show-total style="margin-top:20px;text-align:center;"></page>
 	</div>
 {% endblock %}
 

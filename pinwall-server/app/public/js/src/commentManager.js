@@ -2,8 +2,9 @@ var index = new Vue({
     el: '.index',
     data(){
         return{
-            aoData:{limit:12,offset:0},
-            groupModel:0,       //搜索筛选选项
+            aoData:{limit:12,offset:0,keyword:"",field:1},
+            searchValue:"",
+            groupModel:1,       //搜索筛选选项
             columns:[
                 { title: '评论',key: 'content', align: 'center'},
                 { title: '评论者',key: 'email', align: 'center',width:150,
@@ -16,11 +17,9 @@ var index = new Vue({
                                 style: {
                                     marginRight: '5px'
                                 },
-                                on: {
-                                    click: () => {
-                                        this.clickUserName(params.row.id)
-                                    }
-                                }
+                                attrs:{
+                                    href:'/users/' + this.dataList[params.index].user.Id
+                                },
                             }, params.row.user.fullname);
                     }
                 },
@@ -34,11 +33,10 @@ var index = new Vue({
                                 style: {
                                     marginRight: '5px'
                                 },
-                                on: {
-                                    click: () => {
-                                        this.clickUserName(params.row.id)
-                                    }
-                                }
+                                attrs:{
+                                    target:'_blank',
+                                    href:'/project/' + this.dataList[params.index].Id
+                                },
                             }, params.row.artifact.name);
                     }
                 },
@@ -71,6 +69,7 @@ var index = new Vue({
                }
             ],
             dataList:[],
+            currentPage:1,
             totalPage:"",
             drawerShow:false,
             containerStyle:{
@@ -80,15 +79,20 @@ var index = new Vue({
     },
     methods: {
         groupCheck(value){
-            console.log(value);
+            this.groupModel = value;
+            this.aoData.field = value;
+        },
+        searchComment(){
+            this.currentPage = 1;
+            this.aoData.offset = 0;
+            this.aoData.keyword = this.searchValue;
+            console.log(this.aoData);
+            getData(this, this.aoData);
         },
         pageChange(page){
-            var that = this;
+            this.currentPage = page;
             this.aoData.offset = (page - 1) * 12;
-            getData(that);
-        },
-        clickUserName(id){
-            console.log(id);
+            getData(this, this.aoData);
         },
         deleteComment(value){
             console.log(value);
@@ -97,31 +101,21 @@ var index = new Vue({
     },
     created(){
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
-
-        var that = this;
-
-        getData(that);
+        getData(this, this.aoData);
     }
 })
 
-function getData(that){
+function getData(that, aoData){
     that.$Loading.start();
     that.$http({
-        url: "/website/artifactComment",
+        url: config.ajaxUrls.searchComment,
         method:"GET",
-        params:that.aoData
+        params:aoData
     }).then(function(res){
         if (res.body.status == 200) {
             that.$Loading.finish();
             that.totalPage = res.body.data.count;
             that.dataList = res.body.data.rows;
-        }else if (res.body.status == 999) {
-            that.$Notice.error({
-                title:"没有操作权限，请登录",
-                onClose(){
-                    window.location.href = "/login";
-                }
-            })
         }
     },function(err){
         that.$Loading.error();

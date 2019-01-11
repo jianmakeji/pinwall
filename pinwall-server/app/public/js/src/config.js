@@ -11,6 +11,10 @@ var config = {
         suggestKeyWords: '/website/search/suggestKeyWords',
         suggestKeyWordsWithJobtag: '/website/search/suggestKeyWordsWithJobtag',
         searchByKeywordsAndJobtag: '/website/search/searchByKeywordsAndJobtag',
+        searchByUsername:'/website/users/searchByUsername',
+        searchByEmail:'/website/users/searchByEmail',
+        searchArtifactsByNameOrTermName:'/website/search/searchArtifactsByNameOrTermName',
+        searchComment:'/website/artifactComment/searchComment',
         // workFolder
         getTopicAndArtifactById:'/website/topics/getTopicAndArtifactById',
         // uploadWork
