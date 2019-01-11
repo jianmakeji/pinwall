@@ -62,6 +62,37 @@ class esUtils extends Service {
       });
     }
   }
+
+  async createSuggestObject(id, suggestObject){
+    const ctx = this.ctx;
+    await ctx.app.elasticsearch.create({
+      index: ctx.app.es_search_suggest_index,
+      type: ctx.app.es_search_suggest_type,
+      id: id,
+      body: searchObject
+    });
+  }
+
+  async deleteSuggestObjectById(id){
+    const ctx = this.ctx;
+    await ctx.app.elasticsearch.delete({
+      index: ctx.app.es_search_suggest_index,
+      type: ctx.app.es_search_suggest_type,
+      id: id
+    });
+  }
+
+  async updateobject(id, updateObject){
+
+    const response = await ctx.app.elasticsearch.update({
+      index: ctx.app.es_search_suggest_index,
+      type: ctx.app.es_search_suggest_type,
+      id: id,
+      body: {
+        doc: updateObject
+      }
+    })
+  }
 }
 
 module.exports = esUtils;
