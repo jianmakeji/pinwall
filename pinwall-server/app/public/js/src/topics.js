@@ -43,7 +43,6 @@ var index = new Vue({
             this.checkOpenType = "default";
             this.checkCloseType = "text";
             this.checkMyType = "text";
-            let that = this;
             this.aoData.status = 0;
             this.aoData.userId = -1;
             this.aoData.offset = 0;
@@ -61,8 +60,6 @@ var index = new Vue({
             this.checkOpenType = "text";
             this.checkCloseType = "default";
             this.checkMyType = "text";
-
-            let that = this;
             this.aoData.status = 1;
             this.aoData.userId = -1;
             this.aoData.offset = 0;
@@ -84,8 +81,6 @@ var index = new Vue({
             this.checkOpenType = "text";
             this.checkCloseType = "text";
             this.checkMyType = "default";
-
-            let that = this;
             this.aoData.status = -1;
             this.aoData.userId = 0;
             this.aoData.offset = 0;

@@ -3,7 +3,6 @@ var index = new Vue({
     data(){
         return{
             aoData:{limit:12,offset:0,visible:-1,jobTag:1},
-            groupModel:0,       //搜索筛选选项
             columns:[
                 { title: '作品名',key: 'name', align: 'center',
                     render: (h, params) => {
@@ -90,30 +89,29 @@ var index = new Vue({
             containerStyle:{
                 minHeight:"",
             },
+            searchData:{keyword:"",limit:12,offset:0},
             searchValue:""
         }
     },
     methods: {
-        groupCheck(value){
-            console.log(value);
+        searchWork(){
+            if (this.searchValue) {
+                this.searchData.offset = 0;
+                this.searchData.keyword = this.searchValue;
+                searchArtifactsByNameOrTermName(this, this.searchData);
+            } else {
+                this.aoData.offset = 0;
+                initData(this, this.aoData)；
+            }
         },
         pageChange(page){
-            this.aoData.offset = (page-1) * 12;
-            var that = this;
-            this.$Loading.start();
-            this.$http({
-                url: config.ajaxUrls.getArtifacts,
-                method:"GET",
-                params:this.aoData
-            }).then(function(res){
-                if (res.body.status == 200) {
-                    that.$Loading.finish();
-                    that.totalPage = res.body.data.count;
-                    that.dataList = res.body.data.rows;
-                }
-            },function(err){
-                that.$Loading.error();
-            })
+            if (this.searchValue) {
+                this.searchData.offset = (page - 1) * 12;
+                searchArtifactsByNameOrTermName(this, this.searchData);
+            } else {
+                this.aoData.offset = (page-1) * 12;
+                initData(this, this.aoData);
+            }
         },
         editWork(index){
             window.location.href = "/editUploadWork?id=" + this.dataList[index].Id + "&jobTag=" + this.dataList[index].jobTag;
@@ -124,21 +122,41 @@ var index = new Vue({
     },
     created(){
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
-
-        var that = this;
-        this.$Loading.start();
-        this.$http({
-            url: config.ajaxUrls.getArtifacts,
-            method:"GET",
-            params:this.aoData
-        }).then(function(res){
-            if (res.body.status == 200) {
-                that.$Loading.finish();
-                that.totalPage = res.body.data.count;
-                that.dataList = res.body.data.rows;
-            }
-        },function(err){
-            that.$Loading.error();
-        })
+        initData(this, this.aoData);
     }
 })
+
+function initData(that, aoData){
+    that.$Loading.start();
+    that.$http({
+        url: config.ajaxUrls.getArtifacts,
+        method:"GET",
+        params:aoData
+    }).then(function(res){
+        if (res.body.status == 200) {
+            that.$Loading.finish();
+            that.totalPage = res.body.data.count;
+            that.dataList = res.body.data.rows;
+        }
+    },function(err){
+        that.$Loading.error();
+    })
+}
+
+function searchArtifactsByNameOrTermName(that, searchData){
+    that.$Loading.start();
+    that.$http({
+        url: config.ajaxUrls.searchArtifactsByNameOrTermName,
+        method:"GET",
+        params:searchData
+    }).then(function(res){
+        if (res.body.status == 200) {
+            console.log(res);
+            that.$Loading.finish();
+            that.dataList = res.body.data.hits;
+            that.totalPage = res.body.data.count;
+        }
+    },function(err){
+        that.$Loading.error();
+    })
+}
