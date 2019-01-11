@@ -91,7 +91,6 @@ var index = new Vue({
             this.currentPage = 1;
             this.aoData.offset = 0;
             this.aoData.keyword = this.searchValue;
-            console.log(this.aoData);
             getData(this, this.aoData);
         },
         pageChange(page){
@@ -106,7 +105,6 @@ var index = new Vue({
                 type: 'DELETE',
                 data: {id: this.dataList[index].Id},
                 success(res){
-                    console.log(res);
                     if(res.status == 200){
                         that.$Notice.success({
                             title:res.data,

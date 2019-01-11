@@ -165,7 +165,6 @@ function initDataByUsername(that,searchUserNameData){
         params:searchUserNameData
     }).then(function(res){
         if (res.body.status == 200) {
-            console.log(res);
             that.$Loading.finish();
             that.totalPage = res.body.data.count;
             that.dataList = res.body.data.rows;
@@ -182,7 +181,6 @@ function initDataByEmail(that, searchEmailData){
         params:searchEmailData
     }).then(function(res){
         if (res.body.status == 200) {
-            console.log(res);
             that.$Loading.finish();
             that.totalPage = res.body.data.count;
             that.dataList = res.body.data.rows;

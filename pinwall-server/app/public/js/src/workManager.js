@@ -184,7 +184,6 @@ function searchArtifactsByNameOrTermName(that, searchData){
         method:"GET",
         params:searchData
     }).then(function(res){
-        console.log(res);
         if (res.status == 200) {
             let requestData = res.body.data.hits;
             that.$Loading.finish();

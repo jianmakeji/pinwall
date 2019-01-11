@@ -252,7 +252,6 @@ function getSearchData(that, searchData){
         params:searchData
     }).then(function(res){
         if( res.body.status == 200){
-            console.log(res);
             that.$Loading.finish();
             that.dataList = res.body.data.rows;
             if (that.dataList.length == res.body.data.count) {
