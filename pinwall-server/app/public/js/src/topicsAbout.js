@@ -160,7 +160,7 @@ var index = new Vue({
          * @return {[type]} [description]
          */
         settingThisTopic(id){
-            window.location.href = config.viewUrl.uploadWork.replace(":id",id);
+            window.location.href = config.viewUrl.topicsUpdate.replace(":id",id);
         },
     },
     created(){

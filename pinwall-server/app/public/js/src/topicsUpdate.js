@@ -84,7 +84,7 @@ var index = new Vue({
                 success(res){
                     if (res.status == 200) {
                         that.$Notice.success({
-                            title:"作业荚删除成功！2秒后返回首页。",
+                            title:"作业荚删除成功！2秒后返回",
                             duration:2,
                             onClose:function(){
                                 window.location.href = "/topics";

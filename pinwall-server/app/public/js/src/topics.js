@@ -149,7 +149,7 @@ var index = new Vue({
          * [searchData 设置作业荚]
          */
         settingThisTopic(id){
-            window.location.href = config.viewUrl.uploadWork.replace(":id",id);
+            window.location.href = config.viewUrl.topicsUpdate.replace(":id",id);
         },
     },
     created(){
