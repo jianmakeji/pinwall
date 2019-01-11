@@ -59,13 +59,13 @@ class ArtifactComment extends Service {
     };
     let result;
     if (field == 1){
-      retult = await this.ctx.model.ArtifactComments.searchCommentByContent(condition)
+      result = await this.ctx.model.ArtifactComments.searchCommentByContent(condition)
     }
     else if (field == 2){
-      retult = await this.ctx.model.ArtifactComments.searchCommentByUsername(condition);
+      result = await this.ctx.model.ArtifactComments.searchCommentByUsername(condition);
     }
     else if (field == 3){
-      retult = await this.ctx.model.ArtifactComments.searchCommentByArtifactsName(condition);
+      result = await this.ctx.model.ArtifactComments.searchCommentByArtifactsName(condition);
     }
     return result;
   }

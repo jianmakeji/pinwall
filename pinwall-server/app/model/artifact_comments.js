@@ -201,7 +201,7 @@ module.exports = app => {
             fullname:{
                 [app.Sequelize.Op.like]: '%'+keyword+'%'
             }
-          }
+          },
           attributes:['Id','fullname','avatarUrl']
         }],
       };
@@ -248,7 +248,7 @@ module.exports = app => {
             name:{
                 [app.Sequelize.Op.like]: '%'+keyword+'%'
             }
-          }
+          },
           attributes:['Id','name']
         },{
           model: app.model.Users,
