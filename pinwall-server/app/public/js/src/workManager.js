@@ -84,6 +84,7 @@ var index = new Vue({
                 }
             ],
             dataList:[],
+            currentPage:1,
             totalPage:"",
             drawerShow:false,
             containerStyle:{
@@ -95,20 +96,26 @@ var index = new Vue({
     },
     methods: {
         searchWork(){
+            this.currentPage = 1;
             if (this.searchValue) {
                 this.searchData.offset = 0;
                 this.searchData.keyword = this.searchValue;
+                this.dataList = [];
                 searchArtifactsByNameOrTermName(this, this.searchData);
             } else {
                 this.aoData.offset = 0;
-                initData(this, this.aoData)；
+                this.dataList = [];
+                initData(this, this.aoData);
             }
         },
         pageChange(page){
+            this.currentPage = page;
             if (this.searchValue) {
+                this.dataList = [];
                 this.searchData.offset = (page - 1) * 12;
                 searchArtifactsByNameOrTermName(this, this.searchData);
             } else {
+                this.dataList = [];
                 this.aoData.offset = (page-1) * 12;
                 initData(this, this.aoData);
             }
@@ -150,11 +157,14 @@ function searchArtifactsByNameOrTermName(that, searchData){
         method:"GET",
         params:searchData
     }).then(function(res){
-        if (res.body.status == 200) {
-            console.log(res);
+        console.log(res);
+        if (res.status == 200) {
+            let requestData = res.body.data.hits;
             that.$Loading.finish();
-            that.dataList = res.body.data.hits;
-            that.totalPage = res.body.data.count;
+            for (let i = 0; i < requestData.length; i++) {
+                that.dataList.push(requestData[i]._source);
+            }
+            that.totalPage = res.body.data.total;
         }
     },function(err){
         that.$Loading.error();
