@@ -138,15 +138,16 @@ class Artifacts extends Service {
   }
 
   async update({ id, updates }) {
+    const ctx = this.ctx;
     let transaction;
     try {
-      transaction = await this.ctx.model.transaction();
+      transaction = await ctx.model.transaction();
       updates.updateAt = new Date();
-      let updateObject = await this.ctx.model.Artifacts.updateArtifact({ id, updates },transaction);
-      const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
+      let updateObject = await ctx.model.Artifacts.updateArtifact({ id, updates },transaction);
+      const artifact = await ctx.model.Artifacts.findArtifactById(id);
 
       if (updates.artifact_assets && updates.artifact_assets.length > 0){
-        await this.ctx.model.ArtifactAssets.delAssetsByArtifactId(id,transaction);
+        await ctx.model.ArtifactAssets.delAssetsByArtifactId(id,transaction);
         for (let artifact_asset of updates.artifact_assets){
             const asset = {};
             asset.position = artifact_asset.position,
@@ -158,14 +159,14 @@ class Artifacts extends Service {
             asset.mediaFile = artifact_asset.mediaFile,
             asset.viewUrl = artifact_asset.viewUrl,
             asset.artifactId = id;
-            await this.ctx.model.ArtifactAssets.createAssets(asset,transaction);
+            await ctx.model.ArtifactAssets.createAssets(asset,transaction);
         }
       }
 
       if (updates.addTerms && updates.addTerms.length > 0){
         for (let term of updates.addTerms){
-          const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
-          await this.ctx.model.ArtifactTerm.createArtifactTerm({
+          const termObj = await ctx.model.Terms.createTerm(term,transaction);
+          await ctx.model.ArtifactTerm.createArtifactTerm({
             artifactId:artifact.Id,
             termId:termObj.Id
           },transaction);
@@ -173,13 +174,13 @@ class Artifacts extends Service {
       }
 
       if (updates.deleteTerms && updates.deleteTerms.length > 0){
-        await this.ctx.model.ArtifactTerm.delArtifactTermByArtifactIdAndtermId(id,updates.deleteTerms,transaction);
+        await ctx.model.ArtifactTerm.delArtifactTermByArtifactIdAndtermId(id,updates.deleteTerms,transaction);
       }
       await transaction.commit();
 
       try{
-        let esObject = await this.ctx.model.Artifacts.findArtifactById(id);
-        await this.ctx.service.esUtils.updateobject(id, esObject);
+        let esObject = await ctx.model.Artifacts.findArtifactById(id);
+        await ctx.service.esUtils.updateobject(id, esObject);
         let object = {};
         object.Id = esObject.Id;
         object.suggest = new Array();
@@ -200,10 +201,10 @@ class Artifacts extends Service {
           term_suggest.weight = 8;
           object.suggest.push(term_suggest);
         });
-        await this.ctx.service.esUtils.updateSuggestObject(id, esObject);
+        await ctx.service.esUtils.updateSuggestObject(id, esObject);
       }
       catch(e){
-        this.ctx.getLogger('elasticLogger').info("ID:"+artiObj.Id+": "+e.message+"\n");
+        ctx.getLogger('elasticLogger').info("ID:"+artiObj.Id+": "+e.message+"\n");
       }
 
       try{
@@ -232,11 +233,11 @@ class Artifacts extends Service {
             }
         }
         if (deleteAliOSSArray.length > 0){
-          this.ctx.app.deleteOssMultiObject(deleteAliOSSArray);
+          ctx.app.deleteOssMultiObject(deleteAliOSSArray);
         }
       }
       catch(e){
-          this.ctx.getLogger('aliossLogger').info("delete file:"+deleteAliOSSArray.join(',')+": "+e.message+"\n");
+          ctx.getLogger('aliossLogger').info("delete file:"+deleteAliOSSArray.join(',')+": "+e.message+"\n");
       }
 
       return true
@@ -247,26 +248,27 @@ class Artifacts extends Service {
   }
 
   async del(id) {
+    const ctx = this.ctx;
     let transaction;
     try {
-      transaction = await this.ctx.model.transaction();
-      const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
-      await this.ctx.model.Artifacts.delArtifactById(id, transaction);
-      await this.ctx.model.ArtifactAssets.delAssetsByArtifactId(id, transaction);
-      await this.ctx.model.ArtifactComments.delCommentByArtifactId(id, transaction);
-      await this.ctx.model.ArtifactTerm.delArtifactTermByArtifactId(id, transaction);
-      await this.ctx.model.Users.reduceAllAggData(artifact.userId, artifact.medalCount, artifact.likeCount, artifact.commentCount, transaction);
+      transaction = await ctx.model.transaction();
+      const artifact = await ctx.model.Artifacts.findArtifactById(id);
+      await ctx.model.Artifacts.delArtifactById(id, transaction);
+      await ctx.model.ArtifactAssets.delAssetsByArtifactId(id, transaction);
+      await ctx.model.ArtifactComments.delCommentByArtifactId(id, transaction);
+      await ctx.model.ArtifactTerm.delArtifactTermByArtifactId(id, transaction);
+      await ctx.model.Users.reduceAllAggData(artifact.userId, artifact.medalCount, artifact.likeCount, artifact.commentCount, transaction);
 
       try{
-        await this.ctx.service.esUtils.deleteObjectById(id);
-        await this.ctx.service.esUtils.deleteSuggestObjectById(id);
+        await ctx.service.esUtils.deleteObjectById(id);
+        await ctx.service.esUtils.deleteSuggestObjectById(id);
       }
       catch(e){
-        this.ctx.getLogger('elasticLogger').info("delete ID:"+id+": "+e.message+"\n");
+        ctx.getLogger('elasticLogger').info("delete ID:"+id+": "+e.message+"\n");
       }
 
+      let deleteAliOSSArray = new Array();
       try{
-        let deleteAliOSSArray = new Array();
         deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
         for (const artifactAssets of artifact.artifactAssets){
           if (artifactAssets.type == 1){
@@ -286,16 +288,17 @@ class Artifacts extends Service {
           }
         }
         if (deleteAliOSSArray.length > 0){
-          this.ctx.app.deleteOssMultiObject(deleteAliOSSArray);
+          ctx.app.deleteOssMultiObject(deleteAliOSSArray);
         }
 
       }
       catch(e){
-          this.ctx.getLogger('aliossLogger').info("delete ID:"+deleteAliOSSArray.join(',')+": "+e.message+"\n");
+          ctx.getLogger('aliossLogger').info("delete ID:"+deleteAliOSSArray.join(',')+": "+e.message+"\n");
       }
       await transaction.commit();
       return true
     } catch (e) {
+        console.log(e);
       await transaction.rollback();
       return false
     }

@@ -388,10 +388,10 @@ module.exports = app => {
 
   Users.reduceAllAggData = async function(id,medalNum,likeNum,commentNum,transaction) {
     await this.update({
-      medalCount: app.Sequelize.literal('medalCount' - medalNum),
-      likeCount: app.Sequelize.literal('likeCount' - likeNum),
-      commentCount: app.Sequelize.literal('commentCount' - commentNum),
-      artifactCount: app.Sequelize.literal('artifactCount' - 1)
+      medalCount: app.Sequelize.literal('`medalCount` - ' + medalNum),
+      likeCount: app.Sequelize.literal('`likeCount` - ' + likeNum),
+      commentCount: app.Sequelize.literal('`commentCount` - ' + commentNum),
+      artifactCount: app.Sequelize.literal('`artifactCount` - ' + 1)
     }, {
       transaction:transaction,
       where: {
@@ -430,7 +430,7 @@ module.exports = app => {
         app.model.Roles
       ]
     };
-    
+
     if(email != null && email !=''){
       condition.where = {};
       condition.where.email = {
