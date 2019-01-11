@@ -359,8 +359,8 @@ class UsersController extends BaseController{
 
   async searchByUsername(){
     const ctx = this.ctx;
-    const limit = ctx.query.limit;
-    const offset = ctx.query.offset;
+    const limit = ctx.helper.parseInt(ctx.query.limit);
+    const offset = ctx.helper.parseInt(ctx.query.offset);
     const fullname = ctx.query.fullname;
     const query = {
       limit:limit,
@@ -372,26 +372,27 @@ class UsersController extends BaseController{
       super.success(result);
     }
     catch(e){
-      super.failure('设置失败');
+        console.log(e);
+      super.failure('获取数据失败');
     }
   }
 
   async searchByEmail(){
     const ctx = this.ctx;
-    const limit = ctx.query.limit;
-    const offset = ctx.query.offset;
+    const limit = ctx.helper.parseInt(ctx.query.limit);
+    const offset = ctx.helper.parseInt(ctx.query.offset);
     const email = ctx.query.email;
     const query = {
       limit:limit,
       offset:offset,
-      fullname:fullname
+      email:email
     };
     try{
-      let result = await ctx.service.users.searchByUsername(query);
+      let result = await ctx.service.users.searchByEmail(query);
       super.success(result);
     }
     catch(e){
-      super.failure('设置失败');
+      super.failure('获取数据失败');
     }
   }
 }

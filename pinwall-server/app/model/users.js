@@ -401,6 +401,7 @@ module.exports = app => {
   }
 
   Users.searchByUsername = async function({ offset = 0, limit = 10, fullname='' }){
+
     let condition = {
       offset,
       limit,
@@ -411,6 +412,7 @@ module.exports = app => {
     };
 
     if(fullname != null && fullname !=''){
+      condition.where = {};
       condition.where.fullname = {
         [app.Sequelize.Op.like]: '%'+fullname+'%'
       }
@@ -428,8 +430,9 @@ module.exports = app => {
         app.model.Roles
       ]
     };
-
+    
     if(email != null && email !=''){
+      condition.where = {};
       condition.where.email = {
         [app.Sequelize.Op.like]: '%'+email+'%'
       }
