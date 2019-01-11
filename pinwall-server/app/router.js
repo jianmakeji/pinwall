@@ -90,6 +90,7 @@ module.exports = app => {
   router.get('website.search.suggestKeyWords','/website/search/suggestKeyWords', controller.website.search.suggestKeyWords);
   router.get('website.search.suggestKeyWordsWithJobtag','/website/search/suggestKeyWordsWithJobtag', controller.website.search.suggestKeyWordsWithJobtag);
   router.get('website.search.searchByKeywordsAndJobtag','/website/search/searchByKeywordsAndJobtag', controller.website.search.searchByKeywordsAndJobtag);
+  router.get('website.search.searchArtifactsByNameOrTermName','/website/search/searchArtifactsByNameOrTermName',ajaxAuthCheck, controller.website.search.searchArtifactsByNameOrTermName);
 
   router.get('website.search.transferData','/website/search/transferData', controller.website.search.transferData);
 

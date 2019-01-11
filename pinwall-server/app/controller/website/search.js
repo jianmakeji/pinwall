@@ -115,6 +115,42 @@ class SearchController extends BaseController{
     }
   }
 
+  async searchArtifactsByNameOrTermName() {
+    const ctx = this.ctx;
+    const keyword = ctx.query.keyword;
+    const limit = ctx.query.limit;
+    const offset = ctx.query.offset;
+
+    try{
+      let condition = {
+        'from':offset,
+        'size' : limit,
+        'query': {
+          'multi_match':{
+            'query':keyword,
+            'fields': ['name','terms.name']
+          }
+        }
+      };
+
+      let hits = await ctx.app.elasticsearch.search({
+        index: ctx.app.es_index,
+        body: condition
+      }).then(function (resp) {
+        var hits = resp.hits;
+
+        return hits;
+      }, function (err) {
+          console.log(err.message);
+      });
+
+      super.success(hits);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
   async searchByKeywordsAndJobtag() {
     const ctx = this.ctx;
     const query = {
@@ -129,7 +165,7 @@ class SearchController extends BaseController{
     if (query.userId == 0 && ctx.user){
         query.userId = ctx.user.Id;
     }
-    
+
     try{
       const result = await ctx.service.topics.searchTopics(query);
       super.success(result);
