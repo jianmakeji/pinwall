@@ -76,11 +76,6 @@
 								<i-button type="default" to="/createTopics"><icon type="md-add" size="20"></icon></i-button>
 							</li>
 						{% endif %}
-						{% if user.roles[0].name %}
-						<li style="margin:5px auto;">
-							<i-button icon="md-card" type="default" size="large" long style="text-align: left;" to="/resetInfo">修改个人信息</i-button>
-						</li>
-						{% endif %}
 						{% if user.roles[0].name == 'admin' %}
 						<li style="margin:5px auto;">
 							<i-button icon="md-book" type="default" size="large" long to="/createTopics?jobTag=2" style="text-align: left;">新建毕业设计作业荚</i-button>
@@ -93,6 +88,11 @@
 						</li>
 						<li style="margin:5px auto;">
 							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;" to="/commentManager">评论管理</i-button>
+						</li>
+						{% endif %}
+						{% if user.roles[0].name %}
+						<li style="margin:5px auto;">
+							<i-button icon="md-card" type="default" size="large" long style="text-align: left;" to="/resetInfo">修改个人信息</i-button>
 						</li>
 						{% endif %}
 						{% if user.roles[0].name %}
