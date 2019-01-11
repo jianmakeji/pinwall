@@ -50,6 +50,25 @@ class ArtifactComment extends Service {
 
     return artifact;
   }
+
+  async searchByKeyword({ offset = 0, limit = 10, keyword = '', field = 1}){
+    let condition = {
+      offset:offset,
+      limit:limit,
+      keyword:keyword
+    };
+    let result;
+    if (field == 1){
+      retult = await this.ctx.model.ArtifactComments.searchCommentByContent(condition)
+    }
+    else if (field == 2){
+      retult = await this.ctx.model.ArtifactComments.searchCommentByUsername(condition);
+    }
+    else if (field == 3){
+      retult = await this.ctx.model.ArtifactComments.searchCommentByArtifactsName(condition);
+    }
+    return result;
+  }
 }
 
 module.exports = ArtifactComment;

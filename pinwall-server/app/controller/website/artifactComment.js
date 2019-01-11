@@ -106,6 +106,24 @@ class ArtifactCommentController extends BaseController{
       super.failure(e.message);
     }
   }
+
+  async searchComment(){
+    const ctx = this.ctx;
+    const query = {
+      limit: ctx.helper.parseInt(ctx.query.limit),
+      offset: ctx.helper.parseInt(ctx.query.offset),
+      field: ctx.helper.parseInt(ctx.query.field),
+      keyword:ctx.query.keyword
+    };
+
+    try{
+      const result = await ctx.service.artifactComment.searchByKeyword(query);
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
 }
 
 module.exports = ArtifactCommentController;

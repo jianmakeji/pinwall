@@ -146,5 +146,137 @@ module.exports = app => {
     });
   }
 
+  ArtifactComments.searchCommentByContent = async function ({
+    offset = 0,
+    limit = 10,
+    keyword = ''
+  }) {
+
+    let condition = {
+      offset,
+      limit,
+      order: [
+        ['commentAt', 'desc'],
+        ['Id', 'desc']
+      ],
+      include: [{
+        model: app.model.Artifacts,
+        attributes:['Id','name']
+      },{
+        model: app.model.Users,
+        attributes:['Id','fullname','avatarUrl']
+      }],
+    };
+
+    if(keyword != null && keyword !=''){
+      condition.where = {};
+      condition.where.content = {
+        [app.Sequelize.Op.like]: '%'+keyword+'%'
+      }
+    }
+
+    return await this.findAndCountAll(condition);
+  }
+
+  ArtifactComments.searchCommentByUsername = async function ({
+    offset = 0,
+    limit = 10,
+    keyword = ''
+  }) {
+    let condition = {};
+    if (keyword != null && keyword !=''){
+      condition = {
+        offset,
+        limit,
+        order: [
+          ['commentAt', 'desc'],
+          ['Id', 'desc']
+        ],
+        include: [{
+          model: app.model.Artifacts,
+          attributes:['Id','name']
+        },{
+          model: app.model.Users,
+          where:{
+            fullname:{
+                [app.Sequelize.Op.like]: '%'+keyword+'%'
+            }
+          }
+          attributes:['Id','fullname','avatarUrl']
+        }],
+      };
+    }
+    else{
+      condition = {
+        offset,
+        limit,
+        order: [
+          ['commentAt', 'desc'],
+          ['Id', 'desc']
+        ],
+        include: [{
+          model: app.model.Artifacts,
+          attributes:['Id','name']
+        },{
+          model: app.model.Users,
+          attributes:['Id','fullname','avatarUrl']
+        }],
+      };
+    }
+
+
+    return await this.findAndCountAll(condition);
+  }
+
+  ArtifactComments.searchCommentByArtifactsName = async function ({
+    offset = 0,
+    limit = 10,
+    keyword = ''
+  }) {
+    let condition = {};
+    if (keyword != null && keyword !=''){
+      condition = {
+        offset,
+        limit,
+        order: [
+          ['commentAt', 'desc'],
+          ['Id', 'desc']
+        ],
+        include: [{
+          model: app.model.Artifacts,
+          where:{
+            name:{
+                [app.Sequelize.Op.like]: '%'+keyword+'%'
+            }
+          }
+          attributes:['Id','name']
+        },{
+          model: app.model.Users,
+          attributes:['Id','fullname','avatarUrl']
+        }],
+      };
+    }
+    else{
+      condition = {
+        offset,
+        limit,
+        order: [
+          ['commentAt', 'desc'],
+          ['Id', 'desc']
+        ],
+        include: [{
+          model: app.model.Artifacts,
+          attributes:['Id','name']
+        },{
+          model: app.model.Users,
+          attributes:['Id','fullname','avatarUrl']
+        }],
+      };
+    }
+
+
+    return await this.findAndCountAll(condition);
+  }
+
   return ArtifactComments;
 };
