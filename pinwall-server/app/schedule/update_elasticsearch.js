@@ -27,7 +27,7 @@ class UpdateElasticsearch extends Subscription {
     let lastSyncTime = new Date(fs.readFileSync(filename,'utf-8'));
 
     try{
-      let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime,0);
+      let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime.toLocaleString(),0);
       for (let artiObj of esArray){
         await ctx.service.esUtils.createObject(artiObj.Id, artiObj);
 
@@ -62,7 +62,7 @@ class UpdateElasticsearch extends Subscription {
 
     //更新数据到es
     try{
-      let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime,1);
+      let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime.toLocaleString(),1);
       for (let artiObj of esArray){
         await ctx.service.esUtils.updateobject(artiObj.Id, artiObj);
         let object = {};
@@ -95,7 +95,7 @@ class UpdateElasticsearch extends Subscription {
 
     try {
       fd = fs.openSync(filename, 'w');
-      fs.appendFileSync(fd, thisSyncTime +' \n', 'utf8');
+      fs.appendFileSync(fd, thisSyncTime.toLocaleString(), 'utf8');
     } catch (err) {
       /* Handle the error */
     } finally {
