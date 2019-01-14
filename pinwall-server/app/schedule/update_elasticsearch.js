@@ -57,7 +57,6 @@ class UpdateElasticsearch extends Subscription {
 
     }
     catch(e){
-      console.log(e);
       this.ctx.getLogger('elasticLogger').info(e.message+"\n");
     }
 
@@ -91,7 +90,7 @@ class UpdateElasticsearch extends Subscription {
       }
     }
     catch(e){
-      ctx.getLogger('elasticLogger').info("ID:"+artiObj.Id+": "+e.message+"\n");
+      this.ctx.getLogger('elasticLogger').info(e.message+"\n");
     }
 
     try {

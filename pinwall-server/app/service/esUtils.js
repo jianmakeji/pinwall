@@ -24,7 +24,7 @@ class esUtils extends Service {
   }
 
   async updateobject(id, updateObject){
-
+    const ctx = this.ctx; 
     const response = await ctx.app.elasticsearch.update({
       index: ctx.app.es_index,
       type: ctx.app.es_type,
@@ -83,7 +83,7 @@ class esUtils extends Service {
   }
 
   async updateSuggestObject(id, updateObject){
-
+    const ctx = this.ctx;
     const response = await ctx.app.elasticsearch.update({
       index: ctx.app.es_search_suggest_index,
       type: ctx.app.es_search_suggest_type,
