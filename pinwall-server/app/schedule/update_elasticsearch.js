@@ -24,10 +24,10 @@ class UpdateElasticsearch extends Subscription {
 
     let fd;
     const thisSyncTime = new Date();
-    let lastSyncTime = new Date(fs.readFileSync(filename,'utf-8'));
+    let lastSyncTime = fs.readFileSync(filename,'utf-8');
 
     try{
-      let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime.toLocaleString(),0);
+      let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime,0);
       for (let artiObj of esArray){
         await ctx.service.esUtils.createObject(artiObj.Id, artiObj);
 
@@ -57,12 +57,13 @@ class UpdateElasticsearch extends Subscription {
 
     }
     catch(e){
+      console.log(e);
       this.ctx.getLogger('elasticLogger').info(e.message+"\n");
     }
 
     //更新数据到es
     try{
-      let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime.toLocaleString(),1);
+      let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime,1);
       for (let artiObj of esArray){
         await ctx.service.esUtils.updateobject(artiObj.Id, artiObj);
         let object = {};

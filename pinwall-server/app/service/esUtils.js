@@ -69,7 +69,7 @@ class esUtils extends Service {
       index: ctx.app.es_search_suggest_index,
       type: ctx.app.es_search_suggest_type,
       id: id,
-      body: searchObject
+      body: suggestObject
     });
   }
 
