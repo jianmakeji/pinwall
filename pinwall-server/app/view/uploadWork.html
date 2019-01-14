@@ -132,20 +132,17 @@
 					</row>
 				</div>
 				<div class="step3" v-show="stepThreeActive">
-					<!-- <div class="submit_upload" @click="submitData">
-						<i-input type="submit" @click.prevent="keyDownEvent" prefix="md-checkmark"></i-input>
-					</div> -->
 					<div class="submit_box">
 						<a @click="submitData">
-							<img src="http://pinwall.design-engine.org/images/app/flag_green.png" alt="">
+							<img src="http://pinwall.design-engine.org/images/app/flag_green.png">
 							<icon type="ios-thumbs-up" style="font-size: 40px; position: absolute;top: 15px;left: 20px;"></icon>
 							<span>提交</span>
 						</a>
 					</div>
 					<div class="user_info">
 						<a href="#">
-							<img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
-							<p class="name">甘四球</p>
+							<img class="photo" :src="'{{user.avatarUrl}}' ? '{{user.avatarUrl}}' : 'http://pinwall.design-engine.org/images/default_profile.jpg'">
+							<p class="name">{{user.fullname}}</p>
 						</a>
 					</div>
 					<h2 v-text="dataItem.name"></h2>
