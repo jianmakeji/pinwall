@@ -55,52 +55,57 @@ var container = new Vue({
             let that = this;
             let file = files.target.files[0];
             let fileName = calculate_object_name(files.target.files[0].name);
-            $.ajax({
-                url: '/getSTSSignature/1',
-                type: 'GET',
-                success:function(res){
-                    if (res.res.status == 200){
-                        let client = new OSS({
-                      		accessKeyId: res.credentials.AccessKeyId,
-                      		accessKeySecret: res.credentials.AccessKeySecret,
-                      		stsToken: res.credentials.SecurityToken,
-                            bucket:bucket
-                    	});
-                        client.multipartUpload('images/'+ fileName, file).then(function (res) {
-                            let objectPath = 'images/' + fileName;
-                            $.ajax({
-                                url: config.ajaxUrls.getUrlSignature,
-                                type: 'GET',
-                                data:{objectPath:objectPath},
-                                success:function(res){
-                                    let img = new Image();
-                                    img.src = res;
-                                    img.onload = function(){
-                                        if(img.width == img.height && img.width >= 600 && img.width <= 800){
-                                            that.step1_upload_fengmian_src = res;
-                                            that.dataItem.profileImage = fileName;
-                                        }else{
-                                            that.$Notice.error({title:"图片不符合尺寸要求！，请重新上传……"});
+            let fileSize = files.target.files[0].size/1048576;
+            if (fileSize <= 2) {
+                $.ajax({
+                    url: '/getSTSSignature/1',
+                    type: 'GET',
+                    success:function(res){
+                        if (res.res.status == 200){
+                            let client = new OSS({
+                          		accessKeyId: res.credentials.AccessKeyId,
+                          		accessKeySecret: res.credentials.AccessKeySecret,
+                          		stsToken: res.credentials.SecurityToken,
+                                bucket:bucket
+                        	});
+                            client.multipartUpload('images/'+ fileName, file).then(function (res) {
+                                let objectPath = 'images/' + fileName;
+                                $.ajax({
+                                    url: config.ajaxUrls.getUrlSignature,
+                                    type: 'GET',
+                                    data:{objectPath:objectPath},
+                                    success:function(res){
+                                        let img = new Image();
+                                        img.src = res;
+                                        img.onload = function(){
+                                            if(img.width == img.height && img.width >= 600 && img.width <= 800){
+                                                that.step1_upload_fengmian_src = res;
+                                                that.dataItem.profileImage = fileName;
+                                            }else{
+                                                that.$Notice.error({title:"图片不符合尺寸要求！，请重新上传……"});
+                                            }
                                         }
                                     }
+                                })
+                        	});
+                        }else if (res.res.status == 999) {
+                            that.$Notice.error({
+                                title:res.data,
+                                duration:3,
+                                onClose(){
+                                    window.location.href = "/login";
                                 }
+                            });
+                        }else if(res.status == 500){
+                            that.$Notice.error({
+                                title:"上传出现异常，请刷新界面重试！"
                             })
-                    	});
-                    }else if (res.res.status == 999) {
-                        that.$Notice.error({
-                            title:res.data,
-                            duration:3,
-                            onClose(){
-                                window.location.href = "/login";
-                            }
-                        });
-                    }else if(res.status == 500){
-                        that.$Notice.error({
-                            title:"上传出现异常，请刷新界面重试！"
-                        })
+                        }
                     }
-                }
-            })
+                })
+            }else{
+                this.$Notice.error({title:"图片大小不符，请重新选择"});
+            }
         },
         step2_upload_neirong_change(files){
             let that = this;
@@ -509,13 +514,8 @@ var container = new Vue({
                     data:this.dataItem,
                     success:function(res){
                         if (res.status == 200) {
-                            that.$Notice.success({
-                                title:"上传作品成功，2秒后返回!",
-                                duration:2,
-                                onClose:function(){
-                                    window.location.href = "/uploadWork/2";
-                                }
-                            })
+                            that.$Notice.success({title:"上传作品成功，2秒后返回!"});
+                            window.location.href = "/uploadWork/2";
                         }
                     }
                 })
@@ -526,13 +526,8 @@ var container = new Vue({
                     data:this.dataItem,
                     success:function(res){
                         if (res.status == 200) {
-                            that.$Notice.success({
-                                title:"上传作品成功，2秒后返回!",
-                                duration:2,
-                                onClose:function(){
-                                    window.location.href = "/uploadWork/2";
-                                }
-                            })
+                            that.$Notice.success({title:"上传作品成功，2秒后返回!"});
+                            window.location.href = "/uploadWork/2";
                         }
                     }
                 })

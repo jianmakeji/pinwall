@@ -14,7 +14,7 @@ class UpdateElasticsearch extends Subscription {
 
   // subscribe 是真正定时任务执行时被运行的函数
   async subscribe() {
-    const filePath =  path.resolve(this.app.config.static.dir,'project_config');
+  const filePath =  path.resolve(this.app.config.static.dir,'project_config');
 
     if(!fs.existsSync(filePath)){
       fs.mkdirSync(filePath);
