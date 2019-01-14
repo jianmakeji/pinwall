@@ -328,6 +328,51 @@ module.exports = app => {
     });
   }
 
+  Artifacts.findArtifactByTime = async function(lastSyncTime,tag) {
+    let condition = {
+      include: [{
+        model: app.model.ArtifactAssets
+      },{
+        model: app.model.Users,
+        attributes:['Id','fullname','avatarUrl']
+      },{
+        model: app.model.Topics,
+        through:{
+          attributes:['topicId','artifactId'],
+        },
+        attributes:['Id','name','userId','status']
+      },{
+        model: app.model.Terms,
+        through:{
+          attributes:['termId','artifactId'],
+        },
+        attributes:['Id','name']
+      },{
+        model: app.model.ArtifactScores
+      }]
+    };
+
+    condition.where = {};
+    if (tag == 0){
+      condition.where.createAt = {
+        [app.Sequelize.Op.gte]: lastSyncTime
+      };
+    }
+    else{
+      condition.where.updateAt = {
+        [app.Sequelize.Op.gte]: lastSyncTime
+      };
+    }
+
+    const artifact = await this.findAll(condition);
+
+    if (!artifact) {
+      throw new Error('artifact not found');
+    }
+
+    return artifact;
+  }
+
   Artifacts.transferArtifacts = async function() {
 
     let condition = {
@@ -349,7 +394,9 @@ module.exports = app => {
           attributes:['termId','artifactId'],
         },
         attributes:['Id','name']
-      }]
+      },{
+        model: app.model.ArtifactScores
+      ]
     };
 
 

@@ -89,36 +89,6 @@ class Artifacts extends Service {
             },transaction);
           }
           await transaction.commit();
-          try{
-            let esObject = await this.ctx.model.Artifacts.findArtifactById(artiObj.Id);
-            await this.ctx.service.esUtils.createObject(artiObj.Id, esObject);
-
-            let object = {};
-            object.Id = esObject.Id;
-            object.suggest = new Array();
-
-            let name_suggest = {};
-            name_suggest.input = esObject.name;
-            name_suggest.weight = 10;
-            object.suggest.push(name_suggest);
-
-            let fullname_suggest = {};
-            fullname_suggest.input = esObject.user.fullname;
-            fullname_suggest.weight = 16;
-            object.suggest.push(fullname_suggest);
-
-            esObject.terms.forEach((term,index)=>{
-              let term_suggest = {};
-              term_suggest.input = term.name;
-              term_suggest.weight = 8;
-              object.suggest.push(term_suggest);
-            });
-            await this.ctx.service.esUtils.createSuggestObject(artiObj.Id, object);
-
-          }
-          catch(e){
-            this.ctx.getLogger('elasticLogger').info("ID:"+artiObj.Id+": "+e.message+"\n");
-          }
 
           return true
         } catch (e) {
@@ -177,35 +147,6 @@ class Artifacts extends Service {
         await ctx.model.ArtifactTerm.delArtifactTermByArtifactIdAndtermId(id,updates.deleteTerms,transaction);
       }
       await transaction.commit();
-
-      try{
-        let esObject = await ctx.model.Artifacts.findArtifactById(id);
-        await ctx.service.esUtils.updateobject(id, esObject);
-        let object = {};
-        object.Id = esObject.Id;
-        object.suggest = new Array();
-
-        let name_suggest = {};
-        name_suggest.input = esObject.name;
-        name_suggest.weight = 10;
-        object.suggest.push(name_suggest);
-
-        let fullname_suggest = {};
-        fullname_suggest.input = esObject.user.fullname;
-        fullname_suggest.weight = 16;
-        object.suggest.push(fullname_suggest);
-
-        esObject.terms.forEach((term,index)=>{
-          let term_suggest = {};
-          term_suggest.input = term.name;
-          term_suggest.weight = 8;
-          object.suggest.push(term_suggest);
-        });
-        await ctx.service.esUtils.updateSuggestObject(id, esObject);
-      }
-      catch(e){
-        ctx.getLogger('elasticLogger').info("ID:"+artiObj.Id+": "+e.message+"\n");
-      }
 
       try{
         let deleteAliOSSArray = new Array();

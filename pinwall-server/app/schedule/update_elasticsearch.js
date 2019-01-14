@@ -31,17 +31,90 @@ class UpdateElasticsearch extends Subscription {
        const lastSyncTime = new Date(data.toString());
        console.log('last sync time :' + lastSyncTime);
 
-    });
+       //新写入数据到es
 
-    try {
-      fd = fs.openSync(filename, 'w');
-      fs.appendFileSync(fd, thisSyncTime +' \n', 'utf8');
-    } catch (err) {
-      /* Handle the error */
-    } finally {
-      if (fd !== undefined)
-        fs.closeSync(fd);
-    }
+       try{
+         let esArray = await this.ctx.model.Artifacts.findArtifactByTime(lastSyncTime,0);
+
+         esArray.forEach((artiObj)=>{
+           await this.ctx.service.esUtils.createObject(artiObj.Id, esObject);
+
+           let object = {};
+           object.Id = esObject.Id;
+           object.suggest = new Array();
+
+           let name_suggest = {};
+           name_suggest.input = esObject.name;
+           name_suggest.weight = 10;
+           object.suggest.push(name_suggest);
+
+           let fullname_suggest = {};
+           fullname_suggest.input = esObject.user.fullname;
+           fullname_suggest.weight = 16;
+           object.suggest.push(fullname_suggest);
+
+           esObject.terms.forEach((term,index)=>{
+             let term_suggest = {};
+             term_suggest.input = term.name;
+             term_suggest.weight = 8;
+             object.suggest.push(term_suggest);
+           });
+           await this.ctx.service.esUtils.createSuggestObject(artiObj.Id, object);
+           this.ctx.getLogger('elasticLogger').info(artiObj.Id+"\n");
+         });
+
+
+       }
+       catch(e){
+         this.ctx.getLogger('elasticLogger').info(e.message+"\n");
+       }
+
+       //更新数据到es
+       try{
+         let esArray = await this.ctx.model.Artifacts.findArtifactByTime(lastSyncTime,1);
+
+         esArray.forEach((artiObj)=>{
+           await ctx.service.esUtils.updateobject(artiObj.Id, esObject);
+           let object = {};
+           object.Id = artiObj.Id;
+           object.suggest = new Array();
+
+           let name_suggest = {};
+           name_suggest.input = artiObj.name;
+           name_suggest.weight = 10;
+           object.suggest.push(name_suggest);
+
+           let fullname_suggest = {};
+           fullname_suggest.input = artiObj.user.fullname;
+           fullname_suggest.weight = 16;
+           object.suggest.push(fullname_suggest);
+
+           esObject.terms.forEach((term,index)=>{
+             let term_suggest = {};
+             term_suggest.input = term.name;
+             term_suggest.weight = 8;
+             object.suggest.push(term_suggest);
+           });
+           await ctx.service.esUtils.updateSuggestObject(artiObj.Id, artiObj);
+           this.ctx.getLogger('elasticLogger').info(artiObj.Id+"\n");
+         });
+
+       }
+       catch(e){
+         ctx.getLogger('elasticLogger').info("ID:"+artiObj.Id+": "+e.message+"\n");
+       }
+
+
+       try {
+         fd = fs.openSync(filename, 'w');
+         fs.appendFileSync(fd, thisSyncTime +' \n', 'utf8');
+       } catch (err) {
+         /* Handle the error */
+       } finally {
+         if (fd !== undefined)
+           fs.closeSync(fd);
+       }
+    });
 
   }
 }
