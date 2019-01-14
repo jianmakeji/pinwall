@@ -396,7 +396,7 @@ module.exports = app => {
         attributes:['Id','name']
       },{
         model: app.model.ArtifactScores
-      ]
+      }]
     };
 
 

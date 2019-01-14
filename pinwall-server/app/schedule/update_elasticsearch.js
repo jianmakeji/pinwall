@@ -6,15 +6,16 @@ class UpdateElasticsearch extends Subscription {
   // 通过 schedule 属性来设置定时任务的执行间隔等配置
   static get schedule() {
     return {
-      interval: '10s', // 1m 分钟间隔
+      interval: '1m', // 1m 分钟间隔
       type: 'worker', // 指定所有的 worker 都需要执行
     };
   }
 
-
   // subscribe 是真正定时任务执行时被运行的函数
   async subscribe() {
-  const filePath =  path.resolve(this.app.config.static.dir,'project_config');
+
+    const ctx = this.ctx;
+    const filePath =  path.resolve(this.app.config.static.dir,'project_config');
 
     if(!fs.existsSync(filePath)){
       fs.mkdirSync(filePath);
@@ -23,99 +24,84 @@ class UpdateElasticsearch extends Subscription {
 
     let fd;
     const thisSyncTime = new Date();
+    let lastSyncTime = fs.readFileSync(filename,'utf-8');
 
-    fs.readFile(filename, function (err, data) {
-       if (err) {
-          return console.error(err);
-       }
-       const lastSyncTime = new Date(data.toString());
-       console.log('last sync time :' + lastSyncTime);
+    try{
+      let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime,0);
+      for (let artiObj of esArray){
+        await ctx.service.esUtils.createObject(artiObj.Id, esObject);
 
-       //新写入数据到es
+        let object = {};
+        object.Id = esObject.Id;
+        object.suggest = new Array();
 
-       try{
-         let esArray = await this.ctx.model.Artifacts.findArtifactByTime(lastSyncTime,0);
+        let name_suggest = {};
+        name_suggest.input = esObject.name;
+        name_suggest.weight = 10;
+        object.suggest.push(name_suggest);
 
-         esArray.forEach((artiObj)=>{
-           await this.ctx.service.esUtils.createObject(artiObj.Id, esObject);
+        let fullname_suggest = {};
+        fullname_suggest.input = esObject.user.fullname;
+        fullname_suggest.weight = 16;
+        object.suggest.push(fullname_suggest);
 
-           let object = {};
-           object.Id = esObject.Id;
-           object.suggest = new Array();
+        esObject.terms.forEach((term,index)=>{
+          let term_suggest = {};
+          term_suggest.input = term.name;
+          term_suggest.weight = 8;
+          object.suggest.push(term_suggest);
+        });
+        await ctx.service.esUtils.createSuggestObject(artiObj.Id, object);
+        ctx.getLogger('elasticLogger').info(artiObj.Id+"\n");
+      }
 
-           let name_suggest = {};
-           name_suggest.input = esObject.name;
-           name_suggest.weight = 10;
-           object.suggest.push(name_suggest);
+    }
+    catch(e){
+      this.ctx.getLogger('elasticLogger').info(e.message+"\n");
+    }
 
-           let fullname_suggest = {};
-           fullname_suggest.input = esObject.user.fullname;
-           fullname_suggest.weight = 16;
-           object.suggest.push(fullname_suggest);
+    //更新数据到es
+    try{
+      let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime,1);
+      for (let artiObj of esArray){
+        await ctx.service.esUtils.updateobject(artiObj.Id, esObject);
+        let object = {};
+        object.Id = artiObj.Id;
+        object.suggest = new Array();
 
-           esObject.terms.forEach((term,index)=>{
-             let term_suggest = {};
-             term_suggest.input = term.name;
-             term_suggest.weight = 8;
-             object.suggest.push(term_suggest);
-           });
-           await this.ctx.service.esUtils.createSuggestObject(artiObj.Id, object);
-           this.ctx.getLogger('elasticLogger').info(artiObj.Id+"\n");
-         });
+        let name_suggest = {};
+        name_suggest.input = artiObj.name;
+        name_suggest.weight = 10;
+        object.suggest.push(name_suggest);
 
+        let fullname_suggest = {};
+        fullname_suggest.input = artiObj.user.fullname;
+        fullname_suggest.weight = 16;
+        object.suggest.push(fullname_suggest);
 
-       }
-       catch(e){
-         this.ctx.getLogger('elasticLogger').info(e.message+"\n");
-       }
+        esObject.terms.forEach((term,index)=>{
+          let term_suggest = {};
+          term_suggest.input = term.name;
+          term_suggest.weight = 8;
+          object.suggest.push(term_suggest);
+        });
+        await ctx.service.esUtils.updateSuggestObject(artiObj.Id, artiObj);
+        ctx.getLogger('elasticLogger').info(artiObj.Id+"\n");
+      }
+    }
+    catch(e){
+      ctx.getLogger('elasticLogger').info("ID:"+artiObj.Id+": "+e.message+"\n");
+    }
 
-       //更新数据到es
-       try{
-         let esArray = await this.ctx.model.Artifacts.findArtifactByTime(lastSyncTime,1);
-
-         esArray.forEach((artiObj)=>{
-           await ctx.service.esUtils.updateobject(artiObj.Id, esObject);
-           let object = {};
-           object.Id = artiObj.Id;
-           object.suggest = new Array();
-
-           let name_suggest = {};
-           name_suggest.input = artiObj.name;
-           name_suggest.weight = 10;
-           object.suggest.push(name_suggest);
-
-           let fullname_suggest = {};
-           fullname_suggest.input = artiObj.user.fullname;
-           fullname_suggest.weight = 16;
-           object.suggest.push(fullname_suggest);
-
-           esObject.terms.forEach((term,index)=>{
-             let term_suggest = {};
-             term_suggest.input = term.name;
-             term_suggest.weight = 8;
-             object.suggest.push(term_suggest);
-           });
-           await ctx.service.esUtils.updateSuggestObject(artiObj.Id, artiObj);
-           this.ctx.getLogger('elasticLogger').info(artiObj.Id+"\n");
-         });
-
-       }
-       catch(e){
-         ctx.getLogger('elasticLogger').info("ID:"+artiObj.Id+": "+e.message+"\n");
-       }
-
-
-       try {
-         fd = fs.openSync(filename, 'w');
-         fs.appendFileSync(fd, thisSyncTime +' \n', 'utf8');
-       } catch (err) {
-         /* Handle the error */
-       } finally {
-         if (fd !== undefined)
-           fs.closeSync(fd);
-       }
-    });
-
+    try {
+      fd = fs.openSync(filename, 'w');
+      fs.appendFileSync(fd, thisSyncTime +' \n', 'utf8');
+    } catch (err) {
+      /* Handle the error */
+    } finally {
+      if (fd !== undefined)
+        fs.closeSync(fd);
+    }
   }
 }
 
