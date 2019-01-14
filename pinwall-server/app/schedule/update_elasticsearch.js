@@ -6,7 +6,7 @@ class UpdateElasticsearch extends Subscription {
   // 通过 schedule 属性来设置定时任务的执行间隔等配置
   static get schedule() {
     return {
-      interval: '1m', // 1m 分钟间隔
+      interval: '10s', // 1m 分钟间隔
       type: 'worker', // 指定所有的 worker 都需要执行
     };
   }
@@ -24,28 +24,28 @@ class UpdateElasticsearch extends Subscription {
 
     let fd;
     const thisSyncTime = new Date();
-    let lastSyncTime = fs.readFileSync(filename,'utf-8');
+    let lastSyncTime = new Date(fs.readFileSync(filename,'utf-8'));
 
     try{
       let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime,0);
       for (let artiObj of esArray){
-        await ctx.service.esUtils.createObject(artiObj.Id, esObject);
+        await ctx.service.esUtils.createObject(artiObj.Id, artiObj);
 
         let object = {};
-        object.Id = esObject.Id;
+        object.Id = artiObj.Id;
         object.suggest = new Array();
 
         let name_suggest = {};
-        name_suggest.input = esObject.name;
+        name_suggest.input = artiObj.name;
         name_suggest.weight = 10;
         object.suggest.push(name_suggest);
 
         let fullname_suggest = {};
-        fullname_suggest.input = esObject.user.fullname;
+        fullname_suggest.input = artiObj.user.fullname;
         fullname_suggest.weight = 16;
         object.suggest.push(fullname_suggest);
 
-        esObject.terms.forEach((term,index)=>{
+        artiObj.terms.forEach((term,index)=>{
           let term_suggest = {};
           term_suggest.input = term.name;
           term_suggest.weight = 8;
@@ -64,7 +64,7 @@ class UpdateElasticsearch extends Subscription {
     try{
       let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime,1);
       for (let artiObj of esArray){
-        await ctx.service.esUtils.updateobject(artiObj.Id, esObject);
+        await ctx.service.esUtils.updateobject(artiObj.Id, artiObj);
         let object = {};
         object.Id = artiObj.Id;
         object.suggest = new Array();
@@ -79,7 +79,7 @@ class UpdateElasticsearch extends Subscription {
         fullname_suggest.weight = 16;
         object.suggest.push(fullname_suggest);
 
-        esObject.terms.forEach((term,index)=>{
+        artiObj.terms.forEach((term,index)=>{
           let term_suggest = {};
           term_suggest.input = term.name;
           term_suggest.weight = 8;

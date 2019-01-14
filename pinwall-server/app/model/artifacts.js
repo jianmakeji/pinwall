@@ -351,7 +351,7 @@ module.exports = app => {
         model: app.model.ArtifactScores
       }]
     };
-
+    console.log('========:'+lastSyncTime);
     condition.where = {};
     if (tag == 0){
       condition.where.createAt = {
