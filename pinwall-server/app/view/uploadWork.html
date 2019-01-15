@@ -65,7 +65,7 @@
 							<ul class="uploaded_list" id="uploaded_list">
 								<li @click="selectLi(index)" v-for="(item, index) in step2_upload_neirong_src">
 									<img class="thumb" :src="item" />
-									<span style="width: 60px;overflow-x: hidden;word-break: keep-all;" v-text="neirong_truename_arr[index].split('.')[0]"></span>
+									<span style="width: 60px;overflow-x: hidden;word-break: keep-all;" v-text="neirong_truename_arr[index]?neirong_truename_arr[index].split('.')[0] : ''"></span>
 									<i-button icon="md-trash" shape="circle" type="error" @click.stop="deleteUploadImg(index)"></i-button>
 								</li>
 							</ul>
