@@ -26,6 +26,8 @@ class UpdateElasticsearch extends Subscription {
     const thisSyncTime = new Date();
     let lastSyncTime = fs.readFileSync(filename,'utf-8');
 
+    let insertTag = false;
+    let updateTag = false;
     try{
       let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime,0);
       for (let artiObj of esArray){
@@ -54,9 +56,10 @@ class UpdateElasticsearch extends Subscription {
         await ctx.service.esUtils.createSuggestObject(artiObj.Id, object);
         ctx.getLogger('elasticLogger').info(artiObj.Id+"\n");
       }
-
+      insertTag = true;
     }
     catch(e){
+      insertTag = false;
       this.ctx.getLogger('elasticLogger').info(e.message+"\n");
     }
 
@@ -88,20 +91,25 @@ class UpdateElasticsearch extends Subscription {
         await ctx.service.esUtils.updateSuggestObject(artiObj.Id, artiObj);
         ctx.getLogger('elasticLogger').info(artiObj.Id+"\n");
       }
+      updateTag = false;
     }
     catch(e){
+      updateTag = true;
       this.ctx.getLogger('elasticLogger').info(e.message+"\n");
     }
-
-    try {
-      fd = fs.openSync(filename, 'w');
-      fs.appendFileSync(fd, thisSyncTime.toLocaleString(), 'utf8');
-    } catch (err) {
-      /* Handle the error */
-    } finally {
-      if (fd !== undefined)
-        fs.closeSync(fd);
+    
+    if(insertTag && updateTag){
+      try {
+        fd = fs.openSync(filename, 'w');
+        fs.appendFileSync(fd, thisSyncTime.toLocaleString(), 'utf8');
+      } catch (err) {
+        /* Handle the error */
+      } finally {
+        if (fd !== undefined)
+          fs.closeSync(fd);
+      }
     }
+
   }
 }
 
