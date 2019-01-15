@@ -174,22 +174,18 @@ class Artifacts extends Service {
         }
 
         for (const artifactAssets of artifact.artifact_assets){
-            for(const updateAssets of updates.artifact_assets){
-                if (artifactAssets.profileImage != updateAssets.profileImage &&  artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1){
-                    deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
-                }
+            if (artifactAssets.profileImage != '' &&  artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1){
+                deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
+            }
 
-                if (artifactAssets.mediaFile != updateAssets.mediaFile){
-                    if(artifactAssets.type == 2 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
-                      deleteAliOSSArray.push(ctx.app.pdfPath + artifactAssets.mediaFile);
-                    }
-                    else if(artifactAssets.type == 3 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
-                      deleteAliOSSArray.push(ctx.app.rar_zipPath + artifactAssets.mediaFile);
-                    }
-                    else if(artifactAssets.type == 4 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
-                      deleteAliOSSArray.push(ctx.app.videoPath + artifactAssets.mediaFile);
-                    }
-                }
+            if(artifactAssets.type == 2 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+                deleteAliOSSArray.push(ctx.app.pdfPath + artifactAssets.mediaFile);
+            }
+            else if(artifactAssets.type == 3 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+              deleteAliOSSArray.push(ctx.app.rar_zipPath + artifactAssets.mediaFile);
+            }
+            else if(artifactAssets.type == 4 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+              deleteAliOSSArray.push(ctx.app.videoPath + artifactAssets.mediaFile);
             }
         }
         if (deleteAliOSSArray.length > 0){
