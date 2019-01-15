@@ -149,7 +149,8 @@ var container = new Vue({
                                         subarr.position = "";
                                     }
                         			subarr.name = "";
-                        			subarr.filename = files.target.files[0].name.split(".")[0];
+                        			subarr.filename = "";
+                                    subarr.imagename = files.target.files[0].name;
                         			subarr.description = "";
                         			subarr.type = 1;
                         			subarr.profileImage = fileName;
@@ -211,7 +212,7 @@ var container = new Vue({
                                 success:function(res){
                                     that.$Notice.success({title:'上传成功！'});
                                     that.step2_upload_neirong_src.splice(that.which_artifact_assets,1,res);
-                                    that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name.split(".")[0];
+                                    that.step2_between_arr[that.which_artifact_assets].imagename = files.target.files[0].name;
                                     that.step2_between_arr[that.which_artifact_assets].viewImgUrl = res;
                                     that.step2_between_arr[that.which_artifact_assets].profileImage = fileName;
                                     that.neirong_truename_arr[that.which_artifact_assets] = files.target.files[0].name;
@@ -259,6 +260,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].type = 4;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("video/")[1];
+                            that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -301,6 +303,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].type = 2;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("pdf/")[1];
+                            that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -342,6 +345,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].type = 3;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
+                            that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -383,6 +387,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].type = 3;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
+                            that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -500,6 +505,7 @@ var container = new Vue({
 
         },
         goStep3(){
+            console.log(this.dataItem);
             if (this.step2_upload_neirong_src.length) {
                 this.stepOneActive = false;
                 this.stepTwoActive = false;
@@ -529,7 +535,7 @@ var container = new Vue({
                                 title:"上传作品成功，2秒后返回!",
                                 duration:2,
                                 onClose(){
-                                    history.back(-1);
+                                    // history.back(-1);
                                 }
                             });
                         }
@@ -572,6 +578,7 @@ var container = new Vue({
                 url: config.ajaxUrls.getArtifactsWithId.replace(":id",this.dataItem.Id),
                 type: 'GET',
                 success(res){
+                    console.log(res);
                     that.dataItem.name = res.data.name;
                     that.dataItem.artifact_assets = res.data.artifact_assets;
                     that.dataItem.description = res.data.description;
@@ -593,6 +600,7 @@ var container = new Vue({
                         bet.position = res.data.artifact_assets[i].position;
                         bet.name = res.data.artifact_assets[i].name;
                         bet.filename = res.data.artifact_assets[i].filename;
+                        bet.imagename = res.data.artifact_assets[i].imagename;
                         bet.description = res.data.artifact_assets[i].description;
                         bet.type = res.data.artifact_assets[i].type;
                         bet.profileImage = res.data.artifact_assets[i].profileImage;
@@ -602,11 +610,12 @@ var container = new Vue({
                         that.step2_between_arr.push(bet);
 
                         let other = new Object();
-                        other.fileTrueName = res.data.artifact_assets[i].mediaFile.split("?")[0].split("/")[res.data.artifact_assets[i].mediaFile.split("?")[0].split("/").length - 1];;
+                        // other.fileTrueName = res.data.artifact_assets[i].mediaFile.split("?")[0].split("/")[res.data.artifact_assets[i].mediaFile.split("?")[0].split("/").length - 1];
+                        other.fileTrueName = res.data.artifact_assets[i].filename;
                         other.progress =  res.data.artifact_assets[i].mediaFile ? '100' : "0";
                         that.file_otherinof_arr.push(other);
 
-                        that.neirong_truename_arr.push(res.data.artifact_assets[i].filename);
+                        that.neirong_truename_arr.push(res.data.artifact_assets[i].imagename);
                     }
                 }
             });

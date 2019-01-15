@@ -77,6 +77,7 @@ class HomeController extends BaseController {
       });
     }
     catch(e){
+        console.log(e);
       super.failure(e.message);
     }
 

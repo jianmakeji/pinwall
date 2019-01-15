@@ -142,6 +142,7 @@ class Artifacts extends Service {
             asset.description = artifact_asset.description,
             asset.type = artifact_asset.type,
             asset.profileImage = artifact_asset.profileImage,
+            asset.imagename = artifact_asset.imagename,
             asset.mediaFile = artifact_asset.mediaFile,
             asset.viewUrl = artifact_asset.viewUrl,
             asset.artifactId = id;

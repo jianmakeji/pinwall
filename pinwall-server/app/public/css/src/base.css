@@ -26,16 +26,32 @@ img{
 	border:none;
 }
 
-.pinwall_logo{
-    display: flex;flex-direction: row;align-items: center;justify-content: center;color: white;font-size: 18px;font-weight: bold;
-}
-
 .header {
 	background: #333;
 	height: 60px;
 	line-height: 60px;
 	text-align: center;
 	color: #ccc;
+}
+.header .pinwall_logo{
+    display: flex;flex-direction: row;align-items: center;justify-content: center;color: white;font-size: 18px;font-weight: bold;
+}
+.header .pinwall_logo div{
+    width: 60px;
+    height: 60px;
+}
+.header .pinwall_logo .div1{
+    position: relative;
+    perspective:150;
+    -webkit-perspective:150;
+}
+.header .pinwall_logo .div2{
+    position: absolute;
+    background: url('http://pinwall.design-engine.org/images/app/loading_spinner.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: rotateY(45deg);
+    -webkit-transform: rotateY(45deg);
 }
 .header .user_profile{
 	display: flex;
