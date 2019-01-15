@@ -3,6 +3,7 @@ var projects = new Vue({
     delimiters: ['${', '}'],
     data() {
         return {
+            deleteModal:false,
             artifactId: "",
             aoData: {
                 limit: 10,
@@ -36,7 +37,10 @@ var projects = new Vue({
         editArtifact(jobTag) {
             window.location.href = "/editUploadWork?id=" + this.aoData.artifactId + "&jobTag=" + jobTag;
         },
-        deleteArtifact() {
+        deleteArtifact(){
+            this.deleteModal = true;
+        },
+        ok() {
             let that = this;
             $.ajax({
                 url: '/website/artifacts/'+this.artifactId,

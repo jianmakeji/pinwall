@@ -514,8 +514,13 @@ var container = new Vue({
                     data:this.dataItem,
                     success:function(res){
                         if (res.status == 200) {
-                            that.$Notice.success({title:"上传作品成功，2秒后返回!"});
-                            window.location.href = "/uploadWork/2";
+                            that.$Notice.success({
+                                title:"上传作品成功，2秒后返回!",
+                                duration:2,
+                                onClose(){
+                                    history.back(-1);
+                                }
+                            });
                         }
                     }
                 })
@@ -526,8 +531,13 @@ var container = new Vue({
                     data:this.dataItem,
                     success:function(res){
                         if (res.status == 200) {
-                            that.$Notice.success({title:"上传作品成功，2秒后返回!"});
-                            window.location.href = "/uploadWork/2";
+                            that.$Notice.success({
+                                title:"上传作品成功，2秒后返回!",
+                                duration:2,
+                                onClose(){
+                                    window.location.href = "/uploadWork/2";
+                                }
+                            });
                         }
                     }
                 })

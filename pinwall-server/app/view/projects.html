@@ -11,7 +11,6 @@
 	<body>
 		<div class="projects" v-cloak :style="projectStyle">
 			<div class="zan_box">
-				<p v-show="!'{{data.userId}}'">{{data.userId}}</p>
 				{% if user.roles[0].name != "" %}
 					<a @click="zan('{{data.userId}}','{{user.roles[0].name}}')">
 						<img :src="artifactZanTag ? 'http://pinwall.design-engine.org/images/app/flag_green.png' : 'http://pinwall.design-engine.org/images/app/flag_gray.png'" alt="">
@@ -164,6 +163,12 @@
 				</div>
 				{% endif %}
 			</div>
+			<modal v-model="deleteModal" @on-ok="ok" title="警告！！！">
+		        <p style="color:#ed3f14;text-align:center">
+		            <icon type="information-circled"></icon>
+		            <span style="font-size: 15px;">确定删除该作品?</span>
+		        </p>
+		    </modal>
 			<div class="footer">
 				<p>© 湖南大学设计艺术学院，保留所有权利。</p>
 			</div>
