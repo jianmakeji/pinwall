@@ -169,7 +169,7 @@ class Artifacts extends Service {
 
       try{
         let deleteAliOSSArray = new Array();
-        if ((updates.profileImage != '' || updates.profileImage != null) && updates.profileImage != artifact.profileImage &&  artifact.profileImage.indexOf('pinwall.fzcloud') == -1){
+        if (updates.profileImage != artifact.profileImage &&  artifact.profileImage.indexOf('pinwall.fzcloud') == -1){
           deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
         }
 
