@@ -8,14 +8,14 @@ var index = new Vue({
             },
             drawerShow:false,
             formItem:{
-                username:"",
+                fullname:"",
                 email:"",
                 password:"",
                 captchaText:""
             },
             captchaBol:false,
             ruleValidate:{
-                username:{required: true, message: '用户名不能为空', trigger: 'blur'},
+                fullname:{required: true, message: '用户名不能为空', trigger: 'blur'},
                 email:[
         	       {required: true, message: '邮箱不能为空', trigger: 'blur'},
         	       {type:"email", message: '请输入正确邮箱格式', trigger: 'blur'}
@@ -33,7 +33,7 @@ var index = new Vue({
     },
     computed:{
         disabledBtn(){
-            if (this.formItem.username && this.formItem.email && this.formItem.password && this.captchaBol) {
+            if (this.formItem.fullname && this.formItem.email && this.formItem.password && this.captchaBol) {
                 return false;
             } else {
                 return true;

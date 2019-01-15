@@ -18,8 +18,8 @@
         <div class="register_panel">
             <p class="title">注册</p>
             <i-form ref="formItem" :model="formItem" :label-width="80" :rules="ruleValidate">
-                <form-item label="姓名" prop="username">
-                    <i-input v-model="formItem.username" clearable placeholder="请输入姓名(无法修改)"></i-input>
+                <form-item label="姓名" prop="fullname">
+                    <i-input v-model="formItem.fullname" clearable placeholder="请输入姓名(无法修改)"></i-input>
                 </form-item>
                 <form-item label="邮箱" prop="email">
                     <i-input v-model="formItem.email" clearable placeholder="请输入密码"></i-input>
