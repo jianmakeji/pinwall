@@ -25,7 +25,11 @@ module.exports = app => {
       allowNull: true
     },
     filename: {
-      type:STRING(20),
+      type:STRING(100),
+      allowNull: true
+    },
+    imagename: {
+      type:STRING(100),
       allowNull: true
     },
     description: {
