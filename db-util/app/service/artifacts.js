@@ -98,12 +98,22 @@ class Artifacts extends Service {
         name:artifact_asset.name,
         filename:artifact_asset.filename,
         description:artifact_asset.description,
-        type:artifact_asset.type,
         profileImage:artifact_asset.profile_image,
         mediaFile:artifact_asset.media_file,
         viewUrl:artifact_asset.view_url,
       };
-
+      if (artifact_asset.type == 128){
+        data.type = 2;
+      }
+      else if (artifact_asset.type == 32 || artifact_asset.type == 256){
+        data.type = 3;
+      }
+      else if (artifact_asset.type == 4){
+        data.type = 4;
+      }
+      else{
+        data.type = 1;
+      }
       await client2.insert("artifact_assets", data);
     }
   }
