@@ -19,17 +19,17 @@
         <i-form :model="formItem" :label-width="80">
             <div class="form_box">
                 <div class="left_form">
-                    <form-item label="标题:">
+                    <form-item label="标题">
                         <i-input v-model="formItem.name" placeholder="请输入作业荚名称"></i-input>
                     </form-item>
-                    <form-item label="标签:" id="label_formitem">
+                    <form-item label="标签" id="label_formitem">
                         <i-button type="success" size="small" icon="ios-brush" @click="deleteTerm(index)" v-for="(item,index) in terms_arr" style="margin-right:5px;"><span v-text="item.name"></span></i-button>
                     </form-item>
-                    <form-item>
+                    <form-item label="新建标签">
 						<p>在下方输入新标签，按回车确认。</p>
-                        <i-input v-model="term_value" @on-enter="addTerm" placeholder="请输入新标签"></i-input>
+                        <i-input v-model="term_value" @on-blur="addTerm" @on-enter="addTerm" placeholder="请输入新标签"></i-input>
                     </form-item>
-                    <form-item label="内容说明:">
+                    <form-item label="内容说明">
                         <i-input v-model="formItem.description" type="textarea" placeholder="请输入说明内容"></i-input>
                     </form-item>
                 </div>

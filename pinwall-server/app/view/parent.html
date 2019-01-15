@@ -32,17 +32,17 @@
 			        <i-col :xs="4" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" to="/search">探索...</i-button></i-col>
 
 					{% if user.Id %}
-				        <i-col :xs="0" :sm="{span:4,offset:8}" :md="{span:3,offset:9}" :lg="{span:3,offset:10}">
+				        <!-- <i-col :xs="0" :sm="{span:4,offset:8}" :md="{span:3,offset:9}" :lg="{span:3,offset:10}"> -->
 							<a href="/users/{{user.Id}}?jobTag=2" class="user_profile">
 								{% if user.avatarUrl %}
 									<img class="photo" src="{{user.avatarUrl}}" title="用户头像">
 								{% else %}
 									<img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" title="用户头像">
 								{% endif %}
-								<span style="margin-left: 20px;overflow: hidden;white-space: nowrap;">{{user.fullname}}</span>
+								<span style="margin-left: 12px;overflow: hidden;white-space: nowrap;" title="{{user.fullname}}">{{user.fullname}}</span>
 							</a>
-						</i-col>
-				        <i-col :xs="0" :sm="1" :md="1" :lg="1"><i-button type="text" ghost="true" @click="drawerShow = !drawerShow" size="small"><icon type="md-menu" size="30"></icon></i-button></i-col>
+						<!-- </i-col> -->
+				        <i-col :xs="0" :sm="1" :md="{span:1,offset:13}" :lg="{span:1,offset:13}"><i-button type="text" ghost="true" @click="drawerShow = !drawerShow" size="small"><icon type="md-menu" size="30"></icon></i-button></i-col>
 					{% else %}
 				        <i-col :xs="6" :sm="{span:2,offset:10}" :md="{span:3,offset:11}" :lg="{span:3,offset:11}">
 							<i-button type="text" ghost="true" to="/login">

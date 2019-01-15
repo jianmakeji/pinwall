@@ -26,8 +26,11 @@ var container = new Vue({
                 terms:[],                    //标签数组
             },
             ruleValidate:{
-                name:{required: true, message: '用户名不能为空', trigger: 'blur'},
-                description:{required: true, message: '用户名不能为空', trigger: 'blur'},
+                name:[
+                    {required: true, message: '用户名不能为空', trigger: 'blur'},
+                    {type: 'string', max: 130, message: '字数请控制在130之内', trigger: 'blur' }
+                ],
+                description:{required: true, message: '内容说明不能为空', trigger: 'blur'},
                 profileImage:{required: true}
             },
             step2_between_arr:[],           //存放step2的数据数组 最后赋值给dataitem
@@ -57,6 +60,7 @@ var container = new Vue({
             let fileName = calculate_object_name(files.target.files[0].name);
             let fileSize = files.target.files[0].size/1048576;
             if (fileSize <= 2) {
+                this.$Notice.success({title:'上传中···'});
                 $.ajax({
                     url: '/getSTSSignature/1',
                     type: 'GET',
@@ -79,6 +83,7 @@ var container = new Vue({
                                         img.src = res;
                                         img.onload = function(){
                                             if(img.width == img.height && img.width >= 600 && img.width <= 800){
+                                                that.$Notice.success({title:'上传成功！'});
                                                 that.step1_upload_fengmian_src = res;
                                                 that.dataItem.profileImage = fileName;
                                             }else{
@@ -111,6 +116,7 @@ var container = new Vue({
             let that = this;
             let file = files.target.files[0];
             let fileName = calculate_object_name(files.target.files[0].name);
+            this.$Notice.success({title:'上传中···'});
             $.ajax({
                 url: '/getSTSSignature/1',
                 type: 'GET',
@@ -129,6 +135,7 @@ var container = new Vue({
                                 type: 'GET',
                                 data:{objectPath:objectPath},
                                 success:function(res){
+                                    that.$Notice.success({title:'上传成功！'});
                                     that.step2_upload_neirong_src = that.step2_upload_neirong_src.concat(res);
 
                                     let subarr = new Object();
@@ -183,6 +190,7 @@ var container = new Vue({
             let that = this;
             let file = files.target.files[0];
             let fileName = calculate_object_name(files.target.files[0].name);
+            this.$Notice.success({title:'上传中···'});
             $.ajax({
                 url: '/getSTSSignature/1',
                 type: 'GET',
@@ -201,6 +209,7 @@ var container = new Vue({
                                 type: 'GET',
                                 data:{objectPath:objectPath},
                                 success:function(res){
+                                    that.$Notice.success({title:'上传成功！'});
                                     that.step2_upload_neirong_src.splice(that.which_artifact_assets,1,res);
                                     that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name.split(".")[0];
                                     that.step2_between_arr[that.which_artifact_assets].viewImgUrl = res;
@@ -507,12 +516,14 @@ var container = new Vue({
         },
         submitData(){
             let that = this;
+            this.$Loading.start();
             if (this.dataItem.Id) {
                 $.ajax({
                     url: config.ajaxUrls.getArtifactsWithId.replace(":id",this.dataItem.Id),
                     method:"PUT",
                     data:this.dataItem,
                     success:function(res){
+                        that.$Loading.finish();
                         if (res.status == 200) {
                             that.$Notice.success({
                                 title:"上传作品成功，2秒后返回!",
@@ -531,6 +542,7 @@ var container = new Vue({
                     data:this.dataItem,
                     success:function(res){
                         if (res.status == 200) {
+                            that.$Loading.finish();
                             that.$Notice.success({
                                 title:"上传作品成功，2秒后返回!",
                                 duration:2,

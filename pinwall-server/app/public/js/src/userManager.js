@@ -20,9 +20,9 @@ var index = new Vue({
                                     marginRight: '5px'
                                 },
                                 attrs:{
-                                    href:'/users/' + this.dataList[params.index].user.Id
+                                    href:'/users/' + this.dataList[params.index].Id
                                 }
-                            }, params.row.fullname);
+                            }, this.dataList[params.index].fullname);
                     }
                 },
                 { title: '邮箱',key: 'email', align: 'center',minWidth:200},

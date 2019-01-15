@@ -4,23 +4,6 @@
 body{
     background-color: #EFEFEF;
 }
-.header {
-	background: #333;
-	height: 60px;
-	line-height: 60px;
-	text-align: center;
-    color: #ccc;
-}
-.header .user_profile{
-	display: flex;
-    flex-direction: row;
-    align-items: center;
-	font-size: 12px;
-	color: white;
-}
-.header .user_profile .photo{
-	width:40px;height:40px;border-radius: 40px;
-}
 
 .recoverPwd_panel{
 	text-align: center;

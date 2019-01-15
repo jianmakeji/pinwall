@@ -24,7 +24,7 @@
                     <i-button type="success" size="small" icon="ios-brush" @click="deleteTerm(index)" v-for="(item,index) in terms_arr" style="margin-right:5px;"><span v-text="item.name"></span></i-button>
                 </form-item>
                 <form-item label="新建标签">
-                    <i-input v-model="terms_value" @on-enter="createTerm" placeholder="请输入标签,按回车确认"></i-input>
+                    <i-input v-model="terms_value" @on-blur="createTerm" @on-enter="createTerm" placeholder="请输入标签,按回车确认"></i-input>
                 </form-item>
                 <form-item label="内容说明">
                     <i-input v-model="formItem.description" placeholder="请输入内容说明"></i-input>

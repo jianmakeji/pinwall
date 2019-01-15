@@ -30,13 +30,13 @@
 					<row>
 						<i-col span="10" push="1">
 							<form-item label="标题" prop="name">
-								<i-input v-model="dataItem.name" placeholder="请输入标题"></i-input>
+								<i-input v-model="dataItem.name" placeholder="请输入标题" clearable></i-input>
 							</form-item>
 							<form-item label="标签" id="label_formitem">
 								<i-button type="success" size="small" icon="ios-brush" @click="deleteLabel(index)" v-for="(item,index) in terms_arr" style="margin-right:5px;"><span v-text="item.name"></span></i-button>
 							</form-item>
 							<form-item label="添加标签">
-								<i-input class="terms_input" placeholder="输入并按回车确认" @on-enter="createTerm" v-model="terms_value" clearable></i-input>
+								<i-input class="terms_input" placeholder="输入并按回车确认" @on-blur="createTerm" @on-enter="createTerm" v-model="terms_value" clearable></i-input>
 							</form-item>
 							<form-item label="内容说明" prop="description">
 								<i-input v-model="dataItem.description" type="textarea" placeholder="请输入作品内容说明"></i-input>
@@ -46,7 +46,7 @@
 							<form-item label="标题">
 								<div class="step1_upload">
 									<i-button type="success" id="step1_upload_fengmian">上传作品封面</i-button>
-									<input type="file" @change="step1_upload_fengmian_change" id="step1_upload_fengmian_input" accept="image/jpg,image/png" style="display:none;"/>
+									<input type="file" @change="step1_upload_fengmian_change" id="step1_upload_fengmian_input" accept="image/*" style="display:none;"/>
 								</div>
 								<p>请上传一张正方形、宽度500~800px的jpg或png图像作为作品封面。</p>
 							</form-item>
@@ -60,7 +60,7 @@
 						<i-col span="6">
 							<div class="step2_upload">
 								<i-button icon="md-add-circle" type="success" id="step2_upload_btn" long>上传图片</i-button>
-								<input type="file" @change="step2_upload_neirong_change" id="step2_upload_input" accept="image/jpg,image/png" style="display:none;"/>
+								<input type="file" @change="step2_upload_neirong_change" id="step2_upload_input" accept="image/*" style="display:none;"/>
 							</div>
 							<ul class="uploaded_list" id="uploaded_list">
 								<li @click="selectLi(index)" v-for="(item, index) in step2_upload_neirong_src">
@@ -80,7 +80,7 @@
 										<i-button type="default" class="step2_change_upload_btn" long>更换</i-button>
 										<input type="file" @change="step2_upload_change" class="step2_change_upload_input" accept="aplication/zip" style="display:none;"/>
 									</div><br>
-									<img class="thumb" style="width:75%;height:auto;margin: 0 auto;" :src="step2_upload_neirong_src[which_artifact_assets]">
+									<img class="thumb" style="width:200px;height:auto;margin: 0 auto;" :src="step2_upload_neirong_src[which_artifact_assets]">
 								</div>
 								<div class="other_info" id="other_info" v-show="step2_upload_neirong_src.length">
 									<div style="display: flex;flex-direction: row;justify-content: space-between;">
@@ -122,7 +122,7 @@
 										<div><i-progress :percent="file_otherinof_arr[index].progress ? file_otherinof_arr[index].progress: 0" /><br></div>
 										<p v-text="'文件名:' + file_otherinof_arr[index].fileTrueName"></p><br><br>
 										<p>标题 <span style="color: #3399cc;">(可选)</span></p>
-										<i-input placeholder="请输入标题" v-model="step2_between_arr[index].name"></i-input><br><br>
+										<i-input placeholder="请输入标题(100个字符以内)" v-model="step2_between_arr[index].name" maxlength='100' clearable></i-input><br><br>
 										<p>描述 <span style="color: #3399cc;">(可选)</span></p>
 										<i-input type="textarea" placeholder="请输入相应描述" v-model="step2_between_arr[index].description"></i-input><br>
 									</div>
@@ -152,7 +152,7 @@
 							<img :src="item.viewImgUrl">
 							<figcaption>
 								<span class="title" v-text="item.name"></span>
-								<span v-text="item.description"></span>
+								<p class="des" v-text="item.description"></p>
 							</figcaption>
 						</figure>
 					</div>
