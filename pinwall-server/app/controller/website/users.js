@@ -100,10 +100,10 @@ class UsersController extends BaseController{
 
     try{
       await ctx.service.users.updateAcviveByActiveCodeAndEmail(email,activeCode);
-      super.success('更新成功!');
+      ctx.redirect('/login');
     }
     catch(e){
-      super.failure(e.message);
+      ctx.redirect('/login');
     }
   }
 

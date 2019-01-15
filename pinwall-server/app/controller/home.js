@@ -31,6 +31,13 @@ class HomeController extends BaseController {
     });
   }
 
+  async activeFailure(){
+    const ctx = this.ctx;
+    await ctx.render('login.html', {
+      message:'激活失败!'
+    });
+  }
+
   async wxRelogin(){
     const ctx = this.ctx;
     await ctx.render('login.html', {

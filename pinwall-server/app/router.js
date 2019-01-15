@@ -16,6 +16,7 @@ module.exports = app => {
   router.get('/login', controller.home.login);
   router.get('/relogin', controller.home.relogin);
   router.get('/wxRelogin', controller.home.wxRelogin);
+  router.get('/activeFailure', controller.home.activeFailure);
 
   router.post('/login',app.passport.authenticate('local', {
        successReturnToOrRedirect : '/index',successFlash: true,

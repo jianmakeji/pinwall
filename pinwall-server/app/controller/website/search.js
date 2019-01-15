@@ -209,7 +209,7 @@ class SearchController extends BaseController{
     });
     console.log('end...');
 
-    //await ctx.service.esUtils.batchCreateSuggestObject(result);
+    await ctx.service.esUtils.batchCreateSuggestObject(result);
     //ctx.body = transferData;
   }
 }
