@@ -148,5 +148,25 @@ module.exports = {
       str += Math.floor(Math.random() * 10);
     }
     return str;
+  },
+
+  judgeImageStringInArrayObject:(str,array)=>{
+    let  result = true;
+    for(const updateAssets of array.artifact_assets){
+      if (str == updateAssets.profileImage){
+        result = false
+      }
+    }
+    return result;
+  },
+
+  judgeMediaStringInArrayObject:(str,array)=>{
+    let  result = true;
+    for(const updateAssets of array.artifact_assets){
+      if (str == updateAssets.mediaFile){
+        result = false
+      }
+    }
+    return result;
   }
 }

@@ -169,25 +169,31 @@ class Artifacts extends Service {
 
       try{
         let deleteAliOSSArray = new Array();
-        if (updates.profileImage != artifact.profileImage &&  artifact.profileImage.indexOf('pinwall.fzcloud') == -1){
-          deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
-        }
 
         for (const artifactAssets of artifact.artifact_assets){
-            if (artifactAssets.profileImage != '' &&  artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1){
+          if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1){
+              if(ctx.app.judgeImageStringInArrayObject(artifactAssets.profileImage,updates.artifact_assets)){
                 deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
-            }
+              }
+          }
 
-            if(artifactAssets.type == 2 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
-                deleteAliOSSArray.push(ctx.app.pdfPath + artifactAssets.mediaFile);
+          if(artifactAssets.type == 2 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+            if(ctx.app.judgeMediaStringInArrayObject(artifactAssets.mediaFile,updates.artifact_assets)){
+              deleteAliOSSArray.push(ctx.app.pdfPath + artifactAssets.mediaFile);
             }
-            else if(artifactAssets.type == 3 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          }
+          else if(artifactAssets.type == 3 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+            if(ctx.app.judgeMediaStringInArrayObject(artifactAssets.mediaFile,updates.artifact_assets)){
               deleteAliOSSArray.push(ctx.app.rar_zipPath + artifactAssets.mediaFile);
             }
-            else if(artifactAssets.type == 4 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          }
+          else if(artifactAssets.type == 4 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+            if(ctx.app.judgeMediaStringInArrayObject(artifactAssets.mediaFile,updates.artifact_assets)){
               deleteAliOSSArray.push(ctx.app.videoPath + artifactAssets.mediaFile);
             }
+          }
         }
+
         if (deleteAliOSSArray.length > 0){
           ctx.app.deleteOssMultiObject(deleteAliOSSArray);
         }
