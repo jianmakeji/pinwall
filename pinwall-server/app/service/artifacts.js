@@ -108,7 +108,6 @@ class Artifacts extends Service {
 
           return true
         } catch (e) {
-            console.log(e);
           await transaction.rollback();
           return false
         }
@@ -167,8 +166,8 @@ class Artifacts extends Service {
       }
       await transaction.commit();
 
+      let deleteAliOSSArray = new Array();
       try{
-        let deleteAliOSSArray = new Array();
 
         for (const artifactAssets of artifact.artifact_assets){
           if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1){
@@ -261,7 +260,6 @@ class Artifacts extends Service {
       await transaction.commit();
       return true
     } catch (e) {
-        console.log(e);
       await transaction.rollback();
       return false
     }
