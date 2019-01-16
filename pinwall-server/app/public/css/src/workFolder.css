@@ -176,6 +176,7 @@ body{
     padding: 0 2%;
 }
  .de_card_m {
+	min-height: 100px;
     background: #fff;
     margin:10px 2%;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
