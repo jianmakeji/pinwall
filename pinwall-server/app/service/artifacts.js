@@ -290,7 +290,7 @@ class Artifacts extends Service {
         element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
       }
 
-      for (let subElement of artifact.artifact_assets){
+      for (let subElement of element.artifact_assets){
         if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1){
           subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
         }
