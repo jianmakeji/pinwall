@@ -194,13 +194,14 @@ class UsersController extends BaseController{
       if(user.Id && user.email){
         if(user.wxActive == 0){
           await this.ctx.service.emailService.sendWxActiveEmail(user.email, openId, user.activeCode);
-          ctx.redirect('/wxRelogin');
+          ctx.redirect('/completeInfo');
         }
         else{
           ctx.user.Id = user.Id;
           ctx.user.email = user.email;
           ctx.user.fullname = user.fullname;
           ctx.user.roles = user.roles;
+          ctx.user.avatarUrl = user.avatarUrl;
           ctx.redirect('/index');
         }
       }else{

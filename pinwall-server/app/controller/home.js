@@ -185,6 +185,14 @@ class HomeController extends BaseController {
     await ctx.render('completeInfo.html');
   }
 
+  async wxCompleteInfo(){
+    const ctx = this.ctx;
+    await ctx.render('completeInfo.html',{
+      message:'未激活，请先进入邮箱激活，或者重发邮件激活',
+      tag:1
+    });
+  }
+
   async updatePwd(){
     const ctx = this.ctx;
     await ctx.render('updatePwd.html');
