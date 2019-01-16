@@ -103,7 +103,7 @@ class UsersController extends BaseController{
       ctx.redirect('/login');
     }
     catch(e){
-      ctx.redirect('/activeFailure');
+      ctx.redirect('/login');
     }
   }
 
@@ -193,8 +193,7 @@ class UsersController extends BaseController{
     if(user){
       if(user.Id && user.email){
         if(user.wxActive == 0){
-          await this.ctx.service.emailService.sendWxActiveEmail(user.email, openId, user.activeCode);
-          ctx.redirect('/completeInfo');
+          ctx.redirect('/wxCompleteInfo');
         }
         else{
           ctx.user.Id = user.Id;
