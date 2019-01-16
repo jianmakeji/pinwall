@@ -79,47 +79,74 @@ class Artifacts extends Service {
   }
 
   async create(artifact) {
-    const topic = await this.ctx.model.Topics.findTopicById(artifact.topicId);
-    if(topic){
-      if(topic.status == 0)
-      {
-        let transaction;
-        try {
-          transaction = await this.ctx.model.transaction();
-          artifact.visible = 0;
-          const artiObj = await this.ctx.model.Artifacts.createArtifact(artifact,transaction);
-          if (artifact.topicId != 0){
-              await this.ctx.model.TopicArtifact.createTopicArtifact(
-                  {
-                    artifactId:artiObj.Id,
-                    topicId:artifact.topicId
-                  },transaction);
-          }
+    if (artifact.topicId == 0 && artifact.jobTag == 2){ //作品集上传
+      let transaction;
+      try {
+        transaction = await this.ctx.model.transaction();
+        artifact.visible = 0;
+        const artiObj = await this.ctx.model.Artifacts.createArtifact(artifact,transaction);
 
-          let terms = artifact.terms;
-          for (let term of terms){
-            const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
-            await this.ctx.model.ArtifactTerm.createArtifactTerm({
-              artifactId:artiObj.Id,
-              termId:termObj.Id
-            },transaction);
-          }
-          await transaction.commit();
-
-          return true
-        } catch (e) {
-          await transaction.rollback();
-          return false
+        let terms = artifact.terms;
+        for (let term of terms){
+          const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
+          await this.ctx.model.ArtifactTerm.createArtifactTerm({
+            artifactId:artiObj.Id,
+            termId:termObj.Id
+          },transaction);
         }
+        await transaction.commit();
+
+        return true
+      } catch (e) {
+        await transaction.rollback();
+        return false
       }
-      else if(topic.status == 1){
+    }
+    else {
+      //作业夹上传
+      const topic = await this.ctx.model.Topics.findTopicById(artifact.topicId);
+      if(topic){
+        if(topic.status == 0)
+        {
+          let transaction;
+          try {
+            transaction = await this.ctx.model.transaction();
+            artifact.visible = 0;
+            const artiObj = await this.ctx.model.Artifacts.createArtifact(artifact,transaction);
+            if (artifact.topicId != 0){
+                await this.ctx.model.TopicArtifact.createTopicArtifact(
+                    {
+                      artifactId:artiObj.Id,
+                      topicId:artifact.topicId
+                    },transaction);
+            }
+
+            let terms = artifact.terms;
+            for (let term of terms){
+              const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
+              await this.ctx.model.ArtifactTerm.createArtifactTerm({
+                artifactId:artiObj.Id,
+                termId:termObj.Id
+              },transaction);
+            }
+            await transaction.commit();
+
+            return true
+          } catch (e) {
+            await transaction.rollback();
+            return false
+          }
+        }
+        else if(topic.status == 1){
+          return false;
+        }
+
+      }
+      else{
         return false;
       }
+    }
 
-    }
-    else{
-      return false;
-    }
   }
 
   async update({ id, updates }) {
