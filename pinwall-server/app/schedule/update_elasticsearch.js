@@ -91,10 +91,10 @@ class UpdateElasticsearch extends Subscription {
         await ctx.service.esUtils.updateSuggestObject(artiObj.Id, artiObj);
         ctx.getLogger('elasticLogger').info(artiObj.Id+"\n");
       }
-      updateTag = false;
+      updateTag = true;
     }
     catch(e){
-      updateTag = true;
+      updateTag = false;
       this.ctx.getLogger('elasticLogger').info(e.message+"\n");
     }
 
