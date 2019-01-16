@@ -1,5 +1,6 @@
 var index = new Vue({
     el: '.index',
+    delimiters: ['${', '}'],
     data() {
         return {
             formItem:{
@@ -24,7 +25,7 @@ var index = new Vue({
               	    {min:6, message: '密码至少为6位', trigger: 'blur'}
             	]
             },
-            newOrOld:"0",
+            newOrOld:"",
             isRegister:true,
             disableSbt:true,
             drawerShow: false,
@@ -147,9 +148,16 @@ var index = new Vue({
                 document.getElementsByTagName("object")[0].innerHTML = res;
             }
         });
+
     }
 })
-
+$(document).ready(function() {
+    let tag = $('.error_tag').attr('tag');
+    if(tag == 1){
+        index.newOrOld = "1";
+        index.radioChange(1);
+    }
+});
 function init_form(that){
     that.formItem.email = "";
     that.formItem.fullname = "";
