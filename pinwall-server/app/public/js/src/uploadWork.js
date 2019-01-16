@@ -505,7 +505,6 @@ var container = new Vue({
 
         },
         goStep3(){
-            console.log(this.dataItem);
             if (this.step2_upload_neirong_src.length) {
                 this.stepOneActive = false;
                 this.stepTwoActive = false;
@@ -535,7 +534,7 @@ var container = new Vue({
                                 title:"上传作品成功，2秒后返回!",
                                 duration:2,
                                 onClose(){
-                                    // history.back(-1);
+                                    history.back(-1);
                                 }
                             });
                         }
@@ -578,7 +577,6 @@ var container = new Vue({
                 url: config.ajaxUrls.getArtifactsWithId.replace(":id",this.dataItem.Id),
                 type: 'GET',
                 success(res){
-                    console.log(res);
                     that.dataItem.name = res.data.name;
                     that.dataItem.artifact_assets = res.data.artifact_assets;
                     that.dataItem.description = res.data.description;
@@ -610,7 +608,6 @@ var container = new Vue({
                         that.step2_between_arr.push(bet);
 
                         let other = new Object();
-                        // other.fileTrueName = res.data.artifact_assets[i].mediaFile.split("?")[0].split("/")[res.data.artifact_assets[i].mediaFile.split("?")[0].split("/").length - 1];
                         other.fileTrueName = res.data.artifact_assets[i].filename;
                         other.progress =  res.data.artifact_assets[i].mediaFile ? '100' : "0";
                         that.file_otherinof_arr.push(other);
