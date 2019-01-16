@@ -39,6 +39,7 @@ var index = new Vue({
                     that.$Loading.finish();
                     that.total = res.data.count;
                     if (res.data.count > 0){
+                        console.log(res);
                         that.userInfo = res.data.rows[0].user;
                         that.userInfo.createAt = that.userInfo.createAt.split("T")[0] + " 注册";
                         that.dataList = res.data.rows;
@@ -49,7 +50,10 @@ var index = new Vue({
                             that.scrollModel = true;
                         }
                     }else{
-                        this.$Loading.finish();
+                        that.$Loading.finish();
+                        that.userInfo.fullname = "此用户";
+                        that.userInfo.avatarUrl = "";
+                        that.userInfo.medalCount = 0;
                         that.$Notice.error({title:"用户暂无作品集！"})
                     }
                 }
