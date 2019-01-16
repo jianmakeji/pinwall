@@ -103,7 +103,7 @@ class UsersController extends BaseController{
       ctx.redirect('/login');
     }
     catch(e){
-      ctx.redirect('/login');
+      ctx.redirect('/activeFailure');
     }
   }
 
