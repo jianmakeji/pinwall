@@ -230,7 +230,7 @@ body{
 }
 .de_card_m .project_info .thumb {
     width: 100%;
-    border-right: #ccc 1px dotted; */
+    border-right: #ccc 1px dotted;
     height: 100%;
 }
 .de_card_m .project_info h4 {

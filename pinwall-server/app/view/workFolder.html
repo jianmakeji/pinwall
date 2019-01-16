@@ -70,7 +70,7 @@
 						</div>
 						<div class="project_info">
 							<a :href="'/project/' + item.Id" target="_blank">
-								<img class="thumb" :src="item.profileImage">
+								<img class="thumb" v-lazy="item.profileImage" loading="../public//images/default_thumb_500.png">
 								<h4 v-text="item.name"></h4>
 							</a>
 						</div>
@@ -97,6 +97,7 @@
 {% endblock %}
 
 {% block jsfolder %}
+	<script type="text/javascript" src="../public/js/lib/vue-lazyload.js"></script>
 	<script type="text/javascript" src="../public/js/lib/jquery.min.js"></script>
 	<script type="text/javascript" src="../public/js/lib/vue.min.js"></script>
 	<script type="text/javascript" src="../public/js/lib/iview.min.js"></script>

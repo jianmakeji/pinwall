@@ -1,3 +1,4 @@
+Vue.use(VueLazyload)
 var index = new Vue({
     el: '.index',
     data(){
@@ -39,7 +40,6 @@ var index = new Vue({
                     that.$Loading.finish();
                     that.total = res.data.count;
                     if (res.data.count > 0){
-                        console.log(res);
                         that.userInfo = res.data.rows[0].user;
                         that.userInfo.createAt = that.userInfo.createAt.split("T")[0] + " 注册";
                         that.dataList = res.data.rows;

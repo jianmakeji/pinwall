@@ -30,7 +30,8 @@
 						</div>
 						<div class="project_info">
 							<a :href="'/project/'+item._source.Id" target="_blank">
-								<img class="thumb" :src="item._source.profileImage? item._source.profileImage : 'http://pinwall.design-engine.org/images/default_profile.jpg'">
+								<!-- <img class="thumb" :src="item._source.profileImage? item._source.profileImage : 'http://pinwall.design-engine.org/images/default_profile.jpg'"> -->
+								<img class="thumb" v-lazy="item._source.profileImage" loading="../public//images/default_thumb_500.png">
 								<h4 v-text="item._source.name"></h4>
 							</a>
 						</div>
@@ -86,6 +87,7 @@
 {% endblock %}
 
 {% block jsfolder %}
+	<script type="text/javascript" src="../public/js/lib/vue-lazyload.js"></script>
 	<script type="text/javascript" src="public/js/lib/jquery.min.js"></script>
 	<script type="text/javascript" src="public/js/lib/vue.min.js"></script>
 	<script type="text/javascript" src="public/js/lib/iview.min.js"></script>
