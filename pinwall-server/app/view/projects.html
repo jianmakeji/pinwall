@@ -26,7 +26,7 @@
 				{% endif %}
 			</div>
 			<ul class="opt_ul">
-				<li class="edit_btn" v-if="('{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}' || '{{data.userId}}' == '{{user.Id}}')  && {{data.topics.length}} != 0">
+				<li class="edit_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}'  && {{data.topics.length}} != 0 || '{{data.userId}}' == '{{user.Id}}'">
 					<i-button shape="circle" icon="md-create" @click="editArtifact('{{data.jobTag}}')" size="large"></i-button>
 				</li>
 
