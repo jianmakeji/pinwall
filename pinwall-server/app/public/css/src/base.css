@@ -34,7 +34,8 @@ img{
 	color: #ccc;
 }
 .header .pinwall_logo{
-    display: flex;flex-direction: row;align-items: center;justify-content: center;color: white;font-size: 18px;font-weight: bold;
+    padding-left: 10px;
+    display: flex;flex-direction: row;align-items: center;justify-content: left;color: white;font-size: 18px;font-weight: bold;
 }
 .header .pinwall_logo div{
     width: 40px;
@@ -50,8 +51,8 @@ img{
     background: url('http://pinwall.design-engine.org/images/app/loading_spinner.png');
     background-repeat: no-repeat;
     background-position: center;
-    transform: rotateY(45deg);
-    -webkit-transform: rotateY(45deg);
+    transform: rotateY(35deg);
+    -webkit-transform: rotateY(35deg);
 }
 .header .user_profile{
 	display: flex;
