@@ -49,6 +49,7 @@ var index = new Vue({
                             that.scrollModel = true;
                         }
                     }else{
+                        this.$Loading.finish();
                         that.$Notice.error({title:"用户暂无作品集！"})
                     }
                 }

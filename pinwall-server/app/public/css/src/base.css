@@ -27,6 +27,7 @@ img{
 }
 
 .header {
+    display: flex;
 	background: #333;
 	height: 60px;
 	line-height: 60px;

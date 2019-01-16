@@ -16,44 +16,37 @@
 	<!-- 头部 -->
 		{% block header %}
 			<div class="header">
-			    <row>
-		            <i-col :xs="4" :sm="2" :md="2" :lg="2">
-						<a class="pinwall_logo" href="/">
-							<div class="div1">
-								<div class="div2">
+				<a class="pinwall_logo" href="/" style="width:120px;">
+					<div class="div1">
+						<div class="div2">
+						</div>
+					</div>
+					<span>图钉墙</span>
+				</a>
+				<!-- 精选 毕设展 作业荚 -->
+				{% block head_btn %}
 
-								</div>
-								<!-- <img src="http://pinwall.design-engine.org/images/app/loading_spinner.png"> -->
-							</div>
-							<span>图钉墙</span>
-						</a>
-					</i-col>
+				{% endblock %}
 
-					<!-- 精选 毕设展 作业荚 -->
-					{% block head_btn %}
+		        <a href="/search" style="width: 120px;height: 100%;background:#333;color: white;">探索...</a>
 
-					{% endblock %}
-
-			        <i-col :xs="4" :sm="2" :md="2" :lg="2"><i-button type="text" ghost="true" to="/search">探索...</i-button></i-col>
-
-					{% if user.Id %}
-							<a href="/users/{{user.Id}}?jobTag=2" class="user_profile">
-								{% if user.avatarUrl %}
-									<img class="photo" src="{{user.avatarUrl}}" title="用户头像">
-								{% else %}
-									<img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" title="用户头像">
-								{% endif %}
-								<span style="margin-left: 12px;overflow: hidden;white-space: nowrap;" title="{{user.fullname}}">{{user.fullname}}</span>
-							</a>
-				        <i-col :xs="0" :sm="1" :md="{span:1,offset:13}" :lg="{span:1,offset:13}"><i-button type="text" ghost="true" @click="drawerShow = !drawerShow" size="small"><icon type="md-menu" size="30"></icon></i-button></i-col>
+				{% if user.Id %}
+				<a href="/users/{{user.Id}}?jobTag=2" class="user_profile">
+					{% if user.avatarUrl %}
+						<img class="photo" src="{{user.avatarUrl}}" title="用户头像">
 					{% else %}
-				        <i-col :xs="6" :sm="{span:2,offset:10}" :md="{span:3,offset:11}" :lg="{span:3,offset:11}">
-							<i-button type="text" ghost="true" to="/login">
-								<icon type="md-person" style="font-size: 30px;" color="#fff"></icon>登陆/注册
-							</i-button>
-						</i-col>
+						<img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" title="用户头像">
 					{% endif %}
-			    </row>
+					<span style="margin-left: 12px;overflow: hidden;white-space: nowrap;" title="{{user.fullname}}">{{user.fullname}}</span>
+				</a>
+				<div class="" style="position:absolute;right:20px;">
+					<i-button type="text" ghost="true" @click="drawerShow = !drawerShow" size="small"><icon type="md-menu" size="30"></icon></i-button>
+				</div>
+				{% else %}
+				<i-button type="text" ghost="true" to="/login" style="display: flex;flex-direction: row;align-items: center;position:absolute;right:20px;top: 10px;">
+					<icon type="md-person" style="font-size: 30px;" color="#fff"></icon>登陆/注册
+				</i-button>
+				{% endif %}
 			</div>
 		{% endblock %}
 
