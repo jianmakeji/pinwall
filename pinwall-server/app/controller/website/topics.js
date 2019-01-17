@@ -150,7 +150,7 @@ class TopicsController extends BaseController{
 
       if(topicObject.length > 0){
         topicObject[0].artifacts.forEach((element,index)=>{
-          worksheet.addRow({title: element.name, name: element.user.fullname, createTime: element.createAt, score:element.artifact_scores.score});
+          worksheet.addRow({title: element.name, name: element.user.fullname, createTime: element.createAt, score:element.artifact_scores[0].score});
         });
         filename = topicObject[0].name + ".xlsx";
       }
@@ -162,7 +162,7 @@ class TopicsController extends BaseController{
         fs.mkdirSync(filePath);
       }
       filename = path.resolve(filePath,filename);
-      
+
       await workbook.xlsx.writeFile(filename);
       ctx.body = fs.createReadStream(filename);
     }
