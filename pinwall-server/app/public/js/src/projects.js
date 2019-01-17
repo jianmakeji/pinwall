@@ -187,16 +187,13 @@ var projects = new Vue({
         }
     },
     created() {
+        let that = this;
         this.projectStyle.minHeight = document.documentElement.clientHeight + "px";
         this.aoData.artifactId = window.location.href.split("project/")[1];
         this.artifactId = window.location.href.split("project/")[1];
         this.artifactCommentData.artifactId = window.location.href.split("project/")[1];
         this.artifactLikeData.artifactId = window.location.href.split("project/")[1];
         getConmentData(this, this.aoData);
-    }
-});
-$(document).ready(function() {
-    if ($(".zan_box p").html()) {
         let artifactId = window.location.href.split("project/")[1];
         $.ajax({
             url: '/website/artifactMedalLike/getMedalLikeDataByUserIdAndArtifactsId',
@@ -204,14 +201,15 @@ $(document).ready(function() {
             data: {artifactId: artifactId},
             success(res){
                 if (res.status == 200) {
-                    projects.artifactZanTag = 1;
+                    that.artifactZanTag = 1;
                 }else if(res.status == 200){
-                    projects.artifactZanTag = 0;
+                    that.artifactZanTag = 0;
                 }
             }
         });
-
     }
+});
+$(document).ready(function() {
     $('html,body').animate({
         scrollTop: 0
     }); //每次刷新界面滚动条置顶
