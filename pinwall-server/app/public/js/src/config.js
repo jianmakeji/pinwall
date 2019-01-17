@@ -32,7 +32,10 @@ var config = {
         getCaptcha:'/getCaptcha',
         checkCaptcha:'/checkCaptcha',
         createWxUser:"/website/users/createWxUser",
-        bindWeixinInfoByEmail:"/website/users/bindWeixinInfoByEmail"
+        bindWeixinInfoByEmail:"/website/users/bindWeixinInfoByEmail",
+        //searchEngine
+        transterInsertDataToES:'/website/artifacts/transterInsertDataToES',
+        transterUpdateDataToES:'/website/artifacts/transterUpdateDataToES'
     },
     viewUrl:{
         workFolder:'/workFolder/:id',

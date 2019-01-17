@@ -123,6 +123,13 @@ class HomeController extends BaseController {
     });
   }
 
+  async updateSE(){
+    const ctx = this.ctx;
+    await ctx.render('updateSE.html',{
+        user:ctx.user
+    });
+  }
+
   async workManager(){
     const ctx = this.ctx;
     await ctx.render('workManager.html',{

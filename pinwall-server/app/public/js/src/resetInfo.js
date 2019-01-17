@@ -8,12 +8,44 @@ var index = new Vue({
             },
             pwdItem:{
                 password:"",
-                newPwd:""
+                newPwd:"",
+                confirmPassword:""
             },
             drawerShow:false,
+            restDisabled:true,
+            ruleValidate:{
+                password:[
+            	    {required: true, message: '请输入密码', trigger: 'blur'},
+              	    {min:6, message: '密码至少为6位', trigger: 'blur'}
+            	],
+                newPwd:[
+                    {required: true, message: '请输入密码', trigger: 'blur'},
+              	    {min:6, message: '密码至少为6位', trigger: 'blur'}
+                ],
+            	confirmPassword:[
+            	    {required: true, message: '请输入密码', trigger: 'change'},
+              	    {min:6, message: '密码至少为6位', trigger: 'change'}
+            	]
+            }
         }
     },
     methods: {
+        conPwdBlur(){
+            if (this.pwdItem.newPwd.length >= 6) {
+                if(this.pwdItem.newPwd && this.pwdItem.confirmPassword != this.pwdItem.newPwd){
+        			this.$Notice.error({ title: '输入的两次新密码不一致', duration:3});
+                    this.pwdItem.newPwd = "";
+                    this.pwdItem.confirmPassword = "";
+                    this.restDisabled = true;
+        		}else {
+                    this.restDisabled = false;
+                }
+            }else {
+                this.pwdItem.newPwd = "";
+                this.pwdItem.confirmPassword = "";
+                this.restDisabled = true;
+            }
+        },
         restPwd(){
             let that = this;
             $.ajax({

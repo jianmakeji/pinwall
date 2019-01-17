@@ -121,30 +121,39 @@ class ArtifactsController extends BaseController{
   async transterInsertDataToES(){
     const ctx = this.ctx;
     const ids = ctx.query.ids;
-    try{
-      const idArray = ids.split(',');
-      if (idArray.length > 0){
-        const result = await ctx.service.artifacts.transterInsertDataToES(idArray);
-      }
-      super.success(result);
+
+    const idArray = ids.split(',');
+    if (idArray.length > 0){
+        let result = await ctx.service.artifacts.transterInsertDataToES(idArray);
+        if (result){
+            super.success("同步成功");
+        }
+        else{
+            super.failure("同步失败");
+        }
     }
-    catch(e){
-      super.failure(e.message);
+    else{
+        super.failure("没有数据需要同步");
     }
+
   }
 
   async transterUpdateDataToES(){
     const ctx = this.ctx;
     const ids = ctx.query.ids;
-    try{
-      const idArray = ids.split(',');
-      if (idArray.length > 0){
-        const result = await ctx.service.artifacts.transterUpdateDataToES(idArray);
-      }
-      super.success(result);
+
+    const idArray = ids.split(',');
+    if (idArray.length > 0){
+        let result = await ctx.service.artifacts.transterUpdateDataToES(idArray);
+        if (result){
+            super.success("同步成功");
+        }
+        else{
+            super.failure("同步失败");
+        }
     }
-    catch(e){
-      super.failure(e.message);
+    else{
+        super.failure("没有数据需要同步");
     }
   }
 }

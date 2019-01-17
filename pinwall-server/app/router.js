@@ -41,6 +41,7 @@ module.exports = app => {
   router.get('/userManager', pageAuthCheck, controller.home.userManager);
   router.get('/workManager', pageAuthCheck, controller.home.workManager);
   router.get('/commentManager', pageAuthCheck, controller.home.commentManager);
+  router.get('/updateSE', pageAuthCheck, controller.home.updateSE);
   router.get('/topicsUpdate/:id', pageAuthCheck, controller.home.topicsUpdate);
   router.get('/children', controller.home.children);
   router.get('/search', controller.home.search);
