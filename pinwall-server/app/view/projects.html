@@ -126,12 +126,12 @@
 				<ul class="comment_list">
 					<li v-for="item in dataList">
 						<div class="user_info">
-							<a :href="'user/'+item.user.Id">
+							<a :href="'/users/'+item.user.Id">
 								<img class="photo" :src="item.user.avatarUrl ? item.user.avatarUrl : 'http://pinwall.design-engine.org/images/default_profile.jpg'">
 							</a>
 						</div>
 						<div class="comment_wrapper">
-							<a href="#" class="name">${ item.user.fullname }</a>
+							<a :href="'/users/'+item.user.Id" class="name">${ item.user.fullname }</a>
 							{% if user.roles[0].name == 'admin' %}
 								<i-button class="delete_comment" type="error" shape="circle" icon="md-trash" @click="deleteComment(item.Id)"></i-button>
 							{% endif %}
@@ -142,12 +142,12 @@
 				{% if user.Id %}
 				<div class="comment_form">
 					<div class="user_info">
-						<a href="#">
+						<a href="/users/{{user.Id}}">
 							<img class="photo" src="http://pinwall.design-engine.org/images/default_profile.jpg" alt="">
 						</a>
 					</div>
 					<div class="comment_wrapper">
-						<a href="#" class="name">{{user.fullname}}</a>
+						<a href="/users/{{user.Id}}" class="name">{{user.fullname}}</a>
 						<i-form>
 							<form-item>
 								<i-input v-model="artifactCommentData.content" type="textarea" placeholder="您的评论……" /><br>
