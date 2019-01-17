@@ -57,7 +57,7 @@ module.exports = app => {
           transaction:transaction,
           where:{
               artifactId: artifactMedalLike.artifactId,
-              userId: artifactMedalLike.artifactUserId,
+              userId: artifactMedalLike.userId,
               tag:artifactMedalLike.tag,
           }
       });

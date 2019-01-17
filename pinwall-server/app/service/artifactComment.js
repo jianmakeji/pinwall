@@ -46,6 +46,20 @@ class ArtifactComment extends Service {
   }
 
   async del(Id) {
+    let transaction;
+    try {
+      transaction = await this.ctx.model.transaction();
+      const comment = await this.ctx.model.ArtifactComments.findCommentById(Id);
+      await this.ctx.model.ArtifactComments.delCommentById(Id, transaction);
+      await this.ctx.model.Artifacts.reduceComment(comment.artifactId, transaction);
+      await this.ctx.model.Users.reduceComment(comment.commenterId, 1, transaction);
+      await transaction.commit();
+      return true
+    } catch (e) {
+      await transaction.rollback();
+      return false
+    }
+
     const artifact = await this.ctx.model.ArtifactComments.delCommentById(Id);
 
     return artifact;

@@ -313,6 +313,16 @@ module.exports = app => {
     });
   }
 
+  Artifacts.reduceComment = async function(id) {
+    await this.update({
+      commentCount: app.Sequelize.literal('`commentCount` - 1')
+    }, {
+      where: {
+        Id: id
+      }
+    });
+  }
+
   Artifacts.getMedalDataByRandom = async function(){
     return this.findAll({
       where:{
@@ -351,7 +361,7 @@ module.exports = app => {
         model: app.model.ArtifactScores
       }]
     };
-    
+
     condition.where = {};
     if (tag == 0){
       condition.where.createAt = {

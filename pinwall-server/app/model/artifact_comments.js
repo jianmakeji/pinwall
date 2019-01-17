@@ -120,12 +120,13 @@ module.exports = app => {
     });
   }
 
-  ArtifactComments.delCommentById = async function (Id) {
-    const artifact = await this.findById(Id);
-    if (!artifact) {
-      throw new Error('artifact not found');
-    }
-    return artifact.destroy();
+  ArtifactComments.delCommentById = async function (Id,transaction) {
+    return this.destroy({
+      transaction:transaction,
+      where : {
+        Id:Id
+      }
+    });
   }
 
   ArtifactComments.delCommentByArtifactId = async function (artifactId,transaction) {
