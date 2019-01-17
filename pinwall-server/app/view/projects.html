@@ -11,7 +11,7 @@
 	<body>
 		<div class="projects" v-cloak :style="projectStyle">
 			<div class="zan_box">
-				<p v-show="!'{{data.userId}}'">{{data.userId}}</p>
+				<p v-show="!'{{data.userId}}'" style="display:none;">{{data.userId}}</p>
 				{% if user.roles[0].name != "" %}
 					<a @click="zan('{{data.userId}}','{{user.roles[0].name}}')">
 						<img :src="artifactZanTag ? 'http://pinwall.design-engine.org/images/app/flag_green.png' : 'http://pinwall.design-engine.org/images/app/flag_gray.png'" alt="">
