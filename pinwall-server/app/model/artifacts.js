@@ -374,13 +374,9 @@ module.exports = app => {
       };
     }
 
-    const artifact = await this.findAll(condition);
+    const result = await this.findAll(condition);
 
-    if (!artifact) {
-      throw new Error('artifact not found');
-    }
-
-    return artifact;
+    return result;
   }
 
   Artifacts.transferArtifacts = async function() {
@@ -414,6 +410,40 @@ module.exports = app => {
     return result;
   }
 
+  Artifacts.transterDataToES = async function(idArray) {
+
+    let condition = {
+      where:{
+        Id:{
+            [app.Sequelize.Op.in]: idArray
+        }
+      },
+      order: [
+        ['createAt', 'desc']
+      ],
+      include: [{
+        model: app.model.Users,
+        attributes:['Id','fullname','avatarUrl']
+      },{
+        model: app.model.Topics,
+        through:{
+          attributes:['topicId','artifactId'],
+        },
+        attributes:['Id','name','jobTag']
+      },{
+        model: app.model.Terms,
+        through:{
+          attributes:['termId','artifactId'],
+        },
+        attributes:['Id','name']
+      },{
+        model: app.model.ArtifactScores
+      }]
+    };
+
+    let result  = await this.findAll(condition);
+    return result;
+  }
 
   return Artifacts;
 };

@@ -347,6 +347,75 @@ class Artifacts extends Service {
 
     return data;
   }
+
+  async transterInsertDataToES(idArray) {
+    try{
+      let esArray = await this.ctx.model.Artifacts.transferArtifacts(idArray);
+      for (let artiObj of esArray){
+        await ctx.service.esUtils.createObject(artiObj.Id, artiObj);
+
+        let object = {};
+        object.Id = artiObj.Id;
+        object.suggest = new Array();
+
+        let name_suggest = {};
+        name_suggest.input = artiObj.name;
+        name_suggest.weight = 10;
+        object.suggest.push(name_suggest);
+
+        let fullname_suggest = {};
+        fullname_suggest.input = artiObj.user.fullname;
+        fullname_suggest.weight = 16;
+        object.suggest.push(fullname_suggest);
+
+        artiObj.terms.forEach((term,index)=>{
+          let term_suggest = {};
+          term_suggest.input = term.name;
+          term_suggest.weight = 8;
+          object.suggest.push(term_suggest);
+        });
+        await ctx.service.esUtils.createSuggestObject(artiObj.Id, object);
+      }
+      return true;
+    }
+    catch(e){
+      return false;
+    }
+  }
+
+  async transterUpdateDataToES(idArray) {
+    try{
+      let esArray = await this.ctx.model.Artifacts.transferArtifacts(idArray);
+      for (let artiObj of esArray){
+        await ctx.service.esUtils.updateobject(artiObj.Id, artiObj);
+        let object = {};
+        object.Id = artiObj.Id;
+        object.suggest = new Array();
+
+        let name_suggest = {};
+        name_suggest.input = artiObj.name;
+        name_suggest.weight = 10;
+        object.suggest.push(name_suggest);
+
+        let fullname_suggest = {};
+        fullname_suggest.input = artiObj.user.fullname;
+        fullname_suggest.weight = 16;
+        object.suggest.push(fullname_suggest);
+
+        artiObj.terms.forEach((term,index)=>{
+          let term_suggest = {};
+          term_suggest.input = term.name;
+          term_suggest.weight = 8;
+          object.suggest.push(term_suggest);
+        });
+        await ctx.service.esUtils.updateSuggestObject(artiObj.Id, artiObj);
+      }
+      return true;
+    }
+    catch(e){
+      return false;
+    }
+  }
 }
 
 module.exports = Artifacts;

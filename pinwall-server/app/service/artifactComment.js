@@ -59,9 +59,7 @@ class ArtifactComment extends Service {
       await transaction.rollback();
       return false
     }
-
-    const artifact = await this.ctx.model.ArtifactComments.delCommentById(Id);
-
+    
     return artifact;
   }
 

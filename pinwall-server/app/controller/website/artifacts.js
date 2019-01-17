@@ -117,6 +117,36 @@ class ArtifactsController extends BaseController{
       super.failure(e.message);
     }
   }
+
+  async transterInsertDataToES(){
+    const ctx = this.ctx;
+    const ids = ctx.query.ids;
+    try{
+      const idArray = ids.split(',');
+      if (idArray.length > 0){
+        const result = await ctx.service.artifacts.transterInsertDataToES(idArray);
+      }
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
+  async transterUpdateDataToES(){
+    const ctx = this.ctx;
+    const ids = ctx.query.ids;
+    try{
+      const idArray = ids.split(',');
+      if (idArray.length > 0){
+        const result = await ctx.service.artifacts.transterUpdateDataToES(idArray);
+      }
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
 }
 
 module.exports = ArtifactsController;
