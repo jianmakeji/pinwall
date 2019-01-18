@@ -49,7 +49,7 @@ var index = new Vue({
                         if (params.row.roles[0].name == "user") {
                             return h('Button',{
                                 props: {
-                                    type: 'primary',
+                                    type: 'default',
                                     size: 'small'
                                 },
                                 style: {
