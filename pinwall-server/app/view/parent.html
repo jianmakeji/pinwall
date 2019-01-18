@@ -16,19 +16,19 @@
 	<!-- 头部 -->
 		{% block header %}
 			<div class="header">
-				<a class="pinwall_logo" href="/" style="width:120px;">
+				<a class="pinwall_logo" href="/">
 					<div class="div1">
 						<div class="div2">
 						</div>
 					</div>
-					<span>图钉墙</span>
+					<span class="title">图钉墙</span>
 				</a>
 				<!-- 精选 毕设展 作业荚 -->
 				{% block head_btn %}
 
 				{% endblock %}
 
-		        <a href="/search" style="width: 120px;height: 100%;background:#333;color: white;">探索...</a>
+		        <a class="search" href="/search">探索...</a>
 
 				{% if user.Id %}
 				<a href="/users/{{user.Id}}?jobTag=2" class="user_profile">
@@ -39,13 +39,15 @@
 					{% endif %}
 					<span style="margin-left: 12px;overflow: hidden;white-space: nowrap;" title="{{user.fullname}}">{{user.fullname}}</span>
 				</a>
-				<div class="" style="position:absolute;right:20px;">
+				<div class="drawerShow" style="position:absolute;right:20px;">
 					<i-button type="text" ghost="true" @click="drawerShow = !drawerShow" size="small"><icon type="md-menu" size="30"></icon></i-button>
 				</div>
 				{% else %}
-				<i-button type="text" ghost="true" to="/login" style="display: flex;flex-direction: row;align-items: center;position:absolute;right:20px;top: 10px;">
-					<icon type="md-person" style="font-size: 30px;" color="#fff"></icon>登陆/注册
-				</i-button>
+				<div class="login">
+					<i-button type="text" ghost="true" to="/login" style="">
+						<icon type="md-person" style="font-size: 30px;" color="#fff"></icon>登陆/注册
+					</i-button>
+				</div>
 				{% endif %}
 			</div>
 		{% endblock %}

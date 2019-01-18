@@ -36,6 +36,7 @@ img{
 }
 .header .pinwall_logo{
     padding-left: 10px;
+    width:120px;
     display: flex;flex-direction: row;align-items: center;justify-content: left;color: white;font-size: 18px;font-weight: bold;
 }
 .header .pinwall_logo div{
@@ -67,4 +68,79 @@ img{
 }
 .header .user_profile .photo{
 	width:40px;height:40px;border-radius: 40px;
+}
+
+.header .index{
+    width: 130px;height: 100%;background:#333;color: white;
+}
+.header .topicsAbout{
+    width: 130px;height: 100%;background:#333;color: white;
+}
+.header .topics{
+    width: 130px;height: 100%;background:#333;color: white;
+}
+.header .search{
+    width: 130px;height: 100%;background:#333;color: white;
+}
+.header .login{
+    display: flex;flex-direction: row;align-items: center;position:absolute;right:20px;top: 10px;
+}
+
+
+
+@media screen and (min-width: 530px) and (max-width: 850px){ /*当屏幕尺寸小于992px时，应用下面的CSS样式*/
+
+    .header .pinwall_logo{
+        width: 80px;
+    }
+    .header .title{
+        display: none;
+    }
+    .header .index{
+        width: 80px;
+    }
+    .header .topicsAbout{
+        width: 80px;
+    }
+    .header .topics{
+        width: 80px;
+    }
+    .header .search{
+        width: 80px;
+    }
+    .header .user_profile{
+        right: 60px;
+        width: 150px;
+    }
+    .header .login{
+        display: flex;flex-direction: row;align-items: center;position:absolute;right:20px;top: 10px;
+    }
+}
+@media screen and (max-width: 530px){ /*当屏幕尺寸小于530px时，应用下面的CSS样式*/
+
+    .header .pinwall_logo{
+        display: none;
+    }
+    .header .index{
+        width: 60px;
+    }
+    .header .topicsAbout{
+        width: 60px;
+    }
+    .header .topics{
+        width: 60px;
+    }
+    .header .search{
+        width: 60px;
+    }
+    .header .user_profile{
+        right: 60px;
+        width: 100px;
+    }
+    .header .drawerShow{
+        display: none;
+    }
+    .header .login{
+        display: none;
+    }
 }

@@ -4,7 +4,9 @@
 body{
     background-color: #EFEFEF;
 }
-
+.header .index{
+    background:#222222;
+}
 .de_project_photowall {
 	position: absolute;
 	top: 50%;

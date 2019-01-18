@@ -5,7 +5,9 @@
 body{
     background-color: #EFEFEF;
 }
-
+.header .search{
+	background: #222222;
+}
 .container .noResult{
     margin: 20px 30px;
     color: #999;
