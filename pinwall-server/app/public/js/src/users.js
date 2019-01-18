@@ -49,7 +49,7 @@ var index = new Vue({
                         }else {
                             that.scrollModel = true;
                         }
-                    }else{\
+                    }else{
                         that.userInfo.fullname = "此用户";
                         that.userInfo.avatarUrl = "";
                         that.userInfo.medalCount = 0;
