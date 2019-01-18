@@ -537,6 +537,8 @@ var container = new Vue({
                                     history.back(-1);
                                 }
                             });
+                        }else if (res.status == 500) {
+                            that.$Notice.error({title:res.data});
                         }
                     }
                 })
@@ -546,8 +548,8 @@ var container = new Vue({
                     method:"POST",
                     data:this.dataItem,
                     success:function(res){
+                        that.$Loading.finish();
                         if (res.status == 200) {
-                            that.$Loading.finish();
                             that.$Notice.success({
                                 title:"上传作品成功，2秒后返回!",
                                 duration:2,
@@ -555,6 +557,8 @@ var container = new Vue({
                                     window.location.href = "/uploadWork/2";
                                 }
                             });
+                        }else if (res.status == 500) {
+                            that.$Notice.error({title:res.data});
                         }
                     }
                 })

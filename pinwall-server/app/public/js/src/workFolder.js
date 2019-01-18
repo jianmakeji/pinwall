@@ -69,6 +69,8 @@ $(document).ready(function() {
                         }else{
                             index.scrollModel = true;
                         }
+                    }else{
+                        index.$Loading.error();
                     }
                 }
             })

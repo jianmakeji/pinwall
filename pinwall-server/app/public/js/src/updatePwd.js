@@ -31,12 +31,14 @@ var index = new Vue({
         },
         submit(){
             let that = this;
+            this.$Loading.start();
             $.ajax({
                 url: config.ajaxUrls.updatePwdWithEmailAndActiveCode,
                 type: 'PUT',
                 data: this.formItem,
                 success(res){
                     if (res.status == 200) {
+                        that.$Loading.finish();
                         that.$Notice.success({
                             title:res.data,
                             duration:2,
@@ -45,6 +47,7 @@ var index = new Vue({
                             }
                         })
                     }else{
+                        that.$Loading.error();
                         that.$Notice.error({
                             title:res.data
                         })

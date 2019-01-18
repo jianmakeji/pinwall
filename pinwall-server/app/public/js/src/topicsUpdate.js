@@ -58,14 +58,17 @@ var index = new Vue({
                 newstatus = 0;
             }
             let that = this;
+            this.$Loading.start();
             $.ajax({
                 url: '/website/topics/updateTopicStatus?topicId='+this.topicId+'&status='+newstatus,
                 type: 'PUT',
                 success(res){
                     if (res.status == 200) {
                         that.formItem.status = newstatus;
+                        that.$Loading.finish();
                         that.$Notice.success({title:"操作成功！"});
                     }else{
+                        that.$Loading.error();
                         that.$Notice.error({title:res.data0});
                     }
                 }
@@ -77,12 +80,14 @@ var index = new Vue({
         },
         deleteTopics(){
             let that = this;
+            this.$Loading.start();
             $.ajax({
                 url: '/website/topics/' + this.topicId,
                 type: 'DELETE',
                 data: {id : this.topicId},
                 success(res){
                     if (res.status == 200) {
+                        that.$Loading.finish();
                         that.$Notice.success({
                             title:"作业荚删除成功！2秒后返回",
                             duration:2,
@@ -91,6 +96,7 @@ var index = new Vue({
                             }
                         })
                     }else{
+                        that.$Loading.error();
                         that.$Notice.error({title:res.data});
                     }
                 }
@@ -100,20 +106,23 @@ var index = new Vue({
             let that = this;
             this.formItem.addTerms = this.addTerms;
             this.formItem.deleteTerms = this.deleteTerms;
-
+            this.$Loading.start();
             $.ajax({
                 url: '/website/topics/'+this.topicId,
                 type: 'PUT',
                 data: this.formItem,
                 success(res){
                     if (res.status == 200) {
+                        that.$Loading.finish();
                         that.$Notice.success({
                             title:res.data,
+                            duration:2,
                             onClose(){
-                                window.history.back(-1);
+                                window.history.go(-1);
                             }
                         })
                     } else {
+                        that.$Loading.error();
                         that.$Notice.error({
                             title:res.data
                         })

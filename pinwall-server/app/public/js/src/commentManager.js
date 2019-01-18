@@ -100,11 +100,13 @@ var index = new Vue({
         },
         deleteComment(index){
             let that = this;
+            this.$Loading.start();
             $.ajax({
                 url: '/website/artifactComment/'+this.dataList[index].Id,
                 type: 'DELETE',
                 data: {id: this.dataList[index].Id},
                 success(res){
+                    that.$Loading.finish();
                     if(res.status == 200){
                         that.$Notice.success({
                             title:res.data,
@@ -113,6 +115,8 @@ var index = new Vue({
                                 getData(that, that.aoData);
                             }
                         })
+                    }else{
+                        that.$Notice.error({title:res.data});
                     }
                 }
             });

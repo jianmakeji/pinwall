@@ -101,6 +101,9 @@ function getData(that){
                 }else {
                     index.scrollModel = true;
                 }
+            }else{
+                that.$Loading.error();
+                that.$Notice.error({title:res.data});
             }
         }
     })

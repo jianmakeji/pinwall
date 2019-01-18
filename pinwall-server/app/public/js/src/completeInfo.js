@@ -81,6 +81,7 @@ var index = new Vue({
         },
         submit(){
             let that = this;
+            this.$Loading.start();
             if (this.newOrOld == "0") {     //new
                 let subUrl = config.ajaxUrls.createWxUser;
                 $.ajax({
@@ -88,6 +89,7 @@ var index = new Vue({
                     type: 'POST',
                     data: this.formItem,
                     success(res){
+                        that.$Loading.finish();
                         if (res.status == 200) {
                             that.$Notice.success({title:res.data});
                             that.disableSbt = false;
@@ -105,6 +107,7 @@ var index = new Vue({
                         }
                     },
                     error(err){
+                        that.$Loading.error();
                         that.$Notice.error({title:err.data});
                         init_form(that);
                     }
@@ -116,6 +119,7 @@ var index = new Vue({
                     type: 'POST',
                     data: this.formItem,
                     success(res){
+                        that.$Loading.finish();
                         if (res.status == 200) {
                             that.$Notice.success({title:res.data});
                             init_form(that);
@@ -132,6 +136,7 @@ var index = new Vue({
                         }
                     },
                     error(err){
+                        that.$Loading.error();
                         that.$Notice.error({title:err.data});
                         init_form(that);
                     }

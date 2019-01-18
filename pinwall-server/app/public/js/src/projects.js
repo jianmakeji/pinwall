@@ -42,12 +42,14 @@ var projects = new Vue({
         },
         ok() {
             let that = this;
+            this.$Loading.start();
             $.ajax({
                 url: '/website/artifacts/'+this.artifactId,
                 type: 'DELETE',
                 data: {id: this.artifactId},
                 success(res){
                     if (res.status == 200) {
+                        that.$Loading.finish();
                         that.$Notice.success({
                             title:res.data,
                             duration:1,
@@ -56,6 +58,7 @@ var projects = new Vue({
                             }
                         })
                     }else{
+                        that.$Loading.error();
                         that.$Notice.error({title:res.data});
                     }
                 }
@@ -72,6 +75,7 @@ var projects = new Vue({
         },
         zan(artifactUserId,userRole) {
             let that = this;
+            this.$Loading.start();
             if (userRole == "") {
                 this.$Notice.error({
                     title: "请先登录再点赞！",
@@ -88,9 +92,11 @@ var projects = new Vue({
                     data: this.artifactLikeData,
                     success(res){
                         if(res.status == 200){
+                            that.$Loading.finish();
                             that.$Notice.success({title:res.data});
                             that.artifactZanTag = !that.artifactZanTag;
                         }else{
+                            that.$Loading.error();
                             that.$Notice.error({title:res.data});
                         }
                     }
@@ -130,7 +136,8 @@ var projects = new Vue({
                             }
                         })
                     }else {
-
+                        that.$Loading.error();
+                        that.$Notice.error({title:res.data});
                     }
                 }
             });
@@ -150,6 +157,9 @@ var projects = new Vue({
                         that.$Notice.success({title:"评论成功！"});
                         that.artifactCommentData.content = "";
                         getConmentData(that, that.aoData);
+                    }else{
+                        that.$Loading.error();
+                        that.$Notice.error({title:res.data});
                     }
                 }
             });
@@ -171,14 +181,17 @@ var projects = new Vue({
         },
         submitScore() {
             let that = this;
+            this.$Loading.start();
             $.ajax({
                 url: '/website/artifactScores',
                 type: 'POST',
                 data: this.artifactScoreData,
                 success(res) {
                     if (res.status == 200) {
+                        that.$Loading.finish();
                         that.$Notice.success({title:res.data});
                     }else{
+                        that.$Loading.error();
                         that.$Notice.error({title:res.data});
                     }
                 }

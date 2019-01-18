@@ -146,6 +146,7 @@ var index = new Vue({
                             }
                         });
                     }else{
+                        that.$Loading.error();
                         that.$Notice.error({title:res.data});
                     }
                 }
@@ -170,6 +171,8 @@ function initData(that, aoData){
             that.$Loading.finish();
             that.totalPage = res.body.data.count;
             that.dataList = res.body.data.rows;
+        }else{
+            that.$Loading.error();
         }
     },function(err){
         that.$Loading.error();
@@ -191,6 +194,8 @@ function searchArtifactsByNameOrTermName(that, searchData){
                 that.dataList.push(requestData[i]._source);
             }
             that.totalPage = res.body.data.total;
+        }else{
+            that.$Loading.error();
         }
     },function(err){
         that.$Loading.error();

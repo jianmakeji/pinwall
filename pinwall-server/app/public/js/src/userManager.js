@@ -168,6 +168,8 @@ function initDataByUsername(that,searchUserNameData){
             that.$Loading.finish();
             that.totalPage = res.body.data.count;
             that.dataList = res.body.data.rows;
+        }else{
+            that.$Loading.error();
         }
     },function(err){
         that.$Loading.error();
@@ -184,6 +186,8 @@ function initDataByEmail(that, searchEmailData){
             that.$Loading.finish();
             that.totalPage = res.body.data.count;
             that.dataList = res.body.data.rows;
+        }else {
+            that.$Loading.error();
         }
     },function(err){
         that.$Loading.error();

@@ -49,13 +49,15 @@ var index = new Vue({
                         }else {
                             that.scrollModel = true;
                         }
-                    }else{
-                        that.$Loading.finish();
+                    }else{\
                         that.userInfo.fullname = "此用户";
                         that.userInfo.avatarUrl = "";
                         that.userInfo.medalCount = 0;
                         that.$Notice.error({title:"用户暂无作品集！"})
                     }
+                }else{
+                    that.$Loading.error();
+                    that.$Notice.error({title:res.data});
                 }
             }
         })
@@ -81,6 +83,8 @@ $(document).ready(function() {
                         }else{
                             index.scrollModel = true;
                         }
+                    }else{
+                        index.$Loading.error();
                     }
                 }
             })

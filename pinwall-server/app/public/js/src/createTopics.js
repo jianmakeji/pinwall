@@ -40,6 +40,7 @@ var index = new Vue({
         },
         submitData(){
             let that = this;
+            this.$Loading.start();
             this.formItem.terms = this.terms_arr;
             $.ajax({
                 url: config.ajaxUrls.getTopicsData,
@@ -47,6 +48,7 @@ var index = new Vue({
                 data: this.formItem,
                 success:function(res){
                     if (res.status == 200) {
+                        that.$Loading.finish();
                         that.$Notice.success({
                             title:"作业荚创建成功，2秒后返回",
                             duration:2,
@@ -58,6 +60,9 @@ var index = new Vue({
                                 }
                             }
                         })
+                    }else{
+                        that.$Loading.error();
+                        that.$Notice.error({title:res.data});
                     }
                 }
             })

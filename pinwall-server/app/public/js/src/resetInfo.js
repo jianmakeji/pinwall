@@ -48,12 +48,14 @@ var index = new Vue({
         },
         restPwd(){
             let that = this;
+            this.$Loading.start();
             $.ajax({
                 url: '/website/users/updatePwd',
                 type: 'PUT',
                 data: this.pwdItem,
                 success(res){
                     if (res.status == 200) {
+                        that.$Loading.finish();
                         that.$Notice.success({
                             title:res.data,
                             duration:1,
@@ -62,6 +64,7 @@ var index = new Vue({
                             }
                         })
                     }else{
+                        that.$Loading.error();
                         that.$Notice.error({
                             title:res.data
                         })
@@ -72,6 +75,5 @@ var index = new Vue({
     },
     created(){
         this.containerStyle.minHeight = document.documentElement.clientHeight - 140 + "px";
-
     }
 })

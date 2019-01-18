@@ -13,12 +13,14 @@ var index = new Vue({
     methods: {
         InsertData(){
             let that = this;
+            this.$Loading.start();
             $.ajax({
                 url: config.ajaxUrls.transterInsertDataToES,
                 type: 'GET',
                 data: {ids: this.insertData},
                 success(res){
                     if (res.status == 200) {
+                        that.$Loading.finish();
                         that.$Notice.success({
                             title:res.data,
                             onClose(){
@@ -26,6 +28,7 @@ var index = new Vue({
                             }
                         });
                     } else {
+                        that.$Loading.error();
                         that.$Notice.error({
                             title:res.data,
                         });
@@ -35,12 +38,14 @@ var index = new Vue({
         },
         UpdateData(){
             let that = this;
+            this.$Loading.start();
             $.ajax({
                 url: config.ajaxUrls.transterUpdateDataToES,
                 type: 'GET',
                 data: {ids: this.updateData},
                 success(res){
                     if (res.status == 200) {
+                        that.$Loading.finish();
                         that.$Notice.success({
                             title:res.data,
                             onClose(){
@@ -48,6 +53,7 @@ var index = new Vue({
                             }
                         });
                     } else {
+                        that.$Loading.error();
                         that.$Notice.error({
                             title:res.data,
                         });

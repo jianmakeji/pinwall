@@ -209,6 +209,9 @@ function getData(that, aoData){
                     that.dataList[i].user.avatarUrl = config.default_profile;
                 }
             }
+        }else{
+            that.$Loading.error();
+            that.$Notice.error({title:res.data});
         }
     },function(err){
         that.$Loading.error();
@@ -238,6 +241,9 @@ function getMoreData(that, aoData){
                     that.dataList[i].user.avatarUrl = config.default_profile;
                 }
             }
+        }else{
+            that.$Loading.error();
+            that.$Notice.error({title:res.data});
         }
 
     },function(err){
@@ -265,6 +271,9 @@ function getSearchData(that, searchData){
                     that.dataList[i].user.avatarUrl = config.default_profile;
                 }
             }
+        }else{
+            that.$Loading.error();
+            that.$Notice.error({title:res.data});
         }
 
     },function(err){
@@ -292,6 +301,9 @@ function getMoreSearchData(that, searchData){
                     that.dataList[i].user.avatarUrl = config.default_profile;
                 }
             }
+        }else{
+            that.$Loading.error();
+            that.$Notice.error({title:res.data});
         }
     },function(err){
         that.$Loading.error();

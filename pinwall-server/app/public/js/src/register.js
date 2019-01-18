@@ -79,12 +79,14 @@ var index = new Vue({
         },
         registerSubmit(){
             let that = this;
+            this.$Loading.start();
             $.ajax({
                 url: '/website/users/createUser',
                 type: 'POST',
                 data: this.formItem,
                 success(res){
                     if (res.status == 200) {
+                        that.$Loading.finish();
                         that.$Notice.success({
                             title:"注册成功!请前往邮箱激活",
                             duration:3,
@@ -92,6 +94,9 @@ var index = new Vue({
                                 window.location.href = "/login";
                             }
                         })
+                    }else {
+                        that.$Loading.error();
+                        that.$Notice.error({title:res.data});
                     }
                 }
             });
@@ -107,6 +112,5 @@ var index = new Vue({
                 document.getElementsByTagName("object")[0].innerHTML = res;
             }
         });
-
     }
 })
