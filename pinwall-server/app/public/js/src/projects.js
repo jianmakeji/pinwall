@@ -95,6 +95,7 @@ var projects = new Vue({
                             that.$Loading.finish();
                             that.$Notice.success({title:res.data});
                             that.artifactZanTag = !that.artifactZanTag;
+                            location.reload();
                         }else{
                             that.$Loading.error();
                             that.$Notice.error({title:res.data});
