@@ -150,7 +150,11 @@ class TopicsController extends BaseController{
 
       if(topicObject.length > 0){
         topicObject[0].artifacts.forEach((element,index)=>{
-          worksheet.addRow({title: element.name, name: element.user.fullname, createTime: element.createAt, score:element.artifact_scores[0].score});
+          let score = 0;
+          if(element.artifact_scores.length > 0){
+              score = element.artifact_scores[0].score;
+          }
+          worksheet.addRow({title: element.name, name: element.user.fullname, createTime: element.createAt, score:score});
         });
         filename = topicObject[0].name + ".xlsx";
       }
