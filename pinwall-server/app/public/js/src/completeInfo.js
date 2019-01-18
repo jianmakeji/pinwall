@@ -167,6 +167,6 @@ function init_form(that){
     that.formItem.email = "";
     that.formItem.fullname = "";
     that.formItem.password = "";
-    that.formItem.password = "";
+    that.formItem.confirmPassword = "";
     that.formItem.captchaText = "";
 }
