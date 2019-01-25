@@ -1,0 +1,300 @@
+.container{
+    background: #fff;
+    width: 700rpx;
+    padding: 25rpx;
+    /* background: pink; */
+    display: flex;
+    flex-direction: column;
+}
+.container .row_1,
+.container .row_2{
+    display: flex;
+    flex-direction: row;
+}
+.container .row_1 .column_1,
+.container .row_2 .column_2{
+    display: flex;
+    flex-direction: column
+}
+.container .row_1 .row_1_1,
+.container .row_1 .row_1_2,
+.container .row_2 .row_2_2,
+.container .row_2 .row_2_3{
+    margin: 5rpx;
+    width: 225rpx;
+    height: 225rpx;
+}
+.container .row_1 .row_1_1 image,
+.container .row_1 .row_1_2 image,
+.container .row_2 .row_2_2 image,
+.container .row_2 .row_2_3 image{
+    border-radius: 15rpx;
+    width: 225rpx;
+    height: 225rpx;
+}
+.container .row_1 .row_1_1 .point,
+.container .row_1 .row_1_2 .point,
+.container .row_2 .row_2_2 .point,
+.container .row_2 .row_2_3 .point{
+    position: absolute;
+    margin-top: -52rpx;
+    margin-left: 145rpx;
+    width: 80rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.44);
+    border-radius: 5rpx;
+    border-bottom-right-radius: 15rpx;
+}
+.container .row_1 .row_1_3,
+.container .row_2 .row_2_1{
+    margin: 5rpx;
+    width: 455rpx;
+    height: 455rpx;
+}
+.container .row_1 .row_1_3 image,
+.container .row_2 .row_2_1 image{
+    border-radius: 15rpx;
+    width: 455rpx;
+    height: 455rpx;
+}
+.container .row_1 .row_1_3 .point,
+.container .row_2 .row_2_1 .point{
+    position: absolute;
+    margin-top: -52rpx;
+    margin-left: 374rpx;
+    width: 80rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.44);
+    border-radius: 5rpx;
+    border-bottom-right-radius: 15rpx;
+} 
+.container .row_3{
+    display: flex;
+    flex-direction: row;
+}
+.container .row_3 .row_3_1,
+.container .row_3 .row_3_2,
+.container .row_3 .row_3_3{
+    margin: 5rpx;
+    width: 230rpx;
+    height: 230rpx;
+}
+.container .row_3 .row_3_1 image,
+.container .row_3 .row_3_2 image,
+.container .row_3 .row_3_3 image{
+    border-radius: 15rpx;
+    width: 230rpx;
+    height: 230rpx;
+}
+.container .row_3 .row_3_1 .point,
+.container .row_3 .row_3_2 .point,
+.container .row_3 .row_3_3 .point{
+    position: absolute;
+    margin-top: -52rpx;
+    margin-left: 150rpx;
+    width: 80rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.44);
+    border-radius: 5rpx;
+    border-bottom-right-radius: 15rpx;
+}
+.container .row_4{
+    display: flex;
+    flex-direction: row;
+}
+.container .row_4 .row_4_1,
+.container .row_4 .row_4_2,
+.container .row_4 .row_4_3{
+    margin: 5rpx;
+    width: 230rpx;
+    height: 230rpx;
+}
+.container .row_4 .row_4_1 image,
+.container .row_4 .row_4_2 image,
+.container .row_4 .row_4_3 image{
+    border-radius: 15rpx;
+    width: 230rpx;
+    height: 230rpx;
+}
+.container .row_4 .row_4_1 .point,
+.container .row_4 .row_4_2 .point,
+.container .row_4 .row_4_3 .point{
+    position: absolute;
+    margin-top: -52rpx;
+    margin-left: 150rpx;
+    width: 80rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.44);
+    border-radius: 5rpx;
+    border-bottom-right-radius: 15rpx;
+}
+/* 作品详情弹出层 */
+.popup{
+    display: flex;
+    flex-direction: column;
+}
+.popup .artifical_detail{
+    display: flex;
+    flex-direction: column;
+    width: 700rpx;
+    height: 600rpx;
+    margin:0px auto 110rpx;
+    background: rgba(225, 225, 225, 0.8);
+    border-radius: 24rpx;
+}
+.popup .artifical_detail .userAvator{
+    width: 100rpx;
+    height: 100rpx;
+    position: absolute;
+    margin-top: 35rpx;
+    margin-left: 60rpx;
+    border-radius: 70rpx;
+    z-index: 1;
+}
+.popup .artifical_detail .username{
+    width: 250rpx;
+    height: 40rpx;
+    position: absolute;
+    margin-top: 35rpx;
+    margin-left: 180rpx;
+    font-size: 30rpx;
+    z-index: 1;
+}
+.popup .artifical_detail .createAt{
+    width: 250rpx;
+    height: 40rpx;
+    position: absolute;
+    margin-top: 90rpx;
+    margin-left: 180rpx;
+    color:#999999;
+    font-size: 26rpx;
+    opacity: 1;
+    z-index: 1;
+}
+.popup .artifical_detail .title{
+    width: 700rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+    position: absolute;
+    margin-top: 140rpx;
+    margin-left: 60rpx;
+    color:#1FB5BE;
+    font-size: 32rpx;
+    opacity: 1;
+    z-index: 1;
+}
+.popup .artifical_detail .descript{
+    width: 600rpx;
+    height: 300rpx;
+    line-height: 32rpx;
+    position: absolute;
+    margin-top: 220rpx;
+    margin-left: 60rpx;
+    color:#999999;
+    font-size: 24rpx;
+    opacity: 1;
+    z-index: 1;
+}
+.popup .artifical_detail .shoulu{
+    width: 600rpx;
+    height: 300rpx;
+    line-height: 32rpx;
+    position: absolute;
+    margin-top: 320rpx;
+    margin-left: 60rpx;
+    color:#333333;
+    font-size: 24rpx;
+    opacity: 1;
+    z-index: 1;
+}
+.popup .artifical_detail .topic{
+    width: 600rpx;
+    height: 50rpx;
+    line-height: 50rpx;
+    position: absolute;
+    margin-top: 360rpx;
+    margin-left: 60rpx;
+    color:rgba(51, 51, 51, 1);
+    font-size: 24rpx;
+}
+.popup .artifical_detail .medal{
+    width: 48rpx;
+    height: 48rpx;
+    position: absolute;
+    margin-top: 420rpx;
+    margin-left: 60rpx;
+}
+.popup .artifical_detail .medalCount{
+    width: 30rpx;
+    height: 30rpx;
+    line-height: 30rpx;
+    position: absolute;
+    margin-top: 430rpx;
+    margin-left: 110rpx;
+    color:rgba(151, 151, 151, 1);
+    font-size: 24rpx;
+}
+.popup .artifical_detail .like{
+    width: 44rpx;
+    height: 44rpx;
+    position: absolute;
+    margin-top: 420rpx;
+    margin-left: 200rpx;
+}
+.popup .artifical_detail .likeCount{
+    width: 30rpx;
+    height: 30rpx;
+    line-height: 30rpx;
+    position: absolute;
+    margin-top: 430rpx;
+    margin-left: 250rpx;
+    color:rgba(151, 151, 151, 1);
+    font-size: 24rpx;
+}
+.popup .artifical_detail .comment{
+    width: 48rpx;
+    height: 48rpx;
+    position: absolute;
+    margin-top: 420rpx;
+    margin-left: 340rpx;
+}
+.popup .artifical_detail .commentCount{
+    width: 30rpx;
+    height: 30rpx;
+    line-height: 30rpx;
+    position: absolute;
+    margin-top: 430rpx;
+    margin-left: 390rpx;
+    color:rgba(151, 151, 151, 1);
+    font-size: 24rpx;
+}
+
+
+
+.popup .unsubmit{
+    width:710rpx;
+    height:100rpx;
+    position: absolute;
+    bottom: 20rpx;
+    margin: 0 auto;
+}

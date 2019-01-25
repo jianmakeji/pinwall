@@ -1,0 +1,90 @@
+<!--index.wxml-->
+<view class='container'>
+    <view class='row_1'>
+        <view class='column_1'>
+            <view class='row_1_1' data-artificat-id="1" bindtap='bindtap'>
+                <image mode='scaleToFill' src='/images/photo_1.jpg'></image>
+                <view class='point'>···</view>
+            </view>
+            <view class='row_1_2'>
+                <image mode='scaleToFill' src='/images/photo_1.jpg'></image>
+                <view class='point'>···</view>
+            </view>
+        </view>
+        <view class='column_2'>
+            <view class='row_1_3'>
+                <image mode='scaleToFill' src='/images/photo_1.jpg'></image>
+                <view class='point'>···</view>
+            </view>
+        </view>
+    </view>
+    <view class='row_2'>
+        <view class='column_1'>
+            <view class='row_2_1'>
+                <image mode='scaleToFill' src='/images/photo_2.jpg'></image>
+                <view class='point'>···</view>
+            </view>
+        </view>
+        <view class='column_2'>
+            <view class='row_2_2'>
+                <image mode='scaleToFill' src='/images/photo_2.jpg'></image>
+                <view class='point'>···</view>
+            </view>
+            <view class='row_2_3'>
+                <image mode='scaleToFill' src='/images/photo_2.jpg'></image>
+                <view class='point'>···</view>
+            </view>
+        </view>
+    </view>
+    <view class='row_3'>
+        <view class='row_3_1'>
+            <image mode='scaleToFill' src='/images/photo_1.jpg'></image>
+            <view class='point'>···</view>
+        </view>
+        <view class='row_3_2'>
+            <image mode='scaleToFill' src='/images/photo_1.jpg'></image>
+            <view class='point'>···</view>
+        </view>
+        <view class='row_3_3'>
+            <image mode='scaleToFill' src='/images/photo_1.jpg'></image>
+            <view class='point'>···</view>
+        </view>
+    </view>
+    <view class='row_4'>
+        <view class='row_4_1'>
+            <image mode='scaleToFill' src='/images/photo_2.jpg'></image>
+            <view class='point'>···</view>
+        </view>
+        <view class='row_4_2'>
+            <image mode='scaleToFill' src='/images/photo_2.jpg'></image>
+            <view class='point'>···</view>
+        </view>
+        <view class='row_4_3'>
+            <image mode='scaleToFill' src='/images/photo_2.jpg'></image>
+            <view class='point'>···</view>
+        </view>
+    </view>
+    <wxc-popup animation-mode="bottom" align="bottom" status="{{visible}}" locked>
+        <view class='popup'>
+            <view class='artifical_detail'>
+                <image class='userAvator' src='/images/photo_2.jpg'></image>
+                <text class="username">林姿君</text>
+                <text class="createAt">2018-12-15</text>
+                <text class="title">儿童蚊媒传染病预防产品服务系统设计</text>
+                <text class="descript">It’s a product service system, which aims at create a safer environment for children, protect them from…</text>
+                <text class="shoulu">收录于</text>
+                <text class="topic">2018届本科毕业设计作品</text>
+                <image class='medal' src='/images/medal_48_48.png'></image>
+                <text class="medalCount">10</text>
+                <image class='like' src='/images/like_48_48.png'></image>
+                <text class="likeCount">10</text>
+                <image class='comment' src='/images/comment_48_48.png'></image>
+                <text class="commentCount">10</text>
+
+            </view>
+            <view class='unsubmit'>
+                <i-button type="default" shape="circle" bind:click="unsubmit">取消</i-button>
+            </view>
+        </view>
+    </wxc-popup>
+</view>
