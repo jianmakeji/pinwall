@@ -27,9 +27,10 @@ class UpdateElasticsearch extends Subscription {
 
     let insertPinwallObject = false;
     let insertSuggestObject = false;
-    
+
     try{
       let esArray = await ctx.model.Artifacts.findArtifactByTime(insertPinwallTime,0);
+      insertPinwallTime = new Date();
       for (let artiObj of esArray){
         await ctx.service.esUtils.createObject(artiObj.Id, artiObj);
 
@@ -81,6 +82,7 @@ class UpdateElasticsearch extends Subscription {
     //更新数据到es
     try{
       let esArray = await ctx.model.Artifacts.findArtifactByTime(insertSuggestTime,1);
+      insertSuggestTime = new Date();
       for (let artiObj of esArray){
         await ctx.service.esUtils.updateobject(artiObj.Id, artiObj);
         let object = {};
