@@ -115,5 +115,8 @@ module.exports = app => {
   router.resources('website.artifactScores', '/website/artifactScores', vipAuthCheck, controller.website.artifactScores);
   router.resources('website.artifactMedalLike', '/website/artifactMedalLike', ajaxAuthCheck, controller.website.artifactMedalLike);
 
+  //微信接口
+  router.resources('wx.topics', '/wx/topics',  controller.wx.topics);
+  router.get('/wx/artifacts/getMedalDataByRandom/:limit', controller.wx.artifacts.getMedalDataByRandom);
 
 };
