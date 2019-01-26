@@ -39,7 +39,7 @@ module.exports = app => {
     });
   }
 
-  EsSyncData.update = async function (syncType, date) {
+  EsSyncData.updateDate = async function (syncType, date) {
     return this.update({
       lastSyncTime:date
     },{
