@@ -7,7 +7,7 @@ var index = new Vue({
             },
             single: true,
             drawerShow: false,
-
+            wxloginModal:false,
             username: "",
             password: "",
             verification: false,
@@ -35,6 +35,9 @@ var index = new Vue({
                 window.localStorage.removeItem("username");
                 window.localStorage.removeItem("password");
             }
+        },
+        wxlogin(){
+            this.wxloginModal = true;
         }
     },
     created() {
