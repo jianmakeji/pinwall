@@ -64,14 +64,14 @@
             <view class='point'>···</view>
         </view>
     </view>
-    <wxc-popup animation-mode="bottom" align="bottom" status="{{visible}}" locked>
+    <wxc-popup animation-mode="bottom" align="bottom" status="{{visible}}">
         <view class='popup'>
             <view class='artifical_detail'>
                 <image class='userAvator' src='/images/photo_2.jpg'></image>
                 <text class="username">林姿君</text>
                 <text class="createAt">2018-12-15</text>
                 <text class="title">儿童蚊媒传染病预防产品服务系统设计</text>
-                <text class="descript">It’s a product service system, which aims at create a safer environment for children, protect them from…</text>
+                <text class="descript">儿童蚊媒传染病预防产品服务系统设计儿童蚊媒传染病预防产品服务系统设计儿童蚊媒传染病预防产品服务系统设计儿童蚊媒传染病预防产品服务系统设计儿童蚊媒传染病预防产品服务系统设计儿童蚊媒传染病预防产品服务系统设计</text>
                 <text class="shoulu">收录于</text>
                 <text class="topic">2018届本科毕业设计作品</text>
                 <image class='medal' src='/images/medal_48_48.png'></image>
@@ -80,10 +80,9 @@
                 <text class="likeCount">10</text>
                 <image class='comment' src='/images/comment_48_48.png'></image>
                 <text class="commentCount">10</text>
-
             </view>
             <view class='unsubmit'>
-                <i-button type="default" shape="circle" bind:click="unsubmit">取消</i-button>
+                <i-button type="default" shape="circle" bindtap="unsubmit">取消</i-button>
             </view>
         </view>
     </wxc-popup>

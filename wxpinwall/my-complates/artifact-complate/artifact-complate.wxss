@@ -1,0 +1,117 @@
+/* my-complates/artifact-complate.wxss */
+
+.artifact_complate {
+   width: 670rpx;
+   height: 260rpx;
+   margin: 20rpx auto;
+   padding: 20rpx;
+   box-shadow: 4rpx 4rpx 20rpx 4rpx rgba(216, 216, 216, 0.5);
+   display: flex;
+   flex-direction: row
+}
+.artifact_complate .profile_image {
+   width: 260rpx;
+   height: 260rpx;
+}
+
+.artifact_complate .artifact_info{
+   display: flex;
+   flex-direction: column;
+}
+.artifact_complate .artifact_info .user_avator {
+   width: 80rpx;
+   height: 80rpx;
+   border-radius: 40rpx;
+   position: absolute;
+   margin-left: 40rpx;
+   margin-top: 20rpx;
+}
+
+.artifact_complate .artifact_info .user_name {
+   width: 160rpx;
+   height: 40rpx;
+   font-size: 24rpx;
+   position: absolute;
+   margin-left: 140rpx;
+   margin-top: 26rpx;
+   color: #484848;
+}
+
+.artifact_complate .artifact_info .createAt {
+   width: 190rpx;
+   height: 30rpx;
+   font-size: 20rpx;
+   position: absolute;
+   margin-left: 140rpx;
+   margin-top: 66rpx;
+   color: #979797;
+}
+
+.artifact_complate .artifact_info .artifact_title {
+   width: 180px;
+   height: 80rpx;
+   color: rgba(31, 181, 190, 1);
+   position: absolute;
+   margin-top: 120rpx;
+   margin-left: 50rpx;
+   font-size: 28rpx;
+   font-weight: bold;
+   display: -webkit-box;
+   word-break: break-all;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 2;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.artifact_complate .artifact_info .medal {
+   width: 30rpx;
+   height: 30rpx;
+   position: absolute;
+   margin-left: 40rpx;
+   margin-top: 223rpx;
+}
+
+.artifact_complate .artifact_info .medal_count {
+   width: 44rpx;
+   height: 44rpx;
+   position: absolute;
+   color: #999999;
+   font-size: 24rpx;
+   margin-top: 222rpx;
+   margin-left: 80rpx;
+}
+.artifact_complate .artifact_info .like {
+   width: 30rpx;
+   height: 30rpx;
+   position: absolute;
+   margin-left: 150rpx;
+   margin-top: 223rpx;
+}
+
+.artifact_complate .artifact_info .like_count {
+   width: 44rpx;
+   height: 44rpx;
+   position: absolute;
+   color: #999999;
+   font-size: 24rpx;
+   margin-top: 222rpx;
+   margin-left: 195rpx;
+}
+.artifact_complate .artifact_info .comment {
+   width: 30rpx;
+   height: 30rpx;
+   position: absolute;
+   margin-left: 260rpx;
+   margin-top: 223rpx;
+}
+
+.artifact_complate .artifact_info .comment_count {
+   width: 34rpx;
+   height: 34rpx;
+   position: absolute;
+   color: #999999;
+   font-size: 24rpx;
+   margin-top: 222rpx;
+   margin-left: 305rpx;
+}

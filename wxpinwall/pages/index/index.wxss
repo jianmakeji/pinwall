@@ -54,13 +54,13 @@
 .container .row_2 .row_2_1{
     margin: 5rpx;
     width: 455rpx;
-    height: 455rpx;
+    height: 456rpx;
 }
 .container .row_1 .row_1_3 image,
 .container .row_2 .row_2_1 image{
     border-radius: 15rpx;
     width: 455rpx;
-    height: 455rpx;
+    height: 456rpx;
 }
 .container .row_1 .row_1_3 .point,
 .container .row_2 .row_2_1 .point{
@@ -86,22 +86,22 @@
 .container .row_3 .row_3_2,
 .container .row_3 .row_3_3{
     margin: 5rpx;
-    width: 230rpx;
-    height: 230rpx;
+    width: 225rpx;
+    height: 225rpx;
 }
 .container .row_3 .row_3_1 image,
 .container .row_3 .row_3_2 image,
 .container .row_3 .row_3_3 image{
     border-radius: 15rpx;
-    width: 230rpx;
-    height: 230rpx;
+    width: 225rpx;
+    height: 225rpx;
 }
 .container .row_3 .row_3_1 .point,
 .container .row_3 .row_3_2 .point,
 .container .row_3 .row_3_3 .point{
     position: absolute;
     margin-top: -52rpx;
-    margin-left: 150rpx;
+    margin-left: 145rpx;
     width: 80rpx;
     height: 40rpx;
     line-height: 40rpx;
@@ -121,22 +121,22 @@
 .container .row_4 .row_4_2,
 .container .row_4 .row_4_3{
     margin: 5rpx;
-    width: 230rpx;
-    height: 230rpx;
+    width: 225rpx;
+    height: 225rpx;
 }
 .container .row_4 .row_4_1 image,
 .container .row_4 .row_4_2 image,
 .container .row_4 .row_4_3 image{
     border-radius: 15rpx;
-    width: 230rpx;
-    height: 230rpx;
+    width: 225rpx;
+    height: 225rpx;
 }
 .container .row_4 .row_4_1 .point,
 .container .row_4 .row_4_2 .point,
 .container .row_4 .row_4_3 .point{
     position: absolute;
     margin-top: -52rpx;
-    margin-left: 150rpx;
+    margin-left: 145rpx;
     width: 80rpx;
     height: 40rpx;
     line-height: 40rpx;
@@ -157,9 +157,9 @@
     display: flex;
     flex-direction: column;
     width: 700rpx;
-    height: 600rpx;
+    height: 480rpx;
     margin:0px auto 110rpx;
-    background: rgba(225, 225, 225, 0.8);
+    background: rgba(225, 225, 225, 0.9);
     border-radius: 24rpx;
 }
 .popup .artifical_detail .userAvator{
@@ -205,19 +205,26 @@
 }
 .popup .artifical_detail .descript{
     width: 600rpx;
-    height: 300rpx;
+    height: 95rpx;
     line-height: 32rpx;
     position: absolute;
-    margin-top: 220rpx;
+    margin-top: 210rpx;
     margin-left: 60rpx;
     color:#999999;
     font-size: 24rpx;
     opacity: 1;
     z-index: 1;
+
+    display: -webkit-box;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:3;
+    overflow: hidden;
+    text-overflow:ellipsis;
 }
 .popup .artifical_detail .shoulu{
     width: 600rpx;
-    height: 300rpx;
+    height: 40rpx;
     line-height: 32rpx;
     position: absolute;
     margin-top: 320rpx;
@@ -289,12 +296,19 @@
     font-size: 24rpx;
 }
 
-
-
 .popup .unsubmit{
-    width:710rpx;
+    width:700rpx;
     height:100rpx;
     position: absolute;
     bottom: 20rpx;
     margin: 0 auto;
+}
+.popup .unsubmit button{
+    width: 700rpx;
+    height:90rpx;
+    line-height:90rpx;
+    font-size: 40rpx;
+    margin-left: 0px;
+    border-radius: 30rpx;
+    color:#1FB5BE !important;
 }

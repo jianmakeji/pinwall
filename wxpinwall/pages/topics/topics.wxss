@@ -1,1 +1,4 @@
 /* pages/topics/topics.wxss */
+.topics_tabs scroll-view label{
+    font-size:24rpx;
+}

@@ -38,7 +38,6 @@ var index = new Vue({
     }
 })
 function isChorme(that){
-    console.log(navigator.userAgent.toLowerCase());
 	if(navigator.userAgent.toLowerCase().indexOf("chrome") == -1 && navigator.userAgent.toLowerCase().indexOf("firefox") == -1){
 		that.$Message.error({content:"为了有更好的使用体验，推荐使用谷歌或者火狐浏览器！",closable:true,duration:0});
 	}

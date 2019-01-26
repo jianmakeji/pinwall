@@ -1,1 +1,7 @@
-{}
+{
+    "usingComponents": {
+        "topic-complate": "/my-complates/topic-complate/topic-complate",
+        "wxc-tab": "/@minui/wxc-tab/dist/index",
+        "wxc-tab-panel": "/@minui/wxc-tab/dist/panel"
+    }
+}

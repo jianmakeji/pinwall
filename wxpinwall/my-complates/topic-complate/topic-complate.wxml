@@ -1,0 +1,15 @@
+<!--my-complates/topic-complate.wxml-->
+<view class='topic_complate'>
+   <view class='topic_info'>
+      <image class='user_avator' src='{{userAvator}}'></image>
+      <text class='user_fullname'>{{userFullname}}</text>
+      <text class='total_artifact'>{{totalArtifact}}</text>
+      <text class='createAt'>{{createAt}}</text>
+      <text class='topic_name'>{{topicName}}</text>
+   </view>
+   <view class='topic_artifacts'>
+      <block wx:for="{{artifacts}}" wx:for-item="artifact" wx:index="index">
+         <image wx:if="{{index<=5}}" class='artifact_img' bindTap="tapTheArtifact" src='{{artifact.profileImage}}'></image>
+      </block>
+   </view>
+</view>

@@ -1,6 +1,6 @@
 Page({
     data:{
-        visible: "show"
+        visible: "hide"
     },
     bindtap(event){
         // console.log(event);
