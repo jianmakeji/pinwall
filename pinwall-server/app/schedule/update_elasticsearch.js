@@ -1,12 +1,10 @@
 const Subscription = require('egg').Subscription;
-const fs = require('fs');
-const path = require('path');
 
 class UpdateElasticsearch extends Subscription {
   // 通过 schedule 属性来设置定时任务的执行间隔等配置
   static get schedule() {
     return {
-      interval: '2m', // 1m 分钟间隔
+      interval: '10s', // 1m 分钟间隔
       type: 'worker', // 指定所有的 worker 都需要执行
     };
   }
@@ -15,21 +13,23 @@ class UpdateElasticsearch extends Subscription {
   async subscribe() {
 
     const ctx = this.ctx;
-    const filePath =  path.resolve(this.app.config.static.dir,'project_config');
 
-    if(!fs.existsSync(filePath)){
-      fs.mkdirSync(filePath);
+    let insertPinwallTime;
+
+    const insertPinwall = await ctx.service.esSyncData.getDateBySyncType(1);
+    if (insertPinwall.length == 0){
+       insertPinwallTime = new Date();
+       await ctx.service.esSyncData.createEsSyncData(1,insertPinwallTime);
     }
-    const filename = path.resolve(filePath,'time.properties');
+    else{
+       insertPinwallTime = insertPinwall[0].lastSyncTime;
+    }
 
-    let fd;
-    const thisSyncTime = new Date();
-    let lastSyncTime = fs.readFileSync(filename,'utf-8');
-
-    let insertTag = false;
-    let updateTag = false;
+    let insertPinwallObject = false;
+    let insertSuggestObject = false;
+    
     try{
-      let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime,0);
+      let esArray = await ctx.model.Artifacts.findArtifactByTime(insertPinwallTime,0);
       for (let artiObj of esArray){
         await ctx.service.esUtils.createObject(artiObj.Id, artiObj);
 
@@ -56,16 +56,31 @@ class UpdateElasticsearch extends Subscription {
         await ctx.service.esUtils.createSuggestObject(artiObj.Id, object);
         ctx.getLogger('elasticLogger').info(artiObj.Id+"\n");
       }
-      insertTag = true;
+      insertPinwallObject = true;
     }
     catch(e){
-      insertTag = false;
+      insertPinwallObject = false;
       this.ctx.getLogger('elasticLogger').info(e.message+"\n");
+    }
+
+    if(insertPinwallObject){
+      await ctx.service.esSyncData.update(1, insertPinwallTime);
+    }
+
+    let insertSuggestTime;
+
+    const insertSuggest = await ctx.service.esSyncData.getDateBySyncType(2);
+    if (insertSuggest.length == 0){
+       insertSuggestTime = new Date();
+       await ctx.service.esSyncData.createEsSyncData(2,insertSuggestTime);
+    }
+    else{
+       insertSuggestTime = insertSuggest[0].lastSyncTime;
     }
 
     //更新数据到es
     try{
-      let esArray = await ctx.model.Artifacts.findArtifactByTime(lastSyncTime,1);
+      let esArray = await ctx.model.Artifacts.findArtifactByTime(insertSuggestTime,1);
       for (let artiObj of esArray){
         await ctx.service.esUtils.updateobject(artiObj.Id, artiObj);
         let object = {};
@@ -91,25 +106,16 @@ class UpdateElasticsearch extends Subscription {
         await ctx.service.esUtils.updateSuggestObject(artiObj.Id, artiObj);
         ctx.getLogger('elasticLogger').info(artiObj.Id+"\n");
       }
-      updateTag = true;
+      insertSuggestObject = true;
     }
     catch(e){
-      updateTag = false;
+      insertSuggestObject = false;
       this.ctx.getLogger('elasticLogger').info(e.message+"\n");
     }
 
-    if(insertTag && updateTag){
-      try {
-        fd = fs.openSync(filename, 'w');
-        fs.appendFileSync(fd, thisSyncTime.toLocaleString(), 'utf8');
-      } catch (err) {
-        /* Handle the error */
-      } finally {
-        if (fd !== undefined)
-          fs.closeSync(fd);
-      }
+    if(insertSuggestObject){
+      await ctx.service.esSyncData.update(2, insertSuggestTime);
     }
-
   }
 }
 

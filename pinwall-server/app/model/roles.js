@@ -76,7 +76,7 @@ module.exports = app => {
     if (!role) {
       throw new Error('role not found');
     }
-    return role.update(updates);
+    return this.update(updates);
   }
 
   Roles.delRoleById = async function (id) {
@@ -84,7 +84,7 @@ module.exports = app => {
     if (!role) {
       throw new Error('role not found');
     }
-    return role.destroy();
+    return this.destroy();
   }
 
   return Roles;
