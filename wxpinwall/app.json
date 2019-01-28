@@ -1,8 +1,9 @@
 {
    "pages": [
-      "pages/topics/topicDetail/topicDetail",
-      "pages/topics/topics",
+      "pages/topics/artifactDetail/artifactDetail",
       "pages/index/index",
+      "pages/topics/topics",
+      "pages/topics/topicDetail/topicDetail",
       "pages/welcome/welcome",
       "pages/search/search",
       "pages/my/my"

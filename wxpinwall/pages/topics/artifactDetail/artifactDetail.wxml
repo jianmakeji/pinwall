@@ -1,0 +1,27 @@
+<!--pages/topics/artifactDetail/artifactDetail.wxml-->
+<view class='artifact_info'>
+   <image class='user_avator' src='/images/photo_1.jpg'></image>
+   <text class='user_fullname'>刘德华</text>
+   <text class='artifact_title'>运动器材共享系统</text>
+   <text class='createAt'>2018-09-17 收录于</text>
+   <text class='topic_name'>2016秋-2013级《可持续设计》课程2016秋-2013级《可持续设计》课程</text>
+   <text class='artifact_des'>【杨友皓 201305010114】S-SPORTS基于手机APP和各运动场地相应的运动器材租赁机，为广大运动爱好者提供即取即用，用完即还的可持续共享服务系统。201305010114】S-SPORTS基于手机APP和各运动场地相应的运动器材租赁机，为广大运动爱好者提供即取即用，用完即还的可持续共享服务系统。201305010114】S-SPORTS基于手机APP和各运动场地相应的运动器材租赁机，为广大运动爱好者提供即取即用，用完即还的可持续共享服务系统。</text>
+</view>
+<view class='artifact_assets'>
+   <view class='artifact_assets_detail'>
+      <image class='artifact_profile_img' mode="widthFix" src='/images/photo_1.jpg'></image>
+      <text class='artifact_profile_title'>运动器材共享系统</text>
+   </view>
+   <view class='artifact_assets_detail'>
+      <image class='artifact_profile_img' mode="widthFix" src='/images/photo_1.jpg'></image>
+      <text class='artifact_profile_title'>运动器材共享系统</text>
+      <text class='artifact_profile_des'>【杨友皓 201305010114】S-SPORTS基于手机APP和各运动场地相应的运动器材租赁机，为广大运动爱好者提供即取即用，用完即还的可持续共享服务系统。201305010114】S-SPORTS基于手机APP和各运动场地相应的运动器材租赁机，为广大运动爱好者提供即取即用，用完即还的可持续共享服务系统。201305010114】S-SPORTS基于手机APP和各运动场地相应的运动器材租赁机，为广大运动爱好者提供即取即用，用完即还的可持续共享服务系统。</text>
+   </view>
+</view>
+<view class='opt_panel'>
+      <image class='switch_btn' src='/images/photo_2.jpg' catchtap="openOpt" wx:if="{{animationModal == 'close'}}"></image>
+      <image class='switch_btn' src='/images/photo_1.jpg' catchtap="closeOpt" wx:if="{{animationModal == 'open'}}"></image>
+      <image class='like_btn' src='/images/photo_2.jpg' catchtap="creatLike" animation="{{likeAnimationData}}"></image>
+      <image class='comment_btn' src='/images/photo_2.jpg' catchtap="creatComment" animation="{{commentAnimationData}}"></image>
+      <image class='score_btn' src='/images/photo_2.jpg' catchtap="creatScore" animation="{{scoreAnimationData}}"></image>
+</view>
