@@ -4,7 +4,7 @@
     margin: 20rpx auto;
     padding: 20rpx;
     border-radius: 12rpx;
-    /* background: pink; */
+    background: #fff;
     box-shadow: 4rpx 4rpx 20rpx 4rpx rgba(153, 153, 153, 0.17);
 }
 .topic_complate .topic_info{

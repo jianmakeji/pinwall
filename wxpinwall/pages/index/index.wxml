@@ -64,7 +64,7 @@
             <view class='point'>···</view>
         </view>
     </view>
-    <wxc-popup animation-mode="bottom" align="bottom" status="{{visible}}">
+    <wxc-popup animation-mode="bottom" align="bottom" status="{{visible}}" locked>
         <view class='popup'>
             <view class='artifical_detail'>
                 <image class='userAvator' src='/images/photo_2.jpg'></image>
