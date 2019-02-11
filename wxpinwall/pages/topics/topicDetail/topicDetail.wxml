@@ -1,11 +1,11 @@
 <!--pages/topics/topicDetail.wxml-->
 <view>
    <view>
-      <topic-complate artifacts="{{topics}}" bind:tapTheArtifact="aaa"></topic-complate>
+      <topic-component artifacts="{{topics}}" bind:tapTheArtifact="tapTheArtifact"></topic-component>
    </view>
    <view>
-      <artifact-complate></artifact-complate>
-      <artifact-complate></artifact-complate>
-      <artifact-complate></artifact-complate>
+      <artifact-component bindtap="artifactTap"></artifact-component>
+      <artifact-component></artifact-component>
+      <artifact-component></artifact-component>
    </view>
 </view>

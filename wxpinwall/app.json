@@ -1,8 +1,9 @@
 {
    "pages": [
-      "pages/topics/topicDetail/topicDetail",
-      "pages/topics/topics",
       "pages/index/index",
+      "pages/topics/topics",
+      "pages/topics/topicDetail/topicDetail",
+      "pages/topics/artifactDetail/artifactDetail",
       "pages/welcome/welcome",
       "pages/search/search",
       "pages/my/my"
@@ -15,7 +16,7 @@
       "navigationBarTextStyle": "black"
    },
    "tabBar": {
-      "selectedColor": "#0D3D85",
+      "selectedColor": "#1FB5BE",
       "list": [
          {
             "pagePath": "pages/index/index",
@@ -37,7 +38,7 @@
          },
          {
             "pagePath": "pages/my/my",
-            "text": "探索",
+            "text": "绑定",
             "iconPath": "images/fire.png",
             "selectedIconPath": "images/fire.png"
          }

@@ -1,6 +1,6 @@
 {
     "usingComponents": {
-        "topic-complate": "/my-complates/topic-complate/topic-complate",
+        "topic-component": "/my-components/topic-component/topic-component",
         "wxc-tab": "/@minui/wxc-tab/dist/index",
         "wxc-tab-panel": "/@minui/wxc-tab/dist/panel"
     }

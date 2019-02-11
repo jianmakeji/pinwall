@@ -41,10 +41,10 @@ Component({
     * 组件的方法列表
     */
    methods: {
-      tapTheArtifact(e){
-         const {value:searchValue} = e.detail; // detail对象，提供给事件监听函数
-         console.log(searchValue);
-         this.triggerEvent('tapTheArtifact', { searchValue}, {});
+      _tapTheArtifact(event){
+         // const topic_complate_detail = event; // detail对象，提供给事件监听函数
+         // console.log(event);
+         this.triggerEvent("tapTheArtifact", event, {});
       }
    }
 })

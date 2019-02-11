@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-     "topic-complate": "/my-complates/topic-complate/topic-complate",
-     "artifact-complate": "/my-complates/artifact-complate/artifact-complate"
+     "topic-component": "/my-components/topic-component/topic-component",
+     "artifact-component": "/my-components/artifact-component/artifact-component"
   }
 }

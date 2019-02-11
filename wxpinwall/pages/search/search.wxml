@@ -1,2 +1,4 @@
-<!--pages/search/search.wxml-->
-<text>pages/search/search.wxml</text>
+<view class="input-wrap">
+   <wxc-input type="text" icon="search" placeholder="探索" focus bind:input="inputChange">
+   </wxc-input>
+</view>

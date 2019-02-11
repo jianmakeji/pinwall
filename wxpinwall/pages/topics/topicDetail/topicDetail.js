@@ -11,14 +11,23 @@ Page({
          { profileImage: "/images/photo_1.jpg" }
       ]
    },
-   aaa(event){
-      console.log(event)
+   tapTheArtifact(event){
+      console.log(event);
+      wx.navigateTo({
+         url: '/pages/topics/artifactDetail/artifactDetail',
+      })
+   },
+   artifactTap(event){
+      console.log(event);
+      wx.navigateTo({
+         url: '/pages/topics/artifactDetail/artifactDetail',
+      })
    },
    /**
     * 生命周期函数--监听页面加载
     */
    onLoad: function (options) {
-   
+      
    },
 
    /**
@@ -32,7 +41,9 @@ Page({
     * 生命周期函数--监听页面显示
     */
    onShow: function () {
-
+      wx.showTabBar({
+         animation:true
+      })
    },
 
    /**

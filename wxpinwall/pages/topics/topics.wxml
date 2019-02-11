@@ -2,12 +2,7 @@
 <view class='topics_tabs'>
     <wxc-tab bind:tabchange="tabchange" default-index="{{tabIndex}}" text-color="#979797" active-text-color="#1FB5BE" line-color="#979797" active-line-color="#1FB5BE" animate>
         <wxc-tab-panel wx:for="{{tabs}}" wx:for-item="tab" wx:for-index="{{index}}" label="{{tab.title}}">
-            <topic-complate artifacts="{{topics}}" bindtap="selectTap"></topic-complate>
-            <topic-complate artifacts="{{topics}}"></topic-complate>
-            <topic-complate artifacts="{{topics}}"></topic-complate>
-            <topic-complate artifacts="{{topics}}"></topic-complate>
-            <topic-complate artifacts="{{topics}}"></topic-complate>
-            <topic-complate artifacts="{{topics}}"></topic-complate>
+            <topic-component artifacts="{{topics}}" bindtap="selectTap"></topic-component>
         </wxc-tab-panel>
     </wxc-tab>
 </view>
