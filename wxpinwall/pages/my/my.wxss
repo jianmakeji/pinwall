@@ -1,1 +1,334 @@
 /* pages/my/my.wxss */
+
+.login {
+   width: 750rpx;
+   height: 100%;
+   background: pink;
+}
+
+.login .defalt_avator {
+   width: 220rpx;
+   height: 220rpx;
+   position: absolute;
+   margin-top: 150rpx;
+   margin-left: 265rpx;
+   border-radius: 100rpx;
+}
+
+.login .username_box {
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 420rpx;
+   margin-left: 75rpx;
+   border: 2rpx solid #fff;
+   border-radius: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-content: center;
+}
+
+.login .username_icon {
+   margin-left: 40rpx;
+}
+
+.login .username_input {
+   width: 370rpx;
+   height: 52rpx;
+   margin-left: 40rpx;
+   background: none;
+}
+
+.login .password_box {
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 520rpx;
+   margin-left: 75rpx;
+   border: 2rpx solid #fff;
+   border-radius: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-content: center;
+}
+
+.login .password_icon {
+   margin-left: 40rpx;
+}
+
+.login .password_input {
+   width: 370rpx;
+   height: 52rpx;
+   margin-left: 40rpx;
+   background: none;
+}
+
+.login .radio {
+   position: absolute;
+   margin-top: 630rpx;
+   margin-left: 80rpx;
+}
+
+.login .radio i-cell view {
+   background: none;
+   border: none;
+}
+
+.login .submit {
+   position: absolute;
+   width: 600rpx;
+   margin-top: 740rpx;
+   margin-left: 75rpx;
+   color: #7ae7e5;
+}
+.login .wx_login {
+   position: absolute;
+   width: 600rpx;
+   margin-top: 860rpx;
+   margin-left: 75rpx;
+}
+
+.myInfo {
+   width: 750rpx;
+   height: 100%;
+}
+
+.myInfo .user_info {
+   width: 700rpx;
+   height: 320rpx;
+   margin-top: 70rpx;
+   margin-left: 25rpx;
+   background: #fff;
+   border-radius: 20rpx;
+   box-shadow: 0px 2px 4px 0px rgba(31, 181, 190, 0.24);
+}
+
+.myInfo .user_avator {
+   width: 120rpx;
+   height: 120rpx;
+   border-radius: 120rpx;
+   position: absolute;
+   margin-left: 45rpx;
+   margin-top: -45rpx;
+}
+
+.myInfo .fullname {
+   width: 200rpx;
+   height: 40rpx;
+   position: absolute;
+   margin-top: 10rpx;
+   margin-left: 180rpx;
+   font-size: 32rpx;
+   color: #1fb5be;
+   font-weight: bold;
+}
+
+.myInfo .upload_img {
+   width: 42rpx;
+   height: 42rpx;
+   position: absolute;
+   margin-left: 70rpx;
+   margin-top: 130rpx;
+}
+
+.myInfo .upload_text {
+   width: 90rpx;
+   height: 30rpx;
+   line-height: 30rpx;
+   color: rgba(51, 51, 51, 1);
+   font-size: 20rpx;
+   text-align: center;
+   position: absolute;
+   margin-top: 190rpx;
+   margin-left: 50rpx;
+}
+
+.myInfo .upload_num {
+   width: 90rpx;
+   height: 40rpx;
+   line-height: 40rpx;
+   color: rgba(82, 82, 82, 1);
+   font-size: 28rpx;
+   text-align: center;
+   position: absolute;
+   margin-top: 230rpx;
+   margin-left: 50rpx;
+   font-weight: bold
+}
+
+.myInfo .like_img {
+   width: 42rpx;
+   height: 42rpx;
+   position: absolute;
+   margin-left: 240rpx;
+   margin-top: 130rpx;
+}
+
+.myInfo .like_text {
+   width: 90rpx;
+   height: 30rpx;
+   line-height: 30rpx;
+   color: rgba(51, 51, 51, 1);
+   font-size: 20rpx;
+   text-align: center;
+   position: absolute;
+   margin-top: 190rpx;
+   margin-left: 220rpx;
+}
+
+.myInfo .like_num {
+   width: 90rpx;
+   height: 40rpx;
+   line-height: 40rpx;
+   color: rgba(82, 82, 82, 1);
+   font-size: 28rpx;
+   text-align: center;
+   position: absolute;
+   margin-top: 230rpx;
+   margin-left: 220rpx;
+   font-weight: bold
+}
+.myInfo .medal_img {
+   width: 42rpx;
+   height: 42rpx;
+   position: absolute;
+   margin-left: 420rpx;
+   margin-top: 130rpx;
+}
+
+.myInfo .medal_text {
+   width: 90rpx;
+   height: 30rpx;
+   line-height: 30rpx;
+   color: rgba(51, 51, 51, 1);
+   font-size: 20rpx;
+   text-align: center;
+   position: absolute;
+   margin-top: 190rpx;
+   margin-left: 400rpx;
+}
+
+.myInfo .medal_num {
+   width: 90rpx;
+   height: 40rpx;
+   line-height: 40rpx;
+   color: rgba(82, 82, 82, 1);
+   font-size: 28rpx;
+   text-align: center;
+   position: absolute;
+   margin-top: 230rpx;
+   margin-left: 400rpx;
+   font-weight: bold
+}
+.myInfo .comment_img {
+   width: 42rpx;
+   height: 42rpx;
+   position: absolute;
+   margin-left: 580rpx;
+   margin-top: 130rpx;
+}
+
+.myInfo .comment_text {
+   width: 90rpx;
+   height: 30rpx;
+   line-height: 30rpx;
+   color: rgba(51, 51, 51, 1);
+   font-size: 20rpx;
+   text-align: center;
+   position: absolute;
+   margin-top: 190rpx;
+   margin-left: 560rpx;
+}
+
+.myInfo .comment_num {
+   width: 90rpx;
+   height: 40rpx;
+   line-height: 40rpx;
+   color: rgba(82, 82, 82, 1);
+   font-size: 28rpx;
+   text-align: center;
+   position: absolute;
+   margin-top: 230rpx;
+   margin-left: 560rpx;
+   font-weight: bold
+}
+.myInfo .zuopingji{
+   width: 700rpx;
+   height: 100rpx;
+   margin-top: 40rpx;
+   margin-left: 25rpx;
+   background: #fff;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   box-shadow: 0px 2px 4px 0px rgba(31, 181, 190, 0.16);
+   border-radius: 16rpx;
+}
+.myInfo .zuopingji .zuopingji_img{
+   width: 36rpx;
+   height: 36rpx;
+   margin-left: 80rpx;
+}
+.myInfo .zuopingji .zuopingji_text{
+   width: 180rpx;
+   height: 40rpx;
+   line-height: 40rpx;
+   margin-left: 60rpx;
+   font-size: 28rpx;
+}
+.myInfo .zuoyejia{
+   width: 700rpx;
+   height: 100rpx;
+   margin-top: 30rpx;
+   margin-left: 25rpx;
+   background: #fff;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   box-shadow: 0px 2px 4px 0px rgba(31, 181, 190, 0.16);
+   border-radius: 16rpx;
+}
+.myInfo .zuoyejia .zuoyejia_img{
+   width: 36rpx;
+   height: 36rpx;
+   margin-left: 80rpx;
+}
+.myInfo .zuoyejia .zuoyejia_text{
+   width: 180rpx;
+   height: 40rpx;
+   line-height: 40rpx;
+   margin-left: 60rpx;
+   font-size: 28rpx;
+}
+.myInfo .edit{
+   width: 700rpx;
+   height: 100rpx;
+   margin-top: 30rpx;
+   margin-left: 25rpx;
+   background: #fff;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   box-shadow: 0px 2px 4px 0px rgba(31, 181, 190, 0.16);
+   border-radius: 16rpx;
+}
+.myInfo .edit .edit_img{
+   width: 36rpx;
+   height: 36rpx;
+   margin-left: 80rpx;
+}
+.myInfo .edit .edit_text{
+   width: 180rpx;
+   height: 40rpx;
+   line-height: 40rpx;
+   margin-left: 60rpx;
+   font-size: 28rpx;
+}
+.myInfo .submit {
+   width: 600rpx;
+   margin-top: 60rpx;
+   margin-left: 75rpx;
+   color: #7ae7e5;
+}

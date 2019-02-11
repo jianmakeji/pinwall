@@ -1,1 +1,11 @@
-{}
+{
+   "usingComponents": {
+      "i-icon": "/dist/icon/index",
+      "i-input": "/dist/input/index",
+      "i-radio-group": "/dist/radio-group/index",
+      "i-radio": "/dist/radio/index",
+      "i-button": "/dist/button/index"
+   },
+   "disableScroll":true,
+   "disableSwipeBack":true
+}
