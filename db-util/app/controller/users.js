@@ -18,7 +18,7 @@ class UsersController extends Controller {
   async transferRoles(){
     const ctx = this.ctx;
     try{
-      await ctx.service.users.transferUsers();
+      await ctx.service.users.transferRoles();
       ctx.body = '操作成功';
     }
     catch(e){
@@ -29,7 +29,7 @@ class UsersController extends Controller {
   async transferUserRoles(){
     const ctx = this.ctx;
     try{
-      await ctx.service.users.transferUsers();
+      await ctx.service.users.transferUserRoles();
       ctx.body = '操作成功';
     }
     catch(e){

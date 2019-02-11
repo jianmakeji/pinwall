@@ -18,7 +18,7 @@ class TermsController extends Controller {
   async transferTopicTerm(){
     const ctx = this.ctx;
     try{
-      await ctx.service.terms.transferTerms();
+      await ctx.service.terms.transferTopicTerm();
       ctx.body = '操作成功';
     }
     catch(e){

@@ -34,7 +34,7 @@ class Terms extends Service {
         termId:topicTerm.term_id
       };
 
-      await client2.insert("terms",data);
+      await client2.insert("topic_term",data);
     }
   }
 }
