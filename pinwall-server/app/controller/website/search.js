@@ -197,11 +197,13 @@ class SearchController extends BaseController{
       name_suggest.weight = 10;
       object.suggest.push(name_suggest);
 
-      let fullname_suggest = {};
-      fullname_suggest.input = element.user.fullname;
-      fullname_suggest.weight = 16;
-      object.suggest.push(fullname_suggest);
-
+      if (element.user){
+        let fullname_suggest = {};
+        fullname_suggest.input = element.user.fullname;
+        fullname_suggest.weight = 16;
+        object.suggest.push(fullname_suggest);
+      }
+      
       element.terms.forEach((term,index)=>{
         let term_suggest = {};
         term_suggest.input = term.name;
