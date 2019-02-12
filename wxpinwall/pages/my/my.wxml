@@ -1,2 +1,47 @@
 <!--pages/my/my.wxml-->
-<text>pages/my/my.wxml</text>
+<view class='login' wx:if="{{!isLogin}}">
+   <image class='defalt_avator' mode='scaleToFill' src='/images/photo_1.jpg'></image>
+   <view class='username_box'>
+      <i-icon class='username_icon' type="businesscard" size="26" color="#fff" />
+      <i-input i-class='username_input' value="{{ username }}" placeholder="请输入您的图钉墙账号" />
+   </view>
+   <view class='password_box'>
+      <i-icon class='password_icon' type="lock" size="26" color="#fff" />
+      <i-input i-class='password_input' type='password' value="{{ password }}" placeholder="请输入您的密码" />
+   </view>
+   <i-radio i-class='radio' value="记住我" checked="{{checked}}" bindchange="handleAnimalChange">
+   </i-radio>
+   <i-button i-class="submit" bind:click="handleClick" type="submit" shape="circle">确认绑定</i-button>
+   <i-button i-class="wx_login" bind:click="handleClick" type="success" shape="circle">微信登录</i-button>
+</view>
+<view class='myInfo' wx:if="{{isLogin}}">
+   <view class='user_info'>
+      <image class='user_avator' mode='scaleToFill' src='/images/photo_1.jpg'></image>
+      <text class='fullname'>马里奥</text>
+      <image class='upload_img' src='/images/medal_48_48.png'></image>
+      <text class='upload_text'>我的上传</text>
+      <text class='upload_num'>31</text>
+      <image class='like_img' src='/images/like_48_48.png'></image>
+      <text class='like_text'>被点赞的</text>
+      <text class='like_num'>31</text>
+      <image class='medal_img' src='/images/medal_48_48.png'></image>
+      <text class='medal_text'>我的勋章</text>
+      <text class='medal_num'>31</text>
+      <image class='comment_img' src='/images/comment_48_48.png'></image>
+      <text class='comment_text'>被评论的</text>
+      <text class='comment_num'>31</text>
+   </view>
+   <view class='zuopingji'>
+      <image class='zuopingji_img' src='/images/comment_48_48.png'></image>
+      <text class='zuopingji_text'>我的作品集</text>
+   </view>
+   <view class='zuoyejia'>
+      <image class='zuoyejia_img' src='/images/comment_48_48.png'></image>
+      <text class='zuoyejia_text'>我的作业荚</text>
+   </view>
+   <view class='edit'>
+      <image class='edit_img' src='/images/comment_48_48.png'></image>
+      <text class='edit_text'>我的作业荚</text>
+   </view>
+   <i-button i-class="submit" bind:click="handleClick" type="submit" shape="circle">解除绑定</i-button>
+</view>

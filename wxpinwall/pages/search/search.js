@@ -5,13 +5,20 @@ Page({
     * 页面的初始数据
     */
    data: {
-
+      hasResult:false
    },
    inputChange() {
-      wx.setTabBarItem({
-         index: 3,
-         text:"我的"
+      console.log("inputChange");
+      this.setData({
+         hasResult: true
       })
+      // wx.setTabBarItem({
+      //    index: 3,
+      //    text: "我的"
+      // })
+   },
+   bindCell(){
+      console.log("bindCell");
    },
    /**
     * 生命周期函数--监听页面加载

@@ -71,9 +71,9 @@
    background: #2db7f5 !important;
 }
 
-.i-btn-bestPro {
+.i-btn-submit {
    color: #fff !important;
-   background: #0D3D85 !important;
+   background: #7AE7E5 !important;
 }
 .i-btn-historyBtn {
    color: #fff !important;
