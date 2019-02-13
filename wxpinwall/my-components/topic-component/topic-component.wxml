@@ -1,5 +1,5 @@
 <!--my-complates/topic-complate.wxml-->
-<view class='topic_complate'>
+<view class='topic_complate' catchtap="_tapTheTopic">
    <view class='topic_info'>
       <image class='user_avator' src='{{userAvator}}'></image>
       <text class='user_fullname'>{{userFullname}}</text>
@@ -9,7 +9,7 @@
    </view>
    <view class='topic_artifacts'>
       <block wx:for="{{artifacts}}" wx:for-item="artifact" wx:index="index">
-         <image wx:if="{{index<=5}}" class='artifact_img' catchtap="_tapTheArtifact" data-index="{{index}}" src='{{artifact.profileImage}}'></image>
+         <image wx:if="{{index<=5}}" class='artifact_img' bindtap="_tapTheArtifact" data-index="{{index}}" src='{{artifact.profileImage}}'></image>
       </block>
    </view>
 </view>

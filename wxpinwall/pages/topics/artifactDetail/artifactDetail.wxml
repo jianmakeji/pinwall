@@ -1,7 +1,7 @@
-<!--pages/topics/artifactDetail/artifactDetail.wxml-->
 <view class='artifact_info'>
    <image class='user_avator' src='/images/photo_1.jpg'></image>
    <text class='user_fullname'>刘德华</text>
+   <text class='artifact_score'>97分</text>
    <text class='artifact_title'>运动器材共享系统</text>
    <text class='createAt'>2018-09-17 收录于</text>
    <text class='topic_name'>2016秋-2013级《可持续设计》课程2016秋-2013级《可持续设计》课程</text>
@@ -19,9 +19,65 @@
    </view>
 </view>
 <view class='opt_panel'>
-      <image class='switch_btn' src='/images/photo_2.jpg' catchtap="openOpt" wx:if="{{animationModal == 'close'}}"></image>
-      <image class='switch_btn' src='/images/photo_1.jpg' catchtap="closeOpt" wx:if="{{animationModal == 'open'}}"></image>
-      <image class='like_btn' src='/images/photo_2.jpg' catchtap="creatLike" animation="{{likeAnimationData}}"></image>
-      <image class='comment_btn' src='/images/photo_2.jpg' catchtap="creatComment" animation="{{commentAnimationData}}"></image>
-      <image class='score_btn' src='/images/photo_2.jpg' catchtap="creatScore" animation="{{scoreAnimationData}}"></image>
+   <image class='switch_btn' src='/images/photo_2.jpg' catchtap="openOpt" wx:if="{{animationModal == 'close'}}"></image>
+   <image class='switch_btn' src='/images/photo_1.jpg' catchtap="closeOpt" wx:if="{{animationModal == 'open'}}"></image>
+   <!-- 点赞 -->
+   <image class='like_btn' src='/images/photo_2.jpg' catchtap="creatLike" animation="{{likeAnimationData}}"></image>
+   <!-- 评论 -->
+   <image class='comment_btn' src='/images/photo_2.jpg' catchtap='openComment' animation="{{commentAnimationData}}"></image>
+   <!-- 打分 -->
+   <image class='score_btn' src='/images/photo_2.jpg' catchtap="creatScore" animation="{{scoreAnimationData}}"></image>
 </view>
+<wxc-popup animation-mode="bottom" align="bottom" status="{{commentVisible}}" locked>
+   <view class='comment_list'>
+      <text class='all_comment'>全部评论 (2)</text>
+      <i-icon class='close' type="close" size="18" color="#80848f" catchtap='closeComment' />
+      <view class='comment'>
+         <view class='user_info'>
+            <image class='user_avator' src='/images/photo_2.jpg'></image>
+            <text class='user_fullname'>马里奥</text>
+            <text class='comment_time'>2018-01-01</text>
+            <text class='comment_content'>马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥</text>
+         </view>
+         <view class='user_info'>
+            <image class='user_avator' src='/images/photo_2.jpg'></image>
+            <text class='user_fullname'>马里奥</text>
+            <text class='comment_time'>2018-01-01</text>
+            <text class='comment_content'>马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥</text>
+         </view>
+         <view class='user_info'>
+            <image class='user_avator' src='/images/photo_2.jpg'></image>
+            <text class='user_fullname'>马里奥</text>
+            <text class='comment_time'>2018-01-01</text>
+            <text class='comment_content'>马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥</text>
+         </view>
+         <view class='user_info'>
+            <image class='user_avator' src='/images/photo_2.jpg'></image>
+            <text class='user_fullname'>马里奥</text>
+            <text class='comment_time'>2018-01-01</text>
+            <text class='comment_content'>马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥</text>
+         </view>
+      </view>
+      <i-button i-class='comment_btn' bind:click='whiteComment'>
+         <i-icon type="brush_fill" size="26" color="#1fb5be" />写评论...
+      </i-button>
+   </view>
+</wxc-popup>
+<i-toast id="toast" />
+<i-modal title="评论内容" visible="{{ commentEditVisible }}" ok-text="发表" bind:ok="submitComment" bind:cancel="cancelComment">
+   <i-input type='text' value="{{ commentEditValue }}" placeholder='写评论'/>
+</i-modal>
+<i-modal title="作业评分" visible="{{ artifactScoreVisible }}" show-ok="{{false}}" show-cancel="{{false}}" customWidth="80%">
+   <view class='scroe_box'>
+      <i-input i-class='score_input' type='number'value="{{ artifactScoreValue }}" placeholder='请输入您给出的分数...'/>
+      <i-button i-class='score_btn' type='submit' bind:click="submitScore">保存</i-button>
+   </view>
+   <view class='topic_data'>
+      <text class='total'>68<text class="unit">件</text></text>
+      <text class='total_text'>作业荚作品数</text>
+      <text class='high_score'>92<text class="unit">分</text></text>
+      <text class='high_score_text'>最高分</text>
+      <text class='low_score'>79<text class="unit">分</text></text>
+      <text class='low_score_text'>最低分</text>
+   </view>
+</i-modal>

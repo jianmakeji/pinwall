@@ -330,5 +330,17 @@
    width: 600rpx;
    margin-top: 60rpx;
    margin-left: 75rpx;
-   color: #7ae7e5;
+   color: #1FB5BE;
+}
+.myInfo .modal_title{
+   font-size: 32rpx;
+   font-weight: bold;
+   color: #1FB5BE;
+}
+.myInfo .modal_des{
+   width: 400rpx;
+   text-align: center;
+   font-size: 24rpx;
+   color: #999;
+   margin: 10rpx auto;
 }

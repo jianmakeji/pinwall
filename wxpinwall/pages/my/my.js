@@ -5,19 +5,35 @@ Page({
     * 页面的初始数据
     */
    data: {
-      isLogin:false,
+      isLogin: true,
       username: "",
       password: "",
-      checked: true
+      checked: true,
+
+      modalVisible: false
    },
-   handleAnimalChange({ detail = {} }) {
+   handleAnimalChange({
+      detail = {}
+   }) {
       console.log(this.data.checked)
       this.setData({
          checked: detail.current
       });
    },
-   handleClick(){
-      console.log("handleClick")
+   handleClick() {
+      this.setData({
+         modalVisible: true
+      })
+   },
+   bindOk() {
+      this.setData({
+         modalVisible: false
+      })
+   },
+   bindCancel(){
+      this.setData({
+         modalVisible: false
+      })
    },
    /**
     * 生命周期函数--监听页面加载
