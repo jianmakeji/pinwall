@@ -27,7 +27,7 @@ var index = new Vue({
             this.aoData.userId = urlId;
             this.aoUrl = config.ajaxUrls.getPersonalJobByUserId;
         }
-        this.aoData.jobTag = window.location.href.split("jobTag=")[1];
+        // this.aoData.jobTag = window.location.href.split("jobTag=")[1];
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
 
         this.$Loading.start();
@@ -50,10 +50,10 @@ var index = new Vue({
                             that.scrollModel = true;
                         }
                     }else{
-                        that.userInfo.fullname = "此用户";
+                        that.userInfo.fullname = "该用户";
                         that.userInfo.avatarUrl = "";
                         that.userInfo.medalCount = 0;
-                        that.$Notice.error({title:"用户暂无作品集！"})
+                        that.$Notice.error({title:"用户暂无作品！"})
                     }
                 }else{
                     that.$Loading.error();
