@@ -254,7 +254,8 @@ module.exports = app => {
 
   Users.updateWxActiveByActiveCodeAndOpenId = async function(openId,activeCode,wxActive){
     return await this.update({
-      wxActive:wxActive
+      wxActive:wxActive,
+      active:wxActive
     },{
       where:{
         openId:openId,
