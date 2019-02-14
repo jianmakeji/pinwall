@@ -120,6 +120,8 @@ module.exports = app => {
   router.get('/wx/artifacts/getMedalDataByRandom/:limit', controller.wx.artifacts.getMedalDataByRandom);
   router.get('/wx/topics/getTopicAndArtifactById', controller.wx.topics.getTopicAndArtifactById);
   router.get('/wx/topics/findArtifactByTopicId', controller.wx.topics.findArtifactByTopicId);
-
-
+  router.post('wx.users.createWxUser', '/wx/users/createWxUser', controller.wx.users.createWxUser);
+  router.post('wx.users.bindWeixinInfoByEmail', '/wx/users/bindWeixinInfoByEmail', controller.wx.users.bindWeixinInfoByEmail);
+  router.get('/wx/users/getWxCode', controller.wx.users.getWxCode);
+  
 };
