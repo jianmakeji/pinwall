@@ -67,7 +67,7 @@ class UsersController extends BaseController {
     const ctx = this.ctx;
     const jscode = ctx.query.jscode;
 
-    const requestUrl = `https://api.weixin.qq.com/sns/jscode2session?appid=wx781d229c4c3bd932&secret=8c05c4d7e9970ca9cd1520fd8b857572&js_code=${jscode}&grant_type=authorization_code`;
+    const requestUrl = `https://api.weixin.qq.com/sns/jscode2session?appid=wxa4cd6f777c8b75d0&secret=aeb6d1ab0c59d4145bd00e146551f468&js_code=${jscode}&grant_type=authorization_code`;
 
     const resultObj = await request(requestUrl, function(error, response, body) {
       if (!error && response.statusCode == 200) {
