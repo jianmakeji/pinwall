@@ -1,0 +1,133 @@
+/* pages/my/completeInof/completeInof.wxss */
+
+.completeInof {
+   width: 750rpx;
+   height: 100%;
+}
+.completeInof .radio_box{
+   width: 700rpx;
+   margin-left: 25rpx;
+   position: absolute;
+   margin-top: 20rpx;
+}
+.completeInof .des_text{
+   display: block;
+   margin: 60rpx auto 20rpx;
+   width: 600rpx;
+   height: 80rpx;
+   font-size: 28rpx;
+   text-align: center;
+   text-indent: 2em;
+   color: #ff9900;
+}
+.completeInof .username_box {
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 380rpx;
+   margin-left: 75rpx;
+   border: 2rpx solid #1FB5BE;
+   border-radius: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-content: center;
+}
+
+.completeInof .username_icon {
+   margin-left: 40rpx;
+}
+
+.completeInof .username_input {
+   width: 370rpx;
+   height: 52rpx;
+   margin-left: 40rpx;
+   background: none;
+}
+.completeInof .email_box {
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 480rpx;
+   margin-left: 75rpx;
+   border: 2rpx solid #1FB5BE;
+   border-radius: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-content: center;
+}
+
+.completeInof .email_icon {
+   margin-left: 40rpx;
+}
+
+.completeInof .email_input {
+   width: 370rpx;
+   height: 52rpx;
+   margin-left: 40rpx;
+   background: none;
+}
+.completeInof .password_box {
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 580rpx;
+   margin-left: 75rpx;
+   border: 2rpx solid #1FB5BE;
+   border-radius: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-content: center;
+}
+
+.completeInof .password_icon {
+   margin-left: 40rpx;
+}
+
+.completeInof .password_input {
+   width: 370rpx;
+   height: 52rpx;
+   margin-left: 40rpx;
+   background: none;
+}
+
+.completeInof .register {
+   width: 600rpx;
+   position: absolute;
+   margin-top: 720rpx;
+   margin-left: 75rpx;
+   color: #1FB5BE;
+}
+.completeInof .bind_email_box {
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 380rpx;
+   margin-left: 75rpx;
+   border: 2rpx solid #1FB5BE;
+   border-radius: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-content: center;
+}
+
+.completeInof .bind_email_icon {
+   margin-left: 40rpx;
+}
+
+.completeInof .bind_email_input {
+   width: 370rpx;
+   height: 52rpx;
+   margin-left: 40rpx;
+   background: none;
+}
+.completeInof .bind_email {
+   width: 600rpx;
+   position: absolute;
+   margin-top: 520rpx;
+   margin-left: 75rpx;
+   color: #1FB5BE;
+}

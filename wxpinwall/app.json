@@ -6,6 +6,7 @@
       "pages/topics/artifactDetail/artifactDetail",
       "pages/welcome/welcome",
       "pages/search/search",
+      "pages/my/completeInfo/completeInfo",
       "pages/my/my"
    ],
    "window": {

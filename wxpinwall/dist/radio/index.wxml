@@ -1,7 +1,7 @@
 <view class="i-class i-radio" catchtap="radioChange">
     <i-cell i-class="i-radio-cell">
         <label>
-            <radio value="{{value}}" checked="{{checked}}" color="{{checked?'#7AE7E5':''}}" disabled="{{disabled}}" class="i-radio-radio {{positionCls}}" />
+            <radio value="{{value}}" checked="{{checked}}" color="{{checked?'#1FB5BE':''}}" disabled="{{disabled}}" class="i-radio-radio {{positionCls}}" />
             <view class="i-radio-title">{{value}}</view>
         </label>
     </i-cell>  

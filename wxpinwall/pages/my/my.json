@@ -5,7 +5,9 @@
       "i-radio-group": "/dist/radio-group/index",
       "i-radio": "/dist/radio/index",
       "i-button": "/dist/button/index",
-      "i-modal": "/dist/modal/index"
+      "i-modal": "/dist/modal/index",
+      "i-message": "/dist/message/index",
+      "i-toast": "/dist/toast/index"
    },
    "disableScroll":true,
    "disableSwipeBack":true

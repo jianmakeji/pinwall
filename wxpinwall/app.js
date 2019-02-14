@@ -1,6 +1,7 @@
 //app.js
 App({
    onLaunch: function() {
+      console.log("111111111");
       // 展示本地存储能力
       var logs = wx.getStorageSync('logs') || []
       logs.unshift(Date.now())
@@ -34,7 +35,8 @@ App({
       })
    },
    globalData: {
-      baseUrl:"https://beta.pinwall.design-engine.org",
+      // baseUrl:"https://beta.pinwall.design-engine.org",
+      baseUrl:"http://127.0.0.1:7001",
       getMedalDataByRandom:"/wx/artifacts/getMedalDataByRandom/12",
       userInfo: null
    }

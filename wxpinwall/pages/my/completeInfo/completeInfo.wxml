@@ -1,0 +1,31 @@
+<!--pages/my/completeInof/completeInof.wxml-->
+<view class='completeInof'>
+   <view class='radio_box'>
+      <i-radio-group current="{{current}}" bindchange="radioChange">
+         <i-radio i-class="my_radio" wx:for="{{radioData}}" position="left" wx:key="{{item.id}}" value="{{item.name}}">
+         </i-radio>
+      </i-radio-group>
+      <text class='des_text' wx:if="{{current == '新用户'}}">新用户：之前未在图钉墙中注册账号。</text>
+      <text class='des_text' wx:if="{{current == '图钉墙用户'}}">图钉墙用户：已有图钉墙账号，但未绑定微信账号。</text>
+   </view>
+   <view class='username_box' wx:if="{{current == '新用户'}}">
+      <i-icon class='username_icon' type="group" size="26" color="#1FB5BE" />
+      <i-input i-class='username_input' value="{{ username }}" bind:change="usernameChange" placeholder="请输入用户名" />
+   </view>
+   <view class='email_box' wx:if="{{current == '新用户'}}">
+      <i-icon class='email_icon' type="businesscard" size="26" color="#1FB5BE" />
+      <i-input i-class='email_input' value="{{ email }}" bind:change="emailChange" placeholder="请输入邮箱" />
+   </view>
+   <view class='password_box' wx:if="{{current == '新用户'}}">
+      <i-icon class='password_icon' type="lock" size="26" color="#1FB5BE" />
+      <i-input i-class='password_input' type='password' value="{{ password }}" bind:change="passwordChange" placeholder="请输入您的密码" />
+   </view>
+   <i-button i-class="register" wx:if="{{current == '新用户'}}" bind:click="register" type="submit" shape="circle" disabled="{{registerDisable}}">注册</i-button>
+
+   <view class='bind_email_box' wx:if="{{current == '图钉墙用户'}}">
+      <i-icon class='bind_email_icon' type="businesscard" size="26" color="#1FB5BE" />
+      <i-input i-class='bind_email_input' value="{{ bindemail }}" bind:change="bindemailChange" placeholder="请输入邮箱" />
+   </view>
+   <i-button i-class="bind_email" wx:if="{{current == '图钉墙用户'}}" bind:click="bindEmail" type="submit" shape="circle" disabled="{{bindemailDisable}}">绑定</i-button>
+   
+</view>

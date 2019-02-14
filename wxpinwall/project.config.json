@@ -12,8 +12,8 @@
 		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.5.0",
-	"appid": "wxb32b995f6c15aaeb",
+	"libVersion": "2.6.0",
+	"appid": "wxa4cd6f777c8b75d0",
 	"projectname": "wxpinwall",
 	"debugOptions": {
 		"hidedInDevtools": []
