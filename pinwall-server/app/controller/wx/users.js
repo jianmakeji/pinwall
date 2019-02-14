@@ -69,7 +69,7 @@ class UsersController extends BaseController {
     const jscode = ctx.query.jscode;
 
     const requestUrl = `https://api.weixin.qq.com/sns/jscode2session?appid=wxa4cd6f777c8b75d0&secret=aeb6d1ab0c59d4145bd00e146551f468&js_code=${jscode}&grant_type=authorization_code`;
-    //const user = await ctx.service.users.findByOpenId(openId);
+
     const resultObj = await request(requestUrl, function(error, response, body) {
       if (!error && response.statusCode == 200) {
 
@@ -78,6 +78,12 @@ class UsersController extends BaseController {
         return error;
       }
     });
+
+    if(resultObj.openid){
+      const user = await ctx.service.users.findByOpenId(resultObj.openid);
+      resultObj.user = user;
+    }
+
     ctx.body = resultObj;
   }
 
