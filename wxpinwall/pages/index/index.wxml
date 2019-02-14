@@ -3,17 +3,17 @@
    <view class='row_1'>
       <view class='column_1'>
          <view class='row_1_1' data-artificat-id="1" bindtap='bindtap'>
-            <image mode='scaleToFill' src='/images/photo_1.jpg'></image>
+            <image mode='scaleToFill' src='{{dataList[0].profileImage}}'></image>
             <view class='point'>···</view>
          </view>
          <view class='row_1_2'>
-            <image mode='scaleToFill' src='/images/photo_1.jpg'></image>
+            <image mode='scaleToFill' src='{{dataList[1].profileImage}}'></image>
             <view class='point'>···</view>
          </view>
       </view>
       <view class='column_2'>
          <view class='row_1_3'>
-            <image mode='scaleToFill' src='/images/photo_1.jpg'></image>
+            <image mode='scaleToFill' src='{{dataList[2].profileImage}}'></image>
             <view class='point'>···</view>
          </view>
       </view>
@@ -21,46 +21,46 @@
    <view class='row_2'>
       <view class='column_1'>
          <view class='row_2_1'>
-            <image mode='scaleToFill' src='/images/photo_2.jpg'></image>
+            <image mode='scaleToFill' src='{{dataList[3].profileImage}}'></image>
             <view class='point'>···</view>
          </view>
       </view>
       <view class='column_2'>
          <view class='row_2_2'>
-            <image mode='scaleToFill' src='/images/photo_2.jpg'></image>
+            <image mode='scaleToFill' src='{{dataList[4].profileImage}}'></image>
             <view class='point'>···</view>
          </view>
          <view class='row_2_3'>
-            <image mode='scaleToFill' src='/images/photo_2.jpg'></image>
+            <image mode='scaleToFill' src='{{dataList[5].profileImage}}'></image>
             <view class='point'>···</view>
          </view>
       </view>
    </view>
    <view class='row_3'>
       <view class='row_3_1'>
-         <image mode='scaleToFill' src='/images/photo_1.jpg'></image>
+         <image mode='scaleToFill' src='{{dataList[6].profileImage}}'></image>
          <view class='point'>···</view>
       </view>
       <view class='row_3_2'>
-         <image mode='scaleToFill' src='/images/photo_1.jpg'></image>
+         <image mode='scaleToFill' src='{{dataList[7].profileImage}}'></image>
          <view class='point'>···</view>
       </view>
       <view class='row_3_3'>
-         <image mode='scaleToFill' src='/images/photo_1.jpg'></image>
+         <image mode='scaleToFill' src='{{dataList[8].profileImage}}'></image>
          <view class='point'>···</view>
       </view>
    </view>
    <view class='row_4'>
       <view class='row_4_1'>
-         <image mode='scaleToFill' src='/images/photo_2.jpg'></image>
+         <image mode='scaleToFill' src='{{dataList[9].profileImage}}'></image>
          <view class='point'>···</view>
       </view>
       <view class='row_4_2'>
-         <image mode='scaleToFill' src='/images/photo_2.jpg'></image>
+         <image mode='scaleToFill' src='{{dataList[10].profileImage}}'></image>
          <view class='point'>···</view>
       </view>
       <view class='row_4_3'>
-         <image mode='scaleToFill' src='/images/photo_2.jpg'></image>
+         <image mode='scaleToFill' src='{{dataList[11].profileImage}}'></image>
          <view class='point'>···</view>
       </view>
    </view>
@@ -86,4 +86,5 @@
          </view>
       </view>
    </wxc-popup>
+   <i-message id="message" />
 </view>

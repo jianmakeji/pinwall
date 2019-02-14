@@ -35,7 +35,11 @@ Component({
         actionMode: {
             type: String,
             value: 'horizontal'
-        }
+        },
+       customWidth:{
+          type:String,
+          value:'270'
+       }
     },
 
     methods: {

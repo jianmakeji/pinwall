@@ -73,7 +73,7 @@
 
 .i-btn-submit {
    color: #fff !important;
-   background: #7AE7E5 !important;
+   background: #1FB5BE !important;
 }
 .i-btn-historyBtn {
    color: #fff !important;

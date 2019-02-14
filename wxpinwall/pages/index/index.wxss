@@ -2,7 +2,6 @@
     background: #fff;
     width: 700rpx;
     padding: 25rpx;
-    /* background: pink; */
     display: flex;
     flex-direction: column;
 }

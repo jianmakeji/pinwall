@@ -29,7 +29,7 @@ Page({
                })
          }
       },
-      selectTap(event){
+      tapTheTopic(event){
          wx.navigateTo({
             url: '/pages/topics/topicDetail/topicDetail',
          });

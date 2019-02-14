@@ -1,5 +1,8 @@
 <view class="input-wrap">
-   <wxc-input type="text" icon="search" placeholder="探索" focus bind:input="inputChange"></wxc-input>
+   <!-- <wxc-input type="text" icon="search" placeholder="探索" focus bind:input="inputChange"></wxc-input> -->
+   <view class="search-wrap">
+      <wxc-search class="search" color="#1FB5BE" icon-color="#cacff1" ph-color="#cacff1" placeholder="请输入 直播内容/主播/商品" bind:input="inputChange"></wxc-search>
+   </view>
    <i-cell-group wx:if="{{hasResult}}">
       <i-cell title="只显示箭头" is-link bind:click="bindCell"></i-cell>
       <i-cell title="跳转到首页" is-link url="/pages/dashboard/index"></i-cell>

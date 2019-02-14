@@ -1,7 +1,8 @@
 {
-    "component": true,
-    "usingComponents": {
-        "wxc-popup": "/@minui/wxc-popup/dist/index",
-        "i-button": "/dist/button/index"
-    }
+   "component": true,
+   "usingComponents": {
+      "wxc-popup": "/@minui/wxc-popup/dist/index",
+      "i-button": "/dist/button/index",
+      "i-message": "/dist/message/index"
+   }
 }

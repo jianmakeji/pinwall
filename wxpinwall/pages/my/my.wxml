@@ -44,4 +44,8 @@
       <text class='edit_text'>我的作业荚</text>
    </view>
    <i-button i-class="submit" bind:click="handleClick" type="submit" shape="circle">解除绑定</i-button>
+   <i-modal visible="{{ modalVisible }}" ok-text="解除绑定" bind:ok="bindOk" bind:cancel="bindCancel">
+      <view class='modal_title'>确认解除绑定？</view>
+      <view class='modal_des'> 解除绑定后，您将只能查看作品，不再拥有操作权限</view>
+   </i-modal>
 </view>
