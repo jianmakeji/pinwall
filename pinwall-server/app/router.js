@@ -123,5 +123,8 @@ module.exports = app => {
   router.post('wx.users.createWxUser', '/wx/users/createWxUser', controller.wx.users.createWxUser);
   router.post('wx.users.bindWeixinInfoByEmail', '/wx/users/bindWeixinInfoByEmail', controller.wx.users.bindWeixinInfoByEmail);
   router.get('/wx/users/getWxCode', controller.wx.users.getWxCode);
-  
+  router.get('/wx/artifacts/createComment', controller.wx.artifacts.createComment);
+  router.get('/wx/artifacts/createScore', controller.wx.artifacts.createScore);
+
+
 };

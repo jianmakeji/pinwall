@@ -48,7 +48,7 @@ class ArtifactScoresController extends BaseController{
     const ctx = this.ctx;
     const id = ctx.params.id;
     const updates = {
-      mobile: ctx.request.body.mobile,
+      
     };
 
     try{
