@@ -44,13 +44,13 @@ class UsersController extends BaseController {
     const body = ctx.request.body;
     const email = body.email;
     let user = {
-      openId = body.openid;
-      nickname = body.nickname;
-      avatarUrl = body.headimageurl;
-      gender = body.sex;
-      province = body.province;
-      city = body.city;
-      country = body.country;
+      openId : body.openid,
+      nickname : body.nickname,
+      avatarUrl : body.headimageurl,
+      gender : body.sex,
+      province : body.province,
+      city : body.city,
+      country : body.country
     };
 
     const result = await ctx.service.users.bindWeixinInfoByEmail(email,user);
@@ -68,10 +68,10 @@ class UsersController extends BaseController {
     const jscode = ctx.query.jscode;
 
     const requestUrl = `https://api.weixin.qq.com/sns/jscode2session?appid=wxa4cd6f777c8b75d0&secret=aeb6d1ab0c59d4145bd00e146551f468&js_code=${jscode}&grant_type=authorization_code`;
-
+    const user = await ctx.service.users.findByOpenId(openId);
     const resultObj = await request(requestUrl, function(error, response, body) {
       if (!error && response.statusCode == 200) {
-        const user = await ctx.service.users.findByOpenId(openId);
+
         return body;
       } else {
         return error;
