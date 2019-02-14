@@ -1,6 +1,7 @@
 'use strict'
 
 const BaseController = require('../BaseController');
+const request = require('request');
 
 class UsersController extends BaseController {
 
