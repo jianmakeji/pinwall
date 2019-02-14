@@ -69,17 +69,21 @@ class UsersController extends BaseController {
 
         const requestUrl = `https://api.weixin.qq.com/sns/jscode2session?appid=wxa4cd6f777c8b75d0&secret=aeb6d1ab0c59d4145bd00e146551f468&js_code=${jscode}&grant_type=authorization_code`;
 
-        rp(requestUrl).promise().bind(this).then(function (repos) {
-            let result = JSON.parse(repos);
-            if(result.openid){
-                const userPromise = ctx.service.users.findByOpenId(result.openid);
-                userPromise.then(function(data){
-                    result.user = data;
-                });
-            }
-            ctx.body = result;
+        let data;
+        await rp(requestUrl).promise().bind(this).then(function (repos) {
+            data = repos;
         });
 
+        let openid = JSON.parse(data).openid;
+
+        let result = {
+            openid:openid,
+        }
+        if(openid){
+            const user = await ctx.service.users.findByOpenId(openid);
+            result.user = user;
+        }
+        ctx.body = result;
     }
 
 }
