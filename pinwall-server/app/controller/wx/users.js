@@ -51,6 +51,7 @@ class UsersController extends BaseController {
       country: body.country
     };
 
+    console.log(user);
     const result = await ctx.service.users.bindWeixinInfoByEmail(email, user);
 
     if (result) {

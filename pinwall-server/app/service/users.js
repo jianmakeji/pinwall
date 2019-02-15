@@ -99,10 +99,10 @@ class Users extends Service {
   async bindWeixinInfoByEmail(email,user){
     let wxInfo = {};
     wxInfo.email = email;
-    wxInfo.openId = user.openid;
+    wxInfo.openId = user.openId;
     wxInfo.nickname = user.nickname;
-    wxInfo.avatarUrl = user.headimageurl;
-    wxInfo.gender = user.sex;
+    wxInfo.avatarUrl = user.avatarUrl;
+    wxInfo.gender = user.gender;
     wxInfo.province = user.province;
     wxInfo.city = user.city;
     wxInfo.country = user.country;
