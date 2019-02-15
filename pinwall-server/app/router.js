@@ -116,7 +116,6 @@ module.exports = app => {
   router.resources('website.artifactMedalLike', '/website/artifactMedalLike', ajaxAuthCheck, controller.website.artifactMedalLike);
 
   //微信接口
-  router.resources('wx.topics', '/wx/topics',  controller.wx.topics);
   router.get('/wx/artifacts/getMedalDataByRandom/:limit', controller.wx.artifacts.getMedalDataByRandom);
   router.get('/wx/topics/getTopicAndArtifactById', controller.wx.topics.getTopicAndArtifactById);
   router.get('/wx/topics/findArtifactByTopicId', controller.wx.topics.findArtifactByTopicId);
@@ -128,5 +127,6 @@ module.exports = app => {
   router.get('/wx/artifacts/createComment', controller.wx.artifacts.createComment);
   router.get('/wx/artifacts/createScore', controller.wx.artifacts.createScore);
 
+  router.resources('wx.topics', '/wx/topics',  controller.wx.topics);
 
 };
