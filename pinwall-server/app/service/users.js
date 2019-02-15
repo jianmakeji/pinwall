@@ -109,9 +109,15 @@ class Users extends Service {
     wxInfo.activeCode = UUID.v1();
 
     try{
-      await this.ctx.model.Users.updateWxInfoByEmail(wxInfo);
-      await this.ctx.service.emailService.sendWxActiveEmail(email,user.openid,wxInfo.activeCode);
-      return true;
+      let userObject = this.ctx.model.Users.findUserByEmail(email);
+      if(userObject){
+        await this.ctx.model.Users.updateWxInfoByEmail(wxInfo);
+        await this.ctx.service.emailService.sendWxActiveEmail(email,user.openid,wxInfo.activeCode);
+        return true;
+      }
+      else{
+        return false;
+      }
     }
     catch(e){
       return false;
@@ -173,6 +179,16 @@ class Users extends Service {
 
   async searchByEmail(query){
     return await this.ctx.model.Users.searchByEmail(query);
+  }
+
+  async getWxActiveCodeByEmail(email){
+    let user = await this.ctx.model.Users.findUserByEmail(email);
+    if(user.wxActive){
+      return true
+    }
+    else{
+      return false;
+    }
   }
 }
 

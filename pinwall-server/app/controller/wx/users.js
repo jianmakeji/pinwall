@@ -56,7 +56,19 @@ class UsersController extends BaseController {
     if (result) {
       super.success('绑定成功，请进入邮箱激活!');
     } else {
-      super.failure('绑定失败!');
+      super.failure('绑定失败, 或者邮箱不存在!');
+    }
+  }
+
+  async getWxActiveCodeByEmail(email){
+    const ctx = this.ctx;
+    const email = ctx.query.email;
+    const result = await ctx.service.users.getWxActiveCodeByEmail(email);
+
+    if (result) {
+      super.success('成功激活!');
+    } else {
+      super.failure('未激活!');
     }
   }
 
