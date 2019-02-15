@@ -7,19 +7,19 @@ Page({
     * 页面的初始数据
     */
    data: {
-      current: "新用户",
+      current: "图钉墙用户",
       radioData: [
          { id: 0,name: '新用户' },
          { id: 1,name: '图钉墙用户' }
       ],
-      username:"",
-      email:"",
-      password:"",
-      bindemail:"",
-      registerDisable: true,
-      bindemailDisable: true,
+      username:"甘四求",
+      email:"1223720954@qq.com",
+      password:"111111",
+      bindemail:"1223720954@qq.com",
+      registerDisable: false,
+      bindemailDisable: false,
       wxActiveDisable: false,
-      bindWxDisable: true
+      bindWxDisable: false
    },
    radioChange({ detail = {} }) {
       this.setData({
@@ -115,12 +115,14 @@ Page({
                headimageurl: wx.getStorageSync("avatarUrl")
             },
             success(res){
+               console.log("======",res);
+               wx.setStorageSync("myId", res.data.data.user.Id);
                that.setData({
                   wxActiveDisable: false
                })
                if(res.data.status == 200){
                   $Toast({
-                     content: res.data.data + "邮箱激活后，请点击“邮箱已激活”按钮！",
+                     content: res.data.data.message + "邮箱激活后，请点击“邮箱已激活”按钮！",
                      type: 'success',
                      duration: 3
                   });
@@ -181,12 +183,14 @@ Page({
                headimageurl: wx.getStorageSync("avatarUrl")
             },
             success(res) {
+               console.log("======", res);
                if (res.data.status == 200) {
+                  wx.setStorageSync("myId", res.data.data.user.Id);
                   that.setData({
                      bindWxDisable: false
                   })
                   $Toast({
-                     content: res.data.data + "邮箱激活后，请点击“邮箱已激活”按钮！",
+                     content: res.data.data.message + "邮箱激活后，请点击“邮箱已激活”按钮！",
                      type: 'success',
                      duration: 3
                   });
@@ -217,6 +221,7 @@ Page({
             },
             method: "GET",
             success(res) {
+               console.log(res);
                if (res.data.status == 200) {
                   wx.setStorageSync("isLogin", "true");
                   wx.switchTab({

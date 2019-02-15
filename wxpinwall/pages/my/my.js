@@ -54,6 +54,7 @@ Page({
                   if (res.data.openid){
                      if (res.data.user != null && res.data.user.email != null) {
                         wx.setStorageSync("openid", res.data.openid);
+                        wx.setStorageSync("myId", res.data.user.Id);
                      } else {
                         wx.setStorageSync("openid", res.data.openid);
                         $Message({

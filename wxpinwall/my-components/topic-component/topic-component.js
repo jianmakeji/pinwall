@@ -6,19 +6,19 @@ Component({
    properties: {
       userAvator:{
          type: String,
-         value:"/images/photo_1.jpg"
+         value:"/images/default_profile.jpg"
       },
       userFullname:{
          type:String,
-         value:"张军"
+         value:""
       },
       totalArtifact:{
          type:String,
-         value:"包含67个作品"
+         value:""
       },
       createAt: {
          type: String,
-         value: "2018-09-22 11:31:36 创建"
+         value: ""
       },
       topicName: {
          type: String,

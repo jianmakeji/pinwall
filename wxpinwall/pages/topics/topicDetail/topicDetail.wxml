@@ -1,7 +1,7 @@
 <!--pages/topics/topicDetail.wxml-->
 <view>
    <view>
-      <topic-component artifacts="{{topics}}" bind:tapTheArtifact="tapTheArtifact"></topic-component>
+      <topic-component userAvator="{{dataList.rows.user.avatarUrl ? dataList.rows.user.avatarUrl : '/images/default_profile.jpg'}}"  userFullname ="{{dataList.rows.user.fullname}}" totalArtifact="{{dataList.count}}" createAt="{{dataList.rows.createAt}}" topicName="{{dataList.rows.name}}" artifacts="{{dataList.rows.artifacts}}" bind:tapTheArtifact="tapTheArtifact"></topic-component>
    </view>
    <view>
       <artifact-component bindtap="artifactTap"></artifact-component>

@@ -1,24 +1,27 @@
-.topic_complate{
-    width: 670rpx;
-    height: 280rpx;
-    margin: 20rpx auto;
-    padding: 20rpx;
-    border-radius: 12rpx;
-    background: #fff;
-    box-shadow: 4rpx 4rpx 20rpx 4rpx rgba(153, 153, 153, 0.17);
+.topic_complate {
+   width: 670rpx;
+   height: 280rpx;
+   margin: 20rpx auto;
+   padding: 20rpx;
+   border-radius: 12rpx;
+   background: #fff;
+   box-shadow: 4rpx 4rpx 20rpx 4rpx rgba(153, 153, 153, 0.17);
 }
-.topic_complate .topic_info{
-    width: 100%;
-    height: 130rpx;
-    /* background: gray; */
+
+.topic_complate .topic_info {
+   width: 100%;
+   height: 130rpx;
+   /* background: gray; */
 }
-.topic_complate .topic_info .user_avator{
+
+.topic_complate .topic_info .user_avator {
    width: 70rpx;
    height: 70rpx;
    border-radius: 40rpx;
 }
-.topic_complate .topic_info .user_fullname{
-   width: 120rpx;
+
+.topic_complate .topic_info .user_fullname {
+   width: 300rpx;
    height: 30rpx;
    position: absolute;
    margin-top: 10rpx;
@@ -26,7 +29,8 @@
    color: #484848;
    font-size: 24rpx;
 }
-.topic_complate .topic_info .createAt{
+
+.topic_complate .topic_info .createAt {
    width: auto;
    height: 30rpx;
    position: absolute;
@@ -35,7 +39,8 @@
    color: #979797;
    font-size: 20rpx;
 }
-.topic_complate .topic_info .total_artifact{
+
+.topic_complate .topic_info .total_artifact {
    width: auto;
    height: 30rpx;
    position: absolute;
@@ -44,31 +49,35 @@
    color: #979797;
    font-size: 16rpx;
 }
-.topic_complate .topic_info .topic_name{
-   width: auto;
-   height: 30rpx;
+
+.topic_complate .topic_info .topic_name {
+   width: 600rpx;
+   height: 40rpx;
    position: absolute;
-   margin-top: 80rpx;
+   /* margin-top: 80rpx; */
    margin-left: 20rpx;
-   color: #1FB5BE;
+   color: #1fb5be;
    font-size: 28rpx;
    font-weight: bold;
+   display: -webkit-box;
+   word-break: break-all;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 1;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   z-index: 1;
 }
 
-
-
-
-
-.topic_complate .topic_artifacts{
-    width: 650rpx;
-    height: 130rpx;
-    /* background: gray; */
-    padding: 10rpx;
-    display: flex;
-    flex-direction: row;
-    justify-content: left
+.topic_complate .topic_artifacts {
+   width: 650rpx;
+   height: 130rpx;
+   padding: 10rpx;
+   display: flex;
+   flex-direction: row;
+   justify-content: left;
 }
-.topic_complate .topic_artifacts .artifact_img{
+
+.topic_complate .topic_artifacts .artifact_img {
    width: 108rpx;
    height: 108rpx;
    margin-top: 10rpx;
