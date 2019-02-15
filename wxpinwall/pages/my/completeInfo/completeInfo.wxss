@@ -13,7 +13,7 @@
 .completeInof .des_text{
    display: block;
    margin: 60rpx auto 20rpx;
-   width: 600rpx;
+   width: 700rpx;
    height: 80rpx;
    font-size: 28rpx;
    text-align: center;
@@ -100,6 +100,13 @@
    margin-left: 75rpx;
    color: #1FB5BE;
 }
+.completeInof .wxActive {
+   width: 600rpx;
+   position: absolute;
+   margin-top: 820rpx;
+   margin-left: 75rpx;
+   color: #1FB5BE;
+}
 .completeInof .bind_email_box {
    width: 600rpx;
    height: 80rpx;
@@ -128,6 +135,13 @@
    width: 600rpx;
    position: absolute;
    margin-top: 520rpx;
+   margin-left: 75rpx;
+   color: #1FB5BE;
+}
+.completeInof .bind_wx{
+   width: 600rpx;
+   position: absolute;
+   margin-top: 620rpx;
    margin-left: 75rpx;
    color: #1FB5BE;
 }

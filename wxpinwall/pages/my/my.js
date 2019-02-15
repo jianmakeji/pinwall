@@ -8,7 +8,7 @@ Page({
     * 页面的初始数据
     */
    data: {
-      isLogin: false,
+      isLogin: "",
       username: "",
       password: "",
       checked: true,
@@ -36,6 +36,11 @@ Page({
       wx.login({
          success: function(res) {
             let code = res.code;
+            wx.getUserInfo({
+               success(res){
+                  setStorageWithUserInfo(res.userInfo);
+               }
+            })
             wx.request({
                url: app.globalData.baseUrl + "/wx/users/getWxCode",
                data: {
@@ -45,20 +50,31 @@ Page({
                   'content-type': 'application/json'
                },
                success(res){
-                  if (res.statusCode == 200 && res.data.user != null){
-                     wx.setStorageSync("openid", res.data.openid);
+                  console.log("------",res);
+                  if (res.data.openid){
+                     if (res.data.user != null && res.data.user.email != null) {
+                        wx.setStorageSync("openid", res.data.openid);
+                     } else {
+                        wx.setStorageSync("openid", res.data.openid);
+                        $Message({
+                           content: '由于您的微信未绑定图钉墙,无法进行相关操作，3秒后跳转到绑定界面！',
+                           type: 'error',
+                           duration: 3,
+                           selector: "#message"
+                        });
+                        setTimeout(function () {
+                           wx.redirectTo({
+                              url: '/pages/my/completeInfo/completeInfo',
+                           })
+                        }, 3000);
+                     }
                   }else{
                      $Message({
-                        content: '由于您的微信未绑定图钉墙,无法进行相关操作，3秒后跳转到绑定界面！',
+                        content: '微信登录失败！',
                         type: 'error',
-                        duration:3,
-                        selector:"#message"
-                     });
-                     setTimeout(function () {
-                        wx.navigateTo({
-                           url: '/pages/my/completeInfo/completeInfo',
-                        })
-                     }, 3000);                     
+                        duration: 3,
+                        selector: "#message"
+                     });                   
                   }
                }
             })
@@ -82,7 +98,20 @@ Page({
     * 生命周期函数--监听页面加载
     */
    onLoad: function(options) {
-
+      this.setData({
+         isLogin : wx.getStorageSync("isLogin")
+      })
+      if( this.data.isLogin == "true"){
+         wx.setTabBarItem({
+            index: 3,
+            text:"我的"
+         })
+      }else{
+         wx.setTabBarItem({
+            index: 3,
+            text: "绑定"
+         })
+      }
    },
 
    /**
@@ -134,3 +163,12 @@ Page({
 
    }
 })
+
+function setStorageWithUserInfo(userInfo) {
+   wx.setStorageSync("nickName", userInfo.nickName);
+   wx.setStorageSync("avatarUrl", userInfo.avatarUrl);
+   wx.setStorageSync("gender", userInfo.gender);
+   wx.setStorageSync("province", userInfo.province);
+   wx.setStorageSync("city", userInfo.city);
+   wx.setStorageSync("country", userInfo.country);
+}

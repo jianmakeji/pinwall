@@ -4,6 +4,7 @@
       "i-input": "/dist/input/index",
       "i-radio-group": "/dist/radio-group/index",
       "i-radio": "/dist/radio/index",
+      "i-toast": "/dist/toast/index",
       "i-button": "/dist/button/index"
    },
    "disableScroll": true

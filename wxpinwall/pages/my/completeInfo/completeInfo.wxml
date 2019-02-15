@@ -21,11 +21,13 @@
       <i-input i-class='password_input' type='password' value="{{ password }}" bind:change="passwordChange" placeholder="请输入您的密码" />
    </view>
    <i-button i-class="register" wx:if="{{current == '新用户'}}" bind:click="register" type="submit" shape="circle" disabled="{{registerDisable}}">注册</i-button>
+   <i-button i-class="wxActive" wx:if="{{current == '新用户'}}" bind:click="wxActiveTap" type="submit" shape="circle" disabled="{{wxActiveDisable}}">确认邮箱已激活后点击此按钮</i-button>
 
    <view class='bind_email_box' wx:if="{{current == '图钉墙用户'}}">
       <i-icon class='bind_email_icon' type="businesscard" size="26" color="#1FB5BE" />
       <i-input i-class='bind_email_input' value="{{ bindemail }}" bind:change="bindemailChange" placeholder="请输入邮箱" />
    </view>
    <i-button i-class="bind_email" wx:if="{{current == '图钉墙用户'}}" bind:click="bindEmail" type="submit" shape="circle" disabled="{{bindemailDisable}}">绑定</i-button>
-   
+   <i-button i-class="bind_wx" wx:if="{{current == '图钉墙用户'}}" bind:click="bindWx" type="submit" shape="circle" disabled="{{bindWxDisable}}">确认邮箱已激活后点击此按钮</i-button>
+   <i-toast id="toast" />
 </view>
