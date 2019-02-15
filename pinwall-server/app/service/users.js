@@ -44,11 +44,11 @@ class Users extends Service {
             await this.ctx.service.emailService.sendWxActiveEmail(user.email, user.openId, user.activeCode);
           }
 
-          return true
+          return createUserObj;
         } catch (e) {
           console.log(e.message);
           await transaction.rollback();
-          return false
+          return false;
         }
       }
     }
@@ -112,8 +112,8 @@ class Users extends Service {
       let userObject = this.ctx.model.Users.findUserByEmail(email);
       if(userObject){
         await this.ctx.model.Users.updateWxInfoByEmail(wxInfo);
-        await this.ctx.service.emailService.sendWxActiveEmail(email,user.openid,wxInfo.activeCode);
-        return true;
+        await this.ctx.service.emailService.sendWxActiveEmail(email,user.openId,wxInfo.activeCode);
+        return userObject;
       }
       else{
         return false;

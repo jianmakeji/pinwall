@@ -26,8 +26,13 @@ class UsersController extends BaseController {
     };
     try {
       const result = await ctx.service.users.createUser(user, 1);
+
       if (result) {
-        super.success('操作成功！请到邮箱激活');
+        let backObject = {
+            message:'操作成功！请进入邮箱激活!',
+            user:result
+        }
+        super.success(backObject);
       } else {
         super.failure('操作失败！请重新操作');
       }
@@ -54,7 +59,11 @@ class UsersController extends BaseController {
     const result = await ctx.service.users.bindWeixinInfoByEmail(email, user);
 
     if (result) {
-      super.success('绑定成功，请进入邮箱激活!');
+      let backObject = {
+          message:'绑定成功，请进入邮箱激活!',
+          user:result
+      }
+      super.success(backObject);
     } else {
       super.failure('绑定失败, 或者邮箱不存在!');
     }
