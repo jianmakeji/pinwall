@@ -51,7 +51,6 @@ class UsersController extends BaseController {
       country: body.country
     };
 
-    console.log(user);
     const result = await ctx.service.users.bindWeixinInfoByEmail(email, user);
 
     if (result) {
@@ -61,9 +60,10 @@ class UsersController extends BaseController {
     }
   }
 
-  async getWxActiveCodeByEmail(email){
+  async getWxActiveCodeByEmail(){
     const ctx = this.ctx;
     const email = ctx.query.email;
+
     const result = await ctx.service.users.getWxActiveCodeByEmail(email);
 
     if (result) {
