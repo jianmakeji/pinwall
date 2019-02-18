@@ -106,6 +106,17 @@ class UsersController extends BaseController {
     ctx.body = result;
   }
 
+  async refreshUserInfo(){
+    const ctx = this.ctx;
+    try{
+      const result = await ctx.service.users.find(ctx.helper.parseInt(ctx.params.id));
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
 }
 
 module.exports = UsersController;
