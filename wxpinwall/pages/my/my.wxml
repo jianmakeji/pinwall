@@ -34,7 +34,7 @@
       <view class='modal_des'> 解除绑定后，您将只能查看作品，不再拥有操作权限</view>
    </i-modal>
 </view>
-<view class='login' wx:else>
+<view class='login'  wx:if="{{isLogin == 'false'}}">
    <image class='defalt_avator' mode='scaleToFill' src='/images/photo_1.jpg'></image>
    <view class='username_box'>
       <i-icon class='username_icon' type="businesscard" size="26" color="#fff" />

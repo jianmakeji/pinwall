@@ -28,6 +28,7 @@
    color: #1fb5be;
    font-weight: bold;
 }
+
 .artifact_info .artifact_score {
    width: 200rpx;
    height: 60rpx;
@@ -38,6 +39,7 @@
    color: #1fb5be;
    font-weight: bold;
 }
+
 .artifact_info .artifact_title {
    width: 660rpx;
    height: 40rpx;
@@ -284,49 +286,62 @@
    border-radius: 20rpx;
 }
 
-.scroe_box{
+.scroe_box {
    height: 90rpx;
 }
-.scroe_box .score_input{
+
+.scroe_box .closeScore {
+   position: absolute;
+   margin-left: 235rpx;
+   margin-top: -80rpx;
+   z-index: 1000;
+}
+
+.scroe_box .score_input {
    width: 330rpx;
    height: 60rpx;
-   background:#F2F2F2;
+   background: #f2f2f2;
    border-radius: 20rpx;
    position: absolute;
    margin-left: 20rpx;
    margin-top: 0rpx;
 }
-.scroe_box .score_btn{
-   width:120rpx;
-   height:60rpx;
-   line-height:60rpx;
+
+.scroe_box .score_btn {
+   width: 120rpx;
+   height: 60rpx;
+   line-height: 60rpx;
    border-radius: 10rpx;
    position: absolute;
    margin-left: 440rpx;
    margin-top: 16rpx;
 }
-.topic_data{
+
+.topic_data {
    width: 100%;
    height: 120rpx;
    margin-top: 20rpx;
    text-align: left;
 }
-.topic_data .total{
+
+.topic_data .total {
    width: 100rpx;
    height: 80rpx;
-   color: #4A4A4A;
+   color: #4a4a4a;
    position: absolute;
    margin-left: 65rpx;
    margin-top: 20rpx;
    font-size: 40rpx;
    font-weight: bold;
 }
-.topic_data .total .unit{
+
+.topic_data .total .unit {
    color: #979797;
    font-size: 26rpx;
    font-weight: normal;
 }
-.topic_data .total_text{
+
+.topic_data .total_text {
    width: 200rpx;
    height: 40rpx;
    color: #979797;
@@ -336,22 +351,25 @@
    font-size: 26rpx;
    text-align: center;
 }
-.topic_data .high_score{
+
+.topic_data .high_score {
    width: 100rpx;
    height: 80rpx;
-   color: #4A4A4A;
+   color: #4a4a4a;
    position: absolute;
    margin-left: 266rpx;
    margin-top: 20rpx;
    font-size: 40rpx;
    font-weight: bold;
 }
-.topic_data .high_score .unit{
+
+.topic_data .high_score .unit {
    color: #979797;
    font-size: 26rpx;
    font-weight: normal;
 }
-.topic_data .high_score_text{
+
+.topic_data .high_score_text {
    width: 200rpx;
    height: 40rpx;
    color: #979797;
@@ -361,22 +379,25 @@
    font-size: 26rpx;
    text-align: center;
 }
-.topic_data .low_score{
+
+.topic_data .low_score {
    width: 100rpx;
    height: 80rpx;
-   color: #4A4A4A;
+   color: #4a4a4a;
    position: absolute;
    margin-left: 466rpx;
    margin-top: 20rpx;
    font-size: 40rpx;
    font-weight: bold;
 }
-.topic_data .low_score .unit{
+
+.topic_data .low_score .unit {
    color: #979797;
    font-size: 26rpx;
    font-weight: normal;
 }
-.topic_data .low_score_text{
+
+.topic_data .low_score_text {
    width: 200rpx;
    height: 40rpx;
    color: #979797;

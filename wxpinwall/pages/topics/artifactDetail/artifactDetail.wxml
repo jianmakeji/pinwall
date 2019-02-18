@@ -1,28 +1,27 @@
+<wxs src="../../../subutil/subutil.wxs" module="tools" />
 <view class='artifact_info'>
-   <image class='user_avator' src='/images/photo_1.jpg'></image>
-   <text class='user_fullname'>刘德华</text>
-   <text class='artifact_score'>97分</text>
-   <text class='artifact_title'>运动器材共享系统</text>
-   <text class='createAt'>2018-09-17 收录于</text>
-   <text class='topic_name'>2016秋-2013级《可持续设计》课程2016秋-2013级《可持续设计》课程</text>
-   <text class='artifact_des'>【杨友皓 201305010114】S-SPORTS基于手机APP和各运动场地相应的运动器材租赁机，为广大运动爱好者提供即取即用，用完即还的可持续共享服务系统。201305010114】S-SPORTS基于手机APP和各运动场地相应的运动器材租赁机，为广大运动爱好者提供即取即用，用完即还的可持续共享服务系统。201305010114】S-SPORTS基于手机APP和各运动场地相应的运动器材租赁机，为广大运动爱好者提供即取即用，用完即还的可持续共享服务系统。</text>
+   <image class='user_avator' src="{{userAvatarUrl?userAvatarUrl:'/images/default_profile.jpg'}}"></image>
+   <text class='user_fullname'>{{userFullname}}</text>
+   <text class='artifact_score' wx:if="{{vipRole}}">{{artifactScores ? artifactScores : "未评"}}分</text>
+   <text class='artifact_title'>{{artifactTitle}}</text>
+   <text class='createAt'>{{tools.split(createAt)}} 收录于</text>
+   <text class='topic_name'>{{topicName}}</text>
+   <text class='artifact_des'>{{artifactDes}}</text>
 </view>
 <view class='artifact_assets'>
-   <view class='artifact_assets_detail'>
-      <image class='artifact_profile_img' mode="widthFix" src='/images/photo_1.jpg'></image>
-      <text class='artifact_profile_title'>运动器材共享系统</text>
-   </view>
-   <view class='artifact_assets_detail'>
-      <image class='artifact_profile_img' mode="widthFix" src='/images/photo_1.jpg'></image>
-      <text class='artifact_profile_title'>运动器材共享系统</text>
-      <text class='artifact_profile_des'>【杨友皓 201305010114】S-SPORTS基于手机APP和各运动场地相应的运动器材租赁机，为广大运动爱好者提供即取即用，用完即还的可持续共享服务系统。201305010114】S-SPORTS基于手机APP和各运动场地相应的运动器材租赁机，为广大运动爱好者提供即取即用，用完即还的可持续共享服务系统。201305010114】S-SPORTS基于手机APP和各运动场地相应的运动器材租赁机，为广大运动爱好者提供即取即用，用完即还的可持续共享服务系统。</text>
-   </view>
+   <block wx:for="{{artifact_assets}}" wx:for-item="item">
+      <view class='artifact_assets_detail'>
+         <image class='artifact_profile_img' mode="widthFix" src="{{item.profileImage}}"></image>
+         <text class='artifact_profile_title'>{{item.name}}</text>
+         <text class='artifact_profile_des'>{{item.description}}</text>
+      </view>
+   </block>
 </view>
 <view class='opt_panel'>
    <image class='switch_btn' src='/images/photo_2.jpg' catchtap="openOpt" wx:if="{{animationModal == 'close'}}"></image>
    <image class='switch_btn' src='/images/photo_1.jpg' catchtap="closeOpt" wx:if="{{animationModal == 'open'}}"></image>
    <!-- 点赞 -->
-   <image class='like_btn' src='/images/photo_2.jpg' catchtap="creatLike" animation="{{likeAnimationData}}"></image>
+   <image class='like_btn' src="{{zanModal?'/images/photo_1.jpg':'/images/photo_2.jpg'}}" catchtap="creatLike" animation="{{likeAnimationData}}"></image>
    <!-- 评论 -->
    <image class='comment_btn' src='/images/photo_2.jpg' catchtap='openComment' animation="{{commentAnimationData}}"></image>
    <!-- 打分 -->
@@ -30,33 +29,17 @@
 </view>
 <wxc-popup animation-mode="bottom" align="bottom" status="{{commentVisible}}" locked>
    <view class='comment_list'>
-      <text class='all_comment'>全部评论 (2)</text>
+      <text class='all_comment'>全部评论 ({{commentList.length}})</text>
       <i-icon class='close' type="close" size="18" color="#80848f" catchtap='closeComment' />
       <view class='comment'>
-         <view class='user_info'>
-            <image class='user_avator' src='/images/photo_2.jpg'></image>
-            <text class='user_fullname'>马里奥</text>
-            <text class='comment_time'>2018-01-01</text>
-            <text class='comment_content'>马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥</text>
-         </view>
-         <view class='user_info'>
-            <image class='user_avator' src='/images/photo_2.jpg'></image>
-            <text class='user_fullname'>马里奥</text>
-            <text class='comment_time'>2018-01-01</text>
-            <text class='comment_content'>马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥</text>
-         </view>
-         <view class='user_info'>
-            <image class='user_avator' src='/images/photo_2.jpg'></image>
-            <text class='user_fullname'>马里奥</text>
-            <text class='comment_time'>2018-01-01</text>
-            <text class='comment_content'>马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥</text>
-         </view>
-         <view class='user_info'>
-            <image class='user_avator' src='/images/photo_2.jpg'></image>
-            <text class='user_fullname'>马里奥</text>
-            <text class='comment_time'>2018-01-01</text>
-            <text class='comment_content'>马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥马里奥</text>
-         </view>
+         <block wx:for="{{commentList}}" wx:for-item="item">
+            <view class='user_info'>
+               <image class='user_avator' src="{{item.user.avatarUrl?item.user.avatarUrl:'/images/default_profile.jpg'}}"></image>
+               <text class='user_fullname'>{{item.user.fullname}}</text>
+               <text class='comment_time'>{{tools.split(item.commentAt)}}</text>
+               <text class='comment_content'>{{item.content}}</text>
+            </view>
+         </block>
       </view>
       <i-button i-class='comment_btn' bind:click='whiteComment'>
          <i-icon type="brush_fill" size="26" color="#1fb5be" />写评论...
@@ -65,19 +48,20 @@
 </wxc-popup>
 <i-toast id="toast" />
 <i-modal title="评论内容" visible="{{ commentEditVisible }}" ok-text="发表" bind:ok="submitComment" bind:cancel="cancelComment">
-   <i-input type='text' value="{{ commentEditValue }}" placeholder='写评论'/>
+   <i-input type='text' value="{{ commentEditValue }}" bind:change='commentValueChange' placeholder='写评论' />
 </i-modal>
 <i-modal title="作业评分" visible="{{ artifactScoreVisible }}" show-ok="{{false}}" show-cancel="{{false}}" customWidth="80%">
    <view class='scroe_box'>
-      <i-input i-class='score_input' type='number'value="{{ artifactScoreValue }}" placeholder='请输入您给出的分数...'/>
+       <i-icon class='closeScore' bindtap='closeScore' type="close" size="26" />
+      <i-input i-class='score_input' type='number' value="{{ artifactScoreValue }}" bind:change='artifactScoreValueChange' placeholder='请输入您给出的分数...' />
       <i-button i-class='score_btn' type='submit' bind:click="submitScore">保存</i-button>
    </view>
-   <view class='topic_data'>
+   <!-- <view class='topic_data'>
       <text class='total'>68<text class="unit">件</text></text>
       <text class='total_text'>作业荚作品数</text>
       <text class='high_score'>92<text class="unit">分</text></text>
       <text class='high_score_text'>最高分</text>
       <text class='low_score'>79<text class="unit">分</text></text>
       <text class='low_score_text'>最低分</text>
-   </view>
+   </view> -->
 </i-modal>

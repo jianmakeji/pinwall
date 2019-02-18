@@ -1,11 +1,11 @@
 <!--pages/topics/topicDetail.wxml-->
+<wxs src="../../../subutil/subutil.wxs" module="tools" />
 <view>
    <view>
-      <topic-component userAvator="{{dataList.rows.user.avatarUrl ? dataList.rows.user.avatarUrl : '/images/default_profile.jpg'}}"  userFullname ="{{dataList.rows.user.fullname}}" totalArtifact="{{dataList.count}}" createAt="{{dataList.rows.createAt}}" topicName="{{dataList.rows.name}}" artifacts="{{dataList.rows.artifacts}}" bind:tapTheArtifact="tapTheArtifact"></topic-component>
+      <topic-component userAvator="{{avatarUrl ? avatarUrl : '/images/default_profile.jpg'}}"  userFullname ="{{fullname}}" totalArtifact="{{atrifactCount}}" createAt="{{tools.split(createAt)}}" topicName="{{topicName}}" artifacts="{{dataList}}" bind:tapTheArtifact="tapTheArtifact"></topic-component>
    </view>
    <view>
-      <artifact-component bindtap="artifactTap"></artifact-component>
-      <artifact-component></artifact-component>
-      <artifact-component></artifact-component>
+      <artifact-component wx:for="{{dataList}}" wx:for-item="item" profileImage="{{item.profileImage}}" userAvator="{{item.user.avatarUrl ? item.user.avatarUrl : '/images/default_profile.jpg'}}" userName="{{item.user.fullname}}" createAt="{{tools.split(item.createAt)}}" artifactTitle="{{item.name}}" medalCount="{{item.medalCount}}" likeCount="{{item.likeCount}}" commentCount="{{item.commentCount}}" bindtap="artifactTap" data-artifact-id="{{item.Id}}"></artifact-component>
    </view>
+   <i-load-more tip="暂无数据" loading="{{ loading }}"/>
 </view>

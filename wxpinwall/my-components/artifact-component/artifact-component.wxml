@@ -4,8 +4,8 @@
    <view class='artifact_info'>
       <image class='user_avator' src='{{userAvator}}'></image>
       <text class='user_name'>{{userName}}</text>
-      <text class='createAt'>{{createAt}}</text>
-      <text class='artifact_title'>{{artifactYitle}}</text>
+      <text class='createAt'>{{createAt}} 上传</text>
+      <text class='artifact_title'>{{artifactTitle}}</text>
       <image class='medal' src='/images/medal_white.png'></image>
       <text class='medal_count'>{{medalCount}}</text>
       <image class='like' src='/images/like_white.png'></image>

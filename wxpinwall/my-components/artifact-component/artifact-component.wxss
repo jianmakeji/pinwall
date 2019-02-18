@@ -39,7 +39,7 @@
 }
 
 .artifact_complate .artifact_info .createAt {
-   width: 190rpx;
+   width: 270rpx;
    height: 30rpx;
    font-size: 20rpx;
    position: absolute;

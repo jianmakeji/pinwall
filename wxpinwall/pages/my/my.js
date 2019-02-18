@@ -32,7 +32,6 @@ Page({
    //点击微信登录
    tapWxLogin(){
       let that = this;
-      console.log("点击微信登录")
       wx.login({
          success: function(res) {
             let code = res.code;
@@ -50,11 +49,19 @@ Page({
                   'content-type': 'application/json'
                },
                success(res){
-                  console.log("------",res);
                   if (res.data.openid){
                      if (res.data.user != null && res.data.user.email != null) {
                         wx.setStorageSync("openid", res.data.openid);
                         wx.setStorageSync("myId", res.data.user.Id);
+                        wx.setStorageSync("myRole", res.data.user.roles[0].name);
+                        wx.setStorageSync("isLogin", "true");
+                        wx.setTabBarItem({
+                           index: 3,
+                           text:"我的"
+                        })
+                        that.setData({
+                           isLogin:"true"
+                        })
                      } else {
                         wx.setStorageSync("openid", res.data.openid);
                         $Message({
@@ -79,9 +86,6 @@ Page({
                   }
                }
             })
-         },
-         fail: function(res) {
-            console.log(res);
          }
       })
    },

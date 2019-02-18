@@ -20,7 +20,7 @@ Component({
          type: String,
          value: "2018-09-17 上传"
       },
-      artifactYitle: {
+      artifactTitle: {
          type: String,
          value: "the problem between younger worker and old"
       },

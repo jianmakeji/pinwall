@@ -1,6 +1,8 @@
 {
-  "usingComponents": {
-     "topic-component": "/my-components/topic-component/topic-component",
-     "artifact-component": "/my-components/artifact-component/artifact-component"
-  }
+   "usingComponents": {
+      "topic-component": "/my-components/topic-component/topic-component",
+      "artifact-component": "/my-components/artifact-component/artifact-component",
+      "i-load-more": "/dist/load-more/index"
+   },
+   "enablePullDownRefresh": true
 }

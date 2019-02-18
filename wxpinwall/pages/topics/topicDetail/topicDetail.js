@@ -11,18 +11,23 @@ Page({
       offset: 0,
       topicId: "",
       // 数据数组
-      dataList:""
+      dataList:[],
+      loading: false,
+      avatarUrl:"",
+      fullname:"",
+      atrifactCount:"",
+      topicName:""
    },
    tapTheArtifact(event){
-      console.log(event);
+      let artifactId = event.detail.target.dataset.artifactId;
       wx.navigateTo({
-         url: '/pages/topics/artifactDetail/artifactDetail',
+         url: '/pages/topics/artifactDetail/artifactDetail?artifactId=' + artifactId,
       })
    },
    artifactTap(event){
-      console.log(event);
+      let artifactId = event.target.dataset.artifactId;
       wx.navigateTo({
-         url: '/pages/topics/artifactDetail/artifactDetail',
+         url: '/pages/topics/artifactDetail/artifactDetail?artifactId=' + artifactId,
       })
    },
    /**
@@ -35,17 +40,21 @@ Page({
       })
       wx.request({
          url: app.globalData.baseUrl + app.globalData.getTopicAndArtifactById,
-         data:{
+         data: {
             limit: this.data.limit,
             offset: this.data.offset,
             topicId: this.data.topicId,
          },
-         method:"GET",
-         success(res){
-            console.log(res);
-            if(res.data.status == 200){
+         method: "GET",
+         success(res) {
+            if (res.data.status == 200) {
                that.setData({
-                  dataList:res.data.data
+                  dataList: res.data.data.rows.artifacts,
+                  avatarUrl: res.data.data.rows.user.avatarUrl,
+                  fullname: res.data.data.rows.user.fullname,
+                  atrifactCount: res.data.data.count,
+                  createAt: res.data.data.rows.createAt,
+                  topicName: res.data.data.rows.name,
                })
             }
          }
@@ -86,14 +95,60 @@ Page({
     * 页面相关事件处理函数--监听用户下拉动作
     */
    onPullDownRefresh: function () {
-
+      let that = this;
+      this.setData({
+         offset: 0
+      })
+      wx.request({
+         url: app.globalData.baseUrl + app.globalData.getTopicAndArtifactById,
+         data: {
+            limit: this.data.limit,
+            offset: this.data.offset,
+            topicId: this.data.topicId,
+         },
+         method: "GET",
+         success(res) {
+            if (res.data.status == 200) {
+               wx.stopPullDownRefresh();
+               that.setData({
+                  dataList: res.data.data.rows.artifacts,
+                  avatarUrl: res.data.data.rows.user.avatarUrl,
+                  fullname: res.data.data.rows.user.fullname,
+                  atrifactCount: res.data.data.count,
+                  createAt: res.data.data.rows.createAt,
+                  topicName: res.data.data.rows.name,
+               })
+            }
+         }
+      })
    },
 
    /**
     * 页面上拉触底事件的处理函数
     */
    onReachBottom: function () {
-
+      let that = this;
+      this.setData({
+         offset: this.data.offset + 10,
+         loading: true
+      })
+      wx.request({
+         url: app.globalData.baseUrl + app.globalData.getTopicAndArtifactById,
+         data: {
+            limit: this.data.limit,
+            offset: this.data.offset,
+            topicId: this.data.topicId,
+         },
+         method: "GET",
+         success(res) {
+            if (res.data.status == 200) {
+               that.setData({
+                  dataList: that.data.dataList.concat(res.data.data.rows.artifacts),
+                  loading: false
+               })
+            }
+         }
+      })
    },
 
    /**

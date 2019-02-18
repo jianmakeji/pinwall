@@ -12,7 +12,7 @@ Page({
          { id: 0,name: '新用户' },
          { id: 1,name: '图钉墙用户' }
       ],
-      username:"甘四求",
+      username:"gansiqiu",
       email:"1223720954@qq.com",
       password:"111111",
       bindemail:"1223720954@qq.com",
@@ -117,6 +117,7 @@ Page({
             success(res){
                console.log("======",res);
                wx.setStorageSync("myId", res.data.data.user.Id);
+               wx.setStorageSync("myRole", res.data.data.roleName);
                that.setData({
                   wxActiveDisable: false
                })
@@ -186,6 +187,7 @@ Page({
                console.log("======", res);
                if (res.data.status == 200) {
                   wx.setStorageSync("myId", res.data.data.user.Id);
+                  wx.setStorageSync("myRole", res.data.data.user.roles[0].name);
                   that.setData({
                      bindWxDisable: false
                   })

@@ -42,12 +42,9 @@ Component({
     */
    methods: {
       _tapTheArtifact(event){
-         // const topic_complate_detail = event; // detail对象，提供给事件监听函数
-         // console.log(event);
          this.triggerEvent("tapTheArtifact", event, {});
       },
       _tapTheTopic(event){
-         console.log(event)
          this.triggerEvent("tapTheTopic", event, {});
       }
    }

@@ -1,0 +1,4 @@
+var split = function(value){
+   return value.split("T")[0];
+}
+module.exports.split = split;

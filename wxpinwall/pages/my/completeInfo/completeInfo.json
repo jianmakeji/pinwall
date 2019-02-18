@@ -7,5 +7,6 @@
       "i-toast": "/dist/toast/index",
       "i-button": "/dist/button/index"
    },
-   "disableScroll": true
+   "disableScroll": true,
+   "disableSwipeBack": true
 }

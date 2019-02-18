@@ -1,4 +1,5 @@
 <!--pages/topics/topics.wxml-->
+<wxs src="../../subutil/subutil.wxs" module="tools" />
 <view class='topics_tabs'>
    <i-message id="message" />
    <wxc-tab bind:tabchange="tabchange" default-index="{{tabIndex}}" text-color="#979797" active-text-color="#1FB5BE" line-color="#979797" active-line-color="#1FB5BE" animate>
@@ -6,7 +7,7 @@
       </wxc-tab-panel>
       <!-- 数据展示 -->
       <block wx:for="{{ dataList }}" wx:for-item="item">
-         <topic-component userAvator="{{item.user.avatarUrl ? item.user.avatarUrl : '/images/default_profile.jpg'}}"  userFullname ="{{item.user.fullname}}" totalArtifact="{{item.user.gender}}" createAt="{{item.createAt}}" topicName="{{item.name}}" artifacts="{{item.artifacts}}" data-topic-id="{{item.Id}}" bind:tapTheTopic="tapTheTopic"></topic-component>
+         <topic-component userAvator="{{item.user.avatarUrl ? item.user.avatarUrl : '/images/default_profile.jpg'}}"  userFullname ="{{item.user.fullname}}" totalArtifact="{{item.user.gender}}" createAt="{{tools.split(item.createAt)}}" topicName="{{item.name}}" artifacts="{{item.artifacts}}" data-topic-id="{{item.Id}}" bind:tapTheTopic="tapTheTopic"></topic-component>
       </block>
    </wxc-tab>
    <i-load-more tip="暂无数据" loading="{{ loading }}"/>
