@@ -29,7 +29,7 @@ class ArtifactsController extends BaseController{
       try{
         const wxUser = await ctx.service.users.findByOpenId(ctx.request.body.openid);
         if (wxUser.roles[0].name == 'vip'){
-          const article = await ctx.service.artifactScore.create(ctx.request.body);
+          const article = await ctx.service.artifactScore.wxCreateScore(ctx.request.body,wxUser.Id);
           super.success('打分成功!');
         }
         else{
