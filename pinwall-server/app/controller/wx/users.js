@@ -30,7 +30,8 @@ class UsersController extends BaseController {
       if (result) {
         let backObject = {
             message:'操作成功！请进入邮箱激活!',
-            user:result
+            user:result,
+            roleName:'user'
         }
         super.success(backObject);
       } else {
