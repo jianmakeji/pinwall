@@ -128,7 +128,6 @@ module.exports = app => {
   router.get('wx.users.getWxActiveCodeByEmail', '/wx/users/getWxActiveCodeByEmail', controller.wx.users.getWxActiveCodeByEmail);
   router.get('wx.users.refreshUserInfo', '/wx/users/refreshUserInfo/:id', controller.wx.users.refreshUserInfo);
 
-
   router.get('/wx/users/getWxCode', controller.wx.users.getWxCode);
   router.get('/wx/artifacts/createComment', controller.wx.artifacts.createComment);
   router.get('/wx/artifacts/createScore', controller.wx.artifacts.createScore);
