@@ -73,10 +73,10 @@ class ArtifactsController extends BaseController{
     async getMedalLikeDataByUserIdAndArtifactsId(){
         const ctx = this.ctx;
         let tag = 0;
-        if(ctx.query.roles.name == 'vip' || ctx.query.roles.name == 'admin'){
+        if(ctx.query.roleName == 'vip' || ctx.query.roleName == 'admin'){
           tag = 1;
         }
-        else if (ctx.query.roles.name == 'user'){
+        else if (ctx.query.roleName == 'user'){
           tag = 2;
         }
 

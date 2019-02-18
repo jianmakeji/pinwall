@@ -117,6 +117,10 @@ module.exports = app => {
 
   //微信接口
   router.get('/wx/artifacts/getMedalDataByRandom/:limit', controller.wx.artifacts.getMedalDataByRandom);
+  router.get('/wx/artifacts/getArtifactById/:id', controller.wx.artifacts.getArtifactById);
+  router.get('/wx/artifacts/findCommentsByArtifactIdWithPage', controller.wx.artifacts.findCommentsByArtifactIdWithPage);
+  router.get('/wx/artifacts/getMedalLikeDataByUserIdAndArtifactsId', controller.wx.artifacts.getMedalLikeDataByUserIdAndArtifactsId);
+
   router.get('/wx/topics/getTopicAndArtifactById', controller.wx.topics.getTopicAndArtifactById);
   router.get('/wx/topics/findArtifactByTopicId', controller.wx.topics.findArtifactByTopicId);
   router.post('wx.users.createWxUser', '/wx/users/createWxUser', controller.wx.users.createWxUser);
