@@ -40,6 +40,61 @@ class ArtifactsController extends BaseController{
         super.failure(e.message);
       }
     }
+
+    async getArtifactById() {
+      const ctx = this.ctx;
+
+      try{
+        const result = await ctx.service.artifacts.find(ctx.helper.parseInt(ctx.params.id));
+        super.success(result);
+      }
+      catch(e){
+        super.failure(e.message);
+      }
+    }
+
+    async findCommentsByArtifactIdWithPage() {
+      const ctx = this.ctx;
+      const query = {
+        limit: ctx.helper.parseInt(ctx.query.limit),
+        offset: ctx.helper.parseInt(ctx.query.offset),
+        artifactId: ctx.helper.parseInt(ctx.query.artifactId),
+      };
+
+      try{
+        const result = await ctx.service.artifactComment.findByArtifactIdWithPage(query);
+        super.success(result);
+      }
+      catch(e){
+        super.failure(e.message);
+      }
+    }
+
+    async getMedalLikeDataByUserIdAndArtifactsId(){
+        const ctx = this.ctx;
+        let tag = 0;
+        if(ctx.query.roles.name == 'vip' || ctx.query.roles.name == 'admin'){
+          tag = 1;
+        }
+        else if (ctx.query.roles.name == 'user'){
+          tag = 2;
+        }
+
+        let artifactMedalLike = {
+            tag:tag,
+            userId:ctx.query.userId,
+            artifactId:ctx.query.artifactId
+        }
+
+        const result = await ctx.service.artifactMedalLike.getMedalLikeDataByUserIdAndArtifactsId(artifactMedalLike);
+        if(result){
+          super.success('已经点赞!');
+        }
+        else{
+          super.failure('未点赞!');
+        }
+    }
+
 }
 
 module.exports = ArtifactsController;
