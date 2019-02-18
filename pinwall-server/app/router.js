@@ -131,6 +131,7 @@ module.exports = app => {
   router.get('/wx/users/getWxCode', controller.wx.users.getWxCode);
   router.post('/wx/artifacts/createComment', controller.wx.artifacts.createComment);
   router.post('/wx/artifacts/createScore', controller.wx.artifacts.createScore);
+  router.post('/wx/artifacts/createLike', controller.wx.artifacts.createLike);
 
   router.resources('wx.topics', '/wx/topics',  controller.wx.topics);
 

@@ -95,6 +95,32 @@ class ArtifactsController extends BaseController{
         }
     }
 
+    async createLike() {
+      const ctx = this.ctx;
+      const body = ctx.request.body;
+      let tag = 0;
+      if(body.roleName == 'vip' || body.roleName == 'admin'){
+        tag = 1;
+      }
+      else if (body.roleName == 'user'){
+        tag = 2;
+      }
+      let data = {
+        tag:tag,
+        userId:body.userId,
+        artifactId:ctx.request.body.artifactId,
+        artifactUserId:ctx.request.body.artifactUserId,
+      };
+
+      const result = await ctx.service.artifactMedalLike.create(data);
+
+      if(result){
+        super.success('操作成功!');
+      }
+      else{
+        super.failure('操作失败!');
+      }
+    }
 }
 
 module.exports = ArtifactsController;
