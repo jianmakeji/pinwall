@@ -62,7 +62,7 @@ module.exports = {
       returnUrl = client.signatureUrl(objectPath, {expires: 3600,process : 'style/'+thumbName});
     }
     if(returnUrl){
-      returnUrl.replace('http://pinwall.oss-cn-hangzhou.aliyuncs.com','https://alioss.pinwall.design-engine.org');
+      returnUrl = returnUrl.replace('http://pinwall.oss-cn-hangzhou.aliyuncs.com','https://alioss.pinwall.design-engine.org');
     }
     return returnUrl;
   },
