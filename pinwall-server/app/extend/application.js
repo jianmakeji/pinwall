@@ -52,14 +52,19 @@ module.exports = {
       accessKeySecret: config.AccessKeySecret,
       bucket: config.bucket,
     });
-
+    // http://pinwall.oss-cn-hangzhou.aliyuncs.com
+    // https://alioss.pinwall.design-engine.org
+    let returnUrl;
     if (typeof(thumbName) == "undefined"){
-      return client.signatureUrl(objectPath, {expires: 3600});
+      returnUrl = client.signatureUrl(objectPath, {expires: 3600});
     }
     else{
-      return client.signatureUrl(objectPath, {expires: 3600,process : 'style/'+thumbName});
+      returnUrl = client.signatureUrl(objectPath, {expires: 3600,process : 'style/'+thumbName});
     }
-
+    if(returnUrl){
+      returnUrl.replace('http://pinwall.oss-cn-hangzhou.aliyuncs.com','https://alioss.pinwall.design-engine.org');
+    }
+    return returnUrl;
   },
 
   async deleteOssObject(objectPath){
