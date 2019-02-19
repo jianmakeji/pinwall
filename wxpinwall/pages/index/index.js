@@ -19,7 +19,6 @@ Page({
       dataList:[]
    },
    bindtap(event) {
-      console.log(event.currentTarget.dataset.artificatNum);
       let index = event.currentTarget.dataset.artificatNum;
       this.setData({
          visible: "show",
@@ -37,8 +36,13 @@ Page({
    },
    //点击用户头像
    tapUserAvator(event){
-      console.log("点击用户头像");
-      console.log(event.currentTarget.dataset.userId)
+      // let userId = event.currentTarget.dataset.userId;
+      // this.setData({
+      //    visible: "hide"
+      // })
+      // wx.navigateTo({
+      //    url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
+      // })
    },
    unsubmit() {
       this.setData({
@@ -55,7 +59,6 @@ Page({
          method:"GET",
          success(res){
             if (res.statusCode == 200) {
-               console.log(res.data);
                that.setData({
                   dataList : res.data
                })

@@ -3,6 +3,7 @@ App({
    globalData: {
       // baseUrl: "https://beta.pinwall.design-engine.org",
       baseUrl:"http://127.0.0.1:7001",
+      // baseUrl:"192.168.3.93:7001",
       // index
       getMedalDataByRandom: "/wx/artifacts/getMedalDataByRandom/12",
 
@@ -18,12 +19,13 @@ App({
       createComment:"/wx/artifacts/createComment",
       createScore:"/wx/artifacts/createScore",
       createLike:"/wx/artifacts/createLike",
+      getPersonalJobByUserId:"/wx/artifacts/getPersonalJobByUserId",
 
       //users
       createWxUser: "/wx/users/createWxUser",
       bindWeixinInfoByEmail: "/wx/users/bindWeixinInfoByEmail",
       getWxActiveCodeByEmail: "/wx/users/getWxActiveCodeByEmail",
-      refreshUserInfo:"/wx/users/refreshUserInfo/:id",
+      refreshUserInfo:"/wx/users/refreshUserInfo/",
 
       userInfo: null
    },

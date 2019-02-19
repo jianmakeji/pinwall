@@ -68,7 +68,7 @@
       <view class='popup'>
          <view class='artifical_detail'>
             <image class='userAvator' data-user-id="{{userId}}" src="{{userAvator ? userAvator : '/images/default_profile.jpg'}}" catchtap='tapUserAvator'></image>
-            <text class="username">{{username}}</text>
+            <text class="username" data-user-id="{{userId}}" catchtap='tapUserAvator'>{{username}}</text>
             <text class="createAt">{{createAt}}</text>
             <text class="title">{{name}}</text>
             <text class="descript">{{descript}}</text>

@@ -1,13 +1,15 @@
 {
    "pages": [
-      "pages/topics/topics",
       "pages/index/index",
+      "pages/topics/topics",
       "pages/topics/topicDetail/topicDetail",
+      "pages/topics/showreelDetail/showreelDetail",
       "pages/topics/artifactDetail/artifactDetail",
+      "pages/topics/mediaFileDetail/mediaFileDetail",
       "pages/welcome/welcome",
       "pages/search/search",
-      "pages/my/completeInfo/completeInfo",
-      "pages/my/my"
+      "pages/my/my",
+      "pages/my/completeInfo/completeInfo"
    ],
    "window": {
       "backgroundTextStyle": "dark",

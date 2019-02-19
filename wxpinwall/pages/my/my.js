@@ -13,13 +13,14 @@ Page({
       password: "",
       checked: true,
 
-      modalVisible: false
+      modalVisible: false,
+
+      userData:""
    },
    //记住我选择
    handleAnimalChange({ 
       detail = {} 
    }) {
-      console.log(this.data.checked)
       this.setData({
          checked: detail.current
       });
@@ -61,7 +62,8 @@ Page({
                         })
                         that.setData({
                            isLogin:"true"
-                        })
+                        });
+                        that.onShow();
                      } else {
                         wx.setStorageSync("openid", res.data.openid);
                         $Message({
@@ -89,9 +91,14 @@ Page({
          }
       })
    },
+   //解除绑定
    bindOk() {
+      wx.removeStorageSync('openid');
+      wx.removeStorageSync('myRole');
+      wx.setStorageSync('isLogin', "false");
       this.setData({
-         modalVisible: false
+         modalVisible: false,
+         isLogin:"false"
       })
    },
    bindCancel(){
@@ -99,38 +106,67 @@ Page({
          modalVisible: false
       })
    },
+   //我的作品集
+   zuopinjiTap(event){
+      let userId = event.currentTarget.dataset.userId;
+      wx.navigateTo({
+         url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
+      })
+   },
+   // 我的作业荚
+   zuoyejiaTap(event) {
+      let userId = event.currentTarget.dataset.userId;
+      wx.navigateTo({
+         url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=1",
+      })
+   },
    /**
     * 生命周期函数--监听页面加载
     */
    onLoad: function(options) {
-      this.setData({
-         isLogin : wx.getStorageSync("isLogin")
-      })
-      if( this.data.isLogin == "true"){
-         wx.setTabBarItem({
-            index: 3,
-            text:"我的"
-         })
-      }else{
-         wx.setTabBarItem({
-            index: 3,
-            text: "绑定"
-         })
-      }
+      
    },
 
    /**
     * 生命周期函数--监听页面初次渲染完成
     */
    onReady: function() {
-
+      
    },
 
    /**
     * 生命周期函数--监听页面显示
     */
    onShow: function() {
-
+      let that = this;
+      this.setData({
+         isLogin: wx.getStorageSync("isLogin")
+      })
+      if (this.data.isLogin == "true") {
+         wx.setTabBarItem({
+            index: 3,
+            text: "我的"
+         })
+         let myId = wx.getStorageSync("myId");
+         wx.request({
+            url: app.globalData.baseUrl + app.globalData.refreshUserInfo + myId,
+            success(res) {
+               if (res.data.status == 200) {
+                  that.setData({
+                     userData: res.data.data
+                  })
+               }
+            }
+         })
+      } else {
+         this.setData({
+            isLogin: "false"
+         })
+         wx.setTabBarItem({
+            index: 3,
+            text: "绑定"
+         })
+      }
    },
 
    /**

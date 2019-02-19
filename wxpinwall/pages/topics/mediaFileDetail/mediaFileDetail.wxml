@@ -1,0 +1,3 @@
+<!--pages/topics/mediaFileDetail/mediaFileDetail.wxml-->
+<web-view class='webView' wx:if="{{mediaFileVisible}}" src="{{mediaFileUrl}}"></web-view>
+<video class='video' src="{{videoUrl}}" wx:if="{{videoVisible}}" controls autoplay custom-cache="{{false}}" page-gesture="true"></video>

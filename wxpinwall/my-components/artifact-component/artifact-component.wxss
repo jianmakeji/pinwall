@@ -29,7 +29,7 @@
 }
 
 .artifact_complate .artifact_info .user_name {
-   width: 160rpx;
+   width: 256rpx;
    height: 40rpx;
    font-size: 24rpx;
    position: absolute;

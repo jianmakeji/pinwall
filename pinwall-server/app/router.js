@@ -132,7 +132,8 @@ module.exports = app => {
   router.post('/wx/artifacts/createComment', controller.wx.artifacts.createComment);
   router.post('/wx/artifacts/createScore', controller.wx.artifacts.createScore);
   router.post('/wx/artifacts/createLike', controller.wx.artifacts.createLike);
-
+  router.get('/wx/artifacts/getPersonalJobByUserId', controller.wx.artifacts.getPersonalJobByUserId);
+  
   router.resources('wx.topics', '/wx/topics',  controller.wx.topics);
 
 };

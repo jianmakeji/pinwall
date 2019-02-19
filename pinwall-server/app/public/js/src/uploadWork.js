@@ -554,7 +554,8 @@ var container = new Vue({
                                 title:"上传作品成功，2秒后返回!",
                                 duration:2,
                                 onClose(){
-                                    window.location.href = "/uploadWork/2";
+                                    // window.location.href = "/uploadWork/2";
+                                    history.back(-1);
                                 }
                             });
                         }else if (res.status == 500) {

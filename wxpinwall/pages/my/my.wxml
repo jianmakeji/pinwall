@@ -1,33 +1,33 @@
 <!--pages/my/my.wxml-->
 <view class='myInfo' wx:if="{{isLogin == 'true'}}">
    <view class='user_info'>
-      <image class='user_avator' mode='scaleToFill' src='/images/photo_1.jpg'></image>
-      <text class='fullname'>马里奥</text>
+      <image class='user_avator' mode='scaleToFill' src="{{userData.avatarUrl?userData.avatarUrl:'/images/default_profile.jpg'}}"></image>
+      <text class='fullname'>{{userData.fullname}}</text>
       <image class='upload_img' src='/images/medal_48_48.png'></image>
       <text class='upload_text'>我的上传</text>
-      <text class='upload_num'>31</text>
+      <text class='upload_num'>{{userData.artifactCount}}</text>
       <image class='like_img' src='/images/like_48_48.png'></image>
       <text class='like_text'>被点赞的</text>
-      <text class='like_num'>31</text>
+      <text class='like_num'>{{userData.likeCount}}</text>
       <image class='medal_img' src='/images/medal_48_48.png'></image>
       <text class='medal_text'>我的勋章</text>
-      <text class='medal_num'>31</text>
+      <text class='medal_num'>{{userData.medalCount}}</text>
       <image class='comment_img' src='/images/comment_48_48.png'></image>
       <text class='comment_text'>被评论的</text>
-      <text class='comment_num'>31</text>
+      <text class='comment_num'>{{userData.commentCount}}</text>
    </view>
-   <view class='zuopingji'>
+   <view class='zuopingji' data-user-id="{{userData.Id}}" catchtap='zuopinjiTap'>
       <image class='zuopingji_img' src='/images/comment_48_48.png'></image>
       <text class='zuopingji_text'>我的作品集</text>
    </view>
-   <view class='zuoyejia'>
+   <view class='zuoyejia' data-user-id="{{userData.Id}}" catchtap='zuoyejiaTap'>
       <image class='zuoyejia_img' src='/images/comment_48_48.png'></image>
       <text class='zuoyejia_text'>我的作业荚</text>
    </view>
-   <view class='edit'>
+   <!-- <view class='edit' data-user-id="{{userData.Id}}" catchtap='userInfoChange'>
       <image class='edit_img' src='/images/comment_48_48.png'></image>
-      <text class='edit_text'>我的作业荚</text>
-   </view>
+      <text class='edit_text'>修改个人信息</text>
+   </view> -->
    <i-button i-class="submit" bind:click="handleClick" type="submit" shape="circle">解除绑定</i-button>
    <i-modal visible="{{ modalVisible }}" ok-text="解除绑定" bind:ok="bindOk" bind:cancel="bindCancel">
       <view class='modal_title'>确认解除绑定？</view>

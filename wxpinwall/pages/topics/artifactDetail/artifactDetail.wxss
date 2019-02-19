@@ -134,7 +134,15 @@
    font-size: 22rpx;
    color: #979797;
 }
-
+.artifact_assets .artifact_assets_detail .artifact_file_img {
+   width: 60rpx;
+   height: 60rpx;
+   /* margin: 10rpx 20rpx; */
+   position: absolute;
+   margin-left: 60rpx;
+   margin-top: 60rpx;
+   border-radius: 30rpx;
+}
 .opt_panel {
    width: 140rpx;
    height: 140rpx;
