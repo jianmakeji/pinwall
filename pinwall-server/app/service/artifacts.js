@@ -94,6 +94,7 @@ class Artifacts extends Service {
             termId:termObj.Id
           },transaction);
         }
+        await this.ctx.model.Users.addArtifact(artifact.userId,transaction);
         await transaction.commit();
 
         return true
@@ -129,6 +130,7 @@ class Artifacts extends Service {
                 termId:termObj.Id
               },transaction);
             }
+            await this.ctx.model.Users.addArtifact(artifact.userId,transaction);
             await transaction.commit();
 
             return true
