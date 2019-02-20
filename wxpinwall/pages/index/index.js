@@ -12,9 +12,9 @@ Page({
       title:"",
       descript:"",
       topic_title:"",
-      medalCount:"",
-      likeCount:"",
-      commentCount:"",
+      medalCount:"1",
+      likeCount:"1",
+      commentCount:"1",
       //数据数组
       dataList:[]
    },
@@ -70,6 +70,11 @@ Page({
                });
             }
          }
+      })
+   },
+   onHide(){
+      this.setData({
+         visible: "hide"
       })
    },
    onPullDownRefresh: function () {

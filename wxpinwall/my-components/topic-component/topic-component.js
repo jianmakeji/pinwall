@@ -6,7 +6,7 @@ Component({
    properties: {
       userAvator:{
          type: String,
-         value:"/images/default_profile.jpg"
+         value:""
       },
       userFullname:{
          type:String,
@@ -22,7 +22,7 @@ Component({
       },
       topicName: {
          type: String,
-         value: "2016秋-2013级《可持续设计》课程"
+         value: ""
       },
       artifacts:{
          type:Array,

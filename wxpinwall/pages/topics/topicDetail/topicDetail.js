@@ -18,16 +18,25 @@ Page({
       atrifactCount:"",
       topicName:""
    },
+   // 点击顶部小图片进入作品详情
    tapTheArtifact(event){
       let artifactId = event.detail.target.dataset.artifactId;
       wx.navigateTo({
          url: '/pages/topics/artifactDetail/artifactDetail?artifactId=' + artifactId,
       })
    },
+   // 点击作品进入作品详情
    artifactTap(event){
       let artifactId = event.target.dataset.artifactId;
       wx.navigateTo({
          url: '/pages/topics/artifactDetail/artifactDetail?artifactId=' + artifactId,
+      })
+   },
+   // 点击用户头像姓名进入作品集
+   tapUserAvator(event){
+      let userId = event.detail.target.dataset.userId;
+      wx.navigateTo({
+         url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
       })
    },
    /**
@@ -59,36 +68,6 @@ Page({
             }
          }
       })
-   },
-
-   /**
-    * 生命周期函数--监听页面初次渲染完成
-    */
-   onReady: function () {
-
-   },
-
-   /**
-    * 生命周期函数--监听页面显示
-    */
-   onShow: function () {
-      wx.showTabBar({
-         animation:true
-      })
-   },
-
-   /**
-    * 生命周期函数--监听页面隐藏
-    */
-   onHide: function () {
-
-   },
-
-   /**
-    * 生命周期函数--监听页面卸载
-    */
-   onUnload: function () {
-
    },
 
    /**

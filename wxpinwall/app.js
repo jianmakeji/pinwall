@@ -3,7 +3,7 @@ App({
    globalData: {
       baseUrl: "https://beta.pinwall.design-engine.org",
       // baseUrl:"http://127.0.0.1:7001",
-      // baseUrl:"192.168.3.93:7001",
+      
       // index
       getMedalDataByRandom: "/wx/artifacts/getMedalDataByRandom/12",
 
@@ -27,7 +27,9 @@ App({
       getWxActiveCodeByEmail: "/wx/users/getWxActiveCodeByEmail",
       refreshUserInfo:"/wx/users/refreshUserInfo/",
 
-      userInfo: null
+      //searchs 
+      searchByKeywords: '/website/search/searchByKeywords',
+      suggestKeyWords: '/website/search/suggestKeyWords',
    },
    onLaunch: function() {
       if(wx.getStorageSync("isLogin") == "true"){

@@ -1,9 +1,12 @@
 {
    "usingComponents":{
+      "artifact-component": "/my-components/artifact-component/artifact-component",
       "wxc-input":"/@minui/wxc-input/dist/index",
       "wxc-search":"/@minui/wxc-search/dist/index",
       "i-cell-group": "/dist/cell-group/index",
-      "i-cell": "/dist/cell/index"
+      "i-cell": "/dist/cell/index",
+      "i-toast": "/dist/toast/index",
+      "i-load-more": "/dist/load-more/index"
    },
-   "disableScroll":true
+   "enablePullDownRefresh": true
 }

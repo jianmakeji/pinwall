@@ -16,6 +16,10 @@ Component({
          type: String,
          value: "刘德华"
       },
+      userId:{
+         type: String,
+         value:""
+      },
       createAt:{
          type: String,
          value: "2018-09-17 上传"
@@ -49,6 +53,8 @@ Component({
     * 组件的方法列表
     */
    methods: {
-
+      _tapUserAvator(event){
+         this.triggerEvent("tapUserAvator", event, {});
+      }
    }
 })

@@ -1,11 +1,14 @@
 <view class="input-wrap">
    <!-- <wxc-input type="text" icon="search" placeholder="探索" focus bind:input="inputChange"></wxc-input> -->
    <view class="search-wrap">
-      <wxc-search class="search" color="#1FB5BE" icon-color="#cacff1" ph-color="#cacff1" placeholder="请输入 直播内容/主播/商品" bind:input="inputChange"></wxc-search>
+      <wxc-search class="search" color="#1FB5BE" icon-color="#cacff1" ph-color="#cacff1" placeholder="请输入关键字" bind:input="inputChange" bind:confirm="searchSubmit"></wxc-search>
    </view>
    <i-cell-group wx:if="{{hasResult}}">
-      <i-cell title="只显示箭头" is-link bind:click="bindCell"></i-cell>
-      <i-cell title="跳转到首页" is-link url="/pages/dashboard/index"></i-cell>
-      <i-cell title="只有 footer 点击有效" is-link url="/pages/dashboard/index" only-tap-footer></i-cell>
+      <block wx:for="{{searchResult}}" wx:for-item="item">
+         <i-cell title="{{item.text}}" data-id="{{item._id}}" is-link bind:click="bindCell"></i-cell>
+      </block>
    </i-cell-group>
+   <artifact-component wx:if="{{showComponent}}" wx:for="{{dataList}}" wx:for-item="item" profileImage="{{item._source.profileImage}}" userAvator="{{item._source.user.avatarUrl ? item._source.user.avatarUrl : '/images/default_profile.jpg'}}" userName="{{item._source.user.fullname}}" createAt="{{tools.split(item._source.createAt)}}" artifactTitle="{{item._source.name}}" medalCount="{{item._source.medalCount}}" likeCount="{{item._source.likeCount}}" commentCount="{{item._source.commentCount}}" bindtap="artifactTap" data-artifact-id="{{item._source.Id}}"></artifact-component>
+   <i-toast id="toast" />
+   <i-load-more tip="暂无数据" loading="{{ loading }}"/>
 </view>

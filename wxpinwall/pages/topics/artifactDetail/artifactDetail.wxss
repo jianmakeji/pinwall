@@ -19,7 +19,7 @@
 }
 
 .artifact_info .user_fullname {
-   width: 200rpx;
+   width: 350rpx;
    height: 40rpx;
    position: absolute;
    margin-left: 100rpx;
@@ -49,6 +49,12 @@
    font-size: 32rpx;
    color: #787878;
    font-weight: bold;
+   display: -webkit-box;
+   word-break: break-all;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 1;
+   overflow: hidden;
+   text-overflow: ellipsis;
 }
 
 .artifact_info .createAt {
@@ -137,10 +143,9 @@
 .artifact_assets .artifact_assets_detail .artifact_file_img {
    width: 60rpx;
    height: 60rpx;
-   /* margin: 10rpx 20rpx; */
    position: absolute;
    margin-left: 60rpx;
-   margin-top: 60rpx;
+   margin-top: 32rpx;
    border-radius: 30rpx;
 }
 .opt_panel {

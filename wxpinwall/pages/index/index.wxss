@@ -258,8 +258,8 @@
     text-overflow:ellipsis;
 }
 .popup .artifical_detail .medal{
-    width: 36rpx;
-    height: 54rpx;
+    width: 30rpx;
+    height: 46rpx;
     position: absolute;
     margin-top: 420rpx;
     margin-left: 60rpx;
@@ -270,13 +270,13 @@
     line-height: 30rpx;
     position: absolute;
     margin-top: 430rpx;
-    margin-left: 110rpx;
+    margin-left: 100rpx;
     color:rgba(151, 151, 151, 1);
     font-size: 24rpx;
 }
 .popup .artifical_detail .like{
-    width: 48rpx;
-    height: 48rpx;
+    width: 42rpx;
+    height: 42rpx;
     position: absolute;
     margin-top: 420rpx;
     margin-left: 194rpx;
@@ -292,10 +292,10 @@
     font-size: 24rpx;
 }
 .popup .artifical_detail .comment{
-    width: 45rpx;
-    height: 42rpx;
+    width: 42rpx;
+    height: 38rpx;
     position: absolute;
-    margin-top: 420rpx;
+    margin-top: 424rpx;
     margin-left: 338rpx;
 }
 .popup .artifical_detail .commentCount{

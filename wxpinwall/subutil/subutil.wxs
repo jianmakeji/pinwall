@@ -1,4 +1,12 @@
 var split = function(value){
    return value.split("T")[0];
 }
+var includeType = function(value){
+   if (value.indexOf("pdf") >= 0 || value.indexOf("video") >= 0){
+      return true;
+   }else{
+      return false;
+   }
+}
 module.exports.split = split;
+module.exports.includeType = includeType;

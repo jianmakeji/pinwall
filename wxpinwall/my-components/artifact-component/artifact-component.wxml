@@ -2,8 +2,8 @@
 <view class='artifact_complate'>
    <image class='profile_image' src='{{profileImage}}'>/</image>
    <view class='artifact_info'>
-      <image class='user_avator' src='{{userAvator}}'></image>
-      <text class='user_name'>{{userName}}</text>
+      <image class='user_avator' src='{{userAvator}}' bindtap="_tapUserAvator" data-user-id="{{userId}}"></image>
+      <text class='user_name' bindtap="_tapUserAvator" data-user-id="{{userId}}">{{userName}}</text>
       <text class='createAt'>{{createAt}} 上传</text>
       <text class='artifact_title'>{{artifactTitle}}</text>
       <image class='medal' src='/images/medal_white.png'></image>

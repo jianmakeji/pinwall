@@ -33,11 +33,11 @@ Page({
       commentVisible: "hide",
       commentEditVisible: false,
       commentEditValue: "",
-      content: "afsdfasdf",
+      content: "",
       commenterId: "",
       //新建分数
       artifactScoreVisible: false,
-      artifactScoreValue: 100,
+      artifactScoreValue: "",
    },
    creatLike() {
       let that = this;
@@ -213,7 +213,7 @@ Page({
       })
    },
    /**
-    * 点击评论弹窗发表
+    * 点击评论发表
     */
    submitComment() {
       let that = this;
@@ -237,18 +237,34 @@ Page({
                      duration: 2,
                      selector: "#toast"
                   });
-               }else{
+               } else {
+                  that.setData({
+                     commentEditVisible: false
+                  });
                   $Toast({
                      content: '评论失败！',
-                     type:"error",
+                     type: "error",
                      selector: "#toast"
                   });
                }
             }
          })
-      }else{
+      } else if (wx.getStorageSync("openid") == "") {
+         that.setData({
+            commentEditVisible: false
+         });
          $Toast({
-            content: '请输入评论内容！',
+            content: '未绑定微信，操作失败！',
+            type: 'error',
+            duration: 2,
+            selector: "#toast"
+         });
+      } else {
+         that.setData({
+            commentEditVisible: false
+         });
+         $Toast({
+            content: '评论为空！',
             type: 'error',
             duration: 2,
             selector: "#toast"
@@ -280,21 +296,11 @@ Page({
          artifactScoreVisible: false
       });
    },
-   fileTap(event){
+   fileTap(event) {
       let mediaFileUrl = escape(event.currentTarget.dataset.mediaFile);
-
-      if (mediaFileUrl.indexOf("pdf") > 0 || mediaFileUrl.indexOf("video") > 0){
-         wx.navigateTo({
-            url: "/pages/topics/mediaFileDetail/mediaFileDetail?mediaFileUrl=" + mediaFileUrl
-         })
-      }else{
-         $Toast({
-            content: '仅支持预览PDF和Video文件',
-            type: "error",
-            selector: "#toast"
-         });
-      }
-      
+      wx.navigateTo({
+         url: "/pages/topics/mediaFileDetail/mediaFileDetail?mediaFileUrl=" + mediaFileUrl
+      })
    },
    /***
     * 点击分数保存
@@ -312,7 +318,7 @@ Page({
                },
                method: "POST",
                success(res) {
-                  if(res.data.status == 200){
+                  if (res.data.status == 200) {
                      that.setData({
                         artifactScoreVisible: false
                      });
@@ -323,20 +329,20 @@ Page({
                         selector: "#toast"
                      });
                      that.onShow();
-                  }else{
+                  } else {
                      $Toast({
                         content: '打分失败！',
-                        type:"error",
+                        type: "error",
                         selector: "#toast"
                      });
                   }
-                  
+
                }
             })
          }
       } else {
          $Toast({
-            content: '无权限此操作',
+            content: '未绑定微信，操作失败！',
             type: 'error',
             duration: 2,
             selector: "#toast"
@@ -361,7 +367,6 @@ Page({
          url: app.globalData.baseUrl + app.globalData.getArtifactById + this.data.artifactId,
          success(res) {
             if (res.data.status == 200) {
-               console.log(res)
                that.setData({
                   artifactUserId: res.data.data.userId,
                   userAvatarUrl: res.data.data.user.avatarUrl,

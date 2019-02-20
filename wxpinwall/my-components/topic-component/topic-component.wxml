@@ -9,7 +9,7 @@
    </view>
    <view class='topic_artifacts'>
       <block wx:for="{{artifacts}}" wx:for-item="artifact" wx:index="index">
-         <image wx:if="{{index<=5}}" class='artifact_img' bindtap="_tapTheArtifact" data-artifact-id="{{artifact.Id}}" src='{{artifact.profileImage}}'></image>
+         <image wx:if="{{index<5}}" class='artifact_img' bindtap="_tapTheArtifact" data-artifact-id="{{artifact.Id}}" src='{{artifact.profileImage}}'></image>
       </block>
    </view>
 </view>

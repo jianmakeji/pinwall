@@ -15,13 +15,11 @@ Page({
     * 生命周期函数--监听页面加载
     */
    onLoad: function (options) {
-      console.log(options);
       let mediaFileUrl = unescape(options.mediaFileUrl);
       let that = this;
       wx.getSystemInfo({
          success: function (res) {
             if (res.system.indexOf("iOS") < 0){
-               console.log("android")
                if (mediaFileUrl.indexOf("video") > 0){
                   that.setData({
                      videoUrl: mediaFileUrl,
@@ -35,7 +33,6 @@ Page({
                }
                
             }else{
-               console.log("iOS")
                if (mediaFileUrl.indexOf("video") > 0) {
                   that.setData({
                      videoUrl: mediaFileUrl,
