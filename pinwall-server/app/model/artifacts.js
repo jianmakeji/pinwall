@@ -332,7 +332,14 @@ module.exports = app => {
         visible:0
       },
       include: [{
-          model: app.model.Users
+          model: app.model.Users,
+          attributes:['Id','fullname','avatarUrl']
+      },{
+        model: app.model.Topics,
+        through:{
+          attributes:['topicId','artifactId'],
+        },
+        attributes:['Id','name','userId','status']
       }],
       //attributes:['Id','userId','name','profileImage']
     });

@@ -1,8 +1,8 @@
 //app.js
 App({
    globalData: {
-      // baseUrl: "https://beta.pinwall.design-engine.org",
-      baseUrl:"http://127.0.0.1:7001",
+      baseUrl: "https://beta.pinwall.design-engine.org",
+      // baseUrl:"http://127.0.0.1:7001",
       // baseUrl:"192.168.3.93:7001",
       // index
       getMedalDataByRandom: "/wx/artifacts/getMedalDataByRandom/12",

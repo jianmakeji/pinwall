@@ -74,11 +74,11 @@
             <text class="descript">{{descript}}</text>
             <text class="shoulu">收录于</text>
             <text class="topic">{{topic_title}}</text>
-            <image class='medal' src='/images/medal_48_48.png'></image>
+            <image class='medal' src='/images/icon_medal.png'></image>
             <text class="medalCount">{{medalCount}}</text>
-            <image class='like' src='/images/like_48_48.png'></image>
+            <image class='like' src='/images/icon_like.png'></image>
             <text class="likeCount">{{likeCount}}</text>
-            <image class='comment' src='/images/comment_48_48.png'></image>
+            <image class='comment' src='/images/icon_comment.png'></image>
             <text class="commentCount">{{commentCount}}</text>
          </view>
          <view class='unsubmit'>

@@ -1,5 +1,6 @@
 {
    "pages": [
+      "pages/my/my",
       "pages/index/index",
       "pages/topics/topics",
       "pages/topics/topicDetail/topicDetail",
@@ -8,7 +9,6 @@
       "pages/topics/mediaFileDetail/mediaFileDetail",
       "pages/welcome/welcome",
       "pages/search/search",
-      "pages/my/my",
       "pages/my/completeInfo/completeInfo"
    ],
    "window": {
@@ -24,26 +24,26 @@
          {
             "pagePath": "pages/index/index",
             "text": "设计廊",
-            "iconPath": "images/fire.png",
-            "selectedIconPath": "images/fire.png"
+            "iconPath": "images/tab_index_default.png",
+            "selectedIconPath": "images/tab_index_hl.png"
          },
          {
             "pagePath": "pages/topics/topics",
             "text": "作业荚",
-            "iconPath": "images/fire.png",
-            "selectedIconPath": "images/fire.png"
+            "iconPath": "images/tab_topic_default.png",
+            "selectedIconPath": "images/tab_topic_hl.png"
          },
          {
             "pagePath": "pages/search/search",
             "text": "探索",
-            "iconPath": "images/fire.png",
-            "selectedIconPath": "images/fire.png"
+            "iconPath": "images/tab_search_default.png",
+            "selectedIconPath": "images/tab_search_hl.png"
          },
          {
             "pagePath": "pages/my/my",
             "text": "绑定",
-            "iconPath": "images/fire.png",
-            "selectedIconPath": "images/fire.png"
+            "iconPath": "images/tab_my_default.png",
+            "selectedIconPath": "images/tab_my_hl.png"
          }
       ]
    },

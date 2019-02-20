@@ -7,17 +7,17 @@ Page({
     * 页面的初始数据
     */
    data: {
-      current: "图钉墙用户",
+      current: "新用户",
       radioData: [
          { id: 0,name: '新用户' },
          { id: 1,name: '图钉墙用户' }
       ],
-      username:"gansiqiu",
-      email:"1223720954@qq.com",
-      password:"111111",
-      bindemail:"1223720954@qq.com",
-      registerDisable: false,
-      bindemailDisable: false,
+      username:"",
+      email:"",
+      password:"",
+      bindemail:"",
+      registerDisable: true,
+      bindemailDisable: true,
       wxActiveDisable: false,
       bindWxDisable: false
    },
@@ -30,8 +30,8 @@ Page({
          bindemail: "",
          registerDisable: true,
          bindemailDisable: true,
-         wxActiveDisable: true,
-         bindWxDisable: true
+         wxActiveDisable: false,
+         bindWxDisable: false
       });
    },
    //username输入
@@ -115,7 +115,6 @@ Page({
                headimageurl: wx.getStorageSync("avatarUrl")
             },
             success(res){
-               console.log("======",res);
                wx.setStorageSync("myId", res.data.data.user.Id);
                wx.setStorageSync("myRole", res.data.data.roleName);
                that.setData({
@@ -184,7 +183,6 @@ Page({
                headimageurl: wx.getStorageSync("avatarUrl")
             },
             success(res) {
-               console.log("======", res);
                if (res.data.status == 200) {
                   wx.setStorageSync("myId", res.data.data.user.Id);
                   wx.setStorageSync("myRole", res.data.data.user.roles[0].name);
@@ -223,7 +221,6 @@ Page({
             },
             method: "GET",
             success(res) {
-               console.log(res);
                if (res.data.status == 200) {
                   wx.setStorageSync("isLogin", "true");
                   wx.switchTab({

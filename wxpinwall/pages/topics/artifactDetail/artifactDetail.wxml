@@ -19,14 +19,14 @@
    </block>
 </view>
 <view class='opt_panel'>
-   <image class='switch_btn' src='/images/photo_2.jpg' catchtap="openOpt" wx:if="{{animationModal == 'close'}}"></image>
-   <image class='switch_btn' src='/images/photo_1.jpg' catchtap="closeOpt" wx:if="{{animationModal == 'open'}}"></image>
+   <image class='switch_btn' src='/images/artifact_menu_close.png' catchtap="openOpt" wx:if="{{animationModal == 'close'}}"></image>
+   <image class='switch_btn' src='/images/artifact_menu_open.png' catchtap="closeOpt" wx:if="{{animationModal == 'open'}}"></image>
    <!-- 点赞 -->
-   <image class='like_btn' src="{{zanModal?'/images/photo_1.jpg':'/images/photo_2.jpg'}}" catchtap="creatLike" animation="{{likeAnimationData}}"></image>
+   <image class='like_btn' src="{{zanModal?'/images/artifact_like_hl.png':'/images/artifact_like_default.png'}}" catchtap="creatLike" animation="{{likeAnimationData}}"></image>
    <!-- 评论 -->
-   <image class='comment_btn' src='/images/photo_2.jpg' catchtap='openComment' animation="{{commentAnimationData}}"></image>
+   <image class='comment_btn' src='/images/artifact_comment_default.png' catchtap='openComment' animation="{{commentAnimationData}}"></image>
    <!-- 打分 -->
-   <image class='score_btn' src='/images/photo_2.jpg' catchtap="creatScore" animation="{{scoreAnimationData}}"></image>
+   <image class='score_btn' src='/images/artifact_score_default.png' catchtap="creatScore" animation="{{scoreAnimationData}}"></image>
 </view>
 <wxc-popup animation-mode="bottom" align="bottom" status="{{commentVisible}}" locked>
    <view class='comment_list'>
