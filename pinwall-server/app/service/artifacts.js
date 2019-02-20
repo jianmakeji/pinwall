@@ -23,6 +23,7 @@ class Artifacts extends Service {
         if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1){
           subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
         }
+
         if (subElement.type == 2 && subElement.mediaFile != null){
           if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
             subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
@@ -58,19 +59,32 @@ class Artifacts extends Service {
       if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1){
         subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
       }
+      else{
+        subElement.profileImage = subElement.profileImage.replace('http://','https://');
+      }
+
       if (subElement.type == 2 && subElement.mediaFile != null){
         if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
           subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
+        }
+        else{
+          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
         }
       }
       else if (subElement.type == 3 && subElement.mediaFile != null){
         if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
           subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
         }
+        else{
+          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
+        }
       }
       else if (subElement.type == 4 && subElement.mediaFile != null){
         if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
           subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
+        }
+        else{
+          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
         }
       }
     }
@@ -323,6 +337,7 @@ class Artifacts extends Service {
         if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1){
           subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
         }
+
         if (subElement.type == 2 && subElement.mediaFile != null){
           if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
             subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
