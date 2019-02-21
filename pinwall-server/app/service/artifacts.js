@@ -209,6 +209,13 @@ class Artifacts extends Service {
       }
       await transaction.commit();
 
+      try{
+        await ctx.service.esUtils.updateobject(id,updates);
+      }
+      catch(e){
+        ctx.getLogger('elasticLogger').info("update ID:"+id+": "+e.message+"\n");
+      }
+
       let deleteAliOSSArray = new Array();
       try{
 
