@@ -14,7 +14,7 @@
          <image class='artifact_profile_img' mode="widthFix" src="{{item.profileImage}}"></image>
          <text class='artifact_profile_title'>{{item.name}}</text>
          <text class='artifact_profile_des'>{{item.description}}</text>
-         <image class='artifact_file_img' wx:if="{{tools.includeType(item.mediaFile)}}" data-media-file='{{item.mediaFile}}' src='/images/default_profile.jpg' catchtap='fileTap'></image>
+         <image class='artifact_file_img' wx:if="{{tools.includeType(item.mediaFile)}}" mode="aspectFit" data-media-file='{{item.mediaFile}}' src='/images/file_tap.png' catchtap='fileTap'></image>
       </view>
    </block>
 </view>

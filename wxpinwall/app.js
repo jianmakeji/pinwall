@@ -1,4 +1,5 @@
 //app.js
+const mtjwxsdk = require('./utils/mtj-wx-sdk.js');
 App({
    globalData: {
       baseUrl: "https://beta.pinwall.design-engine.org",

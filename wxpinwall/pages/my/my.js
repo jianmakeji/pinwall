@@ -106,6 +106,24 @@ Page({
          modalVisible: false
       })
    },
+   refreshUserInfo(event){
+      let that = this;
+      let userId = event.currentTarget.dataset.userId;
+      wx.request({
+         url: app.globalData.baseUrl + app.globalData.refreshUserInfo + userId,
+         success(res){
+            if (res.data.status == 200) {
+               wx.setStorageSync("openid", res.data.data.openId);
+               wx.setStorageSync("myId", res.data.data.Id);
+               wx.setStorageSync("myRole", res.data.data.roles[0].name);
+               wx.setStorageSync("avatarUrl", res.data.data.avatarUrl);
+               that.setData({
+                  userData: res.data.data
+               })
+            }
+         }
+      })
+   },
    //我的作品集
    zuopinjiTap(event){
       let userId = event.currentTarget.dataset.userId;

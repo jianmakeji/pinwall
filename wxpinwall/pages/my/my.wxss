@@ -121,7 +121,11 @@
    margin-left: 45rpx;
    margin-top: -45rpx;
 }
-
+.myInfo .info_refresh{
+   position: absolute;
+   margin-left: 610rpx;
+   margin-top: 20rpx;
+}
 .myInfo .fullname {
    width: 200rpx;
    height: 40rpx;

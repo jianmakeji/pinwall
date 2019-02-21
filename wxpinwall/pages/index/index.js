@@ -28,7 +28,7 @@ Page({
          createAt: this.data.dataList[index].createAt.split("T")[0],
          name: this.data.dataList[index].name,
          descript: this.data.dataList[index].description,
-         topic_title: this.data.dataList[index].name,
+         topic_title: this.data.dataList[index].topics[0] ? this.data.dataList[index].topics[0].name : "无",
          medalCount: this.data.dataList[index].medalCount,
          likeCount: this.data.dataList[index].likeCount,
          commentCount: this.data.dataList[index].commentCount,

@@ -106,19 +106,19 @@ Page({
     */
    openOpt() {
       var likeAnimation = wx.createAnimation({
-         duration: 400,
+         duration: 200,
          timingFunction: "linear",
          delay: 0,
          transformOrigin: "0 0 0"
       });
       var commentAnimationData = wx.createAnimation({
-         duration: 400,
+         duration: 200,
          timingFunction: "linear",
          delay: 0,
          transformOrigin: "0 0 0"
       });
       var scoreAnimationData = wx.createAnimation({
-         duration: 400,
+         duration: 200,
          timingFunction: "linear",
          delay: 0,
          transformOrigin: "0 0 0"
@@ -138,19 +138,19 @@ Page({
     */
    closeOpt() {
       var likeAnimation = wx.createAnimation({
-         duration: 400,
+         duration: 200,
          timingFunction: "linear",
          delay: 0,
          transformOrigin: "0 0 0"
       });
       var commentAnimationData = wx.createAnimation({
-         duration: 400,
+         duration: 200,
          timingFunction: "linear",
          delay: 0,
          transformOrigin: "0 0 0"
       });
       var scoreAnimationData = wx.createAnimation({
-         duration: 400,
+         duration: 200,
          timingFunction: "linear",
          delay: 0,
          transformOrigin: "0 0 0"
