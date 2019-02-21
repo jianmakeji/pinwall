@@ -452,5 +452,30 @@ module.exports = app => {
     return result;
   }
 
+  Artifacts.transterDataToESById = async function(id) {
+
+    let result  = await this.findByPk(id,{
+      include: [{
+        model: app.model.Users,
+        attributes:['Id','fullname','avatarUrl']
+      },{
+        model: app.model.Topics,
+        through:{
+          attributes:['topicId','artifactId'],
+        },
+        attributes:['Id','name','jobTag']
+      },{
+        model: app.model.Terms,
+        through:{
+          attributes:['termId','artifactId'],
+        },
+        attributes:['Id','name']
+      },{
+        model: app.model.ArtifactScores
+      }]
+    });
+    return result;
+  }
+
   return Artifacts;
 };
