@@ -58,7 +58,7 @@
 }
 
 .artifact_info .createAt {
-   width: 180rpx;
+   width: 190rpx;
    height: 30rpx;
    position: absolute;
    margin-left: 25rpx;
@@ -141,12 +141,11 @@
    color: #979797;
 }
 .artifact_assets .artifact_assets_detail .artifact_file_img {
-   width: 60rpx;
-   height: 60rpx;
+   width: 75rpx;
+   height: 75rpx;
    position: absolute;
    margin-left: 60rpx;
    margin-top: 32rpx;
-   border-radius: 30rpx;
 }
 .opt_panel {
    width: 140rpx;
@@ -169,8 +168,8 @@
 }
 
 .opt_panel .like_btn {
-   width: 80rpx;
-   height: 80rpx;
+   width: 100rpx;
+   height: 100rpx;
    position: fixed;
    right: 90rpx;
    bottom: 90rpx;
@@ -179,8 +178,8 @@
 }
 
 .opt_panel .comment_btn {
-   width: 80rpx;
-   height: 80rpx;
+   width: 100rpx;
+   height: 100rpx;
    position: fixed;
    right: 90rpx;
    bottom: 90rpx;
@@ -189,8 +188,8 @@
 }
 
 .opt_panel .score_btn {
-   width: 80rpx;
-   height: 80rpx;
+   width: 100rpx;
+   height: 100rpx;
    position: fixed;
    right: 90rpx;
    bottom: 90rpx;

@@ -2,6 +2,7 @@
 <view class='myInfo' wx:if="{{isLogin == 'true'}}">
    <view class='user_info'>
       <image class='user_avator' mode='scaleToFill' src="{{userData.avatarUrl?userData.avatarUrl:'/images/default_profile.jpg'}}"></image>
+      <i-icon class='info_refresh' wx:if="{{userData.roles[0].name == 'vip'}}" type="refresh" size="28" color="#1fb5be" data-user-id="{{userData.Id}}" catchtap='refreshUserInfo'/>
       <text class='fullname'>{{userData.fullname}}</text>
       <image class='upload_img' src='/images/my_upload.png'></image>
       <text class='upload_text'>我的上传</text>
