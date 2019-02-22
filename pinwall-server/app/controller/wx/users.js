@@ -108,6 +108,9 @@ class UsersController extends BaseController {
   async getWxCode() {
     const ctx = this.ctx;
     const jscode = ctx.query.jscode;
+    const iv =  ctx.query.iv;
+    const encryptedData =  ctx.query.encryptedData;
+    const appId = 'wxa4cd6f777c8b75d0';
 
     const requestUrl = `https://api.weixin.qq.com/sns/jscode2session?appid=wxa4cd6f777c8b75d0&secret=aeb6d1ab0c59d4145bd00e146551f468&js_code=${jscode}&grant_type=authorization_code`;
 
@@ -124,7 +127,9 @@ class UsersController extends BaseController {
       sessionKey:session_key
     }
     if (openid) {
-      const user = await ctx.service.users.findByOpenId(openid);
+      var pc = new WXBizDataCrypt(appId, sessionKey);
+      var userData = pc.decryptData(encryptedData , iv);
+      const user = await ctx.service.users.findByUnionId(userData.unionId);
       result.user = user;
     }
     ctx.body = result;
