@@ -376,6 +376,9 @@ Page({
                   artifactDes: res.data.data.description,
                   artifact_assets: res.data.data.artifact_assets
                })
+               wx.setNavigationBarTitle({
+                  title: res.data.data.name,
+               })
                if (res.data.data.topics.length) {
                   that.setData({
                      topicName: res.data.data.topics[0].name,

@@ -65,6 +65,9 @@ Page({
                   createAt: res.data.data.rows.createAt,
                   topicName: res.data.data.rows.name,
                })
+               wx.setNavigationBarTitle({
+                  title: res.data.data.rows.name,
+               })
             }
          }
       })

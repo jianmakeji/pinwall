@@ -69,6 +69,9 @@ Page({
                         topicName: res.data.data.rows[0].user.fullname + "的作业荚",
                      })
                   }
+                  wx.setNavigationBarTitle({
+                     title: that.data.topicName,
+                  })
                }
             }
          }

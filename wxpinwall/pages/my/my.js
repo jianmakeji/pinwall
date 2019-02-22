@@ -67,7 +67,7 @@ Page({
                      } else {
                         wx.setStorageSync("openid", res.data.openid);
                         $Message({
-                           content: '您的微信未绑定图钉墙,无法进行相关操作，3秒后跳转到绑定界面！',
+                           content: '您的微信未绑定图钉墙,无法进行相关操作,3秒后跳转到绑定界面!',
                            type: 'error',
                            duration: 3,
                            selector: "#message"

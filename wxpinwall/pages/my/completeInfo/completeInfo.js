@@ -7,11 +7,7 @@ Page({
     * 页面的初始数据
     */
    data: {
-      current: "新用户",
-      radioData: [
-         { id: 0,name: '新用户' },
-         { id: 1,name: '图钉墙用户' }
-      ],
+      current: "old",
       username:"",
       email:"",
       password:"",
@@ -21,18 +17,29 @@ Page({
       wxActiveDisable: false,
       bindWxDisable: false
    },
-   radioChange({ detail = {} }) {
-      this.setData({
-         current: detail.value,
-         username: "",
-         email: "",
-         password: "",
-         bindemail: "",
-         registerDisable: true,
-         bindemailDisable: true,
-         wxActiveDisable: false,
-         bindWxDisable: false
-      });
+   radioChange(event) {
+      let type = event.currentTarget.dataset.type;
+      if(type == "new"){
+         this.setData({
+            current: type,
+            bindemail: "",
+            registerDisable: true,
+            bindemailDisable: true,
+            wxActiveDisable: false,
+            bindWxDisable: false
+         });
+      }else{
+         this.setData({
+            current: type,
+            username: "",
+            email: "",
+            password: "",
+            registerDisable: true,
+            bindemailDisable: true,
+            wxActiveDisable: false,
+            bindWxDisable: false
+         });
+      }
    },
    //username输入
    usernameChange(event){
@@ -135,6 +142,12 @@ Page({
             type: 'error',
             duration: 3
          });
+      } else if (this.data.password.length < 6) {
+         $Toast({
+            content: '密码长度至少6位!',
+            type: 'error',
+            duration: 3
+         });
       }
    },
    wxActiveTap() {
@@ -152,6 +165,12 @@ Page({
                   wx.switchTab({
                      url: '/pages/my/my',
                   })
+               } else {
+                  $Toast({
+                     content: res.data.data,
+                     type: 'error',
+                     duration: 3
+                  });
                }
             }
          })
@@ -226,6 +245,12 @@ Page({
                   wx.switchTab({
                      url: '/pages/my/my',
                   })
+               }else{
+                  $Toast({
+                     content: res.data.data,
+                     type: 'error',
+                     duration: 3
+                  }); 
                }
             }
          })
@@ -236,60 +261,5 @@ Page({
             duration: 3
          });
       }
-   },
-   /**
-    * 生命周期函数--监听页面加载
-    */
-   onLoad: function (options) {
-
-   },
-
-   /**
-    * 生命周期函数--监听页面初次渲染完成
-    */
-   onReady: function () {
-
-   },
-
-   /**
-    * 生命周期函数--监听页面显示
-    */
-   onShow: function () {
-
-   },
-
-   /**
-    * 生命周期函数--监听页面隐藏
-    */
-   onHide: function () {
-
-   },
-
-   /**
-    * 生命周期函数--监听页面卸载
-    */
-   onUnload: function () {
-
-   },
-
-   /**
-    * 页面相关事件处理函数--监听用户下拉动作
-    */
-   onPullDownRefresh: function () {
-
-   },
-
-   /**
-    * 页面上拉触底事件的处理函数
-    */
-   onReachBottom: function () {
-
-   },
-
-   /**
-    * 用户点击右上角分享
-    */
-   onShareAppMessage: function () {
-
    }
 })
