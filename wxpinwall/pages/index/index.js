@@ -12,9 +12,9 @@ Page({
       title:"",
       descript:"",
       topic_title:"",
-      medalCount:"1",
-      likeCount:"1",
-      commentCount:"1",
+      medalCount:"",
+      likeCount:"",
+      commentCount:"",
       //数据数组
       dataList:[]
    },
