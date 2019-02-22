@@ -113,7 +113,7 @@ class Users extends Service {
       let userObject = this.ctx.model.Users.findUserByEmail(email);
       if(userObject){
         await this.ctx.model.Users.updateWxInfoByEmail(wxInfo);
-        await this.ctx.service.emailService.sendWxActiveEmail(email,user.unionId,wxInfo.activeCode);
+        await this.ctx.service.emailService.sendWxActiveEmail(email,user.unionid,wxInfo.activeCode);
         return userObject;
       }
       else{
