@@ -120,11 +120,11 @@ class UsersController extends BaseController {
     });
 
     let openid = JSON.parse(data).openid;
-    let sessionKey = JSON.parse(data).sessionKey;
+    let sessionKey = JSON.parse(data).session_key;
 
     let result = {
       openid: openid,
-      sessionKey:session_key
+      sessionKey:sessionKey
     }
     if (openid) {
       var pc = new WXBizDataCrypt(appId, sessionKey);
