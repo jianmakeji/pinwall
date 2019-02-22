@@ -47,7 +47,7 @@ class Email extends Service {
     });
   }
 
-  async sendWxActiveEmail(email, openId, activeCode) {
+  async sendWxActiveEmail(email, unionId, activeCode) {
     const ctx = this.ctx;
     // 开启一个 SMTP 连接池
     var transport = nodemailer.createTransport({
@@ -70,7 +70,7 @@ class Email extends Service {
 
     mailOptions.text = "您好 ";
       mailOptions.html = '<b>感谢您访问图钉墙!</b> <a href="'+ctx.app.wx_email_verify_address
-        +'?openId='+openId+'&activeCode='+activeCode+'">请点击激活账号</a>';
+        +'?unionId='+unionId+'&activeCode='+activeCode+'">请点击激活账号</a>';
 
     // 发送邮件
     await transport.sendMail(mailOptions, function(error, response) {
