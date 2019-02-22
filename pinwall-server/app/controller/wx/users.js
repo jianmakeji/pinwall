@@ -2,6 +2,7 @@
 
 const BaseController = require('../BaseController');
 var rp = require('request-promise');
+var WXBizDataCrypt = require('../../utils/WXBizDataCrypt')
 
 class UsersController extends BaseController {
 
@@ -11,6 +12,10 @@ class UsersController extends BaseController {
     const email = body.email;
     const fullname = body.fullname;
     const password = body.password;
+    const sessionKey = body.sessionKey;
+    const iv = body.iv;
+    const encryptedData = body.encryptedData;
+    const appId = 'wxa4cd6f777c8b75d0'
 
     let user = {
       email: email,
@@ -25,6 +30,10 @@ class UsersController extends BaseController {
       avatarUrl: body.headimageurl,
     };
     try {
+      var pc = new WXBizDataCrypt(appId, sessionKey);
+      var data = pc.decryptData(encryptedData , iv);
+      user.unionId = data.unionId;
+
       const result = await ctx.service.users.createUser(user, 1);
 
       if (result) {
@@ -47,26 +56,39 @@ class UsersController extends BaseController {
     const ctx = this.ctx;
     const body = ctx.request.body;
     const email = body.email;
+    const sessionKey = body.sessionKey;
+    const iv = body.iv;
+    const encryptedData = body.encryptedData;
+    const appId = 'wxa4cd6f777c8b75d0'
+
     let user = {
-      openId: body.openid,
+      openid: body.openid,
       nickname: body.nickname,
       avatarUrl: body.headimageurl,
-      gender: body.sex,
+      sex: body.sex,
       province: body.province,
       city: body.city,
       country: body.country
     };
 
-    const result = await ctx.service.users.bindWeixinInfoByEmail(email, user);
+    try {
+      var pc = new WXBizDataCrypt(appId, sessionKey);
+      var data = pc.decryptData(encryptedData , iv);
+      user.unionid = data.unionId;
 
-    if (result) {
-      let backObject = {
-          message:'绑定成功，请进入邮箱激活!',
-          user:result
+      const result = await ctx.service.users.bindWeixinInfoByEmail(email, user);
+
+      if (result) {
+        let backObject = {
+            message:'绑定成功，请进入邮箱激活!',
+            user:result
+        }
+        super.success(backObject);
+      } else {
+        super.failure('绑定失败, 或者邮箱不存在!');
       }
-      super.success(backObject);
-    } else {
-      super.failure('绑定失败, 或者邮箱不存在!');
+    } catch (e) {
+      super.failure(e.message);
     }
   }
 
@@ -95,9 +117,11 @@ class UsersController extends BaseController {
     });
 
     let openid = JSON.parse(data).openid;
+    let sessionKey = JSON.parse(data).sessionKey;
 
     let result = {
       openid: openid,
+      sessionKey:session_key
     }
     if (openid) {
       const user = await ctx.service.users.findByOpenId(openid);

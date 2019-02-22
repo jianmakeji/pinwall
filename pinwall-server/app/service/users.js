@@ -41,7 +41,7 @@ class Users extends Service {
             await this.ctx.service.emailService.sendActiveEmail(user.email, user.activeCode);
           }
           else if(category == 1){
-            await this.ctx.service.emailService.sendWxActiveEmail(user.email, user.openId, user.activeCode);
+            await this.ctx.service.emailService.sendWxActiveEmail(user.email, user.unionId, user.activeCode);
           }
 
           return createUserObj;
@@ -76,8 +76,8 @@ class Users extends Service {
 
   }
 
-  async findByOpenId(openId){
-    return await this.ctx.model.Users.findByOpenId(openId);
+  async findByUnionId(unionId){
+    return await this.ctx.model.Users.findByUnionId(unionId);
   }
 
   async findByUserWithEmail(email){
@@ -99,20 +99,21 @@ class Users extends Service {
   async bindWeixinInfoByEmail(email,user){
     let wxInfo = {};
     wxInfo.email = email;
-    wxInfo.openId = user.openId;
+    wxInfo.openId = user.openid;
     wxInfo.nickname = user.nickname;
-    wxInfo.avatarUrl = user.avatarUrl;
-    wxInfo.gender = user.gender;
+    wxInfo.avatarUrl = user.headimageurl;
+    wxInfo.gender = user.sex;
     wxInfo.province = user.province;
     wxInfo.city = user.city;
     wxInfo.country = user.country;
+    wxInfo.unionId = user.unionid;
     wxInfo.activeCode = UUID.v1();
 
     try{
       let userObject = this.ctx.model.Users.findUserByEmail(email);
       if(userObject){
         await this.ctx.model.Users.updateWxInfoByEmail(wxInfo);
-        await this.ctx.service.emailService.sendWxActiveEmail(email,user.openId,wxInfo.activeCode);
+        await this.ctx.service.emailService.sendWxActiveEmail(email,user.unionId,wxInfo.activeCode);
         return userObject;
       }
       else{
@@ -124,8 +125,8 @@ class Users extends Service {
     }
   }
 
-  async updateWxActiveByActiveCodeAndOpenId(openId,activeCode){
-    return await this.ctx.model.Users.updateWxActiveByActiveCodeAndOpenId(openId,activeCode,1);
+  async updateWxActiveByActiveCodeAndUnionId(unionId,activeCode){
+    return await this.ctx.model.Users.updateWxActiveByActiveCodeAndUnionId(unionId,activeCode,1);
   }
 
   async updatePwd(userId,newPwd){
