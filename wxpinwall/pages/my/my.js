@@ -35,59 +35,70 @@ Page({
       let that = this;
       wx.login({
          success: function(res) {
+            console.log(res)
             let code = res.code;
             wx.getUserInfo({
                success(res){
+                  console.log(res)
                   setStorageWithUserInfo(res.userInfo);
-               }
-            })
-            wx.request({
-               url: app.globalData.baseUrl + "/wx/users/getWxCode",
-               data: {
-                  jscode: code
-               },
-               header: {
-                  'content-type': 'application/json'
-               },
-               success(res){
-                  if (res.data.openid){
-                     if (res.data.user != null && res.data.user.email != null) {
-                        wx.setStorageSync("openid", res.data.openid);
-                        wx.setStorageSync("myId", res.data.user.Id);
-                        wx.setStorageSync("myRole", res.data.user.roles[0].name);
-                        wx.setStorageSync("isLogin", "true");
-                        wx.setTabBarItem({
-                           index: 3,
-                           text:"我的"
-                        })
-                        that.setData({
-                           isLogin:"true"
-                        });
-                        that.onShow();
-                     } else {
-                        wx.setStorageSync("openid", res.data.openid);
-                        $Message({
-                           content: '您的微信未绑定图钉墙,无法进行相关操作,3秒后跳转到绑定界面!',
-                           type: 'error',
-                           duration: 3,
-                           selector: "#message"
-                        });
-                        setTimeout(function () {
-                           wx.redirectTo({
-                              url: '/pages/my/completeInfo/completeInfo',
-                           })
-                        }, 3000);
+                  wx.setStorageSync("encryptedData", res.encryptedData);
+                  wx.setStorageSync("iv", res.iv);
+                  wx.request({
+                     url: app.globalData.baseUrl + "/wx/users/getWxCode",
+                     data: {
+                        jscode: code,
+                        encryptedData: wx.getStorageSync("encryptedData"),
+                        iv: wx.getStorageSync("iv")
+                     },
+                     header: {
+                        'content-type': 'application/json'
+                     },
+                     success(res) {
+                        console.log(res);
+                        if (res.data.openid) {
+                           wx.setStorageSync("openid", res.data.openid);
+                           wx.setStorageSync("sessionKey", res.data.sessionKey);
+                           if (res.data.user != null && res.data.user.email != null) {
+                              wx.setStorageSync("openid", res.data.openid);
+                              wx.setStorageSync("sessionKey", res.data.sessionKey);
+                              wx.setStorageSync("myId", res.data.user.Id);
+                              wx.setStorageSync("myRole", res.data.user.roles[0].name);
+                              wx.setStorageSync("isLogin", "true");
+                              wx.setTabBarItem({
+                                 index: 3,
+                                 text: "我的"
+                              })
+                              that.setData({
+                                 isLogin: "true"
+                              });
+                              that.onShow();
+                           } else {
+                              wx.setStorageSync("openid", res.data.openid);
+                              $Message({
+                                 content: '您的微信未绑定图钉墙,无法进行相关操作,3秒后跳转到绑定界面!',
+                                 type: 'error',
+                                 duration: 3,
+                                 selector: "#message"
+                              });
+                              setTimeout(function () {
+                                 wx.redirectTo({
+                                    url: '/pages/my/completeInfo/completeInfo',
+                                 })
+                              }, 3000);
+                           }
+                        } else {
+                           $Message({
+                              content: '微信登录失败！',
+                              type: 'error',
+                              duration: 3,
+                              selector: "#message"
+                           });
+                        }
                      }
-                  }else{
-                     $Message({
-                        content: '微信登录失败！',
-                        type: 'error',
-                        duration: 3,
-                        selector: "#message"
-                     });                   
-                  }
+                  })
                }
             })
+            
          }
       })
    },

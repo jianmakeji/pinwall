@@ -119,7 +119,11 @@ Page({
                city: wx.getStorageSync("city"),
                province: wx.getStorageSync("province"),
                country: wx.getStorageSync("country"),
-               headimageurl: wx.getStorageSync("avatarUrl")
+               headimageurl: wx.getStorageSync("avatarUrl"),
+
+               encryptedData: wx.getStorageSync("encryptedData"),
+               iv: wx.getStorageSync("iv"),
+               sessionKey: wx.getStorageSync("sessionKey"),
             },
             success(res){
                wx.setStorageSync("myId", res.data.data.user.Id);
@@ -199,7 +203,11 @@ Page({
                city: wx.getStorageSync("city"),
                province: wx.getStorageSync("province"),
                country: wx.getStorageSync("country"),
-               headimageurl: wx.getStorageSync("avatarUrl")
+               headimageurl: wx.getStorageSync("avatarUrl"),
+
+               encryptedData: wx.getStorageSync("encryptedData"),
+               iv: wx.getStorageSync("iv"),
+               sessionKey: wx.getStorageSync("sessionKey"),
             },
             success(res) {
                if (res.data.status == 200) {

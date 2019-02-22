@@ -7,8 +7,8 @@
       "pages/topics/artifactDetail/artifactDetail",
       "pages/topics/mediaFileDetail/mediaFileDetail",
       "pages/search/search",
-      "pages/my/completeInfo/completeInfo",
-      "pages/my/my"
+      "pages/my/my",
+      "pages/my/completeInfo/completeInfo"
    ],
    "window": {
       "backgroundTextStyle": "dark",
