@@ -17,9 +17,7 @@ class TopicsController extends BaseController{
       status: ctx.helper.parseInt(ctx.query.status),
       userId: ctx.helper.parseInt(ctx.query.userId),
     };
-    if (query.userId == 0 && ctx.user){
-        query.userId = ctx.user.Id;
-    }
+  
     try{
       let result = await ctx.service.topics.list(query);
       super.success(result);
