@@ -233,7 +233,7 @@ Page({
                   });
                   $Toast({
                      content: '评论成功！',
-                     image: '/images/photo_2.jpg',
+                     image: '/images/success.png',
                      duration: 2,
                      selector: "#toast"
                   });
@@ -312,19 +312,20 @@ Page({
             wx.request({
                url: app.globalData.baseUrl + app.globalData.createScore,
                data: {
-                  openid: wx.getStorageSync("openid"),
+                  userId: wx.getStorageSync("myId"),
                   artifactId: this.data.artifactId,
                   score: this.data.artifactScoreValue
                },
                method: "POST",
                success(res) {
+                  console.log(res)
                   if (res.data.status == 200) {
                      that.setData({
                         artifactScoreVisible: false
                      });
                      $Toast({
                         content: '打分成功！',
-                        image: '/images/photo_2.jpg',
+                        image: '/images/success.png',
                         duration: 2,
                         selector: "#toast"
                      });

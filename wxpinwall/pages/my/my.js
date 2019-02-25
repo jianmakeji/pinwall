@@ -1,6 +1,10 @@
 // pages/my/my.js
-const { $Toast } = require('../../dist/base/index');
-const { $Message } = require('../../dist/base/index');
+const {
+   $Toast
+} = require('../../dist/base/index');
+const {
+   $Message
+} = require('../../dist/base/index');
 const app = getApp();
 Page({
 
@@ -15,11 +19,11 @@ Page({
 
       modalVisible: false,
 
-      userData:""
+      userData: ""
    },
    //记住我选择
-   handleAnimalChange({ 
-      detail = {} 
+   handleAnimalChange({
+      detail = {}
    }) {
       this.setData({
          checked: detail.current
@@ -31,15 +35,13 @@ Page({
       })
    },
    //点击微信登录
-   tapWxLogin(){
+   tapWxLogin() {
       let that = this;
       wx.login({
          success: function(res) {
-            console.log(res)
             let code = res.code;
             wx.getUserInfo({
-               success(res){
-                  console.log(res)
+               success(res) {
                   setStorageWithUserInfo(res.userInfo);
                   wx.setStorageSync("encryptedData", res.encryptedData);
                   wx.setStorageSync("iv", res.iv);
@@ -54,7 +56,6 @@ Page({
                         'content-type': 'application/json'
                      },
                      success(res) {
-                        console.log(res);
                         if (res.data.openid) {
                            wx.setStorageSync("openid", res.data.openid);
                            wx.setStorageSync("sessionKey", res.data.sessionKey);
@@ -75,22 +76,22 @@ Page({
                            } else {
                               wx.setStorageSync("openid", res.data.openid);
                               $Message({
-                                 content: '您的微信未绑定图钉墙,无法进行相关操作,3秒后跳转到绑定界面!',
+                                 content: '您的微信未绑定图钉墙,无法进行相关操作,2秒后跳转到绑定界面!',
                                  type: 'error',
-                                 duration: 3,
+                                 duration: 2,
                                  selector: "#message"
                               });
-                              setTimeout(function () {
+                              setTimeout(function() {
                                  wx.redirectTo({
                                     url: '/pages/my/completeInfo/completeInfo',
                                  })
-                              }, 3000);
+                              }, 2000);
                            }
                         } else {
                            $Message({
                               content: '微信登录失败！',
                               type: 'error',
-                              duration: 3,
+                              duration: 2,
                               selector: "#message"
                            });
                         }
@@ -98,7 +99,7 @@ Page({
                   })
                }
             })
-            
+
          }
       })
    },
@@ -109,20 +110,20 @@ Page({
       wx.setStorageSync('isLogin', "false");
       this.setData({
          modalVisible: false,
-         isLogin:"false"
+         isLogin: "false"
       })
    },
-   bindCancel(){
+   bindCancel() {
       this.setData({
          modalVisible: false
       })
    },
-   refreshUserInfo(event){
+   refreshUserInfo(event) {
       let that = this;
       let userId = event.currentTarget.dataset.userId;
       wx.request({
          url: app.globalData.baseUrl + app.globalData.refreshUserInfo + userId,
-         success(res){
+         success(res) {
             if (res.data.status == 200) {
                wx.setStorageSync("openid", res.data.data.openId);
                wx.setStorageSync("myId", res.data.data.Id);
@@ -131,12 +132,16 @@ Page({
                that.setData({
                   userData: res.data.data
                })
+               wx.showToast({
+                  title: '刷新成功！',
+                  type: "success"
+               })
             }
          }
       })
    },
    //我的作品集
-   zuopinjiTap(event){
+   zuopinjiTap(event) {
       let userId = event.currentTarget.dataset.userId;
       wx.navigateTo({
          url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
@@ -146,21 +151,21 @@ Page({
    zuoyejiaTap(event) {
       let userId = event.currentTarget.dataset.userId;
       wx.navigateTo({
-         url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=1",
+         url: '/pages/topics/myTopics/myTopics' + "?userId=" + userId + "&jobTag=1",
       })
    },
    /**
     * 生命周期函数--监听页面加载
     */
    onLoad: function(options) {
-      
+
    },
 
    /**
     * 生命周期函数--监听页面初次渲染完成
     */
    onReady: function() {
-      
+
    },
 
    /**

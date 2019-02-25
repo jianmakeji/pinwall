@@ -79,7 +79,7 @@
 
 .i-input {
    padding: 7px 15px;
-   color: #fff;
+   color: #979797;
 }
 
 .i-input-wrapped {
@@ -114,7 +114,7 @@
 
 .i-input-placeholder {
    font-size: 14px;
-   color: #fff
+   color: #979797
 }
 
 .i-input-input-right {

@@ -2,6 +2,7 @@
    "pages": [
       "pages/index/index",
       "pages/topics/topics",
+      "pages/topics/myTopics/myTopics",
       "pages/topics/topicDetail/topicDetail",
       "pages/topics/showreelDetail/showreelDetail",
       "pages/topics/artifactDetail/artifactDetail",
