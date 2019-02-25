@@ -27,7 +27,7 @@ class ArtifactsController extends BaseController{
     async createScore() {
       const ctx = this.ctx;
       try{
-        const wxUser = await ctx.service.users.findByOpenId(ctx.request.body.openid);
+        const wxUser = await ctx.service.users.find(ctx.request.body.userId);
         if (wxUser.roles[0].name == 'vip'){
           const article = await ctx.service.artifactScore.wxCreateScore(ctx.request.body,wxUser.Id);
           super.success('打分成功!');
