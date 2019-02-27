@@ -101,12 +101,12 @@ class Email extends Service {
     var mailOptions = {
       from: ctx.app.email_send_address, // 发件地址
       to: email, // 收件列表
-      subject: "微信绑定账户邮件激活", // 标题
+      subject: "邮件找回密码", // 标题
     }
 
     mailOptions.text = "您好 ";
       mailOptions.html = '<b>感谢您访问图钉墙!</b> <a href="'+ctx.app.getBackPwd_email_verify_address
-        +'?email='+email+'&activeCode='+activeCode+'">请点击激活账号</a>';
+        +'?email='+email+'&activeCode='+activeCode+'">请点击修改该账号的密码</a>';
 
     // 发送邮件
     await transport.sendMail(mailOptions, function(error, response) {
