@@ -6,12 +6,12 @@ var index = new Vue({
                 minHeight:""
             },
             formItem:{
-                newpwd:"",
+                newPwd:"",
                 email:"",
                 activeCode:""
             },
             ruleValidate:{
-                newpwd:[
+                newPwd:[
             	    {required: true, message: '请输入密码', trigger: 'blur'},
               	    {min:6, message: '密码至少为6位', trigger: 'blur'}
             	]
@@ -23,7 +23,7 @@ var index = new Vue({
     },
     methods: {
         checkPassword(value){
-            if (value.target.value == this.formItem.newpwd) {
+            if (value.target.value == this.formItem.newPwd) {
                 this.disabledBtn = false;
             } else {
                 this.disabledBtn = true;
