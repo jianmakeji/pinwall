@@ -343,10 +343,13 @@ class Artifacts extends Service {
     const listData = await this.ctx.model.Artifacts.getMedalDataByRandom();
     const max = listData.length;
     const setData = new Set();
-    while(setData.size != limit){
-      let rand = Math.random();
-      let num = Math.floor(rand * max);
-      setData.add(num);
+
+    if (listData > 0){
+      while(setData.size != limit){
+        let rand = Math.random();
+        let num = Math.floor(rand * max);
+        setData.add(num);
+      }
     }
     let result = new Array();
     for (let item of setData.values()) {
@@ -397,6 +400,7 @@ class Artifacts extends Service {
   }
 
   async transterInsertDataToES(idArray) {
+    const ctx = this.ctx;
     try{
       let esArray = await this.ctx.model.Artifacts.transterDataToES(idArray);
       for (let artiObj of esArray){
@@ -432,6 +436,7 @@ class Artifacts extends Service {
   }
 
   async transterUpdateDataToES(idArray) {
+    const ctx = this.ctx;
     try{
       let esArray = await this.ctx.model.Artifacts.transterDataToES(idArray);
       for (let artiObj of esArray){
