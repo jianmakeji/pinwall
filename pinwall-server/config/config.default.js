@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 module.exports = appInfo => {
   const config = exports = {};
 
@@ -16,6 +17,7 @@ module.exports = appInfo => {
     username: 'root',
     password: '123456',
     database: 'pinwall',
+    timezone: '+08:00',
     define: {
       freezeTableName: true,
       charset: 'utf8',
@@ -37,10 +39,12 @@ module.exports = appInfo => {
    client: {
         host: [
           {
-            host: '192.168.3.110',
-            auth: 'pinwall:pinwall@1221',
-            protocol: 'http',
-            port: 9200
+              // host: '106.14.41.180',
+              // auth: 'elastic:pinwall001@#',
+              host: '192.168.3.101',
+              auth: 'pinwall:pinwall@1221',
+              protocol: 'http',
+              port: 9200
           }
         ]
       }
@@ -81,6 +85,31 @@ module.exports = appInfo => {
 
   config.notfound= {
     pageUrl: '/404.html',
+  };
+
+  config.logger = {
+    dir: 'D:\logs',
+    appLogName: `${appInfo.name}-web.log`,
+    coreLogName: 'egg-web.log',
+    agentLogName: 'egg-agent.log',
+    errorLogName: 'common-error.log',
+  };
+
+  config.customLogger = {
+    elasticLogger:{
+      file: path.join(appInfo.root,'logs/transfer.log'),
+    },
+    aliossLogger:{
+      file: path.join(appInfo.root,'logs/alioss.log'),
+    },
+  };
+
+  config.logrotator = {
+    filesRotateBySize: [
+      path.join(appInfo.root, 'logs', appInfo.name, '-web.log'),
+      path.join(appInfo.root, 'logs', appInfo.name, 'egg-web.log'),
+    ],
+    maxFileSize: 0.3 * 1024 * 1024 * 1024,
   };
 
   return config;
