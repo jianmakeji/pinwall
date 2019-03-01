@@ -11,10 +11,10 @@ module.exports = appInfo => {
 
   config.sequelize = {
     dialect: 'mysql',
-    host: 'localhost',
+    host: '192.168.3.110',
     port: 3306,
     username: 'root',
-    password: '123456',
+    password: 'root',
     database: 'pinwall',
     define: {
       freezeTableName: true,
@@ -82,6 +82,14 @@ module.exports = appInfo => {
   config.notfound= {
     pageUrl: '/404.html',
   };
+
+  /*
+    config.alinode = {
+        server: 'wss://agentserver.node.aliyun.com:8080',
+        appid: '78054',
+        secret: 'b7682545dc76c709069fe9047e3fc2d70e6a63ed'
+    }
+  */
 
   return config;
 };
