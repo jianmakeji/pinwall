@@ -16,8 +16,10 @@ var index = new Vue({
                                     type: 'primary',
                                     size: 'small'
                                 },
-                                style: {
-                                    marginRight: '5px'
+                                style:{
+                                    color:"#07af69",
+                                    marginRight: '5px',
+                                    fontWeight:"bold"
                                 },
                                 attrs:{
                                     href:'/users/' + this.dataList[params.index].Id
