@@ -1,6 +1,6 @@
 /* pages/topics/topics.wxss */
 .topics_tabs scroll-view label{
-    font-size:28rpx;
+    font-size:30rpx;
 }
 .packUp{
    position: fixed;
@@ -10,5 +10,6 @@
    bottom:40rpx;
    text-align:center;
    background: #979797;
+   opacity: 0.8;
    z-index: 1000
 }

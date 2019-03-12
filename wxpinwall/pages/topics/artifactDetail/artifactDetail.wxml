@@ -54,7 +54,7 @@
 <i-modal customMarginTop="-100px" title="作业评分" visible="{{ artifactScoreVisible }}" show-ok="{{false}}" show-cancel="{{false}}" customWidth="80%">
    <view class='scroe_box'>
        <i-icon class='closeScore' bindtap='closeScore' type="close" size="26" />
-      <i-input i-class='score_input' type='number' value="{{ artifactScoreValue }}" bind:change='artifactScoreValueChange' placeholder='请输入您给出的分数...' />
+      <i-input i-class='score_input' type='number' value="{{ artifactScoreValue }}" bind:change='artifactScoreValueChange' placeholder='请输入0~100之间整数' />
       <i-button i-class='score_btn' type='submit' bind:click="submitScore">保存</i-button>
    </view>
    <!-- <view class='topic_data'>
