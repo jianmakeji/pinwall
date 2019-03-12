@@ -20,6 +20,7 @@ Page({
    },
    // 点击顶部小图片进入作品详情
    tapTheArtifact(event){
+      console.log("22222")
       let artifactId = event.detail.target.dataset.artifactId;
       wx.navigateTo({
          url: '/pages/topics/artifactDetail/artifactDetail?artifactId=' + artifactId,
@@ -27,18 +28,20 @@ Page({
    },
    // 点击作品进入作品详情
    artifactTap(event){
+      console.log("33333")
       let artifactId = event.target.dataset.artifactId;
       wx.navigateTo({
          url: '/pages/topics/artifactDetail/artifactDetail?artifactId=' + artifactId,
       })
    },
    // 点击用户头像姓名进入作品集
-   tapUserAvator(event){
-      let userId = event.detail.target.dataset.userId;
-      wx.navigateTo({
-         url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
-      })
-   },
+   // tapUserAvator(event){
+      // console.log("111111")
+   //    let userId = event.detail.target.dataset.userId;
+   //    wx.navigateTo({
+   //       url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
+   //    })
+   // },
    /**
     * 生命周期函数--监听页面加载
     */

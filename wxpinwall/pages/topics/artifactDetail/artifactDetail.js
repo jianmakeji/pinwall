@@ -38,6 +38,15 @@ Page({
       //新建分数
       artifactScoreVisible: false,
       artifactScoreValue: "",
+
+      artifactInfoHeight:"",
+      artifactAssetsPadding:""
+   },
+   tapUserAvator(event){
+      let userId = event.currentTarget.dataset.userId;
+      wx.navigateTo({
+         url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
+      })
    },
    creatLike() {
       let that = this;
@@ -367,6 +376,7 @@ Page({
       wx.request({
          url: app.globalData.baseUrl + app.globalData.getArtifactById + this.data.artifactId,
          success(res) {
+            console.log(res)
             if (res.data.status == 200) {
                that.setData({
                   artifactUserId: res.data.data.userId,
@@ -377,6 +387,17 @@ Page({
                   artifactDes: res.data.data.description,
                   artifact_assets: res.data.data.artifact_assets
                })
+
+               let query = wx.createSelectorQuery();
+               query.select('#artifact').boundingClientRect();
+               query.exec(function (res) {
+                  let artifactDecH = res[0].height;
+                  that.setData({
+                     artifactInfoHeight: 130 + artifactDecH,
+                     artifactAssetsPadding: 100 + artifactDecH
+                  })
+               })
+               
                wx.setNavigationBarTitle({
                   title: res.data.data.name,
                })

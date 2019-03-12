@@ -1,6 +1,5 @@
 .artifact_info {
    width: 700rpx;
-   height: 364rpx;
    background: #fff;
    position: absolute;
    border-radius: 30rpx;
@@ -86,19 +85,12 @@
 
 .artifact_info .artifact_des {
    width: 660rpx;
-   height: 110 rpx;
    line-height: 36rpx;
    font-size: 24rpx;
    color: #333;
    position: absolute;
    margin-left: 25rpx;
    margin-top: 220rpx;
-   display: -webkit-box;
-   word-break: break-all;
-   -webkit-box-orient: vertical;
-   -webkit-line-clamp: 3;
-   overflow: hidden;
-   text-overflow: ellipsis;
 }
 
 .artifact_assets {
@@ -328,7 +320,6 @@
    margin-left: 440rpx;
    margin-top: 16rpx;
 }
-
 .topic_data {
    width: 100%;
    height: 120rpx;

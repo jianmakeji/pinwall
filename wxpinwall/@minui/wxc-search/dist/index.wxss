@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     min-width: 510rpx;
-    height: 60rpx;
+    height: 80rpx;
     overflow: hidden
 }
   .search {}
@@ -13,7 +13,7 @@
     align-items: center;
     flex-grow: 1;
     min-width: 510rpx;
-    height: 60rpx;
+    height: 80rpx;
     overflow: hidden
 }
   .search__content {}
@@ -38,7 +38,7 @@
   .search__input {
     flex: 1;
     min-width: 476rpx;
-    height: 60rpx;
+    height: 80rpx;
     padding: 0 16rpx;
     font-size: 28rpx;
     color: #333;
@@ -52,8 +52,9 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 60rpx;
-    height: 60rpx;
+    width: 80rpx;
+    height: 80rpx;
+    background: pink;
     z-index: 999;
 }
   .search__button {

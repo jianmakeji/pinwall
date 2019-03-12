@@ -3,7 +3,7 @@
 <view class='topics_tabs'>
    <i-message id="message" />
    <wxc-tab bind:tabchange="tabchange" default-index="{{tabIndex}}" text-color="#979797" active-text-color="#1FB5BE" line-color="#979797" active-line-color="#1FB5BE" animate>
-      <wxc-tab-panel wx:for="{{tabs}}" wx:for-item="tab" wx:for-index="{{index}}" label="{{tab.title}}">
+      <wxc-tab-panel i-class="tabPanel" wx:for="{{tabs}}" wx:for-item="tab" wx:for-index="{{index}}" label="{{tab.title}}">
       </wxc-tab-panel>
       <!-- 数据展示 -->
       <block wx:for="{{ dataList }}" wx:for-item="item">
@@ -11,4 +11,5 @@
       </block>
    </wxc-tab>
    <i-load-more tip="暂无数据" loading="{{ loading }}"/>
+   <image class='packUp' catchtap='tapPackUp' wx:if="{{showPackUp}}" src='/images/top.png'></image>
 </view>

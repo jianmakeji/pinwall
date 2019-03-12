@@ -15,8 +15,7 @@ Page({
       offset: 0,
       keyword: "",
       dataList: [],
-      showComponent:false,
-      loading: false
+      showComponent:false
    },
    inputChange(event) {
       let that = this;
@@ -52,6 +51,13 @@ Page({
          url: '/pages/topics/artifactDetail/artifactDetail?artifactId=' + artifactId,
       })
    },
+   onClear(){
+      this.setData({
+         keyword:"",
+         searchResult: [],
+         hasResult:false
+      })
+   },
    searchSubmit(event) {
       let that = this;
       wx.request({
@@ -80,7 +86,7 @@ Page({
     * 生命周期函数--监听页面加载
     */
    onLoad: function(options) {
-
+      
    },
 
    /**
@@ -94,7 +100,9 @@ Page({
     * 生命周期函数--监听页面显示
     */
    onShow: function() {
-
+      wx.setNavigationBarTitle({
+         title: '探索',
+      })
    },
 
    /**
@@ -126,8 +134,7 @@ Page({
     */
    onReachBottom: function() {
       this.setData({
-         offset: this.data.offset + 10,
-         loading: true
+         offset: this.data.offset + 10
       })
       getData(this, "more")
    },
@@ -159,8 +166,7 @@ function getData(that, type) {
                wx.stopPullDownRefresh();
             } else if (type == "more") {
                that.setData({
-                  dataList: that.data.dataList.concat(res.data.data.hits),
-                  loading: false
+                  dataList: that.data.dataList.concat(res.data.data.hits)
                })
             }
          } else {

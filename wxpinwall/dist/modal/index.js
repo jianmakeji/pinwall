@@ -39,6 +39,10 @@ Component({
        customWidth:{
           type:String,
           value:'270'
+       },
+       customMarginTop:{
+          type:String,
+          value:'0'
        }
     },
 

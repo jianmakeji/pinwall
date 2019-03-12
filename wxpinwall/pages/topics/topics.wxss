@@ -1,4 +1,14 @@
 /* pages/topics/topics.wxss */
 .topics_tabs scroll-view label{
-    font-size:24rpx;
+    font-size:28rpx;
+}
+.packUp{
+   position: fixed;
+   width:80rpx;
+   height:80rpx;
+   right:40rpx;
+   bottom:40rpx;
+   text-align:center;
+   background: #979797;
+   z-index: 1000
 }
