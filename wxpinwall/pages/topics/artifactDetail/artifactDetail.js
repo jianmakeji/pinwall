@@ -327,7 +327,6 @@ Page({
                },
                method: "POST",
                success(res) {
-                  console.log(res)
                   if (res.data.status == 200) {
                      that.setData({
                         artifactScoreVisible: false
@@ -376,7 +375,6 @@ Page({
       wx.request({
          url: app.globalData.baseUrl + app.globalData.getArtifactById + this.data.artifactId,
          success(res) {
-            console.log(res)
             if (res.data.status == 200) {
                that.setData({
                   artifactUserId: res.data.data.userId,
