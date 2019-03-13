@@ -340,23 +340,38 @@ class Artifacts extends Service {
   }
 
   async getMedalDataByRandom(limit){
+    const app = this.ctx.app;
     const listData = await this.ctx.model.Artifacts.getMedalDataByRandom();
     const max = listData.length;
-    const setData = new Set();
+    if(max < limit){
+        listData.forEach((element, index)=>{
+            let profileImage = element.profileImage;
+            if (profileImage.indexOf('pinwall.fzcloud') == -1 && profileImage.indexOf('design.hnu.edu.cn') == -1){
+                element.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
+            }
+        });
 
-    if (listData > 0){
+        return listData;
+    }
+    else{
+      const setData = new Set();
       while(setData.size != limit){
         let rand = Math.random();
         let num = Math.floor(rand * max);
         setData.add(num);
       }
-    }
-    let result = new Array();
-    for (let item of setData.values()) {
-      result.push(listData[item]);
+      let result = new Array();
+      for (let item of setData.values()) {
+        let profileImage = listData[item].dataValues.profileImage;
+        if (profileImage.indexOf('pinwall.fzcloud') == -1 && profileImage.indexOf('design.hnu.edu.cn') == -1){
+          listData[item].dataValues.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
+        }
+        result.push(listData[item]);
+      }
+
+      return result;
     }
 
-    return result;
   }
 
   async getPersonalJobByUserId(query) {
