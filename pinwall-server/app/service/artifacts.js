@@ -51,7 +51,7 @@ class Artifacts extends Service {
     const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
     const app = this.ctx.app;
 
-    if (artifact.profileImage.indexOf('pinwall.fzcloud') == -1 || element.profileImage.indexOf('design.hnu.edu.cn') == -1){
+    if (artifact.profileImage.indexOf('pinwall.fzcloud') == -1 || artifact.profileImage.indexOf('design.hnu.edu.cn') == -1){
       artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
     }
 
@@ -244,7 +244,7 @@ class Artifacts extends Service {
       try{
 
         for (const artifactAssets of artifact.artifact_assets){
-          if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1 || element.profileImage.indexOf('design.hnu.edu.cn') == -1){
+          if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1 || artifactAssets.profileImage.indexOf('design.hnu.edu.cn') == -1){
               if(ctx.app.judgeImageStringInArrayObject(artifactAssets.profileImage,updates.artifact_assets)){
                 deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
               }
