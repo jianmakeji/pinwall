@@ -56,7 +56,7 @@ class Artifacts extends Service {
     }
 
     for (let subElement of artifact.artifact_assets){
-      if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1 && artifact.profileImage.indexOf('design.hnu.edu.cn'){
+      if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1 && artifact.profileImage.indexOf('design.hnu.edu.cn') == -1){
         subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
       }
       else{
