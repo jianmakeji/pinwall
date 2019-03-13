@@ -12,8 +12,8 @@
    <block wx:for="{{artifact_assets}}" wx:for-item="item">
       <view class='artifact_assets_detail'>
          <image class='artifact_profile_img' mode="widthFix" src="{{item.profileImage}}"></image>
-         <text class='artifact_profile_title'>{{item.name}}</text>
-         <text class='artifact_profile_des'>{{item.description}}</text>
+         <text class='artifact_profile_title' wx:if="{{item.name && item.name != 'null'}}">{{item.name}}</text>
+         <text class='artifact_profile_des' wx:if="{{item.description && item.description != 'null'}}">{{item.description}}</text>
          <image class='artifact_file_img' wx:if="{{tools.includeType(item.mediaFile)}}" mode="aspectFit" data-media-file='{{item.mediaFile}}' src='/images/file_tap.png' catchtap='fileTap'></image>
       </view>
    </block>
