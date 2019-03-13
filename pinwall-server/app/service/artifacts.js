@@ -15,7 +15,7 @@ class Artifacts extends Service {
 
     const app = this.ctx.app;
     resultObj.rows.forEach((element, index)=>{
-      if (element.profileImage.indexOf('pinwall.fzcloud') == -1 || element.profileImage.indexOf('design.hnu.edu.cn') == -1){
+      if (element.profileImage.indexOf('pinwall.fzcloud') == -1 && element.profileImage.indexOf('design.hnu.edu.cn') == -1){
         element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
       }
 
@@ -51,12 +51,12 @@ class Artifacts extends Service {
     const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
     const app = this.ctx.app;
 
-    if (artifact.profileImage.indexOf('pinwall.fzcloud') == -1 || artifact.profileImage.indexOf('design.hnu.edu.cn') == -1){
+    if (artifact.profileImage.indexOf('pinwall.fzcloud') == -1 && artifact.profileImage.indexOf('design.hnu.edu.cn') == -1){
       artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
     }
 
     for (let subElement of artifact.artifact_assets){
-      if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1){
+      if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1 && artifact.profileImage.indexOf('design.hnu.edu.cn'){
         subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
       }
       else{
@@ -244,7 +244,7 @@ class Artifacts extends Service {
       try{
 
         for (const artifactAssets of artifact.artifact_assets){
-          if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1 || artifactAssets.profileImage.indexOf('design.hnu.edu.cn') == -1){
+          if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1 && artifactAssets.profileImage.indexOf('design.hnu.edu.cn') == -1){
               if(ctx.app.judgeImageStringInArrayObject(artifactAssets.profileImage,updates.artifact_assets)){
                 deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
               }
@@ -363,7 +363,7 @@ class Artifacts extends Service {
     let resultObj = await this.ctx.model.Artifacts.getPersonalJobByUserId(query);
     const app = this.ctx.app;
     resultObj.rows.forEach((element, index)=>{
-      if (element.profileImage.indexOf('pinwall.fzcloud') == -1 || element.profileImage.indexOf('design.hnu.edu.cn') == -1){
+      if (element.profileImage.indexOf('pinwall.fzcloud') == -1 && element.profileImage.indexOf('design.hnu.edu.cn') == -1){
         element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
       }
 
