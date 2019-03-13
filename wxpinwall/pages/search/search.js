@@ -15,13 +15,11 @@ Page({
       offset: 0,
       keyword: "",
       dataList: [],
-      showComponent:false
    },
    inputChange(event) {
       let that = this;
       this.setData({
-         keyword: event.detail.value,
-         showComponent: false,
+         keyword: event.detail.value
       })
       wx.request({
          url: app.globalData.baseUrl + app.globalData.suggestKeyWords,
@@ -68,11 +66,19 @@ Page({
             keyword: this.data.keyword,
          },
          success(res) {
-            that.setData({
-               hasResult: false,
-               showComponent: true,
-               dataList: res.data.data.hits
-            })
+            if (res.data.status == 200){
+               that.setData({
+                  hasResult: true,
+                  dataList: res.data.data.hits
+               })
+            }else{
+               $Toast({
+                  content: '搜索失败！',
+                  type: "error",
+                  duration: 1,
+                  selector: "#toast"
+               });
+            }
          }
       })
    },
@@ -109,7 +115,7 @@ Page({
     * 生命周期函数--监听页面隐藏
     */
    onHide: function() {
-
+      
    },
 
    /**

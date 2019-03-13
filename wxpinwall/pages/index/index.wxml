@@ -71,7 +71,7 @@
             <text class="username">{{username}}</text>
             <text class="createAt">{{createAt}}</text>
             <text class="title" data-artifact-id="{{artifactId}}" catchtap='tapTopicTitle'>{{name}}</text>
-            <text class="descript">{{descript}}</text>
+            <text class="descript" data-artifact-id="{{artifactId}}" catchtap='tapTopicTitle'>{{descript}}</text>
             <text class="shoulu">收录于</text>
             <text class="topic">{{topic_title}}</text>
             <image class='medal' src='/images/icon_medal.png'></image>
