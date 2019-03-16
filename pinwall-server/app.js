@@ -40,7 +40,7 @@ module.exports = app => {
   app.passport.use('loginByWeixin', new WeixinStrategy({
     clientID: 'wxe7bac3b26bdd1205',
     clientSecret: '4ba159f4548a64e8eb5567e860c4f067',
-    callbackURL: '/loginByWeixin',
+    callbackURL: 'https://pinwall.design-engine.org/loginByWeixin',
     requireState: true,
     scope: 'snsapi_login',
 
