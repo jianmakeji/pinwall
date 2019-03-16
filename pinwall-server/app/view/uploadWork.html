@@ -9,8 +9,8 @@
 
 {% block head_btn %}
 <a class="index" href="/">精选</a>
-<a class="topicsAbout" href="/topicsAbout">毕设展</a>
-<a class="topics" href="/topics">作业荚</a>
+<a class="topicsAbout" href="/graduationProjects">毕设展</a>
+<a class="topics" href="/courseProjects">作业荚</a>
 {% endblock %}
 
 {% block container %}
@@ -134,14 +134,14 @@
 				<div class="step3" v-show="stepThreeActive">
 					<div class="submit_box">
 						<a @click="submitData">
-							<img src="http://pinwall.design-engine.org/images/app/flag_green.png">
+							<img src="../public/images/flag_green.png">
 							<icon type="ios-thumbs-up" style="font-size: 40px; position: absolute;top: 15px;left: 20px;"></icon>
 							<span>提交</span>
 						</a>
 					</div>
 					<div class="user_info">
 						<a href="#">
-							<img class="photo" :src="'{{user.avatarUrl}}' ? '{{user.avatarUrl}}' : 'http://pinwall.design-engine.org/images/default_profile.jpg'">
+							<img class="photo" :src="'{{user.avatarUrl}}' ? '{{user.avatarUrl}}' : '../public/images/default_profile.jpg'">
 							<p class="name">{{user.fullname}}</p>
 						</a>
 					</div>
