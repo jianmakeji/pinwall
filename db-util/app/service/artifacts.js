@@ -88,7 +88,7 @@ class Artifacts extends Service {
     const client1 = ctx.app.mysql.get('db1');
     const client2 = ctx.app.mysql.get('db2');
 
-    const artifact_assets = await client1.query("select * from artifact_assets where artifact_id > 5000 and artifact_id <= 10000 ");
+    const artifact_assets = await client1.query("select * from artifact_assets where artifact_id > 23000 and artifact_id <= 30000 ");
     let i = 0;
     for (let artifact_asset of artifact_assets) {
       console.log(i++);
@@ -98,6 +98,7 @@ class Artifacts extends Service {
         position:artifact_asset.pos,
         name:artifact_asset.name,
         filename:artifact_asset.filename,
+        imagename:artifact_asset.profile_filename,
         description:artifact_asset.description,
       };
       if (artifact_asset.type == 128){

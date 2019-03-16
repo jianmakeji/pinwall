@@ -1,19 +1,19 @@
 <wxs src="../../../subutil/subutil.wxs" module="tools" />
-<view class='artifact_info'>
-   <image class='user_avator' src="{{userAvatarUrl?userAvatarUrl:'/images/default_profile.jpg'}}"></image>
-   <text class='user_fullname'>{{userFullname}}</text>
+<view class='artifact_info' style='height:{{artifactInfoHeight}}px;'>
+   <image class='user_avator' src="{{userAvatarUrl?userAvatarUrl:'/images/default_profile.jpg'}}" catchtap='tapUserAvator' data-user-id="{{artifactUserId}}"></image>
+   <text class='user_fullname' catchtap='tapUserAvator' data-user-id="{{artifactUserId}}">{{userFullname}}</text>
    <text class='artifact_score' wx:if="{{vipRole}}">{{artifactScores ? artifactScores : "未评"}}分</text>
    <text class='artifact_title'>{{artifactTitle}}</text>
    <text class='createAt'>{{tools.split(createAt)}} 收录于</text>
    <text class='topic_name'>{{topicName}}</text>
-   <text class='artifact_des'>{{artifactDes}}</text>
+   <text id='artifact' class='artifact_des'>{{artifactDes}}</text>
 </view>
-<view class='artifact_assets'>
+<view class='artifact_assets' style='padding-top: {{artifactAssetsPadding}}px;'>
    <block wx:for="{{artifact_assets}}" wx:for-item="item">
       <view class='artifact_assets_detail'>
          <image class='artifact_profile_img' mode="widthFix" src="{{item.profileImage}}"></image>
-         <text class='artifact_profile_title'>{{item.name}}</text>
-         <text class='artifact_profile_des'>{{item.description}}</text>
+         <text class='artifact_profile_title' wx:if="{{item.name && item.name != 'null'}}">{{item.name}}</text>
+         <text class='artifact_profile_des' wx:if="{{item.description && item.description != 'null'}}">{{item.description}}</text>
          <image class='artifact_file_img' wx:if="{{tools.includeType(item.mediaFile)}}" mode="aspectFit" data-media-file='{{item.mediaFile}}' src='/images/file_tap.png' catchtap='fileTap'></image>
       </view>
    </block>
@@ -48,13 +48,13 @@
    </view>
 </wxc-popup>
 <i-toast id="toast" />
-<i-modal title="评论内容" visible="{{ commentEditVisible }}" ok-text="发表" bind:ok="submitComment" bind:cancel="cancelComment">
+<i-modal customMarginTop="-100px" title="评论内容" visible="{{ commentEditVisible }}" ok-text="发表" bind:ok="submitComment" bind:cancel="cancelComment">
    <i-input type='text' value="{{ commentEditValue }}" bind:change='commentValueChange' placeholder='写评论' />
 </i-modal>
-<i-modal title="作业评分" visible="{{ artifactScoreVisible }}" show-ok="{{false}}" show-cancel="{{false}}" customWidth="80%">
+<i-modal customMarginTop="-100px" title="作业评分" visible="{{ artifactScoreVisible }}" show-ok="{{false}}" show-cancel="{{false}}" customWidth="80%">
    <view class='scroe_box'>
        <i-icon class='closeScore' bindtap='closeScore' type="close" size="26" />
-      <i-input i-class='score_input' type='number' value="{{ artifactScoreValue }}" bind:change='artifactScoreValueChange' placeholder='请输入您给出的分数...' />
+      <i-input i-class='score_input' type='number' value="{{ artifactScoreValue }}" bind:change='artifactScoreValueChange' placeholder='请输入0~100之间整数' />
       <i-button i-class='score_btn' type='submit' bind:click="submitScore">保存</i-button>
    </view>
    <!-- <view class='topic_data'>

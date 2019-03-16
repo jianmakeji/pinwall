@@ -1,6 +1,6 @@
 <view class="i-modal-mask i-class-mask {{ visible ? 'i-modal-mask-show' : '' }}"></view>
 <view class="i-class i-modal {{ visible ? 'i-modal-show' : '' }}">
-    <view class="i-modal-main" style="width:{{customWidth ? customWidth : '270px'}}"  >
+    <view class="i-modal-main" style="width:{{customWidth ? customWidth : '270px'}};margin-top:{{customMarginTop ?   customMarginTop : '0px'}}"  >
         <view class="i-modal-content">
             <view class="i-modal-title" wx:if="{{ title }}">{{ title }}</view>
             <view class="i-modal-body"><slot></slot></view>

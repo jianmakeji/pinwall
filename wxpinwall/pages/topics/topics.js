@@ -4,19 +4,13 @@ const app = getApp();
 Page({
    data: {
       tabIndex: 0,
-      tabs: [{
-            title: '全部'
-         },
-         {
-            title: '开放中'
-         },
-         {
-            title: '已关闭'
-         },
-         {
-            title: '由我创建'
-         }
+      tabs: [
+         { title: '全部' },
+         { title: '开放中' },
+         { title: '已关闭' },
+         { title: '由我创建' }
       ],
+      showPackUp:false,
       loading:false,
       //请求参数
       limit: 10,
@@ -66,11 +60,21 @@ Page({
          url: '/pages/topics/topicDetail/topicDetail' + "?topicId=" + topicId,
       });
    },
+   tapPackUp(){
+      wx.pageScrollTo({
+         scrollTop: 0,
+      })
+   },
    /*
     * 生命周期函数--监听页面加载
     */
    onLoad: function (options) {
       getData(this, "init");
+   },
+   onShow:function(){
+      wx.setNavigationBarTitle({
+         title: '作业荚',
+      })
    },
    /**
     * 页面相关事件处理函数--监听用户下拉动作
@@ -82,7 +86,17 @@ Page({
       })
       getData(this,"init");
    },
-
+   onPageScroll(event){
+      if (event.scrollTop > 200){
+         this.setData({
+            showPackUp:true
+         })
+      }else{
+         this.setData({
+            showPackUp: false
+         })
+      }
+   },
    /**
     * 页面上拉触底事件的处理函数
     */
@@ -122,6 +136,10 @@ function getData(that, type){
                that.setData({
                   dataList: res.data.data.rows
                })
+               wx.pageScrollTo({
+                  scrollTop: 0,
+                  duration: 600
+               });
                wx.stopPullDownRefresh();
             } else if (type == "more"){
                that.setData({

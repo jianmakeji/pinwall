@@ -93,6 +93,7 @@ class HomeController extends BaseController {
   async topicsAbout(){
     const ctx = this.ctx;
     await ctx.render('topicsAbout.html', {
+
         user:ctx.user
     });
   }

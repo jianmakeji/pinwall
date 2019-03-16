@@ -38,6 +38,15 @@ Page({
       //新建分数
       artifactScoreVisible: false,
       artifactScoreValue: "",
+
+      artifactInfoHeight:"",
+      artifactAssetsPadding:""
+   },
+   tapUserAvator(event){
+      let userId = event.currentTarget.dataset.userId;
+      wx.navigateTo({
+         url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
+      })
    },
    creatLike() {
       let that = this;
@@ -172,26 +181,35 @@ Page({
       点击菜单评论按钮
     */
    openComment() {
-      let that = this;
-      this.setData({
-         commentVisible: "show"
-      })
-      this.closeOpt();
-      wx.request({
-         url: app.globalData.baseUrl + app.globalData.findCommentsByArtifactIdWithPage,
-         data: {
-            limit: this.data.commentLimit,
-            offset: this.data.commentOffset,
-            artifactId: this.data.artifactId
-         },
-         success(res) {
-            if (res.data.status == 200) {
-               that.setData({
-                  commentList: res.data.data.rows
-               })
+      if (wx.getStorageSync("openid")){
+         let that = this;
+         this.setData({
+            commentVisible: "show"
+         })
+         this.closeOpt();
+         wx.request({
+            url: app.globalData.baseUrl + app.globalData.findCommentsByArtifactIdWithPage,
+            data: {
+               limit: this.data.commentLimit,
+               offset: this.data.commentOffset,
+               artifactId: this.data.artifactId
+            },
+            success(res) {
+               if (res.data.status == 200) {
+                  that.setData({
+                     commentList: res.data.data.rows
+                  })
+               }
             }
-         }
-      })
+         })
+      }else{
+         $Toast({
+            content: '需先登录才能操作！',
+            type: 'error',
+            duration: 2,
+            selector: "#toast"
+         });
+      }      
    },
    closeComment() {
       this.setData({
@@ -254,7 +272,7 @@ Page({
             commentEditVisible: false
          });
          $Toast({
-            content: '未绑定微信，操作失败！',
+            content: '需先登录才能操作！',
             type: 'error',
             duration: 2,
             selector: "#toast"
@@ -281,10 +299,19 @@ Page({
    },
    // 打开打分菜单按钮
    creatScore() {
-      this.setData({
-         artifactScoreVisible: true
-      })
-      this.closeOpt();
+      if (wx.getStorageSync("openid")){
+         this.setData({
+            artifactScoreVisible: true
+         })
+         this.closeOpt();
+      }else{
+         $Toast({
+            content: '需先登录才能操作！',
+            type: 'error',
+            duration: 2,
+            selector: "#toast"
+         });
+      }
    },
    artifactScoreValueChange(event) {
       this.setData({
@@ -318,7 +345,6 @@ Page({
                },
                method: "POST",
                success(res) {
-                  console.log(res)
                   if (res.data.status == 200) {
                      that.setData({
                         artifactScoreVisible: false
@@ -343,13 +369,13 @@ Page({
          }
       } else {
          $Toast({
-            content: '未绑定微信，操作失败！',
+            content: '打分失败！未登陆或者不是改作业荚创建者！',
             type: 'error',
             duration: 2,
             selector: "#toast"
          });
          this.setData({
-            artifactScoreVisible: true
+            artifactScoreVisible: false
          });
       }
    },
@@ -377,6 +403,17 @@ Page({
                   artifactDes: res.data.data.description,
                   artifact_assets: res.data.data.artifact_assets
                })
+
+               let query = wx.createSelectorQuery();
+               query.select('#artifact').boundingClientRect();
+               query.exec(function (res) {
+                  let artifactDecH = res[0].height;
+                  that.setData({
+                     artifactInfoHeight: 130 + artifactDecH,
+                     artifactAssetsPadding: 100 + artifactDecH
+                  })
+               })
+               
                wx.setNavigationBarTitle({
                   title: res.data.data.name,
                })

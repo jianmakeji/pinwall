@@ -181,6 +181,9 @@ Page({
             index: 3,
             text: "我的"
          })
+         wx.setNavigationBarTitle({
+            title: '我的',
+         })
          let myId = wx.getStorageSync("myId");
          wx.request({
             url: app.globalData.baseUrl + app.globalData.refreshUserInfo + myId,
@@ -199,6 +202,9 @@ Page({
          wx.setTabBarItem({
             index: 3,
             text: "绑定"
+         })
+         wx.setNavigationBarTitle({
+            title: '绑定',
          })
       }
    },

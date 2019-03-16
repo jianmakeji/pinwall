@@ -1,5 +1,5 @@
 .container{
-    background: #fff;
+    background: #DFDFDF;
     width: 700rpx;
     padding: 25rpx;
     display: flex;

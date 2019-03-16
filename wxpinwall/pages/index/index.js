@@ -5,6 +5,7 @@ Page({
    data: {
       visible: "hide",
       //弹出层数据
+      artifactId:"",
       userId:"",
       userAvator:"",
       username:"",
@@ -22,6 +23,7 @@ Page({
       let index = event.currentTarget.dataset.artificatNum;
       this.setData({
          visible: "show",
+         artifactId: this.data.dataList[index].Id,
          userId: this.data.dataList[index].user.Id,
          userAvator: this.data.dataList[index].user.avatarUrl,
          username: this.data.dataList[index].user.fullname,
@@ -35,14 +37,14 @@ Page({
       })
    },
    //点击用户头像
-   tapUserAvator(event){
-      // let userId = event.currentTarget.dataset.userId;
-      // this.setData({
-      //    visible: "hide"
-      // })
-      // wx.navigateTo({
-      //    url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
-      // })
+   tapTopicTitle(event){
+      let artifactId = event.currentTarget.dataset.artifactId;
+      this.setData({
+         visible: "hide"
+      })
+      wx.navigateTo({
+         url: '/pages/topics/artifactDetail/artifactDetail' + "?artifactId=" + artifactId,
+      })
    },
    unsubmit() {
       this.setData({
@@ -70,6 +72,11 @@ Page({
                });
             }
          }
+      })
+   },
+   onShow(){
+      wx.setNavigationBarTitle({
+         title: '设计廊',
       })
    },
    onHide(){

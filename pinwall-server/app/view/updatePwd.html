@@ -18,8 +18,8 @@
             <p class="title">输入新密码</p>
             <p style="color:#09bc72;margin:20px 80px;text-align: center;">输入新密码后，确定并提交</p>
             <i-form ref="formItem" :model="formItem" :label-width="80" :rules="ruleValidate">
-                <form-item label="新密码" prop="newpwd">
-                    <i-input type="password" v-model="formItem.newpwd" placeholder="请输入新密码" ></i-input>
+                <form-item label="新密码" prop="newPwd">
+                    <i-input type="password" v-model="formItem.newPwd" placeholder="请输入新密码" ></i-input>
                 </form-item>
                 <form-item label="重新输入">
                     <i-input type="password" v-model="checkPwd" @on-change="checkPassword" placeholder="请重新输入新密码" ></i-input>

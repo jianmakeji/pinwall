@@ -33,12 +33,12 @@ Page({
       })
    },
    // 点击用户头像姓名进入作品集
-   tapUserAvator(event){
-      let userId = event.detail.target.dataset.userId;
-      wx.navigateTo({
-         url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
-      })
-   },
+   // tapUserAvator(event){
+   //    let userId = event.detail.target.dataset.userId;
+   //    wx.navigateTo({
+   //       url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
+   //    })
+   // },
    /**
     * 生命周期函数--监听页面加载
     */

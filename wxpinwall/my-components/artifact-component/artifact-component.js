@@ -53,8 +53,8 @@ Component({
     * 组件的方法列表
     */
    methods: {
-      _tapUserAvator(event){
-         this.triggerEvent("tapUserAvator", event, {});
-      }
+      // _tapUserAvator(event){
+      //    this.triggerEvent("tapUserAvator", event, {});
+      // }
    }
 })

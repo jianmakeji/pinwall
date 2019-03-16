@@ -15,7 +15,7 @@ class Artifacts extends Service {
 
     const app = this.ctx.app;
     resultObj.rows.forEach((element, index)=>{
-      if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
+      if (element.profileImage.indexOf('pinwall.fzcloud') == -1 && element.profileImage.indexOf('design.hnu.edu.cn') == -1){
         element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
       }
 
@@ -51,12 +51,12 @@ class Artifacts extends Service {
     const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
     const app = this.ctx.app;
 
-    if (artifact.profileImage.indexOf('pinwall.fzcloud') == -1){
+    if (artifact.profileImage.indexOf('pinwall.fzcloud') == -1 && artifact.profileImage.indexOf('design.hnu.edu.cn') == -1){
       artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
     }
 
     for (let subElement of artifact.artifact_assets){
-      if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1){
+      if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1 && subElement.profileImage.indexOf('design.hnu.edu.cn') == -1){
         subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
       }
       else{
@@ -244,7 +244,7 @@ class Artifacts extends Service {
       try{
 
         for (const artifactAssets of artifact.artifact_assets){
-          if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1){
+          if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1 && artifactAssets.profileImage.indexOf('design.hnu.edu.cn') == -1){
               if(ctx.app.judgeImageStringInArrayObject(artifactAssets.profileImage,updates.artifact_assets)){
                 deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
               }
@@ -340,27 +340,45 @@ class Artifacts extends Service {
   }
 
   async getMedalDataByRandom(limit){
+    const app = this.ctx.app;
     const listData = await this.ctx.model.Artifacts.getMedalDataByRandom();
     const max = listData.length;
-    const setData = new Set();
-    while(setData.size != limit){
-      let rand = Math.random();
-      let num = Math.floor(rand * max);
-      setData.add(num);
+    if(max < limit){
+        listData.forEach((element, index)=>{
+            let profileImage = element.profileImage;
+            if (profileImage.indexOf('pinwall.fzcloud') == -1 && profileImage.indexOf('design.hnu.edu.cn') == -1){
+                element.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
+            }
+        });
+
+        return listData;
     }
-    let result = new Array();
-    for (let item of setData.values()) {
-      result.push(listData[item]);
+    else{
+      const setData = new Set();
+      while(setData.size != limit){
+        let rand = Math.random();
+        let num = Math.floor(rand * max);
+        setData.add(num);
+      }
+      let result = new Array();
+      for (let item of setData.values()) {
+        let profileImage = listData[item].dataValues.profileImage;
+        if (profileImage.indexOf('pinwall.fzcloud') == -1 && profileImage.indexOf('design.hnu.edu.cn') == -1){
+          listData[item].dataValues.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
+        }
+        result.push(listData[item]);
+      }
+
+      return result;
     }
 
-    return result;
   }
 
   async getPersonalJobByUserId(query) {
     let resultObj = await this.ctx.model.Artifacts.getPersonalJobByUserId(query);
     const app = this.ctx.app;
     resultObj.rows.forEach((element, index)=>{
-      if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
+      if (element.profileImage.indexOf('pinwall.fzcloud') == -1 && element.profileImage.indexOf('design.hnu.edu.cn') == -1){
         element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
       }
 
@@ -397,6 +415,7 @@ class Artifacts extends Service {
   }
 
   async transterInsertDataToES(idArray) {
+    const ctx = this.ctx;
     try{
       let esArray = await this.ctx.model.Artifacts.transterDataToES(idArray);
       for (let artiObj of esArray){
@@ -432,6 +451,7 @@ class Artifacts extends Service {
   }
 
   async transterUpdateDataToES(idArray) {
+    const ctx = this.ctx;
     try{
       let esArray = await this.ctx.model.Artifacts.transterDataToES(idArray);
       for (let artiObj of esArray){

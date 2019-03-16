@@ -1,6 +1,7 @@
 'use strict';
 const path = require('path');
 
+const path = require('path');
 module.exports = appInfo => {
   const config = exports = {};
 
@@ -17,7 +18,10 @@ module.exports = appInfo => {
     username: 'root',
     password: 'root',
     database: 'pinwall',
+<<<<<<< HEAD
     logging:true,
+=======
+>>>>>>> 08c961ee4893dc5fbdace8818e2d3fbbced0613e
     timezone: '+08:00',
     define: {
       freezeTableName: true,
@@ -41,6 +45,7 @@ module.exports = appInfo => {
    client: {
         host: [
           {
+<<<<<<< HEAD
             host: '192.168.3.101',
             auth: 'pinwall:pinwall@1221',
             protocol: 'http',
@@ -49,6 +54,14 @@ module.exports = appInfo => {
             // auth: 'elastic:pinwall001@#',
             // protocol: 'http',
             // port: 9211
+=======
+              // host: '106.14.41.180',
+              // auth: 'elastic:pinwall001@#',
+              host: '192.168.3.101',
+              auth: 'pinwall:pinwall@1221',
+              protocol: 'http',
+              port: 9200
+>>>>>>> 08c961ee4893dc5fbdace8818e2d3fbbced0613e
           }
         ]
       }
@@ -92,6 +105,10 @@ module.exports = appInfo => {
     pageUrl: '/404.html',
   };
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 08c961ee4893dc5fbdace8818e2d3fbbced0613e
   config.logger = {
     dir: 'D:\logs',
     appLogName: `${appInfo.name}-web.log`,
@@ -116,6 +133,18 @@ module.exports = appInfo => {
     ],
     maxFileSize: 0.3 * 1024 * 1024 * 1024,
   };
+<<<<<<< HEAD
+=======
+=======
+  /*
+    config.alinode = {
+        server: 'wss://agentserver.node.aliyun.com:8080',
+        appid: '78054',
+        secret: 'b7682545dc76c709069fe9047e3fc2d70e6a63ed'
+    }
+  */
+>>>>>>> 0508c34799757fec8377210c330dfc9190f58fac
+>>>>>>> 08c961ee4893dc5fbdace8818e2d3fbbced0613e
 
   return config;
 };

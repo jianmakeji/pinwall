@@ -84,11 +84,12 @@ exports.default = Component({
       detail.value = this.data.value;
       this.triggerEvent('submit', detail, option);
     },
-    onClear: function onClear() {
+     onClear: function onClear(event) {
       this.setData({
         value: '',
         _showClear: false
       });
+       this.triggerEvent("clear", event, {});
     }
   }
 });

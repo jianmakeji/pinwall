@@ -9,7 +9,11 @@
 }
 .tab__navbar {
     white-space: nowrap;
-    width: 100%
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background: #f8f8f9;
+    z-index: 100;
 }
 .tab__navbar-item {
     text-align: center;
@@ -33,6 +37,7 @@
 }
 .tab__content-wrap {
     width: 100%;
+    margin-top: 90rpx;
     overflow: hidden
 }
 .tab__content {
