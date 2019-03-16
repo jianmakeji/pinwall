@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block head_btn %}
-<a class="index" href="/">精选</a>
+<a class="index" href="/">首页</a>
 <a class="topicsAbout" href="/graduationProjects">毕设展</a>
 <a class="topics" href="/courseProjects">作业荚</a>
 {% endblock %}
@@ -51,7 +51,7 @@
 								<p>请上传一张正方形、宽度500~800px的jpg或png图像作为作品封面。</p>
 							</form-item>
 							<form-item label="封面预览" prop="profileImage">
-								<img class="project_thumb" :src="step1_upload_fengmian_src ? step1_upload_fengmian_src : 'http://pinwall.design-engine.org/images/app/default_thumb_500.png'">
+								<img class="project_thumb" :src="step1_upload_fengmian_src ? step1_upload_fengmian_src : '../public/images/default_thumb_500.png'">
 							</form-item>
 						</i-col>
 				</div>
