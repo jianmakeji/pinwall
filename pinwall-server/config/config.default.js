@@ -12,10 +12,10 @@ module.exports = appInfo => {
 
   config.sequelize = {
     dialect: 'mysql',
-    host: '192.168.3.110',
+    host: 'localhost',
     port: 3306,
     username: 'root',
-    password: 'root',
+    password: '123456',
     database: 'pinwall',
     timezone: '+08:00',
     define: {
@@ -87,7 +87,6 @@ module.exports = appInfo => {
     pageUrl: '/404.html',
   };
 
-<<<<<<< HEAD
   config.logger = {
     dir: 'D:\logs',
     appLogName: `${appInfo.name}-web.log`,
@@ -112,7 +111,6 @@ module.exports = appInfo => {
     ],
     maxFileSize: 0.3 * 1024 * 1024 * 1024,
   };
-=======
   /*
     config.alinode = {
         server: 'wss://agentserver.node.aliyun.com:8080',
@@ -120,7 +118,6 @@ module.exports = appInfo => {
         secret: 'b7682545dc76c709069fe9047e3fc2d70e6a63ed'
     }
   */
->>>>>>> 0508c34799757fec8377210c330dfc9190f58fac
 
   return config;
 };
