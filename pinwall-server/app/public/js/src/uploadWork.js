@@ -87,7 +87,7 @@ var container = new Vue({
                                                 that.step1_upload_fengmian_src = res;
                                                 that.dataItem.profileImage = fileName;
                                             }else{
-                                                that.$Notice.error({title:"图片不符合尺寸要求！请重新上传……"});
+                                                that.$Notice.error({title:"图片不符合尺寸要求，请重新上传……"});
                                             }
                                         }
                                     }
