@@ -50,7 +50,7 @@ img{
 }
 .header .pinwall_logo .div2{
     position: absolute;
-    background: url('http://pinwall.design-engine.org/images/app/loading_spinner.png');
+    background: url('../../../public/images/loading_spinner.png');
     background-repeat: no-repeat;
     background-position: center;
     transform: rotateY(35deg);

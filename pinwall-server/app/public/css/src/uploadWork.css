@@ -238,7 +238,7 @@ body{
 	left: 70%;
 	width: 80px;
 	height: 128px;
-	background: url("http://pinwall.design-engine.org/images/app/flag_green.png") no-repeat;
+	background: url("../public/images/flag_green.png") no-repeat;
 }
 .upload_form .step3 .submit_upload input {
     background: none;

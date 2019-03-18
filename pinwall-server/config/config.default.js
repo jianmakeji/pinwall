@@ -1,4 +1,5 @@
 'use strict';
+const path = require('path');
 
 const path = require('path');
 module.exports = appInfo => {
@@ -17,6 +18,7 @@ module.exports = appInfo => {
     username: 'root',
     password: '123456',
     database: 'pinwall',
+    logging:true,
     timezone: '+08:00',
     define: {
       freezeTableName: true,
@@ -25,6 +27,7 @@ module.exports = appInfo => {
         collate: 'utf8_general_ci',
       },
       timestamps: false,
+
     },
     pool: {
       max: 5,
@@ -39,23 +42,27 @@ module.exports = appInfo => {
    client: {
         host: [
           {
-              // host: '106.14.41.180',
-              // auth: 'elastic:pinwall001@#',
-              host: '192.168.3.101',
-              auth: 'pinwall:pinwall@1221',
-              protocol: 'http',
-              port: 9200
+            host: '192.168.3.101',
+            auth: 'pinwall:pinwall@1221',
+            protocol: 'http',
+            port: 9200
+            // host: '106.14.41.180',
+            // auth: 'elastic:pinwall001@#',
+            // protocol: 'http',
+            // port: 9211
+
           }
         ]
       }
   };
+
 
   config.security = {
     csrf:{
       enable:false,
       ignoreJSON:true
     },
-    domainWhiteList: ['*']
+    domainWhiteList:[]
   };
 
   config.cors = {
@@ -111,6 +118,10 @@ module.exports = appInfo => {
     ],
     maxFileSize: 0.3 * 1024 * 1024 * 1024,
   };
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4ccb663c4d70be3c33bf54fdf3d4a2f6c302ee03
   /*
     config.alinode = {
         server: 'wss://agentserver.node.aliyun.com:8080',

@@ -329,8 +329,10 @@ module.exports = app => {
         medalCount:{
           [app.Sequelize.Op.gt]:0
         },
-        visible:0
+        visible:0,
       },
+      order:[['createAt', 'DESC']],
+      limit: 100,
       include: [{
           model: app.model.Users,
           attributes:['Id','fullname','avatarUrl']
