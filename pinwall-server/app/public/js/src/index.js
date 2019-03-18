@@ -14,6 +14,11 @@ var index = new Vue({
             dataList:[]
         }
     },
+    methods:{
+        tapArtifact(id){
+            window.open("/project/" + id);
+        }
+    },
     created:function(){
         this.$Loading.start();
         if(document.documentElement.clientWidth < 450){
