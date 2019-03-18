@@ -9,6 +9,7 @@ var index = new Vue({
                 overflow: "hidden",
                 position: "relative",
             },
+            screenType:"PC",
             drawerShow:false,
             dataList:[]
         }
@@ -16,10 +17,12 @@ var index = new Vue({
     created:function(){
         this.$Loading.start();
         if(document.documentElement.clientWidth < 450){
-            this.containerStyle.height = 1150 + "px";
+            this.containerStyle.height = 1190 + "px";
+            this.screenType = "mobile";
         }else{
             this.containerStyle.marginTop = (document.documentElement.clientHeight - 100 - 500 - 50 ) / 2 + "px";
             this.containerStyle.height = 500 + "px";
+            this.screenType = "PC";
         }
 
         var that = this;
