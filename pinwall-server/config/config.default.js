@@ -1,7 +1,7 @@
 'use strict';
 const path = require('path');
+const fs = require('fs');
 
-const path = require('path');
 module.exports = appInfo => {
   const config = exports = {};
 
@@ -117,6 +117,10 @@ module.exports = appInfo => {
       path.join(appInfo.root, 'logs', appInfo.name, 'egg-web.log'),
     ],
     maxFileSize: 0.3 * 1024 * 1024 * 1024,
+  };
+
+  config.siteFile = {
+    '/favicon.ico': fs.readFileSync(path.join(__dirname, 'favicon.ico')),
   };
 
   /*
