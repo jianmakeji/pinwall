@@ -48,7 +48,7 @@
 									<i-button type="success" id="step1_upload_fengmian">上传作品封面</i-button>
 									<input type="file" @change="step1_upload_fengmian_change" id="step1_upload_fengmian_input" accept="image/*" style="display:none;"/>
 								</div>
-								<p>请上传一张正方形、宽度500~800px的jpg或png图像作为作品封面。</p>
+								<p>请上传一张正方形、宽度500~800px，大小不超过2M的jpg或png图像作为作品封面。</p>
 							</form-item>
 							<form-item label="封面预览" prop="profileImage">
 								<img class="project_thumb" :src="step1_upload_fengmian_src ? step1_upload_fengmian_src : '../public/images/default_thumb_500.png'">

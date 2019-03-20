@@ -13,10 +13,10 @@ module.exports = appInfo => {
 
   config.sequelize = {
     dialect: 'mysql',
-    host: '192.168.3.110',
+    host: 'localhost',
     port: 3306,
     username: 'root',
-    password: 'root',
+    password: '123456',
     database: 'pinwall',
     logging:true,
     timezone: '+08:00',
@@ -122,7 +122,6 @@ module.exports = appInfo => {
   config.siteFile = {
     '/favicon.ico': fs.readFileSync(path.join(__dirname, 'favicon.ico')),
   };
-
   /*
     config.alinode = {
         server: 'wss://agentserver.node.aliyun.com:8080',

@@ -82,12 +82,12 @@ var container = new Vue({
                                         let img = new Image();
                                         img.src = res;
                                         img.onload = function(){
-                                            if(img.width == img.height && img.width >= 600 && img.width <= 800){
+                                            if(img.width == img.height && img.width >= 500 && img.width <= 800){
                                                 that.$Notice.success({title:'上传成功！'});
                                                 that.step1_upload_fengmian_src = res;
                                                 that.dataItem.profileImage = fileName;
                                             }else{
-                                                that.$Notice.error({title:"图片不符合尺寸要求！，请重新上传……"});
+                                                that.$Notice.error({title:"图片不符合尺寸要求，请重新上传……"});
                                             }
                                         }
                                     }
