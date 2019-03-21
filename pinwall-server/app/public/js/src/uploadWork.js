@@ -618,7 +618,7 @@ var container = new Vue({
                         bet.description = res.data.artifact_assets[i].description;
                         bet.type = res.data.artifact_assets[i].type;
                         bet.profileImage = res.data.artifact_assets[i].profileImage;
-                        if(res.data.artifact_assets[i].mediaFile.indexOf("pinwall.fzcloud.design-engine.org") > 0){
+                        if(res.data.artifact_assets[i].mediaFile == null || res.data.artifact_assets[i].mediaFile == "" || res.data.artifact_assets[i].mediaFile.indexOf("pinwall.fzcloud.design-engine.org") > 0){
                             bet.mediaFile = res.data.artifact_assets[i].mediaFile;
                         }else{
                             bet.mediaFile = res.data.artifact_assets[i].mediaFile.split("?")[0].split("/")[res.data.artifact_assets[i].mediaFile.split("?")[0].split("/").length - 1];
