@@ -9,7 +9,7 @@ module.exports = () => {
         ctx.user.fullname = wxUser.fullname;
         ctx.user.roles = wxUser.roles;
         ctx.user.avatarUrl = wxUser.avatarUrl;
-        ctx.user.unionid = wxUser.unionid;
+        ctx.user.unionid = wxUser.unionId;
       }
        await  next();
       }
