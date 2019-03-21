@@ -482,7 +482,6 @@ var container = new Vue({
                 this.upload_show = false;
             }
             for(let i=index; i<this.step2_upload_neirong_src.length;i++){
-                console.log(i);
                 this.step2_between_arr[i].position = this.step2_between_arr[i].position - 1;
             }
         },
@@ -517,7 +516,11 @@ var container = new Vue({
                 for(let i=0;i<this.step2_upload_neirong_src.length;i++){
                     let profileImage_url = new String();
                     profileImage_url = this.step2_upload_neirong_src[i];
-                    this.dataItem.artifact_assets[i].profileImage = profileImage_url.split("?")[0].split("images/")[1];
+                    if(profileImage_url.indexOf("pinwall.fzcloud.design-engine.org") > 0){
+                        this.dataItem.artifact_assets[i].profileImage = profileImage_url;
+                    }else{
+                        this.dataItem.artifact_assets[i].profileImage = profileImage_url.split("?")[0].split("images/")[1];
+                    }
                 }
             }else{
                 this.$Notice.error({title:"请输入必填信息！"})
@@ -591,7 +594,11 @@ var container = new Vue({
                     that.dataItem.description = res.data.description;
 
                     that.step1_upload_fengmian_src = res.data.profileImage;
-                    that.dataItem.profileImage = res.data.profileImage.split("/")[res.data.profileImage.split("/").length - 1].split("?")[0];
+                    if(res.data.profileImage.indexOf("pinwall.fzcloud.design-engine.org") > 0){
+                        that.dataItem.profileImage = res.data.profileImage;
+                    }else{
+                        that.dataItem.profileImage = res.data.profileImage.split("/")[res.data.profileImage.split("/").length - 1].split("?")[0];
+                    }
 
                     that.dataItem.terms = res.data.terms;
                     for(let i=0;i<res.data.terms.length;i++){
@@ -611,7 +618,11 @@ var container = new Vue({
                         bet.description = res.data.artifact_assets[i].description;
                         bet.type = res.data.artifact_assets[i].type;
                         bet.profileImage = res.data.artifact_assets[i].profileImage;
-                        bet.mediaFile = res.data.artifact_assets[i].mediaFile.split("?")[0].split("/")[res.data.artifact_assets[i].mediaFile.split("?")[0].split("/").length - 1];
+                        if(res.data.artifact_assets[i].mediaFile.indexOf("pinwall.fzcloud.design-engine.org") > 0){
+                            bet.mediaFile = res.data.artifact_assets[i].mediaFile;
+                        }else{
+                            bet.mediaFile = res.data.artifact_assets[i].mediaFile.split("?")[0].split("/")[res.data.artifact_assets[i].mediaFile.split("?")[0].split("/").length - 1];
+                        }
                         bet.viewUrl = res.data.artifact_assets[i].viewUrl;
                         bet.viewImgUrl = res.data.artifact_assets[i].profileImage;
                         that.step2_between_arr.push(bet);
