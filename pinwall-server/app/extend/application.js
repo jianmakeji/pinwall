@@ -23,7 +23,7 @@ module.exports = {
   jwtSlot: 'LTAIkUgFNkgDjcr8zklMJfJUoAgdcT',
   wx_secret: '4ba159f4548a64e8eb5567e860c4f067',
   wx_appid: 'wxe7bac3b26bdd1205',
-  
+
   imagePath: 'images/',
   othersPath: 'others/',
   pdfPath: 'pdf/',
@@ -159,7 +159,8 @@ module.exports = {
     let  result = true;
     for(const updateAssets of array.artifact_assets){
       if (str == updateAssets.profileImage){
-        result = false
+        result = false;
+        break;
       }
     }
     return result;
@@ -169,7 +170,8 @@ module.exports = {
     let  result = true;
     for(const updateAssets of array.artifact_assets){
       if (str == updateAssets.mediaFile){
-        result = false
+        result = false;
+        break;
       }
     }
     return result;

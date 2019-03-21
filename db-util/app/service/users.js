@@ -19,14 +19,8 @@ class Users extends Service {
         password:user.password,
         createAt:user.createAt,
         confirmedAt:user.confirmedAt,
+        active:user.active,
       };
-
-      if (user.active == 't'){
-        data.active = 1;
-      }
-      else{
-        data.active = 0;
-      }
 
       const resultCount1 = await client2.query('select medalCount,likeCount,commentCount from artifacts aml where aml.userId = ?', [user.id]);
       let likeCount = 0;
