@@ -481,6 +481,10 @@ var container = new Vue({
             if (this.step2_upload_neirong_src.length == 0) {
                 this.upload_show = false;
             }
+            for(let i=index; i<this.step2_upload_neirong_src.length;i++){
+                console.log(i);
+                this.step2_between_arr[i].position = this.step2_between_arr[i].position - 1;
+            }
         },
         /* 步骤调整事件 */
         goStep1(){
@@ -534,7 +538,7 @@ var container = new Vue({
                                 title:"上传作品成功，2秒后返回!",
                                 duration:2,
                                 onClose(){
-                                    history.back(-1);
+                                    window.location.href="/project/" + that.dataItem.Id;
                                 }
                             });
                         }else if (res.status == 500) {

@@ -173,7 +173,7 @@ module.exports = app => {
           attributes:['Id','name']
         }
       ],
-      attributes:['Id','email','fullname','avatarUrl','wxActive']
+      attributes:['Id','email','fullname','avatarUrl','wxActive','unionId']
     });
   }
 
