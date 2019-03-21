@@ -157,7 +157,8 @@ module.exports = {
 
   judgeImageStringInArrayObject:(str,array)=>{
     let  result = true;
-    for(const updateAssets of array.artifact_assets){
+
+    for(const updateAssets of array){
       if (str == updateAssets.profileImage){
         result = false;
         break;
@@ -168,7 +169,7 @@ module.exports = {
 
   judgeMediaStringInArrayObject:(str,array)=>{
     let  result = true;
-    for(const updateAssets of array.artifact_assets){
+    for(const updateAssets of array){
       if (str == updateAssets.mediaFile){
         result = false;
         break;

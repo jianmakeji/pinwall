@@ -55,7 +55,7 @@ class Artifacts extends Service {
       artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
     }
 
-    for (let subElement of artifact.artifact_assets){
+    for (let subElement of artifact.dataValues.artifact_assets){
       if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1 && subElement.profileImage.indexOf('design.hnu.edu.cn') == -1){
         subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
       }
@@ -243,7 +243,7 @@ class Artifacts extends Service {
       let deleteAliOSSArray = new Array();
       try{
 
-        for (const artifactAssets of artifact.artifact_assets){
+        for (const artifactAssets of artifact.dataValues.artifact_assets){
           if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1 && artifactAssets.profileImage.indexOf('design.hnu.edu.cn') == -1){
               if(ctx.app.judgeImageStringInArrayObject(artifactAssets.profileImage,updates.artifact_assets)){
                 deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
@@ -272,6 +272,7 @@ class Artifacts extends Service {
         }
       }
       catch(e){
+        console.log(e);
           ctx.getLogger('aliossLogger').info("delete file:"+deleteAliOSSArray.join(',')+": "+e.message+"\n");
       }
 
@@ -308,7 +309,7 @@ class Artifacts extends Service {
           deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
         }
 
-        for (const artifactAssets of artifact.artifactAssets){
+        for (const artifactAssets of artifact.dataValues.artifact_assets){
           if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1){
             deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
           }
