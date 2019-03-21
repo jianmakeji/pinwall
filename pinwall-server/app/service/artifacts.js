@@ -242,6 +242,11 @@ class Artifacts extends Service {
 
       let deleteAliOSSArray = new Array();
       try{
+        if(artifact.profileImage.indexOf('pinwall.fzcloud') == -1 && artifact.profileImage.indexOf('design.hnu.edu.cn') == -1){
+          if(artifact.profileImage != updates.profileImage){
+            deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
+          }
+        }
 
         for (const artifactAssets of artifact.dataValues.artifact_assets){
           if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1 && artifactAssets.profileImage.indexOf('design.hnu.edu.cn') == -1){
