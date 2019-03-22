@@ -92,6 +92,71 @@ class Artifacts extends Service {
     return artifact;
   }
 
+  async apiFindArtifactsById(id) {
+
+    const artifactObj = await this.ctx.model.Artifacts.findArtifactById(id);
+    const app = this.ctx.app;
+
+    let resultObject = {};
+    let assetsArray = [];
+    resultObject.artifact = {
+      id:artifactObj.Id,
+      user_id:artifactObj.userId,
+      name:artifactObj.name,
+      description:artifactObj.description,
+
+    }
+
+    if (artifactObj.profileImage.indexOf('pinwall.fzcloud') == -1 && artifactObj.profileImage.indexOf('design.hnu.edu.cn') == -1){
+      resultObject.artifact.profile_image = app.signatureUrl(app.imagePath + artifactObj.profileImage, "thumb_360_360");
+    }
+    else{
+        resultObject.artifact.profile_image = artifactObj.profileImage;
+    }
+
+    for (let subElement of artifactObj.dataValues.artifact_assets){
+      let assetsObj = {};
+      assetsObj.name = subElement.name;
+      assetsObj.filename = subElement.filename;
+
+      if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1 && subElement.profileImage.indexOf('design.hnu.edu.cn') == -1){
+        assetsObj.profile_image = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
+      }
+      else{
+        assetsObj.profile_image = subElement.profileImage.replace('http://','https://');
+      }
+
+      if (subElement.type == 2 && subElement.mediaFile != null){
+        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          assetsObj.media_file = app.signatureUrl(app.pdfPath + subElement.mediaFile);
+        }
+        else{
+          assetsObj.media_file = subElement.mediaFile.replace('http://','https://');
+        }
+      }
+      else if (subElement.type == 3 && subElement.mediaFile != null){
+        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          assetsObj.media_file = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
+        }
+        else{
+          assetsObj.media_file = subElement.mediaFile.replace('http://','https://');
+        }
+      }
+      else if (subElement.type == 4 && subElement.mediaFile != null){
+        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          assetsObj.media_file = app.signatureUrl(app.videoPath + subElement.mediaFile);
+        }
+        else{
+          assetsObj.media_file = subElement.mediaFile.replace('http://','https://');
+        }
+      }
+      assetsArray.push(assetsObj);
+    }
+    resultObject.artifact.assets = assetsArray;
+
+    return resultObject;
+  }
+
   async create(artifact) {
     if (artifact.topicId == 0 && artifact.jobTag == 2){ //作品集上传
       let transaction;

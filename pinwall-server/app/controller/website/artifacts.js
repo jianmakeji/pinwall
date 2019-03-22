@@ -118,6 +118,18 @@ class ArtifactsController extends BaseController{
     }
   }
 
+  async apiFindArtifactsById(){
+    const ctx = this.ctx;
+    const id = ctx.params.id;
+    try{
+      ctx.body = await ctx.service.artifacts.apiFindArtifactsById(id);
+    }
+    catch(e){
+      console.log(e);
+      super.failure(e.message);
+    }
+  }
+
   async transterInsertDataToES(){
     const ctx = this.ctx;
     const ids = ctx.query.ids;
