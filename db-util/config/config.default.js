@@ -36,6 +36,30 @@ module.exports = appInfo => {
         // 数据库名
         database: 'pinwall',
       },
+      db3: {
+        // host
+        host: '192.168.3.110',
+        // 端口号
+        port: '3306',
+        // 用户名
+        user: 'root',
+        // 密码
+        password: 'root',
+        // 数据库名
+        database: 'Prometheus',
+      },
+      db4: {
+        // host
+        host: '192.168.3.110',
+        // 端口号
+        port: '3306',
+        // 用户名
+        user: 'root',
+        // 密码
+        password: 'root',
+        // 数据库名
+        database: 'PrometheusV2',
+      },
     },
     // 所有数据库配置的默认值
     default: {
