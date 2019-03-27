@@ -12,12 +12,14 @@ class Comment extends Service {
 
     for (const comment of comments){
       let data = {
-        Id:comments.Id,
-        userId:comments.userId,
-        content:comments.content,
-        description:topic.courseI,
-        status:topic.status,
-        createAt:topic.created_at,
+        Id:comment.Id,
+        userId:comment.userId,
+        content:comment.content,
+        // category:comment.,
+        // specialCourseId:comment.,
+        // eliteCourseId:comment.,
+        created_at:comment.created_at,
+        updated_at:comment.updated_at,
       };
 
       if (topic.name.indexOf("毕业设计") == -1)

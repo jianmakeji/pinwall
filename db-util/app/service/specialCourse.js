@@ -15,12 +15,13 @@ class SpecialCourse extends Service {
         let data = {
           Id:sc.Id,
           name:sc.name,
-          content:sc.describe,
+          describe:sc.describe,
           created_at:sc.created_at,
           updated_at:sc.updated_at,
           duration:sc.duration,
           videoAddress:sc.videoAddress,
           lookingNum:sc.lookingNum,
+          specialColumn:sc.specialColumn,
         };
 
 

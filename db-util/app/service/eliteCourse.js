@@ -15,12 +15,13 @@ class EliteCourse extends Service {
         let data = {
           Id:ec.Id,
           name:ec.name,
-          content:ec.describe,
+          describe:ec.describe,
           created_at:ec.created_at,
           updated_at:ec.updated_at,
           duration:ec.duration,
           videoAddress:ec.videoAddress,
           lookingNum:ec.lookingNum,
+          eliteSchoolId:ec.specialColumn,
         };
 
 

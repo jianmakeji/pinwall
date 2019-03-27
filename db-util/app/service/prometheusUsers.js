@@ -4,7 +4,7 @@ const Service = require('egg').Service;
 
 class PrometheusUsers extends Service {
 
-  async transferFavourite() {
+  async transferPrometheusUsers() {
     const client1 = this.app.mysql.get('db3');
     const client2 = this.app.mysql.get('db4');
 
@@ -27,14 +27,7 @@ class PrometheusUsers extends Service {
           mobile:user.mobile,
         };
 
-        if (fa.category == 1){
-          data.eliteCourseId = fa.courseId;
-          data.specialCourseId = 0;
-        }
-        else{
-          data.specialCourseId = fa.courseId;
-          data.eliteCourseId = 0;
-        }
+      
         await client2.insert("user",data);
 
     }

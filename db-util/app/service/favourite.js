@@ -8,7 +8,7 @@ class Favourite extends Service {
     const client1 = this.app.mysql.get('db3');
     const client2 = this.app.mysql.get('db4');
 
-    const favourite = await client1.select("favourite");
+    const favourite = await client1.select("favorite");
 
     for (const fa of favourite){
         let data = {
@@ -16,6 +16,7 @@ class Favourite extends Service {
           userId:fa.userId,
           created_at:fa.created_at,
           updated_at:fa.updated_at,
+          category:fa.category
         };
 
         if (fa.category == 1){
@@ -26,7 +27,7 @@ class Favourite extends Service {
           data.specialCourseId = fa.courseId;
           data.eliteCourseId = 0;
         }
-        await client2.insert("favourite",data);
+        await client2.insert("favorite",data);
 
     }
   }
