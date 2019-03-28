@@ -36,6 +36,17 @@ class ArtifactsController extends Controller {
       ctx.body = e.message;
     }
   }
+
+  async updateHtml5Type(){
+    const ctx = this.ctx;
+    try{
+      await ctx.service.artifacts.updateHtml5Type();
+      ctx.body = '操作成功';
+    }
+    catch(e){
+      ctx.body = e.message;
+    }
+  }
 }
 
 module.exports = ArtifactsController;

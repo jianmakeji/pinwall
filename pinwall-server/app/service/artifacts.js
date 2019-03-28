@@ -1,6 +1,7 @@
 'use strict';
 
 const Service = require('egg').Service;
+const h5Util = require('../utils/h5Utils');
 
 class Artifacts extends Service {
 
@@ -86,6 +87,9 @@ class Artifacts extends Service {
         else{
           subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
         }
+      }
+      else if (subElement.type == 5 && subElement.mediaFile != null){
+        subElement.mediaFile = h5Util.getH5Url(artifact.Id, subElement.mediaFile, app);
       }
     }
 

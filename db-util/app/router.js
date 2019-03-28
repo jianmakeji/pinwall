@@ -20,7 +20,8 @@ module.exports = app => {
   router.get('/artifact/transferArtifacts', controller.artifacts.transferArtifacts);
   router.get('/artifact/transferArtifactsAssets', controller.artifacts.transferArtifactsAssets);
   router.get('/artifact/transferArtifactsTerm', controller.artifacts.transferArtifactsTerm);
-
+  router.get('/artifact/updateHtml5Type', controller.artifacts.updateHtml5Type);
+  
   router.get('/prometheus/comment/transferComments', controller.prometheus.comment.transferComments);
   router.get('/prometheus/eliteCourse/transferEliteCourse', controller.prometheus.eliteCourse.transferEliteCourse);
   router.get('/prometheus/eliteSchool/transferEliteSchool', controller.prometheus.eliteSchool.transferEliteSchool);
