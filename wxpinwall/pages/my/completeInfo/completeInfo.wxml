@@ -5,7 +5,7 @@
    <text class='newuser_des'>之前未在图钉墙中注册账号</text>
    <image class='olduser_img' src="{{current == 'old' ? '/images/olduser_hl.png' : '/images/olduser_default.png'}}" data-type='old' catchtap='radioChange'></image>
    <text class='olduser_title'>图钉墙用户</text>
-   <text class='olduser_des'>已有图钉墙账号但为绑定微信</text>
+   <text class='olduser_des'>已有图钉墙账号但未绑定微信</text>
 
    <view class='username_box' wx:if="{{current == 'new'}}">
       <i-icon class='username_icon' type="group" size="20" color="#fff" />

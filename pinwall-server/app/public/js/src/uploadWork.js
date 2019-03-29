@@ -370,7 +370,7 @@ var container = new Vue({
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
             $.ajax({
-                url: config.ajaxUrls.getSTSSignature.replace(":type",3),
+                url: config.ajaxUrls.getSTSSignature.replace(":type",5),
                 type: 'GET',
                 success:function(res){
                     if (res.res.status == 200) {
@@ -384,7 +384,7 @@ var container = new Vue({
                     		progress: progress
                     	}).then(function (res) {
                             that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
-                            that.step2_between_arr[that.which_artifact_assets].type = 3;
+                            that.step2_between_arr[that.which_artifact_assets].type = 5;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;

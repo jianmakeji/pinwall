@@ -70,6 +70,10 @@ var projects = new Vue({
         downAttach(url) {
             window.open(url);
         },
+        downH5(Id){
+            // console.log("h5.pinwall.design-engine.org/"+ Id +"/index.html")
+            window.open("h5.pinwall.design-engine.org/"+ Id +"/index.html")
+        },
         closeThePage() {
             window.close();
         },
