@@ -30,8 +30,8 @@ module.exports = {
   rar_zipPath: 'rar_zip/',
   videoPath: 'video/',
 
-  localH5Path: 'F:\\pinwall\\',
-  // localH5Path: '/storage/pinwall/static/HTML5/',
+  //localH5Path: 'F:\\pinwall\\',
+  localH5Path: '/storage/pinwall/static/HTML5/',
   localH5Url: 'https://h5.pinwall.design-engine.org/',
 
   email_host:'smtp.exmail.qq.com',

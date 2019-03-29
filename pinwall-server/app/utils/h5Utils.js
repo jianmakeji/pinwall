@@ -62,7 +62,7 @@ module.exports.getH5Url = (artifactId, mediaFile, app) => {
 
     let indexPath = '';
     for (let path of jsonFiles){
-      if (path.indexOf('index.html') != -1){
+      if (path.indexOf('index.html') != -1 && path.indexOf('__MACOSX') == -1){
         indexPath = path;
         break;
       }
