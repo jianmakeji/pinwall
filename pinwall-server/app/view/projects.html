@@ -94,22 +94,10 @@
 					{% for item in data.artifact_assets %}
 						{% if item.viewUrl %}
 							<figure class="attach_figure">
-								<p>{{item.type}}</p>
 								<i-button v-if="{{item.type}} == 3" shape="circle" icon="md-albums" type="default" size="large" @click="downAttach('{{item.mediaFile}}')" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
 								<i-button v-else-if="{{item.type}} == 5" shape="circle" icon="logo-html5" type="default" size="large" @click="downAttach('{{item.mediaFile}}')" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
 								<i-button v-else="{{item.type}} != 3 && {{item.type}} != 5" shape="circle" icon="md-arrow-dropright-circle" type="default" size="large" @click="downAttach('{{item.mediaFile}}')" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
-								<a v-if="{{item.type}} != 5" href="/h5.pinwall.design-engine.org/{{item.Id}}/index.html" target="_blank">
-									<img src="{{item.profileImage}}" alt="">
-									<figcaption>
-										{% if item.name %}
-										<span class="title">{{item.name}}</span>
-										{% endif %}
-										{% if item.description %}
-										<span class="description">{{item.description}}</span>
-										{% endif %}
-									</figcaption>
-								</a>
-								<a v-else href="{{item.mediaFile}}" target="_blank">
+								<a href="{{item.mediaFile}}" target="_blank">
 									<img src="{{item.profileImage}}" alt="">
 									<figcaption>
 										{% if item.name %}
