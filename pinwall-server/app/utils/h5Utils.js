@@ -32,7 +32,8 @@ module.exports.getH5Url = (artifactId, mediaFile, app) => {
     if (!pathExist){
       let downLoadUrl = '';
       if(mediaFile.indexOf('pinwall.fzcloud') == -1){
-        downLoadUrl = app.signatureUrl(app.rar_zipPath + mediaFile);
+        downLoadUrl = app.signatureUrl(app.rar_zipPath + mediaFile).replace('https','http');
+        console.log(downLoadUrl);
       }
       else{
         downLoadUrl = mediaFile;
@@ -44,7 +45,6 @@ module.exports.getH5Url = (artifactId, mediaFile, app) => {
 
       let stream = fs.createWriteStream(path.join(h5Dir, filename));
       request(downLoadUrl).pipe(stream).on("close", function (err) {
-
       });
 
       stream.on("finish", function() {
