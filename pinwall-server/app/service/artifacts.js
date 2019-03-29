@@ -2,6 +2,7 @@
 
 const Service = require('egg').Service;
 const h5Util = require('../utils/h5Utils');
+const fs = require('fs');
 
 class Artifacts extends Service {
 
@@ -39,6 +40,9 @@ class Artifacts extends Service {
           if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
             subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
           }
+        }
+        else if (subElement.type == 5 && subElement.mediaFile != null){
+          subElement.mediaFile = h5Util.getH5Url(artifact.Id, subElement.mediaFile, app);
         }
       }
 
@@ -153,6 +157,9 @@ class Artifacts extends Service {
         else{
           assetsObj.media_file = subElement.mediaFile.replace('http://','https://');
         }
+      }
+      else if (subElement.type == 5 && subElement.mediaFile != null){
+        subElement.mediaFile = h5Util.getH5Url(artifact.Id, subElement.mediaFile, app);
       }
       assetsArray.push(assetsObj);
     }
@@ -350,6 +357,11 @@ class Artifacts extends Service {
           ctx.getLogger('aliossLogger').info("delete file:"+deleteAliOSSArray.join(',')+": "+e.message+"\n");
       }
 
+      let h5Dir = app.localH5Path + artifactId;
+      let pathExist = fs.existsSync(h5Dir);
+      if(pathExist){
+        fs.rmdirSync(pathExist);
+      }
       return true
     } catch (e) {
       await transaction.rollback();

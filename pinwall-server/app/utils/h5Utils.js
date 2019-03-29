@@ -25,8 +25,8 @@ function getJsonFiles(jsonPath){
 
 module.exports.getH5Url = (artifactId, mediaFile, app) => {
 
-    let h5Dir = "/storage/pinwall/static/HTML5/" + artifactId;
-    //let h5Dir = "F:\\pinwall\\" + artifactId +"\\";
+    let h5Dir = path.join(app.localH5Path, artifactId + path.sep);
+
     let pathExist = fs.existsSync(h5Dir);
 
     if (!pathExist){
@@ -56,29 +56,17 @@ module.exports.getH5Url = (artifactId, mediaFile, app) => {
           }
         });
       });
-
-      let jsonFiles = getJsonFiles(h5Dir);
-
-      let indexPath = '';
-      for (let path of jsonFiles){
-        if (path.indexOf('index.html') != -1){
-          indexPath = path;
-          break;
-        }
-      }
-      return 'https://h5.pinwall.design-engine.org/' + indexPath.replace('/storage/pinwall/static/HTML5/','');
     }
-    else{
-      let jsonFiles = getJsonFiles(h5Dir);
 
-      let indexPath = '';
-      for (let path of jsonFiles){
-        if (path.indexOf('index.html') != -1){
-          indexPath = path;
-          break;
-        }
+    let jsonFiles = getJsonFiles(h5Dir);
+
+    let indexPath = '';
+    for (let path of jsonFiles){
+      if (path.indexOf('index.html') != -1){
+        indexPath = path;
+        break;
       }
-      return 'https://h5.pinwall.design-engine.org/' + indexPath.replace('/storage/pinwall/static/HTML5/','');
     }
+    return app.localH5Url + indexPath.replace(app.localH5Path,'');
 
 }
