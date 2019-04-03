@@ -20,12 +20,13 @@ class Favourite extends Service {
         };
 
         if (fa.category == 1){
-          data.eliteCourseId = fa.courseId;
-          data.specialCourseId = 0;
-        }
-        else{
           data.specialCourseId = fa.courseId;
           data.eliteCourseId = 0;
+        }
+        else{
+          data.eliteCourseId = fa.courseId;
+          data.specialCourseId = 0;
+
         }
         await client2.insert("favorite",data);
 
