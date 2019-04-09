@@ -368,7 +368,7 @@ class Artifacts extends Service {
       let h5Dir = app.localH5Path + artifactId;
       let pathExist = fs.existsSync(h5Dir);
       if(pathExist){
-        fs.rmdirSync(pathExist);
+        fs.rmdirSync(h5Dir);
       }
       return true
     } catch (e) {
