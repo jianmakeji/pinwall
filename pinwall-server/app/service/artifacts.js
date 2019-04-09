@@ -177,18 +177,22 @@ class Artifacts extends Service {
         const artiObj = await this.ctx.model.Artifacts.createArtifact(artifact,transaction);
 
         let terms = artifact.terms;
-        for (let term of terms){
-          const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
-          await this.ctx.model.ArtifactTerm.createArtifactTerm({
-            artifactId:artiObj.Id,
-            termId:termObj.Id
-          },transaction);
+        if(terms){
+          for (let term of terms){
+            const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
+            await this.ctx.model.ArtifactTerm.createArtifactTerm({
+              artifactId:artiObj.Id,
+              termId:termObj.Id
+            },transaction);
+          }
         }
+
         await this.ctx.model.Users.addArtifact(artifact.userId,transaction);
         await transaction.commit();
 
         return true
       } catch (e) {
+        this.ctx.logger.error(e);
         await transaction.rollback();
         return false
       }
@@ -213,18 +217,22 @@ class Artifacts extends Service {
             }
 
             let terms = artifact.terms;
-            for (let term of terms){
-              const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
-              await this.ctx.model.ArtifactTerm.createArtifactTerm({
-                artifactId:artiObj.Id,
-                termId:termObj.Id
-              },transaction);
+            if (terms){
+              for (let term of terms){
+                const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
+                await this.ctx.model.ArtifactTerm.createArtifactTerm({
+                  artifactId:artiObj.Id,
+                  termId:termObj.Id
+                },transaction);
+              }
             }
+
             await this.ctx.model.Users.addArtifact(artifact.userId,transaction);
             await transaction.commit();
 
             return true
           } catch (e) {
+            this.ctx.logger.error(e);
             await transaction.rollback();
             return false
           }
