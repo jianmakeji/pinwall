@@ -100,6 +100,7 @@ $(document).ready(function() {
                 type: 'GET',
                 data:{captchaText:index.captchaText},
                 success(res){
+                    console.log(res);
                     if (res.status == 200){
                         index.$Notice.success({title:res.data});
                         index.verification = true;
