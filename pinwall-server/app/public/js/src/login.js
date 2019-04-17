@@ -98,7 +98,7 @@ $(document).ready(function() {
             $.ajax({
                 url: '/checkCaptcha',
                 type: 'GET',
-                data:{captchaText:index.captchaText.toLowerCase()},
+                data:{captchaText:index.captchaText},
                 success(res){
                     console.log(res);
                     if (res.status == 200){
