@@ -17,8 +17,6 @@ class Topics extends Service {
     const app = this.ctx.app;
     resultObj.rows.forEach((element, index)=>{
 
-          element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
-
           for (let subElement of element.artifacts){
               if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1){
             subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_360_360");

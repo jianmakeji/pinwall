@@ -365,13 +365,14 @@ class Artifacts extends Service {
           ctx.getLogger('aliossLogger').info("delete file:"+deleteAliOSSArray.join(',')+": "+e.message+"\n");
       }
 
-      let h5Dir = app.localH5Path + artifactId;
+      let h5Dir = ctx.app.localH5Path + artifactId;
       let pathExist = fs.existsSync(h5Dir);
       if(pathExist){
         fs.rmdirSync(h5Dir);
       }
       return true
     } catch (e) {
+      this.ctx.logger.error(e);
       await transaction.rollback();
       return false
     }
