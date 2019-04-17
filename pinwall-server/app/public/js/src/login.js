@@ -98,8 +98,9 @@ $(document).ready(function() {
             $.ajax({
                 url: '/checkCaptcha',
                 type: 'GET',
-                data:{captchaText:index.captchaText},
+                data:{captchaText:index.captchaText.toLowerCase()},
                 success(res){
+                    console.log(res);
                     if (res.status == 200){
                         index.$Notice.success({title:res.data});
                         index.verification = true;

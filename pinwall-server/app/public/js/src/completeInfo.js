@@ -66,7 +66,7 @@ var index = new Vue({
                 $.ajax({
                     url: config.ajaxUrls.checkCaptcha,
                     type: 'GET',
-                    data:{captchaText:this.formItem.captchaText},
+                    data:{captchaText:this.formItem.captchaText.toLowerCase()},
                     success(res){
                         if (res.status == 200){
                             that.disableSbt = false;

@@ -64,7 +64,7 @@ var index = new Vue({
                 $.ajax({
                     url: '/checkCaptcha',
                     type: 'GET',
-                    data:{captchaText:this.formItem.captchaText},
+                    data:{captchaText:this.formItem.captchaText.toLowerCase()},
                     success(res){
                         if (res.status == 200){
                             that.$Notice.success({title:res.data});
