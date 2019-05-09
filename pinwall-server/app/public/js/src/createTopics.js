@@ -75,7 +75,7 @@ var index = new Vue({
                 }else {
                     this.$Notice.error({title:"请输入必填项!"});
                 }
-            }
+            })
         }
     },
     created(){
