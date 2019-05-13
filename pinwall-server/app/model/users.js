@@ -456,5 +456,31 @@ module.exports = app => {
     return this.findAndCountAll(condition);
   }
 
+  Users.searchUserInfoByKeyword = async function(keyword, type){
+    let condition = {
+      where:{
+
+      }
+    }
+
+    if (type == 1){
+      condition.where.email = {
+        [app.Sequelize.Op.like]: '%'+keyword+'%'
+      }
+    }
+    else if (type == 2){
+      condition.where.fullname = {
+        [app.Sequelize.Op.like]: '%'+keyword+'%'
+      }
+    }
+    else if (type == 3){
+      condition.where.mobile = {
+        [app.Sequelize.Op.like]: '%'+keyword+'%'
+      }
+    }
+
+    return this.findAll(condition);
+  }
+
   return Users;
 };

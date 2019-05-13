@@ -396,6 +396,20 @@ class UsersController extends BaseController{
       super.failure('获取数据失败');
     }
   }
+
+  async searchUserInfoByKeyword(){
+    const ctx = this.ctx;
+    const type = ctx.helper.parseInt(ctx.query.type);
+    const keyword = ctx.query.keyword;
+
+    try{
+      let result = await ctx.service.users.searchUserInfoByKeyword(keyword, type);
+      super.success(result);
+    }
+    catch(e){
+      super.failure('获取数据失败');
+    }
+  }
 }
 
 module.exports = UsersController;

@@ -26,6 +26,11 @@ module.exports = app => {
       allowNull: false,
       defaultValue: ''
     },
+    teamworker:{
+      type: STRING(130),
+      allowNull: false,
+      defaultValue: ''
+    },
     description: {
       type: TEXT,
       allowNull: true

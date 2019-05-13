@@ -191,6 +191,10 @@ class Users extends Service {
       return false;
     }
   }
+
+  async searchUserInfoByKeyword(keyword, type){
+    return await this.ctx.model.Users.searchUserInfoByKeyword(keyword, type);
+  }
 }
 
 module.exports = Users;
