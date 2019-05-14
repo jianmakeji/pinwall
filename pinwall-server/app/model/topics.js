@@ -289,6 +289,7 @@ module.exports  = app => {
       else{
         tempArray = filterArtifactArray.slice(offset,artifactSize);
       }
+      artifactSize = filterArtifactArray.length;
     }
     else{
       if (artifactSize >= (limit + offset)){
