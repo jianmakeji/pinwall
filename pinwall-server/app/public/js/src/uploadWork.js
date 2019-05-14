@@ -12,6 +12,18 @@ var container = new Vue({
             containerStyle:{
                 minHeight:"",
             },
+            modelWidth:"",
+
+            searchHelper:false,             //协作者弹出框开关
+            searchModelValue:"",            //搜索内容
+            searchModelDataList:[           //搜索结果
+                {Id:1,fullname:"11111"},
+                {Id:2,fullname:"22222"}
+            ],
+            helperBox:[
+                {Id:33,fullname:"gasiqiu"}
+            ],                   //存放前台协作者数据
+
             step1_upload_fengmian_src:"",   //封面图片路径(阿里返回路径)
             step2_upload_neirong_src:[],    //列表图片上传列表
             yulan_img:"",                   //步骤二图片预览img的src
@@ -51,6 +63,35 @@ var container = new Vue({
     },
     methods: {
         keyDownEvent(){},
+        addHelpers(){
+            this.searchHelper = true;
+        },
+        searchModelData(){
+            if(this.searchModelValue.indexOf("@") >= 0){
+                console.log("邮箱");
+            }else if (config.regexString.phone.test(this.searchModelValue)) {
+                console.log("手机号");
+            }else{
+                console.log("名字");
+            }
+        },
+        selectItem(index){
+            if (this.helperBox.length < 4) {
+                let newHelperObj = new Object();
+                newHelperObj.Id = this.searchModelDataList[index].Id;
+                newHelperObj.fullname = this.searchModelDataList[index].fullname;
+                this.helperBox.push(newHelperObj);
+            } else {
+                this.$Notice.error({title:"协作者最多为4名！"});
+            }
+        },
+        deleteHelper(index){
+            this.helperBox.splice(index,1);
+            console.log(this.helperBox);
+        },
+        clickOk(){
+            console.log("点击ok");
+        },
         /**
          * 步骤一：上传作品封面事件
          */
@@ -576,6 +617,13 @@ var container = new Vue({
     created(){
         let that = this;
         this.containerStyle.minHeight = document.documentElement.clientHeight - 140 + "px";
+        if(document.documentElement.clientWidth > 1200){
+            this.modelWidth = "950px";
+        }else if(document.documentElement.clientWidth < 1200){
+            this.modelWidth = "70%";
+        }else if(document.documentElement.clientWidth < 992){
+            this.modelWidth = "80%";
+        }
 
         if(window.location.href.indexOf("editUploadWork") > 0){
             this.dataItem.Id = window.location.search.split("?id=")[1].split("&jobTag=")[0];
