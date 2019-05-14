@@ -274,7 +274,7 @@ module.exports  = app => {
     }
 
     let resultData = await this.findAll(condition);
-    const artifactSize = resultData[0].artifacts.length;
+    let artifactSize = resultData[0].artifacts.length;
 
     let tempArray = [];
 
