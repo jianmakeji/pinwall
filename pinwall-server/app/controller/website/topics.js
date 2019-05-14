@@ -87,11 +87,24 @@ class TopicsController extends BaseController{
 
   async getTopicAndArtifactById() {
     const ctx = this.ctx;
-    const query = {
+    let query = {
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
       topicId: ctx.helper.parseInt(ctx.query.topicId),
+      score:ctx.helper.parseInt(ctx.query.score),
     };
+
+    if(ctx.user){
+      if (ctx.user.roles[0].name == 'user'){
+        query.role = 'user';
+      }
+      else{
+        query.role = 'vip';
+      }
+    }
+    else{
+      query.role = 'user';
+    }
 
     try{
       let result = await ctx.service.topics.getTopicAndArtifactById(query);

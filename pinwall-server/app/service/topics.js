@@ -127,11 +127,13 @@ class Topics extends Service {
     }
   }
 
-  async getTopicAndArtifactById({ offset = 0, limit = 10, topicId = 0 }) {
+  async getTopicAndArtifactById({ offset = 0, limit = 10, topicId = 0, role = 'user', score = 0 }) {
     const topic = await this.ctx.model.Topics.getTopicAndArtifactById({
       offset,
       limit,
-      topicId
+      topicId,
+      role,
+      score
     });
 
     const app = this.ctx.app;
