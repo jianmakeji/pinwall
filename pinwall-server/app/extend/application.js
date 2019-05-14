@@ -9,8 +9,7 @@ module.exports = {
     const alioss = exports = {};
 
     alioss.region = 'oss-cn-hangzhou';
-    alioss.AccessKeyId = 'LTAIsWk7u56ncmRUG2';
-    alioss.AccessKeySecret = 'fs0sVuCJynmk5fghdF0EqzL5Rc';
+
     alioss.endpoint = 'oss-cn-hangzhou.aliyuncs.com';
     alioss.PolicyFile = 'policy/all_policy.txt';
     alioss.RoleArn = 'acs:ram::1455326322404332:role/cidic-oss-role';
@@ -21,8 +20,7 @@ module.exports = {
   },
 
   jwtSlot: 'LTAIkUgFNkgDjcr8zklMJfJUoAgdcT',
-  wx_secret: '4ba159f4548a64e8eb5567e860c4f067',
-  wx_appid: 'wxe7bac3b26bdd1205',
+
 
   imagePath: 'images/',
   othersPath: 'others/',
