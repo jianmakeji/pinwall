@@ -39,6 +39,7 @@ var config = {
         checkCaptcha:'/checkCaptcha',
         createWxUser:"/website/users/createWxUser",
         bindWeixinInfoByEmail:"/website/users/bindWeixinInfoByEmail",
+        searchUserInfoByKeyword:"/website/users/searchUserInfoByKeyword",
         //searchEngine
         transterInsertDataToES:'/website/artifacts/transterInsertDataToES',
         transterUpdateDataToES:'/website/artifacts/transterUpdateDataToES'
