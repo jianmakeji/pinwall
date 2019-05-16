@@ -41,6 +41,25 @@
 							<form-item label="内容说明" prop="description">
 								<i-input v-model="dataItem.description" type="textarea" placeholder="请输入作品内容说明"></i-input>
 							</form-item>
+							<form-item label="上传者">
+								<div class="uploader">
+									<div class="userInfo">
+										<img :src="'{{user.avatarUrl}}' ? '{{user.avatarUrl}}' : '../public/images/default_profile.jpg'">
+										<span>阿斯顿发送到发送到发送到发手动阀</span>
+									</div>
+									<div class="opt">
+										<i-button type="success" @click="addHelpers">添加/删除协作者</i-button>
+									</div>
+								</div>
+							</form-item>
+							<form-item label="协作者">
+								<div class="helpers">
+									<div class="userInfo" v-for="(item,index) in helperBox">
+										<img :src="'{{user.avatarUrl}}' ? '{{user.avatarUrl}}' : '../public/images/default_profile.jpg'">
+										<span v-text="item.fullname"></span>
+									</div>
+								</div>
+							</form-item>
 						</i-col>
 						<i-col span="10" push="2">
 							<form-item label="标题">
@@ -158,8 +177,40 @@
 					</div>
 				</div>
 			</i-form>
-
 		</div>
+		<!-- 搜索弹出层 -->
+		<modal v-model="searchHelper" title="添加协作者" :width="modelWidth" cancel-text="" :mask-closable="false" @on-ok="clickOk">
+		   <div class="search_panel">
+				<div class="search_input_result">
+					<i-input search v-model="searchModelValue" enter-button @on-search="searchModelData" placeholder="请输入协作者名称/邮箱/手机号" style="width:80%;margin-left:10%;margin-top:30px;"></i-input>
+					<div style="width:80%;margin-left:10%;margin-top:20px;border:solid 1px #929292;padding:20px;">
+						<h2 v-text="'搜索结果(' + searchNum + ')'"></h2>
+						<div class="resultItem" v-for="(item,index) in searchModelDataList">
+							<div class="helperInfo">
+								<img class="photo" :src="'{{user.avatarUrl}}' ? '{{user.avatarUrl}}' : '../public/images/default_profile.jpg'">
+								<span v-text="item.fullname"></span>
+							</div>
+							<i-button type="default" @click="selectItem(index)">添加</i-button>
+						</div>
+					</div>
+			   </div>
+			   <div class="search_type">
+				   	<h3 class="title">上传者(组长)</h3>
+				   	<div class="uploaderInfo">
+					   	<img class="photo" :src="'{{user.avatarUrl}}' ? '{{user.avatarUrl}}' : '../public/images/default_profile.jpg'">
+   						<span>{{user.fullname}}</span>
+				   	</div>
+					<h3 class="title" v-text="'协作者('+ helperBox.length +'名)'"></h3>
+				   	<div class="helpderItem" v-for="(item, index) in helperBox">
+						<div class="helperInfo">
+							<img class="photo" :src="'{{user.avatarUrl}}' ? '{{user.avatarUrl}}' : '../public/images/default_profile.jpg'">
+	   						<span v-text="item.fullname"></span>
+						</div>
+						<icon type="md-close" size="26" style="margin-right:20px;cursor: pointer;" @click="deleteHelper(index)"></icon>
+				   	</div>
+			   </div>
+		   </div>
+		</modal>
 	</div>
 {% endblock %}
 

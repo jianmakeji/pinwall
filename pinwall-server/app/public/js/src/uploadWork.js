@@ -12,6 +12,14 @@ var container = new Vue({
             containerStyle:{
                 minHeight:"",
             },
+            modelWidth:"",
+
+            searchHelper:false,             //协作者弹出框开关
+            searchModelValue:"",            //搜索内容
+            searchNum:0,
+            searchModelDataList:[],
+            helperBox:[],                   //存放前台协作者数据
+
             step1_upload_fengmian_src:"",   //封面图片路径(阿里返回路径)
             step2_upload_neirong_src:[],    //列表图片上传列表
             yulan_img:"",                   //步骤二图片预览img的src
@@ -20,6 +28,7 @@ var container = new Vue({
                 topicId:"",
                 name:"",                    //作品名
                 description:"",             //描述
+                teamworker:"",
                 profileImage:"",            //封面图
                 jobTag:"",                  //0 作品集 1 作业荚
                 artifact_assets:[],         //详情数组
@@ -51,6 +60,68 @@ var container = new Vue({
     },
     methods: {
         keyDownEvent(){},
+        addHelpers(){
+            this.searchHelper = true;
+        },
+        searchModelData(){
+            let type = "",
+                that = this;
+            if(this.searchModelValue.indexOf("@") >= 0){
+                type = 1;
+            }else if (config.regexString.phone.test(this.searchModelValue)) {
+                type = 3;
+            }else{
+                type = 2;
+            }
+            $.ajax({
+                url: config.ajaxUrls.searchUserInfoByKeyword,
+                type: 'GET',
+                data:{keyword:this.searchModelValue,type:type},
+                success(res){
+                    if (res.status == 200){
+                        if (res.data.length > 4) {
+                            for (let i = 0; i < 4; i++) {
+                                that.searchModelDataList.push(res.data[i]);
+                            }
+                        } else {
+                            that.searchModelDataList = res.data;
+                        }
+                        that.searchNum = res.data.length;
+                    }else{
+                        that.$Notice.error({title:"搜索出错！"});
+                    }
+                }
+            })
+        },
+        selectItem(index){
+            let flag = 1;
+            for (let i = 0; i < this.helperBox.length; i++) {
+                if(this.searchModelDataList[index].Id == this.helperBox[i].Id){
+                    flag = 0;
+                    break;
+                }
+            }
+            if (flag) {
+                if (this.helperBox.length < 4) {
+                    let newHelperObj = new Object();
+                    newHelperObj.Id = this.searchModelDataList[index].Id;
+                    newHelperObj.fullname = this.searchModelDataList[index].fullname;
+                    this.helperBox.push(newHelperObj);
+                } else {
+                    this.$Notice.error({title:"协作者最多为4名！"});
+                }
+            } else {
+                this.$Notice.error({title:"该用户已添加为协作者！"});
+            }
+        },
+        deleteHelper(index){
+            this.helperBox.splice(index,1);
+        },
+        clickOk(){
+            let teamWorkers = new String();
+            teamWorkers = JSON.stringify(this.helperBox);
+            this.dataItem.teamworker = teamWorkers;
+        },
         /**
          * 步骤一：上传作品封面事件
          */
@@ -492,7 +563,6 @@ var container = new Vue({
             this.stepThreeActive = false;
         },
         goStep2(){
-
             if (this.dataItem.name && this.dataItem.description && this.dataItem.profileImage) {
                 if(this.dataItem.Id){
                     this.dataItem.addTerms = this.addTerms;
@@ -576,8 +646,15 @@ var container = new Vue({
     created(){
         let that = this;
         this.containerStyle.minHeight = document.documentElement.clientHeight - 140 + "px";
+        if(document.documentElement.clientWidth > 1200){
+            this.modelWidth = "950px";
+        }else if(document.documentElement.clientWidth < 1200){
+            this.modelWidth = "70%";
+        }else if(document.documentElement.clientWidth < 992){
+            this.modelWidth = "80%";
+        }
 
-        if(window.location.href.indexOf("editUploadWork") > 0){
+        if(window.location.href.indexOf("editUploadWork") > 0){       //修改
             this.dataItem.Id = window.location.search.split("?id=")[1].split("&jobTag=")[0];
             this.dataItem.jobTag = window.location.search.split("?id=")[1].split("&jobTag=")[1];
             if(this.dataItem.jobTag == 1){
@@ -592,6 +669,9 @@ var container = new Vue({
                     that.dataItem.name = res.data.name;
                     that.dataItem.artifact_assets = res.data.artifact_assets;
                     that.dataItem.description = res.data.description;
+                    let teamWorkers = new Array();
+                    teamWorkers = JSON.parse(res.data.teamworker);
+                    that.helperBox = teamWorkers;
 
                     that.step1_upload_fengmian_src = res.data.profileImage;
                     if(res.data.profileImage.indexOf("pinwall.fzcloud.design-engine.org") > 0){

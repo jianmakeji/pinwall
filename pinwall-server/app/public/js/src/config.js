@@ -1,4 +1,10 @@
 var config = {
+    // 正则表达式
+    regexString:{
+        email:new RegExp("^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$"),
+        phone:new RegExp("^1[3|4|5|6|7|8|9][0-9]{9}$"),
+        chinese:new RegExp("^[\u4e00-\u9fa5]{0,}$")
+    },
     // 数据请求url
     ajaxUrls: {
         getIndexData: "/website/artifacts/getMedalDataByRandom/{num}",
@@ -33,6 +39,7 @@ var config = {
         checkCaptcha:'/checkCaptcha',
         createWxUser:"/website/users/createWxUser",
         bindWeixinInfoByEmail:"/website/users/bindWeixinInfoByEmail",
+        searchUserInfoByKeyword:"/website/users/searchUserInfoByKeyword",
         //searchEngine
         transterInsertDataToES:'/website/artifacts/transterInsertDataToES',
         transterUpdateDataToES:'/website/artifacts/transterUpdateDataToES'

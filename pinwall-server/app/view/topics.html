@@ -16,13 +16,14 @@
 {% block container %}
 	<div class="container" :style="containerStyle">
 		<div class="container_header">
-			<div class="title" style="height: 35px;line-height: 35px;text-align: right;width: 170px;">
-				作业荚:
+			<div class="title" style="height: 35px;line-height: 35px;text-align: right;">
+				<span class="name">作业荚:</span>
+				<i-button :type="checkAllType" @click="checkAll">全部</i-button>
+				<i-button :type="checkOpenType" @click="checkOpen">开放中</i-button>
+				<i-button :type="checkCloseType" @click="checkClose">已存档</i-button>
+				<i-button :type="checkMyType" @click="checkMy" v-if="'{{user.Id}}'">由我创建</i-button>
 			</div>
-			<i-button :type="checkAllType" @click="checkAll">全部</i-button>
-			<i-button :type="checkOpenType" @click="checkOpen">开放中</i-button>
-			<i-button :type="checkCloseType" @click="checkClose">已关闭</i-button>
-			<i-button :type="checkMyType" @click="checkMy" v-if="'{{user.Id}}'">由我创建</i-button>
+
 			<div class="">
 				<i-input v-model="searchValue" prefix="ios-search" @on-enter="searchTopics" placeholder="请输入作业荚关键词"/>
 			</div>

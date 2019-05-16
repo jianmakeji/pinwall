@@ -169,6 +169,33 @@ body{
     position: relative;
     text-shadow: 0 1px 0 rgba(255,255,255,0.5);
 }
+.filtrate_penel{
+	margin: 0 30px;
+    padding: 20px;
+	height: 60px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.button_penel a{
+	color: #67676A;
+	font-size: 18px;
+	padding: 5px 10px;
+	margin-right: 20px;
+}
+.button_penel a.active{
+	color: #1CBE78;
+	font-size: 18px;
+	font-weight: bold;
+	border-bottom: solid 4px #1CBE78;
+}
+.filtrate_penel .checkScore{
+	color: #1CBE78;
+	font-size: 18px;
+	margin-right: 40px;
+	font-weight: bold;
+}
 
 .de_project_grid {
     text-align: left;
@@ -239,12 +266,22 @@ body{
     position: absolute;
     left: 51%;
     top: 70px;
-    right: 10px;
-    bottom: 40px;
+    right: 30px;
+    /* bottom: 40px; */
     overflow: hidden;
     color: #09bc72;
     margin: 0;
     line-height: 1.5em;
+}
+.de_card_m .project_info .workScore{
+	font-size: 28px;
+    text-align: left;
+    position: absolute;
+	left: 51%;
+    top: 120px;
+    right: 30px;
+    overflow: hidden;
+    color: #D2061C;
 }
 .de_stats_tags_p {
     padding: 10px 20px;
@@ -305,12 +342,6 @@ body{
 	margin-left:30px;
 	white-space: normal;
 }
-.ivu-table th{
-	display: none;
-}
-.ivu-table td, .ivu-table th{
-	height:48px;
-}
 
 /* 登陆弹出层 */
 .login_panel{
@@ -340,11 +371,9 @@ body{
 	font-size: 18px;
 	color: #09bc72;
 }
-/* 忘记密码弹出层 */
-.recoverPwd_panel{
-	text-align: center;
+th.ivu-table-column-center .ivu-table-cell span{
+	color:#09bc72;
 }
-
 .footer {
 	padding: 5px 0;
 	color: #999;
