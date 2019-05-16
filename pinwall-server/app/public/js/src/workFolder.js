@@ -17,7 +17,6 @@ var index = new Vue({
             isActive:0,
             isScore:"-",
             noScore:"-",
-            scoreData:[],
             scoresModel:false,
             columns:[
                 { title: '序号',key: 'opt', align: 'center',
@@ -75,13 +74,6 @@ var index = new Vue({
                                     success:function(res){
                                         if (res.status == 200) {
                                             that.$Loading.finish();
-                                            for (let i = 0; i < res.data.rows.artifacts.length; i++) {
-                                                if (res.data.rows.artifacts[i].artifact_scores.length) {
-                                                    that.scoreData.push(res.data.rows.artifacts[i].artifact_scores[0].score)
-                                                } else {
-                                                    that.scoreData.push("-");
-                                                }
-                                            }
                                             that.dataList = res.data.rows.artifacts;
                                             that.headDataList = res.data.rows.artifacts;
                                             that.uploadTotal = res.data.count;
@@ -118,7 +110,6 @@ var index = new Vue({
             this.isActive = num;
             this.aoData.score = num;
             this.aoData.offset = 0;
-            that.scoreData = [];
             $.ajax({
                 url: config.ajaxUrls.getTopicAndArtifactById,
                 type: 'GET',
@@ -126,13 +117,6 @@ var index = new Vue({
                 success:function(res){
                     if (res.status == 200) {
                         that.$Loading.finish();
-                        for (let i = 0; i < res.data.rows.artifacts.length; i++) {
-                            if (res.data.rows.artifacts[i].artifact_scores.length) {
-                                that.scoreData.push(res.data.rows.artifacts[i].artifact_scores[0].score)
-                            } else {
-                                that.scoreData.push("-");
-                            }
-                        }
                         that.dataList = res.data.rows.artifacts;
                         that.headDataList = res.data.rows.artifacts;
                         if(num == "0"){
@@ -198,13 +182,6 @@ var index = new Vue({
             success:function(res){
                 if (res.status == 200) {
                     that.$Loading.finish();
-                    for (let i = 0; i < res.data.rows.artifacts.length; i++) {
-                        if (res.data.rows.artifacts[i].artifact_scores.length) {
-                            that.scoreData.push(res.data.rows.artifacts[i].artifact_scores[0].score)
-                        } else {
-                            that.scoreData.push("-");
-                        }
-                    }
                     that.dataList = res.data.rows.artifacts;
                     that.headDataList = res.data.rows.artifacts;
                     that.uploadTotal = res.data.count;
@@ -241,13 +218,6 @@ $(document).ready(function() {
                 success:function(res){
                     if (res.status == 200) {
                         index.$Loading.finish();
-                        for (let i = 0; i < res.data.rows.artifacts.length; i++) {
-                            if (res.data.rows.artifacts[i].artifact_scores.length) {
-                                index.scoreData.push(res.data.rows.artifacts[i].artifact_scores[0].score)
-                            } else {
-                                index.scoreData.push("-");
-                            }
-                        }
                         index.dataList = index.dataList.concat(res.data.rows.artifacts);
                         if (index.dataList.length == res.data.count) {
                             index.scrollModel = false;

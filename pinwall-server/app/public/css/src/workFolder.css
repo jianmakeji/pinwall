@@ -192,7 +192,7 @@ body{
 }
 .filtrate_penel .checkScore{
 	color: #1CBE78;
-	font-size: 18px;
+	font-size: 20px;
 	margin-right: 40px;
 	font-weight: bold;
 }
@@ -373,6 +373,9 @@ body{
 }
 th.ivu-table-column-center .ivu-table-cell span{
 	color:#09bc72;
+}
+.ivu-table-overflowX {
+    overflow-x: hidden;
 }
 .footer {
 	padding: 5px 0;

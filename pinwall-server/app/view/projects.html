@@ -31,19 +31,28 @@
 					<i-button shape="circle" icon="md-create" @click="editArtifact('{{data.jobTag}}')" size="large"></i-button>
 				</li>
 
-								{% if data.jobTag == 2 %}
-									<li class="delete_btn" v-if=" '{{data.userId}}' == '{{user.Id}}'">
-										<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large"></i-button>
-									</li>
-								{% else %}
-									{% if data.topics[0].status == 0 %}
-										<li class="delete_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}' || '{{data.userId}}' == '{{user.Id}}'">
-											<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large"></i-button>
-										</li>
+				{% if data.jobTag == 2 %}
+					<li class="delete_btn" v-if=" '{{data.userId}}' == '{{user.Id}}'">
+						<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large"></i-button>
+					</li>
+				{% else %}
+					{% if data.topics[0].status == 0 %}
+						<li class="delete_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}' || '{{data.userId}}' == '{{user.Id}}'">
+							<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large"></i-button>
+						</li>
 
-									{% endif %}
-								{% endif %}
+					{% endif %}
+				{% endif %}
 
+				<!-- {% if user.roles[0].name != "" %}
+					<li class="show_btn">
+						<i-button shape="circle" icon="ios-thumbs-up" :type="artifactZanTag ? 'success' : 'default'" @click="zan('{{data.userId}}','{{user.roles[0].name}}')" size="large"></i-button>
+					</li>
+				{% else %}
+					<li class="show_btn">
+						<i-button shape="circle" icon="ios-thumbs-up" @click="zan('{{data.userId}}','{{user.roles[0].name}}')" size="large"></i-button>
+					</li>
+				{% endif %} -->
 				<!-- <li class="show_btn" v-if="'{{user.roles[0].name}}' == 'admin'">
 					<i-button shape="circle" icon="md-eye" @click="showArtifact" size="large"></i-button>
 				</li> -->
@@ -129,7 +138,7 @@
             </div>
 			<div class="comment_box">
 				<ul class="comment_list">
-					<li v-for="item in dataList">
+					<li v-for="(item,index) in dataList">
 						<div class="user_info">
 							<a :href="'/users/'+item.user.Id">
 								<img class="photo" :src="item.user.avatarUrl ? item.user.avatarUrl : '../public/images/default_profile.jpg'">
@@ -141,6 +150,7 @@
 								<i-button class="delete_comment" type="error" shape="circle" icon="md-trash" @click="deleteComment(item.Id)"></i-button>
 							{% endif %}
 							<p class="comment">${item.content}</p>
+							<p class="createAt" v-text="index+1+'楼 ' + item.commentAt.replace('T',' ').split('.')[0]"></p>
 						</div>
 					</li>
 				</ul>

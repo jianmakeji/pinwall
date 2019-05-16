@@ -96,7 +96,7 @@
 							<a :href="'/project/' + item.Id" target="_blank">
 								<img class="thumb" v-lazy="item.profileImage" loading="../public/images/default_thumb_500.png">
 								<h4 v-text="item.name"></h4>
-								<span class="workScore"  v-if="{{user.Id}}  == headInfo.Id" v-text="scoreData[index] != '-' ? scoreData[index] + '分' : '0分'"></span>
+								<span class="workScore" v-if="{{user.Id}}  == headInfo.Id" v-text="item.artifact_scores[0].score + '分'"></span>
 							</a>
 						</div>
 						<div class="de_stats_tags_p">
@@ -119,7 +119,7 @@
 		</ul>
 		<modal v-model="scoresModel" :title="headInfo.name" footer-hide :width="modelWidth">
 			<i-button type="success" @click="exportExcel" style="margin:10px 0;">导出成绩单</i-button>
-		   	<i-table stripe :columns="columns" :data="dataSourse" style="margin-top:20px;" ></i-table>
+		   	<i-table stripe :columns="columns" :data="dataSourse" style="margin:20px auto;" ></i-table>
 		</modal>
 	</div>
 {% endblock %}
