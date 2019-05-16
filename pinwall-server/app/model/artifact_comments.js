@@ -77,8 +77,7 @@ module.exports = app => {
       offset,
       limit,
       order: [
-        ['commentAt', 'desc'],
-        ['Id', 'desc']
+        ['commentAt', 'asc']
       ],
       where: {
         artifactId: artifactId
