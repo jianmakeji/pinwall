@@ -128,7 +128,16 @@ body{
     background: repeating-linear-gradient( 45deg, #b1dddd, #b1dddd 10px, #beeeee 10px, #beeeee 20px);
     overflow: hidden;
 }
-.de_topic_box .topic_action.topic_closed {
+.de_topic_box .topic_closed {
+	position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 140px;
+    font-size: 0;
+    z-index: 1;
+    text-align: center;
+    overflow: hidden;
     background: repeating-linear-gradient( 45deg, #ddd, #ddd 10px, #eee 10px, #eee 20px);
 }
 .topic_action li {

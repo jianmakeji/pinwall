@@ -50,7 +50,7 @@
 					</ul>
 				</i-col>
 				<i-col :xs="0" :sm="1" :md="1" :lg="1">
-					<ul class="topic_action">
+					<ul :class="{topic_action:!topicStatus, topic_closed:topicStatus}">
 						<li class="de_topic_action_view" v-if="topicStatus == 1" style="margin-top:5px;">
 							<i-button type="checkCloseType" size="large" shape="circle" icon="md-eye" @click="checkThisTopic(aoData.topicId)" title="查看"></i-button>
 						</li>
