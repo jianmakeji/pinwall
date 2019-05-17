@@ -73,7 +73,8 @@
 			</row>
 		</div>
 		<p class="topic_description" v-text="headInfo.description"></p>
-		<div class="filtrate_penel">
+		{% if user.Id %}
+		<div class="filtrate_penel" v-if="{{user.Id}}  == headInfo.Id">
 			<div class="button_penel">
 				<a :class="[{ active: isActive == 0 }]" href="javascript:void(0)" @click="checkWorks('0')" v-text="'全部（' + uploadTotal + '）'"></a>
 				<a :class="[{ active: isActive == 1 }]" href="javascript:void(0)" @click="checkWorks('1')" v-text="'已打分（' + isScore + '）'"></a>
@@ -81,6 +82,7 @@
 			</div>
 			<a class="checkScore" href="javascript:void(0)" @click="checkAllScore">查看学生分数</a>
 		</div>
+		{% endif %}
 		<ul class="de_project_grid">
 			<row>
 				<i-col :xs="24" :sm="12" :md="8" :lg="8" v-for="(item,index) in dataList">
@@ -96,7 +98,9 @@
 							<a :href="'/project/' + item.Id" target="_blank">
 								<img class="thumb" v-lazy="item.profileImage" loading="../public/images/default_thumb_500.png">
 								<h4 v-text="item.name"></h4>
-								<span class="workScore" v-if="{{user.Id}}  == headInfo.Id" v-text="item.artifact_scores[0].score + '分'"></span>
+								{% if user.Id %}
+								<span class="workScore" v-if="{{user.Id}} == headInfo.Id" v-text="item.artifact_scores[0].score + '分'"></span>
+								{% endif %}
 							</a>
 						</div>
 						<div class="de_stats_tags_p">
