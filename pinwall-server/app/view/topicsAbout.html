@@ -34,7 +34,7 @@
 						<div class="user_info">
 							<a :href="'users/'+item.user.Id">
 								<img :src="item.user.avatarUrl">
-								<p class="name" v-text="item.user.fullname"></p>
+								<p class="name" v-text="item.user.fullname == 'xavieryuan' ? '湖南大学设计艺术学院' : item.user.fullname"></p>
 							</a>
 						</div>
 					</i-col>
