@@ -181,7 +181,6 @@ var index = new Vue({
             data: this.aoData,
             success:function(res){
                 if (res.status == 200) {
-                    console.log(res);
                     that.$Loading.finish();
                     that.dataList = res.data.rows.artifacts;
                     that.headDataList = res.data.rows.artifacts;
