@@ -451,13 +451,13 @@ var container = new Vue({
                       		stsToken: res.credentials.SecurityToken,
                             bucket:bucket
                     	});
-                        client.multipartUpload('rar_zip/'+ fileName, file, {
+                        client.multipartUpload('others/'+ fileName, file, {
                     		progress: progress
                     	}).then(function (res) {
                             that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                             that.step2_between_arr[that.which_artifact_assets].type = 5;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
-                            that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
+                            that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("others/")[1];
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
                     	});
                     } else if (res.res.status == 999) {
