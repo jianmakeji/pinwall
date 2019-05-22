@@ -2,6 +2,7 @@
 
 const Service = require('egg').Service;
 const h5Util = require('../utils/h5Utils');
+const fileUtil = require('../utils/fileUtils');
 const fs = require('fs');
 
 class Artifacts extends Service {
@@ -354,6 +355,13 @@ class Artifacts extends Service {
               deleteAliOSSArray.push(ctx.app.videoPath + artifactAssets.mediaFile);
             }
           }
+          else if(artifactAssets.type == 5 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+            if(ctx.app.judgeMediaStringInArrayObject(artifactAssets.mediaFile,updates.artifact_assets)){
+              deleteAliOSSArray.push(ctx.app.othersPath + artifactAssets.mediaFile);
+              let h5Dir = ctx.app.localH5Path + id;
+              fileUtil.delDir(h5Dir);
+            }
+          }
         }
 
         if (deleteAliOSSArray.length > 0){
@@ -365,11 +373,6 @@ class Artifacts extends Service {
           ctx.getLogger('aliossLogger').info("delete file:"+deleteAliOSSArray.join(',')+": "+e.message+"\n");
       }
 
-      let h5Dir = ctx.app.localH5Path + artifactId;
-      let pathExist = fs.existsSync(h5Dir);
-      if(pathExist){
-        fs.rmdirSync(h5Dir);
-      }
       return true
     } catch (e) {
       this.ctx.logger.error(e);
@@ -418,6 +421,9 @@ class Artifacts extends Service {
           else if(artifactAssets.type == 4  && artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
             deleteAliOSSArray.push(ctx.app.videoPath + artifactAssets.mediaFile);
           }
+          else if(artifactAssets.type == 5  && artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+            deleteAliOSSArray.push(ctx.app.othersPath + artifactAssets.mediaFile);
+          }
         }
         if (deleteAliOSSArray.length > 0){
           ctx.app.deleteOssMultiObject(deleteAliOSSArray);
@@ -428,6 +434,10 @@ class Artifacts extends Service {
           ctx.getLogger('aliossLogger').info("delete ID:"+deleteAliOSSArray.join(',')+": "+e.message+"\n");
       }
       await transaction.commit();
+
+      let h5Dir = ctx.app.localH5Path + id;
+      fileUtil.delDir(h5Dir);
+
       return true
     } catch (e) {
       await transaction.rollback();
