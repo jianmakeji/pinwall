@@ -56,6 +56,7 @@ var container = new Vue({
             stepTwoActive:false,
             stepThreeActive:false,
             jobTagName:"",
+            uploadFlag:true
         }
     },
     methods: {
@@ -311,6 +312,7 @@ var container = new Vue({
             })
         },
         step2_upload_MP4_change(files){
+            this.uploadFlag = false;
             let that = this;
             let file = files.target.files[0];
             let fileTrueName = files.target.files[0].name;
@@ -337,6 +339,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
 
                             $('#step2_upload_MP4_input').val('');
+                            that.uploadFlag = true;
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -356,6 +359,7 @@ var container = new Vue({
         },
         step2_upload_PDF_change(files){
             let that = this;
+            this.uploadFlag = false;
             let file = files.target.files[0];
             let fileTrueName = files.target.files[0].name;
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
@@ -381,6 +385,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("pdf/")[1];
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
                             $('#step2_upload_PDF_btninput').val('');
+                            that.uploadFlag = true;
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -400,6 +405,7 @@ var container = new Vue({
         },
         step2_upload_ZIP_change(files){
             let that = this;
+            this.uploadFlag = false;
             let file = files.target.files[0];
             let fileTrueName = files.target.files[0].name;
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
@@ -424,6 +430,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
                             $('#step2_upload_ZIP_input').val('');
+                            that.uploadFlag = true;
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -443,6 +450,7 @@ var container = new Vue({
         },
         step2_upload_HTML5_change(files){
             let that = this;
+            this.uploadFlag = true;
             let file = files.target.files[0];
             let fileTrueName = files.target.files[0].name;
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
@@ -467,6 +475,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("others/")[1];
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
                             $('#step2_upload_HTML5_input').val('');
+                            that.uploadFlag = true;
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -545,9 +554,13 @@ var container = new Vue({
          * 步骤二：点击左侧列表，控制图片预览src
          */
         selectLi(index){
-            this.upload_show = true;
-            this.yulan_img = this.step2_upload_neirong_src[index];
-            this.which_artifact_assets = index;
+            if ( this.uploadFlag == true) {
+                this.upload_show = true;
+                this.yulan_img = this.step2_upload_neirong_src[index];
+                this.which_artifact_assets = index;
+            } else {
+                this.$Notice.error({title:"文件正在上传，请上传成功后切换！"});
+            }
         },
         /**
          * 步骤二：点击列表删除
