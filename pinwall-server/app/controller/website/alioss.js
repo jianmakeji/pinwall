@@ -93,7 +93,14 @@ class AliOSSController extends BaseController {
       dir = ctx.app.othersPath;
     }
 
-    ctx.body = ctx.app.deleteOssObject(dir + ctx.query.filename);
+    try{
+      ctx.app.deleteOssObject(dir + ctx.query.filename);
+      super.success('删除成功!');
+    }
+    catch(e){
+      super.failure(e);
+    }
+
   }
 }
 
