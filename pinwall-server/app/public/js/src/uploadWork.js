@@ -154,6 +154,7 @@ var container = new Vue({
                                         img.src = res;
                                         img.onload = function(){
                                             if(img.width == img.height && img.width >= 500 && img.width <= 800){
+                                                $('#step1_upload_fengmian_input').val('');
                                                 that.$Notice.success({title:'上传成功！'});
                                                 that.step1_upload_fengmian_src = res;
                                                 that.dataItem.profileImage = fileName;
@@ -236,6 +237,7 @@ var container = new Vue({
                                     that.file_otherinof_arr.push(progress_subarr);
                                     that.neirong_truename_arr.push(files.target.files[0].name);
 
+                                    $('#step2_upload_input').val('');
                                 }
                             })
                     	});
@@ -288,6 +290,7 @@ var container = new Vue({
                                     that.step2_between_arr[that.which_artifact_assets].profileImage = fileName;
                                     that.neirong_truename_arr[that.which_artifact_assets] = files.target.files[0].name;
 
+                                    $('.step2_change_upload_input').val('');
                                 }
                             })
                     	});
@@ -332,6 +335,8 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("video/")[1];
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
+
+                            $('#step2_upload_MP4_input').val('');
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -375,6 +380,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("pdf/")[1];
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
+                            $('#step2_upload_PDF_btninput').val('');
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -417,6 +423,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
+                            $('#step2_upload_ZIP_input').val('');
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -459,6 +466,7 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("others/")[1];
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
+                            $('#step2_upload_HTML5_input').val('');
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
