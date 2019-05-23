@@ -52,6 +52,7 @@ module.exports = app => {
   router.get("/completeInfo", controller.home.completeInfo);
   router.get('/updatePwd',controller.home.updatePwd);
   router.get('/getSTSSignature/:fileType', ajaxAuthCheck, controller.website.alioss.getSTSSignature);
+  router.delete('/deleteAliossFile/:fileType', ajaxAuthCheck, controller.website.alioss.deleteAliossFile);
   router.get('/getUrlSignature', controller.website.alioss.getUrlSignature);
   router.get('/getCaptcha',controller.website.users.getCaptcha);
   router.get('/checkCaptcha',controller.website.users.checkCaptcha);

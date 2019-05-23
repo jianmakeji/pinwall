@@ -71,6 +71,30 @@ class AliOSSController extends BaseController {
 
     ctx.body = ctx.app.signatureUrl(ctx.query.objectPath,ctx.query.thumbName);
   }
+
+  async deleteAliossFile(){
+    const ctx = this.ctx;
+    const fileType = ctx.params.fileType;
+
+    let dir = '';
+    if (fileType == 1){
+      dir = ctx.app.imagePath;
+    }
+    else if (fileType == 2){
+      dir = ctx.app.pdfPath;
+    }
+    else if (fileType == 3){
+      dir = ctx.app.rar_zipPath;
+    }
+    else if (fileType == 4){
+      dir = ctx.app.videoPath;
+    }
+    else{
+      dir = ctx.app.othersPath;
+    }
+
+    ctx.body = ctx.app.deleteOssObject(dir + ctx.query.filename);
+  }
 }
 
 module.exports = AliOSSController;
