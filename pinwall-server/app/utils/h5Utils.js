@@ -66,6 +66,12 @@ module.exports.getH5Url = (artifactId, mediaFile, app) => {
         break;
       }
     }
-    return app.localH5Url + indexPath.replace(app.localH5Path,'');
+
+    if(indexPath != ''){
+      return app.localH5Url + indexPath.replace(app.localH5Path,'');
+    }
+    else{
+      return indexPath;
+    }
 
 }
