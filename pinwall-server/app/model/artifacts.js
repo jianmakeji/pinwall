@@ -182,17 +182,20 @@ module.exports = app => {
         attributes:['Id','fullname','avatarUrl','commentCount','artifactCount','medalCount','likeCount','createAt']
       }],
       where:{
-        userId:userId,
-        visible:0
+        userId:userId
       }
     };
 
     let countCondition = {
       where:{
         userId:userId,
-        visible:0
       }
     };
+
+    if (visible != -1){
+      condition.where.visible = visible;
+      countCondition.where.visible = visible;
+    }
 
     if (jobTag != 0) {
       condition.where.jobTag = jobTag;
@@ -482,6 +485,16 @@ module.exports = app => {
       }]
     });
     return result;
+  }
+
+  Artifacts.updateVisibleById = async function(id, visible) {
+    await this.update({
+      visible: visible
+    }, {
+      where: {
+        Id: id
+      }
+    });
   }
 
   return Artifacts;

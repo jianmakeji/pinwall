@@ -590,6 +590,49 @@ class Artifacts extends Service {
       return false;
     }
   }
+
+  async updateVisibleById(id, visible){
+    const ctx = this.ctx;
+    try{
+      await this.ctx.model.Artifacts.updateVisibleById(id, visible);
+      if(visible == 0){
+        let artifact = await this.ctx.model.Artifacts.transterDataToESById(id);
+        if (artifact){
+          await ctx.service.esUtils.createObject(artifact.Id, artifact);
+          let object = {};
+          object.Id = artifact.Id;
+          object.suggest = new Array();
+
+          let name_suggest = {};
+          name_suggest.input = artifact.name;
+          name_suggest.weight = 10;
+          object.suggest.push(name_suggest);
+
+          let fullname_suggest = {};
+          fullname_suggest.input = artifact.user.fullname;
+          fullname_suggest.weight = 16;
+          object.suggest.push(fullname_suggest);
+
+          artifact.terms.forEach((term,index)=>{
+            let term_suggest = {};
+            term_suggest.input = term.name;
+            term_suggest.weight = 8;
+            object.suggest.push(term_suggest);
+          });
+          await ctx.service.esUtils.updateSuggestObject(artifact.Id, artifact);
+
+        }
+      }
+      else if (visible == 1){
+        await ctx.service.esUtils.deleteObjectById(id);
+        await ctx.service.esUtils.deleteSuggestObjectById(id);
+      }
+      return true;
+    }
+    catch(e){
+      return false;
+    }
+  }
 }
 
 module.exports = Artifacts;
