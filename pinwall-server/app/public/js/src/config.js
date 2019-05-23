@@ -26,6 +26,7 @@ var config = {
         // uploadWork
         getUrlSignature:'/getUrlSignature',
         getSTSSignature:'/getSTSSignature/:type',
+        deleteAliossFile:"/deleteAliossFile/:fileType",
         // artifacts
         getArtifacts:'/website/artifacts',
         getArtifactsWithId:'/website/artifacts/:id',

@@ -167,6 +167,15 @@ body{
     height: 42px;
     margin-left: 9px;
 }
+.upload_form .ivu-progress-show-info .ivu-progress-outer{
+	padding-right:0px;
+}
+.upload_form .ivu-progress-text{
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
 .upload_form .step2 .content{
     width: 50%;
     height: 460px;

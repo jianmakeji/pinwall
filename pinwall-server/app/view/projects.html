@@ -104,9 +104,9 @@
 						{% if item.viewUrl %}
 							<figure class="attach_figure">
 								<i-button v-if="{{item.type}} == 3" shape="circle" icon="md-albums" type="default" size="large" @click="downAttach('{{item.mediaFile}}')" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
-								<i-button v-else-if="{{item.type}} == 5" shape="circle" icon="logo-html5" type="default" size="large" @click="downAttach('{{item.mediaFile}}')" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
-								<i-button v-else="{{item.type}} != 3 && {{item.type}} != 5" shape="circle" icon="md-arrow-dropright-circle" type="default" size="large" @click="downAttach('{{item.mediaFile}}')" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
-								<a href="{{item.mediaFile}}" target="_blank">
+								<i-button v-if="{{item.type}} == 5 && '{{item.mediaFile}}' != ''" shape="circle" icon="logo-html5" type="default" size="large" @click="downAttach('{{item.mediaFile}}')" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
+								<i-button v-if="{{item.type}} != 3 && {{item.type}} != 5" shape="circle" icon="md-arrow-dropright-circle" type="default" size="large" @click="downAttach('{{item.mediaFile}}')" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
+								<a :href="'{{item.mediaFile}}' != '' ? '{{item.mediaFile}}' : 'javascript:void(0)'" target="_blank">
 									<img src="{{item.profileImage}}" alt="">
 									<figcaption>
 										{% if item.name %}

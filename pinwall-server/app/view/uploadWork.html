@@ -81,8 +81,8 @@
 								<i-button icon="md-add-circle" type="success" id="step2_upload_btn" long>上传图片</i-button>
 								<input type="file" @change="step2_upload_neirong_change" id="step2_upload_input" accept="image/*" style="display:none;"/>
 							</div>
-							<ul class="uploaded_list" id="uploaded_list">
-								<li @click="selectLi(index)" v-for="(item, index) in step2_upload_neirong_src">
+							<ul class="uploaded_list" id="uploaded_list" @ondrop='drop(event)'>
+								<li draggable="true" :index="index" @click="selectLi(index)" v-for="(item, index) in step2_upload_neirong_src" @dragstart="dragstart(index,$event)" @dragend="ondragend($event)">
 									<img class="thumb" :src="item" />
 									<span style="width: 60px;overflow-x: hidden;word-break: keep-all;" v-text="neirong_truename_arr[index]?neirong_truename_arr[index].split('.')[0] : ''"></span>
 									<i-button icon="md-trash" shape="circle" type="error" @click.stop="deleteUploadImg(index)"></i-button>
@@ -102,6 +102,7 @@
 									<img class="thumb" style="width:200px;height:auto;margin: 0 auto;" :src="step2_upload_neirong_src[which_artifact_assets]">
 								</div>
 								<div class="other_info" id="other_info" v-show="step2_upload_neirong_src.length">
+									<h3 style="color: #ed4014;">一个作业只能绑定一个H5附件</h3>
 									<div style="display: flex;flex-direction: row;justify-content: space-between;">
 										<p>绑定媒体文件 <span style="color: #3399cc;">(可选)</span></p>
 										<dropdown >
@@ -138,7 +139,12 @@
 										</dropdown>
 									</div>
 									<div  v-for="(item,index) in step2_between_arr" v-if="which_artifact_assets === index">
-										<div><i-progress :percent="file_otherinof_arr[index].progress ? file_otherinof_arr[index].progress: 0" /><span v-text="file_otherinof_arr[index].progress + '%'"></span><br></div>
+										<div>
+											<i-progress :percent="file_otherinof_arr[index].progress ? file_otherinof_arr[index].progress: 0" />
+											<span v-text="'附件上传进度：' + file_otherinof_arr[index].progress + '%'"></span>
+											<i-button icon="md-trash" v-if="file_otherinof_arr[index].progress == 100" shape="circle" type="error" @click="deleteAttchFile(index)"></i-button>
+											<br>
+										</div>
 										<p v-text="'文件名:' + file_otherinof_arr[index].fileTrueName"></p><br><br>
 										<p>标题 <span style="color: #3399cc;">(可选)</span></p>
 										<i-input placeholder="请输入标题(100个字符以内)" v-model="step2_between_arr[index].name" maxlength='100' clearable></i-input><br><br>

@@ -56,11 +56,68 @@ var container = new Vue({
             stepTwoActive:false,
             stepThreeActive:false,
             jobTagName:"",
-            uploadFlag:true
+            uploadFlag:true,
+
+            startY:0,
+            endY:0,
+            dragIndex:0,
+            dragItemNeirongData:"",
+            dragItemBetweenData:"",
+            dragItemOtherinfoData:"",
+            dragItemTruenameData:"",
         }
     },
     methods: {
         keyDownEvent(){},
+        //开始拖动
+        dragstart(index,e){
+            var eo = e || event;
+            this.startY = eo.clientY;
+            this.dragIndex = index;
+            this.dragItemNeirongData = this.step2_upload_neirong_src[index];
+            this.dragItemBetweenData = this.step2_between_arr[index];
+            this.dragItemOtherinfoData = this.file_otherinof_arr[index];
+            this.dragItemTruenameData = this.neirong_truename_arr[index];
+        },
+        // 放置
+        ondragend (e){
+            e.preventDefault();
+            let that = this;
+            var eo = e || event;
+            this.endY = eo.clientY;
+            if((this.endY - this.startY) / 60 > 1){
+                let endIndex = parseInt((this.endY - this.startY) / 60) + this.dragIndex;
+                if(endIndex > this.step2_between_arr.length - 1){
+                    endIndex =  this.step2_between_arr.length - 1;
+                }
+                this.step2_upload_neirong_src.splice(this.dragIndex,1);
+                this.step2_between_arr.splice(this.dragIndex,1);
+                this.file_otherinof_arr.splice(this.dragIndex,1);
+                this.neirong_truename_arr.splice(this.dragIndex,1);
+
+                this.step2_upload_neirong_src.splice(endIndex,0,this.dragItemNeirongData);
+                this.step2_between_arr.splice(endIndex,0,this.dragItemBetweenData);
+                this.file_otherinof_arr.splice(endIndex,0,this.dragItemOtherinfoData);
+                this.neirong_truename_arr.splice(endIndex,0,this.dragItemTruenameData);
+            }else if((this.endY- this.startY ) / 60 < -1){
+                let endIndex = this.dragIndex - parseInt((this.startY- this.endY ) / 60);
+                if( endIndex < 0){
+                    endIndex = 0;
+                }
+                this.step2_upload_neirong_src.splice(this.dragIndex,1);
+                this.step2_between_arr.splice(this.dragIndex,1);
+                this.file_otherinof_arr.splice(this.dragIndex,1);
+                this.neirong_truename_arr.splice(this.dragIndex,1);
+
+                this.step2_upload_neirong_src.splice(endIndex,0,this.dragItemNeirongData);
+                this.step2_between_arr.splice(endIndex,0,this.dragItemBetweenData);
+                this.file_otherinof_arr.splice(endIndex,0,this.dragItemOtherinfoData);
+                this.neirong_truename_arr.splice(endIndex,0,this.dragItemTruenameData);
+            }
+        },
+
+
+
         addHelpers(){
             this.searchHelper = true;
         },
@@ -318,6 +375,7 @@ var container = new Vue({
             let fileTrueName = files.target.files[0].name;
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
+            this.$Notice.success({title:'上传中···'});
             $.ajax({
                 url: config.ajaxUrls.getSTSSignature.replace(":type",4),
                 type: 'GET',
@@ -332,6 +390,7 @@ var container = new Vue({
                         client.multipartUpload('video/'+ fileName, file, {
                     		progress: progress
                     	}).then(function (res) {
+                            that.$Notice.success({title:'上传成功！'});
                             that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                             that.step2_between_arr[that.which_artifact_assets].type = 4;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
@@ -364,6 +423,7 @@ var container = new Vue({
             let fileTrueName = files.target.files[0].name;
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
+            this.$Notice.success({title:'上传中...'});
             $.ajax({
                 url: config.ajaxUrls.getSTSSignature.replace(":type",2),
                 type: 'GET',
@@ -379,6 +439,7 @@ var container = new Vue({
                         client.multipartUpload('pdf/'+ fileName, file, {
                     		progress: progress
                     	}).then(function (res) {
+                            that.$Notice.success({title:'上传成功！'});
                             that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                             that.step2_between_arr[that.which_artifact_assets].type = 2;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
@@ -410,6 +471,7 @@ var container = new Vue({
             let fileTrueName = files.target.files[0].name;
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
+            this.$Notice.success({title:'上传成功！'});
             $.ajax({
                 url: config.ajaxUrls.getSTSSignature.replace(":type",3),
                 type: 'GET',
@@ -424,6 +486,7 @@ var container = new Vue({
                         client.multipartUpload('rar_zip/'+ fileName, file, {
                     		progress: progress
                     	}).then(function (res) {
+                            that.$Notice.success({title:'上传成功！'});
                             that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                             that.step2_between_arr[that.which_artifact_assets].type = 3;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
@@ -455,6 +518,7 @@ var container = new Vue({
             let fileTrueName = files.target.files[0].name;
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
+            this.$Notice.success({title:'上传成功！'});
             $.ajax({
                 url: config.ajaxUrls.getSTSSignature.replace(":type",5),
                 type: 'GET',
@@ -469,6 +533,7 @@ var container = new Vue({
                         client.multipartUpload('others/'+ fileName, file, {
                     		progress: progress
                     	}).then(function (res) {
+                            that.$Notice.success({title:'上传成功！'});
                             that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                             that.step2_between_arr[that.which_artifact_assets].type = 5;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
@@ -577,6 +642,35 @@ var container = new Vue({
                 this.step2_between_arr[i].position = this.step2_between_arr[i].position - 1;
             }
         },
+        deleteAttchFile(index){
+            let that = this;
+            this.$Loading.start();
+            let fileType = this.step2_between_arr[index].type,
+                fileName = this.step2_between_arr[index].mediaFile;
+            $.ajax({
+                url: config.ajaxUrls.deleteAliossFile.replace(":fileType",fileType) + "?filename=" + fileName,
+                method:"DELETE",
+                success:function(res){
+                    if (res.status == 200) {
+                        that.$Loading.finish();
+                        that.$Notice.success({
+                            title:"附件删除成功!",
+                            duration:1,
+                            onClose(){
+                                that.step2_between_arr[index].type = 0;
+                                that.step2_between_arr[index].mediaFile = "";
+                                that.step2_between_arr[index].viewUrl = "";
+                                that.step2_between_arr[index].filename = "";
+                                that.file_otherinof_arr[index].fileTrueName = "";
+                                that.file_otherinof_arr[index].progress = 0;
+                            }
+                        });
+                    }else if (res.status == 500) {
+                        that.$Notice.error({title:res.data});
+                    }
+                }
+            })
+        },
         /* 步骤调整事件 */
         goStep1(){
             this.stepOneActive = true;
@@ -594,7 +688,7 @@ var container = new Vue({
                 this.stepThreeActive = false;
                 this.dataItem.terms = this.terms_arr;
             }else{
-                this.$Notice.error({title:"请输入必填信息！"})
+                this.$Notice.error({title:"请输入必填信息！"});
             }
 
         },
@@ -691,7 +785,11 @@ var container = new Vue({
                     that.dataItem.artifact_assets = res.data.artifact_assets;
                     that.dataItem.description = res.data.description;
                     let teamWorkers = new Array();
-                    teamWorkers = JSON.parse(res.data.teamworker);
+                    if (res.data.teamworker == "") {
+                        teamWorkers = "";
+                    } else {
+                        teamWorkers = JSON.parse(res.data.teamworker);
+                    }
                     that.helperBox = teamWorkers;
 
                     that.step1_upload_fengmian_src = res.data.profileImage;

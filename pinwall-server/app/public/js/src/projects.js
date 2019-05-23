@@ -69,7 +69,11 @@ var projects = new Vue({
             console.log("点击隐藏、显示");
         },
         downAttach(url) {
-            window.open(url);
+            if(url == ""){
+                console.log(url);
+            }else{
+                window.open(url);
+            }
         },
         closeThePage() {
             if(document.referrer != ""){
