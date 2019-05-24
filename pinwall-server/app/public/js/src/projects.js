@@ -5,6 +5,7 @@ var projects = new Vue({
         return {
             deleteModal:false,
             artifactId: "",
+            visible:0,
             aoData: {
                 limit: 10,
                 offset: 0,
@@ -65,8 +66,35 @@ var projects = new Vue({
                 }
             });
         },
-        showArtifact() {
-            console.log("点击隐藏、显示");
+        showArtifact(value) {
+            let visible = new Object();
+            if (value) {
+                visible = 0;
+            } else {
+                visible = 1;
+            }
+            let that = this;
+            this.$Loading.start();
+            $.ajax({
+                url: config.ajaxUrls.updateVisibleById.replace(":id",this.artifactId),
+                type: 'PUT',
+                data: {visible: visible},
+                success(res){
+                    console.log(res);
+                    if (res.status == 200) {
+                        that.$Loading.finish();
+                        that.$Notice.success({
+                            title:res.data,
+                            onClose(){
+                                location.reload();
+                            }
+                        });
+                    }else{
+                        that.$Loading.error();
+                        that.$Notice.error({title:res.data});
+                    }
+                }
+            });
         },
         downAttach(url) {
             if(url == ""){

@@ -115,9 +115,6 @@ var container = new Vue({
                 this.neirong_truename_arr.splice(endIndex,0,this.dragItemTruenameData);
             }
         },
-
-
-
         addHelpers(){
             this.searchHelper = true;
         },

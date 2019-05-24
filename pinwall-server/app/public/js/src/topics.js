@@ -3,7 +3,7 @@ var index = new Vue({
     data(){
         return{
             // 数据请求
-            aoData:{limit:10,jobTag:1,offset:0,status:-1,userId:-1},
+            aoData:{limit:10,jobTag:1,offset:0,status:-1,userId:-1,visible:0},
             dataList:[],
             scrollModel:true,
             searchValue:"",
@@ -16,7 +16,7 @@ var index = new Vue({
             checkMyType:"text",
             //右侧抽屉
             drawerShow:false,
-            searchData:{limit:10,jobTag:1,offset:0,status:-1,userId:-1,keyword:""}
+            searchData:{limit:10,jobTag:1,offset:0,status:-1,userId:-1,visible:0,keyword:""}
         }
     },
     methods: {
@@ -164,7 +164,6 @@ var index = new Vue({
             this.checkCloseType = "text";
             this.checkMyType = "default";
         }
-
         getData(this, this.aoData);
     }
 })
