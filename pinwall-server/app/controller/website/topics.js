@@ -9,7 +9,7 @@ class TopicsController extends BaseController{
 
   async index() {
     const ctx = this.ctx;
-    const query = {
+    let query = {
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
       jobTag: ctx.helper.parseInt(ctx.query.jobTag),
@@ -20,6 +20,14 @@ class TopicsController extends BaseController{
     if (query.userId == 0 && ctx.user){
         query.userId = ctx.user.Id;
     }
+
+    if (ctx.app.judgeUserIsVipTeacher(ctx.user)){
+      query.visible = -1;
+    }
+    else{
+      query.visible = 0;
+    }
+    
     try{
       let result = await ctx.service.topics.list(query);
       super.success(result);
