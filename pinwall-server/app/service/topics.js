@@ -4,7 +4,7 @@ const Service = require('egg').Service;
 
 class Topics extends Service {
 
-  async list({ offset = 0, limit = 10,jobTag = 0, subLimit = 10, status = 0,userId=0 }) {
+  async list({ offset = 0, limit = 10,jobTag = 0, subLimit = 10, status = 0,userId=0,visible = 0 }) {
     let resultObj = await this.ctx.model.Topics.listTopics({
       offset,
       limit,
@@ -12,6 +12,7 @@ class Topics extends Service {
       subLimit,
       status,
       userId,
+      visible,
     });
 
     const app = this.ctx.app;
@@ -27,7 +28,7 @@ class Topics extends Service {
     return resultObj;
   }
 
-  async searchTopics({ offset = 0, limit = 10,jobTag = 0, subLimit = 10, status = 0,userId=0,keyword='' }) {
+  async searchTopics({ offset = 0, limit = 10,jobTag = 0, subLimit = 10, status = 0,userId = 0,keyword='',visible = 0 }) {
     let resultObj = await this.ctx.model.Topics.searchTopics({
       offset,
       limit,
@@ -36,6 +37,7 @@ class Topics extends Service {
       status,
       userId,
       keyword,
+      visible,
     });
 
     const app = this.ctx.app;

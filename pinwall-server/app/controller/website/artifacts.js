@@ -6,12 +6,18 @@ class ArtifactsController extends BaseController{
 
   async index() {
     const ctx = this.ctx;
-    const query = {
+    let query = {
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
-      visible: ctx.helper.parseInt(ctx.query.visible),
       jobTag: ctx.helper.parseInt(ctx.query.jobTag),
     };
+
+    if (ctx.app.judgeUserIsVipTeacher(ctx.user)){
+      query.visible = -1;
+    }
+    else{
+      query.visible = 0;
+    }
 
     try{
       const result = await ctx.service.artifacts.list(query);

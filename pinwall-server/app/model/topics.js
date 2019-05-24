@@ -65,7 +65,29 @@ module.exports  = app => {
     });
   };
 
-  Topics.listTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0 }) {
+  Topics.listTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0, visible = 0 }) {
+
+    let artifactModel = {
+      model: app.model.Artifacts,
+      through:{
+        attributes:['topicId','artifactId'],
+      },
+      where:{
+
+      },
+      attributes:['Id','profileImage'],
+    }
+
+    let countCondition = {
+      where:{
+
+      }
+    };
+
+    if (visible != -1){
+      artifactModel.where.visible = 0;
+      countCondition.where.visible = 0;
+    }
 
     let condition = {
       offset,
@@ -78,20 +100,9 @@ module.exports  = app => {
         {
           model: app.model.Users,
           attributes:['Id','email','fullname','nickname','avatarUrl']
-        },{
-          model: app.model.Artifacts,
-          through:{
-            attributes:['topicId','artifactId'],
-          },
-          attributes:['Id','profileImage']
-        }
+        },
+        artifactModel
       ]
-    };
-
-    let countCondition = {
-      where:{
-
-      }
     };
 
     if (jobTag != 0){
@@ -108,6 +119,7 @@ module.exports  = app => {
       condition.where.userId = userId;
       countCondition.where.userId = userId;
     }
+
 
     let resultData = await this.findAll(condition);
 
@@ -130,7 +142,29 @@ module.exports  = app => {
     return result;
   }
 
-  Topics.searchTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0, keyword='' }) {
+  Topics.searchTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0, keyword='', visible = 0 }) {
+
+    let artifactModel = {
+      model: app.model.Artifacts,
+      through:{
+        attributes:['topicId','artifactId'],
+      },
+      where:{
+
+      },
+      attributes:['Id','profileImage'],
+    }
+
+    let countCondition = {
+      where:{
+
+      }
+    };
+
+    if (visible != -1){
+      artifactModel.where.visible = 0;
+      countCondition.where.visible = 0;
+    }
 
     let condition = {
       offset,
@@ -143,20 +177,9 @@ module.exports  = app => {
         {
           model: app.model.Users,
           attributes:['Id','email','fullname','nickname','avatarUrl']
-        },{
-          model: app.model.Artifacts,
-          through:{
-            attributes:['topicId','artifactId'],
-          },
-          attributes:['Id','profileImage']
-        }
+        },
+        artifactModel
       ]
-    };
-
-    let countCondition = {
-      where:{
-
-      }
     };
 
     if (jobTag != 0){

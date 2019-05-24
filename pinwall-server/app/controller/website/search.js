@@ -157,7 +157,7 @@ class SearchController extends BaseController{
 
   async searchByKeywordsAndJobtag() {
     const ctx = this.ctx;
-    const query = {
+    let query = {
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
       jobTag: ctx.helper.parseInt(ctx.query.jobTag),
@@ -168,6 +168,13 @@ class SearchController extends BaseController{
     };
     if (query.userId == 0 && ctx.user){
         query.userId = ctx.user.Id;
+    }
+
+    if (ctx.app.judgeUserIsVipTeacher(ctx.user)){
+      query.visible = -1;
+    }
+    else{
+        query.visible = 0;
     }
 
     try{
@@ -203,7 +210,7 @@ class SearchController extends BaseController{
         fullname_suggest.weight = 16;
         object.suggest.push(fullname_suggest);
       }
-      
+
       element.terms.forEach((term,index)=>{
         let term_suggest = {};
         term_suggest.input = term.name;
