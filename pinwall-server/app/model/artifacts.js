@@ -166,7 +166,8 @@ module.exports = app => {
     offset = 0,
     limit = 10,
     userId = 0,
-    jobTag = 0
+    jobTag = 0,
+    visible = 0,
   }) {
 
     let condition = {

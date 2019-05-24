@@ -92,12 +92,18 @@ class ArtifactsController extends BaseController{
 
   async getPersonalJob() {
     const ctx = this.ctx;
-    const query = {
+    let query = {
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
       jobTag: ctx.helper.parseInt(ctx.query.jobTag),
     };
     query.userId = ctx.user.Id;
+    if (ctx.app.judgeUserIsVipTeacher(ctx.user)){
+      query.visible = -1;
+    }
+    else{
+      query.visible = 0;
+    }
     try{
       const result = await ctx.service.artifacts.getPersonalJobByUserId(query);
       super.success(result);
@@ -109,13 +115,18 @@ class ArtifactsController extends BaseController{
 
   async getPersonalJobByUserId() {
     const ctx = this.ctx;
-    const query = {
+    let query = {
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
       userId: ctx.helper.parseInt(ctx.query.userId),
       jobTag: ctx.helper.parseInt(ctx.query.jobTag),
     };
-
+    if (ctx.app.judgeUserIsVipTeacher(ctx.user)){
+      query.visible = -1;
+    }
+    else{
+      query.visible = 0;
+    }
     try{
       const result = await ctx.service.artifacts.getPersonalJobByUserId(query);
       super.success(result);

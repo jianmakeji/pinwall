@@ -78,15 +78,8 @@ module.exports  = app => {
       attributes:['Id','profileImage'],
     }
 
-    let countCondition = {
-      where:{
-
-      }
-    };
-
     if (visible != -1){
       artifactModel.where.visible = 0;
-      countCondition.where.visible = 0;
     }
 
     let condition = {
@@ -107,23 +100,19 @@ module.exports  = app => {
 
     if (jobTag != 0){
       condition.where.jobTag = jobTag;
-      countCondition.where.jobTag = jobTag;
     }
 
     if (status != -1){
       condition.where.status = status;
-      countCondition.where.status = status;
     }
 
     if (userId != -1){
       condition.where.userId = userId;
-      countCondition.where.userId = userId;
     }
 
+    let resultData = await this.findAndCountAll(condition);
 
-    let resultData = await this.findAll(condition);
-
-    resultData.forEach((element, index)=>{
+    resultData.rows.forEach((element, index)=>{
       const artifactSize = element.artifacts.length;
       element.user.gender = artifactSize;
 
@@ -136,10 +125,7 @@ module.exports  = app => {
       }
     });
 
-    let result = {};
-    result.rows = resultData;
-    result.count = await this.count(countCondition);
-    return result;
+    return resultData;
   }
 
   Topics.searchTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0, keyword='', visible = 0 }) {
@@ -155,15 +141,8 @@ module.exports  = app => {
       attributes:['Id','profileImage'],
     }
 
-    let countCondition = {
-      where:{
-
-      }
-    };
-
     if (visible != -1){
       artifactModel.where.visible = 0;
-      countCondition.where.visible = 0;
     }
 
     let condition = {
@@ -184,31 +163,25 @@ module.exports  = app => {
 
     if (jobTag != 0){
       condition.where.jobTag = jobTag;
-      countCondition.where.jobTag = jobTag;
     }
 
     if (status != -1){
       condition.where.status = status;
-      countCondition.where.status = status;
     }
 
     if (userId != -1){
       condition.where.userId = userId;
-      countCondition.where.userId = userId;
     }
 
     if (keyword != null && keyword != ''){
       condition.where.name = {
         [app.Sequelize.Op.like]: '%'+keyword+'%',
       };
-      countCondition.where.name = {
-        [app.Sequelize.Op.like]: '%'+keyword+'%',
-      };
     }
 
-    let resultData = await this.findAll(condition);
+    let resultData = await this.findAndCountAll(condition);
 
-    resultData.forEach((element, index)=>{
+    resultData.rows.forEach((element, index)=>{
       const artifactSize = element.artifacts.length;
       element.user.gender = artifactSize;
 
@@ -221,10 +194,7 @@ module.exports  = app => {
       }
     });
 
-    let result = {};
-    result.rows = resultData;
-    result.count = await this.count(countCondition);
-    return result;
+    return resultData;
   }
 
   Topics.getTopicAndArtifactById = async function ({ offset = 0, limit = 10, topicId = 0, role = 'user', score = 0 }) {
