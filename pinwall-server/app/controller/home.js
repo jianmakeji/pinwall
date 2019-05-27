@@ -91,7 +91,7 @@ class HomeController extends BaseController {
             });
           }
           else{
-            if(ctx.user.Id == result.userId){
+            if(ctx.user.Id == data.userId){
               await ctx.render('projects.html',{
                   status:200,
                   data:data,
