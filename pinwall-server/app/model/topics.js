@@ -96,19 +96,22 @@ module.exports  = app => {
 
     if (jobTag != 0){
       condition.where.jobTag = jobTag;
+      countCondition.where.jobTag = jobTag;
     }
 
     if (status != -1){
       condition.where.status = status;
+      countCondition.where.status = status;
     }
 
     if (userId != -1){
       condition.where.userId = userId;
+      countCondition.where.userId = userId;
     }
 
-    let resultData = await this.findAndCountAll(condition);
+    let resultData = await this.findAll(condition);
 
-    resultData.rows.forEach((element, index)=>{
+    resultData.forEach((element, index)=>{
       const artifactSize = element.artifacts.length;
       element.user.gender = artifactSize;
 
@@ -121,7 +124,10 @@ module.exports  = app => {
       }
     });
 
-    return resultData;
+    let result = {};
+    result.rows = resultData;
+    result.count = await this.count(countCondition);
+    return result;
   }
 
   Topics.searchTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0, keyword=''}) {
@@ -137,6 +143,12 @@ module.exports  = app => {
       attributes:['Id','profileImage'],
     }
 
+    let countCondition = {
+      where:{
+
+      }
+    };
+    
     let condition = {
       offset,
       limit,
@@ -155,14 +167,17 @@ module.exports  = app => {
 
     if (jobTag != 0){
       condition.where.jobTag = jobTag;
+      countCondition.where.jobTag = jobTag;
     }
 
     if (status != -1){
       condition.where.status = status;
+      countCondition.where.status = status;
     }
 
     if (userId != -1){
       condition.where.userId = userId;
+      countCondition.where.userId = userId;
     }
 
     if (keyword != null && keyword != ''){
@@ -171,9 +186,9 @@ module.exports  = app => {
       };
     }
 
-    let resultData = await this.findAndCountAll(condition);
+    let resultData = await this.findAll(condition);
 
-    resultData.rows.forEach((element, index)=>{
+    resultData.forEach((element, index)=>{
       const artifactSize = element.artifacts.length;
       element.user.gender = artifactSize;
 
@@ -186,7 +201,10 @@ module.exports  = app => {
       }
     });
 
-    return resultData;
+    let result = {};
+    result.rows = resultData;
+    result.count = await this.count(countCondition);
+    return result;
   }
 
   Topics.getTopicAndArtifactById = async function ({ offset = 0, limit = 10, topicId = 0, role = 'user', score = 0 }) {
