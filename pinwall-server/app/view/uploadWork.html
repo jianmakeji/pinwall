@@ -65,7 +65,7 @@
 							<form-item label="标题">
 								<div class="step1_upload">
 									<i-button type="success" id="step1_upload_fengmian">上传作品封面</i-button>
-									<input type="file" @change="step1_upload_fengmian_change" id="step1_upload_fengmian_input" accept="image/*" style="display:none;"/>
+									<input type="file" @change="step1_upload_fengmian_change" id="step1_upload_fengmian_input" accept="image/png, image/jpg" style="display:none;"/>
 								</div>
 								<p>请上传一张正方形、宽度500~800px，大小不超过2M的jpg或png图像作为作品封面。</p>
 							</form-item>
@@ -79,7 +79,7 @@
 						<i-col span="6">
 							<div class="step2_upload">
 								<i-button icon="md-add-circle" type="success" id="step2_upload_btn" long>上传图片</i-button>
-								<input type="file" @change="step2_upload_neirong_change" id="step2_upload_input" accept="image/*" style="display:none;"/>
+								<input type="file" @change="step2_upload_neirong_change" id="step2_upload_input" accept="image/png, image/jpg" style="display:none;"/>
 							</div>
 							<ul class="uploaded_list" id="uploaded_list" @ondrop='drop(event)'>
 								<li draggable="true" :index="index" @click="selectLi(index)" v-for="(item, index) in step2_upload_neirong_src" @dragstart="dragstart(index,$event)" @dragend="ondragend($event)">
@@ -97,7 +97,7 @@
 									<p class="tooltips">限2M以内的jpg或png</p><br>
 									<div class="step3_upload">
 										<i-button type="default" class="step2_change_upload_btn" long>更换</i-button>
-										<input type="file" @change="step2_upload_change" class="step2_change_upload_input" accept="aplication/zip" style="display:none;"/>
+										<input type="file" @change="step2_upload_change" class="step2_change_upload_input" accept="image/png, image/jpg" style="display:none;"/>
 									</div><br>
 									<img class="thumb" style="width:200px;height:auto;margin: 0 auto;" :src="step2_upload_neirong_src[which_artifact_assets]">
 								</div>

@@ -23,6 +23,7 @@ var index = new Vue({
                         that.$Loading.finish();
                         that.$Notice.success({
                             title:res.data,
+                            duration:1,
                             onClose(){
                                 window.location.href = '/updateSE';
                             }
@@ -48,6 +49,7 @@ var index = new Vue({
                         that.$Loading.finish();
                         that.$Notice.success({
                             title:res.data,
+                            duration:1,
                             onClose(){
                                 window.location.href = '/updateSE';
                             }
