@@ -30,7 +30,7 @@ class ArtifactsController extends BaseController{
         super.success(result);
       }
       else{
-        if(ctx.user){
+        if(!ctx.user){
           super.failure('没权限查看，请登录');
         }
         else{
