@@ -170,6 +170,21 @@ class Artifacts extends Service {
       await client2.insert("artifact_term", data);
     }
   }
+
+  async selectData(){
+    const ctx = this.ctx;
+    const client2 = ctx.app.mysql.get('db2');
+    const artifacts = await client2.query("select * from artifacts ");
+    let data = new Array();
+    for (const artifact of artifacts){
+      let topicsArtifact = await client2.query("select * from topic_artifact where artifactId = ? ", artifact.Id);
+      console.log(topicsArtifact.length);
+      if (topicsArtifact.length == 0){
+        data.push(artifact.Id);
+      }
+    }
+    return data;
+  }
 }
 
 module.exports = Artifacts;

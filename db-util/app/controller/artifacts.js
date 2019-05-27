@@ -47,6 +47,17 @@ class ArtifactsController extends Controller {
       ctx.body = e.message;
     }
   }
+
+  async selectData(){
+    const ctx = this.ctx;
+    try{
+      let data = await ctx.service.artifacts.selectData();
+      ctx.body = data;
+    }
+    catch(e){
+      ctx.body = e.message;
+    }
+  }
 }
 
 module.exports = ArtifactsController;

@@ -76,14 +76,14 @@ class HomeController extends BaseController {
         data:data,
         user:ctx.user
       };
-      
+
       if (data.visible == 0){
         result.status = 200;
       }
       else{
         if(!ctx.user){
           result.status = 500;
-          result.data = '没权限查看，请登录';
+          result.data = '隐藏的作品没权限查看，请登录';
         }
         else{
           if (ctx.app.judgeUserIsVipTeacher(ctx.user)){
@@ -95,7 +95,7 @@ class HomeController extends BaseController {
             }
             else{
               result.status = 500;
-              result.data = '该作品已经被作者设置为隐藏，不能查看！';
+              result.data = '抱歉，该作品已被隐藏，请联系管理员！';
             }
           }
         }
