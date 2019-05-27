@@ -12,13 +12,6 @@ class ArtifactsController extends BaseController{
       jobTag: ctx.helper.parseInt(ctx.query.jobTag),
     };
 
-    if (ctx.app.judgeUserIsVipTeacher(ctx.user)){
-      query.visible = -1;
-    }
-    else{
-      query.visible = 0;
-    }
-
     try{
       const result = await ctx.service.artifacts.list(query);
       super.success(result);
@@ -33,7 +26,27 @@ class ArtifactsController extends BaseController{
 
     try{
       const result = await ctx.service.artifacts.find(ctx.helper.parseInt(ctx.params.id));
-      super.success(result);
+      if (result.visible == 0){
+        super.success(result);
+      }
+      else{
+        if(ctx.user){
+          super.failure('没权限查看，请登录');
+        }
+        else{
+          if (ctx.app.judgeUserIsVipTeacher(ctx.user)){
+            super.success(result);
+          }
+          else{
+            if(ctx.user.Id == result.userId){
+              super.success(result);
+            }
+            else{
+              super.failure('该作品已经被作者设置为隐藏，不能查看！');
+            }
+          }
+        }
+      }
     }
     catch(e){
       console.log(e);
@@ -98,12 +111,7 @@ class ArtifactsController extends BaseController{
       jobTag: ctx.helper.parseInt(ctx.query.jobTag),
     };
     query.userId = ctx.user.Id;
-    if (ctx.app.judgeUserIsVipTeacher(ctx.user)){
-      query.visible = -1;
-    }
-    else{
-      query.visible = 0;
-    }
+
     try{
       const result = await ctx.service.artifacts.getPersonalJobByUserId(query);
       super.success(result);
@@ -121,12 +129,7 @@ class ArtifactsController extends BaseController{
       userId: ctx.helper.parseInt(ctx.query.userId),
       jobTag: ctx.helper.parseInt(ctx.query.jobTag),
     };
-    if (ctx.app.judgeUserIsVipTeacher(ctx.user)){
-      query.visible = -1;
-    }
-    else{
-      query.visible = 0;
-    }
+
     try{
       const result = await ctx.service.artifacts.getPersonalJobByUserId(query);
       super.success(result);

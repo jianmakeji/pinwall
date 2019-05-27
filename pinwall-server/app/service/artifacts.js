@@ -7,12 +7,11 @@ const fs = require('fs');
 
 class Artifacts extends Service {
 
-  async list({ offset = 0, limit = 10, visible = 0, jobTag = 0}) {
+  async list({ offset = 0, limit = 10, jobTag = 0}) {
 
     let resultObj = await this.ctx.model.Artifacts.listArtifacts({
       offset,
       limit,
-      visible,
       jobTag,
     });
 

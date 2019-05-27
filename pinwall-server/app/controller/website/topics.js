@@ -20,13 +20,6 @@ class TopicsController extends BaseController{
     if (query.userId == 0 && ctx.user){
         query.userId = ctx.user.Id;
     }
-
-    if (ctx.app.judgeUserIsVipTeacher(ctx.user)){
-      query.visible = -1;
-    }
-    else{
-      query.visible = 0;
-    }
     
     try{
       let result = await ctx.service.topics.list(query);

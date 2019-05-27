@@ -12,7 +12,6 @@ class Topics extends Service {
       subLimit,
       status,
       userId,
-      visible,
     });
 
     const app = this.ctx.app;
@@ -37,7 +36,6 @@ class Topics extends Service {
       status,
       userId,
       keyword,
-      visible,
     });
 
     const app = this.ctx.app;

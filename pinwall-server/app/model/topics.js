@@ -65,7 +65,7 @@ module.exports  = app => {
     });
   };
 
-  Topics.listTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0, visible = 0 }) {
+  Topics.listTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0 }) {
 
     let artifactModel = {
       model: app.model.Artifacts,
@@ -76,10 +76,6 @@ module.exports  = app => {
 
       },
       attributes:['Id','profileImage'],
-    }
-
-    if (visible != -1){
-      artifactModel.where.visible = 0;
     }
 
     let condition = {
@@ -128,7 +124,7 @@ module.exports  = app => {
     return resultData;
   }
 
-  Topics.searchTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0, keyword='', visible = 0 }) {
+  Topics.searchTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0, keyword=''}) {
 
     let artifactModel = {
       model: app.model.Artifacts,
@@ -139,10 +135,6 @@ module.exports  = app => {
 
       },
       attributes:['Id','profileImage'],
-    }
-
-    if (visible != -1){
-      artifactModel.where.visible = 0;
     }
 
     let condition = {
