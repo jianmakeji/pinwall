@@ -71,39 +71,36 @@ class HomeController extends BaseController {
     const ctx = this.ctx;
     try{
       const data = await ctx.service.artifacts.find(ctx.helper.parseInt(ctx.params.id));
+      let result = {
+        status:200,
+        data:data,
+        user:ctx.user
+      };
+      
       if (data.visible == 0){
-        await ctx.render('projects.html',{
-            status:200,
-            data:data,
-            user:ctx.user
-        });
+        result.status = 200;
       }
       else{
         if(!ctx.user){
-          super.failure('没权限查看，请登录');
+          result.status = 500;
+          result.data = '没权限查看，请登录';
         }
         else{
           if (ctx.app.judgeUserIsVipTeacher(ctx.user)){
-            await ctx.render('projects.html',{
-                status:200,
-                data:data,
-                user:ctx.user
-            });
+            result.status = 200;
           }
           else{
             if(ctx.user.Id == data.userId){
-              await ctx.render('projects.html',{
-                  status:200,
-                  data:data,
-                  user:ctx.user
-              });
+              result.status = 200;
             }
             else{
-              super.failure('该作品已经被作者设置为隐藏，不能查看！');
+              result.status = 500;
+              result.data = '该作品已经被作者设置为隐藏，不能查看！';
             }
           }
         }
       }
+      await ctx.render('projects.html',result);
     }
     catch(e){
       super.failure(e.message);
