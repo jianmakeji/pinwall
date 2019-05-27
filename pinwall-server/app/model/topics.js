@@ -94,6 +94,12 @@ module.exports  = app => {
       ]
     };
 
+    let countCondition = {
+      where:{
+
+      }
+    };
+    
     if (jobTag != 0){
       condition.where.jobTag = jobTag;
       countCondition.where.jobTag = jobTag;
@@ -148,7 +154,7 @@ module.exports  = app => {
 
       }
     };
-    
+
     let condition = {
       offset,
       limit,
