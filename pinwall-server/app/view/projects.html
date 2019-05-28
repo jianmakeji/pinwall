@@ -12,22 +12,16 @@
 	<body>
 		<div class="projects" v-cloak :style="projectStyle">
 			{% if status == '200' %}
-			<div class="zan_box">
+			<ul class="opt_ul" :style="optUlStyle">
 				{% if user.roles[0].name != "" %}
-					<a @click="zan('{{data.userId}}','{{user.roles[0].name}}')">
-						<img :src="artifactZanTag ? '../public/images/flag_green.png' : '../public/images/flag_gray.png'" alt="">
-						<icon :type="'{{user.roles[0].name}}' == 'vip' || '{{user.roles[0].name}}' == 'admin'  ? 'ios-ribbon' : 'ios-thumbs-up'" style="font-size: 40px; position: absolute;top: 15px;left: 20px;"></icon>
-						<span>赞</span>
-					</a>
+					<li class="zan_btn">
+						<i-button shape="circle" :icon="'{{user.roles[0].name}}' == 'vip' || '{{user.roles[0].name}}' == 'admin'  ? 'ios-ribbon' : 'ios-thumbs-up'" @click="zan('{{data.userId}}','{{user.roles[0].name}}')" :type="artifactZanTag ? 'success' : 'default'" size="large" title="赞"></i-button>
+					</li>
 				{% else %}
-					<a @click="zan('{{data.userId}}','{{user.roles[0].name}}')">
-						<img src="../public/images/flag_gray.png" alt="">
-						<icon type="ios-thumbs-up" style="font-size: 40px; position: absolute;top: 15px;left: 20px;"></icon>
-						<span>赞</span>
-					</a>
+					<li class="zan_btn">
+						<i-button shape="circle" icon="md-create" @click="zan('{{data.userId}}','{{user.roles[0].name}}')" size="large" title="赞"></i-button>
+					</li>
 				{% endif %}
-			</div>
-			<ul class="opt_ul">
 				<li class="edit_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}'  && {{data.topics.length}} != 0 || '{{data.userId}}' == '{{user.Id}}'">
 					<i-button shape="circle" icon="md-create" @click="editArtifact('{{data.jobTag}}')" size="large" title="修改"></i-button>
 				</li>
@@ -43,16 +37,6 @@
 
 					{% endif %}
 				{% endif %}
-
-				<!-- {% if user.roles[0].name != "" %}
-					<li class="show_btn">
-						<i-button shape="circle" icon="ios-thumbs-up" :type="artifactZanTag ? 'success' : 'default'" @click="zan('{{data.userId}}','{{user.roles[0].name}}')" size="large"></i-button>
-					</li>
-				{% else %}
-					<li class="show_btn">
-						<i-button shape="circle" icon="ios-thumbs-up" @click="zan('{{data.userId}}','{{user.roles[0].name}}')" size="large"></i-button>
-					</li>
-				{% endif %} -->
 				<li class="show_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}' || '{{data.userId}}' == '{{user.Id}}'">
 					<i-button shape="circle" :icon="'{{data.visible}}' == 1 ? 'md-eye-off' : 'md-eye'" @click="showArtifact({{data.visible}})" size="large" :title="'{{data.visible}}' == 1 ? '隐藏' : '开放'"></i-button>
 				</li>
@@ -193,7 +177,7 @@
 				<p>© 中意工业设计（湖南）有限责任公司，保留所有权利。</p>
 			</div>
 			{% else %}
-				<p v-text="'{{data}}'"></p>
+				<p class="visibleText" v-text="'{{data}}'"></p>
 			{% endif %}
 		</div>
 

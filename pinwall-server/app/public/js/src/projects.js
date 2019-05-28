@@ -3,6 +3,11 @@ var projects = new Vue({
     delimiters: ['${', '}'],
     data() {
         return {
+            optUlStyle:{
+                position: "fixed",
+                top: "",
+                right: "5%"
+            },
             deleteModal:false,
             artifactId: "",
             visible:0,
@@ -248,6 +253,7 @@ var projects = new Vue({
     created() {
         let that = this;
         this.projectStyle.minHeight = document.documentElement.clientHeight + "px";
+        this.optUlStyle.top =  document.documentElement.clientHeight / 2 - 100 + "px";
         this.aoData.artifactId = window.location.href.split("project/")[1];
         this.artifactId = window.location.href.split("project/")[1];
         this.artifactCommentData.artifactId = window.location.href.split("project/")[1];

@@ -9,13 +9,6 @@ body {
     right: 5%;
 }
 
-.zan_btn {
-    margin: 10px;
-    position: fixed;
-    top: 0;
-    left: 4%;
-}
-
 .zan_box {
     display: flex;
     flex-direction: column;
@@ -41,12 +34,12 @@ body {
 }
 
 .opt_ul {
-    position: absolute;
-    top: 130px;
-    left: 40px;
-    font-size: 24px;
+    margin: 10px;
+    position: fixed;
+    top: 250px;
+    right: 5%;
 }
-
+.opt_ul .zan_btn .ivu-btn,
 .opt_ul .edit_btn .ivu-btn,
 .opt_ul .delete_btn .ivu-btn,
 .opt_ul .show_btn .ivu-btn {
@@ -267,6 +260,13 @@ body {
 .comment_form {
     padding: 20px;
     position: relative;
+}
+
+.visibleText{
+    width: 100%;
+    font-size: 26px;
+    margin-top: 60px;
+    text-align: center;
 }
 
 .footer {
