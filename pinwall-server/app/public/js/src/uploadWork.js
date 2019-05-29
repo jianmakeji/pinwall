@@ -783,7 +783,7 @@ var container = new Vue({
                     that.dataItem.artifact_assets = res.data.artifact_assets;
                     that.dataItem.description = res.data.description;
                     let teamWorkers = new Array();
-                    if (res.data.teamworker == "") {
+                    if (res.data.teamworker == "" || res.data.teamworker == null) {
                         teamWorkers = "";
                     } else {
                         teamWorkers = JSON.parse(res.data.teamworker);
