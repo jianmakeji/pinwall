@@ -282,11 +282,11 @@ body{
     line-height: 1.5em;
 }
 .de_card_m .project_info .workScore{
-	font-size: 28px;
+	font-size: 22px;
     text-align: left;
     position: absolute;
 	left: 51%;
-    top: 120px;
+    top: 90px;
     right: 30px;
     overflow: hidden;
     color: #D2061C;
