@@ -3,6 +3,18 @@ var projects = new Vue({
     delimiters: ['${', '}'],
     data() {
         return {
+            scoreBoxStyle:{
+                position: "fixed",
+                margin: "20px auto",
+                padding: "20px",
+                alignItems: "center",
+                width:"310px",
+                height:"auto",
+                background:"#fff",
+                left:"",
+                top:""
+            },
+            scoresModel:false,
             optUlStyle:{
                 position: "fixed",
                 top: "",
@@ -46,6 +58,11 @@ var projects = new Vue({
         deleteArtifact(){
             this.deleteModal = true;
         },
+        showScoreBox(event){
+            this.scoresModel = true;
+            this.scoreBoxStyle.left = event.screenX  - 180 + "px";
+            this.scoreBoxStyle.top = event.screenY - 120 + "px";
+        },
         ok() {
             let that = this;
             this.$Loading.start();
@@ -85,7 +102,6 @@ var projects = new Vue({
                 type: 'PUT',
                 data: {visible: visible},
                 success(res){
-                    console.log(res);
                     if (res.status == 200) {
                         that.$Loading.finish();
                         that.$Notice.success({
@@ -102,11 +118,7 @@ var projects = new Vue({
             });
         },
         downAttach(url) {
-            if(url == ""){
-                console.log(url);
-            }else{
-                window.open(url);
-            }
+            window.open(url);
         },
         closeThePage() {
             if(document.referrer != ""){
@@ -240,7 +252,14 @@ var projects = new Vue({
                 success(res) {
                     if (res.status == 200) {
                         that.$Loading.finish();
-                        that.$Notice.success({title:res.data});
+                        that.$Notice.success({
+                            title:res.data,
+                            duration:1,
+                            onClose(){
+                                that.scoresModel = false;
+                                location.reload();
+                            }
+                        });
                     }else{
                         that.$Loading.error();
                         that.$Notice.error({title:res.data});
@@ -248,6 +267,9 @@ var projects = new Vue({
                 }
             });
 
+        },
+        scoreClose(){
+            this.scoresModel = false;
         }
     },
     created() {
