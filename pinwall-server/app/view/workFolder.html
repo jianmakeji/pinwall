@@ -99,7 +99,7 @@
 								<img class="thumb" v-lazy="item.profileImage" loading="../public/images/default_thumb_500.png">
 								<h4 v-text="item.name"></h4>
 								{% if user.Id %}
-								<span class="workScore" v-if="{{user.Id}} == headInfo.Id" v-text="item.artifact_scores[0].score + '分'"></span>
+								<span class="workScore" v-if="{{user.Id}} == headInfo.Id" v-text=" item.artifact_scores.length ? item.artifact_scores[0].score + '分' : '0分' "></span>
 								{% endif %}
 							</a>
 						</div>
