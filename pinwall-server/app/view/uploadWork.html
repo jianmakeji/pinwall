@@ -55,7 +55,7 @@
 							<form-item label="协作者">
 								<div class="helpers">
 									<div class="userInfo" v-for="(item,index) in helperBox">
-										<img :src="'{{user.avatarUrl}}' ? '{{user.avatarUrl}}' : '../public/images/default_profile.jpg'">
+										<img :src="'{{item.avatarUrl}}' ? '{{item.avatarUrl}}' : '../public/images/default_profile.jpg'">
 										<span v-text="item.fullname"></span>
 									</div>
 								</div>
@@ -193,7 +193,7 @@
 						<h2 v-text="'搜索结果(' + searchNum + ')'"></h2>
 						<div class="resultItem" v-for="(item,index) in searchModelDataList">
 							<div class="helperInfo">
-								<img class="photo" :src="'{{user.avatarUrl}}' ? '{{user.avatarUrl}}' : '../public/images/default_profile.jpg'">
+								<img class="photo" :src="'{{item.avatarUrl}}' ? '{{item.avatarUrl}}' : '../public/images/default_profile.jpg'">
 								<span v-text="item.fullname"></span>
 							</div>
 							<i-button type="default" @click="selectItem(index)">添加</i-button>
@@ -209,7 +209,7 @@
 					<h3 class="title" v-text="'协作者('+ helperBox.length +'名)'"></h3>
 				   	<div class="helpderItem" v-for="(item, index) in helperBox">
 						<div class="helperInfo">
-							<img class="photo" :src="'{{user.avatarUrl}}' ? '{{user.avatarUrl}}' : '../public/images/default_profile.jpg'">
+							<img class="photo" :src="'{{item.avatarUrl}}' ? '{{item.avatarUrl}}' : '../public/images/default_profile.jpg'">
 	   						<span v-text="item.fullname"></span>
 						</div>
 						<icon type="md-close" size="26" style="margin-right:20px;cursor: pointer;" @click="deleteHelper(index)"></icon>
