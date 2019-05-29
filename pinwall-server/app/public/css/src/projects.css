@@ -2,11 +2,15 @@ body {
     background: rgba(240, 240, 240, 0.95);
 }
 
-.close_btn {
+.close_btn.ivu-btn-circle.ivu-btn-icon-only.ivu-btn-large {
+    width: 48px;
+    height: 48px;
+    border: none;
     margin: 10px;
     position: fixed;
     top: 0;
-    right: 5%;
+    right: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 .zan_box {
@@ -33,19 +37,16 @@ body {
     left: 30px;
 }
 
-.opt_ul {
-    margin: 10px;
-    position: fixed;
-    top: 250px;
-    right: 5%;
-}
 .opt_ul .zan_btn .ivu-btn,
 .opt_ul .edit_btn .ivu-btn,
 .opt_ul .delete_btn .ivu-btn,
 .opt_ul .show_btn .ivu-btn {
-    width: 60px;
+    width: 50px;
+    height: 50px;
     font-size: 24px;
     margin-top: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: none;
 }
 .project_detail {
     width: 80%;
@@ -126,6 +127,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    letter-spacing: 4px;
 }
 
 .project_detail .score{

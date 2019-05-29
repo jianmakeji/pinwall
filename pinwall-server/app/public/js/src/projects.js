@@ -18,7 +18,7 @@ var projects = new Vue({
             optUlStyle:{
                 position: "fixed",
                 top: "",
-                right: "5%"
+                right: "30px"
             },
             deleteModal:false,
             artifactId: "",
