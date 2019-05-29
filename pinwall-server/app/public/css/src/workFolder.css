@@ -275,11 +275,14 @@ body{
     left: 51%;
     top: 70px;
     right: 20px;
-    /* bottom: 40px; */
     overflow: hidden;
     color: #09bc72;
     margin: 0;
-    line-height: 1.5em;
+    line-height: 1.5em;    
+	display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .de_card_m .project_info .workScore{
 	font-size: 22px;
