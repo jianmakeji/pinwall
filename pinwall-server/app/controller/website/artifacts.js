@@ -42,7 +42,7 @@ class ArtifactsController extends BaseController{
               super.success(result);
             }
             else{
-              super.failure('该作品已经被作者设置为隐藏，不能查看！');
+              super.failure('该作品已经被隐藏，请联系管理员！');
             }
           }
         }

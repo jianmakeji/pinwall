@@ -67,17 +67,6 @@ module.exports  = app => {
 
   Topics.listTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0 }) {
 
-    let artifactModel = {
-      model: app.model.Artifacts,
-      through:{
-        attributes:['topicId','artifactId'],
-      },
-      where:{
-
-      },
-      attributes:['Id','profileImage'],
-    }
-
     let condition = {
       offset,
       limit,
@@ -88,9 +77,14 @@ module.exports  = app => {
       include:[
         {
           model: app.model.Users,
-          attributes:['Id','email','fullname','nickname','avatarUrl']
-        },
-        artifactModel
+          attributes:['Id','fullname','nickname','avatarUrl']
+        },{
+          model: app.model.Artifacts,
+          through:{
+            attributes:['topicId','artifactId'],
+          },
+          attributes:['Id','profileImage']
+        }
       ]
     };
 
@@ -99,7 +93,7 @@ module.exports  = app => {
 
       }
     };
-    
+
     if (jobTag != 0){
       condition.where.jobTag = jobTag;
       countCondition.where.jobTag = jobTag;
@@ -138,23 +132,6 @@ module.exports  = app => {
 
   Topics.searchTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0, keyword=''}) {
 
-    let artifactModel = {
-      model: app.model.Artifacts,
-      through:{
-        attributes:['topicId','artifactId'],
-      },
-      where:{
-
-      },
-      attributes:['Id','profileImage'],
-    }
-
-    let countCondition = {
-      where:{
-
-      }
-    };
-
     let condition = {
       offset,
       limit,
@@ -165,10 +142,21 @@ module.exports  = app => {
       include:[
         {
           model: app.model.Users,
-          attributes:['Id','email','fullname','nickname','avatarUrl']
-        },
-        artifactModel
+          attributes:['Id','fullname','nickname','avatarUrl']
+        },{
+          model: app.model.Artifacts,
+          through:{
+            attributes:['topicId','artifactId'],
+          },
+          attributes:['Id','profileImage']
+        }
       ]
+    };
+
+    let countCondition = {
+      where:{
+
+      }
     };
 
     if (jobTag != 0){
