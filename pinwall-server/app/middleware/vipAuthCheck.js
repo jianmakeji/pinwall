@@ -11,7 +11,7 @@ module.exports = () => {
           ctx.user.unionid = wxUser.unionid;
         }
         if(ctx.user.roles && ctx.user.roles.length > 0){
-          if (ctx.user.roles[0].name == 'vip'){
+          if (ctx.user.roles[0].name == 'vip' || ctx.user.roles[0].name == 'admin'){
             await  next();
           }
           else{
