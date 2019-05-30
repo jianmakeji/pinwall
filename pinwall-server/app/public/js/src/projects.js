@@ -11,6 +11,7 @@ var projects = new Vue({
                 width:"310px",
                 height:"auto",
                 background:"#fff",
+                boxShadow: "0 0 10px rgba(0,0,0,0.1)",
                 right:"",
                 top:""
             },
