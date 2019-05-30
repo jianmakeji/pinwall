@@ -34,7 +34,6 @@ img{
 	text-align: center;
 	color: #ccc;
     position: relative;
-        z-index: 1000;
 }
 .header .pinwall_logo{
     padding-left: 10px;
