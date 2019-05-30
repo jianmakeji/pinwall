@@ -394,6 +394,9 @@ th.ivu-table-column-center .ivu-table-cell span{
 .ivu-table-overflowX {
     overflow-x: hidden;
 }
+.ivu-modal-content{
+	border-radius: 0px;
+}
 .footer {
 	padding: 5px 0;
 	color: #999;
@@ -453,6 +456,15 @@ th.ivu-table-column-center .ivu-table-cell span{
 		padding-left: 0px;		/* 弹出层  0px*/
 		border-left: #ccc 0px dotted;	/* border-top: #ccc 1px dotted;*/
 		border-top: #ccc 1px dotted;
+	}
+
+	.filtrate_penel{
+		margin: 10px auto;
+	    padding: 0;
+		flex-direction: column;
+	}
+	.filtrate_penel .checkScore {
+	    margin-right: 0;
 	}
 }
 

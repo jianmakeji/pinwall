@@ -15,11 +15,11 @@
 			<ul class="opt_ul" :style="optUlStyle">
 				{% if user.roles[0].name != "" %}
 					<li class="zan_btn">
-						<i-button :icon="'{{user.roles[0].name}}' == 'vip' || '{{user.roles[0].name}}' == 'admin'  ? 'i-icon iconfont icon-medal' : 'i-icon iconfont icon-zan'" @click="zan('{{data.userId}}','{{user.roles[0].name}}')" :type="artifactZanTag ? 'success' : 'default'" size="large" title="赞"></i-button>
+						<i-button :icon="'{{user.roles[0].name}}' == 'vip' || '{{user.roles[0].name}}' == 'admin'  ? 'i-icon iconfont icon-medal' : 'i-icon iconfont icon-zan1'" @click="zan('{{data.userId}}','{{user.roles[0].name}}')" :type="artifactZanTag ? 'success' : 'default'" size="large" title="赞"></i-button>
 					</li>
 				{% else %}
 					<li class="zan_btn">
-						<i-button icon="i-icon iconfont icon-zan" @click="zan('{{data.userId}}','{{user.roles[0].name}}')" size="large" title="赞"></i-button>
+						<i-button icon="i-icon iconfont icon-zan1" @click="zan('{{data.userId}}','{{user.roles[0].name}}')" size="large" title="赞"></i-button>
 					</li>
 				{% endif %}
 				<li class="edit_btn" v-if="'{{user.roles[0].name}}' == 'vip' && '{{data.topics[0].userId}}' == '{{user.Id}}' && {{data.topics.length}} != 0">
@@ -53,7 +53,7 @@
                         <span>{{data.medalCount}}</span>
                     </div>
                     <div class="likes">
-						<icon custom="i-icon iconfont icon-zan" style="font-size: 18px;color:#999;"></icon>
+						<icon custom="i-icon iconfont icon-zan1" style="font-size: 18px;color:#999;"></icon>
                         <span>{{data.likeCount}}</span>
                     </div>
                     <div class="comments">
