@@ -45,7 +45,7 @@
 				</li>
 			</ul>
 			<i-button class="close_btn" type="default" shape="circle" icon="md-close" size="large" @click="closeThePage"></i-button>
-			<back-top></back-top>
+			<back-top :right="backTopRight"></back-top>
             <div class="project_detail">
                 <div class="stats_tags">
                     <div class="badges">
@@ -61,7 +61,7 @@
                         <span>{{data.commentCount}}</span>
                     </div>
                 </div>
-				<p class="score" v-if="'{{user.roles[0].name}}' == 'vip' && '{{data.topics[0].userId}}' == '{{user.Id}}' && {{data.topics.length}} != 0" v-text="{{data.artifact_scores[0].score}} + '分'"></p>
+				<p class="score" v-if="'{{user.roles[0].name}}' == 'vip' && '{{data.topics[0].userId}}' == '{{user.Id}}' && {{data.topics.length}} != 0" v-text="'{{data.artifact_scores[0].score}}' != 'null' && '{{data.artifact_scores[0].score}}' != '' ? {{data.artifact_scores[0].score}} + '分' : '未打分'"></p>
                 <div class="user_info">
                     <a href="/users/{{data.user.Id}}">
 						{% if data.user.avatarUrl %}

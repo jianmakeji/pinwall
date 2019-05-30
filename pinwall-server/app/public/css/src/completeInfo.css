@@ -9,7 +9,14 @@ body{
     margin-top: 80px;
     height: 500px;
 }
-
+.container h4 {
+    margin: 20px auto;
+    text-align: center;
+    font-size: 24px;
+    color: #bbb;
+    text-shadow: 0 1px 0 #fff;
+    font-weight: normal;
+}
 .complete_box{
     width: 950px;
     height: 500px;
@@ -19,9 +26,11 @@ body{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .complete_box h3{
-    font-size: 22px;
+	font-weight: normal;
+    font-size: 16px;
+    color: rgb(9, 188, 114);
+    margin: 15px 0px;
     text-align: center;
-    color: #09bc72;
 }
 .completeInfo object svg{
     height: 40px;

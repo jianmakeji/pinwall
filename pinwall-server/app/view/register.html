@@ -15,8 +15,9 @@
 
 {% block container %}
 	<div class="container" :style="containerStyle">
+		<h4>注册</h4>
         <div class="register_panel">
-            <p class="title">注册</p>
+            <h3 class="title">请填写个人信息</h3>
             <i-form ref="formItem" :model="formItem" :label-width="80" :rules="ruleValidate">
                 <form-item label="姓名" prop="fullname">
                     <i-input v-model="formItem.fullname" clearable placeholder="请输入姓名(无法修改)"></i-input>

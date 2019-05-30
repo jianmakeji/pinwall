@@ -41,8 +41,9 @@ body {
 .opt_ul .edit_btn .ivu-btn,
 .opt_ul .delete_btn .ivu-btn,
 .opt_ul .show_btn .ivu-btn {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
+    padding: 0;
     font-size: 24px;
     margin-top: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -265,10 +266,13 @@ body {
 }
 
 .visibleText{
-    width: 100%;
     font-size: 26px;
-    margin-top: 60px;
     text-align: center;
+    margin: 20px 30px;
+    color: #999;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 .score_box .scoreClose{
@@ -287,4 +291,21 @@ body {
     width: 100%;
     overflow: hidden;
     text-align: center;
+}
+
+@media screen and (max-width: 540px){  /* 当屏幕尺寸小于1200px时，应用下面的CSS样式 */
+
+    .close_btn.ivu-btn-circle.ivu-btn-icon-only.ivu-btn-large {
+        margin: 10px 0px;
+        right: 4px;
+    }
+    .project_detail {
+        width: 96%;
+        margin: 60px auto 10px;
+    }
+
+    .comment_box {
+        width: 96%;
+        margin: 20px auto;
+    }
 }

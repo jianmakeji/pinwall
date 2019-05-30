@@ -9,10 +9,22 @@ body{
 }
 .container .container_header {
     color: rgb(153, 153, 153);
-    margin: 20px;
+    margin: 20px 30px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.container .container_header .ivu-input-with-prefix{
+	padding-left: 32px;
+	border-radius: 0px;
+	border: none;
+	box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.container_header .title .ivu-btn{
+	border: none;
+	border-radius: 0px;
 }
 
 .de_topic_box{

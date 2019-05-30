@@ -13,9 +13,9 @@
 {% endblock %}
 
 {% block container %}
-	<div class="container" v-cloak>
-        <div class="updatePwd_panel">
-            <p class="title">输入新密码</p>
+	<div class="container" :style="containerStyle" v-cloak>
+		<h4>修改密码</h4>
+        <div class="updatePwd_panel" >
             <p style="color:#09bc72;margin:20px 80px;text-align: center;">输入新密码后，确定并提交</p>
             <i-form ref="formItem" :model="formItem" :label-width="80" :rules="ruleValidate">
                 <form-item label="新密码" prop="newPwd">

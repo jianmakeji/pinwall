@@ -4,21 +4,21 @@ var index = new Vue({
     data(){
         return{
             // 选择按键显示类型
-            checkAllType:"default",
+            checkAllType:"text",
             checkOpenType:"text",
-            checkCloseType:"text",
+            checkCloseType:"default",
             checkMyType:"text",
             containerStyle:{
                 minHeight:""
             },
             // 数据请求
-            aoData:{limit:10,jobTag:2,offset:0,status:-1,userId:-1},
+            aoData:{limit:10,jobTag:2,offset:0,status:1,userId:-1},
             dataList:[],
             scrollModel:true,
             //右侧抽屉
             drawerShow:false,
             searchValue:"",          //搜索值
-            searchData:{limit:10,jobTag:2,offset:0,status:-1,userId:-1,keyword:""}
+            searchData:{limit:10,jobTag:2,offset:0,status:1,userId:-1,keyword:""}
         }
     },
     methods: {

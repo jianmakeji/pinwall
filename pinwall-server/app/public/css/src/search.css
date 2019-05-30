@@ -23,6 +23,14 @@ body{
     font-weight: bold;
 }
 
+.container h4 {
+    margin: 20px auto;
+    text-align: center;
+    font-size: 24px;
+    color: #bbb;
+    text-shadow: 0 1px 0 #fff;
+    font-weight: normal;
+}
 
 .de_project_grid {
     text-align: left;

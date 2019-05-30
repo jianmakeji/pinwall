@@ -7,6 +7,12 @@ var index = new Vue({
             containerStyle:{
                 minHeight:""
             },
+            searchPanelStyle:{
+            	margin: "",
+                display:"flex",
+                flexDirection: "column",
+                paddingTop: "200px"
+            },
             drawerShow:false,
             scrollModel:true,
             modelWidth:"",
@@ -60,7 +66,8 @@ var index = new Vue({
     },
     created(){
         let that = this;
-        this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
+        this.containerStyle.minHeight = document.documentElement.clientHeight - 190 + "px";
+        // this.searchPanelStyle.margin = ( document.documentElement.clientHeight - 500 ) / 2 + "px auto";
         if(document.documentElement.clientWidth > 1200){
             this.modelWidth = "950px";
         }else if(document.documentElement.clientWidth < 1200){

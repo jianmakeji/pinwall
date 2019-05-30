@@ -3,7 +3,7 @@ var index = new Vue({
     data(){
         return{
             containerStyle:{
-                minHeight:"",
+                margin:"",
             },
             userId:"1",
             drawerShow:false,
@@ -79,7 +79,7 @@ var index = new Vue({
         }
     },
     created(){
-        this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
+        this.containerStyle.margin = (document.documentElement.clientHeight - 600) / 2 + "px auto";
         let topicJobtog = window.location.href.split("?jobTag=")[1];
         if (topicJobtog == 2) {
             this.formItem.jobTag = 2;

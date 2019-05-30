@@ -14,8 +14,9 @@
 
 {% block container %}
 	<div class="container" :style="containerStyle">
-        <h4 class="title">新建或设置作业荚</h4>
+        <h4>新建或设置作业荚</h4>
         <div class="topic_form">
+			<h4 class="title">请填写作业荚相关信息</h4>
             <i-form :model="formItem" :label-width="80"  ref="formItem" :rules="ruleValidate">
                 <form-item label="标题" prop="name">
                     <i-input v-model="formItem.name" placeholder="请输入标题"></i-input>

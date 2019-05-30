@@ -32,7 +32,7 @@ var index = new Vue({
                 { title: '作品名',key: 'name', align: 'center'},
                 { title: '分数',key: 'score', align: 'center',
                     render: (h, params) => {
-                        return h('p', this.dataSourse[params.index].artifact_scores.length > 0 ? this.dataSourse[params.index].artifact_scores[0].score : "0");
+                        return h('p', this.dataSourse[params.index].artifact_scores.length > 0 ? this.dataSourse[params.index].artifact_scores[0].score : "未打分");
                     }
                 }
             ],

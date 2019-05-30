@@ -2,9 +2,11 @@
 .search_panel{
 	display: flex;
 	flex-direction: row;
-	width: 100%;
+	width: 950px;
 	height: auto;
+	margin: 0 auto;
 	min-height: 400px;
+	background: #fff;
 }
 .search_panel .search_input_result{
 	width: 50%;
@@ -16,7 +18,7 @@
 }
 .search_panel .search_type h3{
 	font-size: 1em;
-	margin-top: 20px;
+	margin-top: 40px;
 	margin-left:30px;
 }
 .search_panel .search_type .directory_list{

@@ -16,6 +16,11 @@ var index = new Vue({
             drawerShow:false
         }
     },
+    methods:{
+        uploadToTopic(){
+            window.location.href = "/uploadWork/2";
+        }
+    },
     created(){
         let that = this;
 
@@ -27,7 +32,6 @@ var index = new Vue({
             this.aoData.userId = urlId;
             this.aoUrl = config.ajaxUrls.getPersonalJobByUserId;
         }
-        // this.aoData.jobTag = window.location.href.split("jobTag=")[1];
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
 
         this.$Loading.start();
@@ -36,6 +40,7 @@ var index = new Vue({
             type: 'GET',
             data: this.aoData,
             success:function(res){
+                console.log(res);
                 if (res.status == 200) {
                     that.$Loading.finish();
                     that.total = res.data.count;

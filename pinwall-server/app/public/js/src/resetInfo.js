@@ -4,7 +4,7 @@ var index = new Vue({
     data(){
         return{
             containerStyle:{
-                minHeight:"",
+                margin:"",
             },
             pwdItem:{
                 password:"",
@@ -30,6 +30,9 @@ var index = new Vue({
         }
     },
     methods: {
+        submitInfo(){
+            console.log("保存我的信息修改");
+        },
         conPwdBlur(){
             if (this.pwdItem.newPwd.length >= 6) {
                 if(this.pwdItem.newPwd && this.pwdItem.confirmPassword != this.pwdItem.newPwd){
@@ -74,6 +77,6 @@ var index = new Vue({
         }
     },
     created(){
-        this.containerStyle.minHeight = document.documentElement.clientHeight - 140 + "px";
+        this.containerStyle.margin = ( document.documentElement.clientHeight - 600 ) / 2 + "px auto";
     }
 })

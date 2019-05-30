@@ -4,25 +4,36 @@
 body{
     background-color: #EFEFEF;
 }
-
+.container h4{
+	margin: 20px auto;
+    text-align: center;
+    font-size: 24px;
+    color: #bbb;
+    text-shadow: 0 1px 0 #fff;
+    font-weight: normal;
+}
 .recoverPwd_panel{
 	text-align: center;
-    width: 850px;
+    width: 950px;
     margin: 0 auto;
     background: white;
-    padding: 40px 20px;
+    padding: 40px 30px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .recoverPwd_panel .title{
-    color: #09bc72;
-    padding: 0 30px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 18px;
-    font-weight: bold;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgb(9, 188, 114);
+	margin: 15px 0px;
+	text-align: center;
 }
 .recoverPwd_panel .des{
-    color:#09bc72;width:60%;margin:20px 120px;text-align: left;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgb(9, 188, 114);
+	margin: 15px 0px;
+    width: 100%;
+    text-align: center;
 }
 .recoverPwd_panel .code_input{
 	width:200px;margin-left: -270px;

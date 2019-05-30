@@ -14,10 +14,12 @@ var projects = new Vue({
                 left:"",
                 top:""
             },
+            backTopRight:"30",
             scoresModel:false,
             optUlStyle:{
                 position: "fixed",
                 top: "",
+                bottom: "",
                 right: "30px"
             },
             deleteModal:false,
@@ -275,7 +277,17 @@ var projects = new Vue({
     created() {
         let that = this;
         this.projectStyle.minHeight = document.documentElement.clientHeight + "px";
-        this.optUlStyle.top =  document.documentElement.clientHeight / 2 - 100 + "px";
+        if(document.documentElement.clientWidth < 540){
+            this.optUlStyle.bottom = "80px";
+            this.optUlStyle.top = "";
+            this.optUlStyle.right = "4px";
+            this.backTopRight = "4";
+        }else {
+            this.backTopRight = "30";
+            this.optUlStyle.bottom = "";
+            this.optUlStyle.right = "30px";
+            this.optUlStyle.top = document.documentElement.clientHeight / 2 - 100 + "px";
+        }
         this.aoData.artifactId = window.location.href.split("project/")[1];
         this.artifactId = window.location.href.split("project/")[1];
         this.artifactCommentData.artifactId = window.location.href.split("project/")[1];

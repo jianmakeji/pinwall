@@ -188,19 +188,19 @@ body{
 }
 .button_penel a{
 	color: #67676A;
-	font-size: 18px;
+	font-size: 14px;
 	padding: 5px 10px;
 	margin-right: 20px;
 }
 .button_penel a.active{
 	color: #1CBE78;
-	font-size: 18px;
+	font-size: 14px;
 	font-weight: bold;
 	border-bottom: solid 4px #1CBE78;
 }
 .filtrate_penel .checkScore{
 	color: #1CBE78;
-	font-size: 20px;
+	font-size: 14px;
 	margin-right: 40px;
 	font-weight: bold;
 }
@@ -275,21 +275,30 @@ body{
     left: 51%;
     top: 70px;
     right: 20px;
-    overflow: hidden;
     color: #09bc72;
     margin: 0;
     line-height: 1.5em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
 }
 .de_card_m .project_info .workScore{
 	font-size: 14px;
 	font-weight: bold;
-    text-align: left;
-    position: absolute;
+	position: absolute;
+	width: 70px;
+	height: 30px;
+	line-height: 30px;
 	left: 51%;
-    bottom: 60px;
-    right: 30px;
-    overflow: hidden;
-    color: #D2061C;
+	bottom: 60px;
+	right: 30px;
+	overflow: hidden;
+	text-align: center;
+	color: #fff;
+	border-radius: 15px;
+	background: #fa5f75;
 }
 .de_stats_tags_p {
     padding: 10px 20px;
@@ -315,7 +324,7 @@ body{
 }
 .de_stats_tags_p span{
 	position: absolute;
-    top: 10px;
+    top: 13px;
 	font-size: 18px;
     width: 15px;
     height: 20px;

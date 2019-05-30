@@ -5,25 +5,34 @@ body{
 	background: #EFEFEF;
 }
 
-.container h3{
-    font-size: 22px;
+.container h4{
+	margin: 20px auto;
     text-align: center;
-    color: #09bc72;
-	margin-top:20px;
+    font-size: 24px;
+    color: #bbb;
+    text-shadow: 0 1px 0 #fff;
+    font-weight: normal;
 }
 
+.container .container_box{
+	width: 950px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin:0 auto;
+	background: #fff;
+}
 
 .resetInfo_panel{
 	display: flex;
-	flex-direction: row;
-	width: 50%;
+	flex-direction: column;
+	width: 950px;
+	height: 300px;
 	margin: 40px auto;
 	background: #fff;
-	border-radius: 5px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .resetInfo_panel .photo_field{
-    width: 100px;
 	margin: 10px;
     font-size: 12px;
 	display: flex;
@@ -60,24 +69,23 @@ body{
 }
 .resetInfo_panel .user_info{
 	width: 80%;
-	margin: 20px auto;
-	border-left: #ccc 1px dotted;
+	margin: 5px auto;
 }
 .resetInfo_panel .user_info p{
 	font-style: normal;
 	font-size: 16px;
 	font-weight: bold;
+	text-align: center;
 }
 
 /*  修改密码 */
 .resetPwd_panel {
-	width: 50%;
-	padding: 5px 10px;
+	width: 950px;
+	height: 300px;
+	padding: 5px 30px;
 	margin: 0 auto;
-	border-top: #ccc 1px dotted;
+	border-left: #ccc 1px dotted;
 	background: #fff;
-	border-radius: 5px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .footer {

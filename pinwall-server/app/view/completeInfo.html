@@ -15,8 +15,9 @@
 
 {% block container %}
 <div class="container">
+    <h4>注册/完善用户信息</h4>
     <div class="complete_box">
-        <h3>注册/完善用户信息</h3>
+        <h3 class="title">请填写相关信息</h3>
         <i-form ref="formItem" :model="formItem" :label-width="80" :rules="ruleValidate">
 			<form-item label="选择">
 		        <radio-group v-model="newOrOld" type="button" @on-change="radioChange">

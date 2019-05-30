@@ -33,11 +33,14 @@ img{
 	line-height: 60px;
 	text-align: center;
 	color: #ccc;
+    position: relative;
+    z-index: 9999;
 }
 .header .pinwall_logo{
     padding-left: 10px;
     width:120px;
     display: flex;flex-direction: row;align-items: center;justify-content: left;color: white;font-size: 18px;font-weight: bold;
+    letter-spacing: 4px;
 }
 .header .pinwall_logo div{
     width: 40px;
@@ -83,13 +86,23 @@ img{
     width: 130px;height: 100%;background:#333;color: white;
 }
 .header .login{
-    display: flex;flex-direction: row;align-items: center;position:absolute;right:20px;top: 10px;
+    display: flex;flex-direction: row;align-items: center;position:absolute;right:20px;top: 10px;letter-spacing: 2px;
 }
 .header .drawerShow{
     position:absolute;right:20px;
 }
-
-
+.de_ext_nav li{
+    box-shadow: 0 0 30px rgba(0,0,0,0.1);
+}
+.de_ext_nav .ivu-btn{
+    border-radius: 0px;
+    border: none;
+    line-height: 40px;
+    padding: 0 10px 0;
+}
+.ivu-notice{
+    top:60px;
+}
 @media screen and (min-width: 530px) and (max-width: 850px){ /*当屏幕尺寸小于992px时，应用下面的CSS样式*/
 
     .header .pinwall_logo{

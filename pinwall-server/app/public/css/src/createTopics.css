@@ -7,20 +7,26 @@ body{
 .upload_project{
 	background: #EFEFEF;
 }
-
-.container .title{
-    font-size: 20px;
+.container h4 {
+    margin: 20px auto;
     text-align: center;
-    margin-top: 20px;
+    font-size: 24px;
     color: #bbb;
-    font-weight: normal;
     text-shadow: 0 1px 0 #fff;
+    font-weight: normal;
+}
+.container .title{
+	font-weight: normal;
+    font-size: 16px;
+    color: rgb(9, 188, 114);
+    margin: 15px 0px;
+    text-align: center;
 }
 
 .topic_form{
     width: 950px;
     margin: 20px auto;
-    padding: 40px 20px;
+    padding: 20px 20px;
     background: #fff;
 }
 .topic_form button:hover{

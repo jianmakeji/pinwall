@@ -3,7 +3,7 @@ var index = new Vue({
     data(){
         return{
             containerStyle:{
-                minHeight:""
+                margin:""
             },
             formItem:{
                 newPwd:"",
@@ -60,5 +60,6 @@ var index = new Vue({
     created(){
         this.formItem.email = window.location.href.split("email=")[1].split("&")[0];
         this.formItem.activeCode = window.location.href.split("activeCode=")[1];
+        this.containerStyle.margin = (document.documentElement.clientHeight - 600) /2 + "px auto";
     }
 })
