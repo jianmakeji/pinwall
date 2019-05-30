@@ -22,7 +22,7 @@
 						<i-button icon="i-icon iconfont icon-zan1" @click="zan('{{data.userId}}','{{user.roles[0].name}}')" size="large" title="赞"></i-button>
 					</li>
 				{% endif %}
-				<li class="edit_btn" v-if="'{{user.roles[0].name}}' == 'vip' && '{{data.topics[0].userId}}' == '{{user.Id}}' && {{data.topics.length}} != 0">
+				<li class="edit_btn" v-if="( '{{user.roles[0].name}}' == 'vip' && '{{data.topics[0].userId}}' == '{{user.Id}}' && {{data.topics.length}} != 0 ) || '{{user.roles[0].name}}' == 'admin'">
 					<i-button icon="i-icon iconfont icon-score" @click="showScoreBox($event)" size="large" title="打分"></i-button>
 				</li>
 				<li class="edit_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}'  && {{data.topics.length}} != 0 || '{{data.userId}}' == '{{user.Id}}'">
@@ -61,7 +61,7 @@
                         <span>{{data.commentCount}}</span>
                     </div>
                 </div>
-				<p class="score" v-if="'{{user.roles[0].name}}' == 'vip' && '{{data.topics[0].userId}}' == '{{user.Id}}' && {{data.topics.length}} != 0" v-text="'{{data.artifact_scores[0].score}}' != 'null' && '{{data.artifact_scores[0].score}}' != '' ? {{data.artifact_scores[0].score}} + '分' : '未打分'"></p>
+				<p class="score" v-if="( '{{user.roles[0].name}}' == 'vip' && '{{data.topics[0].userId}}' == '{{user.Id}}' && {{data.topics.length}} != 0 ) || '{{user.roles[0].name}}' == 'admin' " v-text="'{{data.artifact_scores[0].score}}' != 'null' && '{{data.artifact_scores[0].score}}' != '' ? {{data.artifact_scores[0].score}} + '分' : '未打分'"></p>
                 <div class="user_info">
                     <a href="/users/{{data.user.Id}}">
 						{% if data.user.avatarUrl %}

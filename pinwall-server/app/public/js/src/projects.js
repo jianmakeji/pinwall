@@ -11,7 +11,7 @@ var projects = new Vue({
                 width:"310px",
                 height:"auto",
                 background:"#fff",
-                left:"",
+                right:"",
                 top:""
             },
             backTopRight:"30",
@@ -62,8 +62,8 @@ var projects = new Vue({
         },
         showScoreBox(event){
             this.scoresModel = true;
-            this.scoreBoxStyle.left = event.screenX  - 180 + "px";
-            this.scoreBoxStyle.top = event.screenY - 120 + "px";
+            this.scoreBoxStyle.right = document.body.clientWidth - event.pageX + 50 + "px";
+            this.scoreBoxStyle.top = event.pageY - 60 + "px";
         },
         ok() {
             let that = this;
