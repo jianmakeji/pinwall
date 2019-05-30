@@ -8,10 +8,7 @@ var index = new Vue({
                 minHeight:""
             },
             searchPanelStyle:{
-            	margin: "",
-                display:"flex",
-                flexDirection: "column",
-                paddingTop: "200px"
+                margin:""
             },
             drawerShow:false,
             scrollModel:true,
@@ -66,14 +63,14 @@ var index = new Vue({
     },
     created(){
         let that = this;
-        this.containerStyle.minHeight = document.documentElement.clientHeight - 190 + "px";
-        // this.searchPanelStyle.margin = ( document.documentElement.clientHeight - 500 ) / 2 + "px auto";
+        this.containerStyle.minHeight = document.documentElement.clientHeight - 400 + "px";
+        this.searchPanelStyle.margin = (document.documentElement.clientHeight - 600) / 2 + "px auto";
         if(document.documentElement.clientWidth > 1200){
-            this.modelWidth = "950px";
+            this.searchPanelStyle.width = "950px";
         }else if(document.documentElement.clientWidth < 1200){
-            this.modelWidth = "70%";
+            this.searchPanelStyle.width = "70%";
         }else if(document.documentElement.clientWidth < 992){
-            this.modelWidth = "80%";
+            this.searchPanelStyle.width = "80%";
         }
     }
 })
@@ -103,10 +100,11 @@ function getData(that){
             if (res.status == 200) {
                 that.$Loading.finish();
                 that.dataList = res.data.hits;
+                that.searchModel = false;
                 if (that.dataList.length == res.data.total) {
                     that.scrollModel = false;
                 }else {
-                    index.scrollModel = true;
+                    that.scrollModel = true;
                 }
             }else{
                 that.$Loading.error();

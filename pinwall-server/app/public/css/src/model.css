@@ -219,6 +219,8 @@
 	.search_panel{
 		display: flex;			/* 弹出层  */
 		flex-direction: column;	/* 弹出层  column*/
+
+		width: 100%;
 	}
 	.search_panel .search_input_result{
 		width: 100%;				/* 弹出层  100%*/

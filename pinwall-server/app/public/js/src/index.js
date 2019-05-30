@@ -8,6 +8,7 @@ var index = new Vue({
                 marginTop:"",
                 overflow: "hidden",
                 position: "relative",
+                zIndex:"1002"
             },
             screenType:"PC",
             drawerShow:false,

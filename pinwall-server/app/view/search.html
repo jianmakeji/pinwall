@@ -14,40 +14,40 @@
 {% endblock %}
 
 {% block container %}
-	<div class="container" :style="containerStyle">
-		<p class="noResult" v-if="!dataList.length && !scrollModel" v-text="'暂无相关作品:'"></p>
-		<p class="searchResult" v-if="dataList.length" v-text="'“' + searchModelValue + '”相关作品:'">:</p>
-		<div :style="searchPanelStyle">
-			<h4>探索</h4>
-			<div class="search_panel">
-				 <div class="search_input_result">
-					 <i-input v-model="searchModelValue" @on-enter="searchModelData" @on-change="searchDataChange" placeholder="作品关键词/课程/学生/老师" style="width:80%;margin-left:10%;margin-top:40px;" clearable autofocus></i-input>
-					 <div style="width:80%;margin-left:10%;">
-						 <i-table v-show="searchModelDataList.length" :columns="columns1" :data="searchModelDataList" @on-row-click="selectItem"></i-table>
-					 </div>
-				</div>
-				<div class="search_type">
-					<h3>按主题分类查看...</h3>
-					<ul class="directory_list">
-						<li>
-							<i-button type="text" style="color:#09bc72;" @click="toSearch('产品设计')">产品设计</i-button>
-							<i-button type="text" style="color:#09bc72;" @click="toSearch('交互设计')">交互设计</i-button>
-							<i-button type="text" style="color:#09bc72;" @click="toSearch('界面设计')">界面设计</i-button>
-							<i-button type="text" style="color:#09bc72;" @click="toSearch('交通工具设计')">交通工具设计</i-button>
-							<i-button type="text" style="color:#09bc72;" @click="toSearch('服务设计')">服务设计</i-button>
-							<i-button type="text" style="color:#09bc72;" @click="toSearch('平面设计')">平面设计</i-button>
-							<i-button type="text" style="color:#09bc72;" @click="toSearch('影像设计')">影像设计</i-button>
-							<i-button type="text" style="color:#09bc72;" @click="toSearch('工业设计史')">工业设计史</i-button>
-							<i-button type="text" style="color:#09bc72;" @click="toSearch('汽车造型设计理论与研究')">汽车造型设计理论与研究</i-button>
-							<i-button type="text" style="color:#09bc72;" @click="toSearch('设计概论')">设计概论</i-button>
-							<i-button type="text" style="color:#09bc72;" @click="toSearch('计算机辅助设计3')">计算机辅助设计3</i-button>
-							<i-button type="text" style="color:#09bc72;" @click="toSearch('数字界面原型')">数字界面原型</i-button>
-						</li>
-					</ul>
-				</div>
+	<div class="search_box" :style="searchPanelStyle" v-show="searchModel">
+		<h4>探索</h4>
+		<div class="search_panel">
+			 <div class="search_input_result">
+				 <i-input v-model="searchModelValue" @on-enter="searchModelData" @on-change="searchDataChange" placeholder="作品关键词/课程/学生/老师" style="width:80%;margin-left:10%;margin-top:40px;" clearable autofocus></i-input>
+				 <div style="width:80%;margin-left:10%;">
+					 <i-table v-show="searchModelDataList.length" :columns="columns1" :data="searchModelDataList" @on-row-click="selectItem"></i-table>
+				 </div>
+			</div>
+			<div class="search_type">
+				<h3>按主题分类查看...</h3>
+				<ul class="directory_list">
+					<li>
+						<i-button type="text" style="color:#09bc72;" @click="toSearch('产品设计')">产品设计</i-button>
+						<i-button type="text" style="color:#09bc72;" @click="toSearch('交互设计')">交互设计</i-button>
+						<i-button type="text" style="color:#09bc72;" @click="toSearch('界面设计')">界面设计</i-button>
+						<i-button type="text" style="color:#09bc72;" @click="toSearch('交通工具设计')">交通工具设计</i-button>
+						<i-button type="text" style="color:#09bc72;" @click="toSearch('服务设计')">服务设计</i-button>
+						<i-button type="text" style="color:#09bc72;" @click="toSearch('平面设计')">平面设计</i-button>
+						<i-button type="text" style="color:#09bc72;" @click="toSearch('影像设计')">影像设计</i-button>
+						<i-button type="text" style="color:#09bc72;" @click="toSearch('工业设计史')">工业设计史</i-button>
+						<i-button type="text" style="color:#09bc72;" @click="toSearch('汽车造型设计理论与研究')">汽车造型设计理论与研究</i-button>
+						<i-button type="text" style="color:#09bc72;" @click="toSearch('设计概论')">设计概论</i-button>
+						<i-button type="text" style="color:#09bc72;" @click="toSearch('计算机辅助设计3')">计算机辅助设计3</i-button>
+						<i-button type="text" style="color:#09bc72;" @click="toSearch('数字界面原型')">数字界面原型</i-button>
+					</li>
+				</ul>
 			</div>
 		</div>
-		<ul class="de_project_grid" v-show="searchModel">
+	</div>
+	<div class="container" :style="containerStyle" v-if="!searchModel">
+		<p class="noResult" v-if="!dataList.length && !scrollModel" v-text="'暂无相关作品:'"></p>
+		<p class="searchResult" v-if="dataList.length" v-text="'“' + searchModelValue + '”相关作品:'">:</p>
+		<ul class="de_project_grid">
 			<row>
 				<i-col :xs="24" :sm="12" :md="8" :lg="8" v-for="item in dataList">
 					<li class="de_card_m">
@@ -82,39 +82,7 @@
 				</i-col>
 			</row>
 		</ul>
-
 	</div>
-
-	<!-- 搜索弹出层 -->
-	<!-- <modal v-model="searchModel" title="探索" footer-hide :width="modelWidth">
-	   <div class="search_panel">
-			<div class="search_input_result">
-				<i-input v-model="searchModelValue" @on-enter="searchModelData" @on-change="searchDataChange" placeholder="作品关键词/课程/学生/老师" style="width:80%;margin-left:10%;margin-top:30px;" clearable autofocus></i-input>
-				<div style="width:80%;margin-left:10%;">
-					<i-table v-show="searchModelDataList.length" :columns="columns1" :data="searchModelDataList" @on-row-click="selectItem"></i-table>
-				</div>
-		   </div>
-		   <div class="search_type">
-			   <h3>按主题分类查看...</h3>
-			   <ul class="directory_list">
-				   <li>
-					   <i-button type="text" style="color:#09bc72;" @click="toSearch('产品设计')">产品设计</i-button>
-					   <i-button type="text" style="color:#09bc72;" @click="toSearch('交互设计')">交互设计</i-button>
-					   <i-button type="text" style="color:#09bc72;" @click="toSearch('界面设计')">界面设计</i-button>
-					   <i-button type="text" style="color:#09bc72;" @click="toSearch('交通工具设计')">交通工具设计</i-button>
-					   <i-button type="text" style="color:#09bc72;" @click="toSearch('服务设计')">服务设计</i-button>
-					   <i-button type="text" style="color:#09bc72;" @click="toSearch('平面设计')">平面设计</i-button>
-					   <i-button type="text" style="color:#09bc72;" @click="toSearch('影像设计')">影像设计</i-button>
-					   <i-button type="text" style="color:#09bc72;" @click="toSearch('工业设计史')">工业设计史</i-button>
-					   <i-button type="text" style="color:#09bc72;" @click="toSearch('汽车造型设计理论与研究')">汽车造型设计理论与研究</i-button>
-					   <i-button type="text" style="color:#09bc72;" @click="toSearch('设计概论')">设计概论</i-button>
-					   <i-button type="text" style="color:#09bc72;" @click="toSearch('计算机辅助设计3')">计算机辅助设计3</i-button>
-					   <i-button type="text" style="color:#09bc72;" @click="toSearch('数字界面原型')">数字界面原型</i-button>
-				   </li>
-			   </ul>
-		   </div>
-	   </div>
-	</modal> -->
 {% endblock %}
 
 {% block jsfolder %}
