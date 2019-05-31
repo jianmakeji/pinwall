@@ -170,7 +170,7 @@ body{
 
 	.container .container_header {
 	    color: rgb(153, 153, 153);
-	    margin: 20px;
+	    margin: 20px 30px;
 	    display: flex;
 	    flex-direction: row;
 	    justify-content: space-between;
@@ -189,7 +189,7 @@ body{
 
 	.container .container_header {
 	    color: rgb(153, 153, 153);
-	    margin: 20px;
+	    margin: 20px 30px;
 	    display: flex;
 	    flex-direction: row;
 	    justify-content: space-between;
