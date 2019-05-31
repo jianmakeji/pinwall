@@ -6,7 +6,8 @@ var index = new Vue({
                 width: "100%",
                 height: "",
                 marginTop:"",
-                overflow: "hidden"
+                overflow: "hidden",
+                position: "relative",
             },
             screenType:"PC",
             drawerShow:false,
