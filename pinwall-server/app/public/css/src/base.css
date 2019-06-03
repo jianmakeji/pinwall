@@ -145,11 +145,15 @@ img{
     }
     .header .user_profile{
         right: 0px;
-        width: 100px;
+        width: 90px;
         top: 10px;
     }
     .header .user_profile span{
         display: none;
+    }
+    .header .user_profile .photo{
+        width: 35px;
+        height: 35px;
     }
     .header .drawerShow{
         position: absolute;

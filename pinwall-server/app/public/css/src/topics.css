@@ -208,7 +208,13 @@ body{
 
 }
 @media screen and (max-width: 540px){  /* 当屏幕尺寸小于1200px时，应用下面的CSS样式 */
-
+	.container .container_header{
+		margin: 20px 15px;
+		align-items: center;
+	}
+	.de_topic_box{
+		margin: 20px 15px;
+	}
 	.container_header .title .name{
 	    display: none;
 	}
@@ -217,8 +223,11 @@ body{
 		width: 60px;
 	}
 	.container_header .ivu-input-wrapper{
-		margin-left:20px;
-		width: 100px;
+		margin-left:0px;
+		width: 100%;
+	}
+	.topic_info .topic_title{
+		width: 100%;
 	}
 }
 .footer {

@@ -53,10 +53,11 @@ body{
 }
 @media screen and (max-width: 540px){  /* 当屏幕尺寸小于540px时，应用下面的CSS样式 */
 	.recoverPwd_panel{
-	    width: auto;
+	    width: 96%;
+		padding: 20px 30px;
 	}
 	.recoverPwd_panel .des{
-	    color:#09bc72;width:100%;margin:0 auto;text-align: left;
+	    color:#09bc72;width:100%;margin:0 auto;text-align: center;
 	}
 	.recoverPwd_panel .code_input{
 		width:auto;margin-left: 0;

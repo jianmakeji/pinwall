@@ -138,6 +138,7 @@ body{
 	font-size: 16px;
 	color: #09bc72;
 	margin: 15px 0;
+	text-align: left;
 }
 
 
@@ -147,11 +148,11 @@ body{
 	.login_panel {
 	    display: flex;
 	    flex-direction: column;
-	    width: 350px;
+	    width: 96%;
 	    height: 500px;
 	    margin: 0 auto;
 	    background: white;
-	    padding: 10px 20px;
+	    padding: 10px 0px;
 	    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	}
 	.login_panel .login_info{
@@ -160,14 +161,24 @@ body{
 	}
 
 	.login_panel .register {
-	    width: 100%;
-	    padding-left: 60px;
+	    width: 350px;;
+	    padding-left: 20px;
 	    border-left: none;
 	    border-top: #ccc 1px dotted;
-	    margin-left: 20px;
+	    margin-left: 00px;
 	}
 	.login_panel .rememberPwd .wxLoginBtn {
 	    margin-left: 60px;
+	}
+	.login_panel .forgetPwd{
+		margin-left: 15px;
+	}
+	.login_panel .register h3{
+		text-align: center;
+	}
+	.login_panel .register a{
+		margin-left: 60px;
+		width: 120px;
 	}
 }
 
@@ -181,5 +192,5 @@ body{
 	overflow: hidden;
 	text-align: center;
 	position: absolute;
-	bottom: 0px;
+	margin-top: 0px;
 }

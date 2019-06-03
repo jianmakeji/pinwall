@@ -8,7 +8,8 @@ var index = new Vue({
                 minHeight:""
             },
             searchPanelStyle:{
-                margin:""
+                margin:"",
+                width:""
             },
             drawerShow:false,
             scrollModel:true,
@@ -63,14 +64,22 @@ var index = new Vue({
     },
     created(){
         let that = this;
-        this.containerStyle.minHeight = document.documentElement.clientHeight - 400 + "px";
-        this.searchPanelStyle.margin = (document.documentElement.clientHeight - 600) / 2 + "px auto";
-        if(document.documentElement.clientWidth > 1200){
+        let clientWidth = document.documentElement.clientWidth;
+        let clientHeight = document.documentElement.clientHeight;
+        if (clientHeight < 600) {
+            this.searchPanelStyle.margin = "0px auto";
+        } else {
+            this.searchPanelStyle.margin = (clientHeight - 600) / 2 + "px auto";
+        }
+        this.containerStyle.minHeight = clientHeight - 400 + "px";
+        if(clientWidth > 1200){
             this.searchPanelStyle.width = "950px";
-        }else if(document.documentElement.clientWidth < 1200){
+        }else if(clientWidth < 1200 && clientWidth > 992){
             this.searchPanelStyle.width = "70%";
-        }else if(document.documentElement.clientWidth < 992){
+        }else if(clientWidth < 992 && clientWidth > 540){
             this.searchPanelStyle.width = "80%";
+        }else{
+            this.searchPanelStyle.width = "96%";
         }
     }
 })

@@ -200,8 +200,18 @@ body{
 		width: 60px;
 	}
 	.container_header .ivu-input-wrapper{
-		margin-left:20px;
-		width: 100px;
+		margin-left:0px;
+		width: 100%;
+	}
+	.container .container_header{
+		margin: 20px 15px;
+		align-items: center;
+	}
+	.de_topic_box{
+		margin: 20px 15px;
+	}
+	.topic_info .topic_title{
+		width: 100%;
 	}
 }
 .footer {

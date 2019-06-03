@@ -159,6 +159,7 @@ var index = new Vue({
         if (window.location.href.split("?")[1]) {
             myTopics = window.location.href.split("=")[1];
             this.aoData.userId = 0;
+            this.aoData.status = -1;
             this.checkAllType = "text";
             this.checkOpenType = "text";
             this.checkCloseType = "text";

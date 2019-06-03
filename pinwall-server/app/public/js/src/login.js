@@ -3,7 +3,13 @@ var index = new Vue({
     data() {
         return {
             containerStyle: {
-                "margin": "",
+                margin: "",
+                minHeight:"500px",
+            },
+            iframeStyle:{
+                width:"",
+                height:"440px",
+                border: "none"
             },
             single: true,
             drawerShow: false,
@@ -41,7 +47,13 @@ var index = new Vue({
         }
     },
     created() {
-        this.containerStyle.margin = (document.documentElement.clientHeight - 450) / 2 - 90 + "px auto";
+        if (document.documentElement.clientHeight < 780) {
+            this.containerStyle.margin = "10px auto";
+            this.iframeStyle.width = "100%";
+        } else {
+            this.iframeStyle.width = "450px";
+            this.containerStyle.margin = (document.documentElement.clientHeight - 450) / 2 - 90 + "px auto";
+        }
         let that = this;
         if (document.documentElement.clientWidth > 1200) {
             this.modelWidth = "60%";

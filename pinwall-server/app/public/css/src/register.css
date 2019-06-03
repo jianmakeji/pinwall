@@ -34,7 +34,9 @@ body{
     top: -15px;
     left: 220px;
 }
-
+.register_panel .captchaText{
+	width:200px;margin-top:-40px;
+}
 .footer {
 	padding: 5px 0;
 	color: #999;
@@ -45,11 +47,14 @@ body{
 	overflow: hidden;
 	text-align: center;
     position: absolute;
-    bottom: 0px
+	margin-top: 10px;
 }
 @media screen and (max-width: 540px){  /* 当屏幕尺寸小于540px时，应用下面的CSS样式 */
 
 	.register_panel {
-	    width: auto;
+	    width: 96%;
+	}
+	.register_panel .captchaText{
+		margin-top:0px;
 	}
 }

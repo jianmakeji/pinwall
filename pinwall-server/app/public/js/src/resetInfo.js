@@ -77,6 +77,12 @@ var index = new Vue({
         }
     },
     created(){
-        this.containerStyle.margin = ( document.documentElement.clientHeight - 600 ) / 2 + "px auto";
+        let clientWidth = document.documentElement.clientWidth;
+        let clientHeight = document.documentElement.clientHeight;
+        if (clientHeight < 600) {
+            this.containerStyle.margin = "0px auto";
+        } else {
+            this.containerStyle.margin = ( clientHeight - 600 ) / 2 + "px auto";
+        }
     }
 })

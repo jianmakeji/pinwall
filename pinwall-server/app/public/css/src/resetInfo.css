@@ -102,14 +102,20 @@ body{
     bottom: 10px;
 }
 @media screen and (max-width: 540px){  /* 当屏幕尺寸小于1200px时，应用下面的CSS样式 */
-
+	.container .container_box{
+		width: 96%;
+		flex-direction: column;
+	}
 	.resetInfo_panel {
-	    width: 93%;
-	    margin: 40px auto;
+	    width: 100%;
+	    margin: 0px auto;
+		height: auto;
 	}
 	.resetPwd_panel{
-		width: 93%;
+		width: 100%;
 		margin: 10px auto;
+		border-left: none;
+		border-top: #ccc 1px dotted;
 	}
 
 	.footer {
