@@ -146,6 +146,22 @@ class UsersController extends BaseController {
     }
   }
 
+  async findByFullname(){
+    const ctx = this.ctx;
+    let query = {
+      offset : ctx.helper.parseInt(ctx.params.offset),
+      limit : ctx.helper.parseInt(ctx.params.limit),
+      fullname : ctx.query.fullname,
+    };
+    try{
+      const result = await ctx.service.users.searchByUsername(query));
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
 }
 
 module.exports = UsersController;

@@ -132,6 +132,8 @@ module.exports = app => {
   router.post('wx.users.bindWeixinInfoByEmail', '/wx/users/bindWeixinInfoByEmail', controller.wx.users.bindWeixinInfoByEmail);
   router.get('wx.users.getWxActiveCodeByEmail', '/wx/users/getWxActiveCodeByEmail', controller.wx.users.getWxActiveCodeByEmail);
   router.get('wx.users.refreshUserInfo', '/wx/users/refreshUserInfo/:id', controller.wx.users.refreshUserInfo);
+  router.get('wx.users.findByFullname', '/wx/users/findByFullname', controller.wx.users.findByFullname);
+  router.get('wx.topics.searchByTopicName', '/wx/topics/searchByTopicName', controller.wx.topics.searchByTopicName);
 
   router.get('/wx/users/getWxCode', controller.wx.users.getWxCode);
   router.post('/wx/artifacts/createComment', controller.wx.artifacts.createComment);

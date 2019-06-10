@@ -346,6 +346,30 @@ module.exports = app => {
     });
   }
 
+  Artifacts.getWxMedalDataByRandom = async function(){
+    return this.findAll({
+      where:{
+        medalCount:{
+          [app.Sequelize.Op.gt]:0
+        },
+        visible:0,
+      },
+      order:[['createAt', 'DESC']],
+      limit: 12,
+      include: [{
+          model: app.model.Users,
+          attributes:['Id','fullname','avatarUrl']
+      },{
+        model: app.model.Topics,
+        through:{
+          attributes:['topicId','artifactId'],
+        },
+        attributes:['Id','name','userId','status']
+      }],
+      //attributes:['Id','userId','name','profileImage']
+    });
+  }
+
   Artifacts.findArtifactByTime = async function(lastSyncTime,tag) {
     let condition = {
       include: [{

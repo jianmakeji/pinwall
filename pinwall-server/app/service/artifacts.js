@@ -632,6 +632,21 @@ class Artifacts extends Service {
       return false;
     }
   }
+
+  async getWxMedalDataByRandom(limit){
+    const app = this.ctx.app;
+    const listData = await this.ctx.model.Artifacts.getWxMedalDataByRandom();
+    const max = listData.length;
+    if(max > 0){
+        listData.forEach((element, index)=>{
+            let profileImage = element.profileImage;
+            if (profileImage.indexOf('pinwall.fzcloud') == -1 && profileImage.indexOf('design.hnu.edu.cn') == -1){
+                element.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
+            }
+        });
+    }
+    return listData;
+  }
 }
 
 module.exports = Artifacts;
