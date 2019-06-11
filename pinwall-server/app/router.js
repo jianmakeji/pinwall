@@ -131,6 +131,8 @@ module.exports = app => {
   router.post('wx.users.createWxUser', '/wx/users/createWxUser', controller.wx.users.createWxUser);
   router.post('wx.users.bindWeixinInfoByEmail', '/wx/users/bindWeixinInfoByEmail', controller.wx.users.bindWeixinInfoByEmail);
   router.get('wx.users.getWxActiveCodeByEmail', '/wx/users/getWxActiveCodeByEmail', controller.wx.users.getWxActiveCodeByEmail);
+  router.put('wx.users.updateUserIntro', '/wx/users/updateUserIntro/:id', controller.wx.users.updateUserIntro);
+
   router.get('wx.users.refreshUserInfo', '/wx/users/refreshUserInfo/:id', controller.wx.users.refreshUserInfo);
   router.get('wx.users.findByFullname', '/wx/users/findByFullname', controller.wx.users.findByFullname);
   router.get('wx.users.getUserInfoById', '/wx/users/getUserInfoById', controller.wx.users.getUserInfoById);

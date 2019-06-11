@@ -54,7 +54,7 @@ class UsersController extends BaseController{
 
   async update() {
     const ctx = this.ctx;
-    const id = ctx.params.id;
+    const id = ctx.user.Id;
     const updates = {
       intro: ctx.request.body.intro,
     };

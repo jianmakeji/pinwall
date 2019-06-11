@@ -174,6 +174,22 @@ class UsersController extends BaseController {
     }
   }
 
+  async updateUserIntro(){
+    onst ctx = this.ctx;
+    const id = ctx.helper.parseInt(ctx.params.id);
+    const updates = {
+      intro: ctx.request.body.intro,
+    };
+
+    try{
+      await ctx.service.users.update({ id, updates });
+      super.success('更新成功!');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
 }
 
 module.exports = UsersController;
