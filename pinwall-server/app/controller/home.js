@@ -191,8 +191,10 @@ class HomeController extends BaseController {
 
   async resetInfo(){
     const ctx = this.ctx;
+    let userInfo = await ctx.service.users.getUserInfoById(ctx.user.Id);
     await ctx.render('resetInfo.html',{
-        user:ctx.user
+        user:ctx.user,
+        userInfo:userInfo
     });
   }
 
