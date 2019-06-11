@@ -507,7 +507,7 @@ module.exports = app => {
   }
 
   Users.getUserIntroById = async function(userId){
-    if (id.length > 0){
+
       let condition = {
         where:{
           Id:userId
@@ -515,10 +515,7 @@ module.exports = app => {
         attributes:['Id','intro']
       }
       return this.findAll(condition);
-    }
-    else{
-      return {};
-    }
+    
   }
 
   return Users;
