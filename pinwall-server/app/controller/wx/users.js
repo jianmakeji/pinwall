@@ -175,7 +175,7 @@ class UsersController extends BaseController {
   }
 
   async updateUserIntro(){
-    onst ctx = this.ctx;
+    const ctx = this.ctx;
     const id = ctx.helper.parseInt(ctx.params.id);
     const updates = {
       intro: ctx.request.body.intro,

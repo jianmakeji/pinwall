@@ -6,6 +6,7 @@ var index = new Vue({
             containerStyle:{
                 margin:"",
             },
+            intro:"",
             pwdItem:{
                 password:"",
                 newPwd:"",
@@ -31,7 +32,23 @@ var index = new Vue({
     },
     methods: {
         submitInfo(){
-            console.log("保存我的信息修改");
+            let that = this;
+            this.$Loading.start();
+            $.ajax({
+                url: '/website/users/0',
+                type: 'PUT',
+                data: {
+                    intro:that.intro
+                },
+                success(res){
+                    if(res.status == 200){
+                        that.$Loading.finish();
+                        that.$Notice.success({ title: res.data, duration:2});
+                    }else{
+                        that.$Notice.error({ title: res.data, duration:2});
+                    }
+                }
+            });
         },
         conPwdBlur(){
             if (this.pwdItem.newPwd.length >= 6) {

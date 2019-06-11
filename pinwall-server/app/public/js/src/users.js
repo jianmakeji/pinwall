@@ -40,7 +40,6 @@ var index = new Vue({
             type: 'GET',
             data: this.aoData,
             success:function(res){
-                console.log(res);
                 if (res.status == 200) {
                     that.$Loading.finish();
                     that.total = res.data.count;

@@ -62,7 +62,7 @@
 				</i-col>
 			</row>
 		</div>
-		<p class="topic_description"></p>
+		<p class="topic_description" v-text="userInfo.intro"></p>
 
 		<ul class="de_project_grid">
 			<row>
@@ -77,7 +77,6 @@
 						</div>
 						<div class="project_info">
 							<a :href="'/project/'+item.Id" target="_blank">
-								<!-- <img class="thumb" :src="item.profileImage" alt=""> -->
 								<img class="thumb" v-lazy="item.profileImage" loading="../public/images/default_thumb_500.png">
 								<h4 v-text="item.name"></h4>
 							</a>
