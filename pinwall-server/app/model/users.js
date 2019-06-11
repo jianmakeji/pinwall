@@ -60,6 +60,10 @@ module.exports = app => {
       type: STRING(20),
       allowNull: true
     },
+    intro: {
+      type: STRING(255),
+      allowNull: true
+    },
     active: {
       type: BOOLEAN,
       allowNull: true
