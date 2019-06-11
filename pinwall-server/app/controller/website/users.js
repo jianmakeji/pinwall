@@ -56,7 +56,7 @@ class UsersController extends BaseController{
     const ctx = this.ctx;
     const id = ctx.params.id;
     const updates = {
-      mobile: ctx.request.body.mobile,
+      intro: ctx.request.body.intro,
     };
 
     try{
