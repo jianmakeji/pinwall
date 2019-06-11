@@ -154,7 +154,7 @@ class UsersController extends BaseController {
       fullname : ctx.query.fullname,
     };
     try{
-      const result = await ctx.service.users.searchByUsername(query));
+      const result = await ctx.service.users.searchByUsername(query);
       super.success(result);
     }
     catch(e){
