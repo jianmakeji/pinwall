@@ -155,6 +155,10 @@ class Topics extends Service {
   async findArtifactByTopicId(topicId){
     return await this.ctx.model.Topics.findArtifactByTopicId(topicId);
   }
+
+  async countTopicsByUserId(userId){
+    return await this.ctx.model.Topics.countTopicsByUserId(userId);
+  }
 }
 
 module.exports = Topics;

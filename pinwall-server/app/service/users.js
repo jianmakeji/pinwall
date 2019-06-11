@@ -195,6 +195,10 @@ class Users extends Service {
   async searchUserInfoByKeyword(keyword, type){
     return await this.ctx.model.Users.searchUserInfoByKeyword(keyword, type);
   }
+
+  async getUserInfoById(userId){
+    return await this.ctx.model.Users.getUserInfoById(userId);
+  }
 }
 
 module.exports = Users;

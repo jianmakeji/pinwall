@@ -443,7 +443,8 @@ module.exports = app => {
       order: [[ 'createAt', 'desc' ], [ 'Id', 'desc' ]],
       include:[
         app.model.Roles
-      ]
+      ],
+      attributes:['Id','email','fullname','avatarUrl']
     };
 
     if(email != null && email !=''){
@@ -460,7 +461,8 @@ module.exports = app => {
     let condition = {
       where:{
 
-      }
+      },
+      attributes:['Id','email','fullname','avatarUrl']
     }
 
     if (type == 1){
@@ -480,6 +482,24 @@ module.exports = app => {
     }
 
     return this.findAll(condition);
+  }
+
+  Users.getUserInfoById = async function(userId){
+    let id = userId.split(',');
+    if (id.length > 0){
+      let condition = {
+        where:{
+          Id:{
+            [app.Sequelize.Op.in]:id
+          }
+        },
+        attributes:['Id','email','fullname','avatarUrl']
+      }
+      return this.findAll(condition);
+    }
+    else{
+      return {};
+    }
   }
 
   return Users;

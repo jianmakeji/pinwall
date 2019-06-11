@@ -91,7 +91,19 @@ class TopicsController extends BaseController{
     }
   }
 
+  async countTopicsByUserId() {
+    const ctx = this.ctx;
+    const userId = ctx.helper.parseInt(ctx.query.userId);
 
+    try{
+      let result = await ctx.service.topics.countTopicsByUserId(userId);
+      ctx.body = result;
+    }
+    catch(e){
+      console.log(e);
+      super.failure(e.message);
+    }
+  }
 }
 
 module.exports = TopicsController;

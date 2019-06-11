@@ -4,8 +4,9 @@ class ArtifactsController extends BaseController{
 
     async getMedalDataByRandom(){
       const ctx = this.ctx;
+      const limit = ctx.params.limit;
       try{
-        ctx.body = await ctx.service.artifacts.getWxMedalDataByRandom();
+        ctx.body = await ctx.service.artifacts.getMedalDataByRandom(limit);
       }
       catch(e){
         super.failure(e.message);

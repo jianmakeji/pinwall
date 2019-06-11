@@ -406,5 +406,13 @@ module.exports  = app => {
     });
   }
 
+  Topics.countTopicsByUserId = async function(userId){
+    return await this.count({
+      where:{
+        userId:userId
+      }
+    });
+  }
+
   return Topics;
 };

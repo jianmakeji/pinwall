@@ -134,7 +134,8 @@ module.exports = app => {
   router.get('wx.users.refreshUserInfo', '/wx/users/refreshUserInfo/:id', controller.wx.users.refreshUserInfo);
   router.get('wx.users.findByFullname', '/wx/users/findByFullname', controller.wx.users.findByFullname);
   router.get('wx.topics.searchByTopicName', '/wx/topics/searchByTopicName', controller.wx.topics.searchByTopicName);
-
+  router.get('wx.topics.countTopicsByUserId', '/wx/topics/countTopicsByUserId', controller.wx.topics.countTopicsByUserId);
+  
   router.get('/wx/users/getWxCode', controller.wx.users.getWxCode);
   router.post('/wx/artifacts/createComment', controller.wx.artifacts.createComment);
   router.post('/wx/artifacts/createScore', controller.wx.artifacts.createScore);

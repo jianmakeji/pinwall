@@ -162,6 +162,18 @@ class UsersController extends BaseController {
     }
   }
 
+  async getUserInfoById(){
+    const ctx = this.ctx;
+
+    try{
+      const result = await ctx.service.users.getUserInfoById(ctx.query.userId));
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
 }
 
 module.exports = UsersController;
