@@ -166,7 +166,7 @@ class UsersController extends BaseController {
     const ctx = this.ctx;
 
     try{
-      const result = await ctx.service.users.getUserInfoById(ctx.query.userId));
+      const result = await ctx.service.users.getUserInfoById(ctx.query.userId);
       super.success(result);
     }
     catch(e){
