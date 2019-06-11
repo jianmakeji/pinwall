@@ -199,6 +199,10 @@ class Users extends Service {
   async getUserInfoById(userId){
     return await this.ctx.model.Users.getUserInfoById(userId);
   }
+
+  async getUserIntroById(userId){
+    return await this.ctx.model.Users.getUserIntroById(userId);
+  }
 }
 
 module.exports = Users;
