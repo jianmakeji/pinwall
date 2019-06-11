@@ -507,13 +507,10 @@ module.exports = app => {
   }
 
   Users.getUserIntroById = async function(userId){
-    let id = userId.split(',');
     if (id.length > 0){
       let condition = {
         where:{
-          Id:{
-            [app.Sequelize.Op.in]:id
-          }
+          Id:userId
         },
         attributes:['Id','intro']
       }
