@@ -12,6 +12,8 @@ Page({
     * 页面的初始数据
     */
    data: {
+      tabIndexNum: "3",
+      statusHeight: false,
       isLogin: "",
       username: "",
       password: "",
@@ -19,7 +21,9 @@ Page({
 
       modalVisible: false,
 
-      userData: ""
+      userData: "",
+      myTopicNum:0,
+      myTopicsData:[]
    },
    //记住我选择
    handleAnimalChange({
@@ -154,11 +158,26 @@ Page({
          url: '/pages/topics/myTopics/myTopics' + "?userId=" + userId + "&jobTag=1",
       })
    },
+   // 修改个人信息
+   userInfoChange(event){
+      wx.navigateTo({
+         url: '/pages/my/resetInfo/resetInfo' + "?userId=" + wx.getStorageSync("myId"),
+      })
+   },
    /**
     * 生命周期函数--监听页面加载
     */
    onLoad: function(options) {
-
+      let that = this;
+      if (app.globalData.statusBarHeight == 44) {
+         that.setData({
+            statusHeight: true
+         })
+      } else {
+         that.setData({
+            statusHeight: false
+         })
+      }
    },
 
    /**
@@ -181,9 +200,6 @@ Page({
             index: 3,
             text: "我的"
          })
-         wx.setNavigationBarTitle({
-            title: '我的',
-         })
          let myId = wx.getStorageSync("myId");
          wx.request({
             url: app.globalData.baseUrl + app.globalData.refreshUserInfo + myId,
@@ -191,6 +207,31 @@ Page({
                if (res.data.status == 200) {
                   that.setData({
                      userData: res.data.data
+                  })
+               }
+            }
+         })
+         wx.request({
+            url: app.globalData.baseUrl + app.globalData.getPersonalJobByUserId,
+            data: { limit: 5,offset: 0,userId: myId,jobTag: 0 },
+            method: "GET",
+            success(res) {
+               if (res.data.status == 200) {
+                  if (res.data.data.rows.length) {
+                     that.setData({
+                        myTopicsData: res.data.data.rows
+                     })
+                  }
+               }
+            }
+         })
+         wx.request({
+            url: app.globalData.baseUrl + app.globalData.countTopicsByUserId + "?userId=" + myId,
+            method: "GET",
+            success(res) {
+               if (res.statusCode == 200) { 
+                  that.setData({
+                     myTopicNum: res.data
                   })
                }
             }
@@ -207,41 +248,6 @@ Page({
             title: '绑定',
          })
       }
-   },
-
-   /**
-    * 生命周期函数--监听页面隐藏
-    */
-   onHide: function() {
-
-   },
-
-   /**
-    * 生命周期函数--监听页面卸载
-    */
-   onUnload: function() {
-
-   },
-
-   /**
-    * 页面相关事件处理函数--监听用户下拉动作
-    */
-   onPullDownRefresh: function() {
-
-   },
-
-   /**
-    * 页面上拉触底事件的处理函数
-    */
-   onReachBottom: function() {
-
-   },
-
-   /**
-    * 用户点击右上角分享
-    */
-   onShareAppMessage: function() {
-
    }
 })
 

@@ -1,0 +1,13 @@
+<view class="navBar {{ statusHeight ? 'highStatus' : 'lowStatus' }}">
+   <view class='searchBox' wx:if="{{tabIndex === '1'}}" catchtap="_tapSearchBar">
+      <i-icon type="search" size="28" color="#80848f" />
+      <text class='searchDes'>探索你想知道的...</text>
+   </view>
+   <view class='backBox' wx:if="{{tabIndex === '2'}}" catchtap="_tapBack">
+      <i-icon type="return" size="28" color="#000" />
+      <text class='backDes'>{{backDes}}</text>
+   </view>
+   <view class='titleBox' wx:if="{{tabIndex === '3'}}" catchtap="_tapBack">
+      <text class='topicTitle'>{{topicTitle}}</text>
+   </view>
+</view>

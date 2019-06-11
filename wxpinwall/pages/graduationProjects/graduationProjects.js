@@ -5,49 +5,49 @@ Page({
    data: {
       tabIndex: 0,
       statusHeight: false,
-      tabIndexNum:"3",
+      tabIndexNum: "3",
       tabs: [
          { title: '全部' },
          { title: '开放中' },
          { title: '已存档' },
          { title: '由我创建' }
       ],
-      showPackUp:false,
-      loading:false,
+      showPackUp: false,
+      loading: false,
       //请求参数
       limit: 10,
       offset: 0,
-      jobTag: 1,     //1作业荚，0毕设展
-      subLimit: 5,   
+      jobTag: 2,
+      subLimit: 5,
       status: -1,
       userId: -1,
       //数据数组
       dataList: []
    },
-   tabchange: function(e) {
+   tabchange: function (e) {
       let tab_index = e.detail.key;
-      if (tab_index == 0) {   //全部
+      if (tab_index == 0) {
          this.setData({
             offset: 0,
             status: -1,
             userId: -1
          })
-         getData(this,"init");
-      } else if (tab_index == 1) {   //开放中
+         getData(this, "init");
+      } else if (tab_index == 1) {
          this.setData({
             offset: 0,
             status: 0,
             userId: -1
          })
          getData(this, "init");
-      } else if (tab_index == 2) {  //已存档
+      } else if (tab_index == 2) {
          this.setData({
             offset: 0,
             status: 1,
             userId: -1
          })
          getData(this, "init");
-      } else if (tab_index == 3) {  //由我创建
+      } else if (tab_index == 3) {
          this.setData({
             offset: 0,
             status: -1,
@@ -62,7 +62,7 @@ Page({
          url: '/pages/topics/topicDetail/topicDetail' + "?topicId=" + topicId,
       });
    },
-   tapPackUp(){
+   tapPackUp() {
       wx.pageScrollTo({
          scrollTop: 0,
       })
@@ -83,7 +83,7 @@ Page({
       }
       getData(this, "init");
    },
-   onShow:function(){
+   onShow: function () {
       wx.setNavigationBarTitle({
          title: '作业荚',
       })
@@ -91,19 +91,19 @@ Page({
    /**
     * 页面相关事件处理函数--监听用户下拉动作
     */
-   onPullDownRefresh: function() {
+   onPullDownRefresh: function () {
       let that = this;
       this.setData({
          offset: 0,
       })
-      getData(this,"init");
+      getData(this, "init");
    },
-   onPageScroll(event){
-      if (event.scrollTop > 200){
+   onPageScroll(event) {
+      if (event.scrollTop > 200) {
          this.setData({
-            showPackUp:true
+            showPackUp: true
          })
-      }else{
+      } else {
          this.setData({
             showPackUp: false
          })
@@ -112,11 +112,11 @@ Page({
    /**
     * 页面上拉触底事件的处理函数
     */
-   onReachBottom: function() {
+   onReachBottom: function () {
       let that = this;
       this.setData({
          offset: this.data.offset + 10,
-         loading:true
+         loading: true
       })
       getData(this, "more");
    },
@@ -124,13 +124,13 @@ Page({
    /**
     * 用户点击右上角分享
     */
-   onShareAppMessage: function() {
+   onShareAppMessage: function () {
 
    }
 })
 
 // 数据请求
-function getData(that, type){
+function getData(that, type) {
    wx.request({
       url: app.globalData.baseUrl + app.globalData.topics,
       data: {
@@ -144,7 +144,7 @@ function getData(that, type){
       method: "GET",
       success(res) {
          if (res.data.status == 200) {
-            if(type == "init"){
+            if (type == "init") {
                that.setData({
                   dataList: res.data.data.rows
                })
@@ -153,7 +153,7 @@ function getData(that, type){
                   duration: 600
                });
                wx.stopPullDownRefresh();
-            } else if (type == "more"){
+            } else if (type == "more") {
                that.setData({
                   dataList: that.data.dataList.concat(res.data.data.rows),
                   loading: false

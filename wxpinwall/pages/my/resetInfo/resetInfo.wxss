@@ -1,0 +1,108 @@
+/* pages/my/resetInfo/resetInfo.wxss */
+.contanior{
+   width: 750rpx;
+   height: 1000rpx;
+   display: flex;
+   flex-direction: column;
+   background: pink;
+}
+.highStatus{
+   margin-top: 180rpx;
+}
+.lowStatus{
+   margin-top: 135rpx;
+}
+.contanior .avatorInfo{
+   width: 670rpx;
+   height: 120rpx;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   border-bottom: solid 1px black;
+   padding: 20rpx 0;
+   margin-left: 40rpx;
+}
+
+.contanior .avatorInfo .title{
+   font-size: 26rpx;
+   font-weight: bold;
+}
+.contanior .avatorInfo .avatorUrl{
+   width: 100rpx;
+   height: 100rpx;
+   border-radius: 50%;
+}
+.fullNameInfo{
+   width: 670rpx;
+   height: 80rpx;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   border-bottom: solid 1px black;
+   padding: 20rpx 0;
+   margin-left: 40rpx;
+}
+.fullNameInfo .title{
+   font-size: 26rpx;
+   font-weight: bold;
+}
+.fullNameInfo .fullname{
+   font-size: 26rpx;
+}
+
+.emailInfo{
+   width: 670rpx;
+   height: 80rpx;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   border-bottom: solid 1px black;
+   padding: 20rpx 0;
+   margin-left: 40rpx;
+}
+.emailInfo .title{
+   font-size: 26rpx;
+   font-weight: bold;
+}
+.emailInfo .email{
+   font-size: 26rpx;
+}
+.phoneInfo{
+   width: 670rpx;
+   height: 80rpx;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   border-bottom: solid 1px black;
+   padding: 20rpx 0;
+   margin-left: 40rpx;
+}
+.phoneInfo .title{
+   font-size: 26rpx;
+   font-weight: bold;
+}
+.phoneInfo .phone{
+   font-size: 26rpx;
+}
+.desInfo{
+   width: 670rpx;
+   height: 80rpx;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   border-bottom: solid 1px black;
+   padding: 20rpx 0;
+   margin-left: 40rpx;
+}
+.desInfo .title{
+   font-size: 26rpx;
+   font-weight: bold;
+}
+.desInfo .des{
+   font-size: 26rpx;
+}

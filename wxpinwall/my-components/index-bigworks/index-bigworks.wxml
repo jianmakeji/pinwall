@@ -1,0 +1,28 @@
+<view class='indexBigworks'>
+   <view class='headInfo'>
+      <view class='userInfo' catchtap="_tapUserInfo">
+         <image class='userAvatorImg' src='{{avatarUrl}}'></image>
+         <text class='userFullName'>{{fullname}}</text>
+      </view>
+      <text class='createdAt'>{{createAt}}</text>
+   </view>
+   <view class='contentInfo' catchtap="_tapArtifical">
+      <image class='profileImage' src='{{profileImage}}'></image>
+      <text class='title'>{{name}}</text>
+      <text class='des'>收录于 {{topicsName}}</text>
+      <view class='iconBox'>
+         <view class='medal'>
+            <image class='medalIcon' src='/images/icon_medal.png'></image>
+            <text class='medalNum'>{{medalCount}}</text>
+         </view>
+         <view class='like'>
+            <image class='likeIcon' src='/images/icon_like.png'></image>
+            <text class='likeNum'>{{likeCount}}</text>
+         </view>
+         <view class='comment'>
+            <image class='commentIcon' src='/images/icon_comment.png'></image>
+            <text class='commentNum'>{{commentCount}}</text>
+         </view>
+      </view>
+   </view>
+</view>
