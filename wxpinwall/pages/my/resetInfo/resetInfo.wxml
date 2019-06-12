@@ -3,22 +3,25 @@
 <view class="contanior {{statusHeight ? 'highStatus' : 'lowStatus'}}">
    <view class='avatorInfo'>
       <text class='title'>头像</text>
-      <image class='avatorUrl' src="/images/default_profile.jpg"></image>
+      <image class='avatorUrl' src="{{userInfo.avatarUrl != null ? userInfo.avatarUrl : '/images/default_profile.jpg'}}"></image>
    </view>
    <view class='fullNameInfo'>
       <text class='title'>用户名</text>
-      <text class='fullname'>gansiqiu</text>
+      <text class='fullname'>{{userInfo.fullname}}</text>
    </view>
    <view class='emailInfo'>
       <text class='title'>邮箱</text>
-      <text class='email'>gansiqiu@qq.com</text>
+      <text class='email'>{{userInfo.email != null ? userInfo.email : '未绑定'}}</text>
    </view>
    <view class='phoneInfo'>
       <text class='title'>已绑定手机号</text>
-      <text class='phone'>15387567171</text>
+      <text class='phone'>{{userInfo.mobile != null ? userInfo.mobile : '未绑定'}}</text>
    </view>
-   <view class='desInfo'>
+   <view class='desInfo' catchtap='resetIntro'>
       <text class='title'>个人简介</text>
-      <text class='des'>阿斯顿发送到发送到发</text>
+      <view>
+         <text class='des'>{{userInfo.intro != null ? userInfo.intro : ''}}</text>
+         <i-icon class='enter_icon' type="enter" size="22" />
+      </view>
    </view>
 </view>

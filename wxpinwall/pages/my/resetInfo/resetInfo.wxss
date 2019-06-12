@@ -1,10 +1,9 @@
 /* pages/my/resetInfo/resetInfo.wxss */
 .contanior{
    width: 750rpx;
-   height: 1000rpx;
    display: flex;
    flex-direction: column;
-   background: pink;
+   background: #fff;
 }
 .highStatus{
    margin-top: 180rpx;
@@ -90,7 +89,6 @@
 }
 .desInfo{
    width: 670rpx;
-   height: 80rpx;
    display: flex;
    flex-direction: row;
    justify-content: space-between;
@@ -100,9 +98,14 @@
    margin-left: 40rpx;
 }
 .desInfo .title{
+   width: 400rpx;
    font-size: 26rpx;
    font-weight: bold;
 }
 .desInfo .des{
    font-size: 26rpx;
+}
+.desInfo .enter_icon{
+   width: 40rpx;
+   height: 40rpx;
 }

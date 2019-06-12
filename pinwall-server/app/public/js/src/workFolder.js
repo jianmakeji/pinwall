@@ -1,4 +1,3 @@
-Vue.use(VueLazyload)
 var index = new Vue({
     el: '.index',
     data(){

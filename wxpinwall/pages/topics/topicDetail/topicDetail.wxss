@@ -1,1 +1,6 @@
-/* pages/topics/topicDetail.wxss */
+.highStatus{
+   margin-top:200rpx;
+}
+.lowStatus{
+   margin-top:132rpx;
+}

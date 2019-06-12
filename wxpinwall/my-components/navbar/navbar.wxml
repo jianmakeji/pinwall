@@ -7,7 +7,7 @@
       <i-icon type="return" size="28" color="#000" />
       <text class='backDes'>{{backDes}}</text>
    </view>
-   <view class='titleBox' wx:if="{{tabIndex === '3'}}" catchtap="_tapBack">
+   <view class='titleBox' wx:if="{{tabIndex === '3'}}">
       <text class='topicTitle'>{{topicTitle}}</text>
    </view>
 </view>

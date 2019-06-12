@@ -65,7 +65,6 @@ class TopicsController extends BaseController{
       ctx.body = result;
     }
     catch(e){
-      console.log(e);
       super.failure(e.message);
     }
   }
@@ -100,7 +99,6 @@ class TopicsController extends BaseController{
       ctx.body = result;
     }
     catch(e){
-      console.log(e);
       super.failure(e.message);
     }
   }

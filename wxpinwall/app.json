@@ -1,7 +1,5 @@
 {
    "pages": [
-      "pages/my/resetInfo/resetInfo",
-      "pages/my/my",
       "pages/index/index",
       "pages/graduationProjects/graduationProjects",
       "pages/topics/topics",
@@ -11,6 +9,8 @@
       "pages/topics/artifactDetail/artifactDetail",
       "pages/topics/mediaFileDetail/mediaFileDetail",
       "pages/search/search",
+      "pages/my/my",
+      "pages/my/resetInfo/resetInfo",
       "pages/my/completeInfo/completeInfo"
    ],
    "window": {

@@ -96,7 +96,7 @@
 						</div>
 						<div class="project_info">
 							<a :href="'/project/' + item.Id" target="_blank">
-								<img class="thumb" v-lazy="item.profileImage" loading="../public/images/default_thumb_500.png">
+								<img class="thumb" :src="item.profileImage">
 								<h4 v-text="item.name"></h4>
 								{% if user.Id %}
 								<span class="workScore" v-if="{{user.Id}} == headInfo.Id" v-text=" item.artifact_scores.length ? item.artifact_scores[0].score + '分' : '未打分' "></span>
@@ -129,7 +129,6 @@
 {% endblock %}
 
 {% block jsfolder %}
-	<script type="text/javascript" src="../public/js/lib/vue-lazyload.js"></script>
 	<script type="text/javascript" src="../public/js/lib/jquery.min.js"></script>
 	<script type="text/javascript" src="../public/js/lib/vue.min.js"></script>
 	<script type="text/javascript" src="../public/js/lib/iview.min.js"></script>
