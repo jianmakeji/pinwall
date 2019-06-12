@@ -497,7 +497,7 @@ module.exports = app => {
             [app.Sequelize.Op.in]:id
           }
         },
-        attributes:['Id','email','fullname','avatarUrl','intro']
+        attributes:['Id','email','fullname','avatarUrl','intro','mobile']
       }
       return this.findAll(condition);
     }
@@ -515,7 +515,7 @@ module.exports = app => {
         attributes:['Id','intro']
       }
       return this.findAll(condition);
-    
+
   }
 
   return Users;
