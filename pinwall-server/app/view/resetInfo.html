@@ -22,7 +22,7 @@
 	            </div>
 	            <div class="user_info">
 	                <p v-text="'{{user.fullname}}'"><span style="font-style: italic;font-size: 12px;color: #666;font-weight: normal;">(不可更改)</span></p><br>
-	                <i-input type="textarea" placeholder="关于你···"></i-input><br><br>
+	                <i-input type="textarea" placeholder="{{userInfo[0].intro}}" v-model="intro"></i-input><br><br>
 	                <i-button type="success" @click="submitInfo">保存</i-button>
 	            </div>
 	        </div>

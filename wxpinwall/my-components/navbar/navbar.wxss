@@ -1,0 +1,69 @@
+.navBar{
+   width: 750rpx;
+   height: 128rpx;
+   position: fixed;
+   top: 0;
+   z-index: 9999999;
+   background: #fff;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.highStatus{
+   padding-top: 52rpx;
+}
+.lowStatus{
+   padding-top: 4rpx;
+}
+.navBar .searchBox{
+   width: 450rpx;
+   height: 65rpx;
+   line-height: 65rpx;
+   position: absolute;
+   margin-top: 48rpx;
+   margin-left: 40rpx;
+   padding-left: 20rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   border-radius:  30rpx;
+}
+.navBar .searchDes{
+   font-size: 28rpx;
+}
+
+.backBox{
+   width: 500rpx;
+   height: 58rpx;
+   line-height: 58rpx;
+   position: absolute;
+   margin-top: 48rpx;
+   padding-left: 10rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+}
+.backDes{
+   display: inline-block;
+   width: 450rpx;
+   height: 58rpx;
+   font-size: 30rpx;
+   font-weight: bold;
+   overflow: hidden;
+   white-space: nowrap;
+   text-overflow: ellipsis
+}
+
+.titleBox{
+   width: 300rpx;
+   height: 58rpx;
+   line-height: 58rpx;
+   position: absolute;
+   margin-top: 48rpx;
+   padding-left: 40rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+}
+.topicTitle{
+   font-size: 32rpx;
+   font-weight: bold;
+}

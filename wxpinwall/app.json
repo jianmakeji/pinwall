@@ -1,6 +1,9 @@
 {
    "pages": [
+      "pages/my/resetInfo/resetInfo",
+      "pages/my/my",
       "pages/index/index",
+      "pages/graduationProjects/graduationProjects",
       "pages/topics/topics",
       "pages/topics/myTopics/myTopics",
       "pages/topics/topicDetail/topicDetail",
@@ -8,7 +11,6 @@
       "pages/topics/artifactDetail/artifactDetail",
       "pages/topics/mediaFileDetail/mediaFileDetail",
       "pages/search/search",
-      "pages/my/my",
       "pages/my/completeInfo/completeInfo"
    ],
    "window": {
@@ -16,7 +18,8 @@
       "navigationBarBackgroundColor": "#fff",
       "navigationBarTitleText": "图钉墙",
       "backgroundColor": "#f8f8f9",
-      "navigationBarTextStyle": "black"
+      "navigationBarTextStyle": "black",
+      "navigationStyle": "custom"
    },
    "tabBar": {
       "selectedColor": "#1FB5BE",
@@ -28,16 +31,16 @@
             "selectedIconPath": "images/tab_index_hl.png"
          },
          {
-            "pagePath": "pages/topics/topics",
-            "text": "作业荚",
+            "pagePath": "pages/graduationProjects/graduationProjects",
+            "text": "毕设展",
             "iconPath": "images/tab_topic_default.png",
             "selectedIconPath": "images/tab_topic_hl.png"
          },
          {
-            "pagePath": "pages/search/search",
-            "text": "探索",
-            "iconPath": "images/tab_search_default.png",
-            "selectedIconPath": "images/tab_search_hl.png"
+            "pagePath": "pages/topics/topics",
+            "text": "作业荚",
+            "iconPath": "images/tab_topic_default.png",
+            "selectedIconPath": "images/tab_topic_hl.png"
          },
          {
             "pagePath": "pages/my/my",
@@ -47,5 +50,6 @@
          }
       ]
    },
-   "resizable": true
+   "resizable": true,
+   "sitemapLocation": "sitemap.json"
 }

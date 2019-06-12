@@ -1,6 +1,6 @@
-<!-- 作业荚首页 -->
+<!-- 毕设展 -->
 <wxs src="../../subutil/subutil.wxs" module="tools" />
-<nav-bar statusHeight="{{statusHeight}}" tabIndex="{{tabIndexNum}}" topicTitle="作业荚"></nav-bar>
+<nav-bar statusHeight="{{statusHeight}}" tabIndex="{{tabIndexNum}}" topicTitle="毕设展"></nav-bar>
 <view class="topics_tabs {{statusHeight ? 'highStatus' : 'lowStatus'}}">
    <i-message id="message" />
    <wxc-tab bind:tabchange="tabchange" default-index="{{tabIndex}}" text-color="#979797" active-text-color="#07af69" line-color="#979797" active-line-color="#07af69" animate>
@@ -8,7 +8,7 @@
       </wxc-tab-panel>
       <!-- 数据展示 -->
       <block wx:for="{{ dataList }}" wx:for-item="item">
-         <topic-component userAvator="{{item.user.avatarUrl ? item.user.avatarUrl : '/images/default_profile.jpg'}}"  userFullname ="{{item.user.fullname}}" totalArtifact="{{item.user.gender}}" createAt="{{tools.split(item.createAt)}}" topicName="{{item.name}}" artifacts="{{item.artifacts}}" data-topic-id="{{item.Id}}" bind:tapTheTopic="tapTheTopic"></topic-component>
+         <topic-component userAvator="{{item.user.avatarUrl ? item.user.avatarUrl : '/images/default_profile.jpg'}}"  userFullname ="{{item.user.fullname === 'xavieryuan' ? '湖南大学设计艺术学院' : item.user.fullname}}" totalArtifact="{{item.user.gender}}" createAt="{{tools.split(item.createAt)}}" topicName="{{item.name}}" artifacts="{{item.artifacts}}" data-topic-id="{{item.Id}}" bind:tapTheTopic="tapTheTopic"></topic-component>
       </block>
    </wxc-tab>
    <i-load-more i-class="{{statusHeight && !loading ? 'loadHighStatus' : 'loadLowStatus'}}" tip="暂无数据" loading="{{ loading }}"/>

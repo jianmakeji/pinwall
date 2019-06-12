@@ -1,0 +1,110 @@
+.indexBigworks{
+   width: 700rpx;
+   height: 750rpx;
+   padding: 25rpx;
+   display: flex;
+   flex-direction: column;
+   border-bottom: solid 1px gray;
+}
+.headInfo{
+   width: 700rpx;
+   height: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-between;
+}
+.userAvatorImg{
+   width: 80rpx;
+   height: 80rpx;
+   border-radius: 40rpx;
+}
+.userFullName{
+   font-size: 26rpx;
+   position: absolute;
+   margin-top: 20rpx;
+   margin-left: 20rpx;
+}
+.createdAt{
+   font-size: 22rpx;
+}
+
+.contentInfo{
+   width: 620rpx;
+   height: 660rpx;
+   margin-left: 80rpx;
+   padding-bottom: 20rpx;
+   display: flex;
+   flex-direction: column;
+   background: gray
+}
+.profileImage{
+   width: 600rpx;
+   height: 600rpx;
+   margin: 10rpx;
+}
+.title{
+   font-size: 26rpx;
+   color: #07af69;
+   font-weight: bold;
+   margin-left: 10rpx;
+}
+.des{
+   font-size: 20rpx;
+   margin-left: 10rpx;
+}
+.iconBox{
+   width: 240rpx;
+   margin-left: 10rpx;
+   height: 40rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-between;
+   margin-top: 10rpx;
+}
+.iconBox .medal{
+   width: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: left;
+}
+.iconBox .medal .medalIcon{
+   width: 30rpx;
+   height: 40rpx;
+}
+.iconBox .medal .medalNum{
+   font-size: 24rpx;
+   margin-left: 10rpx;
+}
+.iconBox .like{
+   width: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: left;
+}
+.iconBox .like .likeIcon{
+   width: 36rpx;
+   height: 36rpx;
+}
+.iconBox .like .likeNum{
+   font-size: 24rpx;
+   margin-left: 10rpx;
+}
+.iconBox .comment{
+   width: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: left;
+}
+.iconBox .comment .commentIcon{
+   width: 36rpx;
+   height: 36rpx;
+}
+.iconBox .comment .commentNum{
+   font-size: 24rpx;
+   margin-left: 10rpx;
+}
