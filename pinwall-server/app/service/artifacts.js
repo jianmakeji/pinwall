@@ -595,30 +595,30 @@ class Artifacts extends Service {
     try{
       await this.ctx.model.Artifacts.updateVisibleById(id, visible);
       if(visible == 0){
-        let artifact = await this.ctx.model.Artifacts.transterDataToESById(id);
-        if (artifact){
-          await ctx.service.esUtils.createObject(artifact.Id, artifact);
+        let artiObj = await this.ctx.model.Artifacts.transterDataToESById(id);
+        if (artiObj){
+          await ctx.service.esUtils.createObject(artiObj.Id, artiObj);
           let object = {};
-          object.Id = artifact.Id;
+          object.Id = artiObj.Id;
           object.suggest = new Array();
 
           let name_suggest = {};
-          name_suggest.input = artifact.name;
+          name_suggest.input = artiObj.name;
           name_suggest.weight = 10;
           object.suggest.push(name_suggest);
 
           let fullname_suggest = {};
-          fullname_suggest.input = artifact.user.fullname;
+          fullname_suggest.input = artiObj.user.fullname;
           fullname_suggest.weight = 16;
           object.suggest.push(fullname_suggest);
 
-          artifact.terms.forEach((term,index)=>{
+          artiObj.terms.forEach((term,index)=>{
             let term_suggest = {};
             term_suggest.input = term.name;
             term_suggest.weight = 8;
             object.suggest.push(term_suggest);
           });
-          await ctx.service.esUtils.updateSuggestObject(artifact.Id, artifact);
+          await ctx.service.esUtils.createSuggestObject(artiObj.Id, object);
 
         }
       }
