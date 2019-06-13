@@ -99,7 +99,7 @@
 								<img class="thumb" :src="item.profileImage">
 								<h4 v-text="item.name"></h4>
 								{% if user.Id %}
-								<span class="workScore" v-if="{{user.Id}} == headInfo.Id" v-text=" item.artifact_scores.length ? item.artifact_scores[0].score + '分' : '未打分' "></span>
+								<span class="workScore" v-if="{{user.Id}} == headInfo.Id || '{{user.roles[0].name}}' == 'admin'" v-text=" item.artifact_scores.length ? item.artifact_scores[0].score + '分' : '未打分' "></span>
 								{% endif %}
 							</a>
 						</div>
