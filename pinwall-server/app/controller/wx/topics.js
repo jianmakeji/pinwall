@@ -45,6 +45,7 @@ class TopicsController extends BaseController{
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
       topicId: ctx.helper.parseInt(ctx.query.topicId),
+      role: ctx.query.role,
     };
 
     try{

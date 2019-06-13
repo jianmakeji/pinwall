@@ -20,7 +20,7 @@ class TopicsController extends BaseController{
     if (query.userId == 0 && ctx.user){
         query.userId = ctx.user.Id;
     }
-    
+
     try{
       let result = await ctx.service.topics.list(query);
       super.success(result);
