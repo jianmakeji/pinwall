@@ -1,8 +1,9 @@
 <!--pages/topics/topicDetail.wxml-->
 <wxs src="../../../subutil/subutil.wxs" module="tools" />
-<view>
+<nav-bar statusHeight="{{statusHeight}}" tabIndex="{{tabIndexNum}}" backDes="{{topicName}}" bind:tapBack="tapBack"></nav-bar>
+<view class="{{statusHeight ? 'highStatus' : 'lowStatus'}}">
    <view>
-      <topic-component userAvator="{{avatarUrl ? avatarUrl : '/images/default_profile.jpg'}}"  userFullname ="{{fullname}}" totalArtifact="{{atrifactCount}}" createAt="{{tools.split(createAt)}}" topicName="{{topicName}}" artifacts="{{dataList}}" bind:tapTheArtifact="tapTheArtifact"></topic-component>
+      <topic-info userAvator="{{avatarUrl ? avatarUrl : '/images/default_profile.jpg'}}"  userFullname ="{{fullname}}" totalArtifact="{{atrifactCount}}" createAt="{{tools.split(createAt)}}" topicName="{{topicName}}" des="{{des}}"></topic-info>
    </view>
    <view>
       <artifact-component wx:for="{{dataList}}" wx:for-item="item" profileImage="{{item.profileImage}}" userId="{{item.user.Id}}" userAvator="{{item.user.avatarUrl ? item.user.avatarUrl : '/images/default_profile.jpg'}}" userName="{{item.user.fullname}}" createAt="{{tools.split(item.createAt)}}" artifactTitle="{{item.name}}" medalCount="{{item.medalCount}}" likeCount="{{item.likeCount}}" commentCount="{{item.commentCount}}" catchtap="artifactTap" data-artifact-id="{{item.Id}}"></artifact-component>

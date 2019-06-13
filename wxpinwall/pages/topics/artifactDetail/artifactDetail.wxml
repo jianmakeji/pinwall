@@ -1,9 +1,24 @@
 <wxs src="../../../subutil/subutil.wxs" module="tools" />
-<view class='artifact_info' style='height:{{artifactInfoHeight}}px;'>
+<nav-bar statusHeight="{{statusHeight}}" tabIndex="{{tabIndexNum}}" backDes="{{artifactTitle}}" bind:tapBack="tapBack"></nav-bar>
+<view class="artifact_info {{statusHeight ? 'highStatus' : 'lowStatus'}}" style='height:{{artifactInfoHeight}}px;'>
    <image class='user_avator' src="{{userAvatarUrl?userAvatarUrl:'/images/default_profile.jpg'}}" catchtap='tapUserAvator' data-user-id="{{artifactUserId}}"></image>
    <text class='user_fullname' catchtap='tapUserAvator' data-user-id="{{artifactUserId}}">{{userFullname}}</text>
    <text class='artifact_score' wx:if="{{vipRole}}">{{artifactScores ? artifactScores : "未评"}}分</text>
    <text class='artifact_title'>{{artifactTitle}}</text>
+   <view class='iconBox'>
+      <view class='medal'>
+         <image class='medalIcon' src='/images/icon_medal.png'></image>
+         <text class='medalNum'>{{medalCount}}</text>
+      </view>
+      <view class='like'>
+         <image class='likeIcon' src='/images/icon_like.png'></image>
+         <text class='likeNum'>{{likeCount}}</text>
+      </view>
+      <view class='comment'>
+         <image class='commentIcon' src='/images/icon_comment.png'></image>
+         <text class='commentNum'>{{commentCount}}</text>
+      </view>
+   </view>
    <text class='createAt'>{{tools.split(createAt)}} 收录于</text>
    <text class='topic_name'>{{topicName}}</text>
    <text id='artifact' class='artifact_des'>{{artifactDes}}</text>
@@ -18,19 +33,15 @@
       </view>
    </block>
 </view>
-<view class='opt_panel'>
-   <image class='switch_btn' src='/images/artifact_menu_close.png' catchtap="openOpt" wx:if="{{animationModal == 'close'}}"></image>
-   <image class='switch_btn' src='/images/artifact_menu_open.png' catchtap="closeOpt" wx:if="{{animationModal == 'open'}}"></image>
-   <!-- 点赞 -->
-   <image class='like_btn' src="{{zanModal?'/images/artifact_like_hl.png':'/images/artifact_like_default.png'}}" catchtap="creatLike" animation="{{likeAnimationData}}"></image>
-   <!-- 评论 -->
-   <image class='comment_btn' src='/images/artifact_comment_default.png' catchtap='openComment' animation="{{commentAnimationData}}"></image>
-   <!-- 打分 -->
-   <image class='score_btn' src='/images/artifact_score_default.png' catchtap="creatScore" animation="{{scoreAnimationData}}"></image>
+
+<view class='optUl' style='top:{{optTop}}px'>
+   <image class='like_btn' src="{{zanModal?'/images/artifact_like_hl.png':'/images/artifact_like_default.png'}}" catchtap="creatLike"></image>
+   <image class='comment_btn' src='/images/artifact_comment_default.png' catchtap='openComment'></image>
+   <image class='score_btn' src='/images/artifact_score_default.png' catchtap="creatScore"></image>
 </view>
-<wxc-popup animation-mode="bottom" align="bottom" status="{{commentVisible}}" locked>
-   <view class='comment_list'>
-      <text class='all_comment'>全部评论 ({{commentList.length}})</text>
+
+<view class='commentListBox' wx:if="{{commentVisible}}">
+   <text class='all_comment'>全部评论 ({{commentList.length}})</text>
       <i-icon class='close' type="close" size="18" color="#80848f" catchtap='closeComment' />
       <view class='comment'>
          <block wx:for="{{commentList}}" wx:for-item="item">
@@ -42,27 +53,22 @@
             </view>
          </block>
       </view>
-      <i-button i-class='comment_btn' bind:click='whiteComment'>
-         <i-icon type="brush_fill" size="26" color="#1fb5be" />写评论...
-      </i-button>
-   </view>
-</wxc-popup>
+</view>
+<view class='commentInputBox' wx:if="{{commentVisible}}">
+   <input class='commentInput' value="{{ commentEditValue }}" bindinput='commentValueChange' placeholder='发表你的评论...'></input>
+   <button class='commentBtn' catchtap='submitComment'>发布</button>
+</view>
+
+<view class='scoreInputBox' wx:if="{{artifactScoreVisible}}">
+   <input class='scoreInput' type='number' value="{{ artifactScoreValue }}" bindinput='artifactScoreValueChange' placeholder='请输入0~100之间整数'></input>
+   <button class='scoreBtn' catchtap='submitScore'>打分</button>
+</view>
+
 <i-toast id="toast" />
-<i-modal customMarginTop="-100px" title="评论内容" visible="{{ commentEditVisible }}" ok-text="发表" bind:ok="submitComment" bind:cancel="cancelComment">
-   <i-input type='text' value="{{ commentEditValue }}" bind:change='commentValueChange' placeholder='写评论' />
-</i-modal>
-<i-modal customMarginTop="-100px" title="作业评分" visible="{{ artifactScoreVisible }}" show-ok="{{false}}" show-cancel="{{false}}" customWidth="80%">
+<!-- <i-modal customMarginTop="-100px" title="作业评分" visible="{{ artifactScoreVisible }}" show-ok="{{false}}" show-cancel="{{false}}" customWidth="80%">
    <view class='scroe_box'>
        <i-icon class='closeScore' bindtap='closeScore' type="close" size="26" />
       <i-input i-class='score_input' type='number' value="{{ artifactScoreValue }}" bind:change='artifactScoreValueChange' placeholder='请输入0~100之间整数' />
       <i-button i-class='score_btn' type='submit' bind:click="submitScore">保存</i-button>
    </view>
-   <!-- <view class='topic_data'>
-      <text class='total'>68<text class="unit">件</text></text>
-      <text class='total_text'>作业荚作品数</text>
-      <text class='high_score'>92<text class="unit">分</text></text>
-      <text class='high_score_text'>最高分</text>
-      <text class='low_score'>79<text class="unit">分</text></text>
-      <text class='low_score_text'>最低分</text>
-   </view> -->
-</i-modal>
+</i-modal> -->

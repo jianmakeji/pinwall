@@ -6,6 +6,7 @@ Page({
     * 页面的初始数据
     */
    data: {
+      tabIndexNum:"2",
       //请求参数
       limit:10,
       offset: 0,
@@ -16,13 +17,13 @@ Page({
       avatarUrl:"",
       fullname:"",
       atrifactCount:"",
-      topicName:""
+      topicName:"",
+      des:""
    },
    // 点击顶部小图片进入作品详情
-   tapTheArtifact(event){
-      let artifactId = event.detail.target.dataset.artifactId;
-      wx.navigateTo({
-         url: '/pages/topics/artifactDetail/artifactDetail?artifactId=' + artifactId,
+   tapBack(event){
+      wx.navigateBack({
+         data:1
       })
    },
    // 点击作品进入作品详情
@@ -47,6 +48,15 @@ Page({
       this.setData({
          topicId:options.topicId
       })
+      if (app.globalData.statusBarHeight == 44) {
+         that.setData({
+            statusHeight: true
+         })
+      } else {
+         that.setData({
+            statusHeight: false
+         })
+      }
       wx.request({
          url: app.globalData.baseUrl + app.globalData.getTopicAndArtifactById,
          data: {
@@ -56,6 +66,7 @@ Page({
          },
          method: "GET",
          success(res) {
+            console.log(res)
             if (res.data.status == 200) {
                that.setData({
                   dataList: res.data.data.rows.artifacts,
@@ -64,6 +75,7 @@ Page({
                   atrifactCount: res.data.data.count,
                   createAt: res.data.data.rows.createAt,
                   topicName: res.data.data.rows.name,
+                  des: res.data.data.rows.description
                })
                wx.setNavigationBarTitle({
                   title: res.data.data.rows.name,

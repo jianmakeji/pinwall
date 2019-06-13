@@ -1,10 +1,14 @@
+.highStatus{
+   margin-top: 80rpx;
+}
+.lowStatus{
+   margin-top: 34rpx;
+}
+
 .artifact_info {
-   width: 700rpx;
+   width: 750rpx;
    background: #fff;
    position: absolute;
-   border-radius: 30rpx;
-   margin-top: -70rpx;
-   margin-left: 25rpx;
    box-shadow: 4rpx 4rpx 20rpx 4rpx rgba(216, 216, 216, 0.5);
 }
 
@@ -24,7 +28,7 @@
    margin-left: 100rpx;
    margin-top: 34rpx;
    font-size: 28rpx;
-   color: #1fb5be;
+   color: #07af69;
    font-weight: bold;
 }
 
@@ -35,12 +39,12 @@
    margin-left: 520rpx;
    margin-top: 34rpx;
    font-size: 44rpx;
-   color: #1fb5be;
+   color: #07af69;
    font-weight: bold;
 }
 
 .artifact_info .artifact_title {
-   width: 660rpx;
+   width: 700rpx;
    height: 40rpx;
    position: absolute;
    margin-left: 25rpx;
@@ -55,25 +59,84 @@
    overflow: hidden;
    text-overflow: ellipsis;
 }
-
+.artifact_info .iconBox{
+   width: 240rpx;
+   margin-left: 10rpx;
+   height: 40rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-between;
+   position: absolute;
+   margin-top: 170rpx;
+   margin-left: 30rpx;
+}
+.iconBox .medal{
+   width: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: left;
+}
+.iconBox .medal .medalIcon{
+   width: 26rpx;
+   height: 34rpx;
+}
+.iconBox .medal .medalNum{
+   font-size: 24rpx;
+   margin-left: 10rpx;
+   color: #979797;
+}
+.iconBox .like{
+   width: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: left;
+}
+.iconBox .like .likeIcon{
+   width: 30rpx;
+   height: 30rpx;
+}
+.iconBox .like .likeNum{
+   font-size: 24rpx;
+   margin-left: 10rpx;
+   color: #979797;
+}
+.iconBox .comment{
+   width: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: left;
+}
+.iconBox .comment .commentIcon{
+   width: 30rpx;
+   height: 30rpx;
+}
+.iconBox .comment .commentNum{
+   font-size: 24rpx;
+   margin-left: 10rpx;
+   color: #979797;
+}
 .artifact_info .createAt {
    width: 190rpx;
    height: 30rpx;
    position: absolute;
    margin-left: 25rpx;
-   margin-top: 170rpx;
+   margin-top: 230rpx;
    font-size: 20rpx;
    color: #979797;
 }
 
 .artifact_info .topic_name {
-   width: 460rpx;
+   width: 500rpx;
    height: 30rpx;
    position: absolute;
    margin-left: 220rpx;
-   margin-top: 168rpx;
+   margin-top: 230rpx;
    font-size: 24rpx;
-   color: #1fb5be;
+   color: #07af69;
    font-weight: bold;
    display: -webkit-box;
    word-break: break-all;
@@ -84,13 +147,13 @@
 }
 
 .artifact_info .artifact_des {
-   width: 660rpx;
+   width: 700rpx;
    line-height: 36rpx;
    font-size: 24rpx;
    color: #333;
    position: absolute;
    margin-left: 25rpx;
-   margin-top: 220rpx;
+   margin-top: 270rpx;
 }
 
 .artifact_assets {
@@ -139,6 +202,173 @@
    margin-left: 60rpx;
    margin-top: 32rpx;
 }
+.optUl{
+   width: 100rpx;
+   position: fixed;
+   right: 10rpx;
+   display: flex;
+   flex-direction: column;
+}
+.optUl .like_btn,
+.optUl .comment_btn,
+.optUl .score_btn{
+   width: 100rpx;
+   height: 100rpx;
+}
+
+
+.commentListBox{
+   width: 100%;
+   height: 540rpx;
+   background: #fff;
+   position: fixed;
+   bottom: 80rpx;
+}
+.commentListBox .all_comment {
+   width: 200rpx;
+   height: 80rpx;
+   color: #07af69;
+   font-size: 30rpx;
+   position: absolute;
+   margin-top: 40rpx;
+   margin-left: 25rpx;
+   font-weight: bold;
+}
+.commentListBox .close {
+   position: absolute;
+   margin-left: 650rpx;
+   margin-top: 35rpx;
+}
+
+.commentListBox .comment {
+   width: 700rpx;
+   height: 430rpx;
+   position: absolute;
+   margin-top: 100rpx;
+   margin-left: 25rpx;
+   overflow: auto;
+}
+
+.commentListBox .comment::-webkit-scrollbar {
+   width: 4px;
+   height: 0px;
+   background-color: #f5f5f5;
+}
+
+.commentListBox .comment .user_info {
+   width: 680rpx;
+   height: 150rpx;
+}
+
+.commentListBox .comment .user_info .user_avator {
+   width: 80rpx;
+   height: 80rpx;
+   position: absolute;
+   margin-top: 20rpx;
+   margin-left: 25rpx;
+   border-radius: 40rpx;
+}
+
+.commentListBox .comment .user_info .user_fullname {
+   width: 300rpx;
+   height: 40rpx;
+   line-height: 40rpx;
+   position: absolute;
+   margin-top: 30rpx;
+   margin-left: 120rpx;
+   font-size: 34rpx;
+   color: #07af69;
+   font-weight: bold;
+}
+
+.commentListBox .comment .user_info .comment_time {
+   width: 200rpx;
+   height: 40rpx;
+   line-height: 40rpx;
+   text-align: right;
+   color: #979797;
+   position: absolute;
+   margin-top: 30rpx;
+   margin-left: 450rpx;
+   font-size: 20rpx;
+}
+
+.commentListBox .comment .user_info .comment_content {
+   width: 500rpx;
+   height: 70rpx;
+   position: absolute;
+   margin-top: 80rpx;
+   margin-left: 120rpx;
+   color: #333;
+   font-size: 24rpx;
+   display: -webkit-box;
+   word-break: break-all;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 2;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.commentInputBox{
+   width: 750rpx;
+   height: 80rpx;
+   background: #fff;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   position: fixed;
+   bottom: 0rpx;
+}
+.commentInputBox .commentInput{
+   width: 500rpx;
+   height: 60rpx;
+   margin-left: 25rpx;
+   padding-left: 25rpx;
+   font-size: 26rpx;
+   border-radius: 20rpx;
+   background: #EEEEEE;
+}
+.commentInputBox .commentBtn{
+   width: 120rpx;
+   height: 60rpx;
+   font-size: 24rpx;
+}
+
+
+.scoreInputBox{
+   width: 750rpx;
+   height: 80rpx;
+   background: #fff;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   position: fixed;
+   bottom: 0rpx;
+}
+.scoreInputBox .scoreInput{
+   width: 500rpx;
+   height: 60rpx;
+   margin-left: 25rpx;
+   padding-left: 25rpx;
+   font-size: 26rpx;
+   border-radius: 20rpx;
+   background: #EEEEEE;
+}
+.scoreInputBox .scoreBtn{
+   width: 120rpx;
+   height: 60rpx;
+   font-size: 24rpx;
+}
+
+
+
+
+
+
+
+
+
+
 .opt_panel {
    width: 140rpx;
    height: 140rpx;
@@ -198,7 +428,7 @@
 .comment_list .all_comment {
    width: 200rpx;
    height: 80rpx;
-   color: #1fb5be;
+   color: #07af69;
    font-size: 30rpx;
    position: absolute;
    margin-top: 40rpx;
@@ -249,7 +479,7 @@
    margin-top: 30rpx;
    margin-left: 120rpx;
    font-size: 34rpx;
-   color: #1fb5be;
+   color: #07af69;
    font-weight: bold;
 }
 

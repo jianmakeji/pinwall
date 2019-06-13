@@ -64,7 +64,11 @@ var projects = new Vue({
         showScoreBox(event){
             this.scoresModel = true;
             this.scoreBoxStyle.right = document.body.clientWidth - event.pageX + 50 + "px";
-            this.scoreBoxStyle.top = event.pageY - 60 + "px";
+            if(document.documentElement.clientWidth < 540){
+                this.scoreBoxStyle.top = document.documentElement.clientHeight / 2 + 50 + "px";
+            }else{
+                this.scoreBoxStyle.top = document.documentElement.clientHeight / 2 - 80 + "px";
+            }
         },
         ok() {
             let that = this;
@@ -360,6 +364,7 @@ function getConmentData(that, aoData){
         type: 'GET',
         data: aoData,
         success: function(res) {
+            console.log(res);
             if (res.status == 200) {
                 that.$Loading.finish();
                 that.dataList = res.data.rows;

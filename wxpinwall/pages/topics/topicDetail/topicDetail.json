@@ -1,6 +1,7 @@
 {
    "usingComponents": {
-      "topic-component": "/my-components/topic-component/topic-component",
+      "nav-bar": "/my-components/navbar/navbar",
+      "topic-info": "/my-components/topic-info/topic-info",
       "artifact-component": "/my-components/artifact-component/artifact-component",
       "i-load-more": "/dist/load-more/index"
    },

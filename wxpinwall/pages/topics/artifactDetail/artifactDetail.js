@@ -8,11 +8,10 @@ Page({
     * 页面的初始数据
     */
    data: {
+      tabIndexNum:"2",
       vipRole: false,
-      animationModal: "close",
       zanModal: false,
-      likeAnimationData: "",
-      commentAnimationData: "",
+
       scoreAnimationData: "",
       //作品信息
       artifactUserId: "", //作品作者id
@@ -24,23 +23,30 @@ Page({
       topicName: "",
       artifactDes: "",
       artifact_assets: [],
+      medalCount:"",
+      likeCount:"",
+      commentCount:"",
       //作品评论
       commentLimit: 10000,
       commentOffset: 0,
       artifactId: "",
       commentList: [],
       //新建评论
-      commentVisible: "hide",
-      commentEditVisible: false,
+      commentVisible: false,
       commentEditValue: "",
       content: "",
       commenterId: "",
       //新建分数
       artifactScoreVisible: false,
-      artifactScoreValue: "",
+      artifactScoreValue: 0,
 
       artifactInfoHeight:"",
       artifactAssetsPadding:""
+   },
+   tapBack(event){
+      wx.navigateBack({
+         data:1
+      })
    },
    tapUserAvator(event){
       let userId = event.currentTarget.dataset.userId;
@@ -62,7 +68,6 @@ Page({
             },
             success(res) {
                if (res.data.status == 200) {
-                  that.closeOpt();
                   wx.request({
                      url: app.globalData.baseUrl + app.globalData.getMedalLikeDataByUserIdAndArtifactsId,
                      data: {
@@ -88,7 +93,7 @@ Page({
                   $Toast({
                      content: '操作成功！',
                      type: "success",
-                     duration: 2,
+                     duration: 1,
                      selector: "#toast"
                   });
                } else {
@@ -110,73 +115,6 @@ Page({
          });
       }
    },
-   /**
-    * 打开菜单
-    */
-   openOpt() {
-      var likeAnimation = wx.createAnimation({
-         duration: 200,
-         timingFunction: "linear",
-         delay: 0,
-         transformOrigin: "0 0 0"
-      });
-      var commentAnimationData = wx.createAnimation({
-         duration: 200,
-         timingFunction: "linear",
-         delay: 0,
-         transformOrigin: "0 0 0"
-      });
-      var scoreAnimationData = wx.createAnimation({
-         duration: 200,
-         timingFunction: "linear",
-         delay: 0,
-         transformOrigin: "0 0 0"
-      });
-      likeAnimation.translate(10, -60).step();
-      commentAnimationData.translate(-50, -50).step();
-      scoreAnimationData.translate(-60, 10).step();
-      this.setData({
-         animationModal: "open",
-         likeAnimationData: likeAnimation.export(),
-         commentAnimationData: commentAnimationData.export(),
-         scoreAnimationData: scoreAnimationData.export(),
-      })
-   },
-   /**
-    * 关闭菜单
-    */
-   closeOpt() {
-      var likeAnimation = wx.createAnimation({
-         duration: 200,
-         timingFunction: "linear",
-         delay: 0,
-         transformOrigin: "0 0 0"
-      });
-      var commentAnimationData = wx.createAnimation({
-         duration: 200,
-         timingFunction: "linear",
-         delay: 0,
-         transformOrigin: "0 0 0"
-      });
-      var scoreAnimationData = wx.createAnimation({
-         duration: 200,
-         timingFunction: "linear",
-         delay: 0,
-         transformOrigin: "0 0 0"
-      });
-      likeAnimation.translate(0, 0).step();
-      commentAnimationData.translate(0, 0).step();
-      scoreAnimationData.translate(0, 0).step();
-      this.setData({
-         animationModal: "open",
-         likeAnimationData: likeAnimation.export(),
-         commentAnimationData: commentAnimationData.export(),
-         scoreAnimationData: scoreAnimationData.export(),
-      })
-      this.setData({
-         animationModal: "close"
-      })
-   },
    /*
       点击菜单评论按钮
     */
@@ -184,9 +122,8 @@ Page({
       if (wx.getStorageSync("openid")){
          let that = this;
          this.setData({
-            commentVisible: "show"
+            commentVisible: true
          })
-         this.closeOpt();
          wx.request({
             url: app.globalData.baseUrl + app.globalData.findCommentsByArtifactIdWithPage,
             data: {
@@ -213,7 +150,7 @@ Page({
    },
    closeComment() {
       this.setData({
-         commentVisible: "hide"
+         commentVisible: false
       })
    },
    /**
@@ -221,13 +158,12 @@ Page({
     */
    whiteComment() {
       this.setData({
-         commentVisible: "hide",
-         commentEditVisible: true
+         commentVisible: false
       })
    },
    commentValueChange(event) {
       this.setData({
-         commentEditValue: event.detail.detail.value
+         commentEditValue: event.detail.value
       })
    },
    /**
@@ -247,17 +183,18 @@ Page({
             success(res) {
                if (res.data.status == 200) {
                   that.setData({
-                     commentEditVisible: false
+                     commentVisible: false,
+                     commentEditValue:""
                   });
                   $Toast({
                      content: '评论成功！',
                      image: '/images/success.png',
-                     duration: 2,
+                     duration: 1,
                      selector: "#toast"
                   });
                } else {
                   that.setData({
-                     commentEditVisible: false
+                     commentVisible: false
                   });
                   $Toast({
                      content: '评论失败！',
@@ -268,9 +205,6 @@ Page({
             }
          })
       } else if (wx.getStorageSync("openid") == "") {
-         that.setData({
-            commentEditVisible: false
-         });
          $Toast({
             content: '需先登录才能操作！',
             type: 'error',
@@ -278,9 +212,6 @@ Page({
             selector: "#toast"
          });
       } else {
-         that.setData({
-            commentEditVisible: false
-         });
          $Toast({
             content: '评论为空！',
             type: 'error',
@@ -289,21 +220,12 @@ Page({
          });
       }
    },
-   /**
-    * 点击评论弹窗取消
-    */
-   cancelComment() {
-      this.setData({
-         commentEditVisible: false
-      })
-   },
    // 打开打分菜单按钮
    creatScore() {
       if (wx.getStorageSync("openid")){
          this.setData({
             artifactScoreVisible: true
          })
-         this.closeOpt();
       }else{
          $Toast({
             content: '需先登录才能操作！',
@@ -315,7 +237,7 @@ Page({
    },
    artifactScoreValueChange(event) {
       this.setData({
-         artifactScoreValue: event.detail.detail.value
+         artifactScoreValue: parseInt(event.detail.value)
       })
    },
    closeScore() {
@@ -352,7 +274,7 @@ Page({
                      $Toast({
                         content: '打分成功！',
                         image: '/images/success.png',
-                        duration: 2,
+                        duration: 1,
                         selector: "#toast"
                      });
                      that.onShow();
@@ -383,8 +305,25 @@ Page({
     * 生命周期函数--监听页面加载
     */
    onLoad: function(options) {
+      let that = this;
       this.setData({
          artifactId: options.artifactId
+      })
+      if (app.globalData.statusBarHeight == 44) {
+         that.setData({
+            statusHeight: true
+         })
+      } else {
+         that.setData({
+            statusHeight: false
+         })
+      }
+      wx.getSystemInfo({
+         success: function(res) {
+            that.setData({
+               optTop:res.screenHeight/2 - 50
+            })
+         },
       })
    },
    onShow() {
@@ -401,22 +340,29 @@ Page({
                   artifactTitle: res.data.data.name,
                   createAt: res.data.data.createAt,
                   artifactDes: res.data.data.description,
-                  artifact_assets: res.data.data.artifact_assets
+                  artifact_assets: res.data.data.artifact_assets,
+                  medalCount: res.data.data.medalCount,
+                  likeCount: res.data.data.likeCount,
+                  commentCount: res.data.data.commentCount
                })
 
                let query = wx.createSelectorQuery();
                query.select('#artifact').boundingClientRect();
                query.exec(function (res) {
                   let artifactDecH = res[0].height;
-                  that.setData({
-                     artifactInfoHeight: 130 + artifactDecH,
-                     artifactAssetsPadding: 100 + artifactDecH
-                  })
+                  if (app.globalData.statusBarHeight == 44) {
+                     that.setData({
+                        artifactInfoHeight: 140 + artifactDecH,
+                        artifactAssetsPadding: 180 + artifactDecH
+                     })
+                  } else {
+                     that.setData({
+                        artifactInfoHeight: 140 + artifactDecH,
+                        artifactAssetsPadding: 160 + artifactDecH
+                     })
+                  }
                })
                
-               wx.setNavigationBarTitle({
-                  title: res.data.data.name,
-               })
                if (res.data.data.topics.length) {
                   that.setData({
                      topicName: res.data.data.topics[0].name,

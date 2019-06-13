@@ -7,18 +7,21 @@ Page({
     */
    data: {
       tabIndexNum:"2",
-      statusHeight:false
+      statusHeight:false,
+      userInfo:""
    },
    tapBack(event){
       wx.navigateBack({
          data:1
       })
    },
+   resetIntro(event){
+      console.log("resetIntro")
+   },
    /**
     * 生命周期函数--监听页面加载
     */
    onLoad: function (options) {
-      console.log(options)
       let that = this;
       if (app.globalData.statusBarHeight == 44) {
          that.setData({
@@ -39,20 +42,11 @@ Page({
       wx.request({
          url: app.globalData.baseUrl + app.globalData.getUserInfoById + "?userId=" + wx.getStorageSync("myId"),
          success(res) {
-            console.log(res)
-            // if (res.data.status == 200) {
-            //    wx.setStorageSync("openid", res.data.data.openId);
-            //    wx.setStorageSync("myId", res.data.data.Id);
-            //    wx.setStorageSync("myRole", res.data.data.roles[0].name);
-            //    wx.setStorageSync("avatarUrl", res.data.data.avatarUrl);
-            //    that.setData({
-            //       userData: res.data.data
-            //    })
-            //    wx.showToast({
-            //       title: '刷新成功！',
-            //       type: "success"
-            //    })
-            // }
+            if (res.data.status == 200) {
+               that.setData({
+                  userInfo:res.data.data[0]
+               })
+            }
          }
       })
    },

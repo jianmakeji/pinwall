@@ -1,5 +1,6 @@
 {
    "usingComponents": {
-      "nav-bar": "/my-components/navbar/navbar"
+      "nav-bar": "/my-components/navbar/navbar",
+      "i-icon": "/dist/icon/index"
    }
 }

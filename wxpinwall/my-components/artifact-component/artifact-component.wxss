@@ -51,7 +51,7 @@
 .artifact_complate .artifact_info .artifact_title {
    width: 180px;
    height: 80rpx;
-   color: rgba(31, 181, 190, 1);
+   color: #07af69;
    position: absolute;
    margin-top: 120rpx;
    margin-left: 50rpx;
@@ -67,7 +67,7 @@
 
 .artifact_complate .artifact_info .medal {
    width: 30rpx;
-   height: 30rpx;
+   height: 35rpx;
    position: absolute;
    margin-left: 40rpx;
    margin-top: 223rpx;
@@ -83,8 +83,8 @@
    margin-left: 80rpx;
 }
 .artifact_complate .artifact_info .like {
-   width: 30rpx;
-   height: 30rpx;
+   width: 34rpx;
+   height: 32rpx;
    position: absolute;
    margin-left: 150rpx;
    margin-top: 223rpx;
@@ -100,8 +100,8 @@
    margin-left: 195rpx;
 }
 .artifact_complate .artifact_info .comment {
-   width: 30rpx;
-   height: 30rpx;
+   width: 34rpx;
+   height: 32rpx;
    position: absolute;
    margin-left: 260rpx;
    margin-top: 223rpx;
