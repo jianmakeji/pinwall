@@ -1,5 +1,6 @@
 {
    "usingComponents": {
+      "nav-bar": "/my-components/navbar/navbar",
       "topic-component": "/my-components/topic-component/topic-component",
       "artifact-component": "/my-components/artifact-component/artifact-component",
       "i-load-more": "/dist/load-more/index"

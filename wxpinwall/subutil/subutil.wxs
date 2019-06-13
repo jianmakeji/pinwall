@@ -1,10 +1,10 @@
 var split = function(value){
-   if (value.indexOf("T") >= 0) {
+   if (value != undefined && value != null &&  value.indexOf("T") >= 0) {
       return value.split("T")[0];
    }
 }
 var includeType = function(value){
-   if (value != null) {
+   if (value != undefined && value != null) {
       if (value.indexOf("pdf") >= 0 || value.indexOf("video") >= 0) {
          return true;
       } else {

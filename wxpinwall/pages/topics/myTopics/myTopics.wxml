@@ -1,6 +1,7 @@
 <!--pages/topics/topics.wxml-->
 <wxs src="../../../subutil/subutil.wxs" module="tools" />
-<view class='topics_tabs'>
+<nav-bar statusHeight="{{statusHeight}}" tabIndex="{{tabIndexNum}}" backDes="我的作业荚" bind:tapBack="tapBack"></nav-bar>
+<view class="topics_tabs {{statusHeight ? 'highStatus' : 'lowStatus'}}">
    <i-message id="message" />
    <!-- 数据展示 -->
    <block wx:for="{{ dataList }}" wx:for-item="item">

@@ -17,6 +17,7 @@ Page({
       artifactUserId: "", //作品作者id
       userAvatarUrl: "",
       userFullname: "",
+      teamworker:"",
       artifactScores: "",
       artifactTitle: "",
       createAt: "",
@@ -37,8 +38,9 @@ Page({
       content: "",
       commenterId: "",
       //新建分数
+      scoreFocus:false,
       artifactScoreVisible: false,
-      artifactScoreValue: 0,
+      artifactScoreValue: null,
 
       artifactInfoHeight:"",
       artifactAssetsPadding:""
@@ -122,7 +124,8 @@ Page({
       if (wx.getStorageSync("openid")){
          let that = this;
          this.setData({
-            commentVisible: true
+            commentVisible: true,
+            artifactScoreVisible:false
          })
          wx.request({
             url: app.globalData.baseUrl + app.globalData.findCommentsByArtifactIdWithPage,
@@ -224,7 +227,9 @@ Page({
    creatScore() {
       if (wx.getStorageSync("openid")){
          this.setData({
-            artifactScoreVisible: true
+            scoreFocus:true,
+            artifactScoreVisible: true,
+            commentVisible:false
          })
       }else{
          $Toast({
@@ -273,7 +278,7 @@ Page({
                      });
                      $Toast({
                         content: '打分成功！',
-                        image: '/images/success.png',
+                        type: 'success',
                         duration: 1,
                         selector: "#toast"
                      });
@@ -333,6 +338,13 @@ Page({
          url: app.globalData.baseUrl + app.globalData.getArtifactById + this.data.artifactId,
          success(res) {
             if (res.data.status == 200) {
+               let teamworkerData = new Array();
+               if (res.data.data.teamworker != "" && res.data.data.teamworker != null){
+                  teamworkerData = JSON.parse(res.data.data.teamworker);
+               }else{
+                  teamworkerData = [];
+
+               }
                that.setData({
                   artifactUserId: res.data.data.userId,
                   userAvatarUrl: res.data.data.user.avatarUrl,
@@ -345,7 +357,17 @@ Page({
                   likeCount: res.data.data.likeCount,
                   commentCount: res.data.data.commentCount
                })
-
+               if (teamworkerData.length == 0) {
+                  that.setData({
+                     teamworker : ''
+                  })
+               } else {
+                  for(let i=0;i<teamworkerData.length;i++){
+                     that.setData({
+                        teamworker: that.data.teamworker == "" ? that.data.teamworker + teamworkerData[i].fullname : that.data.teamworker + "," + teamworkerData[i].fullname
+                     })
+                  }
+               }
                let query = wx.createSelectorQuery();
                query.select('#artifact').boundingClientRect();
                query.exec(function (res) {
@@ -416,25 +438,5 @@ Page({
             }
          }
       })
-   },
-   /**
-    * 页面相关事件处理函数--监听用户下拉动作
-    */
-   onPullDownRefresh: function() {
-
-   },
-
-   /**
-    * 页面上拉触底事件的处理函数
-    */
-   onReachBottom: function() {
-
-   },
-
-   /**
-    * 用户点击右上角分享
-    */
-   onShareAppMessage: function() {
-
    }
 })

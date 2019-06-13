@@ -6,6 +6,7 @@ Page({
     * 页面的初始数据
     */
    data: {
+      tabIndexNum:"2",
       //请求参数
       limit: 10,
       offset: 0,
@@ -14,10 +15,16 @@ Page({
       // 数据数组
       dataList: [],
       loading: false,
+      teacherId:"",
       avatarUrl: "",
       fullname: "",
       atrifactCount: "",
       topicName: ""
+   },
+   tapBack(event){
+      wx.navigateBack({
+         data:1
+      })
    },
    tapTheArtifact(event) {
       let artifactId = event.detail.target.dataset.artifactId;
@@ -40,6 +47,15 @@ Page({
          userId: options.userId,
          jobTag:options.jobTag
       })
+      if (app.globalData.statusBarHeight == 44) {
+         that.setData({
+            statusHeight: true
+         })
+      } else {
+         that.setData({
+            statusHeight: false
+         })
+      }
       wx.request({
          url: app.globalData.baseUrl + app.globalData.getPersonalJobByUserId,
          data: {
@@ -54,6 +70,7 @@ Page({
                if (res.data.data.rows.length){
                   that.setData({
                      dataList: res.data.data.rows,
+                     teacherId: res.data.data.rows[0].user.Id,
                      avatarUrl: res.data.data.rows[0].user.avatarUrl,
                      fullname: res.data.data.rows[0].user.fullname,
                      atrifactCount: res.data.data.count,
