@@ -781,7 +781,6 @@ var container = new Vue({
                 url: config.ajaxUrls.getArtifactsWithId.replace(":id",this.dataItem.Id),
                 type: 'GET',
                 success(res){
-                    console.log(res);
                     that.dataItem.name = res.data.name;
                     that.dataItem.artifact_assets = res.data.artifact_assets;
                     that.dataItem.description = res.data.description;
