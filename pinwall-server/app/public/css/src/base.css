@@ -31,8 +31,10 @@ img{
 	background: #333;
 	height: 60px;
 	line-height: 60px;
+    position: relative;
 	text-align: center;
 	color: #ccc;
+    z-index: 100;
 }
 .header .pinwall_logo{
     padding-left: 10px;

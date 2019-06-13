@@ -2,7 +2,6 @@
 .search_panel{
 	display: flex;
 	flex-direction: row;
-	width: 950px;
 	height: auto;
 	margin: 0 auto;
 	min-height: 400px;

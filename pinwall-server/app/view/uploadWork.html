@@ -142,7 +142,7 @@
 										<div>
 											<i-progress :percent="file_otherinof_arr[index].progress ? file_otherinof_arr[index].progress: 0" />
 											<span v-text="'附件上传进度：' + file_otherinof_arr[index].progress + '%'"></span>
-											<i-button icon="md-trash" v-if="file_otherinof_arr[index].progress == 100" shape="circle" type="error" @click="deleteAttchFile(index)"></i-button>
+											<i-button icon="md-trash" v-if="file_otherinof_arr[index].progress == 100" shape="circle" type="error" @click="deleteAttchFile(index)" style="position:absolute;top:20px;right:0;"></i-button>
 											<br>
 										</div>
 										<p v-text="'文件名:' + file_otherinof_arr[index].fileTrueName"></p><br><br>

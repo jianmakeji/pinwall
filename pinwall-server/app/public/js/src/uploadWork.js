@@ -121,6 +121,7 @@ var container = new Vue({
         searchModelData(){
             let type = "",
                 that = this;
+            this.searchModelDataList = [];
             if(this.searchModelValue.indexOf("@") >= 0){
                 type = 1;
             }else if (config.regexString.phone.test(this.searchModelValue)) {
@@ -134,7 +135,7 @@ var container = new Vue({
                 data:{keyword:this.searchModelValue,type:type},
                 success(res){
                     if (res.status == 200){
-                        if (res.data.length > 4) {
+                        if (res.data.length >= 4) {
                             for (let i = 0; i < 4; i++) {
                                 that.searchModelDataList.push(res.data[i]);
                             }
@@ -149,6 +150,7 @@ var container = new Vue({
             })
         },
         selectItem(index){
+            let that = this;
             let flag = 1;
             for (let i = 0; i < this.helperBox.length; i++) {
                 if(this.searchModelDataList[index].Id == this.helperBox[i].Id){
@@ -162,7 +164,7 @@ var container = new Vue({
                     newHelperObj.Id = this.searchModelDataList[index].Id;
                     newHelperObj.fullname = this.searchModelDataList[index].fullname;
                     newHelperObj.avatarUrl = this.searchModelDataList[index].avatarUrl;
-                    this.helperBox.push(newHelperObj);
+                    that.helperBox.push(newHelperObj);
                 } else {
                     this.$Notice.error({title:"协作者最多为4名！"});
                 }
@@ -779,12 +781,13 @@ var container = new Vue({
                 url: config.ajaxUrls.getArtifactsWithId.replace(":id",this.dataItem.Id),
                 type: 'GET',
                 success(res){
+                    console.log(res);
                     that.dataItem.name = res.data.name;
                     that.dataItem.artifact_assets = res.data.artifact_assets;
                     that.dataItem.description = res.data.description;
                     let teamWorkers = new Array();
                     if (res.data.teamworker == "" || res.data.teamworker == null) {
-                        teamWorkers = "";
+                        teamWorkers = [];
                     } else {
                         teamWorkers = JSON.parse(res.data.teamworker);
                     }
