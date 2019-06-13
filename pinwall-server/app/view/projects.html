@@ -129,7 +129,7 @@
 						</div>
 						<div class="comment_wrapper">
 							<a :href="'/users/'+item.user.Id" class="name">${ item.user.fullname }</a>
-							<i-button class="delete_comment" v-if="'{{user.roles[0].name}}' == 'admin' || item.user.Id == {{user.Id}}" type="error" shape="circle" icon="md-trash" @click="deleteComment(item.Id)"></i-button>
+							<i-button class="delete_comment" v-if="'{{user.roles[0].name}}' == 'admin' || item.user.Id == '{{user.Id}}'" type="error" shape="circle" icon="md-trash" @click="deleteComment(item.Id)"></i-button>
 							<p class="comment">${item.content}</p>
 							<p class="createAt" v-text="index+1+'楼 ' + item.commentAt.replace('T',' ').split('.')[0]"></p>
 						</div>
