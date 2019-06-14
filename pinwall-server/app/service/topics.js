@@ -149,7 +149,6 @@ class Topics extends Service {
           }
           else if (role == 'user'){
             let users = new Array();
-            users.push(this.ctx.user.Id);
             let teamworker = element.teamworker;
             if (teamworker){
               let teamArray = JSON.parse(teamworker);
@@ -157,8 +156,8 @@ class Topics extends Service {
                 users.push(tw.Id);
               });
             }
-
-            if (!users.includes(element.user.Id)){
+ 
+            if (!(users.includes(this.ctx.user.Id) || (this.ctx.user.Id == element.user.Id))){
               element.artifact_scores.length = 1;
             }
           }
