@@ -106,7 +106,7 @@ class Artifacts extends Service {
       }
       else if (role == 'user'){
         let users = new Array();
-        let teamworker = element.teamworker;
+        let teamworker = artifact.teamworker;
         if (teamworker){
           let teamArray = JSON.parse(teamworker);
           teamArray.forEach((tw)=>{
