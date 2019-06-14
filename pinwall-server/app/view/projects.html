@@ -61,7 +61,8 @@
                         <span>{{data.commentCount}}</span>
                     </div>
                 </div>
-				<p class="score" v-if="( '{{user.roles[0].name}}' == 'vip' && '{{data.topics[0].userId}}' == '{{user.Id}}' && {{data.topics.length}} != 0 ) || '{{user.roles[0].name}}' == 'admin' " v-text="'{{data.artifact_scores[0].score}}' != 'null' && '{{data.artifact_scores[0].score}}' != '' ? {{data.artifact_scores[0].score}} + '分' : '未打分'"></p>
+				<p class="score" v-if="{{data.artifact_scores.length}} && '{{data.artifact_scores[0]}}' != '' && '{{data.artifact_scores[0]}}' != null" v-text="'{{data.artifact_scores[0].score}}' + '分'"></p>
+				<p class="score" v-if="'{{data.artifact_scores.length}}' == 0" v-text="'未打分'"></p>
                 <div class="user_info">
                     <a href="/users/{{data.user.Id}}">
 						{% if data.user.avatarUrl %}

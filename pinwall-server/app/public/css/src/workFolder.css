@@ -265,6 +265,7 @@ body{
 }
 .de_card_m .project_info .thumb {
     width: 100%;
+	min-width: 145px;
     border-right: #ccc 1px dotted;
     height: 100%;
 }
