@@ -229,7 +229,7 @@ module.exports  = app => {
       attributes:['Id','profileImage','name','teamworker','medalCount','likeCount','commentCount','createAt']
     };
 
-    if (role == 'admin'){
+    if (role != 'user'){
 
       let scoreCondition;
       if (score == 0){
