@@ -163,7 +163,6 @@ var container = new Vue({
                     let newHelperObj = new Object();
                     newHelperObj.Id = this.searchModelDataList[index].Id;
                     newHelperObj.fullname = this.searchModelDataList[index].fullname;
-                    newHelperObj.avatarUrl = this.searchModelDataList[index].avatarUrl;
                     that.helperBox.push(newHelperObj);
                 } else {
                     this.$Notice.error({title:"协作者最多为4名！"});

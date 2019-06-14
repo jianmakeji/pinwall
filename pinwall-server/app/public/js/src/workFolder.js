@@ -4,7 +4,6 @@ var index = new Vue({
         return{
             aoData:{limit:12,offset:0,topicId:0,score:0},
             headDataList:[],
-            uploadTotal:"",
             topicStatus:0,
             dataList:[],
             headInfo:{fullname:"",date:"",name:"",description:"",count:""},
@@ -14,8 +13,9 @@ var index = new Vue({
             scrollModel:true,
             drawerShow:false,
             isActive:0,
-            isScore:"-",
-            noScore:"-",
+            uploadTotal:"",
+            isScore:"",
+            noScore:"",
             scoresModel:false,
             columns:[
                 { title: '序号',key: 'opt', align: 'center',
@@ -118,17 +118,6 @@ var index = new Vue({
                         that.$Loading.finish();
                         that.dataList = res.data.rows.artifacts;
                         that.headDataList = res.data.rows.artifacts;
-                        if(num == "0"){
-                            that.uploadTotal = res.data.count;
-                        }else if(num == "1"){
-                            that.isScore = res.data.count;
-                            that.noScore = that.uploadTotal - that.isScore;
-                        }else{
-                            that.noScore = res.data.count;
-                            that.isScore = that.uploadTotal - that.noScore;
-                        }
-
-
                         that.headInfo.avatarUrl = res.data.rows.user.avatarUrl;
                         that.headInfo.fullname = res.data.rows.user.fullname;
                         that.headInfo.description = res.data.rows.description;
@@ -198,6 +187,18 @@ var index = new Vue({
                     }else{
                         that.scrollModel = true;
                     }
+                }
+            }
+        })
+        this.aoData.score = 1;
+        $.ajax({
+            url: config.ajaxUrls.getTopicAndArtifactById,
+            type: 'GET',
+            data: this.aoData,
+            success:function(res){
+                if (res.status == 200) {
+                    that.isScore = res.data.count;
+                    that.noScore = that.uploadTotal - res.data.count;
                 }
             }
         })

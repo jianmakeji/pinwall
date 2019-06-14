@@ -40,7 +40,7 @@
 
 					{% endif %}
 				{% endif %}
-				<li class="show_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}' || '{{data.userId}}' == '{{user.Id}}'">
+				<li class="show_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}'">
 					<i-button :icon="'{{data.visible}}' == 1 ? 'md-eye-off' : 'md-eye'" @click="showArtifact({{data.visible}})" size="large" :title="'{{data.visible}}' == 1 ? '隐藏' : '开放'"></i-button>
 				</li>
 			</ul>
