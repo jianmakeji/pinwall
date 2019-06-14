@@ -142,11 +142,11 @@ class Topics extends Service {
       if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
         element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
       }
-
+      console.log(element.artifact_scores);
       if (this.ctx.user){
         if(role == 'vip' && topic.rows.userId != this.ctx.user.Id){
           //删除所有分数
-          element.artifact_scores = null;
+          element.artifact_scores = [{'Id':0,'score':'-1'}];
         }
         else if (role == 'user'){
           let users = new Array();
@@ -160,13 +160,14 @@ class Topics extends Service {
           }
 
           if (!users.includes(element.user.Id)){
-            element.artifact_scores = null;
+            element.artifact_scores = [{'Id':0,'score':'-1'}];
           }
         }
       }
       else{
-        element.artifact_scores = null;
+        element.artifact_scores = [{'Id':0,'score':'-1'}];
       }
+
     });
 
     return topic;

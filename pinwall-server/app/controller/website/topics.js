@@ -104,6 +104,12 @@ class TopicsController extends BaseController{
 
     try{
       let result = await ctx.service.topics.getTopicAndArtifactById(query);
+      result.rows.artifacts.forEach((element, index)=>{
+
+        console.log(element.artifact_scores);
+
+
+      });
       super.success(result);
     }
     catch(e){
