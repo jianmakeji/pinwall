@@ -145,7 +145,7 @@ class Topics extends Service {
 
       if(role == 'vip' && topic.rows.userId != this.ctx.user.Id){
         //删除所有分数
-        element.artifact_scores = [];
+        element.artifact_scores = null;
       }
       else if (role == 'user'){
         let users = new Array();
@@ -159,7 +159,7 @@ class Topics extends Service {
         }
 
         if (!users.includes(element.user.Id)){
-          element.artifact_scores = [];
+          element.artifact_scores = null;
         }
       }
 
