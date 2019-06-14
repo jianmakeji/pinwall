@@ -25,7 +25,7 @@
 				<li class="edit_btn" v-if="( '{{user.roles[0].name}}' == 'vip' && '{{data.topics[0].userId}}' == '{{user.Id}}' && {{data.topics.length}} != 0 ) || '{{user.roles[0].name}}' == 'admin'">
 					<i-button icon="i-icon iconfont icon-score" @click="showScoreBox($event)" size="large" title="打分"></i-button>
 				</li>
-				<li class="edit_btn" v-if="('{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}'  && {{data.topics.length}} != 0 || '{{data.userId}}' == '{{user.Id}}') && {{data.topics[0].status}} != 1">
+				<li class="edit_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}'  && {{data.topics.length}} != 0 || '{{data.userId}}' == '{{user.Id}}'">
 					<i-button icon="md-create" @click="editArtifact('{{data.jobTag}}')" size="large" title="修改"></i-button>
 				</li>
 				{% if data.jobTag == 2 %}
