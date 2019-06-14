@@ -30,15 +30,15 @@ Component({
       },
       medalCount:{
          type: String,
-         value: '0'
+         value: ''
       },
       likeCount: {
          type: String,
-         value: '0'
+         value: ''
       },
       commentCount: {
          type: String,
-         value: '0'
+         value: ''
       }
    },
 

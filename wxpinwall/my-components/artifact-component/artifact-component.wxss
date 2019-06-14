@@ -64,10 +64,25 @@
    overflow: hidden;
    text-overflow: ellipsis;
 }
+.artifact_complate .artifact_info .workScore{
+   width:130rpx;
+   height:38rpx;
+   line-height:38rpx;
+   font-weight:bold;
+   font-size:22rpx;
+   text-align:center;
+   position:absolute;
+   margin-left:290rpx;
+   margin-top:-10rpx;
+   overflow:hidden;
+   color:#fff;
+   border-radius:20rpx;
+   background:#fa5f75;
 
+}
 .artifact_complate .artifact_info .medal {
-   width: 30rpx;
-   height: 35rpx;
+   width: 32rpx;
+   height: 32rpx;
    position: absolute;
    margin-left: 40rpx;
    margin-top: 223rpx;
@@ -83,7 +98,7 @@
    margin-left: 80rpx;
 }
 .artifact_complate .artifact_info .like {
-   width: 34rpx;
+   width: 32rpx;
    height: 32rpx;
    position: absolute;
    margin-left: 150rpx;
@@ -100,7 +115,7 @@
    margin-left: 195rpx;
 }
 .artifact_complate .artifact_info .comment {
-   width: 34rpx;
+   width: 32rpx;
    height: 32rpx;
    position: absolute;
    margin-left: 260rpx;

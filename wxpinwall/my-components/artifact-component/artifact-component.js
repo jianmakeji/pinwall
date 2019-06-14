@@ -6,15 +6,15 @@ Component({
    properties: {
       profileImage:{
          type:String,
-         value:"/images/photo_1.jpg"
+         value:""
       },
       userAvator:{
          type: String,
-         value: "/images/photo_1.jpg"
+         value: ""
       },
       userName: {
          type: String,
-         value: "刘德华"
+         value: ""
       },
       userId:{
          type: String,
@@ -22,23 +22,40 @@ Component({
       },
       createAt:{
          type: String,
-         value: "2018-09-17 上传"
+         value: ""
       },
       artifactTitle: {
          type: String,
-         value: "the problem between younger worker and old"
+         value: ""
+      },
+      role:{
+         type:String,
+         value:"ZYJ"
+      },
+      teacherId:{
+         type:String,
+         value:""
+      },
+      // 登录者Id
+      myId:{
+         type:Number,
+         value: wx.getStorageSync("myId")
+      },
+      artifactScore:{
+         type:String,
+         value:'未打分'
       },
       medalCount: {
          type: String,
-         value: "10"
+         value: ""
       },
       likeCount: {
          type: String,
-         value: "10"
+         value: ""
       },
       commentCount: {
          type: String,
-         value: "10"
+         value: ""
       },
    },
 

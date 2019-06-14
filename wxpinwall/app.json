@@ -22,19 +22,19 @@
       "navigationStyle": "custom"
    },
    "tabBar": {
-      "selectedColor": "#1FB5BE",
+      "selectedColor": "#07AD69",
       "list": [
          {
             "pagePath": "pages/index/index",
-            "text": "设计廊",
+            "text": "首页",
             "iconPath": "images/tab_index_default.png",
             "selectedIconPath": "images/tab_index_hl.png"
          },
          {
             "pagePath": "pages/graduationProjects/graduationProjects",
             "text": "毕设展",
-            "iconPath": "images/tab_topic_default.png",
-            "selectedIconPath": "images/tab_topic_hl.png"
+            "iconPath": "images/tab_graPro_default.png",
+            "selectedIconPath": "images/tab_graPro_hl.png"
          },
          {
             "pagePath": "pages/topics/topics",

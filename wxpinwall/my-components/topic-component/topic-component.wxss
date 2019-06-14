@@ -24,7 +24,7 @@
    width: 300rpx;
    height: 30rpx;
    position: absolute;
-   margin-top: 10rpx;
+   margin-top: 0rpx;
    margin-left: 20rpx;
    color: #484848;
    font-size: 24rpx;

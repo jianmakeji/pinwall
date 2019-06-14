@@ -31,16 +31,19 @@
    color: #07af69;
    font-weight: bold;
 }
-
 .artifact_info .artifact_score {
-   width: 200rpx;
-   height: 60rpx;
-   position: absolute;
-   margin-left: 520rpx;
-   margin-top: 34rpx;
-   font-size: 44rpx;
-   color: #07af69;
-   font-weight: bold;
+   width:200rpx;
+   height:70rpx;
+   position:absolute;
+   margin-left:520rpx;
+   margin-top:34rpx;
+   font-size:44rpx;
+   color:#CF011B;
+   font-weight:bold;
+   text-align:center;
+   line-height:70rpx;
+   border-radius:30rpx;
+   border: solid 2px #EFEFEF
 }
 
 .artifact_info .artifact_title {
@@ -79,8 +82,8 @@
    justify-content: left;
 }
 .iconBox .medal .medalIcon{
-   width: 26rpx;
-   height: 34rpx;
+   width: 32rpx;
+   height: 32rpx;
 }
 .iconBox .medal .medalNum{
    font-size: 24rpx;
@@ -95,8 +98,8 @@
    justify-content: left;
 }
 .iconBox .like .likeIcon{
-   width: 30rpx;
-   height: 30rpx;
+   width: 32rpx;
+   height: 32rpx;
 }
 .iconBox .like .likeNum{
    font-size: 24rpx;
@@ -111,8 +114,8 @@
    justify-content: left;
 }
 .iconBox .comment .commentIcon{
-   width: 30rpx;
-   height: 30rpx;
+   width: 32rpx;
+   height: 32rpx;
 }
 .iconBox .comment .commentNum{
    font-size: 24rpx;
@@ -203,17 +206,24 @@
    margin-top: 32rpx;
 }
 .optUl{
-   width: 100rpx;
+   width: 60rpx;
    position: fixed;
-   right: 10rpx;
+   right: 40rpx;
    display: flex;
    flex-direction: column;
+}
+.optUl view{
+   width: 60rpx;
+   height: 60rpx;
+   margin-top: 40rpx;
+   background: #fff;
 }
 .optUl .like_btn,
 .optUl .comment_btn,
 .optUl .score_btn{
-   width: 100rpx;
-   height: 100rpx;
+   width: 40rpx;
+   height: 40rpx;
+   margin: 10rpx;
 }
 
 
@@ -270,7 +280,7 @@
 }
 
 .commentListBox .comment .user_info .user_fullname {
-   width: 300rpx;
+   width: 350rpx;
    height: 40rpx;
    line-height: 40rpx;
    position: absolute;

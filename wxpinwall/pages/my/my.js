@@ -229,7 +229,6 @@ Page({
             url: app.globalData.baseUrl + app.globalData.countTopicsByUserId + "?userId=" + myId,
             method: "GET",
             success(res) {
-               console.log(res)
                if (res.statusCode == 200) { 
                   that.setData({
                      myTopicNum: res.data

@@ -1,1 +1,6 @@
-/* pages/topics/showreelDetail/showreelDetail.wxss */
+.highStatus{
+   margin-top: 200rpx;
+}
+.lowStatus{
+   margin-top: 150rpx;
+}

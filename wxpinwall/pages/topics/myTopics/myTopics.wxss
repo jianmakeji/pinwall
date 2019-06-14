@@ -1,4 +1,10 @@
 /* pages/topics/topics.wxss */
+.highStatus{
+   margin-top: 200rpx;
+}
+.lowStatus{
+   margin-top: 150rpx;
+}
 .topics_tabs scroll-view label{
     font-size:24rpx;
 }

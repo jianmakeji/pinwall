@@ -14,6 +14,7 @@ Page({
       // 数据数组
       dataList:[],
       loading: false,
+      teacherId:"",
       avatarUrl:"",
       fullname:"",
       atrifactCount:"",
@@ -63,13 +64,14 @@ Page({
             limit: this.data.limit,
             offset: this.data.offset,
             topicId: this.data.topicId,
+            role:wx.getStorageSync("myRole")
          },
          method: "GET",
          success(res) {
-            console.log(res)
             if (res.data.status == 200) {
                that.setData({
                   dataList: res.data.data.rows.artifacts,
+                  teacherId: res.data.data.rows.user.Id,
                   avatarUrl: res.data.data.rows.user.avatarUrl,
                   fullname: res.data.data.rows.user.fullname,
                   atrifactCount: res.data.data.count,

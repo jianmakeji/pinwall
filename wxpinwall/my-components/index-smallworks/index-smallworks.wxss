@@ -75,8 +75,8 @@
    justify-content: left;
 }
 .iconBox .medal .medalIcon{
-   width: 30rpx;
-   height: 40rpx;
+   width: 32rpx;
+   height: 32rpx;
 }
 .iconBox .medal .medalNum{
    font-size: 24rpx;
@@ -90,8 +90,8 @@
    justify-content: left;
 }
 .iconBox .like .likeIcon{
-   width: 36rpx;
-   height: 36rpx;
+   width: 32rpx;
+   height: 32rpx;
 }
 .iconBox .like .likeNum{
    font-size: 24rpx;
@@ -105,8 +105,8 @@
    justify-content: left;
 }
 .iconBox .comment .commentIcon{
-   width: 36rpx;
-   height: 36rpx;
+   width: 32rpx;
+   height: 32rpx;
 }
 .iconBox .comment .commentNum{
    font-size: 24rpx;

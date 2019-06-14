@@ -2,7 +2,7 @@
 <nav-bar statusHeight="{{statusHeight}}" tabIndex="{{tabIndexNum}}" backDes="{{artifactTitle}}" bind:tapBack="tapBack"></nav-bar>
 <view class="artifact_info {{statusHeight ? 'highStatus' : 'lowStatus'}}" style='height:{{artifactInfoHeight}}px;'>
    <image class='user_avator' src="{{userAvatarUrl?userAvatarUrl:'/images/default_profile.jpg'}}" catchtap='tapUserAvator' data-user-id="{{artifactUserId}}"></image>
-   <text class='user_fullname' catchtap='tapUserAvator' data-user-id="{{artifactUserId}}">{{userFullname}}</text>
+   <text class='user_fullname' catchtap='tapUserAvator' data-user-id="{{artifactUserId}}">{{userFullname}}({{teamworker}})</text>
    <text class='artifact_score' wx:if="{{vipRole}}">{{artifactScores ? artifactScores : "未评"}}分</text>
    <text class='artifact_title'>{{artifactTitle}}</text>
    <view class='iconBox'>
@@ -35,9 +35,15 @@
 </view>
 
 <view class='optUl' style='top:{{optTop}}px'>
-   <image class='like_btn' src="{{zanModal?'/images/artifact_like_hl.png':'/images/artifact_like_default.png'}}" catchtap="creatLike"></image>
-   <image class='comment_btn' src='/images/artifact_comment_default.png' catchtap='openComment'></image>
-   <image class='score_btn' src='/images/artifact_score_default.png' catchtap="creatScore"></image>
+   <view>
+      <image class='like_btn' src="{{zanModal?'/images/artifact_like_hl.png':'/images/artifact_like_default.png'}}" catchtap="creatLike"></image>
+   </view>
+   <view>
+      <image class='comment_btn' src='/images/artifact_comment_default.png' catchtap='openComment'></image>
+   </view>
+   <view>
+      <image class='score_btn' src='/images/artifact_score_default.png' catchtap="creatScore"></image>
+   </view>
 </view>
 
 <view class='commentListBox' wx:if="{{commentVisible}}">
@@ -55,20 +61,13 @@
       </view>
 </view>
 <view class='commentInputBox' wx:if="{{commentVisible}}">
-   <input class='commentInput' value="{{ commentEditValue }}" bindinput='commentValueChange' placeholder='发表你的评论...'></input>
+   <input class='commentInput' value="{{ commentEditValue }}" bindinput='commentValueChange'  cursor-spacing="30" placeholder='发表你的评论...'></input>
    <button class='commentBtn' catchtap='submitComment'>发布</button>
 </view>
 
-<view class='scoreInputBox' wx:if="{{artifactScoreVisible}}">
-   <input class='scoreInput' type='number' value="{{ artifactScoreValue }}" bindinput='artifactScoreValueChange' placeholder='请输入0~100之间整数'></input>
+<view class='scoreInputBox' wx:if="{{artifactScoreVisible}}" >
+   <input class='scoreInput' type='number' value="{{ artifactScoreValue }}" focus="{{scoreFocus}}" cursor-spacing="30" bindinput='artifactScoreValueChange' placeholder='请输入0~100之间整数'></input>
    <button class='scoreBtn' catchtap='submitScore'>打分</button>
 </view>
 
 <i-toast id="toast" />
-<!-- <i-modal customMarginTop="-100px" title="作业评分" visible="{{ artifactScoreVisible }}" show-ok="{{false}}" show-cancel="{{false}}" customWidth="80%">
-   <view class='scroe_box'>
-       <i-icon class='closeScore' bindtap='closeScore' type="close" size="26" />
-      <i-input i-class='score_input' type='number' value="{{ artifactScoreValue }}" bind:change='artifactScoreValueChange' placeholder='请输入0~100之间整数' />
-      <i-button i-class='score_btn' type='submit' bind:click="submitScore">保存</i-button>
-   </view>
-</i-modal> -->
