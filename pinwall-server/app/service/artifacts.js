@@ -97,9 +97,10 @@ class Artifacts extends Service {
       }
     }
 
-    if (this.ctx.user){
+    let ctx = this.ctx;
+    if (ctx.user){
       let role = ctx.user.roles[0].name;
-      if(role == 'vip' && artifact.user.Id != this.ctx.user.Id){
+      if(role == 'vip' && artifact.user.Id != ctx.user.Id){
         //删除所有分数
         artifact.artifact_scores.length = 1;
       }
@@ -113,7 +114,7 @@ class Artifacts extends Service {
           });
         }
 
-        if (!(users.includes(this.ctx.user.Id) || (this.ctx.user.Id == artifact.user.Id))){
+        if (!(users.includes(ctx.user.Id) || (ctx.user.Id == artifact.user.Id))){
           artifact.artifact_scores.length = 1;
         }
       }
