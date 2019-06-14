@@ -158,7 +158,7 @@ class Topics extends Service {
               users.push(tw.Id);
             });
           }
-
+          
           if (!users.includes(element.user.Id)){
             element.artifact_scores = null;
           }
