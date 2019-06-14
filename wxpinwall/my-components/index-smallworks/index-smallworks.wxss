@@ -4,7 +4,7 @@
    padding: 25rpx;
    display: flex;
    flex-direction: column;
-   border-bottom: solid 1px gray;
+   border-bottom: solid 4px #EFEFEF;
 }
 .headInfo{
    width: 700rpx;
@@ -35,7 +35,7 @@
    margin-left: 80rpx;
    display: flex;
    flex-direction: row;
-   background: gray
+   background: #EFEFEF;
 }
 .rightInfo{
    display: flex;

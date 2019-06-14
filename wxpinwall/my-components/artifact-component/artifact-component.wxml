@@ -6,7 +6,7 @@
       <text class='user_name'>{{userName}}</text>
       <text class='createAt'>{{createAt}} 上传</text>
       <text class='artifact_title'>{{artifactTitle}}</text>
-      <text class='workScore' wx:if="{{teacherId == myId && role == 'ZYJ'}}">{{artifactScore}}</text>
+      <text class='workScore' wx:if="{{teacherId == myId && role == 'ZYJ' && myRole == 'admin'}}">{{artifactScore}}</text>
       <image class='medal' src='/images/icon_medal.png'></image>
       <text class='medal_count'>{{medalCount}}</text>
       <image class='like' src='/images/icon_like.png'></image>

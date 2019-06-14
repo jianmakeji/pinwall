@@ -2,5 +2,6 @@
    "usingComponents": {
       "nav-bar": "/my-components/navbar/navbar",
       "i-icon": "/dist/icon/index"
-   }
+   },
+   "disableScroll":true
 }

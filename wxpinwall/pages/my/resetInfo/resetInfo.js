@@ -1,4 +1,7 @@
 // pages/my/resetInfo/resetInfo.js
+// const {
+//    $Toast
+// } = require('../../../dist/base/index');
 const app = getApp();
 Page({
 
@@ -8,7 +11,10 @@ Page({
    data: {
       tabIndexNum:"2",
       statusHeight:false,
-      userInfo:""
+      userInfo:"",
+
+      introVisible:false,
+      introFocus:false
    },
    tapBack(event){
       wx.navigateBack({
@@ -17,6 +23,43 @@ Page({
    },
    resetIntro(event){
       console.log("resetIntro")
+      let that = this;
+      this.setData({
+         introVisible: true,
+         introFocus:true
+      })
+   },
+   introValueChange(event){
+      this.setData({
+         introValue: event.detail.value
+      })
+   },
+   submitIntro(event){
+      let that = this;
+      wx.request({
+         url: app.globalData.baseUrl + app.globalData.updateUserIntro.replace(":id", wx.getStorageSync("myId")),
+         data: {
+            intro: this.data.introValue
+         },
+         method: "PUT",
+         success(res) {
+            if (res.data.status == 200) {
+               that.setData({
+                  introVisible: false
+               });
+               wx.showToast({
+                  title: '发布成功！',
+               })
+               that.onShow();
+            } else {
+               wx.showToast({
+                  title: '发布成功！',
+                  icon:"error"
+               })
+            }
+
+         }
+      })
    },
    /**
     * 生命周期函数--监听页面加载
@@ -38,24 +81,24 @@ Page({
     * 生命周期函数--监听页面初次渲染完成
     */
    onReady: function () {
-      let that = this;
-      wx.request({
-         url: app.globalData.baseUrl + app.globalData.getUserInfoById + "?userId=" + wx.getStorageSync("myId"),
-         success(res) {
-            if (res.data.status == 200) {
-               that.setData({
-                  userInfo:res.data.data[0]
-               })
-            }
-         }
-      })
+      
    },
 
    /**
     * 生命周期函数--监听页面显示
     */
    onShow: function () {
-
+      let that = this;
+      wx.request({
+         url: app.globalData.baseUrl + app.globalData.getUserInfoById + "?userId=" + wx.getStorageSync("myId"),
+         success(res) {
+            if (res.data.status == 200) {
+               that.setData({
+                  userInfo: res.data.data[0]
+               })
+            }
+         }
+      })
    },
 
    /**

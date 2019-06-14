@@ -25,6 +25,7 @@
    flex-direction: row;
    align-items: center;
    border-radius:  30rpx;
+   background: #EFEFEF;
 }
 .navBar .searchDes{
    font-size: 28rpx;
@@ -49,7 +50,8 @@
    font-weight: bold;
    overflow: hidden;
    white-space: nowrap;
-   text-overflow: ellipsis
+   text-overflow: ellipsis;
+   margin-top: 2rpx;
 }
 
 .titleBox{

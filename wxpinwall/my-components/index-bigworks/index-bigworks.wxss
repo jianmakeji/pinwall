@@ -4,7 +4,7 @@
    padding: 25rpx;
    display: flex;
    flex-direction: column;
-   border-bottom: solid 1px gray;
+   border-bottom: solid 4px #EFEFEF;
 }
 .headInfo{
    width: 700rpx;
@@ -36,7 +36,7 @@
    padding-bottom: 20rpx;
    display: flex;
    flex-direction: column;
-   background: gray
+   background: #EFEFEF;
 }
 .profileImage{
    width: 600rpx;

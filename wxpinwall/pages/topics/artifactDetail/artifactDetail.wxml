@@ -2,7 +2,7 @@
 <nav-bar statusHeight="{{statusHeight}}" tabIndex="{{tabIndexNum}}" backDes="{{artifactTitle}}" bind:tapBack="tapBack"></nav-bar>
 <view class="artifact_info {{statusHeight ? 'highStatus' : 'lowStatus'}}" style='height:{{artifactInfoHeight}}px;'>
    <image class='user_avator' src="{{userAvatarUrl?userAvatarUrl:'/images/default_profile.jpg'}}" catchtap='tapUserAvator' data-user-id="{{artifactUserId}}"></image>
-   <text class='user_fullname' catchtap='tapUserAvator' data-user-id="{{artifactUserId}}">{{userFullname}}({{teamworker}})</text>
+   <text class='user_fullname' catchtap='tapUserAvator' data-user-id="{{artifactUserId}}">{{userFullname}}{{teamworker ? "(" + teamworker + ")" : ""}}</text>
    <text class='artifact_score' wx:if="{{vipRole}}">{{artifactScores ? artifactScores : "未评"}}分</text>
    <text class='artifact_title'>{{artifactTitle}}</text>
    <view class='iconBox'>

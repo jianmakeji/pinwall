@@ -25,3 +25,8 @@
       </view>
    </view>
 </view>
+<view class='introInputBox' wx:if="{{introVisible}}" >
+   <input class='introInput' type='number' value="{{ introValue }}" focus="{{introFocus}}" cursor-spacing="30" bindinput='introValueChange' placeholder='请输入个人简介'></input>
+   <button class='introBtn' catchtap='submitIntro'>发布</button>
+</view>
+<i-toast id="toast" />

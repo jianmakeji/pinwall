@@ -1,6 +1,3 @@
-const {
-   $Toast
-} = require('../../../dist/base/index');
 const app = getApp();
 Page({
 
@@ -92,29 +89,25 @@ Page({
                         }
                      }
                   })
-                  $Toast({
-                     content: '操作成功！',
-                     type: "success",
-                     duration: 1,
-                     selector: "#toast"
-                  });
+                  wx.showToast({
+                     title: '操作成功！',
+                     duration:500
+                  })
                } else {
-                  $Toast({
-                     content: '操作失败！',
-                     type: "error",
-                     duration: 2,
-                     selector: "#toast"
-                  });
+                  wx.showToast({
+                     title: '操作失败！',
+                     duration: 1000,
+                     icon:"none"
+                  })
                }
             }
          })
       } else {
-         $Toast({
-            content: '需先登录才能操作！',
-            type: "error",
-            duration: 2,
-            selector: "#toast"
-         });
+         wx.showToast({
+            title: '需先登录才能操作！',
+            duration: 1000,
+            icon: "none"
+         })
       }
    },
    /*
@@ -143,12 +136,11 @@ Page({
             }
          })
       }else{
-         $Toast({
-            content: '需先登录才能操作！',
-            type: 'error',
-            duration: 2,
-            selector: "#toast"
-         });
+         wx.showToast({
+            title: '需先登录才能操作！',
+            duration: 1000,
+            icon: "none"
+         })
       }      
    },
    closeComment() {
@@ -189,38 +181,34 @@ Page({
                      commentVisible: false,
                      commentEditValue:""
                   });
-                  $Toast({
-                     content: '评论成功！',
-                     image: '/images/success.png',
-                     duration: 1,
-                     selector: "#toast"
-                  });
+                  wx.showToast({
+                     title: '评论成功！',
+                     duration:500
+                  })
                } else {
                   that.setData({
                      commentVisible: false
                   });
-                  $Toast({
-                     content: '评论失败！',
-                     type: "error",
-                     selector: "#toast"
-                  });
+                  wx.showToast({
+                     title: '评论失败！',
+                     duration: 1000,
+                     icon: "none"
+                  })
                }
             }
          })
       } else if (wx.getStorageSync("openid") == "") {
-         $Toast({
-            content: '需先登录才能操作！',
-            type: 'error',
-            duration: 2,
-            selector: "#toast"
-         });
+         wx.showToast({
+            title: '需先登录才能操作！',
+            duration: 1000,
+            icon: "none"
+         })
       } else {
-         $Toast({
-            content: '评论为空！',
-            type: 'error',
-            duration: 2,
-            selector: "#toast"
-         });
+         wx.showToast({
+            title: '评论内容为空！',
+            duration: 1000,
+            icon: "none"
+         })
       }
    },
    // 打开打分菜单按钮
@@ -232,12 +220,11 @@ Page({
             commentVisible:false
          })
       }else{
-         $Toast({
-            content: '需先登录才能操作！',
-            type: 'error',
-            duration: 2,
-            selector: "#toast"
-         });
+         wx.showToast({
+            title: '需先登录才能操作！',
+            duration: 1000,
+            icon: "none"
+         })
       }
    },
    artifactScoreValueChange(event) {
@@ -276,31 +263,28 @@ Page({
                      that.setData({
                         artifactScoreVisible: false
                      });
-                     $Toast({
-                        content: '打分成功！',
-                        type: 'success',
-                        duration: 1,
-                        selector: "#toast"
-                     });
+                     wx.showToast({
+                        title: '打分成功！',
+                        duration: 500
+                     })
                      that.onShow();
                   } else {
-                     $Toast({
-                        content: '打分失败！',
-                        type: "error",
-                        selector: "#toast"
-                     });
+                     wx.showToast({
+                        title: '打分失败！',
+                        duration: 500,
+                        icon: "error"
+                     })
                   }
 
                }
             })
          }
       } else {
-         $Toast({
-            content: '打分失败！未登陆或者不是改作业荚创建者！',
-            type: 'error',
-            duration: 2,
-            selector: "#toast"
-         });
+         wx.showToast({
+            title: '打分失败！未登陆或者不是该作业荚创建者！',
+            duration: 1000,
+            icon: "none"
+         })
          this.setData({
             artifactScoreVisible: false
          });
@@ -394,7 +378,7 @@ Page({
                      topicName: res.data.data.user.fullname + "的作品集",
                   })
                }
-               if (res.data.data.artifact_scores.length) {
+               if (res.data.data.artifact_scores.length && res.data.data.artifact_scores[0] != null) {
                   that.setData({
                      artifactScores: res.data.data.artifact_scores[0].score
                   })

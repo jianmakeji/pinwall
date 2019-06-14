@@ -41,6 +41,10 @@ Component({
          type:Number,
          value: wx.getStorageSync("myId")
       },
+      myRole: {
+         type: String,
+         value: wx.getStorageSync("myRole")
+      },
       artifactScore:{
          type:String,
          value:'未打分'
