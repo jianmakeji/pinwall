@@ -143,26 +143,30 @@ class Topics extends Service {
         element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
       }
 
-      if(role == 'vip' && topic.rows.userId != this.ctx.user.Id){
-        //删除所有分数
-        element.artifact_scores = null;
-      }
-      else if (role == 'user'){
-        let users = new Array();
-        users.push(this.ctx.user.Id);
-        let teamworker = element.teamworker;
-        if (teamworker){
-          let teamArray = JSON.parse(teamworker);
-          teamArray.forEach((tw)=>{
-            users.push(tw.Id);
-          });
-        }
-
-        if (!users.includes(element.user.Id)){
+      if (this.ctx.user){
+        if(role == 'vip' && topic.rows.userId != this.ctx.user.Id){
+          //删除所有分数
           element.artifact_scores = null;
         }
-      }
+        else if (role == 'user'){
+          let users = new Array();
+          users.push(this.ctx.user.Id);
+          let teamworker = element.teamworker;
+          if (teamworker){
+            let teamArray = JSON.parse(teamworker);
+            teamArray.forEach((tw)=>{
+              users.push(tw.Id);
+            });
+          }
 
+          if (!users.includes(element.user.Id)){
+            element.artifact_scores = null;
+          }
+        }
+      }
+      else{
+        element.artifact_scores = null;
+      }
     });
 
     return topic;
