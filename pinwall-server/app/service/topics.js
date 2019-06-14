@@ -137,38 +137,38 @@ class Topics extends Service {
     });
 
     const app = this.ctx.app;
-
-    topic.rows.artifacts.forEach((element, index)=>{
-      if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
-        element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
-      }
-      console.log(element.artifact_scores);
-      if (this.ctx.user){
-        if(role == 'vip' && topic.rows.userId != this.ctx.user.Id){
-          //删除所有分数
-          element.artifact_scores = [{'Id':0,'score':'-1'}];
+    if (topic.rows.artifacts){
+      topic.rows.artifacts.forEach((element, index)=>{
+        if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
+          element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
         }
-        else if (role == 'user'){
-          let users = new Array();
-          users.push(this.ctx.user.Id);
-          let teamworker = element.teamworker;
-          if (teamworker){
-            let teamArray = JSON.parse(teamworker);
-            teamArray.forEach((tw)=>{
-              users.push(tw.Id);
-            });
+        if (this.ctx.user){
+          if(role == 'vip' && topic.rows.userId != this.ctx.user.Id){
+            //删除所有分数
+            element.artifact_scores.length = 1;
           }
-          
-          if (!users.includes(element.user.Id)){
-            element.artifact_scores = [{'Id':0,'score':'-1'}];
+          else if (role == 'user'){
+            let users = new Array();
+            users.push(this.ctx.user.Id);
+            let teamworker = element.teamworker;
+            if (teamworker){
+              let teamArray = JSON.parse(teamworker);
+              teamArray.forEach((tw)=>{
+                users.push(tw.Id);
+              });
+            }
+
+            if (!users.includes(element.user.Id)){
+              element.artifact_scores.length = 1;
+            }
           }
         }
-      }
-      else{
-        element.artifact_scores = [{'Id':0,'score':'-1'}];
-      }
+        else{
+          element.artifact_scores.length = 1;
+        }
 
-    });
+      });
+    }
 
     return topic;
   }

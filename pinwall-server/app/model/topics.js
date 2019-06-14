@@ -264,40 +264,47 @@ module.exports  = app => {
     }
 
     let resultData = await this.findAll(condition);
-    let artifactSize = resultData[0].artifacts.length;
+    let result = {};
+    if(resultData.length > 0){
+      let artifactSize = resultData[0].artifacts.length;
 
-    let tempArray = [];
+      let tempArray = [];
 
-    if (score == 2){
-      let artifactTempArray = [...resultData[0].artifacts];
-      let filterArtifactArray = artifactTempArray.filter((element)=>{
-        return (element.artifact_scores.length == 0);
-      });
-      if (artifactSize >= (limit + offset)){
-        tempArray = filterArtifactArray.slice(offset,limit + offset);
+      if (score == 2){
+        let artifactTempArray = [...resultData[0].artifacts];
+        let filterArtifactArray = artifactTempArray.filter((element)=>{
+          return (element.artifact_scores.length == 0);
+        });
+        if (artifactSize >= (limit + offset)){
+          tempArray = filterArtifactArray.slice(offset,limit + offset);
+        }
+        else{
+          tempArray = filterArtifactArray.slice(offset,artifactSize);
+        }
+        artifactSize = filterArtifactArray.length;
       }
       else{
-        tempArray = filterArtifactArray.slice(offset,artifactSize);
+        if (artifactSize >= (limit + offset)){
+          tempArray = resultData[0].artifacts.slice(offset,limit + offset);
+        }
+        else{
+          tempArray = resultData[0].artifacts.slice(offset,artifactSize);
+        }
       }
-      artifactSize = filterArtifactArray.length;
+
+      resultData[0].artifacts.length = 0;
+      tempArray.forEach((artifact, index)=>{
+        resultData[0].artifacts.push(artifact);
+      });
+
+      result.rows = resultData[0];
+      result.count = artifactSize;
     }
     else{
-      if (artifactSize >= (limit + offset)){
-        tempArray = resultData[0].artifacts.slice(offset,limit + offset);
-      }
-      else{
-        tempArray = resultData[0].artifacts.slice(offset,artifactSize);
-      }
+      result.rows = [];
+      result.count = 0;
     }
 
-    resultData[0].artifacts.length = 0;
-    tempArray.forEach((artifact, index)=>{
-      resultData[0].artifacts.push(artifact);
-    });
-
-    let result = {};
-    result.rows = resultData[0];
-    result.count = artifactSize;
     return result;
   }
 
