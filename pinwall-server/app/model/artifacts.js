@@ -27,7 +27,7 @@ module.exports = app => {
       defaultValue: ''
     },
     teamworker:{
-      type: STRING(130),
+      type: STRING(255),
       allowNull: false,
       defaultValue: ''
     },

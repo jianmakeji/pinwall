@@ -217,33 +217,19 @@ module.exports  = app => {
       ]
     };
 
-    if (role == 'user'){
-      let artifactCondition = {
-        model: app.model.Artifacts,
-        include:[{
-          model:app.model.Users,
-          attributes:['Id','fullname','avatarUrl','commentCount','artifactCount','medalCount','likeCount','createAt']
-        }],
-        through:{
-          attributes:['topicId','artifactId'],
-        },
-        attributes:['Id','profileImage','name','medalCount','likeCount','commentCount','createAt']
-      };
+    let artifactCondition = {
+      model: app.model.Artifacts,
+      include:[{
+        model:app.model.Users,
+        attributes:['Id','fullname','avatarUrl','commentCount','artifactCount','medalCount','likeCount','createAt']
+      }],
+      through:{
+        attributes:['topicId','artifactId'],
+      },
+      attributes:['Id','profileImage','name','teamworker','medalCount','likeCount','commentCount','createAt']
+    };
 
-      condition.include.push(artifactCondition);
-    }
-    else{
-      let artifactCondition = {
-        model: app.model.Artifacts,
-        include:[{
-          model:app.model.Users,
-          attributes:['Id','fullname','avatarUrl','commentCount','artifactCount','medalCount','likeCount','createAt']
-        }],
-        through:{
-          attributes:['topicId','artifactId'],
-        },
-        attributes:['Id','profileImage','name','medalCount','likeCount','commentCount','createAt']
-      };
+    if (role == 'admin'){
 
       let scoreCondition;
       if (score == 0){
@@ -268,6 +254,13 @@ module.exports  = app => {
       }
       artifactCondition.include.push(scoreCondition);
       condition.include.push(artifactCondition);
+    }
+    else{
+      let scoreCondition = {
+          model: app.model.ArtifactScores
+      }
+      condition.include.push(artifactCondition);
+      artifactCondition.include.push(scoreCondition);
     }
 
     let resultData = await this.findAll(condition);

@@ -96,12 +96,7 @@ class TopicsController extends BaseController{
     };
 
     if(ctx.user){
-      if (ctx.user.roles[0].name == 'user'){
-        query.role = 'user';
-      }
-      else{
-        query.role = 'vip';
-      }
+      query.role = ctx.user.roles[0].name;
     }
     else{
       query.role = 'user';
