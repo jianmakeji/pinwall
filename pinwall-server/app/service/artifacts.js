@@ -98,6 +98,7 @@ class Artifacts extends Service {
     }
 
     let ctx = this.ctx;
+
     if (ctx.user){
       let role = ctx.user.roles[0].name;
       if(role == 'vip'){
@@ -107,6 +108,7 @@ class Artifacts extends Service {
           topicUserId.push(topic.userId);
         });
         if(!topicUserId.includes(ctx.user.Id)){
+          artifact.artifact_scores.length = 0;
           artifact.artifact_scores.length = 1;
         }
       }
@@ -121,11 +123,13 @@ class Artifacts extends Service {
         }
 
         if (!(users.includes(ctx.user.Id) || (ctx.user.Id == artifact.user.Id))){
+          artifact.artifact_scores.length = 0;
           artifact.artifact_scores.length = 1;
         }
       }
     }
     else{
+      artifact.artifact_scores.length = 0;
       artifact.artifact_scores.length = 1;
     }
 
