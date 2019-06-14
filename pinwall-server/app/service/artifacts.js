@@ -100,9 +100,15 @@ class Artifacts extends Service {
     let ctx = this.ctx;
     if (ctx.user){
       let role = ctx.user.roles[0].name;
-      if(role == 'vip' && artifact.user.Id != ctx.user.Id){
+      if(role == 'vip'){
         //删除所有分数
-        artifact.artifact_scores.length = 1;
+        let topicUserId = new Array();
+        artifact.topics.forEach((topic)=>{
+          topicUserId.push(topic.userId);
+        });
+        if(!topicUserId.includes(ctx.user.Id)){
+          artifact.artifact_scores.length = 1;
+        }
       }
       else if (role == 'user'){
         let users = new Array();
