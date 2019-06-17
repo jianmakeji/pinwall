@@ -2,9 +2,11 @@
 <nav-bar statusHeight="{{statusHeight}}" tabIndex="{{tabIndexNum}}" backDes="{{artifactTitle}}" bind:tapBack="tapBack"></nav-bar>
 <view class="artifact_info {{statusHeight ? 'highStatus' : 'lowStatus'}}" style='height:{{artifactInfoHeight}}px;'>
    <image class='user_avator' src="{{userAvatarUrl?userAvatarUrl:'/images/default_profile.jpg'}}" catchtap='tapUserAvator' data-user-id="{{artifactUserId}}"></image>
-   <text class='user_fullname' catchtap='tapUserAvator' data-user-id="{{artifactUserId}}">{{userFullname}}{{teamworker ? "(" + teamworker + ")" : ""}}</text>
-   <text class='artifact_score' wx:if="{{vipRole}}">{{artifactScores ? artifactScores : "未评"}}分</text>
+   <text class='user_fullname' catchtap='tapUserAvator' data-user-id="{{artifactUserId}}">{{userFullname}}</text>
+   <text class='artifact_score' wx:if="{{artifactScores[0] != null }}">{{artifactScores[0].score + '分'}}</text>
+   <text class='artifact_score' wx:if="{{artifactScores.length == 0 }}">未打分</text>
    <text class='artifact_title'>{{artifactTitle}}</text>
+   <text class='teamworker'>协作：{{teamworker ? teamworker : "无"}}</text>
    <view class='iconBox'>
       <view class='medal'>
          <image class='medalIcon' src='/images/icon_medal.png'></image>

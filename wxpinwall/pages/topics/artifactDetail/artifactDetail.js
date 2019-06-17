@@ -320,6 +320,10 @@ Page({
       // 获取作业信息
       wx.request({
          url: app.globalData.baseUrl + app.globalData.getArtifactById + this.data.artifactId,
+         data:{
+            role:wx.getStorageSync("myRole"),
+            userId:wx.getStorageSync("myId")
+         },
          success(res) {
             if (res.data.status == 200) {
                let teamworkerData = new Array();
@@ -327,12 +331,13 @@ Page({
                   teamworkerData = JSON.parse(res.data.data.teamworker);
                }else{
                   teamworkerData = [];
-
                }
+               console.log(res)
                that.setData({
                   artifactUserId: res.data.data.userId,
                   userAvatarUrl: res.data.data.user.avatarUrl,
                   userFullname: res.data.data.user.fullname,
+                  artifactScores: res.data.data.artifact_scores,
                   artifactTitle: res.data.data.name,
                   createAt: res.data.data.createAt,
                   artifactDes: res.data.data.description,
@@ -358,13 +363,13 @@ Page({
                   let artifactDecH = res[0].height;
                   if (app.globalData.statusBarHeight == 44) {
                      that.setData({
-                        artifactInfoHeight: 140 + artifactDecH,
-                        artifactAssetsPadding: 180 + artifactDecH
+                        artifactInfoHeight: 160 + artifactDecH,
+                        artifactAssetsPadding: 200 + artifactDecH
                      })
                   } else {
                      that.setData({
-                        artifactInfoHeight: 140 + artifactDecH,
-                        artifactAssetsPadding: 160 + artifactDecH
+                        artifactInfoHeight: 160 + artifactDecH,
+                        artifactAssetsPadding: 180 + artifactDecH
                      })
                   }
                })
@@ -376,15 +381,6 @@ Page({
                } else {
                   that.setData({
                      topicName: res.data.data.user.fullname + "的作品集",
-                  })
-               }
-               if (res.data.data.artifact_scores.length && res.data.data.artifact_scores[0] != null) {
-                  that.setData({
-                     artifactScores: res.data.data.artifact_scores[0].score
-                  })
-               } else {
-                  that.setData({
-                     artifactScores: ""
                   })
                }
                let myRole = wx.getStorageSync("myRole");

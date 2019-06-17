@@ -2,8 +2,8 @@
 const mtjwxsdk = require('./utils/mtj-wx-sdk.js');
 App({
    globalData: {
-      // baseUrl: "https://pinwall.design-engine.org",
-      baseUrl:"http://127.0.0.1:7001",
+      baseUrl: "https://pinwall.design-engine.org",
+      // baseUrl:"http://127.0.0.1:7001",
       // baseUrl:"192.168.3.129:7001",
       
       // index
@@ -33,8 +33,10 @@ App({
       updateUserIntro:"/wx/users/updateUserIntro/:id",
 
       //searchs 
-      searchByKeywords: '/website/search/searchByKeywords',
+      searchByKeywords: '/website/search/searchByKeywords', //作品搜索
       suggestKeyWords: '/website/search/suggestKeyWords',
+      findByFullname:"/wx/users/findByFullname",            //用户搜索
+      searchByTopicName:"/wx/topics/searchByTopicName",     //课程搜索
 
       statusBarHeight:""
    },

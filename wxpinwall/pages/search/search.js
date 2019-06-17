@@ -9,29 +9,112 @@ Page({
     * 页面的初始数据
     */
    data: {
+      tabIndexNum:"2",
+      typeActive:"1",
+
+      focusModel:false,
       hasResult: false,
-      searchResult: [],
-      limit: 10,
-      offset: 0,
       keyword: "",
-      dataList: [],
+      artifactDataList:[],
+      topicDataList: [],
+      userDataList:[]
    },
+   // 界面返回
+   tapBack(event){
+      wx.navigateBack({
+         data:1
+      })
+   },
+   // 输入值变化
    inputChange(event) {
-      let that = this;
       this.setData({
          keyword: event.detail.value
       })
+   },
+   // 搜索类型修改
+   searchTypeChange(event){
+      this.setData({
+         focusModel:true,
+         typeActive : event.currentTarget.dataset.searchNum
+      })
+   },
+   // 搜索提交
+   searchSubmit(event) {
+      let that = this;
+      let aoData = new Object();
+      let aoUrl = new String();
+      if(this.data.typeActive == "1"){    //作品搜索
+         aoData.limit = 5;
+         aoData.offset = 0;
+         aoData.keyword = this.data.keyword;
+         aoUrl = app.globalData.baseUrl + app.globalData.searchByKeywords;
+      }
+      if (this.data.typeActive == "2"){   //课程搜索
+         aoData.limit = 5;
+         aoData.offset = 0;
+         aoData.jobTag = 1;
+         aoData.subLimit = 5;
+         aoData.status = 0;
+         aoData.keyword = this.data.keyword;
+         aoUrl = app.globalData.baseUrl + app.globalData.searchByTopicName;
+      }
+      if (this.data.typeActive == "3"){   //用户搜索
+         aoData.limit = 5;
+         aoData.offset = 0;
+         aoData.fullname = this.data.keyword;
+         aoUrl = app.globalData.baseUrl + app.globalData.findByFullname;
+      }
+      console.log(aoData, aoUrl)
       wx.request({
-         url: app.globalData.baseUrl + app.globalData.suggestKeyWords,
-         data: {
-            keyword: this.data.keyword
-         },
+         url: aoUrl,
+         data: aoData,
          success(res) {
             if (res.data.status == 200) {
-               that.setData({
-                  hasResult: true,
-                  searchResult: res.data.data
-               })
+               if(that.data.typeActive == "1"){
+                  if (res.data.data.hits.length != 0) {
+                     that.setData({
+                        focusModel: false,
+                        hasResult: true,
+                        artifactDataList: res.data.data.hits
+                     })
+                  } else {
+                     wx.showToast({
+                        title: '暂无该名称的作品！',
+                        icon: 'none',
+                        duration: 2000,
+                     })
+                  }
+               }
+               if(that.data.typeActive == "2"){
+                  if (res.data.data.rows.length != 0) {
+                     that.setData({
+                        focusModel: false,
+                        hasResult: true,
+                        topicDataList: res.data.data.rows
+                     })
+                  }else{
+                     wx.showToast({
+                        title: '暂无该名称的课程！',
+                        icon: 'none',
+                        duration: 2000,
+                     })
+                  }
+               }
+               if (that.data.typeActive == "3") {
+                  if (res.data.data.rows.length != 0) {
+                     that.setData({
+                        focusModel: false,
+                        hasResult: true,
+                        userDataList: res.data.data.rows
+                     })
+                  } else {
+                     wx.showToast({
+                        title: '暂无该名称的用户！',
+                        icon: 'none',
+                        duration: 2000,
+                     })
+                  }
+               }
             } else {
                $Toast({
                   content: '搜索失败！',
@@ -43,35 +126,37 @@ Page({
          }
       })
    },
-   bindCell(event) {
-      let artifactId = event.currentTarget.dataset.id
-      wx.navigateTo({
-         url: '/pages/topics/artifactDetail/artifactDetail?artifactId=' + artifactId,
-      })
-   },
-   onClear(){
-      this.setData({
-         keyword:"",
-         searchResult: [],
-         hasResult:false
-      })
-   },
-   searchSubmit(event) {
+   tapTheTheme(event){
       let that = this;
+      let aoData = new Object();
+      let aoUrl = new String();
+      aoData.limit = 5;
+      aoData.offset = 0;
+      aoData.keyword = event.currentTarget.dataset.themeFlag;
+      aoUrl = app.globalData.baseUrl + app.globalData.searchByKeywords;
+      this.setData({
+         keyword : event.currentTarget.dataset.themeFlag
+      })
       wx.request({
-         url: app.globalData.baseUrl + app.globalData.searchByKeywords,
-         data: {
-            limit: this.data.limit,
-            offset: this.data.offset,
-            keyword: this.data.keyword,
-         },
-         success(res) {
-            if (res.data.status == 200){
-               that.setData({
-                  hasResult: true,
-                  dataList: res.data.data.hits
-               })
-            }else{
+         url: aoUrl,
+         data:aoData,
+         success(res){
+            if (res.data.status == 200) {
+               if (that.data.typeActive == "1") {
+                  if (res.data.data.hits.length != 0) {
+                     that.setData({
+                        hasResult: true,
+                        artifactDataList: res.data.data.hits
+                     })
+                  } else {
+                     wx.showToast({
+                        title: '暂无该名称的作品！',
+                        icon: 'none',
+                        duration: 2000,
+                     })
+                  }
+               }
+            } else {
                $Toast({
                   content: '搜索失败！',
                   type: "error",
@@ -82,17 +167,40 @@ Page({
          }
       })
    },
+   // 点击作品
    artifactTap(event) {
       let artifactId = event.target.dataset.artifactId;
       wx.navigateTo({
          url: '/pages/topics/artifactDetail/artifactDetail?artifactId=' + artifactId,
       })
    },
+   // 点击课程结果
+   tapTheTopic(event){
+      let topicId = event.currentTarget.dataset.topicId;
+      wx.navigateTo({
+         url: '/pages/topics/topicDetail/topicDetail' + "?topicId=" + topicId,
+      });
+   },
+   // 点击用户结果
+   tapUserInfo(event){
+      let userId = event.currentTarget.dataset.userId;
+      wx.navigateTo({
+         url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
+      })
+   },
    /**
     * 生命周期函数--监听页面加载
     */
    onLoad: function(options) {
-      
+      if (app.globalData.statusBarHeight == 44) {
+         this.setData({
+            statusHeight: true
+         })
+      } else {
+         this.setData({
+            statusHeight: false
+         })
+      }
    },
 
    /**
@@ -106,9 +214,7 @@ Page({
     * 生命周期函数--监听页面显示
     */
    onShow: function() {
-      wx.setNavigationBarTitle({
-         title: '探索',
-      })
+
    },
 
    /**
@@ -123,66 +229,5 @@ Page({
     */
    onUnload: function() {
 
-   },
-
-   /**
-    * 页面相关事件处理函数--监听用户下拉动作
-    */
-   onPullDownRefresh: function() {
-      this.setData({
-         offset: 0
-      })
-      getData(this, "init");
-   },
-
-   /**
-    * 页面上拉触底事件的处理函数
-    */
-   onReachBottom: function() {
-      this.setData({
-         offset: this.data.offset + 10
-      })
-      getData(this, "more")
-   },
-
-   /**
-    * 用户点击右上角分享
-    */
-   onShareAppMessage: function() {
-
    }
 })
-// 数据请求
-function getData(that, type) {
-   wx.request({
-      url: app.globalData.baseUrl + app.globalData.searchByKeywords,
-      data: {
-         limit: that.data.limit,
-         offset: that.data.offset,
-         keyword: that.data.keyword,
-      },
-      method: "GET",
-      success(res) {
-         if (res.data.status == 200) {
-            if (type == "init") {
-               that.setData({
-                  hasResult: false,
-                  dataList: res.data.data.hits
-               })
-               wx.stopPullDownRefresh();
-            } else if (type == "more") {
-               that.setData({
-                  dataList: that.data.dataList.concat(res.data.data.hits)
-               })
-            }
-         } else {
-            $Message({
-               content: '获取数据出错！',
-               type: 'error',
-               duration: 3,
-               selector: "#message"
-            });
-         }
-      }
-   })
-}

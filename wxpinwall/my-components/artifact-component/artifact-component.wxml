@@ -6,7 +6,8 @@
       <text class='user_name'>{{userName}}</text>
       <text class='createAt'>{{createAt}} 上传</text>
       <text class='artifact_title'>{{artifactTitle}}</text>
-      <text class='workScore' wx:if="{{teacherId == myId && role == 'ZYJ' && myRole == 'admin'}}">{{artifactScore}}</text>
+      <text class='workScore' wx:if="{{role == 'ZYJ' && artifactScore[0] != null && searchFlag == ''}}">{{artifactScore[0].score + '分'}}</text>
+      <text class='workScore' wx:if="{{role == 'ZYJ' && artifactScore.length == 0 && searchFlag == ''}}">未打分</text>
       <image class='medal' src='/images/icon_medal.png'></image>
       <text class='medal_count'>{{medalCount}}</text>
       <image class='like' src='/images/icon_like.png'></image>

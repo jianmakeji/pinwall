@@ -64,6 +64,7 @@ Page({
             limit: this.data.limit,
             offset: this.data.offset,
             topicId: this.data.topicId,
+            userId:wx.getStorageSync("myId"),
             role:wx.getStorageSync("myRole")
          },
          method: "GET",
@@ -71,7 +72,6 @@ Page({
             if (res.data.status == 200) {
                that.setData({
                   dataList: res.data.data.rows.artifacts,
-                  teacherId: res.data.data.rows.user.Id,
                   avatarUrl: res.data.data.rows.user.avatarUrl,
                   fullname: res.data.data.rows.user.fullname,
                   atrifactCount: res.data.data.count,
