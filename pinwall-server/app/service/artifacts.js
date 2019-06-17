@@ -117,9 +117,12 @@ class Artifacts extends Service {
         let teamworker = artifact.teamworker;
         if (teamworker){
           let teamArray = JSON.parse(teamworker);
-          teamArray.forEach((tw)=>{
-            users.push(tw.Id);
-          });
+
+          if (teamArray && (teamArray instanceof Array) && teamArray.length > 0){
+            teamArray.forEach((tw)=>{
+              users.push(tw.Id);
+            });
+          }
         }
 
         if (!(users.includes(ctx.user.Id) || (ctx.user.Id == artifact.user.Id))){

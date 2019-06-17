@@ -145,6 +145,7 @@ class Topics extends Service {
         if (this.ctx.user){
           if(role == 'vip' && topic.rows.userId != this.ctx.user.Id){
             //删除所有分数
+            element.artifact_scores.length = 0;
             element.artifact_scores.length = 1;
           }
           else if (role == 'user'){
@@ -156,13 +157,15 @@ class Topics extends Service {
                 users.push(tw.Id);
               });
             }
- 
+
             if (!(users.includes(this.ctx.user.Id) || (this.ctx.user.Id == element.user.Id))){
+              element.artifact_scores.length = 0;
               element.artifact_scores.length = 1;
             }
           }
         }
         else{
+          element.artifact_scores.length = 0;
           element.artifact_scores.length = 1;
         }
 
