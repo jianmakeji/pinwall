@@ -43,9 +43,11 @@ class ArtifactsController extends BaseController{
 
     async getArtifactById() {
       const ctx = this.ctx;
-
+      const id = ctx.helper.parseInt(ctx.params.id);
+      const role = ctx.query.role;
+      const userId = ctx.helper.parseInt(ctx.params.userId);
       try{
-        const result = await ctx.service.artifacts.find(ctx.helper.parseInt(ctx.params.id));
+        const result = await ctx.service.artifacts.findWxByCondition(id, role, userId);
         super.success(result);
       }
       catch(e){

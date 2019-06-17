@@ -687,6 +687,94 @@ class Artifacts extends Service {
     }
     return listData;
   }
+
+  async findWxByCondition(id, role, userId) {
+
+    const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
+    const app = this.ctx.app;
+
+    if (artifact.profileImage.indexOf('pinwall.fzcloud') == -1 && artifact.profileImage.indexOf('design.hnu.edu.cn') == -1){
+      artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
+    }
+
+    for (let subElement of artifact.dataValues.artifact_assets){
+      if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1 && subElement.profileImage.indexOf('design.hnu.edu.cn') == -1){
+        subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
+      }
+      else{
+        subElement.profileImage = subElement.profileImage.replace('http://','https://');
+      }
+
+      if (subElement.type == 2 && subElement.mediaFile != null){
+        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
+        }
+        else{
+          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
+        }
+      }
+      else if (subElement.type == 3 && subElement.mediaFile != null){
+        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
+        }
+        else{
+          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
+        }
+      }
+      else if (subElement.type == 4 && subElement.mediaFile != null){
+        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
+        }
+        else{
+          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
+        }
+      }
+      else if (subElement.type == 5 && subElement.mediaFile != null){
+        subElement.mediaFile = h5Util.getH5Url(artifact.Id, subElement.mediaFile, app);
+      }
+    }
+
+    let ctx = this.ctx;
+
+    if (userId == 0){
+      if(role == 'vip'){
+        //删除所有分数
+        let topicUserId = new Array();
+        artifact.topics.forEach((topic)=>{
+          topicUserId.push(topic.userId);
+        });
+        if(!topicUserId.includes(userId)){
+          artifact.artifact_scores.length = 0;
+          artifact.artifact_scores.length = 1;
+        }
+      }
+      else if (role == 'user'){
+        let users = new Array();
+        let teamworker = artifact.teamworker;
+        if (teamworker){
+          let teamArray = JSON.parse(teamworker);
+
+          if (teamArray && (teamArray instanceof Array) && teamArray.length > 0){
+            teamArray.forEach((tw)=>{
+              users.push(tw.Id);
+            });
+          }
+        }
+
+        if (!(users.includes(userId) || (userId == artifact.user.Id))){
+          artifact.artifact_scores.length = 0;
+          artifact.artifact_scores.length = 1;
+        }
+      }
+    }
+    else{
+      artifact.artifact_scores.length = 0;
+      artifact.artifact_scores.length = 1;
+    }
+
+
+    return artifact;
+  }
 }
 
 module.exports = Artifacts;
