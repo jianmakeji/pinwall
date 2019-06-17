@@ -45,7 +45,7 @@ class ArtifactsController extends BaseController{
       const ctx = this.ctx;
       const id = ctx.helper.parseInt(ctx.params.id);
       const role = ctx.query.role;
-      const userId = ctx.helper.parseInt(ctx.params.userId);
+      const userId = ctx.helper.parseInt(ctx.query.userId);
       try{
         const result = await ctx.service.artifacts.findWxByCondition(id, role, userId);
         super.success(result);

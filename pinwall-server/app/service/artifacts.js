@@ -735,8 +735,7 @@ class Artifacts extends Service {
     }
 
     let ctx = this.ctx;
-
-    if (userId == 0){
+    if (userId != 0){
       if(role == 'vip'){
         //删除所有分数
         let topicUserId = new Array();
@@ -760,7 +759,6 @@ class Artifacts extends Service {
             });
           }
         }
-
         if (!(users.includes(userId) || (userId == artifact.user.Id))){
           artifact.artifact_scores.length = 0;
           artifact.artifact_scores.length = 1;
