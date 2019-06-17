@@ -186,6 +186,54 @@ class Topics extends Service {
   async countTopicsByUserId(userId){
     return await this.ctx.model.Topics.countTopicsByUserId(userId);
   }
+
+  async getWxTopicAndArtifactById({ offset = 0, limit = 10, topicId = 0, role = 'user', score = 0, userId = 0 }) {
+    const topic = await this.ctx.model.Topics.getTopicAndArtifactById({
+      offset,
+      limit,
+      topicId,
+      role,
+      score
+    });
+
+    const app = this.ctx.app;
+    if (topic.rows.artifacts){
+      topic.rows.artifacts.forEach((element, index)=>{
+        if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
+          element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
+        }
+        if (userId != 0){
+          if(role == 'vip' && topic.rows.userId != userId){
+            //删除所有分数
+            element.artifact_scores.length = 0;
+            element.artifact_scores.length = 1;
+          }
+          else if (role == 'user'){
+            let users = new Array();
+            let teamworker = element.teamworker;
+            if (teamworker){
+              let teamArray = JSON.parse(teamworker);
+              teamArray.forEach((tw)=>{
+                users.push(tw.Id);
+              });
+            }
+
+            if (!(users.includes(userId) || (userId == element.user.Id))){
+              element.artifact_scores.length = 0;
+              element.artifact_scores.length = 1;
+            }
+          }
+        }
+        else{
+          element.artifact_scores.length = 0;
+          element.artifact_scores.length = 1;
+        }
+
+      });
+    }
+
+    return topic;
+  }
 }
 
 module.exports = Topics;

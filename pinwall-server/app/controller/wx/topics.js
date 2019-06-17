@@ -46,10 +46,11 @@ class TopicsController extends BaseController{
       offset: ctx.helper.parseInt(ctx.query.offset),
       topicId: ctx.helper.parseInt(ctx.query.topicId),
       role: ctx.query.role,
+      userId:ctx.helper.parseInt(ctx.query.userId),
     };
 
     try{
-      let result = await ctx.service.topics.getTopicAndArtifactById(query);
+      let result = await ctx.service.topics.getWxTopicAndArtifactById(query);
       super.success(result);
     }
     catch(e){
