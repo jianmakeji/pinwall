@@ -11,7 +11,7 @@ Page({
       username:"",
       email:"",
       password:"",
-      bindemail:"",
+      bindemail:"1223720954@qq.com",
       registerDisable: true,
       bindemailDisable: true,
       wxActiveDisable: false,

@@ -32,22 +32,13 @@ Component({
          type:String,
          value:"ZYJ"
       },
-      teacherId:{
+      artifactScore:{
+         type:Array,
+         value:[]
+      },
+      searchFlag:{
          type:String,
          value:""
-      },
-      // 登录者Id
-      myId:{
-         type:Number,
-         value: wx.getStorageSync("myId")
-      },
-      myRole: {
-         type: String,
-         value: wx.getStorageSync("myRole")
-      },
-      artifactScore:{
-         type:String,
-         value:'未打分'
       },
       medalCount: {
          type: String,

@@ -1,20 +1,121 @@
 /* pages/search/search.wxss */
-
-.input-wrap {
-   position: relative;
-   margin: 20rpx 10rpx 0 10rpx;
-}
-
-.search-wrap {
-   display: flex;
-   align-items: center;
-   width: 100%;
-   height: 110rpx;
-   color: #fff;
+page{
    background: #fff;
 }
+.input-wrap {
+   position: relative;
+   width: 730rpx;
+   padding: 10rpx;
+}
 
+.highStatus{
+   margin-top: 190rpx;
+}
+.lowStatus{
+   margin-top: 145rpx;
+}
+.search-wrap {
+   width: 710rpx;
+   height: 40rpx;
+   padding: 10rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   color: #fff;
+   background: #EEEEEE;
+}
+.searchPlaceHolder{
+   font-size: 24rpx;
+   color:#929292;
+}
 .search {
-   flex-grow: 1;
-   margin: 15rpx 24rpx;
+   font-size: 24rpx;
+   color: #929292;
+   margin-left: 25rpx;
+}
+
+.searchTypeImg{
+   width: 400rpx;
+   height: 100rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center; 
+   justify-content: space-between;
+   margin: 40rpx auto 0rpx;
+}
+.searchTypeImg image{
+   width: 40rpx;
+   height: 40rpx;
+   padding: 20rpx;
+   border-radius:50%;
+   
+}
+.active{
+   background: #06AC68
+}
+.unactive{
+   background: #A09F9F
+}
+.searchTypeTitle{
+   width: 400rpx;
+   height: 20rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center; 
+   justify-content: space-between;
+   margin: 30rpx auto;
+}
+
+.searchTypeTitle text{
+   width: 80rpx;
+   height: 80rpx;
+   text-align: center;
+   font-size: 26rpx; 
+   color:#000;
+}
+
+.themeSearchText{
+   width: 700rpx;
+   height: 180rpx;
+   margin: 80rpx auto 0rpx;
+}
+.themeSearchText .des{
+   width: 700rpx;
+   height: 30rpx;
+   line-height: 30rpx;
+   font-size: 24rpx;
+   color: #929292;
+}
+.themeSearchText .themeText1,
+.themeSearchText .themeText2{
+   width: 700rpx;
+   height: 60rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-between;
+}
+.themeSearchText .themeText1{
+   margin-top: 20rpx;
+}
+.themeSearchText .themeText1 text{
+   width: 170rpx;
+   font-size: 24rpx;
+   color: #929292;
+   text-align: center;
+   background: #EEEEEE;
+}
+.themeSearchText .themeText2 text{
+   width: 170rpx;
+   font-size: 24rpx;
+   color: #929292;
+   text-align: center;
+   background: #EEEEEE;
+}
+
+.searchResultBox .searchDes{
+   width: 700rpx;
+   padding: 0 25rpx;
+   font-size: 24rpx;
+   color: #929292;
 }

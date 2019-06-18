@@ -51,9 +51,25 @@
    height: 40rpx;
    position: absolute;
    margin-left: 25rpx;
-   margin-top: 110rpx;
+   margin-top: 107rpx;
    font-size: 32rpx;
    color: #787878;
+   font-weight: bold;
+   display: -webkit-box;
+   word-break: break-all;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 1;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+.artifact_info .teamworker{
+   width: 700rpx;
+   height: 30rpx;
+   position: absolute;
+   margin-left: 25rpx;
+   margin-top: 160rpx;
+   font-size: 22rpx;
+   color: #07af69;
    font-weight: bold;
    display: -webkit-box;
    word-break: break-all;
@@ -71,7 +87,7 @@
    align-items: center;
    justify-content: space-between;
    position: absolute;
-   margin-top: 170rpx;
+   margin-top: 194rpx;
    margin-left: 30rpx;
 }
 .iconBox .medal{
@@ -127,7 +143,7 @@
    height: 30rpx;
    position: absolute;
    margin-left: 25rpx;
-   margin-top: 230rpx;
+   margin-top: 240rpx;
    font-size: 20rpx;
    color: #979797;
 }
@@ -136,9 +152,9 @@
    width: 500rpx;
    height: 30rpx;
    position: absolute;
-   margin-left: 220rpx;
-   margin-top: 230rpx;
-   font-size: 24rpx;
+   margin-left: 25rpx;
+   margin-top: 273rpx;
+   font-size: 26rpx;
    color: #07af69;
    font-weight: bold;
    display: -webkit-box;
@@ -156,7 +172,7 @@
    color: #333;
    position: absolute;
    margin-left: 25rpx;
-   margin-top: 270rpx;
+   margin-top: 306rpx;
 }
 
 .artifact_assets {
