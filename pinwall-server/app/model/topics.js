@@ -178,6 +178,10 @@ module.exports  = app => {
       condition.where.name = {
         [app.Sequelize.Op.like]: '%'+keyword+'%',
       };
+
+      countCondition.where.name = {
+        [app.Sequelize.Op.like]: '%'+keyword+'%',
+      };
     }
 
     let resultData = await this.findAll(condition);
