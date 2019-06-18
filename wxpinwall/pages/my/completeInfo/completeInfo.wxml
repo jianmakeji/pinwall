@@ -1,4 +1,3 @@
-<!--pages/my/completeInof/completeInof.wxml-->
 <view class='completeInof'>
    <image class='newuser_img' src="{{current == 'new' ? '/images/newuser_hl.png' : '/images/newuser_default.png'}}" data-type='new' catchtap='radioChange'></image>
    <text class='newuser_title'>新用户</text>

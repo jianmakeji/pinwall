@@ -1,7 +1,3 @@
-// pages/my/resetInfo/resetInfo.js
-// const {
-//    $Toast
-// } = require('../../../dist/base/index');
 const app = getApp();
 Page({
 
@@ -22,7 +18,6 @@ Page({
       })
    },
    resetIntro(event){
-      console.log("resetIntro")
       let that = this;
       this.setData({
          introVisible: true,
@@ -49,12 +44,13 @@ Page({
                });
                wx.showToast({
                   title: '发布成功！',
+                  icon:"success"
                })
                that.onShow();
             } else {
                wx.showToast({
                   title: '发布成功！',
-                  icon:"error"
+                  icon:"none"
                })
             }
 

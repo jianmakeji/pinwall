@@ -9,7 +9,6 @@ Page({
       vipRole: false,
       zanModal: false,
 
-      scoreAnimationData: "",
       //作品信息
       artifactUserId: "", //作品作者id
       userAvatarUrl: "",
@@ -42,17 +41,20 @@ Page({
       artifactInfoHeight:"",
       artifactAssetsPadding:""
    },
+   // 返回
    tapBack(event){
       wx.navigateBack({
          data:1
       })
    },
+   // 点击用户头像
    tapUserAvator(event){
       let userId = event.currentTarget.dataset.userId;
       wx.navigateTo({
          url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
       })
    },
+   // 点赞
    creatLike() {
       let that = this;
       if (wx.getStorageSync("openid")) {
@@ -91,12 +93,11 @@ Page({
                   })
                   wx.showToast({
                      title: '操作成功！',
-                     duration:500
+                     icon:"success"
                   })
                } else {
                   wx.showToast({
                      title: '操作失败！',
-                     duration: 1000,
                      icon:"none"
                   })
                }
@@ -105,14 +106,11 @@ Page({
       } else {
          wx.showToast({
             title: '需先登录才能操作！',
-            duration: 1000,
             icon: "none"
          })
       }
    },
-   /*
-      点击菜单评论按钮
-    */
+   // 点击菜单评论按钮
    openComment() {
       if (wx.getStorageSync("openid")){
          let that = this;
@@ -138,11 +136,11 @@ Page({
       }else{
          wx.showToast({
             title: '需先登录才能操作！',
-            duration: 1000,
             icon: "none"
          })
       }      
    },
+   // 关闭评论框
    closeComment() {
       this.setData({
          commentVisible: false
@@ -156,6 +154,7 @@ Page({
          commentVisible: false
       })
    },
+   // 评论内容值变化
    commentValueChange(event) {
       this.setData({
          commentEditValue: event.detail.value
@@ -183,7 +182,7 @@ Page({
                   });
                   wx.showToast({
                      title: '评论成功！',
-                     duration:500
+                     icon:"success"
                   })
                } else {
                   that.setData({
@@ -191,7 +190,6 @@ Page({
                   });
                   wx.showToast({
                      title: '评论失败！',
-                     duration: 1000,
                      icon: "none"
                   })
                }
@@ -200,13 +198,11 @@ Page({
       } else if (wx.getStorageSync("openid") == "") {
          wx.showToast({
             title: '需先登录才能操作！',
-            duration: 1000,
             icon: "none"
          })
       } else {
          wx.showToast({
             title: '评论内容为空！',
-            duration: 1000,
             icon: "none"
          })
       }
@@ -222,16 +218,17 @@ Page({
       }else{
          wx.showToast({
             title: '需先登录才能操作！',
-            duration: 1000,
             icon: "none"
          })
       }
    },
+   // 分数值变化
    artifactScoreValueChange(event) {
       this.setData({
          artifactScoreValue: parseInt(event.detail.value)
       })
    },
+   // 关闭分数框
    closeScore() {
       this.setData({
          artifactScoreVisible: false
@@ -265,14 +262,13 @@ Page({
                      });
                      wx.showToast({
                         title: '打分成功！',
-                        duration: 500
+                        icon: "success"
                      })
                      that.onShow();
                   } else {
                      wx.showToast({
                         title: '打分失败！',
-                        duration: 500,
-                        icon: "error"
+                        icon: "none"
                      })
                   }
 
@@ -282,7 +278,6 @@ Page({
       } else {
          wx.showToast({
             title: '打分失败！未登陆或者不是该作业荚创建者！',
-            duration: 1000,
             icon: "none"
          })
          this.setData({
@@ -332,7 +327,6 @@ Page({
                }else{
                   teamworkerData = [];
                }
-               console.log(res)
                that.setData({
                   artifactUserId: res.data.data.userId,
                   userAvatarUrl: res.data.data.user.avatarUrl,

@@ -3,7 +3,6 @@
    height: 280rpx;
    margin: 20rpx auto;
    padding: 20rpx;
-   border-radius: 12rpx;
    background: #fff;
    box-shadow: 4rpx 4rpx 20rpx 4rpx rgba(153, 153, 153, 0.17);
 }
@@ -46,7 +45,7 @@
    line-height:30rpx;
    position: absolute;
    margin-top: 10rpx;
-   margin-left: 480rpx;
+   margin-left: 500rpx;
    color: #979797;
    font-size: 16rpx;
 }

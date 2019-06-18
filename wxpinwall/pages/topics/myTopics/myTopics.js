@@ -96,12 +96,10 @@ function getData(that, type) {
                })
             }
          } else {
-            $Message({
-               content: '获取数据出错！',
-               type: 'error',
-               duration: 3,
-               selector: "#message"
-            });
+            wx.showToast({
+               title: '获取数据出错！',
+               icon:"none"
+            })
          }
       }
    })

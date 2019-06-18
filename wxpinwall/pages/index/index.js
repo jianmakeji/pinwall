@@ -1,4 +1,3 @@
-const { $Message } = require('../../dist/base/index');
 var app = getApp();
 
 Page({
@@ -62,11 +61,10 @@ Page({
                   createAtData: arr
                })
             } else {
-               $Message({
-                  content: '获取数据出错！',
-                  duration: 2,
-                  type: 'error'
-               });
+               wx.showToast({
+                  title: '获取数据出错！',
+                  icon:"none"
+               })
             }
          }
       })
@@ -92,11 +90,10 @@ Page({
                })
                wx.stopPullDownRefresh();
             } else {
-               $Message({
-                  content: '获取数据出错！',
-                  duration: 2,
-                  type: 'error'
-               });
+               wx.showToast({
+                  title: '获取数据出错！',
+                  icon: "none"
+               })
             }
          }
       })

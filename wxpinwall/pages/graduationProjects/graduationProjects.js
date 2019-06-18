@@ -1,5 +1,3 @@
-// pages/topics/topics.js
-const { $Message } = require('../../dist/base/index');
 const app = getApp();
 Page({
    data: {
@@ -12,7 +10,6 @@ Page({
          { title: '已存档' },
          { title: '由我创建' }
       ],
-      showPackUp: false,
       loading: false,
       //请求参数
       limit: 10,
@@ -84,9 +81,7 @@ Page({
       getData(this, "init");
    },
    onShow: function () {
-      wx.setNavigationBarTitle({
-         title: '作业荚',
-      })
+      
    },
    /**
     * 页面相关事件处理函数--监听用户下拉动作
@@ -97,17 +92,6 @@ Page({
          offset: 0,
       })
       getData(this, "init");
-   },
-   onPageScroll(event) {
-      if (event.scrollTop > 200) {
-         this.setData({
-            showPackUp: true
-         })
-      } else {
-         this.setData({
-            showPackUp: false
-         })
-      }
    },
    /**
     * 页面上拉触底事件的处理函数
@@ -160,12 +144,10 @@ function getData(that, type) {
                })
             }
          } else {
-            $Message({
-               content: '获取数据出错！',
-               type: 'error',
-               duration: 3,
-               selector: "#message"
-            });
+            wx.showToast({
+               title: '获取数据出错！',
+               icon:"none"
+            })
          }
       }
    })

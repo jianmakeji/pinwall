@@ -42,7 +42,7 @@
    line-height:30rpx;
    position: absolute;
    margin-top: 10rpx;
-   margin-left: 480rpx;
+   margin-left: 528rpx;
    color: #979797;
    font-size: 16rpx;
 }

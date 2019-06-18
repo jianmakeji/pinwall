@@ -71,5 +71,3 @@
    <input class='scoreInput' type='number' value="{{ artifactScoreValue }}" focus="{{scoreFocus}}" cursor-spacing="30" bindinput='artifactScoreValueChange' placeholder='请输入0~100之间整数'></input>
    <button class='scoreBtn' catchtap='submitScore'>打分</button>
 </view>
-
-<i-toast id="toast" />

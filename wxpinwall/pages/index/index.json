@@ -1,9 +1,6 @@
 {
    "component": true,
    "usingComponents": {
-      "wxc-popup": "/@minui/wxc-popup/dist/index",
-      "i-button": "/dist/button/index",
-      "i-message": "/dist/message/index",
       "nav-bar": "/my-components/navbar/navbar",
       "index-bigworks": "/my-components/index-bigworks/index-bigworks",
       "index-smallworks": "/my-components/index-smallworks/index-smallworks"

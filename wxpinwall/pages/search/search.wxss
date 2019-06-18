@@ -1,19 +1,24 @@
 /* pages/search/search.wxss */
-page{
+
+page {
    background: #fff;
+   height: auto;
 }
+
 .input-wrap {
    position: relative;
    width: 730rpx;
    padding: 10rpx;
 }
 
-.highStatus{
+.highStatus {
    margin-top: 190rpx;
 }
-.lowStatus{
+
+.lowStatus {
    margin-top: 145rpx;
 }
+
 .search-wrap {
    width: 710rpx;
    height: 40rpx;
@@ -22,72 +27,79 @@ page{
    flex-direction: row;
    align-items: center;
    color: #fff;
-   background: #EEEEEE;
+   background: #eee;
 }
-.searchPlaceHolder{
+
+.searchPlaceHolder {
    font-size: 24rpx;
-   color:#929292;
+   color: #929292;
 }
+
 .search {
+   width: 600rpx;
    font-size: 24rpx;
    color: #929292;
    margin-left: 25rpx;
 }
 
-.searchTypeImg{
+.searchTypeImg {
    width: 400rpx;
    height: 100rpx;
    display: flex;
    flex-direction: row;
-   align-items: center; 
+   align-items: center;
    justify-content: space-between;
    margin: 40rpx auto 0rpx;
 }
-.searchTypeImg image{
+
+.searchTypeImg image {
    width: 40rpx;
    height: 40rpx;
    padding: 20rpx;
-   border-radius:50%;
-   
+   border-radius: 50%;
 }
-.active{
-   background: #06AC68
+
+.active {
+   background: #06ac68;
 }
-.unactive{
-   background: #A09F9F
+
+.unactive {
+   background: #a09f9f;
 }
-.searchTypeTitle{
+
+.searchTypeTitle {
    width: 400rpx;
    height: 20rpx;
    display: flex;
    flex-direction: row;
-   align-items: center; 
+   align-items: center;
    justify-content: space-between;
    margin: 30rpx auto;
 }
 
-.searchTypeTitle text{
+.searchTypeTitle text {
    width: 80rpx;
    height: 80rpx;
    text-align: center;
-   font-size: 26rpx; 
-   color:#000;
+   font-size: 26rpx;
+   color: #000;
 }
 
-.themeSearchText{
+.themeSearchText {
    width: 700rpx;
    height: 180rpx;
    margin: 80rpx auto 0rpx;
 }
-.themeSearchText .des{
+
+.themeSearchText .des {
    width: 700rpx;
    height: 30rpx;
    line-height: 30rpx;
    font-size: 24rpx;
    color: #929292;
 }
-.themeSearchText .themeText1,
-.themeSearchText .themeText2{
+
+.themeSearchText .themeText1, .themeSearchText .themeText2 {
    width: 700rpx;
    height: 60rpx;
    display: flex;
@@ -95,27 +107,42 @@ page{
    align-items: center;
    justify-content: space-between;
 }
-.themeSearchText .themeText1{
+
+.themeSearchText .themeText1 {
    margin-top: 20rpx;
 }
-.themeSearchText .themeText1 text{
+
+.themeSearchText .themeText1 text {
    width: 170rpx;
    font-size: 24rpx;
    color: #929292;
    text-align: center;
-   background: #EEEEEE;
-}
-.themeSearchText .themeText2 text{
-   width: 170rpx;
-   font-size: 24rpx;
-   color: #929292;
-   text-align: center;
-   background: #EEEEEE;
+   background: #eee;
 }
 
-.searchResultBox .searchDes{
-   width: 700rpx;
-   padding: 0 25rpx;
+.themeSearchText .themeText2 text {
+   width: 170rpx;
    font-size: 24rpx;
    color: #929292;
+   text-align: center;
+   background: #eee;
+}
+
+.searchResultBox .head {
+   width: 700rpx;
+   padding: 0 25rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.searchResultBox .head .searchDes {
+   width: 600rpx;
+   font-size: 24rpx;
+   color: #929292;
+}
+
+.searchResultBox .head .cancelIcon {
+   cursor: pointer;
 }

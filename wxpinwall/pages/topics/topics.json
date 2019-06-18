@@ -5,7 +5,6 @@
       "wxc-tab": "/@minui/wxc-tab/dist/index",
       "wxc-tab-panel": "/@minui/wxc-tab/dist/panel",
       "i-icon":"/dist/icon/index",
-      "i-message": "/dist/message/index",
       "i-load-more": "/dist/load-more/index"
    },
    "enablePullDownRefresh": true,

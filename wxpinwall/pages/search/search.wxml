@@ -31,7 +31,10 @@
    </view>
 </view>
 <view class="searchResultBox {{statusHeight ? 'highStatus' : 'lowStatus'}}" wx:if="{{hasResult}}">
-   <text class='searchDes'>探索"{{keyword}}"的结果</text>
+   <view class='head'>
+      <text class='searchDes'>探索"{{keyword}}"的结果</text>
+      <i-icon class='cancelIcon' type="delete_fill" size="22" color='#929292' catchtap='tapClose'/>
+   </view>
    <block wx:for="{{ topicDataList }}" wx:for-item="item" wx:if="{{typeActive == '2'}}">
       <topic-component userAvator="{{item.user.avatarUrl ? item.user.avatarUrl : '/images/default_profile.jpg'}}"  userFullname ="{{item.user.fullname}}" totalArtifact="{{item.user.gender}}" createAt="{{tools.split(item.createAt)}}" topicName="{{item.name}}" artifacts="{{item.artifacts}}" data-topic-id="{{item.Id}}" bind:tapTheTopic="tapTheTopic"></topic-component>
    </block>
@@ -39,4 +42,5 @@
    <block wx:for="{{userDataList}}" wx:for-item="item" wx:if="{{typeActive == '3'}}">
       <search-user avatarUrl="{{item.avatarUrl}}" fullname="{{item.fullname}}" data-user-id="{{item.Id}}" bind:tapUserInfo="tapUserInfo"></search-user>
    </block>
+   <i-load-more tip="暂无更多数据" loading="{{ loadModel }}" />
 </view>

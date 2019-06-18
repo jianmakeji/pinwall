@@ -101,6 +101,8 @@ Page({
             limit: this.data.limit,
             offset: this.data.offset,
             topicId: this.data.topicId,
+            userId: wx.getStorageSync("myId"),
+            role: wx.getStorageSync("myRole")
          },
          method: "GET",
          success(res) {
@@ -113,6 +115,7 @@ Page({
                   atrifactCount: res.data.data.count,
                   createAt: res.data.data.rows.createAt,
                   topicName: res.data.data.rows.name,
+                  des: res.data.data.rows.description
                })
             }
          }
@@ -134,6 +137,8 @@ Page({
             limit: this.data.limit,
             offset: this.data.offset,
             topicId: this.data.topicId,
+            userId: wx.getStorageSync("myId"),
+            role: wx.getStorageSync("myRole")
          },
          method: "GET",
          success(res) {

@@ -9,11 +9,15 @@ Page({
     * 页面的初始数据
     */
    data: {
+      loadModel:false,
+
       tabIndexNum:"2",
       typeActive:"1",
 
       focusModel:false,
       hasResult: false,
+      gbData:new Object(),
+      gbUrl: new String(),
       keyword: "",
       artifactDataList:[],
       topicDataList: [],
@@ -44,13 +48,13 @@ Page({
       let aoData = new Object();
       let aoUrl = new String();
       if(this.data.typeActive == "1"){    //作品搜索
-         aoData.limit = 5;
+         aoData.limit = 10;
          aoData.offset = 0;
          aoData.keyword = this.data.keyword;
          aoUrl = app.globalData.baseUrl + app.globalData.searchByKeywords;
       }
       if (this.data.typeActive == "2"){   //课程搜索
-         aoData.limit = 5;
+         aoData.limit = 10;
          aoData.offset = 0;
          aoData.jobTag = 1;
          aoData.subLimit = 5;
@@ -59,12 +63,15 @@ Page({
          aoUrl = app.globalData.baseUrl + app.globalData.searchByTopicName;
       }
       if (this.data.typeActive == "3"){   //用户搜索
-         aoData.limit = 5;
+         aoData.limit = 10;
          aoData.offset = 0;
          aoData.fullname = this.data.keyword;
          aoUrl = app.globalData.baseUrl + app.globalData.findByFullname;
       }
-      console.log(aoData, aoUrl)
+      this.setData({
+         gbData:aoData,
+         gbUrl:aoUrl
+      })
       wx.request({
          url: aoUrl,
          data: aoData,
@@ -116,25 +123,27 @@ Page({
                   }
                }
             } else {
-               $Toast({
-                  content: '搜索失败！',
-                  type: "error",
-                  duration: 1,
-                  selector: "#toast"
-               });
+               wx.showToast({
+                  title: '搜索失败！',
+                  duration: 2000,
+                  icon: "none"
+               })
             }
          }
       })
    },
+   // 主题搜索
    tapTheTheme(event){
       let that = this;
       let aoData = new Object();
       let aoUrl = new String();
-      aoData.limit = 5;
+      aoData.limit = 10;
       aoData.offset = 0;
       aoData.keyword = event.currentTarget.dataset.themeFlag;
       aoUrl = app.globalData.baseUrl + app.globalData.searchByKeywords;
       this.setData({
+         gbData: aoData,
+         gbUrl: aoUrl,
          keyword : event.currentTarget.dataset.themeFlag
       })
       wx.request({
@@ -157,12 +166,11 @@ Page({
                   }
                }
             } else {
-               $Toast({
-                  content: '搜索失败！',
-                  type: "error",
-                  duration: 1,
-                  selector: "#toast"
-               });
+               wx.showToast({
+                  title: '搜索失败！',
+                  duration: 2000,
+                  icon: "none"
+               })
             }
          }
       })
@@ -186,6 +194,17 @@ Page({
       let userId = event.currentTarget.dataset.userId;
       wx.navigateTo({
          url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
+      })
+   },
+   // 点击关闭
+   tapClose(event){
+      this.setData({
+         focusModel: false,
+         hasResult: false,
+         keyword: "",
+         artifactDataList: [],
+         topicDataList: [],
+         userDataList: []
       })
    },
    /**
@@ -229,5 +248,56 @@ Page({
     */
    onUnload: function() {
 
-   }
+   },
+   /**
+    * 页面上拉触底事件的处理函数
+    */
+   onReachBottom: function () {
+      let that = this;
+      console.log("1111", this.data.gbData, this.data.gbUrl)
+      this.setData({
+         "gbData.offset": this.data.gbData.offset + 10
+      })
+      wx.request({
+         url: this.data.gbUrl,
+         data:this.data.gbData,
+         success(res){
+            if (res.data.status == 200) {
+               if (that.data.typeActive == "1") {
+                  if (res.data.data.hits.length != 0) {
+                     that.setData({
+                        focusModel: false,
+                        hasResult: true,
+                        artifactDataList: that.data.artifactDataList.concat(res.data.data.hits)
+                     })
+                  }
+               }
+               if (that.data.typeActive == "2") {
+                  if (res.data.data.rows.length != 0) {
+                     that.setData({
+                        focusModel: false,
+                        hasResult: true,
+                        topicDataList: that.data.topicDataList.concat(res.data.data.rows)
+                     })
+                  }
+               }
+               if (that.data.typeActive == "3") {
+                  if (res.data.data.rows.length != 0) {
+                     that.setData({
+                        focusModel: false,
+                        hasResult: true,
+                        userDataList: that.data.userDataList.concat(res.data.data.rows)
+                     })
+                  }
+               }
+            } else {
+               wx.showToast({
+                  title: '搜索失败！',
+                  duration: 2000,
+                  icon:"none"
+               })
+            }
+         }
+      })
+   },
 })

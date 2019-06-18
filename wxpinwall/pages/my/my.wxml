@@ -68,7 +68,5 @@
    </i-radio>
    <i-button i-class="submit" bind:click="handleClick" type="submit" shape="circle">确认绑定</i-button> -->
    <i-button i-class="wx_login" bindgetuserinfo="tapWxLogin" type="submit" shape="circle" open-type='getUserInfo'>微信登录</i-button>
-   <i-message id="message" />
-   <i-toast id="toast" />
 </view>
 <image class='bg_img' wx:if="{{isLogin != 'true'}}" src="/images/login_bg.png"></image>

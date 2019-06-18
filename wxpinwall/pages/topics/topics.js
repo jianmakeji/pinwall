@@ -1,5 +1,4 @@
 // pages/topics/topics.js
-const { $Message } = require('../../dist/base/index');
 const app = getApp();
 Page({
    data: {
@@ -84,9 +83,7 @@ Page({
       getData(this, "init");
    },
    onShow:function(){
-      wx.setNavigationBarTitle({
-         title: '作业荚',
-      })
+      
    },
    /**
     * 页面相关事件处理函数--监听用户下拉动作
@@ -160,12 +157,10 @@ function getData(that, type){
                })
             }
          } else {
-            $Message({
-               content: '获取数据出错！',
-               type: 'error',
-               duration: 3,
-               selector: "#message"
-            });
+            wx;wx.showToast({
+               title: '获取数据出错！',
+               icon: 'none',
+            })
          }
       }
    })
