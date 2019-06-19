@@ -24,7 +24,7 @@
    <view class='zuopingji' data-user-id="{{userData.Id}}" catchtap='zuopinjiTap'>
       <view class='topBox'>
          <image class='zuopingji_img' src='/images/my_showreel.png'></image>
-         <text class='zuopingji_text'>我的作品集（{{userData.artifactCount ? userData.artifactCount : '0'}}）</text>
+         <text class='zuopingji_text'>我的作品集({{userData.artifactCount ? userData.artifactCount : '0'}})</text>
          <i-icon class='enter_icon' type="enter" size="22" />
       </view>
       <view class='contentBox'>
@@ -36,7 +36,7 @@
    <!-- 我的作业荚 -->
    <view class='zuoyejia' data-user-id="{{userData.Id}}" catchtap='zuoyejiaTap'>
       <image class='zuoyejia_img' src='/images/my_topic.png'></image>
-      <text class='zuoyejia_text'>我的作业荚（{{myTopicNum ? myTopicNum : '0'}}）</text>
+      <text class='zuoyejia_text'>我的作业荚({{myTopicNum ? myTopicNum : '0'}})</text>
       <i-icon class='enter_icon' type="enter" size="22" />
    </view>
    <view class='edit' data-user-id="{{userData.Id}}" catchtap='userInfoChange'>

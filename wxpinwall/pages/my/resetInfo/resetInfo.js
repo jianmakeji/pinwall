@@ -12,23 +12,33 @@ Page({
       introVisible:false,
       introFocus:false
    },
+   // 页面返回
    tapBack(event){
       wx.navigateBack({
          data:1
       })
    },
-   resetIntro(event){
+   // 个人简介输入弹出
+   tapIntro(event){
       let that = this;
       this.setData({
          introVisible: true,
          introFocus:true
       })
    },
+   // 输入框失去焦点
+   introBlur(){
+      this.setData({
+         introVisible: false
+      })
+   },
+   // 简介值变化
    introValueChange(event){
       this.setData({
          introValue: event.detail.value
       })
    },
+   // 提交
    submitIntro(event){
       let that = this;
       wx.request({

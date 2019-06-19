@@ -1,6 +1,6 @@
 .indexBigworks{
    width: 700rpx;
-   height: 888rpx;
+   /* height: 856rpx; */
    padding: 25rpx;
    display: flex;
    flex-direction: column;
@@ -21,18 +21,20 @@
 }
 .userFullName{
    font-size: 26rpx;
+   font-weight: bold;
    position: absolute;
    margin-left: 20rpx;
 }
 .createdAt{
    font-size: 22rpx;
+   color: #929292;
 }
 
 .contentInfo{
    width: 620rpx;
-   height: 788rpx;
+   /* height: 776rpx; */
    margin-left: 80rpx;
-   padding-bottom: 20rpx;
+   padding-bottom: 10rpx;
    display: flex;
    flex-direction: column;
    background: #EFEFEF;
@@ -40,6 +42,7 @@
 .profileImage{
    width: 600rpx;
    height: 600rpx;
+   min-height:600rpx;
    margin: 10rpx;
 }
 .title{
@@ -50,6 +53,7 @@
 }
 .des{
    font-size: 24rpx;
+   color: #929292;
    margin-left: 10rpx;
    margin-top:10rpx;
 }
@@ -77,6 +81,7 @@
 .iconBox .medal .medalNum{
    font-size: 24rpx;
    margin-left: 10rpx;
+   color: #929292;
 }
 .iconBox .like{
    width: 80rpx;
@@ -92,6 +97,7 @@
 .iconBox .like .likeNum{
    font-size: 24rpx;
    margin-left: 10rpx;
+   color: #929292;
 }
 .iconBox .comment{
    width: 80rpx;
@@ -107,4 +113,5 @@
 .iconBox .comment .commentNum{
    font-size: 24rpx;
    margin-left: 10rpx;
+   color: #929292;
 }

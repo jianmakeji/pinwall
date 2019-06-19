@@ -29,6 +29,7 @@ Page({
       artifactId: "",
       commentList: [],
       //新建评论
+      commentFocus:false,
       commentVisible: false,
       commentEditValue: "",
       content: "",
@@ -154,6 +155,18 @@ Page({
          commentVisible: false
       })
    },
+   // 评论聚焦事件
+   commentFocus(){
+      this.setData({
+         commentFocus:true
+      })
+   },
+   // 评论失去焦点
+   commentBlur() {
+      this.setData({
+         commentFocus: false
+      })
+   },
    // 评论内容值变化
    commentValueChange(event) {
       this.setData({
@@ -186,6 +199,7 @@ Page({
                   })
                } else {
                   that.setData({
+                     commentFocus:false,
                      commentVisible: false
                   });
                   wx.showToast({
@@ -228,16 +242,16 @@ Page({
          artifactScoreValue: parseInt(event.detail.value)
       })
    },
-   // 关闭分数框
-   closeScore() {
-      this.setData({
-         artifactScoreVisible: false
-      });
-   },
    fileTap(event) {
       let mediaFileUrl = escape(event.currentTarget.dataset.mediaFile);
       wx.navigateTo({
          url: "/pages/topics/mediaFileDetail/mediaFileDetail?mediaFileUrl=" + mediaFileUrl
+      })
+   },
+   // 分数失去焦点
+   scoreBlur(){
+      this.setData({
+         artifactScoreVisible: false
       })
    },
    /***

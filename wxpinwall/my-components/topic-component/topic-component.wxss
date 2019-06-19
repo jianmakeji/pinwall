@@ -26,7 +26,7 @@
    margin-top: 0rpx;
    margin-left: 20rpx;
    color: #484848;
-   font-size: 24rpx;
+   font-size: 26rpx;
 }
 
 .topic_complate .topic_info .createAt {
@@ -47,7 +47,7 @@
    margin-top: 10rpx;
    margin-left: 500rpx;
    color: #979797;
-   font-size: 16rpx;
+   font-size: 22rpx;
 }
 
 .topic_complate .topic_info .topic_name {
@@ -57,7 +57,7 @@
    margin-top: 10rpx;
    margin-left: 20rpx;
    color: #07af69;
-   font-size: 28rpx;
+   font-size: 30rpx;
    font-weight: bold;
    display: -webkit-box;
    word-break: break-all;

@@ -36,7 +36,7 @@
    height:70rpx;
    position:absolute;
    margin-left:520rpx;
-   margin-top:34rpx;
+   margin-top:10rpx;
    font-size:44rpx;
    color:#CF011B;
    font-weight:bold;
@@ -169,7 +169,7 @@
    width: 700rpx;
    line-height: 36rpx;
    font-size: 24rpx;
-   color: #333;
+   color: #000;
    position: absolute;
    margin-left: 25rpx;
    margin-top: 306rpx;

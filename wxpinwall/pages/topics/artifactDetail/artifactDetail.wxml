@@ -48,7 +48,7 @@
    </view>
 </view>
 
-<view class='commentListBox' wx:if="{{commentVisible}}">
+<view class='commentListBox' wx:if="{{commentVisible && !commentFocus}}">
    <text class='all_comment'>全部评论 ({{commentList.length}})</text>
       <i-icon class='close' type="close" size="18" color="#80848f" catchtap='closeComment' />
       <view class='comment'>
@@ -63,11 +63,11 @@
       </view>
 </view>
 <view class='commentInputBox' wx:if="{{commentVisible}}">
-   <input class='commentInput' value="{{ commentEditValue }}" bindinput='commentValueChange'  cursor-spacing="30" placeholder='发表你的评论...'></input>
+   <input class='commentInput' value="{{ commentEditValue }}" bindinput='commentValueChange' bindblur="commentBlur" bindfocus="commentFocus" cursor-spacing="30" placeholder='发表你的评论...'></input>
    <button class='commentBtn' catchtap='submitComment'>发布</button>
 </view>
 
 <view class='scoreInputBox' wx:if="{{artifactScoreVisible}}" >
-   <input class='scoreInput' type='number' value="{{ artifactScoreValue }}" focus="{{scoreFocus}}" cursor-spacing="30" bindinput='artifactScoreValueChange' placeholder='请输入0~100之间整数'></input>
+   <input class='scoreInput' type='number' value="{{ artifactScoreValue }}" focus="{{scoreFocus}}" cursor-spacing="30" bindinput='artifactScoreValueChange' bindblur="scoreBlur" placeholder='请输入0~100之间整数'></input>
    <button class='scoreBtn' catchtap='submitScore'>打分</button>
 </view>

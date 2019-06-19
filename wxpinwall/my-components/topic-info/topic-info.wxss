@@ -23,7 +23,7 @@
    margin-top: 0rpx;
    margin-left: 20rpx;
    color: #484848;
-   font-size: 24rpx;
+   font-size: 26rpx;
 }
 
 .topicInfo .topic_info .createAt {
@@ -44,7 +44,7 @@
    margin-top: 10rpx;
    margin-left: 528rpx;
    color: #979797;
-   font-size: 16rpx;
+   font-size: 22rpx;
 }
 
 .topicInfo .topic_info .topic_name {
@@ -54,7 +54,7 @@
    margin-top: 10rpx;
    margin-left: 20rpx;
    color: #07af69;
-   font-size: 28rpx;
+   font-size: 30rpx;
    font-weight: bold;
    display: -webkit-box;
    word-break: break-all;
@@ -66,7 +66,7 @@
 }
 .topicInfo .topic_des {
    width:750rpx;
-   font-size:22rpx;
+   font-size:24rpx;
    color:#000;
    margin-left:20rpx;
 }

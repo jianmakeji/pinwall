@@ -29,6 +29,7 @@
 }
 .navBar .searchDes{
    font-size: 28rpx;
+   color: #929292;
 }
 
 .backBox{
@@ -46,7 +47,7 @@
    display: inline-block;
    width: 450rpx;
    height: 58rpx;
-   font-size: 30rpx;
+   font-size: 34rpx;
    font-weight: bold;
    overflow: hidden;
    white-space: nowrap;
@@ -66,6 +67,6 @@
    align-items: center;
 }
 .topicTitle{
-   font-size: 32rpx;
+   font-size: 34rpx;
    font-weight: bold;
 }
