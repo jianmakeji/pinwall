@@ -34,6 +34,7 @@ class Users extends Service {
           const app = this.ctx.app;
           user.password = app.cryptoPwd(app.cryptoPwd(user.password));
           user.activeCode =  UUID.v1();
+          user.active = 1;
           const createUserObj = await this.ctx.model.Users.createUser(user,transaction);
           await this.ctx.model.UserRole.creteUserRole(createUserObj.Id, 1, transaction);
           await transaction.commit();
@@ -80,6 +81,10 @@ class Users extends Service {
 
   async loginFindByUserWithEmail(email){
     return await this.ctx.model.Users.loginFindByUserWithEmail(email);
+  }
+
+  async loginFindByUserWithMobile(mobile){
+    return await this.ctx.model.Users.loginFindByUserWithMobile(mobile);
   }
 
   async updateAcviveByActiveCodeAndEmail(email,activeCode){
