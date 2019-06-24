@@ -19,7 +19,7 @@ class Users extends Service {
   }
 
   async createUser(user,category) {
-    if (user.mobile == '' || user.mobile == mobile){
+    if (user.mobile == '' || user.mobile == null){
       throw new Error('用户手机号不能为空');
     }
     else{
@@ -41,7 +41,6 @@ class Users extends Service {
 
           return createUserObj;
         } catch (e) {
-          console.log(e.message);
           await transaction.rollback();
           return false;
         }
