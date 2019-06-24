@@ -43,6 +43,32 @@ class SmsMessage extends Service {
     }
   }
 
+  async sendGetBackPwdSms(smsMessage) {
+    let result = {};
+
+    let user = await this.ctx.model.User.findUserByMobile(smsMessage.mobile);
+    if (user){
+      let code = this.ctx.helper.randomNumber(6);
+      smsMessage.code = code;
+
+      let smsSendResult = await smsUtil.sendSMS(smsMessage,1);
+
+      if (smsSendResult.Code == 'OK'){
+        await this.ctx.model.SmsMessage.createSmsMessage(smsMessage);
+        result.success = true;
+      }
+      else{
+        result.success = false;
+      }
+    }
+    else{
+      result.success = false;
+      result.message = this.ctx.__('noMobile');
+    }
+
+    return result;
+  }
+  
   async getCountDataByDatetime(syncType, date) {
     return await this.ctx.model.SmsMessage.getCountDataByDatetime(smsMessage);
   }

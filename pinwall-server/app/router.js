@@ -57,6 +57,10 @@ module.exports = app => {
   router.get('/getCaptcha',controller.website.users.getCaptcha);
   router.get('/checkCaptcha',controller.website.users.checkCaptcha);
 
+  router.get('/website/sms/sendMessage', controller.website.smsMessage.createSmsMessage);
+  router.get('/website/sms/vertifySms', controller.website.smsMessage.vertifySms);
+  router.get('/website/sms/sendGetBackPwdSms', controller.website.smsMessage.sendGetBackPwdSms);
+
   //自定义接口
   router.get('/website/artifacts/getMedalDataByRandom/:limit', controller.website.artifacts.getMedalDataByRandom);
   router.get('/website/artifacts/getPersonalJob', ajaxAuthCheck, controller.website.artifacts.getPersonalJob);

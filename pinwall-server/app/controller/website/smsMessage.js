@@ -25,6 +25,27 @@ class SmsMessageController extends BaseController{
     }
   }
 
+  async sendGetBackPwdSms() {
+    const ctx = this.ctx;
+    const query = {
+      mobile: ctx.query.mobile,
+    };
+
+    try{
+      const result = await ctx.service.smsMessage.sendGetBackPwdSms(query);
+      if(result.success){
+        super.success('发送成功!');
+      }
+      else{
+        super.failure(result.message);
+      }
+    }
+    catch(e){
+      ctx.logger.error(e.message);
+      super.failure(e.message);
+    }
+  }
+
   async vertifySms(){
     const ctx = this.ctx;
     const smsCode = ctx.query.smsCode;
