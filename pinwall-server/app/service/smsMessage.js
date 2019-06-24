@@ -7,7 +7,7 @@ const moment = require('moment');
 class SmsMessage extends Service {
 
   async createSmsMessage(smsMessage) {
-    let code = this.ctx.helper.randomNumber(6);
+    let code = this.ctx.app.randomNumber(6);
     smsMessage.code = code;
 
     let smsSendResult = await smsUtil.sendSMS(smsMessage,3);
@@ -48,7 +48,7 @@ class SmsMessage extends Service {
 
     let user = await this.ctx.model.User.findUserByMobile(smsMessage.mobile);
     if (user){
-      let code = this.ctx.helper.randomNumber(6);
+      let code = this.ctx.app.randomNumber(6);
       smsMessage.code = code;
 
       let smsSendResult = await smsUtil.sendSMS(smsMessage,1);
@@ -68,7 +68,7 @@ class SmsMessage extends Service {
 
     return result;
   }
-  
+
   async getCountDataByDatetime(syncType, date) {
     return await this.ctx.model.SmsMessage.getCountDataByDatetime(smsMessage);
   }
