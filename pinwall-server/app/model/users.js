@@ -260,6 +260,16 @@ module.exports = app => {
     });
   }
 
+  Users.updatePwdWithMobile = async function(mobile, newPwd){
+    return await this.update({
+      password:newPwd
+    },{
+      where:{
+        mobile:mobile
+      }
+    });
+  }
+
   Users.updateWxActiveByActiveCodeAndUnionId = async function(unionId,activeCode,wxActive){
     return await this.update({
       wxActive:wxActive,
@@ -288,6 +298,24 @@ module.exports = app => {
       ],
     });
   }
+
+  Users.findUserByMobile = async function(mobile){
+    return await this.findOne({
+      where:{
+        mobile:mobile
+      },
+      include:[
+        {
+          model: app.model.Roles,
+          through:{
+            attributes:['userId','roleId'],
+          },
+          attributes:['Id','name']
+        }
+      ],
+    });
+  }
+
 
   Users.updateWxInfoByEmail = async function(wxInfo){
     return await this.update({

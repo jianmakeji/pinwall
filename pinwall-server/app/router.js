@@ -86,6 +86,7 @@ module.exports = app => {
   router.post('website.users.createUser', '/website/users/createUser', controller.website.users.createUser);
   router.put('website.users.updatePwd', '/website/users/updatePwd', controller.website.users.updatePwd);
   router.put('website.users.updatePwdWithEmailAndActiveCode', '/website/users/updatePwdWithEmailAndActiveCode', controller.website.users.updatePwdWithEmailAndActiveCode);
+  router.put('website.users.updatePwdWithMobile', '/website/users/updatePwdWithMobile', controller.website.users.updatePwdWithMobile);
   router.get('website.users.getBackPwdWithEmail', '/website/users/getBackPwdWithEmail', controller.website.users.getBackPwdWithEmail);
   router.put('website.users.updateUserRole', '/website/users/updateUserRole', adminAuthCheck, controller.website.users.updateUserRole);
   router.get('website.users.searchByUsername', '/website/users/searchByUsername', controller.website.users.searchByUsername);

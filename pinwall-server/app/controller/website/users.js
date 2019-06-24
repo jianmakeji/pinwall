@@ -42,10 +42,15 @@ class UsersController extends BaseController{
         super.failure('验证码错误!');
       }
       else{
-        const user = await ctx.service.users.createUser(data,0);
-        super.success('创建成功!');
+        let vertifyResult = await ctx.service.smsMessage.getDataByCondition({mobile:data.mobile,code:data.smsCode});
+        if (vertifyResult.status == 200){
+          await ctx.service.users.createUser(data,0);
+          super.success('创建成功!');
+        }
+        else{
+          return vertifyResult;
+        }
       }
-
     }
     catch(e){
       super.failure(e.message);
@@ -342,6 +347,27 @@ class UsersController extends BaseController{
     }
     else{
       super.failure('修改失败');
+    }
+  }
+
+  async updatePwdWithMobile(){
+    const ctx = this.ctx;
+    const mobile = ctx.request.body.mobile;
+    const smsCode = ctx.request.body.smsCode;
+    const newPwd = ctx.request.body.newPwd;
+
+    let vertifyResult = await ctx.service.smsMessage.getDataByCondition({mobile:data.mobile,code:data.smsCode});
+    if (vertifyResult.status == 200){
+      if (result){
+        const result = await ctx.service.users.updatePwdWithMobile(mobile, newPwd);
+        super.success('修改成功');
+      }
+      else{
+        super.failure('修改失败');
+      }
+    }
+    else{
+      return vertifyResult;
     }
   }
 

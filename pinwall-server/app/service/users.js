@@ -19,11 +19,11 @@ class Users extends Service {
   }
 
   async createUser(user,category) {
-    if (user.email == '' || user.email == null){
-      throw new Error('用户邮箱不能为空');
+    if (user.mobile == '' || user.mobile == mobile){
+      throw new Error('用户手机号不能为空');
     }
     else{
-      const userObj = await this.ctx.model.Users.findUserByEmail(user.email);
+      const userObj = await this.ctx.model.Users.findUserByMobile(user.mobile);
       if (userObj){
         throw new Error('用户已经存在');
       }
@@ -37,12 +37,6 @@ class Users extends Service {
           const createUserObj = await this.ctx.model.Users.createUser(user,transaction);
           await this.ctx.model.UserRole.creteUserRole(createUserObj.Id, 1, transaction);
           await transaction.commit();
-          if (category == 0){
-            await this.ctx.service.emailService.sendActiveEmail(user.email, user.activeCode);
-          }
-          else if(category == 1){
-            await this.ctx.service.emailService.sendWxActiveEmail(user.email, user.unionId, user.activeCode);
-          }
 
           return createUserObj;
         } catch (e) {
@@ -157,6 +151,18 @@ class Users extends Service {
       const app = this.ctx.app;
       const password = app.cryptoPwd(app.cryptoPwd(newPwd));
       await this.ctx.model.Users.updatePwdWithEmailAndActiveCode(email, activeCode, password);
+      return true;
+    }
+    catch(e){
+      return false;
+    }
+  }
+
+  async updatePwdWithMobile(mobile, newPwd){
+    try{
+      const app = this.ctx.app;
+      const password = app.cryptoPwd(app.cryptoPwd(newPwd));
+      await this.ctx.model.Users.updatePwdWithMobile(email, password);
       return true;
     }
     catch(e){
