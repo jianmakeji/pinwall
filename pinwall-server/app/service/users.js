@@ -95,7 +95,8 @@ class Users extends Service {
     return await this.ctx.model.Users.updateAcviveByUserId(userId);
   }
 
-  async bindWeixinInfoByEmail(email,user){
+  async bindWeixinInfoByEmail(email,password,user){
+    const app = this.ctx.app;
     let wxInfo = {};
     wxInfo.email = email;
     wxInfo.openId = user.openid;
@@ -106,13 +107,13 @@ class Users extends Service {
     wxInfo.city = user.city;
     wxInfo.country = user.country;
     wxInfo.unionId = user.unionid;
-    wxInfo.activeCode = UUID.v1();
+    wxInfo.wxActive = 1;
 
     try{
       let userObject = this.ctx.model.Users.findUserByEmail(email);
-      if(userObject){
+
+      if(userObject && userObject.password == app.cryptoPwd(app.cryptoPwd(user.password))){
         await this.ctx.model.Users.updateWxInfoByEmail(wxInfo);
-        await this.ctx.service.emailService.sendWxActiveEmail(email,user.unionid,wxInfo.activeCode);
         return userObject;
       }
       else{

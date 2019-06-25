@@ -196,7 +196,7 @@ class UsersController extends BaseController{
     const unionId = ctx.user.unionid;
     const user = await ctx.service.users.findByUnionId(unionId);
     if(user){
-      if(user.Id && user.email){
+      if(user.Id && (user.email || user.mobile) ){
         if(user.wxActive == 0){
           ctx.redirect('/wxCompleteInfo');
         }
@@ -220,9 +220,11 @@ class UsersController extends BaseController{
   async bindWeixinInfoByEmail(){
     const ctx = this.ctx;
     const email = ctx.request.body.email;
-    const result = await ctx.service.users.bindWeixinInfoByEmail(email,ctx.user);
+    const password = ctx.request.body.password;
+    const result = await ctx.service.users.bindWeixinInfoByEmail(email,password,ctx.user);
     if (result){
-      super.success('绑定成功，请进入邮箱激活!');
+      ctx.redirect('/index');
+      //super.success('绑定成功!');
     }
     else{
       super.failure('绑定失败!');
@@ -249,43 +251,50 @@ class UsersController extends BaseController{
 
   async createWxUser(){
     const ctx = this.ctx;
-    const email = ctx.request.body.email;
+    const mobile = ctx.request.body.mobile;
     const fullname = ctx.request.body.fullname;
     const password = ctx.request.body.password;
     const captcha = ctx.request.body.captchaText;
+    const smsCode = ctx.request.body.smsCode;
 
     if (captcha == ctx.session.captcha){
-      if (ctx.user){
-        let user = {
-          email:email,
-          fullname:fullname,
-          password:password,
-          openId:ctx.user.openid,
-          nickname:ctx.user.nickname,
-          gender:ctx.user.sex,
-          city:ctx.user.city,
-          province:ctx.user.province,
-          country:ctx.user.country,
-          avatarUrl:ctx.user.headimageurl,
-          unionId:ctx.user.unionid,
-        };
-        try{
-          const result = await ctx.service.users.createUser(user,1);
-          if (result){
-            super.success('操作成功！请到邮箱激活');
+      let vertifyResult = await ctx.service.smsMessage.getDataByCondition({mobile:data.mobile,code:data.smsCode});
+      if (vertifyResult.status == 200){
+        if (ctx.user){
+          let user = {
+            mobile:mobile,
+            fullname:fullname,
+            password:password,
+            openId:ctx.user.openid,
+            nickname:ctx.user.nickname,
+            gender:ctx.user.sex,
+            city:ctx.user.city,
+            province:ctx.user.province,
+            country:ctx.user.country,
+            avatarUrl:ctx.user.headimageurl,
+            unionId:ctx.user.unionid,
+          };
+          try{
+            const result = await ctx.service.users.createUser(user,1);
+            if (result){
+              super.success('操作成功！请到邮箱激活');
+            }
+            else{
+              super.failure('操作失败！请重新操作');
+            }
           }
-          else{
-            super.failure('操作失败！请重新操作');
+          catch(e){
+            super.failure(e.message);
           }
         }
-        catch(e){
-          super.failure(e.message);
+        else{
+          super.failure('微信扫描信息有误，请重新扫描!');
         }
-
       }
       else{
-        super.failure('微信扫描信息有误，请重新扫描!');
+        return vertifyResult;
       }
+
     }
     else{
       super.failure('验证码不正确!');

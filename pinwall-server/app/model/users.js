@@ -346,8 +346,7 @@ module.exports = app => {
       province:wxInfo.province,
       city:wxInfo.city,
       country:wxInfo.country,
-      wxActive:0,
-      activeCode:wxInfo.activeCode,
+      wxActive:1
     },{
       where:{
         email:wxInfo.email
