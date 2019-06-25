@@ -33,7 +33,7 @@ class Users extends Service {
           transaction = await this.ctx.model.transaction();
           const app = this.ctx.app;
           user.password = app.cryptoPwd(app.cryptoPwd(user.password));
-          
+
           if (category == 0){
             user.active = 1;
           }
@@ -172,7 +172,7 @@ class Users extends Service {
     try{
       const app = this.ctx.app;
       const password = app.cryptoPwd(app.cryptoPwd(newPwd));
-      await this.ctx.model.Users.updatePwdWithMobile(email, password);
+      await this.ctx.model.Users.updatePwdWithMobile(mobile, password);
       return true;
     }
     catch(e){

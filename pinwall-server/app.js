@@ -24,10 +24,10 @@ module.exports = app => {
     let existsUser;
 
     if(ctx.app.judgeEmail(user.username)){
-      existsUser = await ctx.service.user.loginFindByUserWithEmail(user.username);
+      existsUser = await ctx.service.users.loginFindByUserWithEmail(user.username);
     }
     else{
-      existsUser = await ctx.service.user.loginFindByUserWithMobile(user.username);
+      existsUser = await ctx.service.users.loginFindByUserWithMobile(user.username);
     }
 
     if (existsUser) {

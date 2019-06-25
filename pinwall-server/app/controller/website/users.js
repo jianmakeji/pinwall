@@ -365,10 +365,10 @@ class UsersController extends BaseController{
     const smsCode = ctx.request.body.smsCode;
     const newPwd = ctx.request.body.newPwd;
 
-    let vertifyResult = await ctx.service.smsMessage.getDataByCondition({mobile:data.mobile,code:data.smsCode});
+    let vertifyResult = await ctx.service.smsMessage.getDataByCondition({mobile:mobile,code:smsCode});
     if (vertifyResult.status == 200){
+      const result = await ctx.service.users.updatePwdWithMobile(mobile, newPwd);
       if (result){
-        const result = await ctx.service.users.updatePwdWithMobile(mobile, newPwd);
         super.success('修改成功');
       }
       else{
