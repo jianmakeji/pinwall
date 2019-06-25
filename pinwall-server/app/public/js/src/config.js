@@ -36,6 +36,7 @@ var config = {
         // user
         getUserData:"/website/users",
         updatePwdWithEmailAndActiveCode:'/website/users/updatePwdWithEmailAndActiveCode',
+        updatePwdWithMobile:"/website/users/updatePwdWithMobile",
         updateUserRole:'/website/users/updateUserRole',
         getCaptcha:'/getCaptcha',
         checkCaptcha:'/checkCaptcha',
@@ -44,7 +45,10 @@ var config = {
         searchUserInfoByKeyword:"/website/users/searchUserInfoByKeyword",
         //searchEngine
         transterInsertDataToES:'/website/artifacts/transterInsertDataToES',
-        transterUpdateDataToES:'/website/artifacts/transterUpdateDataToES'
+        transterUpdateDataToES:'/website/artifacts/transterUpdateDataToES',
+        //手机短信接口
+        sendMessage:"/website/sms/sendMessage?mobile=",
+        vertifySms:"/website/sms/vertifySms"
     },
     viewUrl:{
         workFolder:'/workFolder/:id',
