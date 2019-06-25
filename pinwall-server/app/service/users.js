@@ -33,7 +33,7 @@ class Users extends Service {
           transaction = await this.ctx.model.transaction();
           const app = this.ctx.app;
           user.password = app.cryptoPwd(app.cryptoPwd(user.password));
-          user.activeCode =  UUID.v1();
+          
           if (category == 0){
             user.active = 1;
           }
