@@ -2,7 +2,7 @@ var config = {
     // 正则表达式
     regexString:{
         email:new RegExp("^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$"),
-        phone:new RegExp("^1[3|4|5|6|7|8|9][0-9]{9}$"),
+        phone:new RegExp("^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$"),
         chinese:new RegExp("^[\u4e00-\u9fa5]{0,}$")
     },
     // 数据请求url
@@ -37,6 +37,7 @@ var config = {
         getUserData:"/website/users",
         updatePwdWithEmailAndActiveCode:'/website/users/updatePwdWithEmailAndActiveCode',
         updatePwdWithMobile:"/website/users/updatePwdWithMobile",
+        getBackPwdWithEmail:"/website/users/getBackPwdWithEmail?email=",
         updateUserRole:'/website/users/updateUserRole',
         getCaptcha:'/getCaptcha',
         checkCaptcha:'/checkCaptcha',

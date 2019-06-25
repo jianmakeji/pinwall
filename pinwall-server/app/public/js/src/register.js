@@ -70,7 +70,6 @@ var index = new Vue({
                     type:"get",
                     url:url,
                     success:function(res){
-                        console.log(res);
                         if(res.status == 200){
                     		that.$Loading.finish();
                         	that.$Notice.success({title:res.data, duration:3});

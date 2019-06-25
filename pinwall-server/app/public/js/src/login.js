@@ -79,10 +79,11 @@ var index = new Vue({
 })
 
 function check(form) {
-    var usernameExp = new RegExp("^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$");
-    if (!usernameExp.test(form.username.value)) {
+    let emailExp = config.regexString.email;
+    let mobileExp = config.regexString.phone;
+    if (!emailExp.test(form.username.value) && !mobileExp.test(form.username.value)) {
         index.$Notice.error({
-            title: "请输入正确的邮箱格式或者验证码！",
+            title: "请输入正确的邮箱格式或者手机格式！",
             duration: 2
         });
         form.username.focus();
