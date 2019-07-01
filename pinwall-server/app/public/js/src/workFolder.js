@@ -187,21 +187,22 @@ var index = new Vue({
                     }else{
                         that.scrollModel = true;
                     }
+
+                    $.ajax({
+                        url: config.ajaxUrls.getTopicAndArtifactById,
+                        type: 'GET',
+                        data: {limit:12,offset:0,topicId:that.aoData.topicId,score:1},
+                        success:function(res){
+                            if (res.status == 200) {
+                                that.isScore = res.data.count;
+                                that.noScore = that.uploadTotal - res.data.count;
+                            }
+                        }
+                    })
                 }
             }
         })
-        this.aoData.score = 1;
-        $.ajax({
-            url: config.ajaxUrls.getTopicAndArtifactById,
-            type: 'GET',
-            data: this.aoData,
-            success:function(res){
-                if (res.status == 200) {
-                    that.isScore = res.data.count;
-                    that.noScore = that.uploadTotal - res.data.count;
-                }
-            }
-        })
+
     }
 })
 
