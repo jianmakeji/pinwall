@@ -176,7 +176,7 @@ $(document).ready(function() {
      * 滚动条滚动监听
      */
     $(window).scroll(function() {
-        if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
+        if ($(document).scrollTop() >= $(document).height() - $(window).height() - 10 && index.scrollModel) {
             if (index.searchValue) {
                 index.searchData.offset += 10;
                 getMoreSearchData(index, index.searchData);

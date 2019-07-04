@@ -90,7 +90,7 @@ $(document).ready(function() {
      * 滚动条滚动监听
      */
     $(window).scroll(function() {
-        if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
+        if ($(document).scrollTop() >= $(document).height() - $(window).height() - 10 && index.scrollModel) {
             index.aoData.offset += 12;
             index.aoData.keyword = index.searchModelValue;
 
