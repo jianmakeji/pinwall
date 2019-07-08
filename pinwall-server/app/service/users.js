@@ -114,9 +114,8 @@ class Users extends Service {
     wxInfo.wxActive = 1;
 
     try{
-      let userObject = this.ctx.model.Users.findUserByEmail(email);
-
-      if(userObject && userObject.password == app.cryptoPwd(app.cryptoPwd(user.password))){
+      let userObject = await this.ctx.model.Users.findUserByEmail(email);
+      if(userObject && userObject.password == app.cryptoPwd(app.cryptoPwd(password))){
         await this.ctx.model.Users.updateWxInfoByEmail(wxInfo);
         return userObject;
       }

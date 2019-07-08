@@ -217,7 +217,6 @@ class Topics extends Service {
                 users.push(tw.Id);
               });
             }
-
             if (!(users.includes(userId) || (userId == element.user.Id))){
               element.artifact_scores.length = 0;
               element.artifact_scores.length = 1;
