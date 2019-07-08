@@ -42,7 +42,7 @@ class Artifacts extends Service {
           }
         }
         else if (subElement.type == 5 && subElement.mediaFile != null){
-          subElement.mediaFile = h5Util.getH5Url(artifact.Id, subElement.mediaFile, app);
+          subElement.mediaFile = h5Util.getH5Url(element.Id, subElement.mediaFile, app);
         }
       }
 
