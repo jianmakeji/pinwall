@@ -19,7 +19,8 @@ body{
 	padding-left: 32px;
 	border-radius: 0px;
 	border: none;
-	box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    /* box-shadow: 0 0 10px rgba(0,0,0,0.1); */
+    height:35px;
 }
 
 .container_header .title .ivu-btn{
@@ -90,7 +91,7 @@ body{
     color: #07af69;
     overflow: hidden;
     margin: 0.8em 0;
-    width: 240px;
+    width: 220px;
 	display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
