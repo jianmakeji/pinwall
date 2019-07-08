@@ -71,7 +71,7 @@ var index = new Vue({
 $(document).ready(function() {
     $('html,body').animate({scrollTop:0});                          //每次刷新界面滚动条置顶
     $(window).scroll(function() {                                   //滚动加载数据
-        if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
+        if ($(document).scrollTop() >= $(document).height() - $(window).height() - 10 && index.scrollModel) {
             index.aoData.offset += 12;
             index.$Loading.start();
             $.ajax({
