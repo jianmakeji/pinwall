@@ -179,19 +179,7 @@ var index = new Vue({
                 type: 'POST',
                 data: this.formOld,
                 success(res){
-                    if (res.status == 200) {
-                        that.$Loading.finish();
-                        that.$Notice.success({title:res.data});
-                        init_form(that);
-                    }else if(res.status == 999){
-                        that.$Loading.error();
-                        that.$Notice.error({
-                            title:"没有操作权限，请登录",
-                            onClose(){
-                                window.location.href = "/login";
-                            }
-                        });
-                    }else{
+                    if (res.status == 500) {
                         that.$Loading.error();
                         that.$Notice.error({title:res.data});
                         init_form(that);
