@@ -470,7 +470,7 @@ var container = new Vue({
             let fileTrueName = files.target.files[0].name;
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
-            this.$Notice.success({title:'上传成功！'});
+            this.$Notice.success({title:'上传中...'});
             $.ajax({
                 url: config.ajaxUrls.getSTSSignature.replace(":type",3),
                 type: 'GET',
@@ -511,13 +511,19 @@ var container = new Vue({
             })
         },
         step2_upload_HTML5_change(files){
+            let isChange = false;
+            if(window.location.href.indexOf("editUploadWork") > 0){ //修改
+                isChange = true;
+            }else{
+                isChange = false;
+            }
             let that = this;
             this.uploadFlag = true;
             let file = files.target.files[0];
             let fileTrueName = files.target.files[0].name;
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
-            this.$Notice.success({title:'上传成功！'});
+            this.$Notice.success({title:'上传中...'});
             $.ajax({
                 url: config.ajaxUrls.getSTSSignature.replace(":type",5),
                 type: 'GET',
@@ -540,6 +546,13 @@ var container = new Vue({
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
                             $('#step2_upload_HTML5_input').val('');
                             that.uploadFlag = true;
+
+                            if (isChange) {
+                                $.ajax({
+                                    url:"/deleteH5Path/" + that.dataItem.Id,
+                                    type:"DELETE"
+                                })
+                            }
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
