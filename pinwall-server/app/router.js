@@ -56,7 +56,7 @@ module.exports = app => {
   router.get('/getUrlSignature', controller.website.alioss.getUrlSignature);
   router.get('/getCaptcha',controller.website.users.getCaptcha);
   router.get('/checkCaptcha',controller.website.users.checkCaptcha);
-  router.get('/deleteH5Path/:artifactId', controller.website.alioss.deleteH5Path);
+  router.delete('/deleteH5Path/:artifactId', controller.website.alioss.deleteH5Path);
 
   router.get('/website/sms/sendMessage', controller.website.smsMessage.createSmsMessage);
   router.get('/website/sms/vertifySms', controller.website.smsMessage.vertifySms);
