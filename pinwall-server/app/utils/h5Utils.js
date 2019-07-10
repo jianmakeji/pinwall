@@ -1,7 +1,7 @@
 const request = require('request');
 const fs = require('fs');
 const path = require('path');
-const unzip = require("unzip2");
+const AdmZip = require('adm-zip');
 
 function getJsonFiles(jsonPath){
     let jsonFiles = [];
@@ -49,11 +49,11 @@ module.exports.getH5Url = (artifactId, mediaFile, app) => {
       stream.on("finish", function() {
         stream.end();
         let ziprarPath = h5Dir + filename;
-        fs.createReadStream(ziprarPath).pipe(unzip.Extract({ path: h5Dir })).on("finish",function(){
-          if(fs.existsSync(ziprarPath)){
-            fs.unlinkSync(ziprarPath);
-          }
-        });
+        var zip = new AdmZip(ziprarPath);
+        zip.extractAllTo(h5Dir, true);
+        if(fs.existsSync(ziprarPath)){
+          fs.unlinkSync(ziprarPath);
+        }
       });
     }
 
