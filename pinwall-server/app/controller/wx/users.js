@@ -77,7 +77,7 @@ class UsersController extends BaseController {
       var data = pc.decryptData(encryptedData , iv);
       user.unionid = data.unionId;
 
-      const result = await ctx.service.users.bindWeixinInfoByEmail(email, password, user);
+      const result = await ctx.service.users.bindWeixinInfoByEmailOrPhone(email, password, user);
 
       if (result) {
         let backObject = {
