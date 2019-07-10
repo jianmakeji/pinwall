@@ -4,7 +4,7 @@ const BaseController = require('../BaseController');
 const { STS } = require('ali-oss');
 const fs = require('fs');
 const path = require('path');
-const fileUtil = require('../../utils/fileUtil');
+const fileUtil = require('../../utils/fileUtils');
 
 class AliOSSController extends BaseController {
 
@@ -106,7 +106,7 @@ class AliOSSController extends BaseController {
 
   async deleteH5Path(){
     const app = this.ctx.app;
-    const artifactId = ctx.params.artifactId;
+    const artifactId = this.ctx.params.artifactId;
     let h5Dir = path.join(app.localH5Path, artifactId + path.sep);
 
     let pathExist = fs.existsSync(h5Dir);
