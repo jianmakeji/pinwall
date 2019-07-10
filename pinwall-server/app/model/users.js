@@ -177,7 +177,7 @@ module.exports = app => {
           attributes:['Id','name']
         }
       ],
-      attributes:['Id','email','fullname','avatarUrl','wxActive','unionId']
+      attributes:['Id','email','mobile','fullname','avatarUrl','wxActive','unionId']
     });
   }
 
@@ -350,6 +350,24 @@ module.exports = app => {
     },{
       where:{
         email:wxInfo.email
+      }
+    });
+  }
+
+  Users.updateWxInfoByMobile = async function(wxInfo){
+    return await this.update({
+      openId:wxInfo.openId,
+      unionId:wxInfo.unionId,
+      nickname:wxInfo.nickname,
+      avatarUrl:wxInfo.avatarUrl,
+      gender:wxInfo.gender,
+      province:wxInfo.province,
+      city:wxInfo.city,
+      country:wxInfo.country,
+      wxActive:1
+    },{
+      where:{
+        mobile:wxInfo.mobile
       }
     });
   }

@@ -219,12 +219,11 @@ class UsersController extends BaseController{
 
   async bindWeixinInfoByEmail(){
     const ctx = this.ctx;
-    const email = ctx.request.body.email;
+    const emailOrPhone = ctx.request.body.email;
     const password = ctx.request.body.password;
-    const result = await ctx.service.users.bindWeixinInfoByEmail(email,password,ctx.user);
+    const result = await ctx.service.users.bindWeixinInfoByEmailOrPhone(emailOrPhone,password,ctx.user);
     if (result){
-      ctx.redirect('/index');
-      //super.success('绑定成功!');
+      super.success('绑定成功!');
     }
     else{
       super.failure('绑定失败!');
