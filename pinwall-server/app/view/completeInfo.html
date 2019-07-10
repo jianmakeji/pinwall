@@ -50,10 +50,10 @@
 	            <i-button type="success" long :disabled="disableSbt" @click="submitNew">提交</i-button>
                 <p class="error_tag" tag="{{tag}}" style="text-align:center;color:#ed4014;">{{message}}</p>
 	        </form-item>
-	        <form-item label="邮箱" prop="email" v-show="newOrOld == 'old'">
-	            <i-input type="text" v-model="formOld.email" placeholder="请输入邮箱"></i-input>
+	        <form-item label="账号" v-show="newOrOld == 'old'">
+	            <i-input type="text" v-model="formOld.email" placeholder="请输入邮箱或手机号"></i-input>
 	        </form-item>
-	        <form-item label="密码" v-show="newOrOld == 'old'" prop="password">
+	        <form-item label="密码" v-show="newOrOld == 'old'">
 	            <i-input type="password" v-model="formOld.password" placeholder="请输入密码"></i-input>
 	        </form-item>
             <form-item v-show="newOrOld == 'old'">

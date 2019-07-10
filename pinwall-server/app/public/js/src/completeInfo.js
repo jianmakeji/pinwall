@@ -16,10 +16,6 @@ var index = new Vue({
                 password:""
             },
             ruleValidate:{
-                email:[
-                    {required: true, message: '邮箱不能为空', trigger: 'blur'},
-         	        {type:"email", message: '请输入正确邮箱格式', trigger: 'blur'}
-            	],
                 mobile:[
         	       {required: true, message: '手机号不能为空', trigger: 'blur'},
         	       {required: true, len:11, message: '请输入正确手机号码格式', trigger: 'blur'}
@@ -173,32 +169,40 @@ var index = new Vue({
         submitOld(){
             let that = this;
             let subUrl = config.ajaxUrls.bindWeixinInfoByEmail;
-            this.$Loading.start();
-            $.ajax({
-                url: subUrl,
-                type: 'POST',
-                data: this.formOld,
-                success(res){
-                    if (res.status == 200) {
-                        that.$Loading.finish();
-                        that.$Notice.success({
-                            title:res.data,
-                            onClose(){
-                                window.location.href = "/login";
+            if (config.regexString.email.test(this.formOld.email) || config.regexString.phone.test(this.formOld.email)) {
+                if (this.formOld.password.length >= 6) {
+                    this.$Loading.start();
+                    $.ajax({
+                        url: subUrl,
+                        type: 'POST',
+                        data: this.formOld,
+                        success(res){
+                            if (res.status == 200) {
+                                that.$Loading.finish();
+                                that.$Notice.success({
+                                    title:res.data,
+                                    onClose(){
+                                        window.location.href = "/login";
+                                    }
+                                });
+                            }else{
+                                that.$Loading.error();
+                                that.$Notice.error({title:res.data});
+                                init_form(that);
                             }
-                        });
-                    }else{
-                        that.$Loading.error();
-                        that.$Notice.error({titile:res.data});
-                        init_form(that);
-                    }
-                },
-                error(err){
-                    that.$Loading.error();
-                    that.$Notice.error({title:err.data});
-                    init_form(that);
+                        },
+                        error(err){
+                            that.$Loading.error();
+                            that.$Notice.error({title:err.data});
+                            init_form(that);
+                        }
+                    });
+                }else{
+                    this.$Notice.error({title:"密码不少于6位"});
                 }
-            });
+            } else {
+                this.$Notice.error({title:"请输入正确邮箱或手机号"});
+            }
         }
     },
     created() {
