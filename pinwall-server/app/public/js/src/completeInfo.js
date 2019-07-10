@@ -179,9 +179,17 @@ var index = new Vue({
                 type: 'POST',
                 data: this.formOld,
                 success(res){
-                    if (res.status == 500) {
+                    if (res.status == 200) {
+                        that.$Loading.finish();
+                        that.$Notice.success({
+                            title:res.data,
+                            onClose(){
+                                window.location.href = "/login";
+                            }
+                        });
+                    }else{
                         that.$Loading.error();
-                        that.$Notice.error({title:res.data});
+                        that.$Notice.error({titile:res.data});
                         init_form(that);
                     }
                 },
