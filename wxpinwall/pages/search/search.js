@@ -1,7 +1,4 @@
 // pages/search/search.js
-const {
-   $Toast
-} = require('../../dist/base/index');
 const app = getApp();
 Page({
 
@@ -11,6 +8,7 @@ Page({
    data: {
       loadModel:false,
 
+      searchTitle:"搜索作品",
       tabIndexNum:"2",
       typeActive:"1",
 
@@ -37,10 +35,24 @@ Page({
    },
    // 搜索类型修改
    searchTypeChange(event){
+      let searchNum = event.currentTarget.dataset.searchNum;
       this.setData({
          focusModel:true,
-         typeActive : event.currentTarget.dataset.searchNum
+         typeActive: searchNum
       })
+      if (searchNum == "1"){
+         this.setData({
+            searchTitle: "搜索作品"
+         })
+      } else if (searchNum == "2") {
+         this.setData({
+            searchTitle: "搜索课程"
+         })
+      }else if (searchNum == "3"){
+         this.setData({
+            searchTitle: "搜索用户"
+         })
+      }
    },
    // 搜索提交
    searchSubmit(event) {
@@ -254,7 +266,6 @@ Page({
     */
    onReachBottom: function () {
       let that = this;
-      console.log("1111", this.data.gbData, this.data.gbUrl)
       this.setData({
          "gbData.offset": this.data.gbData.offset + 10
       })

@@ -1,13 +1,16 @@
+<wxs src="../../subutil/subutil.wxs" module="tools" />
 <nav-bar statusHeight="{{statusHeight}}" tabIndex="{{tabIndexNum}}" backDes="探索" bind:tapBack="tapBack"></nav-bar>
 <view class="input-wrap {{statusHeight ? 'highStatus' : 'lowStatus'}}" wx:if="{{!hasResult}}">
    <view class="search-wrap">
-      <icon type="search" size="16"/>
-      <input class='search' placeholder="搜索" confirm-type="search" focus='{{focusModel}}' auto-focus placeholder-class="searchPlaceHolder" bindconfirm="searchSubmit" bindinput="inputChange"></input>
+      <image class='searchIcon' wx-if="{{typeActive == '1'}}" src='/images/search_work_icon.png'></image>
+      <image class='searchIcon' wx-if="{{typeActive == '2'}}" src='/images/search_topic_icon.png'></image>
+      <image class='searchIcon' wx-if="{{typeActive == '3'}}" src='/images/search_user_icon.png'></image>
+      <input class='search' placeholder="{{searchTitle}}" confirm-type="search" focus='{{focusModel}}' auto-focus placeholder-class="searchPlaceHolder" bindconfirm="searchSubmit" bindinput="inputChange"></input>
    </view>
    <view class='searchTypeImg'>
-      <image class="{{typeActive == '1' ? 'active' : 'unactive'}}" data-search-num="1" catchtap="searchTypeChange" src='/images/search_work_default.png'></image>
-      <image class="{{typeActive == '2' ? 'active' : 'unactive'}}" data-search-num="2"  catchtap="searchTypeChange" src='/images/search_topic_default.png'></image>
-      <image class="{{typeActive == '3' ? 'active' : 'unactive'}}" data-search-num="3"  catchtap="searchTypeChange" src='/images/search_user_default.png'></image>
+      <image data-search-num="1" catchtap="searchTypeChange" src="{{typeActive == '1' ? '/images/search_work_hl.png' : '/images/search_work_default.png'}}"></image>
+      <image data-search-num="2"  catchtap="searchTypeChange" src="{{typeActive == '2' ? '/images/search_topic_hl.png' : '/images/search_topic_default.png'}}"></image>
+      <image data-search-num="3"  catchtap="searchTypeChange" src="{{typeActive == '3' ? '/images/search_user_hl.png' : '/images/search_user_default.png'}}"></image>
    </view>
    <view class='searchTypeTitle'>
       <text data-search-num="1" catchtap="searchTypeChange">作品</text>

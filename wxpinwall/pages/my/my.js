@@ -56,7 +56,7 @@ Page({
                         if (res.data.openid) {
                            wx.setStorageSync("openid", res.data.openid);
                            wx.setStorageSync("sessionKey", res.data.sessionKey);
-                           if (res.data.user != null && res.data.user.email != null) {
+                           if (res.data.user != null && (res.data.user.email != null || res.data.user.mobile != null)) {
                               wx.setStorageSync("openid", res.data.openid);
                               wx.setStorageSync("sessionKey", res.data.sessionKey);
                               wx.setStorageSync("myId", res.data.user.Id);
@@ -73,11 +73,11 @@ Page({
                            } else {
                               wx.setStorageSync("openid", res.data.openid);
                               wx.showToast({
-                                 title: '您的微信未绑定图钉墙,无法进行相关操作,2秒后跳转到绑定界面!',
+                                 title: '您的微信未绑定图钉墙,无法进行相关操作',
                                  icon:"none"
                               })
                               setTimeout(function() {
-                                 wx.redirectTo({
+                                 wx.navigateTo({
                                     url: '/pages/my/completeInfo/completeInfo',
                                  })
                               }, 2000);

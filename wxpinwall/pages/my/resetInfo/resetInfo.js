@@ -59,7 +59,7 @@ Page({
                that.onShow();
             } else {
                wx.showToast({
-                  title: '发布成功！',
+                  title: '发布失败！',
                   icon:"none"
                })
             }

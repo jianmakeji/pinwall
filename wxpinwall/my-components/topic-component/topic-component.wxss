@@ -1,16 +1,16 @@
 .topic_complate {
-   width: 670rpx;
-   height: 280rpx;
-   margin: 20rpx auto;
+   width: 710rpx;
+   /* height: 400rpx; */
+   margin:10rpx auto -30rpx;
    padding: 20rpx;
-   background: #fff;
-   box-shadow: 4rpx 4rpx 20rpx 4rpx rgba(153, 153, 153, 0.17);
+   background: #efefef;
 }
 
 .topic_complate .topic_info {
-   width: 100%;
+   width: 670rpx;
    height: 130rpx;
-   /* background: gray; */
+   padding: 20rpx;
+   background: #fff;
 }
 
 .topic_complate .topic_info .user_avator {
@@ -69,17 +69,18 @@
 }
 
 .topic_complate .topic_artifacts {
-   width: 650rpx;
+   width: 670rpx;
    height: 130rpx;
-   padding: 10rpx;
+   padding: 0 20rpx 20rpx 20rpx;
    display: flex;
    flex-direction: row;
    justify-content: left;
+   background: #fff;
 }
 
 .topic_complate .topic_artifacts .artifact_img {
-   width: 108rpx;
-   height: 108rpx;
+   width: 124rpx;
+   height: 124rpx;
    margin-top: 10rpx;
    margin-right: 10rpx;
 }

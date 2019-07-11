@@ -20,9 +20,9 @@
    flex-direction: column;
 }
 .artifact_complate .artifact_info .user_avator {
-   width: 80rpx;
-   height: 80rpx;
-   border-radius: 40rpx;
+   width: 68rpx;
+   height: 68rpx;
+   border-radius: 50%;
    position: absolute;
    margin-left: 40rpx;
    margin-top: 20rpx;
@@ -33,9 +33,9 @@
    height: 40rpx;
    font-size: 24rpx;
    position: absolute;
-   margin-left: 140rpx;
+   margin-left: 120rpx;
    margin-top: 26rpx;
-   color: #484848;
+   color: #101010;
 }
 
 .artifact_complate .artifact_info .createAt {
@@ -43,15 +43,15 @@
    height: 30rpx;
    font-size: 20rpx;
    position: absolute;
-   margin-left: 140rpx;
+   margin-left: 120rpx;
    margin-top: 66rpx;
-   color: #979797;
+   color: #7c7a7a;
 }
 
 .artifact_complate .artifact_info .artifact_title {
    width: 180px;
    height: 80rpx;
-   color: #07af69;
+   color: #06AB6D;
    position: absolute;
    margin-top: 120rpx;
    margin-left: 50rpx;

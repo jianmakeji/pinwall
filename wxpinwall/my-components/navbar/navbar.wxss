@@ -5,7 +5,6 @@
    top: 0;
    z-index: 9999999;
    background: #fff;
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .highStatus{
    padding-top: 52rpx;
@@ -27,9 +26,12 @@
    border-radius:  30rpx;
    background: #EFEFEF;
 }
+.navBar .searchIcon{
+   margin-top: -3px;
+}
 .navBar .searchDes{
-   font-size: 28rpx;
-   color: #929292;
+   font-size: 24rpx;
+   color: #7c7a7a;
 }
 
 .backBox{
@@ -43,12 +45,15 @@
    flex-direction: row;
    align-items: center;
 }
+.backIcon{
+   margin-top: -1px;
+}
 .backDes{
    display: inline-block;
    width: 450rpx;
    height: 58rpx;
-   font-size: 34rpx;
-   font-weight: bold;
+   font-size: 32rpx;
+   color: #101010;
    overflow: hidden;
    white-space: nowrap;
    text-overflow: ellipsis;
@@ -67,6 +72,6 @@
    align-items: center;
 }
 .topicTitle{
-   font-size: 34rpx;
-   font-weight: bold;
+   font-size: 32rpx;
+   color: 101010;
 }

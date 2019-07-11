@@ -1,0 +1,115 @@
+/* pages/my/register/register.wxss */
+page{
+   background: #fff;
+}
+.highStatus{
+   margin-top: 200rpx;
+}
+.lowStatus{
+   margin-top: 150rpx;
+}
+.des1{
+   width: 600rpx;
+   height: 40rpx;
+   font-size: 36rpx;
+   font-weight: bold;
+   color: #17B272;
+   text-align: left;
+   position: absolute;
+   margin-top: 260rpx;
+   margin-left: 75rpx;
+}
+.fullnameBox{
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 340rpx;
+   margin-left: 75rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center
+}
+.fullnameBox .fullnameInput{
+   width: 500rpx;
+   height: 56rpx;
+   background: none;
+   border-bottom: 2rpx solid #A6A6A6;
+}
+.mobileBox{
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 440rpx;
+   margin-left: 75rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center
+}
+.mobileBox .mobileInput{
+   width: 500rpx;
+   height: 56rpx;
+   background: none;
+   border-bottom: 2rpx solid #A6A6A6;
+}
+.smscodeBox{
+    width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 540rpx;
+   margin-left: 75rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+}
+.smscodeBox .codeInput{
+   height: 56rpx;
+   background: none;
+   border-bottom: 2rpx solid #A6A6A6;
+}
+.smscodeBox .smscodeBtn{
+   font-size:24rpx;
+   width:200rpx;
+   height:70rpx;
+   line-height:70rpx;
+   color: #A6A6A6 !important;
+}
+.passwordBox{
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 640rpx;
+   margin-left: 75rpx;
+}
+.passwordBox .passwordInput{
+   width: 500rpx;
+   height: 56rpx;
+   background: none;
+   border-bottom: 2rpx solid #A6A6A6;
+}
+.confirmPasswordBox{
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 740rpx;
+   margin-left: 75rpx;
+}
+.confirmPasswordInput{
+   width: 500rpx;
+   height: 56rpx;
+   background: none;
+   border-bottom: 2rpx solid #A6A6A6;
+}
+.submit{
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 870rpx;
+   margin-left: 75rpx;
+}

@@ -21,7 +21,7 @@
       <text class='title'>个人简介</text>
       <view>
          <text class='des'>{{userInfo.intro != null ? userInfo.intro : ''}}</text>
-         <i-icon class='enter_icon' type="enter" size="22" />
+         <i-icon class='enter_icon' type="enter" color='#BBBBBB' size="15" />
       </view>
    </view>
 </view>
