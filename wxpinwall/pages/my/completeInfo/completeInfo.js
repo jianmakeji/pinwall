@@ -57,7 +57,7 @@ Page({
                      wx.setStorageSync("myId", res.data.data.user.Id);
                      wx.setStorageSync("myRole", res.data.data.user.roles[0].name);
                      wx.showToast({
-                        title: res.data.message,
+                        title: res.data.data.message,
                         icon:"success",
                         duration:2000,
                         success(){

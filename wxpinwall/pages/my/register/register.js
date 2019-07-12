@@ -124,9 +124,9 @@ Page({
                      sessionKey: wx.getStorageSync("sessionKey"),
                   },
                   success(res) {
-                     wx.setStorageSync("myId", res.data.data.user.Id);
-                     wx.setStorageSync("myRole", res.data.data.roleName);
                      if (res.data.status == 200) {
+                        wx.setStorageSync("myId", res.data.data.user.Id);
+                        wx.setStorageSync("myRole", res.data.data.roleName);
                         wx.showToast({
                            title: '注册成功',
                            icon: "success"
@@ -140,7 +140,7 @@ Page({
                         })
                      } else {
                         wx.showToast({
-                           title: '注册失败',
+                           title: res.data.data,
                            icon: "none"
                         });
                      }
