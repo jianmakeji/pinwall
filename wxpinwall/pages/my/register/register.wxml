@@ -15,7 +15,7 @@
       <i-input i-class='passwordInput' type='password' value="{{ password }}" bind:change="passwordChange" placeholder="密码" />
    </view>
    <view class='confirmPasswordBox'>
-      <i-input i-class='confirmPasswordInput' type='password' value="{{ confirmPassword }}" bind:change="pconfirmPasswordChange" placeholder="确认密码" />
+      <i-input i-class='confirmPasswordInput' type='password' value="{{ confirmPassword }}" bind:change="confirmPasswordChange" placeholder="确认密码" />
    </view>
    <i-button class="submit" type='success' bind:click="submit">提交</i-button>
 </view>
