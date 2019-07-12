@@ -1,55 +1,60 @@
-<!--pages/my/my.wxml-->
-<view class='myInfo' wx:if="{{isLogin == 'true'}}">
+<!-- 我的 -->
+<nav-bar statusHeight="{{statusHeight}}" tabIndex="{{tabIndexNum}}" topicTitle="我的"></nav-bar>
+<view class="myInfo {{statusHeight ? 'highStatus' : 'lowStatus'}}" wx:if="{{isLogin == 'true'}}">
    <view class='user_info'>
       <image class='user_avator' mode='scaleToFill' src="{{userData.avatarUrl?userData.avatarUrl:'/images/default_profile.jpg'}}"></image>
       <i-icon class='info_refresh' wx:if="{{userData.roles[0].name == 'vip'}}" type="refresh" size="28" color="#1fb5be" data-user-id="{{userData.Id}}" catchtap='refreshUserInfo'/>
       <text class='fullname'>{{userData.fullname}}</text>
-      <image class='upload_img' src='/images/my_upload.png'></image>
-      <text class='upload_text'>我的上传</text>
-      <text class='upload_num'>{{userData.artifactCount}}</text>
-      <image class='like_img' src='/images/my_like.png'></image>
-      <text class='like_text'>被点赞的</text>
-      <text class='like_num'>{{userData.likeCount}}</text>
-      <image class='medal_img' src='/images/my_medal.png'></image>
-      <text class='medal_text'>我的勋章</text>
-      <text class='medal_num'>{{userData.medalCount}}</text>
-      <image class='comment_img' src='/images/my_comment.png'></image>
-      <text class='comment_text'>被评论的</text>
-      <text class='comment_num'>{{userData.commentCount}}</text>
+      <!-- 参数名称框 -->
+      <view class='titleData'>
+         <text class='upload_text'>上传</text>
+         <text class='like_text'>点赞</text>
+         <text class='medal_text'>勋章</text>
+         <text class='comment_text'>评论</text>
+      </view>
+      <!-- 参数框 -->
+      <view class='numData'>
+         <text class='upload_num'>{{userData.artifactCount}}</text>
+         <text class='like_num'>{{userData.likeCount}}</text>
+         <text class='medal_num'>{{userData.medalCount}}</text>
+         <text class='comment_num'>{{userData.commentCount}}</text>
+      </view>
    </view>
+   <!-- 我的作品集 -->
    <view class='zuopingji' data-user-id="{{userData.Id}}" catchtap='zuopinjiTap'>
-      <image class='zuopingji_img' src='/images/my_showreel.png'></image>
-      <text class='zuopingji_text'>我的作品集</text>
+      <view class='topBox'>
+         <image class='zuopingji_img' src='/images/my_showreel.png'></image>
+         <text class='zuopingji_text'>我的作品集({{userData.artifactCount ? userData.artifactCount : '0'}})</text>
+         <i-icon class='enter_icon' type="enter" color="#BBBBBB" size="15" />
+      </view>
+      <view class='contentBox'>
+         <block wx:for="{{myTopicsData}}" wx:for-item="item">
+            <image class='artifactImg' src='{{item.profileImage}}'></image>
+         </block>
+      </view>
    </view>
+   <!-- 我的作业荚 -->
    <view class='zuoyejia' data-user-id="{{userData.Id}}" catchtap='zuoyejiaTap'>
       <image class='zuoyejia_img' src='/images/my_topic.png'></image>
-      <text class='zuoyejia_text'>我的作业荚</text>
+      <text class='zuoyejia_text'>我的作业荚({{myTopicNum ? myTopicNum : '0'}})</text>
+      <i-icon class='enter_icon' type="enter" color="#BBBBBB" size="15" />
    </view>
-   <!-- <view class='edit' data-user-id="{{userData.Id}}" catchtap='userInfoChange'>
-      <image class='edit_img' src='/images/comment_48_48.png'></image>
+   <view class='edit' data-user-id="{{userData.Id}}" catchtap='userInfoChange'>
+      <image class='edit_img' src='/images/my_info.png'></image>
       <text class='edit_text'>修改个人信息</text>
-   </view> -->
-   <i-button i-class="submit" bind:click="handleClick" type="historyBtn" shape="circle">解除绑定</i-button>
+      <i-icon class='enter_icon' type="enter" color="#BBBBBB" size="15" />
+   </view>
+   <view class='unbind' data-user-id="{{userData.Id}}" catchtap='handleClick'>
+      <image class='unbind_img' src='/images/my_logout.png'></image>
+      <text class='unbind_text'>解除绑定</text>
+      <i-icon class='enter_icon' type="enter" color="#BBBBBB" size="15" />
+   </view>
    <i-modal visible="{{ modalVisible }}" ok-text="解除绑定" bind:ok="bindOk" bind:cancel="bindCancel">
       <view class='modal_title'>确认解除绑定？</view>
       <view class='modal_des'> 解除绑定后，您将只能查看作品，不再拥有操作权限</view>
    </i-modal>
 </view>
-<view class='login' wx:if="{{isLogin == 'false'}}">
-   <image class='defalt_avator' mode='scaleToFill' src='/images/logo.png'></image>
-   <!-- <view class='username_box'>
-      <i-icon class='username_icon' type="businesscard" size="26" color="#fff" />
-      <i-input i-class='username_input' value="{{ username }}" placeholder="请输入您的图钉墙账号" />
-   </view>
-   <view class='password_box'>
-      <i-icon class='password_icon' type="lock" size="26" color="#fff" />
-      <i-input i-class='password_input' type='password' value="{{ password }}" placeholder="请输入您的密码" />
-   </view>
-   <i-radio i-class='radio' value="记住我" checked="{{checked}}" bindchange="handleAnimalChange">
-   </i-radio>
-   <i-button i-class="submit" bind:click="handleClick" type="submit" shape="circle">确认绑定</i-button> -->
-   <i-button i-class="wx_login" bindgetuserinfo="tapWxLogin" type="submit" shape="circle" open-type='getUserInfo'>微信登录</i-button>
-   <i-message id="message" />
-   <i-toast id="toast" />
+<view class="login  {{statusHeight ? 'highStatus' : 'lowStatus'}}" wx:if="{{isLogin == 'false'}}">
+   <image class='defalt_avator' mode='scaleToFill' src='/images/login_img.png'></image>
+   <i-button i-class="wx_login" bindgetuserinfo="tapWxLogin" type="success" open-type='getUserInfo'>微信登录</i-button>
 </view>
-<image class='bg_img' wx:if="{{isLogin != 'true'}}" src="/images/login_bg.png"></image>

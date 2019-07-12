@@ -6,6 +6,7 @@ Page({
     * 页面的初始数据
     */
    data: {
+      tabIndexNum:"2",
       //请求参数
       limit:10,
       offset: 0,
@@ -13,16 +14,17 @@ Page({
       // 数据数组
       dataList:[],
       loading: false,
+      teacherId:"",
       avatarUrl:"",
       fullname:"",
       atrifactCount:"",
-      topicName:""
+      topicName:"",
+      des:""
    },
    // 点击顶部小图片进入作品详情
-   tapTheArtifact(event){
-      let artifactId = event.detail.target.dataset.artifactId;
-      wx.navigateTo({
-         url: '/pages/topics/artifactDetail/artifactDetail?artifactId=' + artifactId,
+   tapBack(event){
+      wx.navigateBack({
+         data:1
       })
    },
    // 点击作品进入作品详情
@@ -47,12 +49,23 @@ Page({
       this.setData({
          topicId:options.topicId
       })
+      if (app.globalData.statusBarHeight == 44) {
+         that.setData({
+            statusHeight: true
+         })
+      } else {
+         that.setData({
+            statusHeight: false
+         })
+      }
       wx.request({
          url: app.globalData.baseUrl + app.globalData.getTopicAndArtifactById,
          data: {
             limit: this.data.limit,
             offset: this.data.offset,
             topicId: this.data.topicId,
+            userId:wx.getStorageSync("myId"),
+            role:wx.getStorageSync("myRole")
          },
          method: "GET",
          success(res) {
@@ -64,6 +77,7 @@ Page({
                   atrifactCount: res.data.data.count,
                   createAt: res.data.data.rows.createAt,
                   topicName: res.data.data.rows.name,
+                  des: res.data.data.rows.description
                })
                wx.setNavigationBarTitle({
                   title: res.data.data.rows.name,
@@ -87,6 +101,8 @@ Page({
             limit: this.data.limit,
             offset: this.data.offset,
             topicId: this.data.topicId,
+            userId: wx.getStorageSync("myId"),
+            role: wx.getStorageSync("myRole")
          },
          method: "GET",
          success(res) {
@@ -99,6 +115,7 @@ Page({
                   atrifactCount: res.data.data.count,
                   createAt: res.data.data.rows.createAt,
                   topicName: res.data.data.rows.name,
+                  des: res.data.data.rows.description
                })
             }
          }
@@ -120,6 +137,8 @@ Page({
             limit: this.data.limit,
             offset: this.data.offset,
             topicId: this.data.topicId,
+            userId: wx.getStorageSync("myId"),
+            role: wx.getStorageSync("myRole")
          },
          method: "GET",
          success(res) {

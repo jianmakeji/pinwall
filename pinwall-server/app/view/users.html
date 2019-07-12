@@ -37,7 +37,7 @@
 								<span v-text="total"></span>
 							</li>
 							<li class="badges">
-								<icon type="ios-ribbon" size="20"></icon>
+								<icon custom="i-icon iconfont icon-medal" style="font-size: 20px;"></icon>
 								<span v-text="userInfo.medalCount"></span>
 							</li>
 						</ul>
@@ -55,16 +55,14 @@
 				</i-col>
 				<i-col :xs="0" :sm="1" :md="1" :lg="1">
 					<ul class="topic_action">
-							<!-- <li class="de_topic_action_view">
-								<a href="#">
-									<img src="http://pinwall.fzcloud.design-engine.org/4705/7641900251635.png?imageMogr2/thumbnail/400x400" title="查看">
-								</a>
-							</li> -->
+						<!-- <li class="de_topic_action_view" v-if="{{user}} && {{user.Id}} == userInfo.Id" style="margin-top:5px;">
+							<i-button type="checkCloseType" size="large" shape="circle" icon="md-cloud-upload" @click="uploadToTopic" title="上传"></i-button>
+						</li> -->
 					</ul>
 				</i-col>
 			</row>
 		</div>
-		<p class="topic_description"></p>
+		<p class="topic_description" v-text="userInfo.intro"></p>
 
 		<ul class="de_project_grid">
 			<row>
@@ -79,22 +77,21 @@
 						</div>
 						<div class="project_info">
 							<a :href="'/project/'+item.Id" target="_blank">
-								<!-- <img class="thumb" :src="item.profileImage" alt=""> -->
 								<img class="thumb" v-lazy="item.profileImage" loading="../public/images/default_thumb_500.png">
 								<h4 v-text="item.name"></h4>
 							</a>
 						</div>
 						<div class="de_stats_tags_p">
 							<div class="badges" title="勋章">
-								<icon type="ios-ribbon" style="font-size: 20px;" color="#999"></icon>
+								<icon custom="i-icon iconfont icon-medal" style="font-size: 20px;color:#999;"></icon>
 								<span v-text="item.medalCount"></span>
 							</div>
 							<div class="likes" title="赞">
-								<icon type="ios-thumbs-up" style="font-size: 20px;" color="#999"></icon>
+								<icon custom="i-icon iconfont icon-zan1" style="font-size: 18px;color:#999;"></icon>
 								<span v-text="item.likeCount"></span>
 							</div>
 							<div class="comments" title="评论">
-								<icon type="md-text" style="font-size: 20px;" color="#999"></icon>
+								<icon custom="i-icon iconfont icon-comment" style="font-size: 16px;color:#999;"></icon>
 								<span v-text="item.commentCount"></span>
 							</div>
 						</div>

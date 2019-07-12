@@ -26,6 +26,11 @@ module.exports = app => {
       allowNull: false,
       defaultValue: ''
     },
+    teamworker:{
+      type: STRING(255),
+      allowNull: false,
+      defaultValue: ''
+    },
     description: {
       type: TEXT,
       allowNull: true
@@ -146,11 +151,6 @@ module.exports = app => {
       countCondition.where.jobTag = jobTag;
     }
 
-    if (visible != -1){
-      condition.where.visible = visible;
-      countCondition.where.visible = visible;
-    }
-
     let result = {};
     result.rows = await this.findAll(condition);
     result.count = await this.count(countCondition);
@@ -161,7 +161,8 @@ module.exports = app => {
     offset = 0,
     limit = 10,
     userId = 0,
-    jobTag = 0
+    jobTag = 0,
+    visible = 0,
   }) {
 
     let condition = {
@@ -174,18 +175,16 @@ module.exports = app => {
         model: app.model.ArtifactAssets
       },{
         model: app.model.Users,
-        attributes:['Id','fullname','avatarUrl','commentCount','artifactCount','medalCount','likeCount','createAt']
+        attributes:['Id','fullname','avatarUrl','commentCount','artifactCount','medalCount','likeCount','createAt','intro']
       }],
       where:{
-        userId:userId,
-        visible:0
+        userId:userId
       }
     };
 
     let countCondition = {
       where:{
         userId:userId,
-        visible:0
       }
     };
 
@@ -347,6 +346,30 @@ module.exports = app => {
     });
   }
 
+  Artifacts.getWxMedalDataByRandom = async function(){
+    return this.findAll({
+      where:{
+        medalCount:{
+          [app.Sequelize.Op.gt]:0
+        },
+        visible:0,
+      },
+      order:[['createAt', 'DESC']],
+      limit: 12,
+      include: [{
+          model: app.model.Users,
+          attributes:['Id','fullname','avatarUrl']
+      },{
+        model: app.model.Topics,
+        through:{
+          attributes:['topicId','artifactId'],
+        },
+        attributes:['Id','name','userId','status']
+      }],
+      //attributes:['Id','userId','name','profileImage']
+    });
+  }
+
   Artifacts.findArtifactByTime = async function(lastSyncTime,tag) {
     let condition = {
       include: [{
@@ -477,6 +500,16 @@ module.exports = app => {
       }]
     });
     return result;
+  }
+
+  Artifacts.updateVisibleById = async function(id, visible) {
+    await this.update({
+      visible: visible
+    }, {
+      where: {
+        Id: id
+      }
+    });
   }
 
   return Artifacts;

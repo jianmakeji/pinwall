@@ -1,11 +1,15 @@
 var split = function(value){
-   return value.split("T")[0];
+   if (value != undefined && value != null &&  value.indexOf("T") >= 0) {
+      return value.split("T")[0];
+   }
 }
 var includeType = function(value){
-   if (value.indexOf("pdf") >= 0 || value.indexOf("video") >= 0){
-      return true;
-   }else{
-      return false;
+   if (value != undefined && value != null) {
+      if (value.indexOf("pdf") >= 0 || value.indexOf("video") >= 0) {
+         return true;
+      } else {
+         return false;
+      }
    }
 }
 module.exports.split = split;

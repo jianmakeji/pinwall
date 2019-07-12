@@ -9,7 +9,7 @@ class UsersController extends BaseController {
   async createWxUser() {
     const ctx = this.ctx;
     const body = ctx.request.body;
-    const email = body.email;
+    const mobile = body.mobile;
     const fullname = body.fullname;
     const password = body.password;
     const sessionKey = body.sessionKey;
@@ -18,7 +18,7 @@ class UsersController extends BaseController {
     const appId = 'wxa4cd6f777c8b75d0'
 
     let user = {
-      email: email,
+      mobile: mobile,
       fullname: fullname,
       password: password,
       openId: body.openid,
@@ -38,7 +38,7 @@ class UsersController extends BaseController {
 
       if (result) {
         let backObject = {
-            message:'操作成功！请进入邮箱激活!',
+            message:'操作成功,请登录！',
             user:result,
             roleName:'user'
         }
@@ -56,6 +56,7 @@ class UsersController extends BaseController {
     const ctx = this.ctx;
     const body = ctx.request.body;
     const email = body.email;
+    const password = body.password;
     const sessionKey = body.sessionKey;
     const iv = body.iv;
     const encryptedData = body.encryptedData;
@@ -76,16 +77,16 @@ class UsersController extends BaseController {
       var data = pc.decryptData(encryptedData , iv);
       user.unionid = data.unionId;
 
-      const result = await ctx.service.users.bindWeixinInfoByEmail(email, user);
+      const result = await ctx.service.users.bindWeixinInfoByEmailOrPhone(email, password, user);
 
       if (result) {
         let backObject = {
-            message:'绑定成功，请进入邮箱激活!',
+            message:'绑定成功，请重新登录!',
             user:result
         }
         super.success(backObject);
       } else {
-        super.failure('绑定失败, 或者邮箱不存在!');
+        super.failure('绑定失败, 或者账户不存在!');
       }
     } catch (e) {
       super.failure(e.message);
@@ -140,6 +141,50 @@ class UsersController extends BaseController {
     try{
       const result = await ctx.service.users.find(ctx.helper.parseInt(ctx.params.id));
       super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
+  async findByFullname(){
+    const ctx = this.ctx;
+    let query = {
+      offset : ctx.helper.parseInt(ctx.params.offset),
+      limit : ctx.helper.parseInt(ctx.params.limit),
+      fullname : ctx.query.fullname,
+    };
+    try{
+      const result = await ctx.service.users.searchByUsername(query);
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
+  async getUserInfoById(){
+    const ctx = this.ctx;
+
+    try{
+      const result = await ctx.service.users.getUserInfoById(ctx.query.userId);
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
+  async updateUserIntro(){
+    const ctx = this.ctx;
+    const id = ctx.helper.parseInt(ctx.params.id);
+    const updates = {
+      intro: ctx.request.body.intro,
+    };
+
+    try{
+      await ctx.service.users.update({ id, updates });
+      super.success('更新成功!');
     }
     catch(e){
       super.failure(e.message);

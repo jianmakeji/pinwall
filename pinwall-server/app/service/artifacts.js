@@ -1,15 +1,17 @@
 'use strict';
 
 const Service = require('egg').Service;
+const h5Util = require('../utils/h5Utils');
+const fileUtil = require('../utils/fileUtils');
+const fs = require('fs');
 
 class Artifacts extends Service {
 
-  async list({ offset = 0, limit = 10, visible = 0, jobTag = 0}) {
+  async list({ offset = 0, limit = 10, jobTag = 0}) {
 
     let resultObj = await this.ctx.model.Artifacts.listArtifacts({
       offset,
       limit,
-      visible,
       jobTag,
     });
 
@@ -39,6 +41,9 @@ class Artifacts extends Service {
             subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
           }
         }
+        else if (subElement.type == 5 && subElement.mediaFile != null){
+          subElement.mediaFile = h5Util.getH5Url(element.Id, subElement.mediaFile, app);
+        }
       }
 
     });
@@ -55,7 +60,7 @@ class Artifacts extends Service {
       artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
     }
 
-    for (let subElement of artifact.artifact_assets){
+    for (let subElement of artifact.dataValues.artifact_assets){
       if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1 && subElement.profileImage.indexOf('design.hnu.edu.cn') == -1){
         subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
       }
@@ -87,9 +92,120 @@ class Artifacts extends Service {
           subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
         }
       }
+      else if (subElement.type == 5 && subElement.mediaFile != null){
+        subElement.mediaFile = h5Util.getH5Url(artifact.Id, subElement.mediaFile, app);
+      }
     }
 
+    let ctx = this.ctx;
+
+    if (ctx.user){
+      let role = ctx.user.roles[0].name;
+      if(role == 'vip'){
+        //删除所有分数
+        let topicUserId = new Array();
+        artifact.topics.forEach((topic)=>{
+          topicUserId.push(topic.userId);
+        });
+        if(!topicUserId.includes(ctx.user.Id)){
+          artifact.artifact_scores.length = 0;
+          artifact.artifact_scores.length = 1;
+        }
+      }
+      else if (role == 'user'){
+        let users = new Array();
+        let teamworker = artifact.teamworker;
+        if (teamworker){
+          let teamArray = JSON.parse(teamworker);
+
+          if (teamArray && (teamArray instanceof Array) && teamArray.length > 0){
+            teamArray.forEach((tw)=>{
+              users.push(tw.Id);
+            });
+          }
+        }
+
+        if (!(users.includes(ctx.user.Id) || (ctx.user.Id == artifact.user.Id))){
+          artifact.artifact_scores.length = 0;
+          artifact.artifact_scores.length = 1;
+        }
+      }
+    }
+    else{
+      artifact.artifact_scores.length = 0;
+      artifact.artifact_scores.length = 1;
+    }
+
+
     return artifact;
+  }
+
+  async apiFindArtifactsById(id) {
+
+    const artifactObj = await this.ctx.model.Artifacts.findArtifactById(id);
+    const app = this.ctx.app;
+
+    let resultObject = {};
+    let assetsArray = [];
+    resultObject.artifact = {
+      id:artifactObj.Id,
+      user_id:artifactObj.userId,
+      name:artifactObj.name,
+      description:artifactObj.description,
+
+    }
+
+    if (artifactObj.profileImage.indexOf('pinwall.fzcloud') == -1 && artifactObj.profileImage.indexOf('design.hnu.edu.cn') == -1){
+      resultObject.artifact.profile_image = app.signatureUrl(app.imagePath + artifactObj.profileImage, "thumb_360_360");
+    }
+    else{
+        resultObject.artifact.profile_image = artifactObj.profileImage;
+    }
+
+    for (let subElement of artifactObj.dataValues.artifact_assets){
+      let assetsObj = {};
+      assetsObj.name = subElement.name;
+      assetsObj.filename = subElement.filename;
+
+      if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1 && subElement.profileImage.indexOf('design.hnu.edu.cn') == -1){
+        assetsObj.profile_image = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
+      }
+      else{
+        assetsObj.profile_image = subElement.profileImage.replace('http://','https://');
+      }
+
+      if (subElement.type == 2 && subElement.mediaFile != null){
+        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          assetsObj.media_file = app.signatureUrl(app.pdfPath + subElement.mediaFile);
+        }
+        else{
+          assetsObj.media_file = subElement.mediaFile.replace('http://','https://');
+        }
+      }
+      else if (subElement.type == 3 && subElement.mediaFile != null){
+        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          assetsObj.media_file = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
+        }
+        else{
+          assetsObj.media_file = subElement.mediaFile.replace('http://','https://');
+        }
+      }
+      else if (subElement.type == 4 && subElement.mediaFile != null){
+        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          assetsObj.media_file = app.signatureUrl(app.videoPath + subElement.mediaFile);
+        }
+        else{
+          assetsObj.media_file = subElement.mediaFile.replace('http://','https://');
+        }
+      }
+      else if (subElement.type == 5 && subElement.mediaFile != null){
+        subElement.mediaFile = h5Util.getH5Url(artifact.Id, subElement.mediaFile, app);
+      }
+      assetsArray.push(assetsObj);
+    }
+    resultObject.artifact.assets = assetsArray;
+
+    return resultObject;
   }
 
   async create(artifact) {
@@ -101,18 +217,22 @@ class Artifacts extends Service {
         const artiObj = await this.ctx.model.Artifacts.createArtifact(artifact,transaction);
 
         let terms = artifact.terms;
-        for (let term of terms){
-          const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
-          await this.ctx.model.ArtifactTerm.createArtifactTerm({
-            artifactId:artiObj.Id,
-            termId:termObj.Id
-          },transaction);
+        if(terms){
+          for (let term of terms){
+            const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
+            await this.ctx.model.ArtifactTerm.createArtifactTerm({
+              artifactId:artiObj.Id,
+              termId:termObj.Id
+            },transaction);
+          }
         }
+
         await this.ctx.model.Users.addArtifact(artifact.userId,transaction);
         await transaction.commit();
 
         return true
       } catch (e) {
+        this.ctx.logger.error(e);
         await transaction.rollback();
         return false
       }
@@ -137,18 +257,22 @@ class Artifacts extends Service {
             }
 
             let terms = artifact.terms;
-            for (let term of terms){
-              const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
-              await this.ctx.model.ArtifactTerm.createArtifactTerm({
-                artifactId:artiObj.Id,
-                termId:termObj.Id
-              },transaction);
+            if (terms){
+              for (let term of terms){
+                const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
+                await this.ctx.model.ArtifactTerm.createArtifactTerm({
+                  artifactId:artiObj.Id,
+                  termId:termObj.Id
+                },transaction);
+              }
             }
+
             await this.ctx.model.Users.addArtifact(artifact.userId,transaction);
             await transaction.commit();
 
             return true
           } catch (e) {
+            this.ctx.logger.error(e);
             await transaction.rollback();
             return false
           }
@@ -242,8 +366,13 @@ class Artifacts extends Service {
 
       let deleteAliOSSArray = new Array();
       try{
+        if(artifact.profileImage.indexOf('pinwall.fzcloud') == -1 && artifact.profileImage.indexOf('design.hnu.edu.cn') == -1){
+          if(artifact.profileImage != updates.profileImage){
+            deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
+          }
+        }
 
-        for (const artifactAssets of artifact.artifact_assets){
+        for (const artifactAssets of artifact.dataValues.artifact_assets){
           if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1 && artifactAssets.profileImage.indexOf('design.hnu.edu.cn') == -1){
               if(ctx.app.judgeImageStringInArrayObject(artifactAssets.profileImage,updates.artifact_assets)){
                 deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
@@ -265,6 +394,13 @@ class Artifacts extends Service {
               deleteAliOSSArray.push(ctx.app.videoPath + artifactAssets.mediaFile);
             }
           }
+          else if(artifactAssets.type == 5 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+            if(ctx.app.judgeMediaStringInArrayObject(artifactAssets.mediaFile,updates.artifact_assets)){
+              deleteAliOSSArray.push(ctx.app.othersPath + artifactAssets.mediaFile);
+              let h5Dir = ctx.app.localH5Path + id;
+              fileUtil.delDir(h5Dir);
+            }
+          }
         }
 
         if (deleteAliOSSArray.length > 0){
@@ -272,11 +408,13 @@ class Artifacts extends Service {
         }
       }
       catch(e){
+        console.log(e);
           ctx.getLogger('aliossLogger').info("delete file:"+deleteAliOSSArray.join(',')+": "+e.message+"\n");
       }
 
       return true
     } catch (e) {
+      this.ctx.logger.error(e);
       await transaction.rollback();
       return false
     }
@@ -308,7 +446,7 @@ class Artifacts extends Service {
           deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
         }
 
-        for (const artifactAssets of artifact.artifactAssets){
+        for (const artifactAssets of artifact.dataValues.artifact_assets){
           if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1){
             deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
           }
@@ -322,6 +460,9 @@ class Artifacts extends Service {
           else if(artifactAssets.type == 4  && artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
             deleteAliOSSArray.push(ctx.app.videoPath + artifactAssets.mediaFile);
           }
+          else if(artifactAssets.type == 5  && artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+            deleteAliOSSArray.push(ctx.app.othersPath + artifactAssets.mediaFile);
+          }
         }
         if (deleteAliOSSArray.length > 0){
           ctx.app.deleteOssMultiObject(deleteAliOSSArray);
@@ -332,6 +473,10 @@ class Artifacts extends Service {
           ctx.getLogger('aliossLogger').info("delete ID:"+deleteAliOSSArray.join(',')+": "+e.message+"\n");
       }
       await transaction.commit();
+
+      let h5Dir = ctx.app.localH5Path + id;
+      fileUtil.delDir(h5Dir);
+
       return true
     } catch (e) {
       await transaction.rollback();
@@ -483,6 +628,150 @@ class Artifacts extends Service {
     catch(e){
       return false;
     }
+  }
+
+  async updateVisibleById(id, visible){
+    const ctx = this.ctx;
+    try{
+      await this.ctx.model.Artifacts.updateVisibleById(id, visible);
+      if(visible == 0){
+        let artiObj = await this.ctx.model.Artifacts.transterDataToESById(id);
+        if (artiObj){
+          await ctx.service.esUtils.createObject(artiObj.Id, artiObj);
+          let object = {};
+          object.Id = artiObj.Id;
+          object.suggest = new Array();
+
+          let name_suggest = {};
+          name_suggest.input = artiObj.name;
+          name_suggest.weight = 10;
+          object.suggest.push(name_suggest);
+
+          let fullname_suggest = {};
+          fullname_suggest.input = artiObj.user.fullname;
+          fullname_suggest.weight = 16;
+          object.suggest.push(fullname_suggest);
+
+          artiObj.terms.forEach((term,index)=>{
+            let term_suggest = {};
+            term_suggest.input = term.name;
+            term_suggest.weight = 8;
+            object.suggest.push(term_suggest);
+          });
+          await ctx.service.esUtils.createSuggestObject(artiObj.Id, object);
+
+        }
+      }
+      else if (visible == 1){
+        await ctx.service.esUtils.deleteObjectById(id);
+        await ctx.service.esUtils.deleteSuggestObjectById(id);
+      }
+      return true;
+    }
+    catch(e){
+      return false;
+    }
+  }
+
+  async getWxMedalDataByRandom(limit){
+    const app = this.ctx.app;
+    const listData = await this.ctx.model.Artifacts.getWxMedalDataByRandom();
+    const max = listData.length;
+    if(max > 0){
+        listData.forEach((element, index)=>{
+            let profileImage = element.profileImage;
+            if (profileImage.indexOf('pinwall.fzcloud') == -1 && profileImage.indexOf('design.hnu.edu.cn') == -1){
+                element.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
+            }
+        });
+    }
+    return listData;
+  }
+
+  async findWxByCondition(id, role, userId) {
+
+    const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
+    const app = this.ctx.app;
+
+    if (artifact.profileImage.indexOf('pinwall.fzcloud') == -1 && artifact.profileImage.indexOf('design.hnu.edu.cn') == -1){
+      artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
+    }
+
+    for (let subElement of artifact.dataValues.artifact_assets){
+      if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1 && subElement.profileImage.indexOf('design.hnu.edu.cn') == -1){
+        subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
+      }
+      else{
+        subElement.profileImage = subElement.profileImage.replace('http://','https://');
+      }
+
+      if (subElement.type == 2 && subElement.mediaFile != null){
+        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
+        }
+        else{
+          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
+        }
+      }
+      else if (subElement.type == 3 && subElement.mediaFile != null){
+        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
+        }
+        else{
+          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
+        }
+      }
+      else if (subElement.type == 4 && subElement.mediaFile != null){
+        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
+        }
+        else{
+          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
+        }
+      }
+      else if (subElement.type == 5 && subElement.mediaFile != null){
+        subElement.mediaFile = h5Util.getH5Url(artifact.Id, subElement.mediaFile, app);
+      }
+    }
+
+    let ctx = this.ctx;
+    if (userId != 0){
+      if(role == 'vip'){
+        //删除所有分数
+        let topicUserId = new Array();
+        artifact.topics.forEach((topic)=>{
+          topicUserId.push(topic.userId);
+        });
+        if(!topicUserId.includes(userId)){
+          artifact.artifact_scores.length = 0;
+          artifact.artifact_scores.length = 1;
+        }
+      }
+      else if (role == 'user'){
+        let users = new Array();
+        let teamworker = artifact.teamworker;
+        if (teamworker){
+          let teamArray = JSON.parse(teamworker);
+
+          if (teamArray && (teamArray instanceof Array) && teamArray.length > 0){
+            teamArray.forEach((tw)=>{
+              users.push(tw.Id);
+            });
+          }
+        }
+        if (!(users.includes(userId) || (userId == artifact.user.Id))){
+          artifact.artifact_scores.length = 0;
+          artifact.artifact_scores.length = 1;
+        }
+      }
+    }
+    else{
+      artifact.artifact_scores.length = 0;
+      artifact.artifact_scores.length = 1;
+    }
+
+
+    return artifact;
   }
 }
 

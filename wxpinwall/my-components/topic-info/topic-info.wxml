@@ -1,0 +1,11 @@
+<!--my-complates/topic-complate.wxml-->
+<view class='topicInfo' catchtap="_tapTheTopic">
+   <view class='topic_info'>
+      <image class='user_avator' src='{{userAvator}}'></image>
+      <text class='user_fullname'>{{userFullname}}</text>
+      <text class='total_artifact'>{{totalArtifact}}个作品</text>
+      <text class='createAt'>{{createAt}} 创建</text>
+      <text class='topic_name'>{{topicName}}</text>
+   </view>
+   <text class='topic_des'>{{des}}</text>
+</view>

@@ -1,4 +1,10 @@
 var config = {
+    // 正则表达式
+    regexString:{
+        email:new RegExp("^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$"),
+        phone:new RegExp("^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$"),
+        chinese:new RegExp("^[\u4e00-\u9fa5]{0,}$")
+    },
     // 数据请求url
     ajaxUrls: {
         getIndexData: "/website/artifacts/getMedalDataByRandom/{num}",
@@ -20,22 +26,30 @@ var config = {
         // uploadWork
         getUrlSignature:'/getUrlSignature',
         getSTSSignature:'/getSTSSignature/:type',
+        deleteAliossFile:"/deleteAliossFile/:fileType",
         // artifacts
         getArtifacts:'/website/artifacts',
         getArtifactsWithId:'/website/artifacts/:id',
         getPersonalJob: "/website/artifacts/getPersonalJob", //获取我的作品集
         getPersonalJobByUserId: "/website/artifacts/getPersonalJobByUserId", //获取别人的作品集
+        updateVisibleById: "/website/artifacts/updateVisibleById/:id",
         // user
         getUserData:"/website/users",
         updatePwdWithEmailAndActiveCode:'/website/users/updatePwdWithEmailAndActiveCode',
+        updatePwdWithMobile:"/website/users/updatePwdWithMobile",
+        getBackPwdWithEmail:"/website/users/getBackPwdWithEmail?email=",
         updateUserRole:'/website/users/updateUserRole',
         getCaptcha:'/getCaptcha',
         checkCaptcha:'/checkCaptcha',
         createWxUser:"/website/users/createWxUser",
         bindWeixinInfoByEmail:"/website/users/bindWeixinInfoByEmail",
+        searchUserInfoByKeyword:"/website/users/searchUserInfoByKeyword",
         //searchEngine
         transterInsertDataToES:'/website/artifacts/transterInsertDataToES',
-        transterUpdateDataToES:'/website/artifacts/transterUpdateDataToES'
+        transterUpdateDataToES:'/website/artifacts/transterUpdateDataToES',
+        //手机短信接口
+        sendMessage:"/website/sms/sendMessage?mobile=",
+        vertifySms:"/website/sms/vertifySms"
     },
     viewUrl:{
         workFolder:'/workFolder/:id',

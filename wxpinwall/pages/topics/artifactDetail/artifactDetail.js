@@ -1,6 +1,3 @@
-const {
-   $Toast
-} = require('../../../dist/base/index');
 const app = getApp();
 Page({
 
@@ -8,46 +5,60 @@ Page({
     * 页面的初始数据
     */
    data: {
+      myRole:"user",
+      tabIndexNum:"2",
       vipRole: false,
-      animationModal: "close",
       zanModal: false,
-      likeAnimationData: "",
-      commentAnimationData: "",
-      scoreAnimationData: "",
+
       //作品信息
       artifactUserId: "", //作品作者id
       userAvatarUrl: "",
       userFullname: "",
+      teamworker:"",
       artifactScores: "",
       artifactTitle: "",
       createAt: "",
       topicName: "",
       artifactDes: "",
       artifact_assets: [],
+      medalCount:"",
+      likeCount:"",
+      commentCount:"",
       //作品评论
       commentLimit: 10000,
       commentOffset: 0,
       artifactId: "",
       commentList: [],
+      commentKeyboardHeight:"0",
       //新建评论
-      commentVisible: "hide",
-      commentEditVisible: false,
+      commentFocus:false,
+      commentVisible: false,
       commentEditValue: "",
       content: "",
       commenterId: "",
       //新建分数
+      scoreFocus:false,
       artifactScoreVisible: false,
-      artifactScoreValue: "",
+      artifactScoreValue: null,
+      scoreKeyboardHeight:"0",
 
       artifactInfoHeight:"",
       artifactAssetsPadding:""
    },
+   // 返回
+   tapBack(event){
+      wx.navigateBack({
+         data:1
+      })
+   },
+   // 点击用户头像
    tapUserAvator(event){
       let userId = event.currentTarget.dataset.userId;
       wx.navigateTo({
          url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
       })
    },
+   // 点赞
    creatLike() {
       let that = this;
       if (wx.getStorageSync("openid")) {
@@ -62,7 +73,6 @@ Page({
             },
             success(res) {
                if (res.data.status == 200) {
-                  that.closeOpt();
                   wx.request({
                      url: app.globalData.baseUrl + app.globalData.getMedalLikeDataByUserIdAndArtifactsId,
                      data: {
@@ -85,108 +95,33 @@ Page({
                         }
                      }
                   })
-                  $Toast({
-                     content: '操作成功！',
-                     type: "success",
-                     duration: 2,
-                     selector: "#toast"
-                  });
+                  wx.showToast({
+                     title: '操作成功！',
+                     icon:"success"
+                  })
                } else {
-                  $Toast({
-                     content: '操作失败！',
-                     type: "error",
-                     duration: 2,
-                     selector: "#toast"
-                  });
+                  wx.showToast({
+                     title: '操作失败！',
+                     icon:"none"
+                  })
                }
             }
          })
       } else {
-         $Toast({
-            content: '需先登录才能操作！',
-            type: "error",
-            duration: 2,
-            selector: "#toast"
-         });
+         wx.showToast({
+            title: '需先登录才能操作！',
+            icon: "none"
+         })
       }
    },
-   /**
-    * 打开菜单
-    */
-   openOpt() {
-      var likeAnimation = wx.createAnimation({
-         duration: 200,
-         timingFunction: "linear",
-         delay: 0,
-         transformOrigin: "0 0 0"
-      });
-      var commentAnimationData = wx.createAnimation({
-         duration: 200,
-         timingFunction: "linear",
-         delay: 0,
-         transformOrigin: "0 0 0"
-      });
-      var scoreAnimationData = wx.createAnimation({
-         duration: 200,
-         timingFunction: "linear",
-         delay: 0,
-         transformOrigin: "0 0 0"
-      });
-      likeAnimation.translate(10, -60).step();
-      commentAnimationData.translate(-50, -50).step();
-      scoreAnimationData.translate(-60, 10).step();
-      this.setData({
-         animationModal: "open",
-         likeAnimationData: likeAnimation.export(),
-         commentAnimationData: commentAnimationData.export(),
-         scoreAnimationData: scoreAnimationData.export(),
-      })
-   },
-   /**
-    * 关闭菜单
-    */
-   closeOpt() {
-      var likeAnimation = wx.createAnimation({
-         duration: 200,
-         timingFunction: "linear",
-         delay: 0,
-         transformOrigin: "0 0 0"
-      });
-      var commentAnimationData = wx.createAnimation({
-         duration: 200,
-         timingFunction: "linear",
-         delay: 0,
-         transformOrigin: "0 0 0"
-      });
-      var scoreAnimationData = wx.createAnimation({
-         duration: 200,
-         timingFunction: "linear",
-         delay: 0,
-         transformOrigin: "0 0 0"
-      });
-      likeAnimation.translate(0, 0).step();
-      commentAnimationData.translate(0, 0).step();
-      scoreAnimationData.translate(0, 0).step();
-      this.setData({
-         animationModal: "open",
-         likeAnimationData: likeAnimation.export(),
-         commentAnimationData: commentAnimationData.export(),
-         scoreAnimationData: scoreAnimationData.export(),
-      })
-      this.setData({
-         animationModal: "close"
-      })
-   },
-   /*
-      点击菜单评论按钮
-    */
+   // 点击菜单评论按钮
    openComment() {
       if (wx.getStorageSync("openid")){
          let that = this;
          this.setData({
-            commentVisible: "show"
+            commentVisible: true,
+            artifactScoreVisible:false
          })
-         this.closeOpt();
          wx.request({
             url: app.globalData.baseUrl + app.globalData.findCommentsByArtifactIdWithPage,
             data: {
@@ -203,17 +138,16 @@ Page({
             }
          })
       }else{
-         $Toast({
-            content: '需先登录才能操作！',
-            type: 'error',
-            duration: 2,
-            selector: "#toast"
-         });
+         wx.showToast({
+            title: '需先登录才能操作！',
+            icon: "none"
+         })
       }      
    },
+   // 关闭评论框
    closeComment() {
       this.setData({
-         commentVisible: "hide"
+         commentVisible: false
       })
    },
    /**
@@ -221,14 +155,39 @@ Page({
     */
    whiteComment() {
       this.setData({
-         commentVisible: "hide",
-         commentEditVisible: true
+         commentVisible: false
       })
    },
+   // 评论聚焦事件
+   commentFocus(){
+      this.setData({
+         commentFocus:true
+      })
+   },
+   // 评论失去焦点
+   commentBlur() {
+      this.setData({
+         commentFocus: false
+      })
+   },
+   // 评论内容值变化
    commentValueChange(event) {
       this.setData({
-         commentEditValue: event.detail.detail.value
+         commentEditValue: event.detail.value
       })
+   },
+   // 键盘高度变化
+   commentKeyboardHightChange(event){
+      let commentKeyboardHeight = event.detail.height;
+      if (commentKeyboardHeight > 0) {
+         this.setData({
+            commentKeyboardHeight: commentKeyboardHeight
+         })
+      } else {
+         this.setData({
+            commentKeyboardHeight: 0
+         })
+      }
    },
    /**
     * 点击评论发表
@@ -247,87 +206,88 @@ Page({
             success(res) {
                if (res.data.status == 200) {
                   that.setData({
-                     commentEditVisible: false
+                     commentVisible: false,
+                     commentEditValue:""
                   });
-                  $Toast({
-                     content: '评论成功！',
-                     image: '/images/success.png',
-                     duration: 2,
-                     selector: "#toast"
-                  });
+                  wx.showToast({
+                     title: '评论成功！',
+                     icon:"success"
+                  })
                } else {
                   that.setData({
-                     commentEditVisible: false
+                     commentFocus:false,
+                     commentVisible: false
                   });
-                  $Toast({
-                     content: '评论失败！',
-                     type: "error",
-                     selector: "#toast"
-                  });
+                  wx.showToast({
+                     title: '评论失败！',
+                     icon: "none"
+                  })
                }
             }
          })
       } else if (wx.getStorageSync("openid") == "") {
-         that.setData({
-            commentEditVisible: false
-         });
-         $Toast({
-            content: '需先登录才能操作！',
-            type: 'error',
-            duration: 2,
-            selector: "#toast"
-         });
+         wx.showToast({
+            title: '需先登录才能操作！',
+            icon: "none"
+         })
       } else {
-         that.setData({
-            commentEditVisible: false
-         });
-         $Toast({
-            content: '评论为空！',
-            type: 'error',
-            duration: 2,
-            selector: "#toast"
-         });
+         wx.showToast({
+            title: '评论内容为空！',
+            icon: "none"
+         })
       }
-   },
-   /**
-    * 点击评论弹窗取消
-    */
-   cancelComment() {
-      this.setData({
-         commentEditVisible: false
-      })
    },
    // 打开打分菜单按钮
    creatScore() {
       if (wx.getStorageSync("openid")){
-         this.setData({
-            artifactScoreVisible: true
-         })
-         this.closeOpt();
+         if (this.data.vipRole) {
+            this.setData({
+               scoreFocus: true,
+               artifactScoreVisible: true,
+               commentVisible: false
+            })
+         }else{
+            wx.showToast({
+               title: '您不是作业荚创建者，无权限',
+               icon:"none"
+            })
+         }
       }else{
-         $Toast({
-            content: '需先登录才能操作！',
-            type: 'error',
-            duration: 2,
-            selector: "#toast"
-         });
+         wx.showToast({
+            title: '需先登录才能操作！',
+            icon: "none"
+         })
       }
    },
+   // 分数值变化
    artifactScoreValueChange(event) {
       this.setData({
-         artifactScoreValue: event.detail.detail.value
+         artifactScoreValue: parseInt(event.detail.value)
       })
-   },
-   closeScore() {
-      this.setData({
-         artifactScoreVisible: false
-      });
    },
    fileTap(event) {
       let mediaFileUrl = escape(event.currentTarget.dataset.mediaFile);
       wx.navigateTo({
          url: "/pages/topics/mediaFileDetail/mediaFileDetail?mediaFileUrl=" + mediaFileUrl
       })
+   },
+   // 分数失去焦点
+   scoreBlur(){
+      this.setData({
+         artifactScoreVisible: false
+      })
+   },
+   scoreKeyboardHightChange(event){
+      let scoreKeyboardHeight = event.detail.height;
+      if (scoreKeyboardHeight > 0) {
+         this.setData({
+            scoreKeyboardHeight: scoreKeyboardHeight
+         })
+      } else {
+         this.setData({
+            scoreKeyboardHeight: 0
+         })
+      }
    },
    /***
     * 点击分数保存
@@ -349,42 +309,61 @@ Page({
                      that.setData({
                         artifactScoreVisible: false
                      });
-                     $Toast({
-                        content: '打分成功！',
-                        image: '/images/success.png',
-                        duration: 2,
-                        selector: "#toast"
-                     });
+                     wx.showToast({
+                        title: '打分成功！',
+                        icon: "success"
+                     })
                      that.onShow();
                   } else {
-                     $Toast({
-                        content: '打分失败！',
-                        type: "error",
-                        selector: "#toast"
-                     });
+                     wx.showToast({
+                        title: '打分失败！',
+                        icon: "none"
+                     })
                   }
 
                }
             })
          }
       } else {
-         $Toast({
-            content: '打分失败！未登陆或者不是改作业荚创建者！',
-            type: 'error',
-            duration: 2,
-            selector: "#toast"
-         });
+         wx.showToast({
+            title: '打分失败！未登陆或者不是该作业荚创建者！',
+            icon: "none"
+         })
          this.setData({
             artifactScoreVisible: false
          });
       }
    },
+   catUp(event){
+      wx.pageScrollTo({
+         scrollTop: 0,
+         duration: 300
+      })
+   },
    /**
     * 生命周期函数--监听页面加载
     */
    onLoad: function(options) {
+      let that = this;
       this.setData({
+         myRole:wx.getStorageSync("myRole"),
          artifactId: options.artifactId
+      })
+      if (app.globalData.statusBarHeight == 44) {
+         that.setData({
+            statusHeight: true
+         })
+      } else {
+         that.setData({
+            statusHeight: false
+         })
+      }
+      wx.getSystemInfo({
+         success: function(res) {
+            that.setData({
+               optTop:res.screenHeight/2 - 118
+            })
+         },
       })
    },
    onShow() {
@@ -392,31 +371,59 @@ Page({
       // 获取作业信息
       wx.request({
          url: app.globalData.baseUrl + app.globalData.getArtifactById + this.data.artifactId,
+         data:{
+            role:wx.getStorageSync("myRole"),
+            userId:wx.getStorageSync("myId")
+         },
          success(res) {
             if (res.data.status == 200) {
+               let teamworkerData = new Array();
+               if (res.data.data.teamworker != "" && res.data.data.teamworker != null){
+                  teamworkerData = JSON.parse(res.data.data.teamworker);
+               }else{
+                  teamworkerData = [];
+               }
                that.setData({
                   artifactUserId: res.data.data.userId,
                   userAvatarUrl: res.data.data.user.avatarUrl,
                   userFullname: res.data.data.user.fullname,
+                  artifactScores: res.data.data.artifact_scores,
                   artifactTitle: res.data.data.name,
                   createAt: res.data.data.createAt,
                   artifactDes: res.data.data.description,
-                  artifact_assets: res.data.data.artifact_assets
+                  artifact_assets: res.data.data.artifact_assets,
+                  medalCount: res.data.data.medalCount,
+                  likeCount: res.data.data.likeCount,
+                  commentCount: res.data.data.commentCount
                })
-
+               if (teamworkerData.length == 0) {
+                  that.setData({
+                     teamworker : ''
+                  })
+               } else {
+                  for(let i=0;i<teamworkerData.length;i++){
+                     that.setData({
+                        teamworker: that.data.teamworker == "" ? that.data.teamworker + teamworkerData[i].fullname : that.data.teamworker + "," + teamworkerData[i].fullname
+                     })
+                  }
+               }
                let query = wx.createSelectorQuery();
                query.select('#artifact').boundingClientRect();
                query.exec(function (res) {
                   let artifactDecH = res[0].height;
-                  that.setData({
-                     artifactInfoHeight: 130 + artifactDecH,
-                     artifactAssetsPadding: 100 + artifactDecH
-                  })
+                  if (app.globalData.statusBarHeight == 44) {
+                     that.setData({
+                        artifactInfoHeight: 160 + artifactDecH,
+                        artifactAssetsPadding: 200 + artifactDecH
+                     })
+                  } else {
+                     that.setData({
+                        artifactInfoHeight: 160 + artifactDecH,
+                        artifactAssetsPadding: 180 + artifactDecH
+                     })
+                  }
                })
                
-               wx.setNavigationBarTitle({
-                  title: res.data.data.name,
-               })
                if (res.data.data.topics.length) {
                   that.setData({
                      topicName: res.data.data.topics[0].name,
@@ -424,15 +431,6 @@ Page({
                } else {
                   that.setData({
                      topicName: res.data.data.user.fullname + "的作品集",
-                  })
-               }
-               if (res.data.data.artifact_scores.length) {
-                  that.setData({
-                     artifactScores: res.data.data.artifact_scores[0].score
-                  })
-               } else {
-                  that.setData({
-                     artifactScores: ""
                   })
                }
                let myRole = wx.getStorageSync("myRole");
@@ -470,25 +468,5 @@ Page({
             }
          }
       })
-   },
-   /**
-    * 页面相关事件处理函数--监听用户下拉动作
-    */
-   onPullDownRefresh: function() {
-
-   },
-
-   /**
-    * 页面上拉触底事件的处理函数
-    */
-   onReachBottom: function() {
-
-   },
-
-   /**
-    * 用户点击右上角分享
-    */
-   onShareAppMessage: function() {
-
    }
 })

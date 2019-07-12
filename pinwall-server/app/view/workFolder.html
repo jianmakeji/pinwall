@@ -50,16 +50,42 @@
 					</ul>
 				</i-col>
 				<i-col :xs="0" :sm="1" :md="1" :lg="1">
-					<ul class="topic_action">
+					<ul :class="{topic_action:!topicStatus, topic_closed:topicStatus}">
+						<li class="de_topic_action_view" v-if="topicStatus == 1" style="margin-top:5px;">
+							<i-button type="checkCloseType" size="large" shape="circle" icon="md-eye" @click="checkThisTopic(aoData.topicId)" title="查看"></i-button>
+						</li>
+						<li class="de_topic_action_view" v-if="topicStatus == 0" style="margin-top:5px;">
+							<i-button type="checkCloseType" size="large" shape="circle" icon="md-cloud-upload" @click="uploadToTopic(aoData.topicId)" title="上传"></i-button>
+						</li>
+						{% if user.roles[0].name != 'user' %}
+						<li class="de_topic_action_view" v-if="topicStatus == 1 && ('{{user.Id}}' == headInfo.Id || '{{user.roles[0].name}}' == 'admin')" style="margin-top:5px;">
+							<i-button type="checkCloseType" size="large" shape="circle" icon="md-lock" @click="cockThisTopic(aoData.topicId, topicStatus)" title="锁定"></i-button>
+						</li>
+						<li class="de_topic_action_view" v-if="topicStatus == 0 && ('{{user.Id}}' == headInfo.Id || '{{user.roles[0].name}}' == 'admin')" style="margin-top:5px;">
+							<i-button type="checkCloseType" size="large" shape="circle" icon="md-unlock" @click="cockThisTopic(aoData.topicId, topicStatus)" title="解锁"></i-button>
+						</li>
+						<li class="de_topic_action_view" v-if=" '{{user.roles[0].name}}' == 'admin' || '{{user.Id}}' == headInfo.Id " style="margin-top:5px;">
+							<i-button type="checkCloseType" size="large" shape="circle" icon="ios-cog" @click="settingThisTopic(aoData.topicId)" title="设置"></i-button>
+						</li>
+						{% endif %}
 					</ul>
 				</i-col>
 			</row>
 		</div>
-		<p class="topic_description"></p>
-
+		<p class="topic_description" v-text="headInfo.description"></p>
+		{% if user.Id %}
+		<div class="filtrate_penel" v-if="{{user.Id}}  == headInfo.Id">
+			<div class="button_penel">
+				<a :class="[{ active: isActive == 0 }]" href="javascript:void(0)" @click="checkWorks('0')" v-text="'全部（' + uploadTotal + '）'"></a>
+				<a :class="[{ active: isActive == 1 }]" href="javascript:void(0)" @click="checkWorks('1')" v-text="'已打分（' + isScore + '）'"></a>
+				<a :class="[{ active: isActive == 2 }]" href="javascript:void(0)" @click="checkWorks('2')" v-text="'未打分（' + noScore + '）'"></a>
+			</div>
+			<a class="checkScore" href="javascript:void(0)" @click="checkAllScore">查看学生分数</a>
+		</div>
+		{% endif %}
 		<ul class="de_project_grid">
 			<row>
-				<i-col :xs="24" :sm="12" :md="8" :lg="8" v-for="item in dataList">
+				<i-col :xs="24" :sm="12" :md="8" :lg="8" v-for="(item,index) in dataList">
 					<li class="de_card_m">
 						<div class="user_info">
 							<a :href="'/users/' + item.user.Id">
@@ -70,34 +96,40 @@
 						</div>
 						<div class="project_info">
 							<a :href="'/project/' + item.Id" target="_blank">
-								<img class="thumb" v-lazy="item.profileImage" loading="../public/images/default_thumb_500.png">
+								<img class="thumb" :src="item.profileImage">
 								<h4 v-text="item.name"></h4>
+								{% if user.Id %}
+								<span class="workScore" v-if="item.artifact_scores.length && item.artifact_scores[0] != null" v-text="item.artifact_scores[0].score + '分'"></span>
+								<span class="workScore" v-if="item.artifact_scores.length == 0" v-text="'未打分'"></span>
+								{% endif %}
 							</a>
 						</div>
 						<div class="de_stats_tags_p">
 							<div class="badges" title="勋章">
-								<icon type="ios-ribbon" style="font-size: 20px;" color="#999"></icon>
+								<icon custom="i-icon iconfont icon-medal" style="font-size: 20px;color:#999;"></icon>
 								<span v-text="item.medalCount"></span>
 							</div>
 							<div class="likes" title="赞">
-								<icon type="ios-thumbs-up" style="font-size: 20px;" color="#999"></icon>
+								<icon custom="i-icon iconfont icon-zan1" style="font-size: 18px;color:#999;"></icon>
 								<span v-text="item.likeCount"></span>
 							</div>
 							<div class="comments" title="评论">
-								<icon type="md-text" style="font-size: 20px;" color="#999"></icon>
+								<icon custom="i-icon iconfont icon-comment" style="font-size: 16px;color:#999;"></icon>
 								<span v-text="item.commentCount"></span>
 							</div>
 						</div>
 					</li>
 				</i-col>
-
 			</row>
 		</ul>
+		<modal v-model="scoresModel" :title="headInfo.name" footer-hide :width="modelWidth">
+			<i-button type="success" @click="exportExcel" style="margin:10px 0;">导出成绩单</i-button>
+		   	<i-table stripe :columns="columns" :data="dataSourse" style="margin:20px auto;" ></i-table>
+		</modal>
 	</div>
 {% endblock %}
 
 {% block jsfolder %}
-	<script type="text/javascript" src="../public/js/lib/vue-lazyload.js"></script>
 	<script type="text/javascript" src="../public/js/lib/jquery.min.js"></script>
 	<script type="text/javascript" src="../public/js/lib/vue.min.js"></script>
 	<script type="text/javascript" src="../public/js/lib/iview.min.js"></script>

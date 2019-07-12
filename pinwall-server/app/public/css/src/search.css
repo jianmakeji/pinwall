@@ -23,6 +23,14 @@ body{
     font-weight: bold;
 }
 
+.search_box h4 {
+    margin: 20px auto;
+    text-align: center;
+    font-size: 24px;
+    color: #bbb;
+    text-shadow: 0 1px 0 #fff;
+    font-weight: normal;
+}
 
 .de_project_grid {
     text-align: left;
@@ -92,7 +100,7 @@ body{
     position: absolute;
     left: 55%;
     top: 70px;
-    right: 10px;
+    right: 20px;
     bottom: 40px;
     overflow: hidden;
     color: #09bc72;
@@ -127,18 +135,9 @@ body{
 	font-size: 18px;
     width: 15px;
     height: 20px;
+	line-height: 24px;
     color: #999;
 }
-
-
-
-
-
-
-
-
-
-
 
 .footer {
 	padding: 5px 0;
@@ -149,4 +148,9 @@ body{
 	width: 100%;
 	overflow: hidden;
 	text-align: center;
+}
+@media screen and (max-width: 540px){  /* 当屏幕尺寸小于1200px时，应用下面的CSS样式 */
+	.search_box h4 {
+	    margin: 10px auto;
+	}
 }

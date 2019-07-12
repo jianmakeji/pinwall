@@ -1,11 +1,11 @@
 <!--pages/topics/topics.wxml-->
 <wxs src="../../../subutil/subutil.wxs" module="tools" />
-<view class='topics_tabs'>
-   <i-message id="message" />
+<nav-bar statusHeight="{{statusHeight}}" tabIndex="{{tabIndexNum}}" backDes="我的作业荚" bind:tapBack="tapBack"></nav-bar>
+<view class="topics_tabs {{statusHeight ? 'highStatus' : 'lowStatus'}}">
    <!-- 数据展示 -->
    <block wx:for="{{ dataList }}" wx:for-item="item">
       <topic-component userAvator="{{item.user.avatarUrl ? item.user.avatarUrl : '/images/default_profile.jpg'}}" userFullname="{{item.user.fullname}}" totalArtifact="{{item.user.gender}}" createAt="{{tools.split(item.createAt)}}" topicName="{{item.name}}"
          artifacts="{{item.artifacts}}" data-topic-id="{{item.Id}}" bind:tapTheTopic="tapTheTopic"></topic-component>
    </block>
-   <i-load-more tip="暂无数据" loading="{{ loading }}" />
+   <i-load-more i-class="{{statusHeight && !loading ? 'loadHighStatus' : 'loadLowStatus'}}" tip="暂无更多数据" loading="{{ loading }}" />
 </view>

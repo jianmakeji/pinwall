@@ -1,0 +1,7 @@
+<view class='searchUser'>
+   <view class='userInfo'>
+      <image class='avatarUrl' src="{{avatarUrl ? avatarUrl : '/images/default_profile.jpg'}}"></image>
+      <text class='fullname'>{{fullname}}</text>
+   </view>
+   <button class='button' bindtap="_tapUserInfo">查看作品集</button>
+</view>

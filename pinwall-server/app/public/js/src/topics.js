@@ -3,20 +3,20 @@ var index = new Vue({
     data(){
         return{
             // 数据请求
-            aoData:{limit:10,jobTag:1,offset:0,status:-1,userId:-1},
+            aoData:{limit:10,jobTag:1,offset:0,status:1,userId:-1},
             dataList:[],
             scrollModel:true,
             searchValue:"",
             containerStyle:{
                 minHeight:""
             },
-            checkAllType:"default",
+            checkAllType:"text",
             checkOpenType:"text",
-            checkCloseType:"text",
+            checkCloseType:"default",
             checkMyType:"text",
             //右侧抽屉
             drawerShow:false,
-            searchData:{limit:10,jobTag:1,offset:0,status:-1,userId:-1,keyword:""}
+            searchData:{limit:10,jobTag:1,offset:0,status:1,userId:-1,keyword:""}
         }
     },
     methods: {
@@ -159,12 +159,12 @@ var index = new Vue({
         if (window.location.href.split("?")[1]) {
             myTopics = window.location.href.split("=")[1];
             this.aoData.userId = 0;
+            this.aoData.status = -1;
             this.checkAllType = "text";
             this.checkOpenType = "text";
             this.checkCloseType = "text";
             this.checkMyType = "default";
         }
-
         getData(this, this.aoData);
     }
 })
@@ -176,7 +176,7 @@ $(document).ready(function() {
      * 滚动条滚动监听
      */
     $(window).scroll(function() {
-        if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
+        if ($(document).scrollTop() >= $(document).height() - $(window).height() - 10 && index.scrollModel) {
             if (index.searchValue) {
                 index.searchData.offset += 10;
                 getMoreSearchData(index, index.searchData);

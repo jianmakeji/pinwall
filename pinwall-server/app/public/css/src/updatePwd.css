@@ -5,18 +5,20 @@ body{
     background-color: #EFEFEF;
 }
 
-.container{
-    width: 850px;
-    margin: 0 auto;
-    margin-top: 150px;
-    background: #fff;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.container h4 {
+    margin: 20px auto;
+    text-align: center;
+    font-size: 24px;
+    color: #bbb;
+    text-shadow: 0 1px 0 #fff;
+    font-weight: normal;
 }
 .updatePwd_panel{
-    width: 80%;
+    width: 950px;
     margin:0 auto;
     padding: 20px 20px;
     padding-bottom: 60px;
+    background: #fff;
 }
 .updatePwd_panel .title{
     color: #09bc72;

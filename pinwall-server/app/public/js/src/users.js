@@ -16,6 +16,11 @@ var index = new Vue({
             drawerShow:false
         }
     },
+    methods:{
+        uploadToTopic(){
+            window.location.href = "/uploadWork/2";
+        }
+    },
     created(){
         let that = this;
 
@@ -27,7 +32,6 @@ var index = new Vue({
             this.aoData.userId = urlId;
             this.aoUrl = config.ajaxUrls.getPersonalJobByUserId;
         }
-        // this.aoData.jobTag = window.location.href.split("jobTag=")[1];
         this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
 
         this.$Loading.start();
@@ -67,7 +71,7 @@ var index = new Vue({
 $(document).ready(function() {
     $('html,body').animate({scrollTop:0});                          //每次刷新界面滚动条置顶
     $(window).scroll(function() {                                   //滚动加载数据
-        if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
+        if ($(document).scrollTop() >= $(document).height() - $(window).height() - 10 && index.scrollModel) {
             index.aoData.offset += 12;
             index.$Loading.start();
             $.ajax({

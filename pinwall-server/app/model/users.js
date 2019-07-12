@@ -60,6 +60,10 @@ module.exports = app => {
       type: STRING(20),
       allowNull: true
     },
+    intro: {
+      type: STRING(255),
+      allowNull: true
+    },
     active: {
       type: BOOLEAN,
       allowNull: true
@@ -173,7 +177,7 @@ module.exports = app => {
           attributes:['Id','name']
         }
       ],
-      attributes:['Id','email','fullname','avatarUrl','wxActive']
+      attributes:['Id','email','mobile','fullname','avatarUrl','wxActive','unionId']
     });
   }
 
@@ -199,6 +203,25 @@ module.exports = app => {
     return await this.findOne({
       where:{
         email:email,
+        active:1,
+      },
+      include:[
+        {
+          model: app.model.Roles,
+          through:{
+            attributes:['userId','roleId'],
+          },
+          attributes:['Id','name']
+        }
+      ],
+      attributes:['Id','email','fullname','nickname','avatarUrl','password']
+    });
+  }
+
+  Users.loginFindByUserWithMobile = async function (mobile){
+    return await this.findOne({
+      where:{
+        mobile:mobile,
         active:1,
       },
       include:[
@@ -256,6 +279,16 @@ module.exports = app => {
     });
   }
 
+  Users.updatePwdWithMobile = async function(mobile, newPwd){
+    return await this.update({
+      password:newPwd
+    },{
+      where:{
+        mobile:mobile
+      }
+    });
+  }
+
   Users.updateWxActiveByActiveCodeAndUnionId = async function(unionId,activeCode,wxActive){
     return await this.update({
       wxActive:wxActive,
@@ -285,6 +318,24 @@ module.exports = app => {
     });
   }
 
+  Users.findUserByMobile = async function(mobile){
+    return await this.findOne({
+      where:{
+        mobile:mobile
+      },
+      include:[
+        {
+          model: app.model.Roles,
+          through:{
+            attributes:['userId','roleId'],
+          },
+          attributes:['Id','name']
+        }
+      ],
+    });
+  }
+
+
   Users.updateWxInfoByEmail = async function(wxInfo){
     return await this.update({
       openId:wxInfo.openId,
@@ -295,11 +346,28 @@ module.exports = app => {
       province:wxInfo.province,
       city:wxInfo.city,
       country:wxInfo.country,
-      wxActive:0,
-      activeCode:wxInfo.activeCode,
+      wxActive:1
     },{
       where:{
         email:wxInfo.email
+      }
+    });
+  }
+
+  Users.updateWxInfoByMobile = async function(wxInfo){
+    return await this.update({
+      openId:wxInfo.openId,
+      unionId:wxInfo.unionId,
+      nickname:wxInfo.nickname,
+      avatarUrl:wxInfo.avatarUrl,
+      gender:wxInfo.gender,
+      province:wxInfo.province,
+      city:wxInfo.city,
+      country:wxInfo.country,
+      wxActive:1
+    },{
+      where:{
+        mobile:wxInfo.mobile
       }
     });
   }
@@ -443,7 +511,8 @@ module.exports = app => {
       order: [[ 'createAt', 'desc' ], [ 'Id', 'desc' ]],
       include:[
         app.model.Roles
-      ]
+      ],
+      attributes:['Id','email','fullname','avatarUrl']
     };
 
     if(email != null && email !=''){
@@ -454,6 +523,63 @@ module.exports = app => {
     }
 
     return this.findAndCountAll(condition);
+  }
+
+  Users.searchUserInfoByKeyword = async function(keyword, type){
+    let condition = {
+      where:{
+
+      },
+      attributes:['Id','email','fullname','avatarUrl']
+    }
+
+    if (type == 1){
+      condition.where.email = {
+        [app.Sequelize.Op.like]: '%'+keyword+'%'
+      }
+    }
+    else if (type == 2){
+      condition.where.fullname = {
+        [app.Sequelize.Op.like]: '%'+keyword+'%'
+      }
+    }
+    else if (type == 3){
+      condition.where.mobile = {
+        [app.Sequelize.Op.like]: '%'+keyword+'%'
+      }
+    }
+
+    return this.findAll(condition);
+  }
+
+  Users.getUserInfoById = async function(userId){
+    let id = userId.split(',');
+    if (id.length > 0){
+      let condition = {
+        where:{
+          Id:{
+            [app.Sequelize.Op.in]:id
+          }
+        },
+        attributes:['Id','email','fullname','avatarUrl','intro','mobile']
+      }
+      return this.findAll(condition);
+    }
+    else{
+      return {};
+    }
+  }
+
+  Users.getUserIntroById = async function(userId){
+
+      let condition = {
+        where:{
+          Id:userId
+        },
+        attributes:['Id','intro']
+      }
+      return this.findAll(condition);
+
   }
 
   return Users;

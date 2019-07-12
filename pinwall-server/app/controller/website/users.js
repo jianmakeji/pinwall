@@ -38,14 +38,19 @@ class UsersController extends BaseController{
     const ctx = this.ctx;
     try{
       let data = ctx.request.body;
-      if (data.captchaText != this.ctx.session.captcha){
+      if (data.captchaText.toLowerCase() != this.ctx.session.captcha){
         super.failure('验证码错误!');
       }
       else{
-        const user = await ctx.service.users.createUser(data,0);
-        super.success('创建成功!');
+        let vertifyResult = await ctx.service.smsMessage.getDataByCondition({mobile:data.mobile,code:data.smsCode});
+        if (vertifyResult.status == 200){
+          await ctx.service.users.createUser(data,0);
+          super.success('创建成功!');
+        }
+        else{
+          return vertifyResult;
+        }
       }
-
     }
     catch(e){
       super.failure(e.message);
@@ -54,9 +59,9 @@ class UsersController extends BaseController{
 
   async update() {
     const ctx = this.ctx;
-    const id = ctx.params.id;
+    const id = ctx.user.Id;
     const updates = {
-      mobile: ctx.request.body.mobile,
+      intro: ctx.request.body.intro,
     };
 
     try{
@@ -153,7 +158,7 @@ class UsersController extends BaseController{
 
   async checkCaptcha(){
     const captchaText = this.ctx.query.captchaText;
-    if (captchaText == this.ctx.session.captcha){
+    if (captchaText.toLowerCase() == this.ctx.session.captcha){
       super.success('校验成功!');
     }
     else{
@@ -191,7 +196,7 @@ class UsersController extends BaseController{
     const unionId = ctx.user.unionid;
     const user = await ctx.service.users.findByUnionId(unionId);
     if(user){
-      if(user.Id && user.email){
+      if(user.Id && (user.email || user.mobile) ){
         if(user.wxActive == 0){
           ctx.redirect('/wxCompleteInfo');
         }
@@ -214,10 +219,11 @@ class UsersController extends BaseController{
 
   async bindWeixinInfoByEmail(){
     const ctx = this.ctx;
-    const email = ctx.request.body.email;
-    const result = await ctx.service.users.bindWeixinInfoByEmail(email,ctx.user);
+    const emailOrPhone = ctx.request.body.email;
+    const password = ctx.request.body.password;
+    const result = await ctx.service.users.bindWeixinInfoByEmailOrPhone(emailOrPhone,password,ctx.user);
     if (result){
-      super.success('绑定成功，请进入邮箱激活!');
+      super.success('绑定成功!');
     }
     else{
       super.failure('绑定失败!');
@@ -244,43 +250,50 @@ class UsersController extends BaseController{
 
   async createWxUser(){
     const ctx = this.ctx;
-    const email = ctx.request.body.email;
+    const mobile = ctx.request.body.mobile;
     const fullname = ctx.request.body.fullname;
     const password = ctx.request.body.password;
     const captcha = ctx.request.body.captchaText;
+    const smsCode = ctx.request.body.smsCode;
 
     if (captcha == ctx.session.captcha){
-      if (ctx.user){
-        let user = {
-          email:email,
-          fullname:fullname,
-          password:password,
-          openId:ctx.user.openid,
-          nickname:ctx.user.nickname,
-          gender:ctx.user.sex,
-          city:ctx.user.city,
-          province:ctx.user.province,
-          country:ctx.user.country,
-          avatarUrl:ctx.user.headimageurl,
-          unionId:ctx.user.unionid,
-        };
-        try{
-          const result = await ctx.service.users.createUser(user,1);
-          if (result){
-            super.success('操作成功！请到邮箱激活');
+      let vertifyResult = await ctx.service.smsMessage.getDataByCondition({mobile:data.mobile,code:data.smsCode});
+      if (vertifyResult.status == 200){
+        if (ctx.user){
+          let user = {
+            mobile:mobile,
+            fullname:fullname,
+            password:password,
+            openId:ctx.user.openid,
+            nickname:ctx.user.nickname,
+            gender:ctx.user.sex,
+            city:ctx.user.city,
+            province:ctx.user.province,
+            country:ctx.user.country,
+            avatarUrl:ctx.user.headimageurl,
+            unionId:ctx.user.unionid,
+          };
+          try{
+            const result = await ctx.service.users.createUser(user,1);
+            if (result){
+              super.success('操作成功！请到邮箱激活');
+            }
+            else{
+              super.failure('操作失败！请重新操作');
+            }
           }
-          else{
-            super.failure('操作失败！请重新操作');
+          catch(e){
+            super.failure(e.message);
           }
         }
-        catch(e){
-          super.failure(e.message);
+        else{
+          super.failure('微信扫描信息有误，请重新扫描!');
         }
-
       }
       else{
-        super.failure('微信扫描信息有误，请重新扫描!');
+        return vertifyResult;
       }
+
     }
     else{
       super.failure('验证码不正确!');
@@ -345,6 +358,27 @@ class UsersController extends BaseController{
     }
   }
 
+  async updatePwdWithMobile(){
+    const ctx = this.ctx;
+    const mobile = ctx.request.body.mobile;
+    const smsCode = ctx.request.body.smsCode;
+    const newPwd = ctx.request.body.newPwd;
+
+    let vertifyResult = await ctx.service.smsMessage.getDataByCondition({mobile:mobile,code:smsCode});
+    if (vertifyResult.status == 200){
+      const result = await ctx.service.users.updatePwdWithMobile(mobile, newPwd);
+      if (result){
+        super.success('修改成功');
+      }
+      else{
+        super.failure('修改失败');
+      }
+    }
+    else{
+      return vertifyResult;
+    }
+  }
+
   async updateUserRole(){
     const ctx = this.ctx;
     const userId = ctx.request.body.userId;
@@ -390,6 +424,20 @@ class UsersController extends BaseController{
     };
     try{
       let result = await ctx.service.users.searchByEmail(query);
+      super.success(result);
+    }
+    catch(e){
+      super.failure('获取数据失败');
+    }
+  }
+
+  async searchUserInfoByKeyword(){
+    const ctx = this.ctx;
+    const type = ctx.helper.parseInt(ctx.query.type);
+    const keyword = ctx.query.keyword;
+
+    try{
+      let result = await ctx.service.users.searchUserInfoByKeyword(keyword, type);
       super.success(result);
     }
     catch(e){

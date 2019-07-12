@@ -1,10 +1,3 @@
-// pages/my/my.js
-const {
-   $Toast
-} = require('../../dist/base/index');
-const {
-   $Message
-} = require('../../dist/base/index');
 const app = getApp();
 Page({
 
@@ -12,6 +5,8 @@ Page({
     * 页面的初始数据
     */
    data: {
+      tabIndexNum: "3",
+      statusHeight: false,
       isLogin: "",
       username: "",
       password: "",
@@ -19,15 +14,9 @@ Page({
 
       modalVisible: false,
 
-      userData: ""
-   },
-   //记住我选择
-   handleAnimalChange({
-      detail = {}
-   }) {
-      this.setData({
-         checked: detail.current
-      });
+      userData: "",
+      myTopicNum:0,
+      myTopicsData:[]
    },
    handleClick() {
       this.setData({
@@ -59,7 +48,7 @@ Page({
                         if (res.data.openid) {
                            wx.setStorageSync("openid", res.data.openid);
                            wx.setStorageSync("sessionKey", res.data.sessionKey);
-                           if (res.data.user != null && res.data.user.email != null) {
+                           if (res.data.user != null && (res.data.user.email != null || res.data.user.mobile != null)) {
                               wx.setStorageSync("openid", res.data.openid);
                               wx.setStorageSync("sessionKey", res.data.sessionKey);
                               wx.setStorageSync("myId", res.data.user.Id);
@@ -75,25 +64,21 @@ Page({
                               that.onShow();
                            } else {
                               wx.setStorageSync("openid", res.data.openid);
-                              $Message({
-                                 content: '您的微信未绑定图钉墙,无法进行相关操作,2秒后跳转到绑定界面!',
-                                 type: 'error',
-                                 duration: 2,
-                                 selector: "#message"
-                              });
+                              wx.showToast({
+                                 title: '您的微信未绑定图钉墙,无法进行相关操作',
+                                 icon:"none"
+                              })
                               setTimeout(function() {
-                                 wx.redirectTo({
+                                 wx.navigateTo({
                                     url: '/pages/my/completeInfo/completeInfo',
                                  })
-                              }, 2000);
+                              }, 1000);
                            }
                         } else {
-                           $Message({
-                              content: '微信登录失败！',
-                              type: 'error',
-                              duration: 2,
-                              selector: "#message"
-                           });
+                           wx.showToast({
+                              title: '微信登录失败！',
+                              icon:"none"
+                           })
                         }
                      }
                   })
@@ -154,11 +139,26 @@ Page({
          url: '/pages/topics/myTopics/myTopics' + "?userId=" + userId + "&jobTag=1",
       })
    },
+   // 修改个人信息
+   userInfoChange(event){
+      wx.navigateTo({
+         url: '/pages/my/resetInfo/resetInfo' + "?userId=" + wx.getStorageSync("myId"),
+      })
+   },
    /**
     * 生命周期函数--监听页面加载
     */
    onLoad: function(options) {
-
+      let that = this;
+      if (app.globalData.statusBarHeight == 44) {
+         that.setData({
+            statusHeight: true
+         })
+      } else {
+         that.setData({
+            statusHeight: false
+         })
+      }
    },
 
    /**
@@ -181,9 +181,6 @@ Page({
             index: 3,
             text: "我的"
          })
-         wx.setNavigationBarTitle({
-            title: '我的',
-         })
          let myId = wx.getStorageSync("myId");
          wx.request({
             url: app.globalData.baseUrl + app.globalData.refreshUserInfo + myId,
@@ -191,6 +188,31 @@ Page({
                if (res.data.status == 200) {
                   that.setData({
                      userData: res.data.data
+                  })
+               }
+            }
+         })
+         wx.request({
+            url: app.globalData.baseUrl + app.globalData.getPersonalJobByUserId,
+            data: { limit: 5,offset: 0,userId: myId,jobTag: 0 },
+            method: "GET",
+            success(res) {
+               if (res.data.status == 200) {
+                  if (res.data.data.rows.length) {
+                     that.setData({
+                        myTopicsData: res.data.data.rows
+                     })
+                  }
+               }
+            }
+         })
+         wx.request({
+            url: app.globalData.baseUrl + app.globalData.countTopicsByUserId + "?userId=" + myId,
+            method: "GET",
+            success(res) {
+               if (res.statusCode == 200) { 
+                  that.setData({
+                     myTopicNum: res.data
                   })
                }
             }
@@ -203,45 +225,7 @@ Page({
             index: 3,
             text: "绑定"
          })
-         wx.setNavigationBarTitle({
-            title: '绑定',
-         })
       }
-   },
-
-   /**
-    * 生命周期函数--监听页面隐藏
-    */
-   onHide: function() {
-
-   },
-
-   /**
-    * 生命周期函数--监听页面卸载
-    */
-   onUnload: function() {
-
-   },
-
-   /**
-    * 页面相关事件处理函数--监听用户下拉动作
-    */
-   onPullDownRefresh: function() {
-
-   },
-
-   /**
-    * 页面上拉触底事件的处理函数
-    */
-   onReachBottom: function() {
-
-   },
-
-   /**
-    * 用户点击右上角分享
-    */
-   onShareAppMessage: function() {
-
    }
 })
 

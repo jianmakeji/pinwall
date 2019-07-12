@@ -9,7 +9,7 @@ class TopicsController extends BaseController{
 
   async index() {
     const ctx = this.ctx;
-    const query = {
+    let query = {
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
       jobTag: ctx.helper.parseInt(ctx.query.jobTag),
@@ -20,6 +20,7 @@ class TopicsController extends BaseController{
     if (query.userId == 0 && ctx.user){
         query.userId = ctx.user.Id;
     }
+
     try{
       let result = await ctx.service.topics.list(query);
       super.success(result);
@@ -87,17 +88,27 @@ class TopicsController extends BaseController{
 
   async getTopicAndArtifactById() {
     const ctx = this.ctx;
-    const query = {
+    let query = {
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
       topicId: ctx.helper.parseInt(ctx.query.topicId),
+      score:ctx.helper.parseInt(ctx.query.score),
     };
+
+    if(ctx.user){
+      query.role = ctx.user.roles[0].name;
+    }
+    else{
+      query.role = 'user';
+    }
 
     try{
       let result = await ctx.service.topics.getTopicAndArtifactById(query);
+      
       super.success(result);
     }
     catch(e){
+      console.log(e);
       super.failure(e.message);
     }
   }

@@ -1,7 +1,5 @@
 'use strict';
 const path = require('path');
-
-const path = require('path');
 module.exports = appInfo => {
   const config = exports = {};
 
@@ -13,10 +11,10 @@ module.exports = appInfo => {
 
   config.sequelize = {
     dialect: 'mysql',
-    host: 'localhost',
+    host: '192.168.3.110',
     port: 3306,
     username: 'root',
-    password: '123456',
+    password: 'root',
     database: 'pinwall',
     logging:true,
     timezone: '+08:00',
@@ -118,10 +116,6 @@ module.exports = appInfo => {
     ],
     maxFileSize: 0.3 * 1024 * 1024 * 1024,
   };
-<<<<<<< HEAD
-=======
-
->>>>>>> 4ccb663c4d70be3c33bf54fdf3d4a2f6c302ee03
   /*
     config.alinode = {
         server: 'wss://agentserver.node.aliyun.com:8080',

@@ -6,12 +6,18 @@ Page({
     * 页面的初始数据
     */
    data: {
+      tabIndexNum: "2",
       userId:"",
       jobTag: "",
       subLimit: 5,
       status: -1,
       limit:10,
       offset:0
+   },
+   tapBack(event){
+      wx.navigateBack({
+         data:1
+      })
    },
    tapTheTopic(event){
       let topicId = event.currentTarget.dataset.topicId;
@@ -24,12 +30,18 @@ Page({
     */
    onLoad: function (options) {
       let that = this;
+      if (app.globalData.statusBarHeight == 44) {
+         that.setData({
+            statusHeight: true
+         })
+      } else {
+         that.setData({
+            statusHeight: false
+         })
+      }
       this.setData({
          userId: options.userId,
          jobTag: options.jobTag
-      })
-      wx.setNavigationBarTitle({
-         title: '我的作业荚',
       })
       getData(this, "init");
    },
@@ -84,12 +96,10 @@ function getData(that, type) {
                })
             }
          } else {
-            $Message({
-               content: '获取数据出错！',
-               type: 'error',
-               duration: 3,
-               selector: "#message"
-            });
+            wx.showToast({
+               title: '获取数据出错！',
+               icon:"none"
+            })
          }
       }
    })

@@ -3,7 +3,13 @@ var index = new Vue({
     data() {
         return {
             containerStyle: {
-                "margin": "",
+                margin: "",
+                minHeight:"500px",
+            },
+            iframeStyle:{
+                width:"",
+                height:"440px",
+                border: "none"
             },
             single: true,
             drawerShow: false,
@@ -41,7 +47,13 @@ var index = new Vue({
         }
     },
     created() {
-        this.containerStyle.margin = (document.documentElement.clientHeight - 450) / 2 - 90 + "px auto";
+        if (document.documentElement.clientHeight < 780) {
+            this.containerStyle.margin = "10px auto";
+            this.iframeStyle.width = "100%";
+        } else {
+            this.iframeStyle.width = "450px";
+            this.containerStyle.margin = (document.documentElement.clientHeight - 450) / 2 - 90 + "px auto";
+        }
         let that = this;
         if (document.documentElement.clientWidth > 1200) {
             this.modelWidth = "60%";
@@ -67,10 +79,11 @@ var index = new Vue({
 })
 
 function check(form) {
-    var usernameExp = new RegExp("^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$");
-    if (!usernameExp.test(form.username.value)) {
+    let emailExp = config.regexString.email;
+    let mobileExp = config.regexString.phone;
+    if (!emailExp.test(form.username.value) && !mobileExp.test(form.username.value)) {
         index.$Notice.error({
-            title: "请输入正确的邮箱格式或者验证码！",
+            title: "请输入正确的邮箱格式或者手机格式！",
             duration: 2
         });
         form.username.focus();

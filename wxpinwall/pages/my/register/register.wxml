@@ -1,0 +1,21 @@
+<nav-bar statusHeight="{{statusHeight}}" tabIndex="2" backDes="注册" bind:tapBack="tapBack"></nav-bar>
+<view class='registerBox'> 
+   <text class='des1'>注册</text>
+   <view class='fullnameBox'>
+      <i-input i-class='fullnameInput' value="{{ fullname }}" bind:change="fullnameChange" placeholder="用户名" />
+   </view>
+   <view class='mobileBox'>
+      <i-input i-class='mobileInput' value="{{ mobile }}" bind:change="mobileChange" placeholder="手机号" />
+   </view>
+   <view class='smscodeBox'>
+      <i-input i-class='codeInput' value="{{ smscode }}" bind:change="smscodeChange" placeholder="验证码" />
+      <i-button i-class='smscodeBtn' size="small" bind:click="getSmsCode" disabled="{{disableCodeBtn}}">{{smscodeText}}</i-button>
+   </view>
+   <view class='passwordBox'>
+      <i-input i-class='passwordInput' type='password' value="{{ password }}" bind:change="passwordChange" placeholder="密码" />
+   </view>
+   <view class='confirmPasswordBox'>
+      <i-input i-class='confirmPasswordInput' type='password' value="{{ confirmPassword }}" bind:change="pconfirmPasswordChange" placeholder="确认密码" />
+   </view>
+   <i-button class="submit" type='success' bind:click="submit">提交</i-button>
+</view>

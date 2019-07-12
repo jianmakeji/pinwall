@@ -1,4 +1,16 @@
 /* pages/topics/topics.wxss */
+.highStatus{
+   margin-top: 200rpx;
+}
+.lowStatus{
+   margin-top: 150rpx;
+}
+.loadHighStatus{
+   padding-top:20rpx;
+}
+.loadLowStatus{
+   padding-top:50rpx;
+}
 .topics_tabs scroll-view label{
     font-size:24rpx;
 }

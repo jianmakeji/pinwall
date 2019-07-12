@@ -4,6 +4,7 @@ const BaseController = require('../BaseController');
 const { STS } = require('ali-oss');
 const fs = require('fs');
 const path = require('path');
+const fileUtil = require('../../utils/fileUtils');
 
 class AliOSSController extends BaseController {
 
@@ -70,6 +71,50 @@ class AliOSSController extends BaseController {
     const ctx = this.ctx;
 
     ctx.body = ctx.app.signatureUrl(ctx.query.objectPath,ctx.query.thumbName);
+  }
+
+  async deleteAliossFile(){
+    const ctx = this.ctx;
+    const fileType = ctx.params.fileType;
+
+    let dir = '';
+    if (fileType == 1){
+      dir = ctx.app.imagePath;
+    }
+    else if (fileType == 2){
+      dir = ctx.app.pdfPath;
+    }
+    else if (fileType == 3){
+      dir = ctx.app.rar_zipPath;
+    }
+    else if (fileType == 4){
+      dir = ctx.app.videoPath;
+    }
+    else{
+      dir = ctx.app.othersPath;
+    }
+
+    try{
+      ctx.app.deleteOssObject(dir + ctx.query.filename);
+      super.success('删除成功!');
+    }
+    catch(e){
+      super.failure(e);
+    }
+
+  }
+
+  async deleteH5Path(){
+    const app = this.ctx.app;
+    const artifactId = this.ctx.params.artifactId;
+    let h5Dir = path.join(app.localH5Path, artifactId + path.sep);
+
+    let pathExist = fs.existsSync(h5Dir);
+
+    if (pathExist){
+      fileUtil.delDir(h5Dir);
+    }
+    super.success('操作成功!');
   }
 }
 

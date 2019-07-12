@@ -2,7 +2,7 @@
 
     <!-- defalut tab-label -->
     <block wx:if="{{type === 'simple'}}">
-        <scroll-view scroll-x="{{true}}" class="tab__navbar" scroll-left="{{(move-width*2.1) / 2}}" scroll-with-animation="{{animate}}">
+        <scroll-view scroll-x="{{true}}" class="tab__navbar {{statusHeight ? 'tabHighStatus' : 'tabLowStatus'}}" scroll-left="{{(move-width*2.1) / 2}}" scroll-with-animation="{{animate}}">
             <view class="tab__navbar-wrap">
                 <view class="tab__navbar-item tab__navbar-item--default" wx:for="{{tabs}}" wx:for-item="tab" wx:key="index" data-key="{{tab.key}}" data-idx="{{index}}" bindtap="onSwitch" style="width: {{width}}rpx; color:{{index === activeKey ? activeTextColor : textColor}}">
                     <label class="tab__navbar-title">{{tab.label}}</label>

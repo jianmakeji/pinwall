@@ -1,0 +1,31 @@
+<!-- 修改个人信息 -->
+<nav-bar statusHeight="{{statusHeight}}" tabIndex="{{tabIndexNum}}" backDes="修改个人信息" bind:tapBack="tapBack"></nav-bar>
+<view class="contanior {{statusHeight ? 'highStatus' : 'lowStatus'}}">
+   <view class='avatorInfo'>
+      <text class='title'>头像</text>
+      <image class='avatorUrl' src="{{userInfo.avatarUrl != null ? userInfo.avatarUrl : '/images/default_profile.jpg'}}"></image>
+   </view>
+   <view class='fullNameInfo'>
+      <text class='title'>用户名</text>
+      <text class='fullname'>{{userInfo.fullname}}</text>
+   </view>
+   <view class='emailInfo'>
+      <text class='title'>邮箱</text>
+      <text class='email'>{{userInfo.email != null ? userInfo.email : '未绑定'}}</text>
+   </view>
+   <view class='phoneInfo'>
+      <text class='title'>已绑定手机号</text>
+      <text class='phone'>{{userInfo.mobile != null ? userInfo.mobile : '未绑定'}}</text>
+   </view>
+   <view class='desInfo' catchtap='tapIntro'>
+      <text class='title'>个人简介</text>
+      <view>
+         <text class='des'>{{userInfo.intro != null ? userInfo.intro : ''}}</text>
+         <i-icon class='enter_icon' type="enter" color='#BBBBBB' size="15" />
+      </view>
+   </view>
+</view>
+<view class='introInputBox' wx:if="{{introVisible}}" style="bottom:{{keyboarkHeight+'px'}};">
+   <input class='introInput' value="{{ introValue }}" adjust-position="{{false}}" bindkeyboardheightchange="keyboardHightChange" bindblur='introBlur' focus="{{introFocus}}" bindconfirm="submitIntro" cursor-spacing="30" bindinput='introValueChange' placeholder='请输入个人简介'></input>
+   <button class='introBtn' catchtap='submitIntro'>发布</button>
+</view>

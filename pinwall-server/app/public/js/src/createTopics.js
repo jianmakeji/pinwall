@@ -3,7 +3,7 @@ var index = new Vue({
     data(){
         return{
             containerStyle:{
-                minHeight:"",
+                margin:"",
             },
             userId:"1",
             drawerShow:false,
@@ -16,6 +16,10 @@ var index = new Vue({
                 description:"",
                 status:0,
                 jobTag:1,
+            },
+            ruleValidate:{
+                name:[{required: true, message: '作业荚名称不能为空', trigger: 'blur'}],
+                description:[{required: true, message: '作业荚描述不能为空', trigger: 'blur'}],
             }
         }
     },
@@ -38,38 +42,50 @@ var index = new Vue({
         deleteTerm(index){
             this.terms_arr.splice(index,1);
         },
-        submitData(){
+        submitData(name){
             let that = this;
-            this.$Loading.start();
-            this.formItem.terms = this.terms_arr;
-            $.ajax({
-                url: config.ajaxUrls.getTopicsData,
-                type: 'POST',
-                data: this.formItem,
-                success:function(res){
-                    if (res.status == 200) {
-                        that.$Loading.finish();
-                        that.$Notice.success({
-                            title:"作业荚创建成功，2秒后返回",
-                            duration:2,
-                            onClose:function(){
-                                if (that.formItem.jobTag == 1) {
-                                    window.location.href = "/topics";
-                                } else {
-                                    window.location.href = "/topicsAbout";
-                                }
+            this.$refs[name].validate((valid) => {
+                if (valid) {
+                    this.$Loading.start();
+                    this.formItem.terms = this.terms_arr;
+                    $.ajax({
+                        url: config.ajaxUrls.getTopicsData,
+                        type: 'POST',
+                        data: this.formItem,
+                        success:function(res){
+                            if (res.status == 200) {
+                                that.$Loading.finish();
+                                that.$Notice.success({
+                                    title:"作业荚创建成功，2秒后返回",
+                                    duration:2,
+                                    onClose:function(){
+                                        if (that.formItem.jobTag == 1) {
+                                            window.location.href = "/courseProjects";
+                                        } else {
+                                            window.location.href = "/graduationProjects";
+                                        }
+                                    }
+                                })
+                            }else{
+                                that.$Loading.error();
+                                that.$Notice.error({title:res.data});
                             }
-                        })
-                    }else{
-                        that.$Loading.error();
-                        that.$Notice.error({title:res.data});
-                    }
+                        }
+                    })
+                }else {
+                    this.$Notice.error({title:"请输入必填项!"});
                 }
             })
         }
     },
     created(){
-        this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
+        let clientWidth = document.documentElement.clientWidth;
+        let clientHeight = document.documentElement.clientHeight;
+        if (clientHeight < 600) {
+            this.containerStyle.margin = "0px auto";
+        } else {
+            this.containerStyle.margin = (clientHeight - 600) / 2 + "px auto";
+        }
         let topicJobtog = window.location.href.split("?jobTag=")[1];
         if (topicJobtog == 2) {
             this.formItem.jobTag = 2;

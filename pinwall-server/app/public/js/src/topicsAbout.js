@@ -4,21 +4,21 @@ var index = new Vue({
     data(){
         return{
             // 选择按键显示类型
-            checkAllType:"default",
+            checkAllType:"text",
             checkOpenType:"text",
-            checkCloseType:"text",
+            checkCloseType:"default",
             checkMyType:"text",
             containerStyle:{
                 minHeight:""
             },
             // 数据请求
-            aoData:{limit:10,jobTag:2,offset:0,status:-1,userId:-1},
+            aoData:{limit:10,jobTag:2,offset:0,status:1,userId:-1},
             dataList:[],
             scrollModel:true,
             //右侧抽屉
             drawerShow:false,
             searchValue:"",          //搜索值
-            searchData:{limit:10,jobTag:2,offset:0,status:-1,userId:-1,keyword:""}
+            searchData:{limit:10,jobTag:2,offset:0,status:1,userId:-1,keyword:""}
         }
     },
     methods: {
@@ -172,8 +172,7 @@ var index = new Vue({
 $(document).ready(function() {
     $('html,body').animate({scrollTop:0});                          //每次刷新界面滚动条置顶
     $(window).scroll(function() {                                   //滚动加载数据
-        if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
-
+        if ($(document).scrollTop() >= $(document).height() - $(window).height() - 10 && index.scrollModel) {
             if (index.searchValue) {
                 index.searchData.offset += 10;
                 getMoreSearchData(index, index.searchData);

@@ -77,7 +77,7 @@ module.exports  = app => {
       include:[
         {
           model: app.model.Users,
-          attributes:['Id','email','fullname','nickname','avatarUrl']
+          attributes:['Id','fullname','nickname','avatarUrl']
         },{
           model: app.model.Artifacts,
           through:{
@@ -130,7 +130,7 @@ module.exports  = app => {
     return result;
   }
 
-  Topics.searchTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0, keyword='' }) {
+  Topics.searchTopics = async function ({ offset = 0, limit = 10, jobTag = 0, subLimit = 0,status = 0,userId = 0, keyword=''}) {
 
     let condition = {
       offset,
@@ -142,7 +142,7 @@ module.exports  = app => {
       include:[
         {
           model: app.model.Users,
-          attributes:['Id','email','fullname','nickname','avatarUrl']
+          attributes:['Id','fullname','nickname','avatarUrl']
         },{
           model: app.model.Artifacts,
           through:{
@@ -178,6 +178,7 @@ module.exports  = app => {
       condition.where.name = {
         [app.Sequelize.Op.like]: '%'+keyword+'%',
       };
+
       countCondition.where.name = {
         [app.Sequelize.Op.like]: '%'+keyword+'%',
       };
@@ -204,7 +205,8 @@ module.exports  = app => {
     return result;
   }
 
-  Topics.getTopicAndArtifactById = async function ({ offset = 0, limit = 10, topicId = 0 }) {
+  Topics.getTopicAndArtifactById = async function ({ offset = 0, limit = 10, topicId = 0, role = 'user', score = 0 }) {
+
 
     let condition = {
       order: [[ 'createAt', 'desc' ]],
@@ -215,40 +217,98 @@ module.exports  = app => {
         {
           model: app.model.Users,
           attributes:['Id','email','fullname','nickname','avatarUrl']
-        },{
-          model: app.model.Artifacts,
-          include:[{
-            model:app.model.Users,
-            attributes:['Id','fullname','avatarUrl','commentCount','artifactCount','medalCount','likeCount','createAt']
-          }],
-          through:{
-            attributes:['topicId','artifactId'],
-          },
-          attributes:['Id','profileImage','name','medalCount','likeCount','commentCount','createAt']
         }
       ]
     };
 
-    let resultData = await this.findAll(condition);
-    const artifactSize = resultData[0].artifacts.length;
+    let artifactCondition = {
+      model: app.model.Artifacts,
+      include:[{
+        model:app.model.Users,
+        attributes:['Id','fullname','avatarUrl','commentCount','artifactCount','medalCount','likeCount','createAt']
+      }],
+      through:{
+        attributes:['topicId','artifactId'],
+      },
+      attributes:['Id','profileImage','name','teamworker','medalCount','likeCount','commentCount','createAt']
+    };
 
-    let tempArray = [];
+    if (role != 'user'){
 
-    if (artifactSize >= (limit + offset)){
-      tempArray = resultData[0].artifacts.slice(offset,limit + offset);
+      let scoreCondition;
+      if (score == 0){
+        scoreCondition = {
+            model: app.model.ArtifactScores
+        }
+      }
+      else if (score == 1){
+        scoreCondition = {
+            model: app.model.ArtifactScores,
+            where:{
+              score:{
+                [app.Sequelize.Op.gt]:0
+              },
+            }
+        }
+      }
+      else if(score == 2){
+        scoreCondition = {
+            model: app.model.ArtifactScores
+        }
+      }
+      artifactCondition.include.push(scoreCondition);
+      condition.include.push(artifactCondition);
     }
     else{
-      tempArray = resultData[0].artifacts.slice(offset,artifactSize);
+      let scoreCondition = {
+          model: app.model.ArtifactScores
+      }
+      condition.include.push(artifactCondition);
+      artifactCondition.include.push(scoreCondition);
     }
 
-    resultData[0].artifacts.length = 0;
-    tempArray.forEach((artifact, index)=>{
-      resultData[0].artifacts.push(artifact);
-    });
-
+    let resultData = await this.findAll(condition);
     let result = {};
-    result.rows = resultData[0];
-    result.count = artifactSize;
+    if(resultData.length > 0){
+      let artifactSize = resultData[0].artifacts.length;
+
+      let tempArray = [];
+
+      if (score == 2){
+        let artifactTempArray = [...resultData[0].artifacts];
+        let filterArtifactArray = artifactTempArray.filter((element)=>{
+          return (element.artifact_scores.length == 0);
+        });
+        if (artifactSize >= (limit + offset)){
+          tempArray = filterArtifactArray.slice(offset,limit + offset);
+        }
+        else{
+          tempArray = filterArtifactArray.slice(offset,artifactSize);
+        }
+        artifactSize = filterArtifactArray.length;
+      }
+      else{
+        if (artifactSize >= (limit + offset)){
+          tempArray = resultData[0].artifacts.slice(offset,limit + offset);
+        }
+        else{
+          tempArray = resultData[0].artifacts.slice(offset,artifactSize);
+        }
+      }
+
+      resultData[0].artifacts.length = 0;
+      tempArray.forEach((artifact, index)=>{
+        resultData[0].artifacts.push(artifact);
+      });
+
+      result.rows = resultData[0];
+      result.count = artifactSize;
+    }
+    else{
+      result.rows = [];
+      result.count = 0;
+    }
+
     return result;
   }
 
@@ -346,6 +406,14 @@ module.exports  = app => {
       transaction:transaction,
       where:{
         Id:id
+      }
+    });
+  }
+
+  Topics.countTopicsByUserId = async function(userId){
+    return await this.count({
+      where:{
+        userId:userId
       }
     });
   }

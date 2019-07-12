@@ -9,8 +9,7 @@ module.exports = {
     const alioss = exports = {};
 
     alioss.region = 'oss-cn-hangzhou';
-    alioss.AccessKeyId = 'LTAIsvXXw2cmRUG2';
-    alioss.AccessKeySecret = 'fs0sVuCJm0AeQi2XduYwdF0EqzL5Rc';
+
     alioss.endpoint = 'oss-cn-hangzhou.aliyuncs.com';
     alioss.PolicyFile = 'policy/all_policy.txt';
     alioss.RoleArn = 'acs:ram::1455326322404332:role/cidic-oss-role';
@@ -21,14 +20,17 @@ module.exports = {
   },
 
   jwtSlot: 'LTAIkUgFNkgDjcr8zklMJfJUoAgdcT',
-  wx_secret: '4ba159f4548a64e8eb5567e860c4f067',
-  wx_appid: 'wxe7bac3b26bdd1205',
-  
+
+
   imagePath: 'images/',
   othersPath: 'others/',
   pdfPath: 'pdf/',
   rar_zipPath: 'rar_zip/',
   videoPath: 'video/',
+
+  //localH5Path: 'F:\\pinwall\\',
+  localH5Path: '/storage/pinwall/static/HTML5/',
+  localH5Url: 'https://h5.pinwall.design-engine.org/',
 
   email_host:'smtp.exmail.qq.com',
   email_user:'d_seniors2018@cidic.cn',
@@ -157,9 +159,11 @@ module.exports = {
 
   judgeImageStringInArrayObject:(str,array)=>{
     let  result = true;
-    for(const updateAssets of array.artifact_assets){
+
+    for(const updateAssets of array){
       if (str == updateAssets.profileImage){
-        result = false
+        result = false;
+        break;
       }
     }
     return result;
@@ -167,9 +171,10 @@ module.exports = {
 
   judgeMediaStringInArrayObject:(str,array)=>{
     let  result = true;
-    for(const updateAssets of array.artifact_assets){
+    for(const updateAssets of array){
       if (str == updateAssets.mediaFile){
-        result = false
+        result = false;
+        break;
       }
     }
     return result;

@@ -4,7 +4,7 @@ const Service = require('egg').Service;
 
 class Topics extends Service {
 
-  async list({ offset = 0, limit = 10,jobTag = 0, subLimit = 10, status = 0,userId=0 }) {
+  async list({ offset = 0, limit = 10,jobTag = 0, subLimit = 10, status = 0,userId=0,visible = 0 }) {
     let resultObj = await this.ctx.model.Topics.listTopics({
       offset,
       limit,
@@ -17,8 +17,6 @@ class Topics extends Service {
     const app = this.ctx.app;
     resultObj.rows.forEach((element, index)=>{
 
-          element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
-
           for (let subElement of element.artifacts){
               if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1){
             subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_360_360");
@@ -29,7 +27,7 @@ class Topics extends Service {
     return resultObj;
   }
 
-  async searchTopics({ offset = 0, limit = 10,jobTag = 0, subLimit = 10, status = 0,userId=0,keyword='' }) {
+  async searchTopics({ offset = 0, limit = 10,jobTag = 0, subLimit = 10, status = 0,userId = 0,keyword='',visible = 0 }) {
     let resultObj = await this.ctx.model.Topics.searchTopics({
       offset,
       limit,
@@ -65,13 +63,16 @@ class Topics extends Service {
       transaction = await this.ctx.model.transaction();
       const topicObj = await this.ctx.model.Topics.createTopic(topic,transaction);
       let terms = topic.terms;
-      for (let term of terms){
-        const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
-        await this.ctx.model.TopicTerm.createTopicTerm({
-          topicId:topicObj.Id,
-          termId:termObj.Id
-        },transaction);
+      if(terms && terms.length > 0){
+        for (let term of terms){
+          const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
+          await this.ctx.model.TopicTerm.createTopicTerm({
+            topicId:topicObj.Id,
+            termId:termObj.Id
+          },transaction);
+        }
       }
+
       await transaction.commit();
       return true
     } catch (e) {
@@ -126,21 +127,50 @@ class Topics extends Service {
     }
   }
 
-  async getTopicAndArtifactById({ offset = 0, limit = 10, topicId = 0 }) {
+  async getTopicAndArtifactById({ offset = 0, limit = 10, topicId = 0, role = 'user', score = 0 }) {
     const topic = await this.ctx.model.Topics.getTopicAndArtifactById({
       offset,
       limit,
-      topicId
+      topicId,
+      role,
+      score
     });
 
     const app = this.ctx.app;
-
-    topic.rows.artifacts.forEach((element, index)=>{
-      if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
-      element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
-
+    if (topic.rows.artifacts){
+      topic.rows.artifacts.forEach((element, index)=>{
+        if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
+          element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
         }
-    });
+        if (this.ctx.user){
+          if(role == 'vip' && topic.rows.userId != this.ctx.user.Id){
+            //删除所有分数
+            element.artifact_scores.length = 0;
+            element.artifact_scores.length = 1;
+          }
+          else if (role == 'user'){
+            let users = new Array();
+            let teamworker = element.teamworker;
+            if (teamworker){
+              let teamArray = JSON.parse(teamworker);
+              teamArray.forEach((tw)=>{
+                users.push(tw.Id);
+              });
+            }
+
+            if (!(users.includes(this.ctx.user.Id) || (this.ctx.user.Id == element.user.Id))){
+              element.artifact_scores.length = 0;
+              element.artifact_scores.length = 1;
+            }
+          }
+        }
+        else{
+          element.artifact_scores.length = 0;
+          element.artifact_scores.length = 1;
+        }
+
+      });
+    }
 
     return topic;
   }
@@ -151,6 +181,57 @@ class Topics extends Service {
 
   async findArtifactByTopicId(topicId){
     return await this.ctx.model.Topics.findArtifactByTopicId(topicId);
+  }
+
+  async countTopicsByUserId(userId){
+    return await this.ctx.model.Topics.countTopicsByUserId(userId);
+  }
+
+  async getWxTopicAndArtifactById({ offset = 0, limit = 10, topicId = 0, role = 'user', score = 0, userId = 0 }) {
+    const topic = await this.ctx.model.Topics.getTopicAndArtifactById({
+      offset,
+      limit,
+      topicId,
+      role,
+      score
+    });
+
+    const app = this.ctx.app;
+    if (topic.rows.artifacts){
+      topic.rows.artifacts.forEach((element, index)=>{
+        if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
+          element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
+        }
+        if (userId != 0){
+          if(role == 'vip' && topic.rows.userId != userId){
+            //删除所有分数
+            element.artifact_scores.length = 0;
+            element.artifact_scores.length = 1;
+          }
+          else if (role == 'user'){
+            let users = new Array();
+            let teamworker = element.teamworker;
+            if (teamworker){
+              let teamArray = JSON.parse(teamworker);
+              teamArray.forEach((tw)=>{
+                users.push(tw.Id);
+              });
+            }
+            if (!(users.includes(userId) || (userId == element.user.Id))){
+              element.artifact_scores.length = 0;
+              element.artifact_scores.length = 1;
+            }
+          }
+        }
+        else{
+          element.artifact_scores.length = 0;
+          element.artifact_scores.length = 1;
+        }
+
+      });
+    }
+
+    return topic;
   }
 }
 

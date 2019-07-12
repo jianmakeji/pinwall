@@ -7,6 +7,10 @@ var index = new Vue({
             containerStyle:{
                 minHeight:""
             },
+            searchPanelStyle:{
+                margin:"",
+                width:""
+            },
             drawerShow:false,
             scrollModel:true,
             modelWidth:"",
@@ -60,13 +64,22 @@ var index = new Vue({
     },
     created(){
         let that = this;
-        this.containerStyle.minHeight = document.documentElement.clientHeight - 150 + "px";
-        if(document.documentElement.clientWidth > 1200){
-            this.modelWidth = "950px";
-        }else if(document.documentElement.clientWidth < 1200){
-            this.modelWidth = "70%";
-        }else if(document.documentElement.clientWidth < 992){
-            this.modelWidth = "80%";
+        let clientWidth = document.documentElement.clientWidth;
+        let clientHeight = document.documentElement.clientHeight;
+        if (clientHeight < 600) {
+            this.searchPanelStyle.margin = "0px auto";
+        } else {
+            this.searchPanelStyle.margin = (clientHeight - 600) / 2 + "px auto";
+        }
+        this.containerStyle.minHeight = clientHeight - 400 + "px";
+        if(clientWidth > 1200){
+            this.searchPanelStyle.width = "950px";
+        }else if(clientWidth < 1200 && clientWidth > 992){
+            this.searchPanelStyle.width = "70%";
+        }else if(clientWidth < 992 && clientWidth > 540){
+            this.searchPanelStyle.width = "80%";
+        }else{
+            this.searchPanelStyle.width = "96%";
         }
     }
 })
@@ -77,7 +90,7 @@ $(document).ready(function() {
      * 滚动条滚动监听
      */
     $(window).scroll(function() {
-        if ($(document).scrollTop() >= $(document).height() - $(window).height() && index.scrollModel) {
+        if ($(document).scrollTop() >= $(document).height() - $(window).height() - 10 && index.scrollModel) {
             index.aoData.offset += 12;
             index.aoData.keyword = index.searchModelValue;
 
@@ -96,10 +109,11 @@ function getData(that){
             if (res.status == 200) {
                 that.$Loading.finish();
                 that.dataList = res.data.hits;
+                that.searchModel = false;
                 if (that.dataList.length == res.data.total) {
                     that.scrollModel = false;
                 }else {
-                    index.scrollModel = true;
+                    that.scrollModel = true;
                 }
             }else{
                 that.$Loading.error();

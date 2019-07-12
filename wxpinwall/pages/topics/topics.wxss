@@ -1,6 +1,19 @@
 /* pages/topics/topics.wxss */
+
+.highStatus{
+   margin-top: 255rpx;
+}
+.lowStatus{
+   margin-top: 200rpx;
+}
+.loadHighStatus{
+   padding-top:20rpx;
+}
+.loadLowStatus{
+   padding-top:50rpx;
+}
 .topics_tabs scroll-view label{
-    font-size:30rpx;
+   font-size:30rpx;
 }
 .packUp{
    position: fixed;

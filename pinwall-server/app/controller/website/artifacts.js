@@ -6,10 +6,9 @@ class ArtifactsController extends BaseController{
 
   async index() {
     const ctx = this.ctx;
-    const query = {
+    let query = {
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
-      visible: ctx.helper.parseInt(ctx.query.visible),
       jobTag: ctx.helper.parseInt(ctx.query.jobTag),
     };
 
@@ -27,9 +26,30 @@ class ArtifactsController extends BaseController{
 
     try{
       const result = await ctx.service.artifacts.find(ctx.helper.parseInt(ctx.params.id));
-      super.success(result);
+      if (result.visible == 0){
+        super.success(result);
+      }
+      else{
+        if(!ctx.user){
+          super.failure('没权限查看，请登录');
+        }
+        else{
+          if (ctx.app.judgeUserIsVipTeacher(ctx.user)){
+            super.success(result);
+          }
+          else{
+            if(ctx.user.Id == result.userId){
+              super.success(result);
+            }
+            else{
+              super.failure('该作品已经被隐藏，请联系管理员！');
+            }
+          }
+        }
+      }
     }
     catch(e){
+      console.log(e);
       super.failure(e.message);
     }
   }
@@ -85,12 +105,13 @@ class ArtifactsController extends BaseController{
 
   async getPersonalJob() {
     const ctx = this.ctx;
-    const query = {
+    let query = {
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
       jobTag: ctx.helper.parseInt(ctx.query.jobTag),
     };
     query.userId = ctx.user.Id;
+
     try{
       const result = await ctx.service.artifacts.getPersonalJobByUserId(query);
       super.success(result);
@@ -102,7 +123,7 @@ class ArtifactsController extends BaseController{
 
   async getPersonalJobByUserId() {
     const ctx = this.ctx;
-    const query = {
+    let query = {
       limit: ctx.helper.parseInt(ctx.query.limit),
       offset: ctx.helper.parseInt(ctx.query.offset),
       userId: ctx.helper.parseInt(ctx.query.userId),
@@ -114,6 +135,18 @@ class ArtifactsController extends BaseController{
       super.success(result);
     }
     catch(e){
+      super.failure(e.message);
+    }
+  }
+
+  async apiFindArtifactsById(){
+    const ctx = this.ctx;
+    const id = ctx.params.id;
+    try{
+      ctx.body = await ctx.service.artifacts.apiFindArtifactsById(id);
+    }
+    catch(e){
+      console.log(e);
       super.failure(e.message);
     }
   }
@@ -156,6 +189,22 @@ class ArtifactsController extends BaseController{
         super.failure("没有数据需要同步");
     }
   }
+
+  async updateVisibleById(){
+    const ctx = this.ctx;
+    const id = ctx.helper.parseInt(ctx.params.id);
+    const visible = ctx.request.body.visible;
+
+    let result = await ctx.service.artifacts.updateVisibleById(id, visible);
+
+    if (result){
+      super.success("操作成功!");
+    }
+    else{
+      super.failure("操作失败!");
+    }
+  }
+
 }
 
 module.exports = ArtifactsController;

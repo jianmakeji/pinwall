@@ -52,16 +52,25 @@ module.exports = app => {
   router.get("/completeInfo", controller.home.completeInfo);
   router.get('/updatePwd',controller.home.updatePwd);
   router.get('/getSTSSignature/:fileType', ajaxAuthCheck, controller.website.alioss.getSTSSignature);
+  router.delete('/deleteAliossFile/:fileType', ajaxAuthCheck, controller.website.alioss.deleteAliossFile);
   router.get('/getUrlSignature', controller.website.alioss.getUrlSignature);
   router.get('/getCaptcha',controller.website.users.getCaptcha);
   router.get('/checkCaptcha',controller.website.users.checkCaptcha);
+  router.delete('/deleteH5Path/:artifactId', controller.website.alioss.deleteH5Path);
+
+  router.get('/website/sms/sendMessage', controller.website.smsMessage.createSmsMessage);
+  router.get('/website/sms/vertifySms', controller.website.smsMessage.vertifySms);
+  router.get('/website/sms/sendGetBackPwdSms', controller.website.smsMessage.sendGetBackPwdSms);
 
   //自定义接口
   router.get('/website/artifacts/getMedalDataByRandom/:limit', controller.website.artifacts.getMedalDataByRandom);
   router.get('/website/artifacts/getPersonalJob', ajaxAuthCheck, controller.website.artifacts.getPersonalJob);
   router.get('/website/artifacts/getPersonalJobByUserId', controller.website.artifacts.getPersonalJobByUserId);
+  router.put('/website/artifacts/updateVisibleById/:id', ajaxAuthCheck, controller.website.artifacts.updateVisibleById);
+
   router.get('/website/artifacts/transterInsertDataToES', adminAuthCheck, controller.website.artifacts.transterInsertDataToES);
   router.get('/website/artifacts/transterUpdateDataToES', adminAuthCheck, controller.website.artifacts.transterUpdateDataToES);
+  router.get('/api/artifacts/:id', controller.website.artifacts.apiFindArtifactsById);
 
   router.get('/website/artifactScores/findByArtifactIdWithPage', controller.website.artifactScores.findByArtifactIdWithPage);
   router.get('/website/artifactScores/findByScorerIdWithPage', controller.website.artifactScores.findByScorerIdWithPage);
@@ -73,6 +82,7 @@ module.exports = app => {
   router.get('website.users.updateAcviveByActiveCodeAndEmail', '/website/users/updateAcviveByActiveCodeAndEmail', controller.website.users.updateAcviveByActiveCodeAndEmail);
   router.put('website.users.updateAcviveByUserId', '/website/users/updateAcviveByUserId/:id', ajaxAuthCheck, controller.website.users.updateAcviveByUserId);
   router.put('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
+  router.get('website.users.searchUserInfoByKeyword', '/website/users/searchUserInfoByKeyword', ajaxAuthCheck, controller.website.users.searchUserInfoByKeyword);
 
   router.get('website.users.bindWeixin', '/website/users/bindWeixin', controller.website.users.bindWeixin);
   router.post('website.users.bindWeixinInfoByEmail', '/website/users/bindWeixinInfoByEmail', controller.website.users.bindWeixinInfoByEmail);
@@ -81,6 +91,7 @@ module.exports = app => {
   router.post('website.users.createUser', '/website/users/createUser', controller.website.users.createUser);
   router.put('website.users.updatePwd', '/website/users/updatePwd', controller.website.users.updatePwd);
   router.put('website.users.updatePwdWithEmailAndActiveCode', '/website/users/updatePwdWithEmailAndActiveCode', controller.website.users.updatePwdWithEmailAndActiveCode);
+  router.put('website.users.updatePwdWithMobile', '/website/users/updatePwdWithMobile', controller.website.users.updatePwdWithMobile);
   router.get('website.users.getBackPwdWithEmail', '/website/users/getBackPwdWithEmail', controller.website.users.getBackPwdWithEmail);
   router.put('website.users.updateUserRole', '/website/users/updateUserRole', adminAuthCheck, controller.website.users.updateUserRole);
   router.get('website.users.searchByUsername', '/website/users/searchByUsername', controller.website.users.searchByUsername);
@@ -126,7 +137,13 @@ module.exports = app => {
   router.post('wx.users.createWxUser', '/wx/users/createWxUser', controller.wx.users.createWxUser);
   router.post('wx.users.bindWeixinInfoByEmail', '/wx/users/bindWeixinInfoByEmail', controller.wx.users.bindWeixinInfoByEmail);
   router.get('wx.users.getWxActiveCodeByEmail', '/wx/users/getWxActiveCodeByEmail', controller.wx.users.getWxActiveCodeByEmail);
+  router.put('wx.users.updateUserIntro', '/wx/users/updateUserIntro/:id', controller.wx.users.updateUserIntro);
+
   router.get('wx.users.refreshUserInfo', '/wx/users/refreshUserInfo/:id', controller.wx.users.refreshUserInfo);
+  router.get('wx.users.findByFullname', '/wx/users/findByFullname', controller.wx.users.findByFullname);
+  router.get('wx.users.getUserInfoById', '/wx/users/getUserInfoById', controller.wx.users.getUserInfoById);
+  router.get('wx.topics.searchByTopicName', '/wx/topics/searchByTopicName', controller.wx.topics.searchByTopicName);
+  router.get('wx.topics.countTopicsByUserId', '/wx/topics/countTopicsByUserId', controller.wx.topics.countTopicsByUserId);
 
   router.get('/wx/users/getWxCode', controller.wx.users.getWxCode);
   router.post('/wx/artifacts/createComment', controller.wx.artifacts.createComment);

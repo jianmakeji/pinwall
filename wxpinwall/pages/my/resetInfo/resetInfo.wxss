@@ -1,0 +1,145 @@
+/* pages/my/resetInfo/resetInfo.wxss */
+.contanior{
+   width: 750rpx;
+   display: flex;
+   flex-direction: column;
+   background: #fff;
+}
+.highStatus{
+   margin-top: 180rpx;
+}
+.lowStatus{
+   margin-top: 135rpx;
+}
+.contanior .avatorInfo{
+   width: 710rpx;
+   height: 120rpx;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   border-bottom: solid 1px #BBBBBB;
+   padding: 20rpx 0;
+   margin-left: 40rpx;
+}
+
+.contanior .avatorInfo .title{
+   font-size: 26rpx;
+   color: #101010;
+}
+.contanior .avatorInfo .avatorUrl{
+   width: 100rpx;
+   height: 100rpx;
+   border-radius: 50%;
+   margin-right:40rpx;
+}
+.fullNameInfo{
+   width: 710rpx;
+   height: 80rpx;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   border-bottom: solid 1px #BBBBBB;
+   padding: 20rpx 0;
+   margin-left: 40rpx;
+}
+.fullNameInfo .title{
+   font-size: 26rpx;
+   color: #101010;
+}
+.fullNameInfo .fullname{
+   font-size: 26rpx;
+   color: #7E7E7E;
+   margin-right: 40rpx;
+}
+
+.emailInfo{
+   width: 710rpx;
+   height: 80rpx;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   border-bottom: solid 1px #BBBBBB;
+   padding: 20rpx 0;
+   margin-left: 40rpx;
+}
+.emailInfo .title{
+   font-size: 26rpx;
+   color: #101010;
+}
+.emailInfo .email{
+   font-size: 26rpx;
+   color: #7E7E7E;
+   margin-right: 40rpx;
+}
+.phoneInfo{
+   width: 710rpx;
+   height: 80rpx;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   border-bottom: solid 1px #BBBBBB;
+   padding: 20rpx 0;
+   margin-left: 40rpx;
+}
+.phoneInfo .title{
+   font-size: 26rpx;
+   color: #101010;
+}
+.phoneInfo .phone{
+   font-size: 26rpx;
+   color: #7E7E7E;
+   margin-right: 40rpx;
+}
+.desInfo{
+   width: 710rpx;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   padding: 20rpx 0;
+   margin-left: 40rpx;
+}
+.desInfo .title{
+   width: 400rpx;
+   color: #101010;
+   font-size: 26rpx;
+}
+.desInfo .des{
+   font-size: 26rpx;
+   color: #7E7E7E;
+}
+.desInfo .enter_icon{
+   width: 40rpx;
+   height: 40rpx;
+   margin-right: 40rpx;
+}
+
+
+.introInputBox{
+   width: 750rpx;
+   height: 80rpx;
+   background: #fff;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   position: fixed;
+   /* bottom: 0rpx; */
+}
+.introInputBox .introInput{
+   width: 500rpx;
+   height: 60rpx;
+   margin-left: 25rpx;
+   padding-left: 25rpx;
+   font-size: 26rpx;
+   border-radius: 20rpx;
+   background: #EEEEEE;
+}
+.introInputBox .introBtn{
+   width: 120rpx;
+   height: 60rpx;
+   font-size: 24rpx;
+}

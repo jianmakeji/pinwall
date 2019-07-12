@@ -1,13 +1,14 @@
 // pages/topics/topics.js
-const { $Message } = require('../../dist/base/index');
 const app = getApp();
 Page({
    data: {
-      tabIndex: 0,
+      tabIndex: 2,
+      statusHeight: false,
+      tabIndexNum:"3",
       tabs: [
          { title: '全部' },
          { title: '开放中' },
-         { title: '已关闭' },
+         { title: '已存档' },
          { title: '由我创建' }
       ],
       showPackUp:false,
@@ -15,37 +16,37 @@ Page({
       //请求参数
       limit: 10,
       offset: 0,
-      jobTag: 0,
-      subLimit: 5,
-      status: -1,
+      jobTag: 1,     //1作业荚，0毕设展
+      subLimit: 5,   
+      status: 1,
       userId: -1,
       //数据数组
       dataList: []
    },
    tabchange: function(e) {
       let tab_index = e.detail.key;
-      if (tab_index == 0) {
+      if (tab_index == 0) {   //全部
          this.setData({
             offset: 0,
             status: -1,
             userId: -1
          })
          getData(this,"init");
-      } else if (tab_index == 1){
+      } else if (tab_index == 1) {   //开放中
          this.setData({
             offset: 0,
             status: 0,
             userId: -1
          })
          getData(this, "init");
-      } else if (tab_index == 2) {
+      } else if (tab_index == 2) {  //已存档
          this.setData({
             offset: 0,
             status: 1,
             userId: -1
          })
          getData(this, "init");
-      } else if (tab_index == 3) {
+      } else if (tab_index == 3) {  //由我创建
          this.setData({
             offset: 0,
             status: -1,
@@ -69,12 +70,19 @@ Page({
     * 生命周期函数--监听页面加载
     */
    onLoad: function (options) {
-      getData(this, "init");
+      let that = this;
+      if (app.globalData.statusBarHeight == 44) {
+         that.setData({
+            statusHeight: true
+         })
+      } else {
+         that.setData({
+            statusHeight: false
+         })
+      }
    },
    onShow:function(){
-      wx.setNavigationBarTitle({
-         title: '作业荚',
-      })
+      
    },
    /**
     * 页面相关事件处理函数--监听用户下拉动作
@@ -148,12 +156,10 @@ function getData(that, type){
                })
             }
          } else {
-            $Message({
-               content: '获取数据出错！',
-               type: 'error',
-               duration: 3,
-               selector: "#message"
-            });
+            wx;wx.showToast({
+               title: '获取数据出错！',
+               icon: 'none',
+            })
          }
       }
    })

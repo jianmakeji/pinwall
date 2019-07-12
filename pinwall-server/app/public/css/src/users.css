@@ -238,7 +238,7 @@ body{
     position: absolute;
     left: 51%;
     top: 70px;
-    right: 10px;
+    right: 20px;
     bottom: 40px;
     overflow: hidden;
     color: #09bc72;
@@ -269,10 +269,11 @@ body{
 }
 .de_stats_tags_p span{
 	position: absolute;
-    top: 10px;
+    top: 11px;
 	font-size: 18px;
     width: 15px;
     height: 20px;
+	line-height: 20px;
     color: #999;
     margin-left: 5px;
 }
@@ -361,10 +362,10 @@ body{
 	    padding: 10px 10px;
 	}
 	.de_topic_box{
-	    margin: 20px 10px 0 10px;
+	    margin: 20px 2% 0 2%;
 	}
 	.topic_description {
-	    margin: 0 10px 20px 10px;
+	    margin: 0 2% 20px 2%;
 	}
 	.de_stats_tags>li {
 	    width: 27%;
@@ -373,6 +374,9 @@ body{
 	    top: 12px;			/* 小屏幕 12px */
 		font-size: 14px;	/* 小屏幕 14px */
 	    margin-left: 0px;	/* 小屏幕 0px */
+	}
+	.de_card_m{
+		margin: 10px auto;
 	}
 	/* 搜索弹出层 */
 	.search_panel{

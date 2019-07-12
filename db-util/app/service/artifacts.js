@@ -83,6 +83,24 @@ class Artifacts extends Service {
     }
   }
 
+  async updateHtml5Type(){
+    const ctx = this.ctx;
+    const client1 = ctx.app.mysql.get('db1');
+    const client2 = ctx.app.mysql.get('db2');
+
+    const artifact_assets = await client1.query("select artifact_id,pos from artifact_assets where type = 256 ");
+    console.log(artifact_assets.length);
+    console.log(artifact_assets[0].pos);
+    console.log(artifact_assets[0].artifact_id);
+    for(let i = 0; i < artifact_assets.length; i++){
+      console.log(artifact_assets[i].artifact_id+"  "+artifact_assets[i].pos);
+      const result = await client2.query('update artifact_assets set type = 5 where artifactId = ? and position = ?', [artifact_assets[i].artifact_id, artifact_assets[i].pos]);
+      console.log('---------------');
+      console.log(result);
+    }
+
+  }
+
   async transferArtifactsAssets() {
     const ctx = this.ctx;
     const client1 = ctx.app.mysql.get('db1');
@@ -104,11 +122,14 @@ class Artifacts extends Service {
       if (artifact_asset.type == 128){
         data.type = 2;
       }
-      else if (artifact_asset.type == 32 || artifact_asset.type == 256){
+      else if (artifact_asset.type == 32){
         data.type = 3;
       }
       else if (artifact_asset.type == 4){
         data.type = 4;
+      }
+      else if (artifact_asset.type == 256){
+        data.type = 5;
       }
       else{
         data.type = 1;
@@ -148,6 +169,21 @@ class Artifacts extends Service {
 
       await client2.insert("artifact_term", data);
     }
+  }
+
+  async selectData(){
+    const ctx = this.ctx;
+    const client2 = ctx.app.mysql.get('db2');
+    const artifacts = await client2.query("select * from artifacts ");
+    let data = new Array();
+    for (const artifact of artifacts){
+      let topicsArtifact = await client2.query("select * from topic_artifact where artifactId = ? ", artifact.Id);
+      console.log(topicsArtifact.length);
+      if (topicsArtifact.length == 0){
+        data.push(artifact.Id);
+      }
+    }
+    return data;
   }
 }
 

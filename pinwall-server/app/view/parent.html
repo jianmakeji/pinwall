@@ -9,6 +9,15 @@
 		{% block cssfolder %}
 
 		{% endblock %}
+		<script>
+			var _hmt = _hmt || [];
+			(function() {
+			  	var hm = document.createElement("script");
+			  	hm.src = "https://hm.baidu.com/hm.js?b974989977b75817b2bbfe54e3501e87";
+			  	var s = document.getElementsByTagName("script")[0];
+			  	s.parentNode.insertBefore(hm, s);
+			})();
+		</script>
 
 	</head>
 	<body>
@@ -38,13 +47,13 @@
 					{% else %}
 						<img class="photo" src="../public/images/default_profile.jpg" title="用户头像">
 					{% endif %}
-					<span style="margin-left: 12px;overflow: hidden;white-space: nowrap;" title="{{user.fullname}}">{{user.fullname}}</span>
+					<span style="margin-left: 12px;overflow: hidden;white-space: nowrap;text-align: left;width: 100px;text-overflow: ellipsis;" title="{{user.fullname}}">{{user.fullname}}</span>
 					{% if user.roles[0].name == "vip" %}
 					<img class="vip_img" src="../public/images/VIP.png" style="width: 25px;height: auto;position: absolute;margin-top: -15px;
     margin-left: 40px;">
 					{% endif %}
 				</a>
-				<div class="drawerShow" style="position:absolute;right:20px;">
+				<div class="drawerShow">
 					<i-button type="text" ghost="true" @click="drawerShow = !drawerShow" size="small"><icon type="md-menu" size="30"></icon></i-button>
 				</div>
 				{% else %}
@@ -68,42 +77,42 @@
 				<drawer title="我的" :closable="false" v-model="drawerShow">
 			        <ul class="de_ext_nav">
 						{% if user.roles[0].name %}
-							<li style="display:flex;flex-direction: row;margin:5px auto;">
-								<i-button icon="md-book" type="default" size="large" long to="/users/0?jobTag=2" style="text-align: left;">我的作品集</i-button>
+							<li style="display:flex;flex-direction: row;margin:10px auto;">
+								<i-button icon="md-book" type="default" size="large" long to="/users/0?jobTag=2" style="text-align: left;height:40px;line-height:40px;">我的作品集</i-button>
 								<i-button type="default" to="/uploadWork/2"><icon type="md-add" size="20"></icon></i-button>
 							</li>
 						{% endif %}
 						{% if user.roles[0].name == 'vip' %}
-							<li style="display:flex;flex-direction: row;margin:5px auto;">
-								<i-button icon="md-book" type="default" size="large" long to="/courseProjects?myTopics=0" style="text-align: left;">我的作业荚</i-button>
+							<li style="display:flex;flex-direction: row;margin:10px auto;">
+								<i-button icon="md-book" type="default" size="large" long to="/courseProjects?myTopics=0" style="text-align: left;height:40px;line-height:40px;">我的作业荚</i-button>
 								<i-button type="default" to="/createTopics"><icon type="md-add" size="20"></icon></i-button>
 							</li>
 						{% endif %}
 						{% if user.roles[0].name == 'admin' %}
-						<li style="margin:5px auto;">
-							<i-button icon="md-book" type="default" size="large" long to="/createTopics?jobTag=2" style="text-align: left;">新建毕业设计作业荚</i-button>
+						<li style="margin:10px auto;">
+							<i-button icon="md-book" type="default" size="large" long to="/createTopics?jobTag=2" style="text-align: left;height:40px;line-height:40px;">新建毕业设计作业荚</i-button>
 						</li>
-						<li style="margin:5px auto;">
-							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;" to="/userManager">用户管理</i-button>
+						<li style="margin:10px auto;">
+							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;height:40px;line-height:40px;" to="/userManager">用户管理</i-button>
 						</li>
-						<li style="margin:5px auto;">
-							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;" to="/workManager">作品管理</i-button>
+						<li style="margin:10px auto;">
+							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;height:40px;line-height:40px;" to="/workManager">作品管理</i-button>
 						</li>
-						<li style="margin:5px auto;">
-							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;" to="/commentManager">评论管理</i-button>
+						<li style="margin:10px auto;">
+							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;height:40px;line-height:40px;" to="/commentManager">评论管理</i-button>
 						</li>
-						<li style="margin:5px auto;">
-							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;" to="/updateSE">更新搜索引擎</i-button>
-						</li>
-						{% endif %}
-						{% if user.roles[0].name %}
-						<li style="margin:5px auto;">
-							<i-button icon="md-card" type="default" size="large" long style="text-align: left;" to="/resetInfo">修改个人信息</i-button>
+						<li style="margin:10px auto;">
+							<i-button icon="ios-construct" type="default" size="large" long style="text-align: left;height:40px;line-height:40px;" to="/updateSE">更新搜索引擎</i-button>
 						</li>
 						{% endif %}
 						{% if user.roles[0].name %}
-			        	<li style="margin:5px auto;">
-							<i-button icon="md-log-out" type="default" size="large" long style="text-align: left;" to="/logout">退出登录</i-button>
+						<li style="margin:10px auto;">
+							<i-button icon="md-card" type="default" size="large" long style="text-align: left;height:40px;line-height:40px;" to="/resetInfo">修改个人信息</i-button>
+						</li>
+						{% endif %}
+						{% if user.roles[0].name %}
+			        	<li style="margin:10px auto;">
+							<i-button icon="md-log-out" type="default" size="large" long style="text-align: left;height:40px;line-height:40px;" to="/logout">退出登录</i-button>
 						</li>
 						{% endif %}
 			        </ul>
@@ -114,7 +123,7 @@
 		<!-- 底部 -->
 		{% block footer %}
 			<div class="footer">
-				<p>© 中意工业设计（湖南）有限责任公司，保留所有权利。</p>
+				<p>© 湖南四合院子设计有限责任公司，保留所有权利。</p>
 			</div>
 		{% endblock %}
 

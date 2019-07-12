@@ -1,0 +1,119 @@
+.indexBigworks{
+   width: 700rpx;
+   padding: 25rpx;
+   display: flex;
+   flex-direction: column;
+   border-bottom: solid 4px #EFEFEF;
+}
+.headInfo{
+   width: 700rpx;
+   height: 80rpx;
+   line-height:80rpx;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
+.userAvatorImg{
+   width: 62rpx;
+   height: 62rpx;
+   border-radius: 50%;
+}
+.userFullName{
+   font-size: 26rpx;
+   position: absolute;
+   margin-left: 20rpx;
+   color: #101010;
+   height:62rpx;
+   line-height:62rpx;
+}
+.createdAt{
+   height:62rpx;
+   line-height:62rpx;
+   font-size: 20rpx;
+   color: #101010;
+}
+
+.contentInfo{
+   width: 620rpx;
+   margin-left: 80rpx;
+   padding-bottom: 10rpx;
+   display: flex;
+   flex-direction: column;
+   background: #EFEFEF;
+}
+.profileImage{
+   width: 594rpx;
+   height: 594rpx;
+   min-height:594rpx;
+   margin: 14rpx;
+}
+.title{
+   font-size: 28rpx;
+   font-weight: bold;
+   color: #17B272;
+   margin-left: 10rpx;
+}
+.des{
+   font-size: 24rpx;
+   color: #7c7a7a;
+   margin-left: 10rpx;
+   margin-top:10rpx;
+}
+.iconBox{
+   width: 240rpx;
+   height: 40rpx;
+   margin-top: 14rpx;
+   margin-left: 10rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-between;
+}
+.iconBox .medal{
+   width: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: left;
+}
+.iconBox .medal .medalIcon{
+   width: 32rpx;
+   height: 32rpx;
+}
+.iconBox .medal .medalNum{
+   font-size: 24rpx;
+   margin-left: 10rpx;
+   color: #7c7a7a;
+}
+.iconBox .like{
+   width: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: left;
+}
+.iconBox .like .likeIcon{
+   width: 32rpx;
+   height: 32rpx;
+}
+.iconBox .like .likeNum{
+   font-size: 24rpx;
+   margin-left: 10rpx;
+   color: #7c7a7a;
+}
+.iconBox .comment{
+   width: 80rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: left;
+}
+.iconBox .comment .commentIcon{
+   width: 32rpx;
+   height: 32rpx;
+}
+.iconBox .comment .commentNum{
+   font-size: 24rpx;
+   margin-left: 10rpx;
+   color: #7c7a7a;
+}

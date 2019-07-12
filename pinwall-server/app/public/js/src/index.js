@@ -7,7 +7,7 @@ var index = new Vue({
                 height: "",
                 marginTop:"",
                 overflow: "hidden",
-                position: "relative",
+                position: "relative"
             },
             screenType:"PC",
             drawerShow:false,
@@ -29,7 +29,6 @@ var index = new Vue({
             this.containerStyle.height = 500 + "px";
             this.screenType = "PC";
         }
-
         var that = this;
         isChorme(this);
         this.$http({

@@ -3,8 +3,29 @@ var projects = new Vue({
     delimiters: ['${', '}'],
     data() {
         return {
+            scoreBoxStyle:{
+                position: "fixed",
+                margin: "20px auto",
+                padding: "20px",
+                alignItems: "center",
+                width:"310px",
+                height:"auto",
+                background:"#fff",
+                boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+                right:"",
+                top:""
+            },
+            backTopRight:"30",
+            scoresModel:false,
+            optUlStyle:{
+                position: "fixed",
+                top: "",
+                bottom: "",
+                right: "30px"
+            },
             deleteModal:false,
             artifactId: "",
+            visible:0,
             aoData: {
                 limit: 10,
                 offset: 0,
@@ -40,6 +61,15 @@ var projects = new Vue({
         deleteArtifact(){
             this.deleteModal = true;
         },
+        showScoreBox(event){
+            this.scoresModel = true;
+            this.scoreBoxStyle.right = document.body.clientWidth - event.pageX + 50 + "px";
+            if(document.documentElement.clientWidth < 540){
+                this.scoreBoxStyle.top = document.documentElement.clientHeight / 2 + 50 + "px";
+            }else{
+                this.scoreBoxStyle.top = document.documentElement.clientHeight / 2 - 80 + "px";
+            }
+        },
         ok() {
             let that = this;
             this.$Loading.start();
@@ -54,7 +84,8 @@ var projects = new Vue({
                             title:res.data,
                             duration:1,
                             onClose(){
-                                window.close();
+                                window.self.close();
+                                window.opener.location.reload();
                             }
                         })
                     }else{
@@ -64,14 +95,44 @@ var projects = new Vue({
                 }
             });
         },
-        showArtifact() {
-            console.log("点击隐藏、显示");
+        showArtifact(value) {
+            let visible = new Object();
+            if (value) {
+                visible = 0;
+            } else {
+                visible = 1;
+            }
+            let that = this;
+            this.$Loading.start();
+            $.ajax({
+                url: config.ajaxUrls.updateVisibleById.replace(":id",this.artifactId),
+                type: 'PUT',
+                data: {visible: visible},
+                success(res){
+                    if (res.status == 200) {
+                        that.$Loading.finish();
+                        that.$Notice.success({
+                            title:res.data,
+                            onClose(){
+                                location.reload();
+                            }
+                        });
+                    }else{
+                        that.$Loading.error();
+                        that.$Notice.error({title:res.data});
+                    }
+                }
+            });
         },
         downAttach(url) {
             window.open(url);
         },
         closeThePage() {
-            window.close();
+            if(document.referrer != ""){
+                window.close();
+            }else{
+                window.location.href = "/index";
+            }
         },
         zan(artifactUserId,userRole) {
             let that = this;
@@ -93,9 +154,14 @@ var projects = new Vue({
                     success(res){
                         if(res.status == 200){
                             that.$Loading.finish();
-                            that.$Notice.success({title:res.data});
                             that.artifactZanTag = !that.artifactZanTag;
-                            location.reload();
+                            that.$Notice.success({
+                                title:res.data,
+                                duration:0.5,
+                                onClose(){
+                                    location.reload();
+                                }
+                            });
                         }else{
                             that.$Loading.error();
                             that.$Notice.error({title:res.data});
@@ -147,24 +213,27 @@ var projects = new Vue({
         addComment(id) {
             let that = this;
             this.artifactCommentData.commenterId = id;
-            this.$Loading.start();
-            $.ajax({
-                url: '/website/artifactComment',
-                type: 'POST',
-                data: this.artifactCommentData,
-                success(res){
-                    if(res.status == 200){
-                        that.$Loading.finish();
-                        that.$Notice.success({title:"评论成功！"});
-                        that.artifactCommentData.content = "";
-                        getConmentData(that, that.aoData);
-                    }else{
-                        that.$Loading.error();
-                        that.$Notice.error({title:res.data});
+            if(this.artifactCommentData.content){
+                this.$Loading.start();
+                $.ajax({
+                    url: '/website/artifactComment',
+                    type: 'POST',
+                    data: this.artifactCommentData,
+                    success(res){
+                        if(res.status == 200){
+                            that.$Loading.finish();
+                            that.$Notice.success({title:"评论成功！"});
+                            that.artifactCommentData.content = "";
+                            getConmentData(that, that.aoData);
+                        }else{
+                            that.$Loading.error();
+                            that.$Notice.error({title:res.data});
+                        }
                     }
-                }
-            });
-
+                });
+            }else{
+                that.$Notice.error({title:"评论内容不能为空"});
+            }
         },
         scoreChange(event, scoreId) {
             let regex = /^100$|^(\d|[1-9]\d)$/;
@@ -190,7 +259,14 @@ var projects = new Vue({
                 success(res) {
                     if (res.status == 200) {
                         that.$Loading.finish();
-                        that.$Notice.success({title:res.data});
+                        that.$Notice.success({
+                            title:res.data,
+                            duration:1,
+                            onClose(){
+                                that.scoresModel = false;
+                                location.reload();
+                            }
+                        });
                     }else{
                         that.$Loading.error();
                         that.$Notice.error({title:res.data});
@@ -198,11 +274,25 @@ var projects = new Vue({
                 }
             });
 
+        },
+        scoreClose(){
+            this.scoresModel = false;
         }
     },
     created() {
         let that = this;
         this.projectStyle.minHeight = document.documentElement.clientHeight + "px";
+        if(document.documentElement.clientWidth < 540){
+            this.optUlStyle.bottom = "80px";
+            this.optUlStyle.top = "";
+            this.optUlStyle.right = "4px";
+            this.backTopRight = "4";
+        }else {
+            this.backTopRight = "30";
+            this.optUlStyle.bottom = "";
+            this.optUlStyle.right = "30px";
+            this.optUlStyle.top = document.documentElement.clientHeight / 2 - 100 + "px";
+        }
         this.aoData.artifactId = window.location.href.split("project/")[1];
         this.artifactId = window.location.href.split("project/")[1];
         this.artifactCommentData.artifactId = window.location.href.split("project/")[1];
@@ -216,7 +306,7 @@ var projects = new Vue({
             success(res){
                 if (res.status == 200) {
                     that.artifactZanTag = 1;
-                }else if(res.status == 200){
+                }else if(res.status == 500){
                     that.artifactZanTag = 0;
                 }
             }
@@ -274,6 +364,7 @@ function getConmentData(that, aoData){
         type: 'GET',
         data: aoData,
         success: function(res) {
+            console.log(res);
             if (res.status == 200) {
                 that.$Loading.finish();
                 that.dataList = res.data.rows;

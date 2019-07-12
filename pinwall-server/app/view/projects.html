@@ -11,62 +11,60 @@
 	</head>
 	<body>
 		<div class="projects" v-cloak :style="projectStyle">
-			<div class="zan_box">
+			{% if status == '200' %}
+			<ul class="opt_ul" :style="optUlStyle">
 				{% if user.roles[0].name != "" %}
-					<a @click="zan('{{data.userId}}','{{user.roles[0].name}}')">
-						<img :src="artifactZanTag ? '../public/images/flag_green.png' : '../public/images/flag_gray.png'" alt="">
-						<icon type="ios-thumbs-up" style="font-size: 40px; position: absolute;top: 15px;left: 20px;"></icon>
-						<span>赞</span>
-					</a>
+					<li class="zan_btn">
+						<i-button :icon="'{{user.roles[0].name}}' == 'vip' || '{{user.roles[0].name}}' == 'admin'  ? 'i-icon iconfont icon-medal' : 'i-icon iconfont icon-zan1'" @click="zan('{{data.userId}}','{{user.roles[0].name}}')" :type="artifactZanTag ? 'success' : 'default'" size="large" title="赞"></i-button>
+					</li>
 				{% else %}
-					<a @click="zan('{{data.userId}}','{{user.roles[0].name}}')">
-						<img src="../public/images/flag_gray.png" alt="">
-						<icon type="ios-thumbs-up" style="font-size: 40px; position: absolute;top: 15px;left: 20px;"></icon>
-						<span>赞</span>
-					</a>
-				{% endif %}
-			</div>
-			<ul class="opt_ul">
-				<li class="edit_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}'  && {{data.topics.length}} != 0 || '{{data.userId}}' == '{{user.Id}}'">
-					<i-button shape="circle" icon="md-create" @click="editArtifact('{{data.jobTag}}')" size="large"></i-button>
-				</li>
-
-				{% if data.topics[0].status == 0 %}
-					<li class="delete_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}' || '{{data.userId}}' == '{{user.Id}}'">
-						<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large"></i-button>
+					<li class="zan_btn">
+						<i-button icon="i-icon iconfont icon-zan1" @click="zan('{{data.userId}}','{{user.roles[0].name}}')" size="large" title="赞"></i-button>
 					</li>
 				{% endif %}
-
-				<li class="delete_btn" v-if="'{{data.jobTag}}' == '2' && '{{data.userId}}' == '{{user.Id}}'">
-					<i-button shape="circle" icon="ios-trash" @click="deleteArtifact" size="large"></i-button>
+				<li class="edit_btn" v-if="( '{{user.roles[0].name}}' == 'vip' && '{{data.topics[0].userId}}' == '{{user.Id}}' && {{data.topics.length}} != 0 ) || '{{user.roles[0].name}}' == 'admin'">
+					<i-button icon="i-icon iconfont icon-score" @click="showScoreBox($event)" size="large" title="打分"></i-button>
 				</li>
-
-				<!-- <li class="show_btn" v-if="'{{user.roles[0].name}}' == 'admin'">
-					<i-button shape="circle" icon="md-eye" @click="showArtifact" size="large"></i-button>
-				</li> -->
+				{% if data.jobTag == 2 %}
+					<li class="edit_btn" v-if="'{{data.userId}}' == '{{user.Id}}'">
+						<i-button icon="md-create" @click="editArtifact('{{data.jobTag}}')" size="large" title="修改"></i-button>
+					</li>
+					<li class="delete_btn" v-if="'{{data.userId}}' == '{{user.Id}}'">
+						<i-button icon="ios-trash" @click="deleteArtifact" size="large" title="删除"></i-button>
+					</li>
+				{% else %}
+					{% if data.topics[0].status == 0 %}
+						<li class="edit_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}' || '{{data.userId}}' == '{{user.Id}}'">
+							<i-button icon="md-create" @click="editArtifact('{{data.jobTag}}')" size="large" title="修改"></i-button>
+						</li>
+						<li class="delete_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}' || '{{data.userId}}' == '{{user.Id}}'">
+							<i-button icon="ios-trash" @click="deleteArtifact" size="large" title="删除"></i-button>
+						</li>
+					{% endif %}
+				{% endif %}
+				<li class="show_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}'">
+					<i-button :icon="'{{data.visible}}' == 1 ? 'md-eye-off' : 'md-eye'" @click="showArtifact({{data.visible}})" size="large" :title="'{{data.visible}}' == 1 ? '隐藏' : '开放'"></i-button>
+				</li>
 			</ul>
 			<i-button class="close_btn" type="default" shape="circle" icon="md-close" size="large" @click="closeThePage"></i-button>
-			<back-top></back-top>
+			<back-top :right="backTopRight"></back-top>
             <div class="project_detail">
-				<div class="score_box" v-if="'{{data.topics[0].userId}}' == '{{user.Id}}' && {{data.topics.length}} != 0">
-					<label>作品分数：</label>
-					<i-input type="text" value="{{data.artifact_scores[0].score}}" @on-change="scoreChange(event,{{data.Id}})" placeholder="0~100之间的整数" size="large" number autofocus></i-input>
-					<i-button type="success" @click="submitScore">打分</i-button>
-				</div>
                 <div class="stats_tags">
                     <div class="badges">
-						<icon type="ios-ribbon" style="font-size: 22px;color:#999;"></icon>
+						<icon custom="i-icon iconfont icon-medal" style="font-size: 20px;color:#999;"></icon>
                         <span>{{data.medalCount}}</span>
                     </div>
                     <div class="likes">
-						<icon type="ios-thumbs-up" style="font-size: 22px;color:#999;"></icon>
+						<icon custom="i-icon iconfont icon-zan1" style="font-size: 18px;color:#999;"></icon>
                         <span>{{data.likeCount}}</span>
                     </div>
                     <div class="comments">
-						<icon type="md-text" style="font-size: 20px;color:#999;"></icon>
+						<icon custom="i-icon iconfont icon-comment" style="font-size: 16px;" color="#999"></icon>
                         <span>{{data.commentCount}}</span>
                     </div>
                 </div>
+				<p class="score" v-if="{{data.artifact_scores.length}} && '{{data.artifact_scores[0]}}' != '' && '{{data.artifact_scores[0]}}' != null" v-text="'{{data.artifact_scores[0].score}}' + '分'"></p>
+				<p class="score" v-if="'{{data.artifact_scores.length}}' == 0" v-text="'未打分'"></p>
                 <div class="user_info">
                     <a href="/users/{{data.user.Id}}">
 						{% if data.user.avatarUrl %}
@@ -91,9 +89,10 @@
 					{% for item in data.artifact_assets %}
 						{% if item.viewUrl %}
 							<figure class="attach_figure">
-								<i-button v-if="{{item.type}} == 3 || {{item.type}} == 32 || {{item.type}} == 256" shape="circle" icon="md-albums" type="default" size="large" @click="downAttach('{{item.mediaFile}}')" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
-								<i-button v-else="{{item.type}} != 3" shape="circle" icon="md-arrow-dropright-circle" type="default" size="large" @click="downAttach('{{item.mediaFile}}')" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
-								<a href="{{item.mediaFile}}" target="_blank">
+								<i-button v-if="{{item.type}} == 3" shape="circle" icon="md-albums" type="default" size="large" @click="downAttach('{{item.mediaFile}}')" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
+								<i-button v-if="{{item.type}} == 5 && '{{item.mediaFile}}' != ''" shape="circle" icon="logo-html5" type="default" size="large" @click="downAttach('{{item.mediaFile}}')" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
+								<i-button v-if="{{item.type}} != 3 && {{item.type}} != 5" shape="circle" icon="md-arrow-dropright-circle" type="default" size="large" @click="downAttach('{{item.mediaFile}}')" style="position: absolute;margin-left: 10px;margin-top: 10px;"></i-button>
+								<a :href="'{{item.mediaFile}}' != '' ? '{{item.mediaFile}}' : 'javascript:void(0)'" target="_blank">
 									<img src="{{item.profileImage}}" alt="">
 									<figcaption>
 										{% if item.name %}
@@ -125,7 +124,7 @@
             </div>
 			<div class="comment_box">
 				<ul class="comment_list">
-					<li v-for="item in dataList">
+					<li v-for="(item,index) in dataList">
 						<div class="user_info">
 							<a :href="'/users/'+item.user.Id">
 								<img class="photo" :src="item.user.avatarUrl ? item.user.avatarUrl : '../public/images/default_profile.jpg'">
@@ -133,10 +132,9 @@
 						</div>
 						<div class="comment_wrapper">
 							<a :href="'/users/'+item.user.Id" class="name">${ item.user.fullname }</a>
-							{% if user.roles[0].name == 'admin' %}
-								<i-button class="delete_comment" type="error" shape="circle" icon="md-trash" @click="deleteComment(item.Id)"></i-button>
-							{% endif %}
+							<i-button class="delete_comment" v-if="'{{user.roles[0].name}}' == 'admin' || item.user.Id == '{{user.Id}}'" type="error" shape="circle" icon="md-trash" @click="deleteComment(item.Id)"></i-button>
 							<p class="comment">${item.content}</p>
+							<p class="createAt" v-text="index+1+'楼 ' + item.commentAt.replace('T',' ').split('.')[0]"></p>
 						</div>
 					</li>
 				</ul>
@@ -144,7 +142,11 @@
 				<div class="comment_form">
 					<div class="user_info">
 						<a href="/users/{{user.Id}}">
-							<img class="photo" src="../public/images/default_profile.jpg" alt="">
+							{% if user.avatarUrl %}
+							<img class="photo" src="{{user.avatarUrl}}" alt="">
+							{% else %}
+	                        <img class="photo" src="../public/images/default_profile.jpg" alt="">
+							{% endif %}
 						</a>
 					</div>
 					<div class="comment_wrapper">
@@ -171,14 +173,24 @@
 		            <span style="font-size: 15px;">确定删除该作品?</span>
 		        </p>
 		    </modal>
+			<div class="score_box" :style="scoreBoxStyle" v-show="scoresModel">
+				<icon class="scoreClose" type="md-close" @click="scoreClose" style="font-size: 22px;color:#999;"></icon>
+				<h2 class="title">作业评分</h2>
+				<i-input type="text" value="{{data.artifact_scores[0].score}}" @on-change="scoreChange(event,{{data.Id}})" placeholder="0~100之间的整数" size="large" number autofocus></i-input>
+				<i-button type="success" @click="submitScore">打分</i-button>
+			</div>
 			<div class="footer">
 				<p>© 中意工业设计（湖南）有限责任公司，保留所有权利。</p>
 			</div>
+			{% else %}
+				<p class="visibleText" v-text="'{{data}}'"></p>
+			{% endif %}
 		</div>
 
 		<script type="text/javascript" src="../public/js/lib/jquery.min.js"></script>
 	    <script type="text/javascript" src="../public/js/lib/vue.min.js"></script>
-	    <script type="text/javascript" src="../public/js/lib/iview.min.js"></script>
+		<script type="text/javascript" src="../public/js/lib/iview.min.js"></script>
+	    <script type="text/javascript" src="../public/js/src/config.js"></script>
 	    <script type="text/javascript" src="../public/js/src/projects.js"></script>
 	</body>
 </html>

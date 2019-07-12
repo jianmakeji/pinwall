@@ -4,8 +4,9 @@ var index = new Vue({
     data(){
         return{
             containerStyle:{
-                minHeight:"",
+                margin:"",
             },
+            intro:"",
             pwdItem:{
                 password:"",
                 newPwd:"",
@@ -30,6 +31,25 @@ var index = new Vue({
         }
     },
     methods: {
+        submitInfo(){
+            let that = this;
+            this.$Loading.start();
+            $.ajax({
+                url: '/website/users/0',
+                type: 'PUT',
+                data: {
+                    intro:that.intro
+                },
+                success(res){
+                    if(res.status == 200){
+                        that.$Loading.finish();
+                        that.$Notice.success({ title: res.data, duration:2});
+                    }else{
+                        that.$Notice.error({ title: res.data, duration:2});
+                    }
+                }
+            });
+        },
         conPwdBlur(){
             if (this.pwdItem.newPwd.length >= 6) {
                 if(this.pwdItem.newPwd && this.pwdItem.confirmPassword != this.pwdItem.newPwd){
@@ -74,6 +94,12 @@ var index = new Vue({
         }
     },
     created(){
-        this.containerStyle.minHeight = document.documentElement.clientHeight - 140 + "px";
+        let clientWidth = document.documentElement.clientWidth;
+        let clientHeight = document.documentElement.clientHeight;
+        if (clientHeight < 600) {
+            this.containerStyle.margin = "0px auto";
+        } else {
+            this.containerStyle.margin = ( clientHeight - 600 ) / 2 + "px auto";
+        }
     }
 })

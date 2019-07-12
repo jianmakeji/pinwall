@@ -6,18 +6,25 @@ Page({
     * 页面的初始数据
     */
    data: {
+      tabIndexNum: "2",
       //请求参数
       limit: 10,
       offset: 0,
       userId: "",
-      jobTag:"",
+      jobTag: "",
       // 数据数组
       dataList: [],
       loading: false,
+      teacherId: "",
       avatarUrl: "",
       fullname: "",
       atrifactCount: "",
       topicName: ""
+   },
+   tapBack(event) {
+      wx.navigateBack({
+         data: 1
+      })
    },
    tapTheArtifact(event) {
       let artifactId = event.detail.target.dataset.artifactId;
@@ -34,43 +41,45 @@ Page({
    /**
     * 生命周期函数--监听页面加载
     */
-   onLoad: function (options) {
+   onLoad: function(options) {
       let that = this;
       this.setData({
          userId: options.userId,
-         jobTag:options.jobTag
+         jobTag: options.jobTag
       })
+      if (app.globalData.statusBarHeight == 44) {
+         that.setData({
+            statusHeight: true
+         })
+      } else {
+         that.setData({
+            statusHeight: false
+         })
+      }
       wx.request({
          url: app.globalData.baseUrl + app.globalData.getPersonalJobByUserId,
          data: {
             limit: this.data.limit,
             offset: this.data.offset,
             userId: this.data.userId,
-            jobTag:this.data.jobTag
+            jobTag: this.data.jobTag
          },
          method: "GET",
          success(res) {
             if (res.data.status == 200) {
-               if (res.data.data.rows.length){
+               if (res.data.data.rows.length) {
                   that.setData({
                      dataList: res.data.data.rows,
+                     teacherId: res.data.data.rows[0].user.Id,
                      avatarUrl: res.data.data.rows[0].user.avatarUrl,
                      fullname: res.data.data.rows[0].user.fullname,
                      atrifactCount: res.data.data.count,
                      createAt: res.data.data.rows[0].user.createAt,
                      topicName: res.data.data.rows[0].user.fullname + "的作品集",
                   })
-                  if (that.data.jobTag == 0) {
-                     that.setData({
-                        topicName: res.data.data.rows[0].user.fullname + "的作品集",
-                     })
-                  } else {
-                     that.setData({
-                        topicName: res.data.data.rows[0].user.fullname + "的作业荚",
-                     })
-                  }
-                  wx.setNavigationBarTitle({
-                     title: that.data.topicName,
+               } else if (that.data.userId == wx.getStorageSync("myId")) {
+                  that.setData({
+                     topicName: "我的作品集",
                   })
                }
             }
@@ -81,7 +90,7 @@ Page({
    /**
     * 页面相关事件处理函数--监听用户下拉动作
     */
-   onPullDownRefresh: function () {
+   onPullDownRefresh: function() {
       let that = this;
       this.setData({
          offset: 0
@@ -97,21 +106,19 @@ Page({
          method: "GET",
          success(res) {
             if (res.data.status == 200) {
-               wx.stopPullDownRefresh();
-               that.setData({
-                  dataList: res.data.data.rows,
-                  avatarUrl: res.data.data.rows[0].user.avatarUrl,
-                  fullname: res.data.data.rows[0].user.fullname,
-                  atrifactCount: res.data.data.count,
-                  createAt: res.data.data.rows[0].user.createAt
-               })
-               if(that.data.jobTag == 0){
+               if (res.data.data.rows.length) {
+                  wx.stopPullDownRefresh();
                   that.setData({
-                     topicName: res.data.data.rows[0].user.fullname + "的作品集",
+                     dataList: res.data.data.rows,
+                     avatarUrl: res.data.data.rows[0].user.avatarUrl,
+                     fullname: res.data.data.rows[0].user.fullname,
+                     atrifactCount: res.data.data.count,
+                     createAt: res.data.data.rows[0].user.createAt
                   })
-               }else{
+
+               } else if (that.data.userId == wx.getStorageSync("myId")) {
                   that.setData({
-                     topicName: res.data.data.rows[0].user.fullname + "的作业荚",
+                     topicName: "我的作品集",
                   })
                }
             }
@@ -122,7 +129,7 @@ Page({
    /**
     * 页面上拉触底事件的处理函数
     */
-   onReachBottom: function () {
+   onReachBottom: function() {
       let that = this;
       this.setData({
          offset: this.data.offset + 10,

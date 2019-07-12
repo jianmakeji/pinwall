@@ -1,0 +1,108 @@
+page{
+   background: #fff;
+}
+.highStatus{
+   margin-top: 200rpx;
+}
+.lowStatus{
+   margin-top: 150rpx;
+}
+
+.des1{
+   width: 600rpx;
+   height: 40rpx;
+   font-size: 36rpx;
+   font-weight: bold;
+   color: #17B272;
+   text-align: left;
+    position: absolute;
+   margin-top: 260rpx;
+   margin-left: 75rpx;
+}
+.des2{
+   width: 600rpx;
+   height: 40rpx;
+   font-size: 36rpx;
+   font-weight: bold;
+   color: #17B272;
+   text-align: left;
+    position: absolute;
+   margin-top: 300rpx;
+   margin-left: 75rpx;
+}
+
+.forgetPwdBox .mobileBox {
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 370rpx;
+   margin-left: 75rpx;
+   display: flex;
+   flex-direction: row;
+   align-content: center;
+}
+
+
+.forgetPwdBox .mobileInput {
+   width: 500rpx;
+   height: 56rpx;
+   background: none;
+   border-bottom: 2rpx solid #A6A6A6;
+}
+
+.forgetPwdBox .smscodeBox{
+    width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 470rpx;
+   margin-left: 75rpx;
+   display: flex;
+   flex-direction: row;
+   align-content: center;
+   justify-content: center;
+}
+.forgetPwdBox .codeInput{
+   border-bottom: 2rpx solid #A6A6A6;
+   background: none;
+}
+.forgetPwdBox .smscodeBtn{
+   font-size:24rpx;
+   width:200rpx;
+   height:70rpx;
+   line-height:70rpx;
+   color: #A6A6A6 !important;
+}
+.forgetPwdBox .newPwdBox{
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 580rpx;
+   margin-left: 75rpx;
+}
+.forgetPwdBox .newpwdInput{
+   background: none;
+   border-bottom: 2rpx solid #A6A6A6;
+}
+.forgetPwdBox .confirmPasswordBox{
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 680rpx;
+   margin-left: 75rpx;
+}
+.forgetPwdBox .confirmPasswordInput{
+   background: none;
+   border-bottom: 2rpx solid #A6A6A6;
+}
+.forgetPwdBox .submit{
+   width: 600rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   position: absolute;
+   margin-top: 850rpx;
+   margin-left: 75rpx;
+}

@@ -12,6 +12,14 @@ var container = new Vue({
             containerStyle:{
                 minHeight:"",
             },
+            modelWidth:"",
+
+            searchHelper:false,             //协作者弹出框开关
+            searchModelValue:"",            //搜索内容
+            searchNum:0,
+            searchModelDataList:[],
+            helperBox:[],                   //存放前台协作者数据
+
             step1_upload_fengmian_src:"",   //封面图片路径(阿里返回路径)
             step2_upload_neirong_src:[],    //列表图片上传列表
             yulan_img:"",                   //步骤二图片预览img的src
@@ -20,6 +28,7 @@ var container = new Vue({
                 topicId:"",
                 name:"",                    //作品名
                 description:"",             //描述
+                teamworker:"",
                 profileImage:"",            //封面图
                 jobTag:"",                  //0 作品集 1 作业荚
                 artifact_assets:[],         //详情数组
@@ -27,7 +36,7 @@ var container = new Vue({
             },
             ruleValidate:{
                 name:[
-                    {required: true, message: '用户名不能为空', trigger: 'blur'},
+                    {required: true, message: '作品名不能为空', trigger: 'blur'},
                     {type: 'string', max: 130, message: '字数请控制在130之内', trigger: 'blur' }
                 ],
                 description:{required: true, message: '内容说明不能为空', trigger: 'blur'},
@@ -47,10 +56,129 @@ var container = new Vue({
             stepTwoActive:false,
             stepThreeActive:false,
             jobTagName:"",
+            uploadFlag:true,
+
+            startY:0,
+            endY:0,
+            dragIndex:0,
+            dragItemNeirongData:"",
+            dragItemBetweenData:"",
+            dragItemOtherinfoData:"",
+            dragItemTruenameData:"",
         }
     },
     methods: {
         keyDownEvent(){},
+        //开始拖动
+        dragstart(index,e){
+            var eo = e || event;
+            this.startY = eo.clientY;
+            this.dragIndex = index;
+            this.dragItemNeirongData = this.step2_upload_neirong_src[index];
+            this.dragItemBetweenData = this.step2_between_arr[index];
+            this.dragItemOtherinfoData = this.file_otherinof_arr[index];
+            this.dragItemTruenameData = this.neirong_truename_arr[index];
+        },
+        // 放置
+        ondragend (e){
+            e.preventDefault();
+            let that = this;
+            var eo = e || event;
+            this.endY = eo.clientY;
+            if((this.endY - this.startY) / 60 > 1){
+                let endIndex = parseInt((this.endY - this.startY) / 60) + this.dragIndex;
+                if(endIndex > this.step2_between_arr.length - 1){
+                    endIndex =  this.step2_between_arr.length - 1;
+                }
+                this.step2_upload_neirong_src.splice(this.dragIndex,1);
+                this.step2_between_arr.splice(this.dragIndex,1);
+                this.file_otherinof_arr.splice(this.dragIndex,1);
+                this.neirong_truename_arr.splice(this.dragIndex,1);
+
+                this.step2_upload_neirong_src.splice(endIndex,0,this.dragItemNeirongData);
+                this.step2_between_arr.splice(endIndex,0,this.dragItemBetweenData);
+                this.file_otherinof_arr.splice(endIndex,0,this.dragItemOtherinfoData);
+                this.neirong_truename_arr.splice(endIndex,0,this.dragItemTruenameData);
+            }else if((this.endY- this.startY ) / 60 < -1){
+                let endIndex = this.dragIndex - parseInt((this.startY- this.endY ) / 60);
+                if( endIndex < 0){
+                    endIndex = 0;
+                }
+                this.step2_upload_neirong_src.splice(this.dragIndex,1);
+                this.step2_between_arr.splice(this.dragIndex,1);
+                this.file_otherinof_arr.splice(this.dragIndex,1);
+                this.neirong_truename_arr.splice(this.dragIndex,1);
+
+                this.step2_upload_neirong_src.splice(endIndex,0,this.dragItemNeirongData);
+                this.step2_between_arr.splice(endIndex,0,this.dragItemBetweenData);
+                this.file_otherinof_arr.splice(endIndex,0,this.dragItemOtherinfoData);
+                this.neirong_truename_arr.splice(endIndex,0,this.dragItemTruenameData);
+            }
+        },
+        addHelpers(){
+            this.searchHelper = true;
+        },
+        searchModelData(){
+            let type = "",
+                that = this;
+            this.searchModelDataList = [];
+            if(this.searchModelValue.indexOf("@") >= 0){
+                type = 1;
+            }else if (config.regexString.phone.test(this.searchModelValue)) {
+                type = 3;
+            }else{
+                type = 2;
+            }
+            $.ajax({
+                url: config.ajaxUrls.searchUserInfoByKeyword,
+                type: 'GET',
+                data:{keyword:this.searchModelValue,type:type},
+                success(res){
+                    if (res.status == 200){
+                        if (res.data.length >= 4) {
+                            for (let i = 0; i < 4; i++) {
+                                that.searchModelDataList.push(res.data[i]);
+                            }
+                        } else {
+                            that.searchModelDataList = res.data;
+                        }
+                        that.searchNum = res.data.length;
+                    }else{
+                        that.$Notice.error({title:"搜索出错！"});
+                    }
+                }
+            })
+        },
+        selectItem(index){
+            let that = this;
+            let flag = 1;
+            for (let i = 0; i < this.helperBox.length; i++) {
+                if(this.searchModelDataList[index].Id == this.helperBox[i].Id){
+                    flag = 0;
+                    break;
+                }
+            }
+            if (flag) {
+                if (this.helperBox.length < 4) {
+                    let newHelperObj = new Object();
+                    newHelperObj.Id = this.searchModelDataList[index].Id;
+                    newHelperObj.fullname = this.searchModelDataList[index].fullname;
+                    that.helperBox.push(newHelperObj);
+                } else {
+                    this.$Notice.error({title:"协作者最多为4名！"});
+                }
+            } else {
+                this.$Notice.error({title:"该用户已添加为协作者！"});
+            }
+        },
+        deleteHelper(index){
+            this.helperBox.splice(index,1);
+        },
+        clickOk(){
+            let teamWorkers = new String();
+            teamWorkers = JSON.stringify(this.helperBox);
+            this.dataItem.teamworker = teamWorkers;
+        },
         /**
          * 步骤一：上传作品封面事件
          */
@@ -83,6 +211,7 @@ var container = new Vue({
                                         img.src = res;
                                         img.onload = function(){
                                             if(img.width == img.height && img.width >= 500 && img.width <= 800){
+                                                $('#step1_upload_fengmian_input').val('');
                                                 that.$Notice.success({title:'上传成功！'});
                                                 that.step1_upload_fengmian_src = res;
                                                 that.dataItem.profileImage = fileName;
@@ -165,6 +294,7 @@ var container = new Vue({
                                     that.file_otherinof_arr.push(progress_subarr);
                                     that.neirong_truename_arr.push(files.target.files[0].name);
 
+                                    $('#step2_upload_input').val('');
                                 }
                             })
                     	});
@@ -217,6 +347,7 @@ var container = new Vue({
                                     that.step2_between_arr[that.which_artifact_assets].profileImage = fileName;
                                     that.neirong_truename_arr[that.which_artifact_assets] = files.target.files[0].name;
 
+                                    $('.step2_change_upload_input').val('');
                                 }
                             })
                     	});
@@ -237,11 +368,13 @@ var container = new Vue({
             })
         },
         step2_upload_MP4_change(files){
+            this.uploadFlag = false;
             let that = this;
             let file = files.target.files[0];
             let fileTrueName = files.target.files[0].name;
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
+            this.$Notice.success({title:'上传中···'});
             $.ajax({
                 url: config.ajaxUrls.getSTSSignature.replace(":type",4),
                 type: 'GET',
@@ -256,11 +389,15 @@ var container = new Vue({
                         client.multipartUpload('video/'+ fileName, file, {
                     		progress: progress
                     	}).then(function (res) {
+                            that.$Notice.success({title:'上传成功！'});
                             that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                             that.step2_between_arr[that.which_artifact_assets].type = 4;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("video/")[1];
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
+
+                            $('#step2_upload_MP4_input').val('');
+                            that.uploadFlag = true;
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -280,10 +417,12 @@ var container = new Vue({
         },
         step2_upload_PDF_change(files){
             let that = this;
+            this.uploadFlag = false;
             let file = files.target.files[0];
             let fileTrueName = files.target.files[0].name;
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
+            this.$Notice.success({title:'上传中...'});
             $.ajax({
                 url: config.ajaxUrls.getSTSSignature.replace(":type",2),
                 type: 'GET',
@@ -299,11 +438,14 @@ var container = new Vue({
                         client.multipartUpload('pdf/'+ fileName, file, {
                     		progress: progress
                     	}).then(function (res) {
+                            that.$Notice.success({title:'上传成功！'});
                             that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                             that.step2_between_arr[that.which_artifact_assets].type = 2;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("pdf/")[1];
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
+                            $('#step2_upload_PDF_btninput').val('');
+                            that.uploadFlag = true;
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -323,10 +465,12 @@ var container = new Vue({
         },
         step2_upload_ZIP_change(files){
             let that = this;
+            this.uploadFlag = false;
             let file = files.target.files[0];
             let fileTrueName = files.target.files[0].name;
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
+            this.$Notice.success({title:'上传中...'});
             $.ajax({
                 url: config.ajaxUrls.getSTSSignature.replace(":type",3),
                 type: 'GET',
@@ -341,11 +485,14 @@ var container = new Vue({
                         client.multipartUpload('rar_zip/'+ fileName, file, {
                     		progress: progress
                     	}).then(function (res) {
+                            that.$Notice.success({title:'上传成功！'});
                             that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
                             that.step2_between_arr[that.which_artifact_assets].type = 3;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
                             that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
+                            $('#step2_upload_ZIP_input').val('');
+                            that.uploadFlag = true;
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -364,13 +511,21 @@ var container = new Vue({
             })
         },
         step2_upload_HTML5_change(files){
+            let isChange = false;
+            if(window.location.href.indexOf("editUploadWork") > 0){ //修改
+                isChange = true;
+            }else{
+                isChange = false;
+            }
             let that = this;
+            this.uploadFlag = true;
             let file = files.target.files[0];
             let fileTrueName = files.target.files[0].name;
             this.file_otherinof_arr[this.which_artifact_assets].fileTrueName = files.target.files[0].name;
             let fileName = calculate_object_name(files.target.files[0].name);
+            this.$Notice.success({title:'上传中...'});
             $.ajax({
-                url: config.ajaxUrls.getSTSSignature.replace(":type",3),
+                url: config.ajaxUrls.getSTSSignature.replace(":type",5),
                 type: 'GET',
                 success:function(res){
                     if (res.res.status == 200) {
@@ -380,14 +535,24 @@ var container = new Vue({
                       		stsToken: res.credentials.SecurityToken,
                             bucket:bucket
                     	});
-                        client.multipartUpload('rar_zip/'+ fileName, file, {
+                        client.multipartUpload('others/'+ fileName, file, {
                     		progress: progress
                     	}).then(function (res) {
+                            that.$Notice.success({title:'上传成功！'});
                             that.step2_between_arr[that.which_artifact_assets].position = that.which_artifact_assets;
-                            that.step2_between_arr[that.which_artifact_assets].type = 3;
+                            that.step2_between_arr[that.which_artifact_assets].type = 5;
                             that.step2_between_arr[that.which_artifact_assets].mediaFile = fileName;
-                            that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("rar_zip/")[1];
+                            that.step2_between_arr[that.which_artifact_assets].viewUrl = res.res.requestUrls[0].split("?")[0].split("others/")[1];
                             that.step2_between_arr[that.which_artifact_assets].filename = files.target.files[0].name;
+                            $('#step2_upload_HTML5_input').val('');
+                            that.uploadFlag = true;
+
+                            if (isChange) {
+                                $.ajax({
+                                    url:"/deleteH5Path/" + that.dataItem.Id,
+                                    type:"DELETE"
+                                })
+                            }
                     	});
                     } else if (res.res.status == 999) {
                         that.$Notice.error({
@@ -466,9 +631,13 @@ var container = new Vue({
          * 步骤二：点击左侧列表，控制图片预览src
          */
         selectLi(index){
-            this.upload_show = true;
-            this.yulan_img = this.step2_upload_neirong_src[index];
-            this.which_artifact_assets = index;
+            if ( this.uploadFlag == true) {
+                this.upload_show = true;
+                this.yulan_img = this.step2_upload_neirong_src[index];
+                this.which_artifact_assets = index;
+            } else {
+                this.$Notice.error({title:"文件正在上传，请上传成功后切换！"});
+            }
         },
         /**
          * 步骤二：点击列表删除
@@ -481,6 +650,38 @@ var container = new Vue({
             if (this.step2_upload_neirong_src.length == 0) {
                 this.upload_show = false;
             }
+            for(let i=index; i<this.step2_upload_neirong_src.length;i++){
+                this.step2_between_arr[i].position = this.step2_between_arr[i].position - 1;
+            }
+        },
+        deleteAttchFile(index){
+            let that = this;
+            this.$Loading.start();
+            let fileType = this.step2_between_arr[index].type,
+                fileName = this.step2_between_arr[index].mediaFile;
+            $.ajax({
+                url: config.ajaxUrls.deleteAliossFile.replace(":fileType",fileType) + "?filename=" + fileName,
+                method:"DELETE",
+                success:function(res){
+                    if (res.status == 200) {
+                        that.$Loading.finish();
+                        that.$Notice.success({
+                            title:"附件删除成功!",
+                            duration:1,
+                            onClose(){
+                                that.step2_between_arr[index].type = 0;
+                                that.step2_between_arr[index].mediaFile = "";
+                                that.step2_between_arr[index].viewUrl = "";
+                                that.step2_between_arr[index].filename = "";
+                                that.file_otherinof_arr[index].fileTrueName = "";
+                                that.file_otherinof_arr[index].progress = 0;
+                            }
+                        });
+                    }else if (res.status == 500) {
+                        that.$Notice.error({title:res.data});
+                    }
+                }
+            })
         },
         /* 步骤调整事件 */
         goStep1(){
@@ -489,7 +690,6 @@ var container = new Vue({
             this.stepThreeActive = false;
         },
         goStep2(){
-
             if (this.dataItem.name && this.dataItem.description && this.dataItem.profileImage) {
                 if(this.dataItem.Id){
                     this.dataItem.addTerms = this.addTerms;
@@ -500,7 +700,7 @@ var container = new Vue({
                 this.stepThreeActive = false;
                 this.dataItem.terms = this.terms_arr;
             }else{
-                this.$Notice.error({title:"请输入必填信息！"})
+                this.$Notice.error({title:"请输入必填信息！"});
             }
 
         },
@@ -513,7 +713,11 @@ var container = new Vue({
                 for(let i=0;i<this.step2_upload_neirong_src.length;i++){
                     let profileImage_url = new String();
                     profileImage_url = this.step2_upload_neirong_src[i];
-                    this.dataItem.artifact_assets[i].profileImage = profileImage_url.split("?")[0].split("images/")[1];
+                    if(profileImage_url.indexOf("pinwall.fzcloud.design-engine.org") > 0){
+                        this.dataItem.artifact_assets[i].profileImage = profileImage_url;
+                    }else{
+                        this.dataItem.artifact_assets[i].profileImage = profileImage_url.split("?")[0].split("images/")[1];
+                    }
                 }
             }else{
                 this.$Notice.error({title:"请输入必填信息！"})
@@ -534,7 +738,8 @@ var container = new Vue({
                                 title:"上传作品成功，2秒后返回!",
                                 duration:2,
                                 onClose(){
-                                    history.back(-1);
+                                    // window.location.href="/project/" + that.dataItem.Id;
+                                    self.location=document.referrer;
                                 }
                             });
                         }else if (res.status == 500) {
@@ -554,8 +759,7 @@ var container = new Vue({
                                 title:"上传作品成功，2秒后返回!",
                                 duration:2,
                                 onClose(){
-                                    // window.location.href = "/uploadWork/2";
-                                    history.back(-1);
+                                    self.location=document.referrer;
                                 }
                             });
                         }else if (res.status == 500) {
@@ -569,8 +773,15 @@ var container = new Vue({
     created(){
         let that = this;
         this.containerStyle.minHeight = document.documentElement.clientHeight - 140 + "px";
+        if(document.documentElement.clientWidth > 1200){
+            this.modelWidth = "950px";
+        }else if(document.documentElement.clientWidth < 1200){
+            this.modelWidth = "70%";
+        }else if(document.documentElement.clientWidth < 992){
+            this.modelWidth = "80%";
+        }
 
-        if(window.location.href.indexOf("editUploadWork") > 0){
+        if(window.location.href.indexOf("editUploadWork") > 0){       //修改
             this.dataItem.Id = window.location.search.split("?id=")[1].split("&jobTag=")[0];
             this.dataItem.jobTag = window.location.search.split("?id=")[1].split("&jobTag=")[1];
             if(this.dataItem.jobTag == 1){
@@ -585,9 +796,20 @@ var container = new Vue({
                     that.dataItem.name = res.data.name;
                     that.dataItem.artifact_assets = res.data.artifact_assets;
                     that.dataItem.description = res.data.description;
+                    let teamWorkers = new Array();
+                    if (res.data.teamworker == "" || res.data.teamworker == null) {
+                        teamWorkers = [];
+                    } else {
+                        teamWorkers = JSON.parse(res.data.teamworker);
+                    }
+                    that.helperBox = teamWorkers;
 
                     that.step1_upload_fengmian_src = res.data.profileImage;
-                    that.dataItem.profileImage = res.data.profileImage.split("/")[res.data.profileImage.split("/").length - 1].split("?")[0];
+                    if(res.data.profileImage.indexOf("pinwall.fzcloud.design-engine.org") > 0){
+                        that.dataItem.profileImage = res.data.profileImage;
+                    }else{
+                        that.dataItem.profileImage = res.data.profileImage.split("/")[res.data.profileImage.split("/").length - 1].split("?")[0];
+                    }
 
                     that.dataItem.terms = res.data.terms;
                     for(let i=0;i<res.data.terms.length;i++){
@@ -607,7 +829,11 @@ var container = new Vue({
                         bet.description = res.data.artifact_assets[i].description;
                         bet.type = res.data.artifact_assets[i].type;
                         bet.profileImage = res.data.artifact_assets[i].profileImage;
-                        bet.mediaFile = res.data.artifact_assets[i].mediaFile.split("?")[0].split("/")[res.data.artifact_assets[i].mediaFile.split("?")[0].split("/").length - 1];
+                        if(res.data.artifact_assets[i].mediaFile == null || res.data.artifact_assets[i].mediaFile == "" || res.data.artifact_assets[i].mediaFile.indexOf("pinwall.fzcloud.design-engine.org") > 0){
+                            bet.mediaFile = res.data.artifact_assets[i].mediaFile;
+                        }else{
+                            bet.mediaFile = res.data.artifact_assets[i].mediaFile.split("?")[0].split("/")[res.data.artifact_assets[i].mediaFile.split("?")[0].split("/").length - 1];
+                        }
                         bet.viewUrl = res.data.artifact_assets[i].viewUrl;
                         bet.viewImgUrl = res.data.artifact_assets[i].profileImage;
                         that.step2_between_arr.push(bet);

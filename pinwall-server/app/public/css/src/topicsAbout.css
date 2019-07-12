@@ -9,10 +9,23 @@ body{
 }
 .container .container_header {
     color: rgb(153, 153, 153);
-    margin: 20px;
+    margin: 20px 30px;
     display: flex;
     flex-direction: row;
-    margin-left: 60%;
+    justify-content: space-between;
+}
+
+.container .container_header .ivu-input-with-prefix{
+	padding-left: 32px;
+	border-radius: 0px;
+	border: none;
+    /* box-shadow: 0 0 10px rgba(0,0,0,0.1); */
+    height:35px;
+}
+
+.container_header .title .ivu-btn{
+	border: none;
+	border-radius: 0px;
 }
 
 .de_topic_box{
@@ -79,7 +92,7 @@ body{
     color: #07af69;
     overflow: hidden;
     margin: 0.8em 0;
-    width: 240px;
+    width: 220px;
 	display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
@@ -159,10 +172,10 @@ body{
 
 	.container .container_header {
 	    color: rgb(153, 153, 153);
-	    margin: 20px;
+	    margin: 20px 30px;
 	    display: flex;
 	    flex-direction: row;
-	    margin-left: 50%;
+	    justify-content: space-between;
 	}
 
 }
@@ -171,16 +184,16 @@ body{
 
 	.container .container_header {
 	    color: rgb(153, 153, 153);
-	    margin: 20px;
+	    margin: 20px 30px;
 	    display: flex;
 	    flex-direction: row;
-	    margin-left: 2%;
+	    justify-content: space-between;
 	}
 
 }
 @media screen and (max-width: 540px){  /* 当屏幕尺寸小于1200px时，应用下面的CSS样式 */
 
-	.container_header .title {
+	.container_header .title .name{
 	    display: none;
 	}
 
@@ -188,8 +201,18 @@ body{
 		width: 60px;
 	}
 	.container_header .ivu-input-wrapper{
-		margin-left:20px;
-		width: 100px;
+		margin-left:0px;
+		width: 100%;
+	}
+	.container .container_header{
+		margin: 20px 15px;
+		align-items: center;
+	}
+	.de_topic_box{
+		margin: 20px 15px;
+	}
+	.topic_info .topic_title{
+		width: 100%;
 	}
 }
 .footer {

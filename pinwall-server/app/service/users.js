@@ -19,11 +19,11 @@ class Users extends Service {
   }
 
   async createUser(user,category) {
-    if (user.email == '' || user.email == null){
-      throw new Error('用户邮箱不能为空');
+    if (user.mobile == '' || user.mobile == null){
+      throw new Error('用户手机号不能为空');
     }
     else{
-      const userObj = await this.ctx.model.Users.findUserByEmail(user.email);
+      const userObj = await this.ctx.model.Users.findUserByMobile(user.mobile);
       if (userObj){
         throw new Error('用户已经存在');
       }
@@ -33,20 +33,19 @@ class Users extends Service {
           transaction = await this.ctx.model.transaction();
           const app = this.ctx.app;
           user.password = app.cryptoPwd(app.cryptoPwd(user.password));
-          user.activeCode =  UUID.v1();
+
+          if (category == 0){
+            user.active = 1;
+          }
+          else{
+            user.wxActive = 1;
+          }
           const createUserObj = await this.ctx.model.Users.createUser(user,transaction);
           await this.ctx.model.UserRole.creteUserRole(createUserObj.Id, 1, transaction);
           await transaction.commit();
-          if (category == 0){
-            await this.ctx.service.emailService.sendActiveEmail(user.email, user.activeCode);
-          }
-          else if(category == 1){
-            await this.ctx.service.emailService.sendWxActiveEmail(user.email, user.unionId, user.activeCode);
-          }
 
           return createUserObj;
         } catch (e) {
-          console.log(e.message);
           await transaction.rollback();
           return false;
         }
@@ -88,6 +87,10 @@ class Users extends Service {
     return await this.ctx.model.Users.loginFindByUserWithEmail(email);
   }
 
+  async loginFindByUserWithMobile(mobile){
+    return await this.ctx.model.Users.loginFindByUserWithMobile(mobile);
+  }
+
   async updateAcviveByActiveCodeAndEmail(email,activeCode){
     return await this.ctx.model.Users.updateAcviveByActiveCodeAndEmail(email,activeCode,1);
   }
@@ -96,9 +99,9 @@ class Users extends Service {
     return await this.ctx.model.Users.updateAcviveByUserId(userId);
   }
 
-  async bindWeixinInfoByEmail(email,user){
+  async bindWeixinInfoByEmailOrPhone(emailOrPhone,password,user){
+    const app = this.ctx.app;
     let wxInfo = {};
-    wxInfo.email = email;
     wxInfo.openId = user.openid;
     wxInfo.nickname = user.nickname;
     wxInfo.avatarUrl = user.headimageurl;
@@ -107,13 +110,27 @@ class Users extends Service {
     wxInfo.city = user.city;
     wxInfo.country = user.country;
     wxInfo.unionId = user.unionid;
-    wxInfo.activeCode = UUID.v1();
+    wxInfo.wxActive = 1;
 
     try{
-      let userObject = this.ctx.model.Users.findUserByEmail(email);
-      if(userObject){
-        await this.ctx.model.Users.updateWxInfoByEmail(wxInfo);
-        await this.ctx.service.emailService.sendWxActiveEmail(email,user.unionid,wxInfo.activeCode);
+      let boolEmailOrPhone= app.judgeEmail(emailOrPhone);
+      let userObject;
+      if(boolEmailOrPhone){
+        wxInfo.email = emailOrPhone;
+        userObject = await this.ctx.model.Users.findUserByEmail(emailOrPhone);
+      }
+      else{
+        wxInfo.mobile = emailOrPhone;
+        userObject = await this.ctx.model.Users.findUserByMobile(emailOrPhone);
+      }
+
+      if(userObject && userObject.password == app.cryptoPwd(app.cryptoPwd(password))){
+        if(boolEmailOrPhone){
+          await this.ctx.model.Users.updateWxInfoByEmail(wxInfo);
+        }
+        else{
+          await this.ctx.model.Users.updateWxInfoByMobile(wxInfo);
+        }
         return userObject;
       }
       else{
@@ -164,6 +181,18 @@ class Users extends Service {
     }
   }
 
+  async updatePwdWithMobile(mobile, newPwd){
+    try{
+      const app = this.ctx.app;
+      const password = app.cryptoPwd(app.cryptoPwd(newPwd));
+      await this.ctx.model.Users.updatePwdWithMobile(mobile, password);
+      return true;
+    }
+    catch(e){
+      return false;
+    }
+  }
+
   async updateUserRole(userId, operation){
     try{
       await this.ctx.model.UserRole.updateUserRole(userId,operation);
@@ -190,6 +219,18 @@ class Users extends Service {
     else{
       return false;
     }
+  }
+
+  async searchUserInfoByKeyword(keyword, type){
+    return await this.ctx.model.Users.searchUserInfoByKeyword(keyword, type);
+  }
+
+  async getUserInfoById(userId){
+    return await this.ctx.model.Users.getUserInfoById(userId);
+  }
+
+  async getUserIntroById(userId){
+    return await this.ctx.model.Users.getUserIntroById(userId);
   }
 }
 

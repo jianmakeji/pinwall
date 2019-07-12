@@ -1,33 +1,16 @@
-<!--pages/my/completeInof/completeInof.wxml-->
+<nav-bar statusHeight="{{statusHeight}}" tabIndex="2" backDes="我的" bind:tapBack="tapBack"></nav-bar>
 <view class='completeInof'>
-   <image class='newuser_img' src="{{current == 'new' ? '/images/newuser_hl.png' : '/images/newuser_default.png'}}" data-type='new' catchtap='radioChange'></image>
-   <text class='newuser_title'>新用户</text>
-   <text class='newuser_des'>之前未在图钉墙中注册账号</text>
-   <image class='olduser_img' src="{{current == 'old' ? '/images/olduser_hl.png' : '/images/olduser_default.png'}}" data-type='old' catchtap='radioChange'></image>
-   <text class='olduser_title'>图钉墙用户</text>
-   <text class='olduser_des'>已有图钉墙账号但为绑定微信</text>
-
-   <view class='username_box' wx:if="{{current == 'new'}}">
-      <i-icon class='username_icon' type="group" size="20" color="#fff" />
-      <i-input i-class='username_input' value="{{ username }}" bind:change="usernameChange" placeholder="请输入用户名" />
+   <text class='des1'>你好，</text>
+   <text class='des2'>请绑定图钉墙账号</text>
+   <view class='bind_email_box'>
+      <i-input i-class='bind_email_input' value="{{ bindemail }}" bind:change="bindemailChange" placeholder="邮箱或手机号" />
    </view>
-   <view class='email_box' wx:if="{{current == 'new'}}">
-      <i-icon class='email_icon' type="businesscard" size="20" color="#fff" />
-      <i-input i-class='email_input' value="{{ email }}" bind:change="emailChange" placeholder="请输入邮箱" />
+   <view class='bind_pwd_box'>
+      <i-input i-class='bind_pwd_input' type="password" value="{{ bindPwd }}" bind:change="bindPwdChange" placeholder="密码长度不小于6位" />
    </view>
-   <view class='password_box' wx:if="{{current == 'new'}}">
-      <i-icon class='password_icon' type="lock" size="20" color="#fff" />
-      <i-input i-class='password_input' type='password' value="{{ password }}" bind:change="passwordChange" placeholder="请输入您的密码" />
+   <i-button i-class="bind_email" type='success' bind:click="bindEmail">绑定</i-button>
+   <view class='otherChoose'>
+      <text catchtap='tapForgetPwd'>忘记密码？</text>
+      <text catchtap='tapRegister'>手机注册</text>
    </view>
-   <i-button i-class="register" wx:if="{{current == 'new'}}" bind:click="register" type="submit" shape="circle" disabled="{{registerDisable}}">注册</i-button>
-   <i-button i-class="wxActive" wx:if="{{current == 'new'}}" bind:click="wxActiveTap" type="submit" shape="circle" disabled="{{wxActiveDisable}}">确认邮箱已激活后点击此按钮</i-button>
-
-   <view class='bind_email_box' wx:if="{{current == 'old'}}">
-      <i-icon class='bind_email_icon' type="businesscard" size="20" color="#fff" />
-      <i-input i-class='bind_email_input' value="{{ bindemail }}" bind:change="bindemailChange" placeholder="请输入邮箱" />
-   </view>
-   <i-button i-class="bind_email" wx:if="{{current == 'old'}}" bind:click="bindEmail" type="submit" shape="circle" disabled="{{bindemailDisable}}">绑定</i-button>
-   <i-button i-class="bind_wx" wx:if="{{current == 'old'}}" bind:click="bindWx" type="submit" shape="circle" disabled="{{bindWxDisable}}">确认邮箱已激活后点击此按钮</i-button>
-   <i-toast id="toast" />
 </view>
-<image class='bg_img' src="/images/login_bg.png"></image>
