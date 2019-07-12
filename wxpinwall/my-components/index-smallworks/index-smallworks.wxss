@@ -68,7 +68,7 @@
 }
 .des{
    width:396rpx;
-   font-size: 22rpx;
+   font-size: 24rpx;
    margin-left: 10rpx;
    margin-top: 10rpx;
    color: #7c7a7a;

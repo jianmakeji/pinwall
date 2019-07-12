@@ -33,7 +33,7 @@ Page({
                }
                
             }else{
-               if (mediaFileUrl.indexOf("video") > 0) {
+               if (mediaFileUrl.indexOf("video") > 0 ) {
                   that.setData({
                      videoUrl: mediaFileUrl,
                      videoVisible: true

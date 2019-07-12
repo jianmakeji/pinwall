@@ -55,6 +55,6 @@
    </i-modal>
 </view>
 <view class="login  {{statusHeight ? 'highStatus' : 'lowStatus'}}" wx:if="{{isLogin == 'false'}}">
-   <image class='defalt_avator' mode='scaleToFill' src='/images/logo.png'></image>
+   <image class='defalt_avator' mode='scaleToFill' src='/images/login_img.png'></image>
    <i-button i-class="wx_login" bindgetuserinfo="tapWxLogin" type="success" open-type='getUserInfo'>微信登录</i-button>
 </view>

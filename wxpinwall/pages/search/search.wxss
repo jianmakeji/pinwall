@@ -129,21 +129,10 @@ page {
 .searchResultBox{
    background: #EFEFEF;
 }
-.searchResultBox .head {
-   width: 700rpx;
-   padding: 0 25rpx;
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   justify-content: space-between;
-}
 
-.searchResultBox .head .searchDes {
+.searchResultBox .searchDes {
    width: 600rpx;
    font-size: 28rpx;
+   margin-left: 25rpx;
    color: #777575;
 }
-/* 
-.searchResultBox .head .cancelIcon {
-   cursor: pointer;
-} */

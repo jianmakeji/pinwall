@@ -19,8 +19,7 @@
    height: 180rpx;
    position: absolute;
    margin-top: 300rpx;
-   margin-left: 265rpx;
-   border-radius: 110rpx;
+   margin-left: 285rpx;
 }
 
 .login .username_box {
@@ -94,8 +93,8 @@
 .login .wx_login {
    position: absolute;
    width: 380rpx;
-   margin-top: 800rpx;
-   margin-left: 195rpx;
+   margin-top: 600rpx;
+   margin-left: 185rpx;
    font-size: 40rpx;
 }
 /* 个人信息 */

@@ -7,5 +7,5 @@
       <topic-component userAvator="{{item.user.avatarUrl ? item.user.avatarUrl : '/images/default_profile.jpg'}}" userFullname="{{item.user.fullname}}" totalArtifact="{{item.user.gender}}" createAt="{{tools.split(item.createAt)}}" topicName="{{item.name}}"
          artifacts="{{item.artifacts}}" data-topic-id="{{item.Id}}" bind:tapTheTopic="tapTheTopic"></topic-component>
    </block>
-   <i-load-more tip="暂无更多数据" loading="{{ loading }}" />
+   <i-load-more i-class="{{statusHeight && !loading ? 'loadHighStatus' : 'loadLowStatus'}}" tip="暂无更多数据" loading="{{ loading }}" />
 </view>

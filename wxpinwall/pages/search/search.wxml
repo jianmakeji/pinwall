@@ -17,7 +17,7 @@
       <text data-search-num="2" catchtap="searchTypeChange">课程</text>
       <text data-search-num="3" catchtap="searchTypeChange">用户</text>
    </view>
-   <view class='themeSearchText' wx:if="{{typeActive == '1'}}">
+   <view class='themeSearchText' wx:if="{{typeActive != '3'}}">
       <text class='des'>按主题分类查看...</text>
       <view class='themeText1'>
          <text data-theme-flag="产品设计" catchtap='tapTheTheme'>产品设计</text>
@@ -34,10 +34,7 @@
    </view>
 </view>
 <view class="searchResultBox {{statusHeight ? 'highStatus' : 'lowStatus'}}" wx:if="{{hasResult}}">
-   <view class='head'>
-      <text class='searchDes'>探索"{{keyword}}"的结果</text>
-      <i-icon class='cancelIcon' type="delete_fill" size="22" color='#929292' catchtap='tapClose'/>
-   </view>
+   <text class='searchDes'>探索"{{keyword}}"的结果</text>
    <block wx:for="{{ topicDataList }}" wx:for-item="item" wx:if="{{typeActive == '2'}}">
       <topic-component userAvator="{{item.user.avatarUrl ? item.user.avatarUrl : '/images/default_profile.jpg'}}"  userFullname ="{{item.user.fullname}}" totalArtifact="{{item.user.gender}}" createAt="{{tools.split(item.createAt)}}" topicName="{{item.name}}" artifacts="{{item.artifacts}}" data-topic-id="{{item.Id}}" bind:tapTheTopic="tapTheTopic"></topic-component>
    </block>

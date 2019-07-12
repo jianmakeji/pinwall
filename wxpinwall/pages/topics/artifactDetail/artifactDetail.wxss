@@ -39,7 +39,6 @@
    margin-top:24rpx;
    font-size:26rpx;
    color:#CF011B;
-   /* font-weight:bold; */
    text-align:center;
    line-height:50rpx;
    border-radius:30rpx;
@@ -221,25 +220,24 @@
    margin-top: 32rpx;
 }
 .optUl{
-   width: 60rpx;
+   width: 80rpx;
    position: fixed;
    right: 40rpx;
    display: flex;
    flex-direction: column;
 }
 .optUl view{
-   width: 70rpx;
-   height: 70rpx;
+   width: 78rpx;
+   height: 78rpx;
    margin-top: 40rpx;
    background: #fff;
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-   
 }
 .optUl .like_btn,
 .optUl .comment_btn,
 .optUl .score_btn{
-   width: 50rpx;
-   height: 50rpx;
+   width: 58rpx;
+   height: 58rpx;
    margin: 10rpx;
 }
 
@@ -303,9 +301,8 @@
    position: absolute;
    margin-top: 30rpx;
    margin-left: 120rpx;
-   font-size: 34rpx;
+   font-size: 26rpx;
    color: #07af69;
-   font-weight: bold;
 }
 
 .commentListBox .comment .user_info .comment_time {
@@ -324,7 +321,7 @@
    width: 500rpx;
    height: 70rpx;
    position: absolute;
-   margin-top: 80rpx;
+   margin-top: 75rpx;
    margin-left: 120rpx;
    color: #333;
    font-size: 24rpx;
@@ -344,7 +341,7 @@
    flex-direction: row;
    align-items: center;
    position: fixed;
-   bottom: 0rpx;
+   /* bottom: 0rpx; */
 }
 .commentInputBox .commentInput{
    width: 500rpx;
@@ -370,7 +367,7 @@
    flex-direction: row;
    align-items: center;
    position: fixed;
-   bottom: 0rpx;
+   /* bottom: 0rpx; */
 }
 .scoreInputBox .scoreInput{
    width: 500rpx;

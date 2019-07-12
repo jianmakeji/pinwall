@@ -18,14 +18,6 @@ Page({
       myTopicNum:0,
       myTopicsData:[]
    },
-   //记住我选择
-   handleAnimalChange({
-      detail = {}
-   }) {
-      this.setData({
-         checked: detail.current
-      });
-   },
    handleClick() {
       this.setData({
          modalVisible: true
@@ -80,7 +72,7 @@ Page({
                                  wx.navigateTo({
                                     url: '/pages/my/completeInfo/completeInfo',
                                  })
-                              }, 2000);
+                              }, 1000);
                            }
                         } else {
                            wx.showToast({

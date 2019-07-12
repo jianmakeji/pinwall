@@ -9,6 +9,7 @@ Page({
       statusHeight:false,
       userInfo:"",
 
+      keyboarkHeight:"0",
       introVisible:false,
       introFocus:false
    },
@@ -26,11 +27,23 @@ Page({
          introFocus:true
       })
    },
+   keyboardHightChange(event){
+      let keyboarkHeight = event.detail.height;
+      if(keyboarkHeight > 0){
+         this.setData({
+            keyboarkHeight: keyboarkHeight
+         })
+      }else{
+         this.setData({
+            keyboarkHeight: 0
+         })
+      }
+   },
    // 输入框失去焦点
    introBlur(){
-      this.setData({
-         introVisible: false
-      })
+   //    this.setData({
+   //       introVisible: false
+   //    })
    },
    // 简介值变化
    introValueChange(event){

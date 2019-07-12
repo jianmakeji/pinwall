@@ -42,10 +42,10 @@
    background: #EFEFEF;
 }
 .profileImage{
-   width: 600rpx;
-   height: 600rpx;
-   min-height:600rpx;
-   margin: 10rpx;
+   width: 594rpx;
+   height: 594rpx;
+   min-height:594rpx;
+   margin: 14rpx;
 }
 .title{
    font-size: 28rpx;
@@ -54,7 +54,7 @@
    margin-left: 10rpx;
 }
 .des{
-   font-size: 22rpx;
+   font-size: 24rpx;
    color: #7c7a7a;
    margin-left: 10rpx;
    margin-top:10rpx;
