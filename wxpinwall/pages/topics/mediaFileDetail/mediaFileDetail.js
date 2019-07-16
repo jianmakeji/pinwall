@@ -1,33 +1,50 @@
 // pages/topics/mediaFileDetail/mediaFileDetail.js
+const app = getApp();
 Page({
 
    /**
     * 页面的初始数据
     */
    data: {
+      statusHeight: false,
       videoUrl:"",
       videoVisible:false,
       mediaFileUrl: "",
       mediaFileVisible:false
    },
-
+   tapBack(){
+      wx.navigateBack({
+         data:1
+      })
+   },
    /**
     * 生命周期函数--监听页面加载
     */
    onLoad: function (options) {
       let mediaFileUrl = unescape(options.mediaFileUrl);
       let that = this;
+      if (app.globalData.statusBarHeight == 44) {
+         that.setData({
+            statusHeight: true
+         })
+      } else {
+         that.setData({
+            statusHeight: false
+         })
+      }
       wx.getSystemInfo({
          success: function (res) {
             if (res.system.indexOf("iOS") < 0){
                if (mediaFileUrl.indexOf("video") > 0){
                   that.setData({
                      videoUrl: mediaFileUrl,
+                     mediaFileVisible:false,
                      videoVisible: true
                   })
-               } else if (mediaFileUrl.indexOf("pdf") > 0){
+               } else if (mediaFileUrl.indexOf("pdf") > 0 || mediaFileUrl.indexOf("h5") > 0){
                   that.setData({
                      mediaFileUrl: mediaFileUrl,
+                     videoVisible: false,
                      mediaFileVisible: true
                   })
                }
@@ -36,11 +53,13 @@ Page({
                if (mediaFileUrl.indexOf("video") > 0 ) {
                   that.setData({
                      videoUrl: mediaFileUrl,
+                     mediaFileVisible: false,
                      videoVisible: true
                   })
-               } else if (mediaFileUrl.indexOf("pdf") > 0) {
+               } else if (mediaFileUrl.indexOf("pdf") > 0 || mediaFileUrl.indexOf("h5") > 0) {
                   that.setData({
                      mediaFileUrl: mediaFileUrl,
+                     videoVisible: false,
                      mediaFileVisible: true
                   })
                }

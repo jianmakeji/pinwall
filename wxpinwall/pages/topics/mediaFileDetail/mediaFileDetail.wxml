@@ -1,3 +1,4 @@
 <!--pages/topics/mediaFileDetail/mediaFileDetail.wxml-->
+<nav-bar statusHeight="{{statusHeight}}" tabIndex="2" wx:if="{{videoVisible}}" backDes="返回" bind:tapBack="tapBack"></nav-bar>
 <web-view class='webView' wx:if="{{mediaFileVisible}}" src="{{mediaFileUrl}}"></web-view>
 <video class='video' src="{{videoUrl}}" wx:if="{{videoVisible}}" controls autoplay custom-cache="{{false}}" page-gesture="true"></video>

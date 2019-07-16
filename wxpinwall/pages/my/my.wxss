@@ -103,10 +103,10 @@
    height: 100%;
 }
 .highStatus{
-   margin-top:184rpx
+   margin-top:180rpx
 }
 .lowStatus{
-   margin-top:134rpx
+   margin-top:128rpx
 }
 .myInfo .user_info {
    width: 750rpx;

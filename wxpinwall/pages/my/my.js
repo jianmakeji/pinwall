@@ -27,32 +27,32 @@ Page({
    tapWxLogin() {
       let that = this;
       wx.login({
-         success: function(res) {
-            let code = res.code;
+         success: function (loginRes) {
+            let code = loginRes.code;
             wx.getUserInfo({
-               success(res) {
-                  setStorageWithUserInfo(res.userInfo);
-                  wx.setStorageSync("encryptedData", res.encryptedData);
-                  wx.setStorageSync("iv", res.iv);
+               success(userInfoRes) {
+                  setStorageWithUserInfo(userInfoRes.userInfo);
+                  wx.setStorageSync("encryptedData", userInfoRes.encryptedData);
+                  wx.setStorageSync("iv", userInfoRes.iv);
                   wx.request({
                      url: app.globalData.baseUrl + "/wx/users/getWxCode",
                      data: {
                         jscode: code,
-                        encryptedData: wx.getStorageSync("encryptedData"),
-                        iv: wx.getStorageSync("iv")
+                        encryptedData: userInfoRes.encryptedData,
+                        iv: userInfoRes.iv
                      },
                      header: {
                         'content-type': 'application/json'
                      },
-                     success(res) {
-                        if (res.data.openid) {
-                           wx.setStorageSync("openid", res.data.openid);
-                           wx.setStorageSync("sessionKey", res.data.sessionKey);
-                           if (res.data.user != null && (res.data.user.email != null || res.data.user.mobile != null)) {
-                              wx.setStorageSync("openid", res.data.openid);
-                              wx.setStorageSync("sessionKey", res.data.sessionKey);
-                              wx.setStorageSync("myId", res.data.user.Id);
-                              wx.setStorageSync("myRole", res.data.user.roles[0].name);
+                     success(wxCodeRes) {
+                        if (wxCodeRes.data.openid) {
+                           wx.setStorageSync("openid", wxCodeRes.data.openid);
+                           wx.setStorageSync("sessionKey", wxCodeRes.data.sessionKey);
+                           if (wxCodeRes.data.user != null && (wxCodeRes.data.user.email != null || wxCodeRes.data.user.mobile != null)) {
+                              wx.setStorageSync("openid", wxCodeRes.data.openid);
+                              wx.setStorageSync("sessionKey", wxCodeRes.data.sessionKey);
+                              wx.setStorageSync("myId", wxCodeRes.data.user.Id);
+                              wx.setStorageSync("myRole", wxCodeRes.data.user.roles[0].name);
                               wx.setStorageSync("isLogin", "true");
                               wx.setTabBarItem({
                                  index: 3,
@@ -63,7 +63,7 @@ Page({
                               });
                               that.onShow();
                            } else {
-                              wx.setStorageSync("openid", res.data.openid);
+                              wx.setStorageSync("openid", wxCodeRes.data.openid);
                               wx.showToast({
                                  title: '您的微信未绑定图钉墙,无法进行相关操作',
                                  icon:"none"
@@ -92,6 +92,7 @@ Page({
    bindOk() {
       wx.removeStorageSync('openid');
       wx.removeStorageSync('myRole');
+      wx.removeStorageSync('myId');
       wx.setStorageSync('isLogin', "false");
       this.setData({
          modalVisible: false,

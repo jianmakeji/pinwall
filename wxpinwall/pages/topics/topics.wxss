@@ -1,7 +1,7 @@
 /* pages/topics/topics.wxss */
 
 .highStatus{
-   margin-top: 255rpx;
+   margin-top: 250rpx;
 }
 .lowStatus{
    margin-top: 200rpx;

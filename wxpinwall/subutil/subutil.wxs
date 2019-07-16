@@ -5,7 +5,7 @@ var split = function(value){
 }
 var includeType = function(value){
    if (value != undefined && value != null) {
-      if (value.indexOf("pdf") >= 0 || value.indexOf("video") >= 0) {
+      if (value.indexOf("pdf") >= 0 || value.indexOf("video") >= 0 || value.indexOf("h5") >= 0) {
          return true;
       } else {
          return false;

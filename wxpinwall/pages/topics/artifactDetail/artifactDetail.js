@@ -365,22 +365,19 @@ Page({
             })
          },
       })
-   },
-   onShow() {
-      let that = this;
       // 获取作业信息
       wx.request({
          url: app.globalData.baseUrl + app.globalData.getArtifactById + this.data.artifactId,
-         data:{
-            role:wx.getStorageSync("myRole"),
-            userId:wx.getStorageSync("myId")
+         data: {
+            role: wx.getStorageSync("myRole"),
+            userId: wx.getStorageSync("myId")
          },
          success(res) {
             if (res.data.status == 200) {
                let teamworkerData = new Array();
-               if (res.data.data.teamworker != "" && res.data.data.teamworker != null){
+               if (res.data.data.teamworker != "" && res.data.data.teamworker != null) {
                   teamworkerData = JSON.parse(res.data.data.teamworker);
-               }else{
+               } else {
                   teamworkerData = [];
                }
                that.setData({
@@ -398,10 +395,10 @@ Page({
                })
                if (teamworkerData.length == 0) {
                   that.setData({
-                     teamworker : ''
+                     teamworker: ''
                   })
                } else {
-                  for(let i=0;i<teamworkerData.length;i++){
+                  for (let i = 0; i < teamworkerData.length; i++) {
                      that.setData({
                         teamworker: that.data.teamworker == "" ? that.data.teamworker + teamworkerData[i].fullname : that.data.teamworker + "," + teamworkerData[i].fullname
                      })
@@ -423,7 +420,7 @@ Page({
                      })
                   }
                })
-               
+
                if (res.data.data.topics.length) {
                   that.setData({
                      topicName: res.data.data.topics[0].name,
@@ -445,6 +442,9 @@ Page({
             }
          }
       })
+   },
+   onShow() {
+      let that = this;
       // 获取作品点赞参数
       wx.request({
          url: app.globalData.baseUrl + app.globalData.getMedalLikeDataByUserIdAndArtifactsId,
