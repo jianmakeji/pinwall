@@ -151,7 +151,7 @@ class Topics extends Service {
           else if (role == 'user'){
             let users = new Array();
             let teamworker = element.teamworker;
-            if (teamworker){
+            if (teamworker && teamworker != ""){
               let teamArray = JSON.parse(teamworker);
               teamArray.forEach((tw)=>{
                 users.push(tw.Id);
@@ -211,7 +211,7 @@ class Topics extends Service {
           else if (role == 'user'){
             let users = new Array();
             let teamworker = element.teamworker;
-            if (teamworker){
+            if (teamworker && teamworker != ""){
               let teamArray = JSON.parse(teamworker);
               teamArray.forEach((tw)=>{
                 users.push(tw.Id);
