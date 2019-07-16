@@ -1,7 +1,4 @@
 // pages/search/search.js
-const {
-   $Toast
-} = require('../../dist/base/index');
 const app = getApp();
 Page({
 
@@ -11,6 +8,7 @@ Page({
    data: {
       loadModel:false,
 
+      searchTitle:"搜索作品",
       tabIndexNum:"2",
       typeActive:"1",
 
@@ -25,9 +23,20 @@ Page({
    },
    // 界面返回
    tapBack(event){
-      wx.navigateBack({
-         data:1
-      })
+      if(this.data.hasResult){
+         this.setData({
+            focusModel: false,
+            hasResult: false,
+            keyword: "",
+            artifactDataList: [],
+            topicDataList: [],
+            userDataList: []
+         })
+      }else{
+         wx.navigateBack({
+            data:1
+         })
+      }
    },
    // 输入值变化
    inputChange(event) {
@@ -37,10 +46,24 @@ Page({
    },
    // 搜索类型修改
    searchTypeChange(event){
+      let searchNum = event.currentTarget.dataset.searchNum;
       this.setData({
          focusModel:true,
-         typeActive : event.currentTarget.dataset.searchNum
+         typeActive: searchNum
       })
+      if (searchNum == "1"){
+         this.setData({
+            searchTitle: "搜索作品"
+         })
+      } else if (searchNum == "2") {
+         this.setData({
+            searchTitle: "搜索课程"
+         })
+      }else if (searchNum == "3"){
+         this.setData({
+            searchTitle: "搜索用户"
+         })
+      }
    },
    // 搜索提交
    searchSubmit(event) {
@@ -137,15 +160,31 @@ Page({
       let that = this;
       let aoData = new Object();
       let aoUrl = new String();
-      aoData.limit = 10;
-      aoData.offset = 0;
-      aoData.keyword = event.currentTarget.dataset.themeFlag;
-      aoUrl = app.globalData.baseUrl + app.globalData.searchByKeywords;
-      this.setData({
-         gbData: aoData,
-         gbUrl: aoUrl,
-         keyword : event.currentTarget.dataset.themeFlag
-      })
+      if (this.data.typeActive == "1"){
+         aoData.limit = 10;
+         aoData.offset = 0;
+         aoData.keyword = event.currentTarget.dataset.themeFlag;
+         aoUrl = app.globalData.baseUrl + app.globalData.searchByKeywords;
+         this.setData({
+            gbData: aoData,
+            gbUrl: aoUrl,
+            keyword: event.currentTarget.dataset.themeFlag
+         })
+      }else{
+         aoData.limit = 10;
+         aoData.offset = 0;
+         aoData.jobTag = 1;
+         aoData.subLimit = 5;
+         aoData.status = 0;
+         aoData.keyword = event.currentTarget.dataset.themeFlag;
+         aoUrl = app.globalData.baseUrl + app.globalData.searchByTopicName;
+         this.setData({
+            gbData: aoData,
+            gbUrl: aoUrl,
+            keyword: event.currentTarget.dataset.themeFlag
+         })
+      }
+      
       wx.request({
          url: aoUrl,
          data:aoData,
@@ -160,6 +199,21 @@ Page({
                   } else {
                      wx.showToast({
                         title: '暂无该名称的作品！',
+                        icon: 'none',
+                        duration: 2000,
+                     })
+                  }
+               }
+               if (that.data.typeActive == "2") {
+                  if (res.data.data.rows.length != 0) {
+                     that.setData({
+                        focusModel: false,
+                        hasResult: true,
+                        topicDataList: res.data.data.rows
+                     })
+                  } else {
+                     wx.showToast({
+                        title: '暂无该名称的课程！',
                         icon: 'none',
                         duration: 2000,
                      })
@@ -194,17 +248,6 @@ Page({
       let userId = event.currentTarget.dataset.userId;
       wx.navigateTo({
          url: '/pages/topics/showreelDetail/showreelDetail' + "?userId=" + userId + "&jobTag=0",
-      })
-   },
-   // 点击关闭
-   tapClose(event){
-      this.setData({
-         focusModel: false,
-         hasResult: false,
-         keyword: "",
-         artifactDataList: [],
-         topicDataList: [],
-         userDataList: []
       })
    },
    /**
@@ -254,7 +297,6 @@ Page({
     */
    onReachBottom: function () {
       let that = this;
-      console.log("1111", this.data.gbData, this.data.gbUrl)
       this.setData({
          "gbData.offset": this.data.gbData.offset + 10
       })

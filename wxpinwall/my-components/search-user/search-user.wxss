@@ -1,6 +1,6 @@
 .searchUser{
    width: 670rpx;
-   height: 60rpx;
+   height: 100rpx;
    margin: 10rpx auto;
    padding: 15rpx;
    background: #fff;
@@ -19,8 +19,8 @@
    justify-content: left;
 }
 .searchUser .userInfo .avatarUrl{
-   width: 50rpx;
-   height: 50rpx;
+   width: 70rpx;
+   height: 70rpx;
    border-radius: 50%;
 }
 .searchUser .userInfo .fullname{
@@ -28,10 +28,13 @@
    height: 30rpx;
    line-height: 30rpx;
    margin-left: 20rpx;
-   font-size: 24rpx;
-   color: #000;
+   font-size: 26rpx;
+   color: #101010;
 }
 .searchUser button{
-   width: 136rpx;
-   font-size: 16rpx;
+   width:160rpx;
+   color:#101010;
+   font-size:20rpx;
+   height:50rpx;
+   line-height:50rpx;
 }

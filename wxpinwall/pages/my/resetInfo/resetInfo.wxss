@@ -12,102 +12,110 @@
    margin-top: 135rpx;
 }
 .contanior .avatorInfo{
-   width: 670rpx;
+   width: 710rpx;
    height: 120rpx;
    display: flex;
    flex-direction: row;
    justify-content: space-between;
    align-items: center;
-   border-bottom: solid 1px black;
+   border-bottom: solid 1px #BBBBBB;
    padding: 20rpx 0;
    margin-left: 40rpx;
 }
 
 .contanior .avatorInfo .title{
    font-size: 26rpx;
-   font-weight: bold;
+   color: #101010;
 }
 .contanior .avatorInfo .avatorUrl{
    width: 100rpx;
    height: 100rpx;
    border-radius: 50%;
+   margin-right:40rpx;
 }
 .fullNameInfo{
-   width: 670rpx;
+   width: 710rpx;
    height: 80rpx;
    display: flex;
    flex-direction: row;
    justify-content: space-between;
    align-items: center;
-   border-bottom: solid 1px black;
+   border-bottom: solid 1px #BBBBBB;
    padding: 20rpx 0;
    margin-left: 40rpx;
 }
 .fullNameInfo .title{
    font-size: 26rpx;
-   font-weight: bold;
+   color: #101010;
 }
 .fullNameInfo .fullname{
    font-size: 26rpx;
+   color: #7E7E7E;
+   margin-right: 40rpx;
 }
 
 .emailInfo{
-   width: 670rpx;
+   width: 710rpx;
    height: 80rpx;
    display: flex;
    flex-direction: row;
    justify-content: space-between;
    align-items: center;
-   border-bottom: solid 1px black;
+   border-bottom: solid 1px #BBBBBB;
    padding: 20rpx 0;
    margin-left: 40rpx;
 }
 .emailInfo .title{
    font-size: 26rpx;
-   font-weight: bold;
+   color: #101010;
 }
 .emailInfo .email{
    font-size: 26rpx;
+   color: #7E7E7E;
+   margin-right: 40rpx;
 }
 .phoneInfo{
-   width: 670rpx;
+   width: 710rpx;
    height: 80rpx;
    display: flex;
    flex-direction: row;
    justify-content: space-between;
    align-items: center;
-   border-bottom: solid 1px black;
+   border-bottom: solid 1px #BBBBBB;
    padding: 20rpx 0;
    margin-left: 40rpx;
 }
 .phoneInfo .title{
    font-size: 26rpx;
-   font-weight: bold;
+   color: #101010;
 }
 .phoneInfo .phone{
    font-size: 26rpx;
+   color: #7E7E7E;
+   margin-right: 40rpx;
 }
 .desInfo{
-   width: 670rpx;
+   width: 710rpx;
    display: flex;
    flex-direction: row;
    justify-content: space-between;
    align-items: center;
-   border-bottom: solid 1px black;
    padding: 20rpx 0;
    margin-left: 40rpx;
 }
 .desInfo .title{
    width: 400rpx;
+   color: #101010;
    font-size: 26rpx;
-   font-weight: bold;
 }
 .desInfo .des{
    font-size: 26rpx;
+   color: #7E7E7E;
 }
 .desInfo .enter_icon{
    width: 40rpx;
    height: 40rpx;
+   margin-right: 40rpx;
 }
 
 
@@ -119,7 +127,7 @@
    flex-direction: row;
    align-items: center;
    position: fixed;
-   bottom: 0rpx;
+   /* bottom: 0rpx; */
 }
 .introInputBox .introInput{
    width: 500rpx;

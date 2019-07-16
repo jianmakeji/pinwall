@@ -3,8 +3,8 @@
 <view class="artifact_info {{statusHeight ? 'highStatus' : 'lowStatus'}}" style='height:{{artifactInfoHeight}}px;'>
    <image class='user_avator' src="{{userAvatarUrl?userAvatarUrl:'/images/default_profile.jpg'}}" catchtap='tapUserAvator' data-user-id="{{artifactUserId}}"></image>
    <text class='user_fullname' catchtap='tapUserAvator' data-user-id="{{artifactUserId}}">{{userFullname}}</text>
-   <text class='artifact_score' wx:if="{{artifactScores[0] != null }}">{{artifactScores[0].score + '分'}}</text>
-   <text class='artifact_score' wx:if="{{artifactScores.length == 0 }}">未打分</text>
+   <text class='artifact_score' wx:if="{{artifactScores[0] != null && myRole}}">{{artifactScores[0].score + '分'}}</text>
+   <text class='artifact_score' wx:if="{{artifactScores.length == 0 && myRole}}">未打分</text>
    <text class='artifact_title'>{{artifactTitle}}</text>
    <text class='teamworker'>协作：{{teamworker ? teamworker : "无"}}</text>
    <view class='iconBox'>
@@ -25,10 +25,11 @@
    <text class='topic_name'>{{topicName}}</text>
    <text id='artifact' class='artifact_des'>{{artifactDes}}</text>
 </view>
-<view class='artifact_assets' style='padding-top: {{artifactAssetsPadding}}px;'>
+<view class='artifact_assets' style="padding-top: {{artifactAssetsPadding+'px'}};">
    <block wx:for="{{artifact_assets}}" wx:for-item="item">
       <view class='artifact_assets_detail'>
-         <image class='artifact_profile_img' mode="widthFix" src="{{item.profileImage}}"></image>
+         <image class='artifact_profile_img' wx:if="{{!tools.includeType(item.mediaFile)}}" mode="widthFix" src="{{item.profileImage}}"></image>
+         <image class='artifact_profile_img' wx:if="{{tools.includeType(item.mediaFile)}}" mode="widthFix" src="{{item.profileImage}}" data-media-file='{{item.mediaFile}}' catchtap='fileTap'></image>
          <text class='artifact_profile_title' wx:if="{{item.name && item.name != 'null'}}">{{item.name}}</text>
          <text class='artifact_profile_des' wx:if="{{item.description && item.description != 'null'}}">{{item.description}}</text>
          <image class='artifact_file_img' wx:if="{{tools.includeType(item.mediaFile)}}" mode="aspectFit" data-media-file='{{item.mediaFile}}' src='/images/file_tap.png' catchtap='fileTap'></image>
@@ -38,13 +39,18 @@
 
 <view class='optUl' style='top:{{optTop}}px'>
    <view>
-      <image class='like_btn' src="{{zanModal?'/images/artifact_like_hl.png':'/images/artifact_like_default.png'}}" catchtap="creatLike"></image>
+      <image class='like_btn' wx-if="{{myRole == ''}}" src="{{zanModal?'/images/artifact_like_hl.png':'/images/artifact_like_default.png'}}" catchtap="creatLike"></image>
+      <image class='like_btn' wx-if="{{myRole == 'user'}}" src="{{zanModal?'/images/artifact_like_hl.png':'/images/artifact_like_default.png'}}" catchtap="creatLike"></image>
+      <image class='like_btn' wx-if="{{myRole == 'admin' || myRole == 'vip'}}" src="{{zanModal ? '/images/artifact_medal_hl.png' : '/images/artifact_medal_default.png'}}" catchtap='creatLike'></image>
    </view>
    <view>
       <image class='comment_btn' src='/images/artifact_comment_default.png' catchtap='openComment'></image>
    </view>
    <view>
       <image class='score_btn' src='/images/artifact_score_default.png' catchtap="creatScore"></image>
+   </view>
+   <view>
+      <image class='score_btn' src='/images/artifact_up.png' catchtap="catUp"></image>
    </view>
 </view>
 
@@ -62,12 +68,12 @@
          </block>
       </view>
 </view>
-<view class='commentInputBox' wx:if="{{commentVisible}}">
-   <input class='commentInput' value="{{ commentEditValue }}" bindinput='commentValueChange' bindblur="commentBlur" bindfocus="commentFocus" cursor-spacing="30" placeholder='发表你的评论...'></input>
+<view class='commentInputBox' style="bottom:{{commentKeyboardHeight+'px'}};" wx:if="{{commentVisible}}">
+   <input class='commentInput' value="{{ commentEditValue }}" adjust-position="{{false}}" bindkeyboardheightchange="commentKeyboardHightChange" bindinput='commentValueChange' bindblur="commentBlur" bindfocus="commentFocus" cursor-spacing="30" placeholder='发表你的评论...'></input>
    <button class='commentBtn' catchtap='submitComment'>发布</button>
 </view>
 
-<view class='scoreInputBox' wx:if="{{artifactScoreVisible}}" >
-   <input class='scoreInput' type='number' value="{{ artifactScoreValue }}" focus="{{scoreFocus}}" cursor-spacing="30" bindinput='artifactScoreValueChange' bindblur="scoreBlur" placeholder='请输入0~100之间整数'></input>
+<view class='scoreInputBox' style="bottom:{{scoreKeyboardHeight+'px'}};" wx:if="{{artifactScoreVisible}}" >
+   <input class='scoreInput' type='number' value="{{ artifactScoreValue }}" adjust-position="{{false}}" focus="{{scoreFocus}}" cursor-spacing="30" bindinput='artifactScoreValueChange' bindkeyboardheightchange="scoreKeyboardHightChange" bindblur="scoreBlur" placeholder='请输入0~100之间整数'></input>
    <button class='scoreBtn' catchtap='submitScore'>打分</button>
 </view>

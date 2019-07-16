@@ -11,5 +11,4 @@
       </block>
    </wxc-tab>
    <i-load-more i-class="{{statusHeight && !loading ? 'loadHighStatus' : 'loadLowStatus'}}" tip="暂无更多数据" loading="{{ loading }}"/>
-   <!-- <image class='packUp' catchtap='tapPackUp' wx:if="{{showPackUp}}" src='/images/top.png'></image> -->
 </view>

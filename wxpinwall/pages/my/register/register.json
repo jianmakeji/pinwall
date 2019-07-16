@@ -1,0 +1,9 @@
+{
+   "usingComponents": {
+      "nav-bar": "/my-components/navbar/navbar",
+      "i-input": "/dist/input/index",
+      "i-button": "/dist/button/index"
+   },
+   "disableScroll": true,
+   "disableSwipeBack": true
+}

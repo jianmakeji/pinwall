@@ -15,7 +15,7 @@
    white-space: nowrap;
    width: 100%;
    position: fixed;
-   background: #f8f8f9;
+   background: #fff;
    z-index: 100;
 }
 .tabHighStatus{

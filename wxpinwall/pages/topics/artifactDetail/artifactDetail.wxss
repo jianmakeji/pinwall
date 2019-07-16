@@ -32,18 +32,17 @@
    font-weight: bold;
 }
 .artifact_info .artifact_score {
-   width:200rpx;
-   height:70rpx;
+   width:140rpx;
+   height:50rpx;
    position:absolute;
-   margin-left:520rpx;
-   margin-top:10rpx;
-   font-size:44rpx;
+   margin-left:570rpx;
+   margin-top:24rpx;
+   font-size:26rpx;
    color:#CF011B;
-   font-weight:bold;
    text-align:center;
-   line-height:70rpx;
+   line-height:50rpx;
    border-radius:30rpx;
-   border: solid 2px #EFEFEF
+   border:solid 2px #EFEFEF;
 }
 
 .artifact_info .artifact_title {
@@ -51,9 +50,9 @@
    height: 40rpx;
    position: absolute;
    margin-left: 25rpx;
-   margin-top: 107rpx;
+   margin-top: 143rpx;
    font-size: 32rpx;
-   color: #787878;
+   color: #101010;
    font-weight: bold;
    display: -webkit-box;
    word-break: break-all;
@@ -67,7 +66,7 @@
    height: 30rpx;
    position: absolute;
    margin-left: 25rpx;
-   margin-top: 160rpx;
+   margin-top: 108rpx;
    font-size: 22rpx;
    color: #07af69;
    font-weight: bold;
@@ -143,17 +142,17 @@
    height: 30rpx;
    position: absolute;
    margin-left: 25rpx;
-   margin-top: 240rpx;
+   margin-top: 245rpx;
    font-size: 20rpx;
-   color: #979797;
+   color: #101010;
 }
 
 .artifact_info .topic_name {
    width: 500rpx;
    height: 30rpx;
    position: absolute;
-   margin-left: 25rpx;
-   margin-top: 273rpx;
+   margin-left: 210rpx;
+   margin-top: 240rpx;
    font-size: 26rpx;
    color: #07af69;
    font-weight: bold;
@@ -169,15 +168,14 @@
    width: 700rpx;
    line-height: 36rpx;
    font-size: 24rpx;
-   color: #000;
+   color: #101010;
    position: absolute;
    margin-left: 25rpx;
-   margin-top: 306rpx;
+   margin-top: 290rpx;
 }
 
 .artifact_assets {
    width: 750rpx;
-   border-radius: 30rpx;
    background: #fff;
    padding-top: 320rpx;
    margin-top: 100rpx;
@@ -222,23 +220,24 @@
    margin-top: 32rpx;
 }
 .optUl{
-   width: 60rpx;
+   width: 80rpx;
    position: fixed;
    right: 40rpx;
    display: flex;
    flex-direction: column;
 }
 .optUl view{
-   width: 60rpx;
-   height: 60rpx;
+   width: 78rpx;
+   height: 78rpx;
    margin-top: 40rpx;
    background: #fff;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 .optUl .like_btn,
 .optUl .comment_btn,
 .optUl .score_btn{
-   width: 40rpx;
-   height: 40rpx;
+   width: 58rpx;
+   height: 58rpx;
    margin: 10rpx;
 }
 
@@ -302,9 +301,8 @@
    position: absolute;
    margin-top: 30rpx;
    margin-left: 120rpx;
-   font-size: 34rpx;
+   font-size: 26rpx;
    color: #07af69;
-   font-weight: bold;
 }
 
 .commentListBox .comment .user_info .comment_time {
@@ -323,7 +321,7 @@
    width: 500rpx;
    height: 70rpx;
    position: absolute;
-   margin-top: 80rpx;
+   margin-top: 75rpx;
    margin-left: 120rpx;
    color: #333;
    font-size: 24rpx;
@@ -343,7 +341,7 @@
    flex-direction: row;
    align-items: center;
    position: fixed;
-   bottom: 0rpx;
+   /* bottom: 0rpx; */
 }
 .commentInputBox .commentInput{
    width: 500rpx;
@@ -369,7 +367,7 @@
    flex-direction: row;
    align-items: center;
    position: fixed;
-   bottom: 0rpx;
+   /* bottom: 0rpx; */
 }
 .scoreInputBox .scoreInput{
    width: 500rpx;

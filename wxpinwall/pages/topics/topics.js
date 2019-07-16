@@ -2,7 +2,7 @@
 const app = getApp();
 Page({
    data: {
-      tabIndex: 0,
+      tabIndex: 2,
       statusHeight: false,
       tabIndexNum:"3",
       tabs: [
@@ -18,7 +18,7 @@ Page({
       offset: 0,
       jobTag: 1,     //1作业荚，0毕设展
       subLimit: 5,   
-      status: -1,
+      status: 1,
       userId: -1,
       //数据数组
       dataList: []
@@ -80,7 +80,6 @@ Page({
             statusHeight: false
          })
       }
-      getData(this, "init");
    },
    onShow:function(){
       

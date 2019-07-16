@@ -1,0 +1,19 @@
+<nav-bar statusHeight="{{statusHeight}}" tabIndex="2" backDes="忘记密码" bind:tapBack="tapBack"></nav-bar>
+<view class='forgetPwdBox'>
+   <text class='des1'>请输入手机号并点击获取验证码，</text>
+   <text class='des2'>验证通过后设置新密码</text>
+   <view class='mobileBox'>
+      <i-input i-class='mobileInput' value="{{ mobile }}" bind:change="mobileChange" placeholder="手机号" />
+   </view>
+   <view class='smscodeBox'>
+      <i-input i-class='codeInput' type="password" value="{{ smscode }}" bind:change="smscodeChange" placeholder="验证码" />
+      <i-button i-class='smscodeBtn' type="default" bind:click="getSmsCode" disabled="{{disableCodeBtn}}">{{smscodeText}}</i-button>
+   </view>
+   <view class='newPwdBox'>
+      <i-input i-class='newpwdInput' type="password" value="{{ password }}" bind:change="passwordChange" placeholder="密码" />
+   </view>
+   <view class='confirmPasswordBox'>
+      <i-input i-class='confirmPasswordInput' type="password" value="{{ confirmPassword }}" placeholder="确认密码" />
+   </view>
+   <i-button i-class="submit" type='success' bind:click="submit">提交</i-button>
+</view>

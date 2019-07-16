@@ -10,7 +10,9 @@
       "pages/topics/mediaFileDetail/mediaFileDetail",
       "pages/search/search",
       "pages/my/my",
+      "pages/my/register/register",
       "pages/my/resetInfo/resetInfo",
+      "pages/my/forgetPwd/forgetPwd",
       "pages/my/completeInfo/completeInfo"
    ],
    "window": {

@@ -5,6 +5,7 @@ Page({
     * 页面的初始数据
     */
    data: {
+      myRole:"user",
       tabIndexNum:"2",
       vipRole: false,
       zanModal: false,
@@ -28,6 +29,7 @@ Page({
       commentOffset: 0,
       artifactId: "",
       commentList: [],
+      commentKeyboardHeight:"0",
       //新建评论
       commentFocus:false,
       commentVisible: false,
@@ -38,6 +40,7 @@ Page({
       scoreFocus:false,
       artifactScoreVisible: false,
       artifactScoreValue: null,
+      scoreKeyboardHeight:"0",
 
       artifactInfoHeight:"",
       artifactAssetsPadding:""
@@ -173,6 +176,19 @@ Page({
          commentEditValue: event.detail.value
       })
    },
+   // 键盘高度变化
+   commentKeyboardHightChange(event){
+      let commentKeyboardHeight = event.detail.height;
+      if (commentKeyboardHeight > 0) {
+         this.setData({
+            commentKeyboardHeight: commentKeyboardHeight
+         })
+      } else {
+         this.setData({
+            commentKeyboardHeight: 0
+         })
+      }
+   },
    /**
     * 点击评论发表
     */
@@ -224,11 +240,18 @@ Page({
    // 打开打分菜单按钮
    creatScore() {
       if (wx.getStorageSync("openid")){
-         this.setData({
-            scoreFocus:true,
-            artifactScoreVisible: true,
-            commentVisible:false
-         })
+         if (this.data.vipRole) {
+            this.setData({
+               scoreFocus: true,
+               artifactScoreVisible: true,
+               commentVisible: false
+            })
+         }else{
+            wx.showToast({
+               title: '您不是作业荚创建者，无权限',
+               icon:"none"
+            })
+         }
       }else{
          wx.showToast({
             title: '需先登录才能操作！',
@@ -253,6 +276,18 @@ Page({
       this.setData({
          artifactScoreVisible: false
       })
+   },
+   scoreKeyboardHightChange(event){
+      let scoreKeyboardHeight = event.detail.height;
+      if (scoreKeyboardHeight > 0) {
+         this.setData({
+            scoreKeyboardHeight: scoreKeyboardHeight
+         })
+      } else {
+         this.setData({
+            scoreKeyboardHeight: 0
+         })
+      }
    },
    /***
     * 点击分数保存
@@ -299,12 +334,19 @@ Page({
          });
       }
    },
+   catUp(event){
+      wx.pageScrollTo({
+         scrollTop: 0,
+         duration: 300
+      })
+   },
    /**
     * 生命周期函数--监听页面加载
     */
    onLoad: function(options) {
       let that = this;
       this.setData({
+         myRole:wx.getStorageSync("myRole"),
          artifactId: options.artifactId
       })
       if (app.globalData.statusBarHeight == 44) {
@@ -319,7 +361,7 @@ Page({
       wx.getSystemInfo({
          success: function(res) {
             that.setData({
-               optTop:res.screenHeight/2 - 50
+               optTop:res.screenHeight/2 - 118
             })
          },
       })

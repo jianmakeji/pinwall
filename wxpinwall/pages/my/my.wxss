@@ -15,12 +15,11 @@
 }
 
 .login .defalt_avator {
-   width: 220rpx;
-   height: 220rpx;
+   width: 180rpx;
+   height: 180rpx;
    position: absolute;
    margin-top: 300rpx;
-   margin-left: 265rpx;
-   border-radius: 110rpx;
+   margin-left: 285rpx;
 }
 
 .login .username_box {
@@ -93,9 +92,10 @@
 }
 .login .wx_login {
    position: absolute;
-   width: 600rpx;
-   margin-top: 800rpx;
-   margin-left: 75rpx;
+   width: 380rpx;
+   margin-top: 600rpx;
+   margin-left: 185rpx;
+   font-size: 40rpx;
 }
 /* 个人信息 */
 .myInfo {
@@ -152,7 +152,6 @@
    height: 30rpx;
    line-height: 30rpx;
    font-size: 28rpx; 
-   font-weight: bold;
    text-align: center;
    color: rgba(51, 51, 51, 1);
 }
@@ -181,7 +180,6 @@
    background: #fff;
    display: flex;
    flex-direction: column;
-   box-shadow: 0px 2px 4px 0px rgba(31, 181, 190, 0.16);
 }
 .myInfo .zuopingji .topBox{
    width: 750rpx;
@@ -204,7 +202,7 @@
    margin-top: 20rpx;
    margin-left: 30rpx;
    font-size: 30rpx;
-   font-weight: bold;
+   /* font-weight: bold; */
 }
 .myInfo .topBox .enter_icon{
    margin-left: 40rpx;
@@ -226,13 +224,12 @@
 /* 我的作业荚 */
 .myInfo .zuoyejia{
    width: 750rpx;
-   height: 80rpx;
+   height: 90rpx;
    margin-top: 20rpx;
    background: #fff;
    display: flex;
    flex-direction: row;
    align-items: center;
-   box-shadow: 0px 2px 4px 0px rgba(31, 181, 190, 0.16);
 }
 .myInfo .zuoyejia .zuoyejia_img{
    width: 36rpx;
@@ -245,7 +242,7 @@
    line-height: 40rpx;
    margin-left: 40rpx;
    font-size: 30rpx;
-   font-weight: bold;
+   /* font-weight: bold; */
 }
 .myInfo .zuoyejia .enter_icon{
    margin-left: 40rpx;
@@ -253,13 +250,12 @@
 /* 修改个人信息 */
 .myInfo .edit{
    width: 750rpx;
-   height: 80rpx;
+   height: 90rpx;
    margin-top: 20rpx;
    background: #fff;
    display: flex;
    flex-direction: row;
    align-items: center;
-   box-shadow: 0px 2px 4px 0px rgba(31, 181, 190, 0.16);
 }
 .myInfo .edit .edit_img{
    width: 36rpx;
@@ -272,7 +268,7 @@
    line-height: 40rpx;
    margin-left: 40rpx;
    font-size: 30rpx;
-   font-weight: bold;
+   /* font-weight: bold; */
 }
 .myInfo .edit .enter_icon{
    margin-left: 40rpx;
@@ -280,13 +276,12 @@
 /* 解除绑定 */
 .myInfo .unbind{
    width: 750rpx;
-   height: 80rpx;
+   height: 90rpx;
    margin-top: 5rpx;
    background: #fff;
    display: flex;
    flex-direction: row;
    align-items: center;
-   box-shadow: 0px 2px 4px 0px rgba(31, 181, 190, 0.16);
 }
 .myInfo .unbind .unbind_img{
    width: 36rpx;
@@ -299,7 +294,7 @@
    line-height: 40rpx;
    margin-left: 40rpx;
    font-size: 30rpx;
-   font-weight: bold;
+   /* font-weight: bold; */
 }
 .myInfo .unbind .enter_icon{
    margin-left: 40rpx;
@@ -308,12 +303,12 @@
    width: 600rpx;
    margin-top: 100rpx;
    margin-left: 75rpx;
-   color: #1FB5BE;
+   color: #17B272;
 }
 .myInfo .modal_title{
    font-size: 32rpx;
    font-weight: bold;
-   color: #1FB5BE;
+   color: #17B272;
 }
 .myInfo .modal_des{
    width: 400rpx;

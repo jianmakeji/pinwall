@@ -12,16 +12,16 @@ page {
 }
 
 .highStatus {
-   margin-top: 190rpx;
+   margin-top: 180rpx;
 }
 
 .lowStatus {
-   margin-top: 145rpx;
+   margin-top: 135rpx;
 }
 
 .search-wrap {
    width: 710rpx;
-   height: 40rpx;
+   height: 56rpx;
    padding: 10rpx;
    display: flex;
    flex-direction: row;
@@ -29,17 +29,21 @@ page {
    color: #fff;
    background: #eee;
 }
-
+.search-wrap .searchIcon{
+   margin-left: 20rpx;
+   width: 30rpx;
+   height: 30rpx;
+}
 .searchPlaceHolder {
-   font-size: 24rpx;
-   color: #929292;
+   font-size: 28rpx;
+   color: #777575;
 }
 
 .search {
    width: 600rpx;
-   font-size: 24rpx;
-   color: #929292;
-   margin-left: 25rpx;
+   font-size: 28rpx;
+   color: #777575;
+   margin-left: 12rpx;
 }
 
 .searchTypeImg {
@@ -53,18 +57,8 @@ page {
 }
 
 .searchTypeImg image {
-   width: 40rpx;
-   height: 40rpx;
-   padding: 20rpx;
-   border-radius: 50%;
-}
-
-.active {
-   background: #06ac68;
-}
-
-.unactive {
-   background: #a09f9f;
+   width: 82rpx;
+   height: 82rpx;
 }
 
 .searchTypeTitle {
@@ -81,8 +75,8 @@ page {
    width: 80rpx;
    height: 80rpx;
    text-align: center;
-   font-size: 26rpx;
-   color: #000;
+   font-size: 32rpx;
+   color: #424242;
 }
 
 .themeSearchText {
@@ -95,8 +89,8 @@ page {
    width: 700rpx;
    height: 30rpx;
    line-height: 30rpx;
-   font-size: 24rpx;
-   color: #929292;
+   font-size: 28rpx;
+   color: #7B7979;
 }
 
 .themeSearchText .themeText1, .themeSearchText .themeText2 {
@@ -106,6 +100,7 @@ page {
    flex-direction: row;
    align-items: center;
    justify-content: space-between;
+   margin-top: 26rpx;
 }
 
 .themeSearchText .themeText1 {
@@ -113,36 +108,31 @@ page {
 }
 
 .themeSearchText .themeText1 text {
-   width: 170rpx;
-   font-size: 24rpx;
-   color: #929292;
+   width: 160rpx;
+   height:52rpx;
+   line-height:52rpx;
+   font-size: 26rpx;
+   color: #7B7979;
    text-align: center;
-   background: #eee;
+   background: #EFEFEF;
 }
 
 .themeSearchText .themeText2 text {
-   width: 170rpx;
-   font-size: 24rpx;
-   color: #929292;
+   width: 160rpx;
+   height:52rpx;
+   line-height:52rpx;
+   font-size: 26rpx;
+   color: #7B7979;
    text-align: center;
-   background: #eee;
+   background: #EFEFEF;
+}
+.searchResultBox{
+   background: #EFEFEF;
 }
 
-.searchResultBox .head {
-   width: 700rpx;
-   padding: 0 25rpx;
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   justify-content: space-between;
-}
-
-.searchResultBox .head .searchDes {
+.searchResultBox .searchDes {
    width: 600rpx;
-   font-size: 24rpx;
-   color: #929292;
-}
-
-.searchResultBox .head .cancelIcon {
-   cursor: pointer;
+   font-size: 28rpx;
+   margin-left: 25rpx;
+   color: #777575;
 }

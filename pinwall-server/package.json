@@ -7,6 +7,7 @@
     "@alicloud/pop-core": "^1.7.7",
     "adm-zip": "^0.4.13",
     "ali-oss": "^6.0.1",
+    "circular-json": "^0.5.9",
     "egg": "^2.2.1",
     "egg-alinode": "^2.0.1",
     "egg-cors": "^2.1.1",

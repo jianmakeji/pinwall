@@ -21,11 +21,11 @@
       <text class='title'>个人简介</text>
       <view>
          <text class='des'>{{userInfo.intro != null ? userInfo.intro : ''}}</text>
-         <i-icon class='enter_icon' type="enter" size="22" />
+         <i-icon class='enter_icon' type="enter" color='#BBBBBB' size="15" />
       </view>
    </view>
 </view>
-<view class='introInputBox' wx:if="{{introVisible}}" >
-   <input class='introInput' type='number' value="{{ introValue }}" bindblur='introBlur' focus="{{introFocus}}" cursor-spacing="30" bindinput='introValueChange' placeholder='请输入个人简介'></input>
+<view class='introInputBox' wx:if="{{introVisible}}" style="bottom:{{keyboarkHeight+'px'}};">
+   <input class='introInput' value="{{ introValue }}" adjust-position="{{false}}" bindkeyboardheightchange="keyboardHightChange" bindblur='introBlur' focus="{{introFocus}}" bindconfirm="submitIntro" cursor-spacing="30" bindinput='introValueChange' placeholder='请输入个人简介'></input>
    <button class='introBtn' catchtap='submitIntro'>发布</button>
 </view>

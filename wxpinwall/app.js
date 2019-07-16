@@ -30,7 +30,12 @@ App({
       refreshUserInfo:"/wx/users/refreshUserInfo/",
       countTopicsByUserId:"/wx/topics/countTopicsByUserId",
       getUserInfoById:"/wx/users/getUserInfoById",
-      updateUserIntro:"/wx/users/updateUserIntro/:id",
+      updateUserIntro: "/wx/users/updateUserIntro/:id",
+      updatePwdWithMobile: "/website/users/updatePwdWithMobile",
+
+      //手机短信接口
+      sendMessage: "/website/sms/sendMessage?mobile=",
+      vertifySms: "/website/sms/vertifySms",
 
       //searchs 
       searchByKeywords: '/website/search/searchByKeywords', //作品搜索
