@@ -257,7 +257,7 @@ class UsersController extends BaseController{
     const smsCode = ctx.request.body.smsCode;
 
     if (captcha == ctx.session.captcha){
-      let vertifyResult = await ctx.service.smsMessage.getDataByCondition({mobile:data.mobile,code:data.smsCode});
+      let vertifyResult = await ctx.service.smsMessage.getDataByCondition({mobile:mobile,code:smsCode});
       if (vertifyResult.status == 200){
         if (ctx.user){
           let user = {

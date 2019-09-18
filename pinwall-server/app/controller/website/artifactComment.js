@@ -56,7 +56,7 @@ class ArtifactCommentController extends BaseController{
       super.success('操作成功!');
     }
     else{
-      super.failure(e.message);
+      super.failure('操作失败!');
     }
   }
 
