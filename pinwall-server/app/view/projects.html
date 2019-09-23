@@ -76,12 +76,19 @@
                     </a>
                 </div>
                 <h2>{{data.name}}</h2>
-                <p class="publishtime">
-                    {{data.createAt.getFullYear()}}-{{data.createAt.getMonth() + 1}}-{{data.createAt.getDate()}}，收录于
-						{% for item in data.topics %}
-	                    	<a href="/workFolder/{{data.topics[0].Id}}">{{item.name}}</a>
-						{% endfor %}
-                </p>
+				{% if data.topics.length %}
+	                <p class="publishtime">
+	                    {{data.createAt.getFullYear()}}-{{data.createAt.getMonth() + 1}}-{{data.createAt.getDate()}}，收录于
+							{% for item in data.topics %}
+		                    		<a href="/workFolder/{{data.topics[0].Id}}">{{item.name}}</a>
+							{% endfor %}
+	                </p>
+				{% else %}
+					<p class="publishtime">
+						{{data.createAt.getFullYear()}}-{{data.createAt.getMonth() + 1}}-{{data.createAt.getDate()}}，收录于
+							<a href="/users/{{data.user.Id}}">{{data.user.fullname}}的作品集</a>
+					</p>
+				{% endif %}
                 <p class="abstract">
                     {{data.description}}
                 </p>
