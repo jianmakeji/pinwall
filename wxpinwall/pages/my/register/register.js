@@ -99,7 +99,7 @@ Page({
             confirmPassword: event.detail.detail.value
         })
     },
-    submit() {
+    submit() { 
         let that = this;
         if (this.data.password == this.data.confirmPassword && this.data.password.length >= 6) {
             if (this.data.smscode.length == 6 && this.data.mobile.length == 11) {
