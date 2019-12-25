@@ -31,7 +31,7 @@ Page({
    bindEmail(){
       let that = this;
       let emailExp = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-      let phoneExp = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
+      let phoneExp = /^1([358][0-9]|4[579]|66|7[01235678]|9[026789])[0-9]{8}$/;
       if (emailExp.test(this.data.bindemail) || phoneExp.test(this.data.bindemail)){
          if(this.data.bindPwd.length >= 6){
             wx.request({
