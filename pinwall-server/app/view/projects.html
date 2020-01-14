@@ -43,7 +43,7 @@
 					{% endif %}
 				{% endif %}
 				<li class="show_btn" v-if="'{{user.roles[0].name}}' == 'admin' || '{{data.topics[0].userId}}' == '{{user.Id}}'">
-					<i-button :icon="'{{data.visible}}' == 1 ? 'md-eye-off' : 'md-eye'" @click="showArtifact({{data.visible}})" size="large" :title="'{{data.visible}}' == 1 ? '隐藏' : '开放'"></i-button>
+					<i-button :icon="'{{data.visible}}' == 0 ? 'md-eye-off' : 'md-eye'" @click="showArtifact({{data.visible}})" size="large" :title="'{{data.visible}}' == 0 ? '隐藏' : '开放'"></i-button>
 				</li>
 			</ul>
 			<i-button class="close_btn" type="default" shape="circle" icon="md-close" size="large" @click="closeThePage"></i-button>
