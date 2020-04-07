@@ -1,9 +1,6 @@
 [v-cloak]{
 	display: none;
 }
-body{
-    background-color: #EFEFEF;
-}
 .header .index{
     background:#222222;
 }
@@ -256,20 +253,6 @@ body{
 }
 .ivu-table td, .ivu-table th{
 	height:48px;
-}
-
-.footer {
-	padding: 5px 0;
-	color: #999;
-	text-shadow: 0 1px rgba(255, 255, 255, 1);
-	font-size: 12px;
-	height: 50px;
-	width: 100%;
-	overflow: hidden;
-	text-align: center;
-	position: absolute;
-	bottom: 0px;
-	/*z-index: -9999;*/
 }
 
 

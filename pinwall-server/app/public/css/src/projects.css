@@ -1,7 +1,6 @@
-body {
-    background: rgba(240, 240, 240, 0.95);
+[v-cloak]{
+	display: none;
 }
-
 .close_btn.ivu-btn-circle.ivu-btn-icon-only.ivu-btn-large {
     width: 48px;
     height: 48px;
@@ -280,17 +279,6 @@ body {
     margin-top: -10px;
     margin-left: 255px;
     cursor: pointer;
-}
-.footer {
-    padding: 5px 0;
-    color: #999;
-    text-shadow: 0 1px rgba(255, 255, 255, 1);
-    font-size: 12px;
-    height: 50px;
-    /* line-height: 50px; */
-    width: 100%;
-    overflow: hidden;
-    text-align: center;
 }
 
 @media screen and (max-width: 540px){  /* 当屏幕尺寸小于1200px时，应用下面的CSS样式 */

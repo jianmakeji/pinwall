@@ -5,9 +5,10 @@ var index = new Vue({
             containerStyle:{
                 width: "100%",
                 height: "",
-                marginTop:"",
+                margin:"",
                 overflow: "hidden",
-                position: "relative"
+                position: "relative",
+                background:"#EFEFEF"
             },
             screenType:"PC",
             drawerShow:false,
@@ -25,7 +26,7 @@ var index = new Vue({
             this.containerStyle.height = 1190 + "px";
             this.screenType = "mobile";
         }else{
-            this.containerStyle.marginTop = (document.documentElement.clientHeight - 100 - 500 - 50 ) / 2 + "px";
+            this.containerStyle.margin = (document.documentElement.clientHeight - 100 - 460 - 50 ) / 2 + "px auto";
             this.containerStyle.height = 500 + "px";
             this.screenType = "PC";
         }

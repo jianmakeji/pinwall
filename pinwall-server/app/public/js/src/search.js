@@ -69,7 +69,7 @@ var index = new Vue({
         if (clientHeight < 600) {
             this.searchPanelStyle.margin = "0px auto";
         } else {
-            this.searchPanelStyle.margin = (clientHeight - 600) / 2 + "px auto";
+            this.searchPanelStyle.margin = (clientHeight - 570) / 2 + "px auto";
         }
         this.containerStyle.minHeight = clientHeight - 400 + "px";
         if(clientWidth > 1200){

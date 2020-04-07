@@ -145,7 +145,7 @@ var index = new Vue({
         }
     },
     created(){
-        this.containerStyle.margin = (document.documentElement.clientHeight - 400 ) / 2 - 90 + "px auto";
+        this.containerStyle.margin = (document.documentElement.clientHeight - 360 ) / 2 - 90 + "px auto";
     }
 })
 function clock(that){

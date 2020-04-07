@@ -1,9 +1,6 @@
 [v-cloak]{
 	display: none;
 }
-body{
-    background-color: #EFEFEF;
-}
 .header .topics{
     background:#222222;
 }
@@ -230,14 +227,4 @@ body{
 	.topic_info .topic_title{
 		width: 100%;
 	}
-}
-.footer {
-	padding: 5px 0;
-	color: #999;
-	text-shadow: 0 1px rgba(255, 255, 255, 1);
-	font-size: 12px;
-	height: 50px;
-	width: 100%;
-	overflow: hidden;
-	text-align: center;
 }

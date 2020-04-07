@@ -99,7 +99,7 @@ var index = new Vue({
         if (clientHeight < 600) {
             this.containerStyle.margin = "0px auto";
         } else {
-            this.containerStyle.margin = ( clientHeight - 600 ) / 2 + "px auto";
+            this.containerStyle.margin = ( clientHeight - 560 ) / 2 + "px auto";
         }
     }
 })

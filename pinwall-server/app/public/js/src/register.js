@@ -170,7 +170,7 @@ var index = new Vue({
         if (clientHeight < 600) {
             this.containerStyle.margin = "0px auto";
         } else {
-            this.containerStyle.margin = (clientHeight - 480 ) / 2 - 90 + "px auto";
+            this.containerStyle.margin = (clientHeight - 520 ) / 2 - 90 + "px auto";
         }
         let that = this;
         $.ajax({

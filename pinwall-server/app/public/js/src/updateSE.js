@@ -3,7 +3,7 @@ var index = new Vue({
     data(){
         return{
             containerStyle:{
-                minHeight:"",
+                margin:""
             },
             drawerShow:false,
             insertData:"",
@@ -79,5 +79,9 @@ var index = new Vue({
                 return true;
             }
         }
+    },
+    created(){
+        let clientHeight = document.documentElement.clientHeight;
+        this.containerStyle.margin = ( clientHeight - 560 ) / 2 + "px auto";
     }
 })

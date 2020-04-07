@@ -1,9 +1,6 @@
 [v-cloak]{
 	display: none;
 }
-body{
-	background-color: #efefef;
-}
 .upload_project{
 	background: #EFEFEF;
 }
@@ -329,19 +326,6 @@ body{
     margin-top: 10px;
     margin-left: 20px;
 }
-
-.footer {
-	padding: 5px 0;
-	color: #999;
-	text-shadow: 0 1px rgba(255, 255, 255, 1);
-	font-size: 12px;
-	height: 50px;
-	/* line-height: 50px; */
-	width: 100%;
-	overflow: hidden;
-	text-align: center;
-}
-
 @media screen and (max-width: 540px){  /* 当屏幕尺寸小于1200px时，应用下面的CSS样式 */
 
 	.step_nav{

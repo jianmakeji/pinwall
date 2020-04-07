@@ -1,9 +1,6 @@
 [v-cloak]{
 	display: none;
 }
-body{
-    background-color: #EFEFEF;
-}
 .container{
 	margin: 20px 60px;
 }
@@ -21,19 +18,4 @@ body{
 }
 .search_box button{
 	margin-left: 10px;
-}
-
-
-
-.footer {
-	padding: 5px 0;
-	color: #999;
-	text-shadow: 0 1px rgba(255, 255, 255, 1);
-	font-size: 12px;
-	height: 50px;
-	width: 100%;
-	overflow: hidden;
-	text-align: center;
-	position: absolute;
-	bottom: 0px;
 }

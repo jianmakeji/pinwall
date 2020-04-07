@@ -1,9 +1,6 @@
 [v-cloak]{
 	display: none;
 }
-body{
-    background-color: #EFEFEF;
-}
 .container h4 {
     margin: 20px auto;
     text-align: center;
@@ -36,18 +33,6 @@ body{
 }
 .register_panel .captchaText{
 	width:200px;margin-top:-40px;
-}
-.footer {
-	padding: 5px 0;
-	color: #999;
-	text-shadow: 0 1px rgba(255, 255, 255, 1);
-	font-size: 12px;
-	height: 50px;
-	width: 100%;
-	overflow: hidden;
-	text-align: center;
-    position: absolute;
-	margin-top: 10px;
 }
 @media screen and (max-width: 540px){  /* 当屏幕尺寸小于540px时，应用下面的CSS样式 */
 
