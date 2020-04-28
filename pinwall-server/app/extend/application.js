@@ -9,7 +9,6 @@ module.exports = {
     const alioss = exports = {};
 
     alioss.region = 'oss-cn-hangzhou';
-
     alioss.endpoint = 'oss-cn-hangzhou.aliyuncs.com';
     alioss.PolicyFile = 'policy/all_policy.txt';
     alioss.RoleArn = 'acs:ram::1455326322404332:role/cidic-oss-role';
@@ -28,8 +27,8 @@ module.exports = {
   rar_zipPath: 'rar_zip/',
   videoPath: 'video/',
 
-  //localH5Path: 'F:\\pinwall\\',
-  localH5Path: '/storage/pinwall/static/HTML5/',
+  localH5Path: 'F:\\pinwall\\',
+  //localH5Path: '/storage/pinwall/static/HTML5/',
   localH5Url: 'https://h5.pinwall.design-engine.org/',
 
   email_host:'smtp.exmail.qq.com',
