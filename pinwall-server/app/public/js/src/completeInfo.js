@@ -3,6 +3,9 @@ var index = new Vue({
     delimiters: ['${', '}'],
     data() {
         return {
+            containerStyle:{
+                "margin":"",
+            },
             formItem:{
                 mobile:"",
                 smsCode:"",
@@ -142,7 +145,11 @@ var index = new Vue({
                 success(res){
                     if (res.status == 200) {
                         that.$Loading.finish();
-                        that.$Notice.success({title:res.data});
+                        that.$Notice.success({title:res.data,
+                            onClose(){
+                                window.location.href = "/login";
+                            }
+                        });
                         that.disableSbt = false;
                         init_form(that);
                     }else if(res.status == 999){
@@ -206,6 +213,14 @@ var index = new Vue({
         }
     },
     created() {
+        let clientWidth = document.documentElement.clientWidth;
+        let clientHeight = document.documentElement.clientHeight;
+        if (clientHeight < 600) {
+            this.containerStyle.margin = "0px auto";
+        } else {
+            this.containerStyle.margin = (clientHeight - 636 - 110 ) / 2 + "px auto";
+        }
+
         let that = this;
         $.ajax({
             url: config.ajaxUrls.getCaptcha,
