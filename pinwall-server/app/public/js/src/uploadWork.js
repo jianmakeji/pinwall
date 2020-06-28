@@ -723,7 +723,12 @@ var container = new Vue({
                 this.$Notice.error({title:"请输入必填信息！"})
             }
         },
+        // 作品上传
         submitData(){
+            this.submitDataDelay();
+        },
+        // 作品上传防抖
+        submitDataDebounce(){
             let that = this;
             this.$Loading.start();
             if (this.dataItem.Id) {
@@ -864,7 +869,14 @@ var container = new Vue({
                 this.jobTagName = "作品集";
             }
         }
-    }
+    },
+    mounted() {
+        // 作品上传防抖注册
+        this.submitDataDelay = _.debounce(this.submitDataDebounce, 1000, {
+            'leading': true,
+            'trailing': false
+        })
+    },
 })
 
 $(document).ready(function(){

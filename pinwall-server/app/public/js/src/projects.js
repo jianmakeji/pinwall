@@ -210,9 +210,14 @@ var projects = new Vue({
             });
 
         },
+        // 添加评论
         addComment(id) {
-            let that = this;
             this.artifactCommentData.commenterId = id;
+            this.addCommentDelay();
+        },
+        // 添加评论防抖
+        addCommentDebounce(){
+            let that = this;
             if(this.artifactCommentData.content){
                 this.$Loading.start();
                 $.ajax({
@@ -311,7 +316,14 @@ var projects = new Vue({
                 }
             }
         });
-    }
+    },
+    mounted() {
+        // 构建 添加评论 防抖函数
+        this.addCommentDelay = _.debounce(this.addCommentDebounce, 1000,{
+            'leading': true,
+            'trailing': false
+        });
+    },
 });
 $(document).ready(function() {
     $('html,body').animate({
@@ -364,7 +376,6 @@ function getConmentData(that, aoData){
         type: 'GET',
         data: aoData,
         success: function(res) {
-            console.log(res);
             if (res.status == 200) {
                 that.$Loading.finish();
                 that.dataList = res.data.rows;

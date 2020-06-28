@@ -140,6 +140,9 @@ var index = new Vue({
             }
         },
         registerSubmit(){
+            this.registerSubmitDelay();
+        },
+        registerSubmitDebounce(){
             let that = this;
             this.$Loading.start();
             $.ajax({
@@ -180,7 +183,13 @@ var index = new Vue({
                 document.getElementsByTagName("object")[0].innerHTML = res;
             }
         });
-    }
+    },
+    mounted() {
+        this.registerSubmitDelay = _.debounce(this.registerSubmitDebounce,1000,{
+            "leading":true,
+            "trailing":false
+        })
+    },
 })
 function clock(that){
 	var num = 60;
