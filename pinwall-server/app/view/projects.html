@@ -163,7 +163,7 @@
 								<i-input v-model="artifactCommentData.content" type="textarea" placeholder="您的评论……" /><br>
 							</form-item>
 							<form-item>
-								<i-button type="success" @click="addComment('{{user.Id}}')">提交</i-button>
+								<i-button type="success" :disabled="disableComment" @click="addComment('{{user.Id}}')">提交</i-button>
 							</form-item>
 						</i-form>
 					</div>

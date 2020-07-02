@@ -51,6 +51,7 @@ var projects = new Vue({
                 artifactId: "",
                 score: ""
             },
+            disableComment:false,
             artifactZanTag:0
         }
     },
@@ -219,6 +220,7 @@ var projects = new Vue({
         addCommentDebounce(){
             let that = this;
             if(this.artifactCommentData.content){
+                this.disableComment = true;
                 this.$Loading.start();
                 $.ajax({
                     url: '/website/artifactComment',
@@ -229,9 +231,11 @@ var projects = new Vue({
                             that.$Loading.finish();
                             that.$Notice.success({title:"评论成功！"});
                             that.artifactCommentData.content = "";
+                            that.disableComment = false;
                             getConmentData(that, that.aoData);
                         }else{
                             that.$Loading.error();
+                            that.disableComment = false;
                             that.$Notice.error({title:res.data});
                         }
                     }
