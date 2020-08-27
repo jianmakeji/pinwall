@@ -60,12 +60,22 @@ class UsersController extends BaseController{
   async update() {
     const ctx = this.ctx;
     const id = ctx.user.Id;
-    const updates = {
-      intro: ctx.request.body.intro,
+    let updates = {
+
     };
+    if(ctx.request.body.intro != ""){
+      updates.intro = ctx.request.body.intro;
+    }
+    let avatarUrl = ctx.request.body.avatarUrl;
+    if(avatarUrl != ""){
+      updates.avatarUrl = avatarUrl;
+    }
 
     try{
       await ctx.service.users.update({ id, updates });
+      if(avatarUrl != "" && user.avatarUrl != null  && !user.avatarUrl.includes("thirdwx.qlogo.cn")){
+        ctx.user.avatarUrl = ctx.app.signatureUrl(ctx.app.headiconPath + avatarUrl, "thumb_120_120");
+      }
       super.success('更新成功!');
     }
     catch(e){
@@ -146,7 +156,7 @@ class UsersController extends BaseController{
   async getCaptcha(){
     let codeConfig = {
         size: 5,// 验证码长度
-        ignoreChars: '0o1i', // 验证码字符中排除 0o1i
+        ignoreChars: '0o1iILlO', // 验证码字符中排除 0o1i
         noise: 2, // 干扰线条的数量
         height: 44
     }
@@ -276,7 +286,7 @@ class UsersController extends BaseController{
           try{
             const result = await ctx.service.users.createUser(user,1);
             if (result){
-              super.success('操作成功！请到邮箱激活');
+              super.success('操作成功，请登录！');
             }
             else{
               super.failure('操作失败！请重新操作');

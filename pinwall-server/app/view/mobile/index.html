@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no," >
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>精选</title>
+  <link href="/public/css/src/mobile/basic.css" rel="stylesheet" />
+  <link href="/public/css/src/mobile/index.css" rel="stylesheet" />
+
+</head>
+
+<body>
+  <div id="content">
+    <div class="menu_banner">
+      <div class="menu_icon_area">
+        <img src="/public/images/mobile/menu.png" class="menu_icon" />
+      </div>
+
+      <nav class="nav_menu">
+        <a href="#" class="bottom_green_line">精选</a>
+        <a href="#" class="bottom_transparent_line">毕设展</a>
+        <a href="#" class="bottom_transparent_line">作业荚</a>
+      </nav>
+      <div class="menu_icon_area">
+        <img src="/public/images/mobile/search.png" class="menu_icon" />
+      </div>
+    </div>
+    <div class="select_content">
+      <div class="panel_card" v-for="(elem, index) in dataList" :key="elem.key">
+
+        <div v-if="(index + 1) % 3 != 0">
+          <div class="product_zone">
+            <img :src="elem.profileImage"/>
+            <p class="product_name">${elem.name}</p>
+            <p class="topic_name" >${elem.topics[0].name}</p>
+          </div>
+          <div class="line"></div>
+          <div class="function_zone">
+            <div class="user_info">
+              <img :src="elem.user.avatarUrl ? elem.user.avatarUrl : '/public/images/mobile/default_head_img.png' "/><span>${elem.fullname}</span>
+            </div>
+
+            <div class="operate_zone">
+              <img src="/public/images/mobile/medal.png"/><span>${elem.medalCount}</span>
+              <img src="/public/images/mobile/like_gray.png"/><span>${elem.likeCount}</span>
+              <img src="/public/images/mobile/comment.png"/><span>${elem.commentCount}</span>
+            </div>
+          </div>
+        </div>
+        <div v-else-if="(index + 1) % 3 == 0">
+          <div class="product_modulus_zone">
+            <img :src="elem.profileImage"/>
+            <p class="product_modulus_name">${elem.name}</p>
+            <p class="topic_modulus_name" >${elem.topics[0].name}</p>
+          </div>
+          <div class="line"></div>
+          <div class="function_zone">
+            <div class="user_info">
+              <img :src="elem.user.avatarUrl ? elem.user.avatarUrl : '/public/images/mobile/default_head_img.png' "/><span>${elem.fullname}</span>
+            </div>
+
+            <div class="operate_zone">
+              <img src="/public/images/mobile/medal.png"/><span>${elem.medalCount}</span>
+              <img src="/public/images/mobile/like_gray.png"/><span>${elem.likeCount}</span>
+              <img src="/public/images/mobile/comment.png"/><span>${elem.commentCount}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+<script src="/public/js/lib/jquery.min.js" type="text/javascript"></script>
+<script src="/public/js/lib/vue.min.js" type="text/javascript"></script>
+<script src="/public/js/src/mobile/index.js" type="text/javascript"></script>
+</html>

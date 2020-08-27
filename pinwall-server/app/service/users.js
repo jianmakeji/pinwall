@@ -39,6 +39,7 @@ class Users extends Service {
           }
           else{
             user.wxActive = 1;
+            user.active = 1;
           }
           const createUserObj = await this.ctx.model.Users.createUser(user,transaction);
           await this.ctx.model.UserRole.creteUserRole(createUserObj.Id, 1, transaction);
@@ -84,11 +85,20 @@ class Users extends Service {
   }
 
   async loginFindByUserWithEmail(email){
-    return await this.ctx.model.Users.loginFindByUserWithEmail(email);
+    let user = await this.ctx.model.Users.loginFindByUserWithEmail(email);
+    if(user.avatarUrl != "" && user.avatarUrl != null  && !user.avatarUrl.includes("thirdwx.qlogo.cn")){
+      user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + user.avatarUrl, "thumb_120_120");
+    }
+
+    return user;
   }
 
   async loginFindByUserWithMobile(mobile){
-    return await this.ctx.model.Users.loginFindByUserWithMobile(mobile);
+    let user =  await this.ctx.model.Users.loginFindByUserWithMobile(mobile);
+    if(user.avatarUrl != "" && user.avatarUrl != null && !user.avatarUrl.includes("thirdwx.qlogo.cn")){
+      user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + user.avatarUrl, "thumb_120_120");
+    }
+    return user;
   }
 
   async updateAcviveByActiveCodeAndEmail(email,activeCode){

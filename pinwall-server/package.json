@@ -5,8 +5,9 @@
   "private": true,
   "dependencies": {
     "@alicloud/pop-core": "^1.7.7",
-    "adm-zip": "^0.4.13",
+    "adm-zip": "^0.4.16",
     "ali-oss": "^6.0.1",
+    "canvas": "^2.6.1",
     "circular-json": "^0.5.9",
     "egg": "^2.2.1",
     "egg-alinode": "^2.0.1",
@@ -25,6 +26,7 @@
     "nodemailer": "^4.7.0",
     "nodemailer-smtp-transport": "^2.7.4",
     "passport-local": "^1.0.0",
+    "qr-image": "^3.2.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.3",
     "svg-captcha": "^1.3.12",

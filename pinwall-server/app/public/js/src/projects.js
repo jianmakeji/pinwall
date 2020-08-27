@@ -286,6 +286,14 @@ var projects = new Vue({
         },
         scoreClose(){
             this.scoresModel = false;
+        },
+        teamworkerData(str){
+          if(str != null && str != "" && isJsonString(str)){
+            return JSON.parse(str);
+          }
+          else{
+            return new Array();
+          }
         }
     },
     created() {
@@ -372,6 +380,16 @@ $(document).ready(function() {
 
 
 });
+
+function isJsonString(str) {
+        try {
+            if (typeof JSON.parse(str) == "object") {
+                return true;
+            }
+        } catch(e) {
+        }
+        return false;
+}
 
 function getConmentData(that, aoData){
     that.$Loading.start();

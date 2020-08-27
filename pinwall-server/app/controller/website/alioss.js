@@ -28,6 +28,9 @@ class AliOSSController extends BaseController {
     else if (fileType == 4){
       dir = ctx.app.videoPath;
     }
+    else if (fileType == 5){
+      dir = ctx.app.headiconPath;
+    }
     else{
       dir = ctx.app.othersPath;
     }
@@ -89,6 +92,9 @@ class AliOSSController extends BaseController {
     }
     else if (fileType == 4){
       dir = ctx.app.videoPath;
+    }
+    else if (fileType == 5){
+      dir = ctx.app.headiconPath;
     }
     else{
       dir = ctx.app.othersPath;

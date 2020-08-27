@@ -131,6 +131,7 @@ module.exports = app => {
   router.get('/wx/artifacts/getArtifactById/:id', controller.wx.artifacts.getArtifactById);
   router.get('/wx/artifacts/findCommentsByArtifactIdWithPage', controller.wx.artifacts.findCommentsByArtifactIdWithPage);
   router.get('/wx/artifacts/getMedalLikeDataByUserIdAndArtifactsId', controller.wx.artifacts.getMedalLikeDataByUserIdAndArtifactsId);
+  router.get('/wx/share/createShareImage/:id', controller.wx.share.createShareImage);
 
   router.get('/wx/topics/getTopicAndArtifactById', controller.wx.topics.getTopicAndArtifactById);
   router.get('/wx/topics/findArtifactByTopicId', controller.wx.topics.findArtifactByTopicId);
@@ -153,4 +154,14 @@ module.exports = app => {
 
   router.resources('wx.topics', '/wx/topics',  controller.wx.topics);
 
+  //h5移动版接口
+  router.get('/mobile', controller.mobile.index);
+  router.get('/mobile/graduate', controller.mobile.graduate);
+  router.get('/mobile/search', controller.mobile.search);
+  router.get('/mobile/workpod', controller.mobile.workpod);
+  router.get('/mobile/workdetail', controller.mobile.workdetail);
+  router.get('/mobile/workset', controller.mobile.workset);
+  router.get('/mobile/login', controller.mobile.login);
+  router.get('/mobile/register', controller.mobile.register);
+  router.get('/mobile/findpwd', controller.mobile.findpwd);
 };

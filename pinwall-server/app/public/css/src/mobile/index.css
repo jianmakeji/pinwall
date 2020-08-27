@@ -1,0 +1,140 @@
+.function_zone{
+  position: relative;
+  width: 100%;
+  height: 30px;
+  margin: 15px 10px;
+}
+
+.line{
+  height:1px;
+  background-color: #E8E9EA;
+  margin: 10px 10px 0px;
+}
+
+.user_info{
+  display: inline-block;
+  position: absolute;
+}
+
+.user_info img{
+  width: 24px;
+  height: 24px;
+}
+
+.user_info span{
+  font-size: 14px;
+  color: #1A1A1A;
+  opacity: 0.78;
+}
+
+.operate_zone{
+  position: absolute;
+  right:10px;
+  height: 20px;
+}
+.operate_zone img{
+  width:20px;
+  height:20px;
+  margin:2px 3px;
+}
+
+.operate_zone span{
+  color:#BEBFC0;
+  font-size: 14px;
+  margin:2px 3px;
+  vertical-align: top;
+}
+
+.product_zone{
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 5px 10px
+}
+
+.product_modulus_zone{
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 5px 10px
+}
+.product_zone img{
+  width: 20%;
+  height: auto;
+}
+
+.product_modulus_zone img{
+  width: 96%;
+  height: auto;
+  margin: 5px 10px;
+}
+
+.product_name{
+  position: absolute;
+  width: 65%;
+  height: auto;
+  color:#0ABC73;
+  font-size: 16px;
+  left:25%;
+  top:10px;
+  margin:0px 0px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+
+.product_modulus_name{
+  width: 100%;
+  height: auto;
+  color:#0ABC73;
+  font-size: 16px;
+  left:25%;
+  top:10px;
+  margin:5px 0px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+
+.topic_name{
+  position: absolute;
+  width: 65%;
+  height: auto;
+  color: #7F7D7D;
+  font-size: 14px;
+  left:25%;
+  top:40px;
+  margin:0px 0px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+
+.topic_modulus_name{
+  width: 100%;
+  height: auto;
+  color: #7F7D7D;
+  font-size: 14px;
+  left:25%;
+  top:40px;
+  margin:5px 0px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+
+#content{
+  background-color:#F6F7F8;
+}
+.select_content{
+
+}
+
+.panel_card{
+  margin:5px 0px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}

@@ -89,12 +89,11 @@ class Topics extends Service {
       transaction = await this.ctx.model.transaction();
       updates.updateAt = new Date();
       let updateObject = await this.ctx.model.Topics.updateTopic({ Id, updates },transaction);
-
       if (updates.addTerms && updates.addTerms.length > 0){
         for (let term of updates.addTerms){
           const termObj = await this.ctx.model.Terms.createTerm(term,transaction);
           await this.ctx.model.TopicTerm.createTopicTerm({
-            topicId:topicObj.Id,
+            topicId:Id,
             termId:termObj.Id
           },transaction);
         }

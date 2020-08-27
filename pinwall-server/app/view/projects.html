@@ -75,6 +75,12 @@
                         <p class="name">{{data.user.fullname}}</p>
                     </a>
                 </div>
+								{% if data.teamworker.length %}
+								<p style="color:#68686B;font-size:13px;margin-top:12px">
+									协作者：<font style="color:#0ABC73" v-for="item in teamworkerData('{{data.teamworker}}')" v-text="item.fullname +'，'"></font>
+								</p>
+								{% endif %}
+								</p>
                 <h2>{{data.name}}</h2>
 				{% if data.topics.length %}
 	                <p class="publishtime">

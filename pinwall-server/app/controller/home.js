@@ -76,7 +76,7 @@ class HomeController extends BaseController {
         data:data,
         user:ctx.user
       };
-
+      
       if (data.visible == 0){
         result.status = 200;
       }

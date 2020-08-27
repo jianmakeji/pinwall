@@ -18,10 +18,16 @@
 		<div class="container_box">
 			<div class="resetInfo_panel">
 	            <div class="photo_field">
-	                <img :src="'{{user.avatarUrl}}' ? '{{user.avatarUrl}}' : '../public/images/default_profile.jpg'" alt="">
+	                <img id="headiconImg" :src="'{{user.avatarUrl}}' ? '{{user.avatarUrl}}' : '../public/images/default_profile.jpg'" alt="">
+									<p v-text="'{{user.fullname}}'"><span style="font-style: italic;font-size: 12px;color: #666;font-weight: normal;">(不可更改)</span></p>
+									<div style="width:130px;height:15px;position:absolute;left:75px;top:35px;">
+											<img src="../public/images/edit.svg" style="width:15px;height:15px;left:0px;top:10px;margin-right:5px" alt="">
+											<input id="headicon" type="file" @change="uploadHeadIcon" ref="inputFile" accept="image/*" style="opacity: 0;width:90px;" />
+											<i-button style="font-size:14px;color:#19BF6B;left:15px;top:0px;position:absolute;border:0px;text-align:left" @click="changeImage">更换图像</i-button>
+									</div>
 	            </div>
 	            <div class="user_info">
-	                <p v-text="'{{user.fullname}}'"><span style="font-style: italic;font-size: 12px;color: #666;font-weight: normal;">(不可更改)</span></p><br>
+									<p>个人简介</p>
 	                <i-input type="textarea" placeholder="{{userInfo[0].intro}}" v-model="intro"></i-input><br><br>
 	                <i-button type="success" @click="submitInfo">保存</i-button>
 	            </div>
@@ -52,6 +58,7 @@
 	<script type="text/javascript" src="public/js/lib/jquery.min.js"></script>
 	<script type="text/javascript" src="public/js/lib/vue.min.js"></script>
 	<script type="text/javascript" src="public/js/lib/iview.min.js"></script>
+	<script type="text/javascript" src="public/js/lib/aliyun-oss-sdk.min.js"></script>
 	<script type="text/javascript" src="public/js/lib/vue-resource.js"></script>
 	<script type="text/javascript" src="public/js/src/config.js"></script>
 	<script type="text/javascript" src="public/js/src/resetInfo.js"></script>

@@ -65,9 +65,71 @@ var container = new Vue({
             dragItemBetweenData:"",
             dragItemOtherinfoData:"",
             dragItemTruenameData:"",
+            option: {
+              img: '../public/images/default_thumb_500.png',
+              size: 1,
+              full: true,
+              outputType: 'png',
+              canMove: true,
+              fixedBox: true,
+              original: false,
+              canMoveBox: true,
+              autoCrop: true,
+              // 只有自动截图开启 宽度高度才生效
+              autoCropWidth: 360,
+              autoCropHeight: 360,
+              centerBox: false,
+              high: true,
+              viewMode: 1,
+              max: 99999
+            },
+            show: true,
+            fixed: true,
+            fixedNumber: [360, 360],
+            crap: false,
+            previews: {
+
+            },
+
         }
     },
     methods: {
+        // 实时预览函数
+        realTime(data) {
+        
+          this.previews = data;
+        },
+        imgLoad(msg) {
+          console.log(msg)
+        },
+        cropMoving(data) {
+
+        },
+        uploadThumbImg(e, num) {
+          //上传图片
+          // this.option.img
+          var file = e.target.files[0]
+          if (!/\.(gif|jpg|jpeg|png|bmp|GIF|JPG|PNG)$/.test(e.target.value)) {
+            this.$Notice.error({title:"图片类型必须是.gif,jpeg,jpg,png,bmp中的一种！"});
+            return false
+          }
+          var reader = new FileReader()
+          reader.onload = (e) => {
+            let data
+            if (typeof e.target.result === 'object') {
+              // 把Array Buffer转化为blob 如果是base64不需要
+              data = window.URL.createObjectURL(new Blob([e.target.result]))
+            } else {
+              data = e.target.result
+            }
+            this.option.img = data
+          }
+          // 转化为base64
+          // reader.readAsDataURL(file)
+          // 转化为blob
+          reader.readAsArrayBuffer(file)
+        },
+
         keyDownEvent(){},
         //开始拖动
         dragstart(index,e){
@@ -182,13 +244,15 @@ var container = new Vue({
         /**
          * 步骤一：上传作品封面事件
          */
-        step1_upload_fengmian_change(files){
+        cutCompleteUpload(){
             let that = this;
-            let file = files.target.files[0];
-            let fileName = calculate_object_name(files.target.files[0].name);
-            let fileSize = files.target.files[0].size/1048576;
-            if (fileSize <= 2) {
-                this.$Notice.success({title:'上传中···'});
+            let fileFullName = $("#step1_upload_fengmian_input").val();
+
+            if (fileFullName != '') {
+              let fileName = calculate_object_name(fileFullName);
+              this.$Notice.success({title:'上传中···'});
+              this.$refs.cropper.getCropBlob((data) => {
+                let file = new File([data], fileName, { type: data.type }); //blob转file
                 $.ajax({
                     url: '/getSTSSignature/1',
                     type: 'GET',
@@ -200,27 +264,16 @@ var container = new Vue({
                           		stsToken: res.credentials.SecurityToken,
                                 bucket:bucket
                         	});
-                            client.multipartUpload('images/'+ fileName, file).then(function (res) {
-                                let objectPath = 'images/' + fileName;
-                                $.ajax({
-                                    url: config.ajaxUrls.getUrlSignature,
-                                    type: 'GET',
-                                    data:{objectPath:objectPath},
-                                    success:function(res){
-                                        let img = new Image();
-                                        img.src = res;
-                                        img.onload = function(){
-                                            if(img.width == img.height && img.width >= 500 && img.width <= 800){
-                                                $('#step1_upload_fengmian_input').val('');
-                                                that.$Notice.success({title:'上传成功！'});
-                                                that.step1_upload_fengmian_src = res;
-                                                that.dataItem.profileImage = fileName;
-                                            }else{
-                                                that.$Notice.error({title:"图片不符合尺寸要求，请重新上传……"});
-                                            }
-                                        }
-                                    }
-                                })
+
+                          client.multipartUpload('images/'+ fileName, file).then(function (res) {
+                            if(res.res.status == 200){
+                              that.$Notice.success({title:'上传成功！'});
+                              that.dataItem.profileImage = fileName;
+                            }
+                            else{
+                              that.$Notice.success({title:'上传失败！'});
+                            }
+
                         	});
                         }else if (res.res.status == 999) {
                             that.$Notice.error({
@@ -232,13 +285,14 @@ var container = new Vue({
                             });
                         }else if(res.status == 500){
                             that.$Notice.error({
-                                title:"上传出现异常，请刷新界面重试！"
+                                title:"获取签名异常，请重试！"
                             })
                         }
                     }
                 })
+              });
             }else{
-                this.$Notice.error({title:"图片大小不符，请重新选择"});
+                this.$Notice.error({title:"请上传图片！"});
             }
         },
         step2_upload_neirong_change(files){
@@ -809,7 +863,8 @@ var container = new Vue({
                     }
                     that.helperBox = teamWorkers;
 
-                    that.step1_upload_fengmian_src = res.data.profileImage;
+                    //that.step1_upload_fengmian_src = res.data.profileImage;
+                    that.option.img = res.data.profileImage;
                     if(res.data.profileImage.indexOf("pinwall.fzcloud.design-engine.org") > 0){
                         that.dataItem.profileImage = res.data.profileImage;
                     }else{
