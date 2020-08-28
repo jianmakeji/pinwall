@@ -14,13 +14,20 @@ new Vue({
   created() {
     let that = this;
     $.ajax({
-      url: '/website/artifacts/getMedalDataByRandom/12',
+      url: '/website/topics',
       type: 'get',
       dataType: 'json',
-      data: {}
+      data: {
+        limit: 10,
+        offset: 0,
+        jobTag: 2,
+        subLimit: 5,
+        status: 1,
+        userId: -1,
+      }
     })
     .done(function(responseData) {
-      that.dataList = responseData;
+      that.dataList = responseData.data.rows;
     })
     .fail(function() {
       console.log("error");

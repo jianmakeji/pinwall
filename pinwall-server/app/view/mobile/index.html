@@ -3,9 +3,10 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no," >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no," >
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>精选</title>
+  <link rel="stylesheet" href="/public/css/lib/animate.min.css"/>
   <link href="/public/css/src/mobile/basic.css" rel="stylesheet" />
   <link href="/public/css/src/mobile/index.css" rel="stylesheet" />
 
@@ -13,20 +14,10 @@
 
 <body>
   <div id="content">
-    <div class="menu_banner">
-      <div class="menu_icon_area">
-        <img src="/public/images/mobile/menu.png" class="menu_icon" />
-      </div>
-
-      <nav class="nav_menu">
-        <a href="#" class="bottom_green_line">精选</a>
-        <a href="#" class="bottom_transparent_line">毕设展</a>
-        <a href="#" class="bottom_transparent_line">作业荚</a>
-      </nav>
-      <div class="menu_icon_area">
-        <img src="/public/images/mobile/search.png" class="menu_icon" />
-      </div>
+    <div>
+      <header-menu></header-menu>
     </div>
+
     <div class="select_content">
       <div class="panel_card" v-for="(elem, index) in dataList" :key="elem.key">
 
@@ -75,5 +66,6 @@
 </body>
 <script src="/public/js/lib/jquery.min.js" type="text/javascript"></script>
 <script src="/public/js/lib/vue.min.js" type="text/javascript"></script>
+<script src="/public/js/src/mobile/component/header-menu.js" type="text/javascript"></script>
 <script src="/public/js/src/mobile/index.js" type="text/javascript"></script>
 </html>

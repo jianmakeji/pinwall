@@ -1,0 +1,109 @@
+#content{
+  background-color:#F6F7F8;
+}
+.filter_panel{
+  height: 80px;
+  width:100%;
+  display: flex;
+  flex-flow:row nowrap;
+  justify-content: space-around;
+  align-content: center;
+  align-items:center;
+  background-color: #FFFFFF;
+}
+
+.condition_btn_noraml{
+  display: inline-block;
+  width: 72px;
+  height: 36px;
+  background-color: #FFFFFF;
+  color:#707070;
+  font-size: 16px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 36px;
+}
+
+.condition_btn_selected{
+  display: inline-block;
+  width: 72px;
+  height: 36px;
+  background-color: #F6F7F8;
+  color:#3A3A3A;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+  vertical-align: middle;
+  line-height: 36px;
+}
+
+.panel_card{
+  margin-bottom: 10px;
+  background-color: #FFFFFF;
+}
+
+.graduate_title{
+  font-size: 17px;
+  color:#0ABC73;
+  margin: 10px;
+  top: 10px;
+  position: relative;
+}
+
+.graduate_info{
+  font-size: 14px;
+  color:#A4A5A5;
+  margin: 10px;
+  top: 5px;
+  position: relative;
+}
+
+.image_list{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-content: center;
+  top: 10px;
+  position: relative;
+}
+
+.image_list div{
+  width: 60px;
+  height:60px;
+}
+
+.image_list div img{
+  width: 60px;
+  height:60px;
+}
+
+.line{
+  height:1px;
+  background-color: #E8E9EA;
+  margin: 10px 10px 0px;
+  top: 15px;
+  position: relative;
+}
+
+.user_info{
+  display: inline-block;
+  position: relative;
+  height:45px;
+  margin: 10px;
+  top: 15px;
+  position: relative;
+}
+
+.user_info img{
+  width: 24px;
+  height: 24px;
+}
+
+.user_info span{
+  font-size: 14px;
+  color: #000000;
+  margin-left: 15px;
+  line-height: 24px;
+  vertical-align: top;
+  line-height: 24px;
+}
