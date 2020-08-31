@@ -5,8 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>搜索</title>
+  <link rel="stylesheet" href="/public/css/lib/iview.css"/>
+  <link rel="stylesheet" href="/public/css/lib/animate.min.css"/>
+  <link href="/public/css/src/mobile/menu2.css" rel="stylesheet" />
+  <link href="/public/css/src/mobile/search.css" rel="stylesheet" />
 </head>
 <body>
+  <div id="content">
+    <header-menu></header-menu>
+    <div class="search_panel" v-show="search_panel_show">
+      <div class="title">搜索</div>
+      <i-input v-model="condition" style="width:90%;position:relatice;left:5%;margin-top:30px;">
+          <i-select v-model="type" slot="prepend" style="width:80px;">
+            <i-option value="course">课程</i-option>
+            <i-option value="product">作品</i-option>
+            <i-option value="user">用户</i-option>
+          </i-select>
+          <i-button @click="searchBtnClick" slot="append" icon="ios-search"></i-button>
+      </i-input>
+      <p class="title_desc">按主题分类查看...</p>
+      <div class="labellist">
+        <span>产品设计</span>
+        <span>交互设计</span>
+        <span>界面设计</span>
+        <span>平面设计</span>
+        <span>影像设计</span>
+        <span>工业设计史</span>
+        <span>设计概论</span>
+        <span>数字界面原型</span>
+        <span>交通工具设计</span>
+        <span>汽车造型设计与理论研究</span>
+      </div>
+    </div>
+    <div class="user_result" v-show="user_result_show">
+      <span class="user_result_title">搜索“某某某”的结果</span>
+      <div class="user_info_panel">
+        <div class="user_info">
+          <img src="/public/images/mobile/default_head_img.png" /><span>某某某</span>
+        </div>
+        <span class="product_count">30件作品</span>
+      </div>
+      <div class="product_list">
+        <img src="" class="product_item"/>
+      </div>
+    </div>
+    <div class="product_result" v-show="product_result_show">
+      <span class="product_result_title">搜索“产品设计”的结果</span>
+      <div class="panel_card" v-for="(elem, index) in dataList" :key="elem.key">
+          <div class="product_zone">
+            <img :src="elem.profileImage"/>
+            <p class="product_name">${elem.name}</p>
+            <p class="topic_name" >${elem.topics[0].name}</p>
+          </div>
+          <div class="product_line"></div>
+          <div class="function_zone">
+            <div class="user_info">
+              <img :src="elem.user.avatarUrl ? elem.user.avatarUrl : '/public/images/mobile/default_head_img.png' "/><span>${elem.fullname}</span>
+            </div>
 
+            <div class="operate_zone">
+              <img src="/public/images/mobile/medal.png"/><span>${elem.medalCount}</span>
+              <img src="/public/images/mobile/like_gray.png"/><span>${elem.likeCount}</span>
+              <img src="/public/images/mobile/comment.png"/><span>${elem.commentCount}</span>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="workset_result" v-show="workset_result_show">
+      <div  v-for="elem in dataList" :key="elem.key" class="panel_card">
+        <p class="workset__title">${elem.name}</p>
+        <p class="workset__info">${elem.createAt.substring(0,10)} 创建&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;${elem.user.gender} 件作品</p>
+        <div class="workset_image_list">
+          <div v-for="image in elem.artifacts" :key="elem.key">
+            <img :src="image.profileImage" />
+          </div>
+
+        </div>
+        <div class="workset_line"></div>
+        <div class="workset_user_info">
+          <img :src="elem.user.avatarUrl ? elem.user.avatarUrl : '/public/images/mobile/default_head_img.png' "/><span>${elem.user.fullname}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+<script src="/public/js/lib/jquery.min.js" type="text/javascript"></script>
+<script src="/public/js/lib/vue.min.js" type="text/javascript"></script>
+<script src="/public/js/lib/iview.min.js" type="text/javascript"></script>
+<script src="/public/js/src/mobile/component/menu2.js" type="text/javascript"></script>
+<script src="/public/js/src/mobile/search.js" type="text/javascript"></script>
 </html>

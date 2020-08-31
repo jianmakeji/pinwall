@@ -2,9 +2,6 @@ var HeaderMenu = {
   data: function () {
     return {
       menu_show:0,
-      selectMenuStyle:'bottom_green_line',
-      graduateMenuStyle:'bottom_transparent_line',
-      workpodMenuStyle:'bottom_transparent_line',
     }
   },
   props:{
@@ -37,32 +34,13 @@ var HeaderMenu = {
     }
   },
   created() {
-    if(this.menuItemNum == 1){
-      this.selectMenuStyle = 'bottom_green_line';
-      this.graduateMenuStyle = 'bottom_transparent_line';
-      this.workpodMenuStyle = 'bottom_transparent_line';
-    }
-    else if(this.menuItemNum == 2){
-      this.selectMenuStyle = 'bottom_transparent_line';
-      this.graduateMenuStyle = 'bottom_green_line';
-      this.workpodMenuStyle = 'bottom_transparent_line';
-    }
-    else if(this.menuItemNum == 3){
-      this.selectMenuStyle = 'bottom_transparent_line';
-      this.graduateMenuStyle = 'bottom_transparent_line';
-      this.workpodMenuStyle = 'bottom_green_line';
-    }
+
   },
   template:'<div class="menu_top_layer"><div class="menu_banner">'+
     '<div class="menu_icon_area">'+
-      '<img src="/public/images/mobile/menu.png" @click="menuClick" class="menu_icon" />'+
+      '<img src="/public/images/mobile/menu.png" @click="menuClick" class="menu_icon" /><span>图钉墙<span>'+
     '</div>'+
-    '<nav class="nav_menu">'+
-      '<a href="/mobile" :class="selectMenuStyle">精选</a>'+
-      '<a href="/mobile/graduate" :class="graduateMenuStyle">毕设展</a>'+
-      '<a href="/mobile/workpod" :class="workpodMenuStyle">作业荚</a>'+
-    '</nav>'+
-    '<div class="menu_icon_area" @click="searchClick">'+
+    '<div class="search_icon_area">'+
       '<img src="/public/images/mobile/search.png" class="menu_icon" />'+
     '</div>'+
   '</div>'+
