@@ -159,9 +159,11 @@ module.exports = app => {
   router.get('/mobile/graduate', controller.mobile.graduate);
   router.get('/mobile/search', controller.mobile.search);
   router.get('/mobile/workpod', controller.mobile.workpod);
+  router.get('/mobile/workpoddetail', controller.mobile.workpoddetail);
   router.get('/mobile/workdetail', controller.mobile.workdetail);
   router.get('/mobile/workset', controller.mobile.workset);
   router.get('/mobile/login', controller.mobile.login);
   router.get('/mobile/register', controller.mobile.register);
   router.get('/mobile/findpwd', controller.mobile.findpwd);
+  router.get('/mobile/updatepwd', controller.mobile.updatepwd);
 };

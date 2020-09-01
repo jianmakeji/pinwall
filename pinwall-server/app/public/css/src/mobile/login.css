@@ -1,0 +1,116 @@
+.banner{
+  width:100%;
+  height:60px;
+  background-color: #333333;
+}
+
+.backicon{
+  width:9px;
+  height:18px;
+  position:absolute;
+  left:10px;
+  top:21px;
+}
+
+.banner span{
+  color: white;
+  font-size: 21px;
+  font-weight: bold;
+  position:absolute;
+  left:30px;
+  top:15px;
+}
+
+.type_panel{
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+
+.type_panel div{
+  display: inline-block;
+  margin-top: 40px;
+}
+
+.type_panel_menu_selected{
+  color:#575656;
+  font-size: 17px;
+  font-weight: bold;
+  border-bottom: 3px solid #07BC72;
+  margin: 10px 20px;
+}
+
+.type_panel_menu_normal{
+  color:#6D7278;
+  font-size: 17px;
+  font-weight: bold;
+  border-bottom: 3px solid rgba(255,255,255,0);
+  margin: 10px 20px;
+}
+
+.email_login_panel{
+  text-align: center;
+  margin: 20px 0px;
+}
+
+.mobile_login_panel{
+  text-align: center;
+  margin: 20px 0px;
+}
+
+.login_btn{
+  width:80%;
+  color:white;
+  background-color: #07BC72;
+  margin-left: 10%;
+  height:40px;
+  text-align: center;
+  line-height:40px;
+  vertical-align: top;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.menu_panel{
+  margin: 10px 10%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.wechat{
+  width:100%;
+  position: absolute;
+  bottom: 50px;
+  text-align: center;
+}
+
+.wechat img{
+  width:40px;
+  height:40px;
+  margin-top:10px;
+}
+
+.wechat p{
+  color:#BEBFC0;
+  font-size: 14px;
+  position: relative;
+}
+
+.wechat p::before,
+.wechat p::after
+{
+  content: "";
+  width: 13%;
+  height: 1px;
+  background-color: #BEBFC0;
+  position: absolute;
+  top:9px;
+}
+
+.wechat p::before{
+  left:25%;
+}
+
+.wechat p::after{
+  right:25%;
+}

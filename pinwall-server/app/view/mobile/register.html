@@ -5,8 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>注册</title>
+  <link rel="stylesheet" href="/public/css/lib/iview.css"/>
+  <link href="/public/css/src/mobile/register.css" rel="stylesheet" />
 </head>
 <body>
-
+  <div id="content">
+    <div class="banner">
+      <img src="/public/images/mobile/back.png" class="backicon"/><span>修改密码</span>
+    </div>
+    <div class="title">注册</div>
+    <div class="input_panel">
+      <i-input v-model="mobile" placeholder="请输入手机号" ></i-input>
+      <i-input v-model="code" placeholder="请输入验证码" style="width: 50%;" ></i-input>
+      <i-button style="width: 30%;margin-bottom: 30px;color:#6D7278;">获取验证码</i-button>
+      <i-input v-model="fullname" placeholder="请输入姓名(无法修改)" ></i-input>
+      <i-input v-model="pwd1" placeholder="请输入密码" ></i-input>
+      <i-input v-model="pwd2" placeholder="请再次确认密码" ></i-input>
+    </div>
+    <div class="register_btn">注册</div>
+  </div>
 </body>
+<script src="/public/js/lib/jquery.min.js" type="text/javascript"></script>
+<script src="/public/js/lib/vue.min.js" type="text/javascript"></script>
+<script src="/public/js/lib/iview.min.js" type="text/javascript"></script>
+<script src="/public/js/src/mobile/register.js" type="text/javascript"></script>
 </html>

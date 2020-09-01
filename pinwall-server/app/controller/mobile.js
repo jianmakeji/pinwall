@@ -32,6 +32,13 @@ class MobileController extends BaseController {
     });
   }
 
+  async workpoddetail() {
+    const ctx = this.ctx;
+    await ctx.render('mobile/workPodDetail.html',{
+
+    });
+  }
+
   async workdetail() {
     const ctx = this.ctx;
     await ctx.render('mobile/workDetail.html',{
@@ -62,7 +69,14 @@ class MobileController extends BaseController {
 
   async findpwd() {
     const ctx = this.ctx;
-    await ctx.render('mobile/findpwd.html',{
+    await ctx.render('mobile/findPwd.html',{
+
+    });
+  }
+
+  async updatepwd() {
+    const ctx = this.ctx;
+    await ctx.render('mobile/updatePwd.html',{
 
     });
   }
