@@ -1,3 +1,7 @@
+function getUrlKey(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(window.location.href) || [, ""])[1].replace(/\+/g, '%20')) || null
+}
+
 new Vue({
   el: '#content',
   delimiters: ['${', '}'],
@@ -9,40 +13,63 @@ new Vue({
     condition:'',
     product_count:0,
     work_info:null,
+    pageNum:1,
+    dataList:[],
+    topicId:0,
   },
   methods: {
-    searchBtnClick:function(){
-
+    loadData:function(){
+      let that = this;
+      $.ajax({
+        url: '/website/topics/getTopicAndArtifactById',
+        type: 'get',
+        dataType: 'json',
+        data: {
+          limit: 10,
+          offset: (that.pageNum - 1) * 10,
+          topicId: that.topicId,
+          score: 1,
+        }
+      })
+      .done(function(responseData) {
+        if(that.pageNum == 1){
+          that.work_info = responseData.data.rows;
+        }
+        if(responseData.data.rows.artifacts.length > 0){
+          that.dataList.push(...responseData.data.rows.artifacts);
+        }else{
+          that.pageNum = -1;
+        }
+      })
+      .fail(function() {
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
     }
   },
   created() {
+    this.topicId = getUrlKey('topicId');
+    this.loadData();
     let that = this;
-    $.ajax({
-      url: '/website/topics/getTopicAndArtifactById',
-      type: 'get',
-      dataType: 'json',
-      data: {
-        limit: 10,
-        offset: 0,
-        topicId: 747,
-        score: 1,
+    window.onscroll = function(){
+      //变量scrollTop是滚动条滚动时，距离顶部的距离
+      var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+      //变量windowHeight是可视区的高度
+      var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      //变量scrollHeight是滚动条的总高度
+      var scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+      //滚动条到底部的条件
+      if(scrollHeight - (scrollTop + windowHeight) <= 50){
+          //写后台加载数据的函数
+          if(that.pageNum != -1){
+            that.pageNum = that.pageNum + 1;
+            that.loadData();
+          }else{
+            //无更多数据
+          }
       }
-    })
-    .done(function(responseData) {
-      if(responseData.success == true){
-        that.product_count = responseData.data.count;
-        that.work_info = responseData.data.rows;
-      }else{
-
-      }
-
-    })
-    .fail(function() {
-      console.log("error");
-    })
-    .always(function() {
-      console.log("complete");
-    });
-
+    }
   }
 })

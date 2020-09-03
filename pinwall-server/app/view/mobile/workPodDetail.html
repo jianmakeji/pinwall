@@ -21,27 +21,31 @@
       <div class="user_info">
         <img :src="work_info.user.avatarUrl ? work_info.user.avatarUrl : '/public/images/mobile/default_head_img.png' "/><span>${work_info.user.fullname}</span>
       </div>
-      <p class="desc"></p>
-      <div class="panel_card" v-for="(elem, index) in work_info.artifacts" :key="elem.key">
-          <div class="product_zone">
-            <img :src="elem.profileImage"/>
-            <p class="product_name">${elem.name}</p>
-            <div class="operate_zone">
-              <img src="/public/images/mobile/medal.png"/><span>${elem.medalCount}</span>
-              <img src="/public/images/mobile/like_gray.png"/><span>${elem.likeCount}</span>
-              <img src="/public/images/mobile/comment.png"/><span>${elem.commentCount}</span>
+      <p class="desc">${work_info.description}</p>
+      <div class="split_line"></div>
+      <div class="list_content">
+        <div class="panel_card" v-for="(elem, index) in dataList" :key="elem.key">
+            <div class="product_zone">
+              <img :src="elem.profileImage"/>
+              <p class="product_name">${elem.name}</p>
+              <div class="operate_zone">
+                <img src="/public/images/mobile/medal.png"/><span>${elem.medalCount}</span>
+                <img src="/public/images/mobile/like_gray.png"/><span>${elem.likeCount}</span>
+                <img src="/public/images/mobile/comment.png"/><span>${elem.commentCount}</span>
+              </div>
             </div>
-          </div>
-          <div class="product_line"></div>
-          <div class="function_zone">
-            <div class="user_info">
-              <img :src="elem.user.avatarUrl ? elem.user.avatarUrl : '/public/images/mobile/default_head_img.png' "/>
-              <span>${elem.user.fullname}</span>
+            <div class="product_line"></div>
+            <div class="function_zone">
+              <div class="user_info">
+                <img :src="elem.user.avatarUrl ? elem.user.avatarUrl : '/public/images/mobile/default_head_img.png' "/>
+                <span>${elem.user.fullname}</span>
+              </div>
+              <span class="product_time">${elem.createAt.substring(0,10)}</span>
             </div>
-            <p class="product_time">${elem.createAt.substring(0,10)}</p>
-          </div>
+        </div>
       </div>
-    </div>
+      </div>
+
 
   </div>
 </body>

@@ -9,6 +9,9 @@ new Vue({
     dataList:[],
   },
   methods: {
+      workpodCardClick:function(topicId){
+        window.location.href = "/mobile/workpoddetail?topicId=" +  topicId;
+      },
       loadData:function(){
         let that = this;
         $.ajax({

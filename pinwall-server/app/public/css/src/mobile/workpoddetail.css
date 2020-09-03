@@ -4,8 +4,9 @@
   margin: 15px;
   overflow:hidden;
   white-space: nowrap;
-  width: 100%;
+  width: 90%;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .info{
@@ -15,9 +16,10 @@
 }
 
 .user_info{
-  width: 100%;
+  width: 60%;
   height:30px;
   margin: 15px;
+  display: inline-block;
 }
 
 .user_info img{
@@ -35,7 +37,7 @@
 }
 
 .desc{
-  width: 100%;
+  width: 90%;
   margin: 15px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -105,17 +107,30 @@
   margin: 10px 10px 0px;
 }
 
+.split_line{
+  height:1px;
+  background-color: #E8E9EA;
+  margin: 10px 0px;
+  width:100%;
+}
+
 .function_zone{
   position: relative;
   width: 100%;
-  height: 30px;
+  height: 40px;
   margin: 0px 0px 10px;
 }
 
 .product_time{
-  color:#666666;
+  color:#BEBFC0;
   font-size: 14px;
   line-height: 30px;
   vertical-align: top;
-  margin-left: 15px;
+  position: absolute;
+  right: 10px;
+  top: 15px;
+}
+
+.list_content{
+  background-color: #F6F7F8;
 }

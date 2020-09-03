@@ -19,7 +19,7 @@
       <div class="condition_btn_noraml">由我创建</div>
     </div>
     <div>
-      <div  v-for="elem in dataList" :key="elem.key" class="panel_card">
+      <div  v-for="elem in dataList" :key="elem.key" class="panel_card" @click="workpodCardClick(elem.Id)">
         <p class="title">${elem.name}</p>
         <p class="info">${elem.createAt.substring(0,10)} 创建&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;${elem.user.gender} 件作品</p>
         <div class="image_list">
