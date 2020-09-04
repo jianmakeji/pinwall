@@ -10,9 +10,29 @@ new Vue({
     medal:null,
     score:0,
     teamworker:"",
+    shrink_or_grow:1,
   },
   methods: {
+    moreClick:function(){
+      if(this.shrink_or_grow == 1){
+        $('.medal').removeClass('medal_grow');
+        $('.comment').removeClass('comment_grow');
+        $('.share').removeClass('share_grow');
+        $('.medal').addClass('medal_shrink');
+        $('.comment').addClass('comment_shrink');
+        $('.share').addClass('share_shrink');
+        this.shrink_or_grow = 0;
+      }else{
+        $('.medal').removeClass('medal_shrink');
+        $('.comment').removeClass('comment_shrink');
+        $('.share').removeClass('share_shrink');
+        $('.medal').addClass('medal_grow');
+        $('.comment').addClass('comment_grow');
+        $('.share').addClass('share_grow');
+        this.shrink_or_grow = 1;
+      }
 
+    }
   },
   created() {
     let that = this;

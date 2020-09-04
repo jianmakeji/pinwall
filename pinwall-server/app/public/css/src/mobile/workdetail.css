@@ -205,3 +205,108 @@
   height: 1px;
   background-color: #E8E9EA;
 }
+
+.operate_panel_list{
+  position:fixed;
+  height: 40px;
+  width:40px;
+  right:20px;
+  background-size: 25px 25px;
+  border-radius: 5px;
+  background-position: center;
+  background-repeat:no-repeat;
+}
+
+.medal{
+  top:300px;
+  background-color: #07BC72;
+  background-image: url('/public/images/mobile/medal_white_transparent.png');
+  z-index: 2;
+}
+
+.comment{
+  top:350px;
+  background-image: url('/public/images/mobile/comment.png');
+  z-index: 4;
+  background-color: white;
+}
+
+.share{
+  top:400px;
+  background-image: url('/public/images/mobile/share.png');
+  z-index: 6;
+  background-color: white;
+}
+
+.more{
+  top:450px;
+  background-color: #07BC72;
+  background-image: url('/public/images/mobile/more2.png');
+  z-index: 10;
+}
+
+.medal_shrink{
+  animation: medal_shrink 1s;
+  top:450px;
+}
+
+@keyframes medal_shrink
+{
+  from {top: 300px;}
+  to {top: 450px;}
+}
+
+.comment_shrink{
+  animation: comment_shrink 800ms;
+  top:450px;
+}
+
+@keyframes comment_shrink
+{
+  from {top: 350px;}
+  to {top: 450px;}
+}
+
+.share_shrink{
+  animation: share_shrink 600ms;
+  top:450px;
+}
+
+@keyframes share_shrink
+{
+  from {top: 400px;}
+  to {top: 450px;}
+}
+
+.medal_grow{
+  animation: medal_grow 1s;
+  top:300px;
+}
+
+@keyframes medal_grow
+{
+  from {top: 450px;}
+  to {top: 300px;}
+}
+
+.comment_grow{
+  animation: comment_grow 700ms;
+  top:350px;
+}
+
+@keyframes comment_grow
+{
+  from {top: 450px;}
+  to {top: 350px;}
+}
+
+.share_grow{
+  animation: share_grow 400ms;
+  top:400px;
+}
+
+@keyframes share_grow
+{
+  from {top: 450px;}
+  to {top: 400px;}
+}
