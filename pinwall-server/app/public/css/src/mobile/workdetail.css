@@ -218,21 +218,28 @@
 }
 
 .medal{
-  top:300px;
+  top:450px;
   background-color: #07BC72;
   background-image: url('/public/images/mobile/medal_white_transparent.png');
   z-index: 2;
 }
 
+.score{
+  top:450px;
+  background-color: white;
+  background-image: url('/public/images/mobile/score.png');
+  z-index: 3;
+}
+
 .comment{
-  top:350px;
+  top:450px;
   background-image: url('/public/images/mobile/comment.png');
   z-index: 4;
   background-color: white;
 }
 
 .share{
-  top:400px;
+  top:450px;
   background-image: url('/public/images/mobile/share.png');
   z-index: 6;
   background-color: white;
@@ -241,8 +248,16 @@
 .more{
   top:450px;
   background-color: #07BC72;
-  background-image: url('/public/images/mobile/more2.png');
+  background-image: url('/public/images/mobile/more.png');
   z-index: 10;
+}
+
+.more_shrink{
+  background-image: url('/public/images/mobile/more.png');
+}
+
+.more_grow{
+  background-image: url('/public/images/mobile/more2.png');
 }
 
 .medal_shrink{
@@ -251,6 +266,17 @@
 }
 
 @keyframes medal_shrink
+{
+  from {top: 250px;}
+  to {top: 450px;}
+}
+
+.score_shrink{
+  animation: score_shrink 1s;
+  top:450px;
+}
+
+@keyframes score_shrink
 {
   from {top: 300px;}
   to {top: 450px;}
@@ -280,10 +306,21 @@
 
 .medal_grow{
   animation: medal_grow 1s;
-  top:300px;
+  top:250px;
 }
 
 @keyframes medal_grow
+{
+  from {top: 450px;}
+  to {top: 250px;}
+}
+
+.score_grow{
+  animation: score_grow 1s;
+  top:300px;
+}
+
+@keyframes score_grow
 {
   from {top: 450px;}
   to {top: 300px;}
