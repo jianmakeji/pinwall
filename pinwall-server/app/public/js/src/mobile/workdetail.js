@@ -1,3 +1,7 @@
+function getUrlKey(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(window.location.href) || [, ""])[1].replace(/\+/g, '%20')) || null
+}
+
 new Vue({
   el: '#content',
   delimiters: ['${', '}'],
@@ -11,6 +15,7 @@ new Vue({
     score:0,
     teamworker:"",
     shrink_or_grow:0,
+    artifactId:0,
   },
   methods: {
     moreClick:function(){
@@ -39,20 +44,32 @@ new Vue({
         $('.more').addClass('more_grow');
         this.shrink_or_grow = 1;
       }
+    },
+    commentClick:function(){
+      $(".send_comment_area").css('visibility','visible');
+      $(".comment_input").focus();
+      $(".mask").show();
+    },
+    sendComment:function(){
+      $(".send_comment_area").css('visibility','hidden');
+      $(".mask").hide();
     }
+
   },
   created() {
+    this.artifactId = getUrlKey('artifactId');
+
     let that = this;
     //获取作品信息
     $.ajax({
-      url: '/wx/artifacts/getArtifactById/25645',
+      url: '/wx/artifacts/getArtifactById/' + this.artifactId,
       type: 'get',
       dataType: 'json',
 
     })
     .done(function(responseData) {
       that.product = responseData.data;
-      if( that.product.teamworker !=''){
+      if( that.product.teamworker !='' && that.product.teamworker != null){
         let teamworkerArray = JSON.parse(that.product.teamworker);
         teamworkerArray.forEach((elem)=>{
           that.teamworker = that.teamworker + elem.fullname + ',';
@@ -76,7 +93,7 @@ new Vue({
       data: {
         limit: 10,
         offset: 0,
-        artifactId: 33918,
+        artifactId: this.artifactId,
       }
     })
     .done(function(responseData) {
@@ -97,7 +114,7 @@ new Vue({
       data: {
         limit: 10,
         offset: 0,
-        artifactId: 25645,
+        artifactId: this.artifactId,
       }
     })
     .done(function(responseData) {

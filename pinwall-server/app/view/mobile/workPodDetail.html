@@ -24,7 +24,7 @@
       <p class="desc">${work_info.description}</p>
       <div class="split_line"></div>
       <div class="list_content">
-        <div class="panel_card" v-for="(elem, index) in dataList" :key="elem.key">
+        <div class="panel_card" v-for="(elem, index) in dataList" :key="elem.key" @click="cardClick(elem.Id)">
             <div class="product_zone">
               <img :src="elem.profileImage"/>
               <p class="product_name">${elem.name}</p>

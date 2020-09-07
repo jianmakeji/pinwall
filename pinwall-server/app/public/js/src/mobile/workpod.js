@@ -40,6 +40,9 @@ new Vue({
         .always(function() {
           console.log("complete");
         });
+      },
+      artifactClick:function(id){
+        window.location.href = "/mobile/workdetail?artifactId=" + id;
       }
   },
   created() {

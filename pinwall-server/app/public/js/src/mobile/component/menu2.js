@@ -18,7 +18,7 @@ var HeaderMenu = {
       $(".pop_menu").addClass("animate__animated animate__slideOutUp");
     },
     registerLoginBtnClick:function(){
-
+      window.location.href = "/mobile/login";
     },
     choicenessClick:function(){
       window.location.href = "/mobile";
@@ -40,7 +40,7 @@ var HeaderMenu = {
     '<div class="menu_icon_area">'+
       '<img src="/public/images/mobile/menu.png" @click="menuClick" class="menu_icon" /><span>图钉墙<span>'+
     '</div>'+
-    '<div class="search_icon_area">'+
+    '<div class="search_icon_area" @click="searchClick">'+
       '<img src="/public/images/mobile/search.png" class="menu_icon" />'+
     '</div>'+
   '</div>'+

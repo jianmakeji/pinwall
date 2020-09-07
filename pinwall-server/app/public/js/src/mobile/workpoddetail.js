@@ -34,6 +34,7 @@ new Vue({
       .done(function(responseData) {
         if(that.pageNum == 1){
           that.work_info = responseData.data.rows;
+          that.product_count = responseData.data.count;
         }
         if(responseData.data.rows.artifacts.length > 0){
           that.dataList.push(...responseData.data.rows.artifacts);
@@ -47,6 +48,9 @@ new Vue({
       .always(function() {
         console.log("complete");
       });
+    },
+    cardClick:function(id){
+      window.location.href = "/mobile/workdetail?artifactId=" + id;
     }
   },
   created() {

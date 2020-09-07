@@ -21,7 +21,7 @@ var HeaderMenu = {
       $(".pop_menu").addClass("animate__animated animate__slideOutUp");
     },
     registerLoginBtnClick:function(){
-
+      window.location.href = "/mobile/login";
     },
     choicenessClick:function(){
       window.location.href = "/mobile";

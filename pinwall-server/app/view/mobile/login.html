@@ -11,7 +11,7 @@
 <body>
   <div id="content">
     <div class="banner">
-      <img src="/public/images/mobile/back.png" class="backicon"/><span>登录</span>
+      <img src="/public/images/mobile/back.png" class="backicon" @click="backClick"/><span>登录</span>
     </div>
     <div class="type_panel">
       <div :class="login_btn_status" @click="emailClick">账号登录</div>
@@ -27,8 +27,8 @@
       <i-button style="width: 30%;color:#6D7278">获取验证码</i-button>
     </div>
     <div class="menu_panel">
-      <a href="">忘记密码</a>
-      <a href="">注册账号</a>
+      <a href="/mobile/findpwd">忘记密码</a>
+      <a href="/mobile/register">注册账号</a>
     </div>
     <div class="login_btn">登录</div>
     <div class="wechat">

@@ -26,6 +26,9 @@ new Vue({
       this.mobile_panel_show = 1;
       this.login_btn_status = 'type_panel_menu_normal';
       this.mobile_btn_status = 'type_panel_menu_selected';
+    },
+    backClick:function(){
+      window.history.back(-1);
     }
   },
   created() {

@@ -12,7 +12,9 @@ new Vue({
     fullname:'',
   },
   methods: {
-
+    backClick:function(){
+      window.history.back(-1);
+    }
   },
   created() {
     let that = this;

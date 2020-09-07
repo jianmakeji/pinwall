@@ -145,7 +145,7 @@
   background-color: #F6F7F8;
 }
 
-.comment{
+.comment_count{
   color:#636567;
   font-size: 17px;
 }
@@ -218,35 +218,35 @@
 }
 
 .medal{
-  top:450px;
+  top:calc(100vh - 150px);
   background-color: #07BC72;
   background-image: url('/public/images/mobile/medal_white_transparent.png');
   z-index: 2;
 }
 
 .score{
-  top:450px;
+  top:calc(100vh - 150px);
   background-color: white;
   background-image: url('/public/images/mobile/score.png');
   z-index: 3;
 }
 
 .comment{
-  top:450px;
-  background-image: url('/public/images/mobile/comment.png');
+  top:calc(100vh - 150px);
+  background-image: url('/public/images/mobile/comment_select.png');
   z-index: 4;
   background-color: white;
 }
 
 .share{
-  top:450px;
+  top:calc(100vh - 150px);
   background-image: url('/public/images/mobile/share.png');
   z-index: 6;
   background-color: white;
 }
 
 .more{
-  top:450px;
+  top:calc(100vh - 150px);
   background-color: #07BC72;
   background-image: url('/public/images/mobile/more.png');
   z-index: 10;
@@ -262,88 +262,137 @@
 
 .medal_shrink{
   animation: medal_shrink 1s;
-  top:450px;
+  top:calc(100vh - 150px);
 }
 
 @keyframes medal_shrink
 {
-  from {top: 250px;}
-  to {top: 450px;}
+  from {top: calc(100vh - 350px);}
+  to {top: calc(100vh -150px);}
 }
 
 .score_shrink{
   animation: score_shrink 1s;
-  top:450px;
+  top:calc(100vh - 150px);
 }
 
 @keyframes score_shrink
 {
-  from {top: 300px;}
-  to {top: 450px;}
+  from {top: calc(100vh - 300px);}
+  to {top: calc(100vh - 150px);}
 }
 
 .comment_shrink{
   animation: comment_shrink 800ms;
-  top:450px;
+  top:calc(100vh - 150px);
 }
 
 @keyframes comment_shrink
 {
-  from {top: 350px;}
-  to {top: 450px;}
+  from {top: calc(100vh - 250px);}
+  to {top: calc(100vh - 150px);}
 }
 
 .share_shrink{
   animation: share_shrink 600ms;
-  top:450px;
+  top:calc(100vh - 150px);
 }
 
 @keyframes share_shrink
 {
-  from {top: 400px;}
-  to {top: 450px;}
+  from {top: calc(100vh - 200px);}
+  to {top: calc(100vh - 150px);}
 }
 
 .medal_grow{
   animation: medal_grow 1s;
-  top:250px;
+  top:calc(100vh - 350px);
 }
 
 @keyframes medal_grow
 {
-  from {top: 450px;}
-  to {top: 250px;}
+  from {top: calc(100vh - 150px);}
+  to {top: calc(100vh - 350px);}
 }
 
 .score_grow{
   animation: score_grow 1s;
-  top:300px;
+  top: calc(100vh - 300px);
 }
 
 @keyframes score_grow
 {
-  from {top: 450px;}
-  to {top: 300px;}
+  from {top: calc(100vh - 150px);}
+  to {top: calc(100vh - 300px);}
 }
 
 .comment_grow{
   animation: comment_grow 700ms;
-  top:350px;
+  top: calc(100vh - 250px);
 }
 
 @keyframes comment_grow
 {
-  from {top: 450px;}
-  to {top: 350px;}
+  from {top: calc(100vh - 150px);}
+  to {top: calc(100vh - 250px);}
 }
 
 .share_grow{
   animation: share_grow 400ms;
-  top:400px;
+  top:calc(100vh - 200px);
 }
 
 @keyframes share_grow
 {
-  from {top: 450px;}
-  to {top: 400px;}
+  from {top: calc(100vh - 150px);}
+  to {top: calc(100vh - 200px);}
+}
+
+.send_comment_area{
+  position: fixed;
+  bottom: 0;
+  margin: 0 auto;
+  display: flex;
+  width: 100%;
+  height: 68px;
+  background-color: white;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  z-index: 100;
+}
+
+.comment_input{
+  width: 65%;
+  height: 32px;
+  border-radius: 5px;
+  background-color: #E8E9EA;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.submitCommentBtn
+{
+  width: 21%;
+  height: 32px;
+  background-color: #E8E9EA;
+  line-height: 32px;
+  vertical-align: middle;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #BEBFC0;
+  color:#BEBFC0;
+  font-size: 14px;
+  border-style: solid;
+}
+
+.mask{
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: 15;
+  background-color: #000000;
+  opacity: 0.54;
+  display: none;
 }

@@ -9,7 +9,9 @@ new Vue({
     dataList:[],
   },
   methods: {
-
+    cardClick:function(id){
+      window.location.href = "/mobile/workdetail?artifactId=" + id;
+    }
   },
   created() {
     let that = this;

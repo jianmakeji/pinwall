@@ -23,7 +23,7 @@
         <p class="graduate_title">${elem.name}</p>
         <p class="graduate_info">${elem.createAt.substring(0,10)} 创建&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;${elem.user.gender} 件作品</p>
         <div class="image_list">
-          <div v-for="image in elem.artifacts" :key="elem.key">
+          <div v-for="image in elem.artifacts" :key="elem.key" @click.stop="artifactClick(image.Id)">
             <img :src="image.profileImage" />
           </div>
 
