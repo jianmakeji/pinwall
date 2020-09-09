@@ -1,4 +1,4 @@
-new Vue({
+var contentVue = new Vue({
   el: '#content',
   delimiters: ['${', '}'],
   components:{
@@ -7,10 +7,72 @@ new Vue({
   data: {
     pageNum:1,
     dataList:[],
+    status:0,
+    userId:-1,
   },
   methods: {
       workpodCardClick:function(topicId){
         window.location.href = "/mobile/workpoddetail?topicId=" +  topicId;
+      },
+      allBtnClick:function(){
+        $("#all_btn").removeClass('condition_btn_noraml');
+        $("#all_btn").addClass('condition_btn_selected');
+        $("#open_btn").removeClass('condition_btn_selected');
+        $("#open_btn").addClass('condition_btn_noraml');
+        $("#save_btn").removeClass('condition_btn_selected');
+        $("#save_btn").addClass('condition_btn_noraml');
+        $("#create_by_me_btn").removeClass('condition_btn_selected');
+        $("#create_by_me_btn").addClass('condition_btn_noraml');
+        this.status = -1;
+        this.pageNum = 1;
+        this.dataList = [];
+        this.userId = -1;
+        this.loadData();
+      },
+      openBtnClick:function(){
+        $("#open_btn").removeClass('condition_btn_noraml');
+        $("#open_btn").addClass('condition_btn_selected');
+        $("#all_btn").removeClass('condition_btn_selected');
+        $("#all_btn").addClass('condition_btn_noraml');
+        $("#save_btn").removeClass('condition_btn_selected');
+        $("#save_btn").addClass('condition_btn_noraml');
+        $("#create_by_me_btn").removeClass('condition_btn_selected');
+        $("#create_by_me_btn").addClass('condition_btn_noraml');
+        this.status = 0;
+        this.pageNum = 1;
+        this.dataList = [];
+        this.userId = -1;
+        this.loadData();
+      },
+      saveBtnClick:function(){
+        $("#open_btn").removeClass('condition_btn_selected');
+        $("#open_btn").addClass('condition_btn_noraml');
+        $("#all_btn").removeClass('condition_btn_selected');
+        $("#all_btn").addClass('condition_btn_noraml');
+        $("#save_btn").removeClass('condition_btn_noraml');
+        $("#save_btn").addClass('condition_btn_selected');
+        $("#create_by_me_btn").removeClass('condition_btn_selected');
+        $("#create_by_me_btn").addClass('condition_btn_noraml');
+        this.status = 1;
+        this.pageNum = 1;
+        this.dataList = [];
+        this.userId = -1;
+        this.loadData();
+      },
+      createByMeBtnClick:function(){
+        $("#open_btn").removeClass('condition_btn_selected');
+        $("#open_btn").addClass('condition_btn_noraml');
+        $("#all_btn").removeClass('condition_btn_selected');
+        $("#all_btn").addClass('condition_btn_noraml');
+        $("#save_btn").removeClass('condition_btn_selected');
+        $("#save_btn").addClass('condition_btn_noraml');
+        $("#create_by_me_btn").removeClass('condition_btn_noraml');
+        $("#create_by_me_btn").addClass('condition_btn_selected');
+        this.status = 2;
+        this.pageNum = 1;
+        this.dataList = [];
+        this.userId = 0;
+        this.loadData();
       },
       loadData:function(){
         let that = this;
@@ -23,8 +85,8 @@ new Vue({
             offset: (that.pageNum - 1) * 10,
             jobTag: 1,
             subLimit: 5,
-            status: 1,
-            userId: -1,
+            status: that.status,
+            userId: that.userId,
           }
         })
         .done(function(responseData) {

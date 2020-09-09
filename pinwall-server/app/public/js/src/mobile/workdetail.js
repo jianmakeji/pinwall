@@ -16,15 +16,20 @@ new Vue({
     teamworker:"",
     shrink_or_grow:0,
     artifactId:0,
+    comment_or_score:0,
+    placeholder:"发表你的评论...",
+    comment_or_score_value:'',
   },
   methods: {
     moreClick:function(){
       if(this.shrink_or_grow == 1){
+        $('.like').removeClass('like_grow');
         $('.medal').removeClass('medal_grow');
         $('.score').removeClass('score_grow');
         $('.comment').removeClass('comment_grow');
         $('.share').removeClass('share_grow');
         $('.more').removeClass('more_grow');
+        $('.like').addClass('like_shrink');
         $('.medal').addClass('medal_shrink');
         $('.score').addClass('score_shrink');
         $('.comment').addClass('comment_shrink');
@@ -32,11 +37,13 @@ new Vue({
         $('.more').addClass('more_shrink');
         this.shrink_or_grow = 0;
       }else{
+        $('.like').removeClass('like_shrink');
         $('.medal').removeClass('medal_shrink');
         $('.score').removeClass('score_shrink');
         $('.comment').removeClass('comment_shrink');
         $('.share').removeClass('share_shrink');
         $('.more').removeClass('more_shrink');
+        $('.like').addClass('like_grow');
         $('.medal').addClass('medal_grow');
         $('.score').addClass('score_grow');
         $('.comment').addClass('comment_grow');
@@ -46,44 +53,44 @@ new Vue({
       }
     },
     commentClick:function(){
+      this.comment_or_score_value = '';
+      this.comment_or_score = 1;
+      this.placeholder = "发表你的评论...";
       $(".send_comment_area").css('visibility','visible');
       $(".comment_input").focus();
       $(".mask").show();
     },
-    sendComment:function(){
+    sendResult:function(){
+      if(this.comment_or_score == 1){
+
+      }
+      else if (this.comment_or_score == 2){
+
+      }
       $(".send_comment_area").css('visibility','hidden');
       $(".mask").hide();
+    },
+    scoreClick:function(){
+      this.comment_or_score_value = '';
+      this.comment_or_score = 2;
+      this.placeholder = "请输入分数...";
+      $(".send_comment_area").css('visibility','visible');
+      $(".comment_input").focus();
+      $(".mask").show();
+    },
+    shareClick:function(){
+      $(".mask").show();
+      $(".share_panel").show();
+    },
+    saveShareBtnClick:function(){
+      $(".mask").hide();
+      $(".share_panel").hide();
     }
-
   },
   created() {
     this.artifactId = getUrlKey('artifactId');
 
     let that = this;
-    //获取作品信息
-    $.ajax({
-      url: '/wx/artifacts/getArtifactById/' + this.artifactId,
-      type: 'get',
-      dataType: 'json',
-
-    })
-    .done(function(responseData) {
-      that.product = responseData.data;
-      if( that.product.teamworker !='' && that.product.teamworker != null){
-        let teamworkerArray = JSON.parse(that.product.teamworker);
-        teamworkerArray.forEach((elem)=>{
-          that.teamworker = that.teamworker + elem.fullname + ',';
-        });
-      }
-      if(that.product.artifact_scores.length > 0)
-      that.score = that.product.artifact_scores[0].score;
-    })
-    .fail(function() {
-      console.log("error");
-    })
-    .always(function() {
-      console.log("complete");
-    });
 
     //获取评论信息
     $.ajax({

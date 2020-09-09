@@ -15,30 +15,33 @@
     <div class="mask"></div>
     <header-menu></header-menu>
     <div class="score_area">
-        <span>${score}</span>
+        <span v-if=" '{{data.artifact_scores.length}}' && '{{data.artifact_scores[0]}}' != '' && '{{data.artifact_scores[0]}}' != null">{{data.artifact_scores[0].score}}</span>
     </div>
-    <div v-if="product">
-      <p class="title">${product.name}</p>
+
+    <div>
+      <p class="title">{{data.name}}</p>
       <div style="margin: 5px 0px 10px;">
-        <span class="time">${product.createAt.substring(0,10)} 上传</span>
+        <span class="time">{{createAt}} 上传</span>
         <div class="count_info">
-          <img src="/public/images/mobile/medal.png"/><span>${product.medalCount}</span>
-          <img src="/public/images/mobile/like_gray.png"/><span>${product.likeCount}</span>
-          <img src="/public/images/mobile/comment.png"/><span>${product.commentCount}</span>
+          <img src="/public/images/mobile/medal.png"/><span>{{data.medalCount}}</span>
+          <img src="/public/images/mobile/like_gray.png"/><span>{{data.likeCount}}</span>
+          <img src="/public/images/mobile/comment.png"/><span>{{data.commentCount}}</span>
         </div>
       </div>
       <div class="user_info">
-          <img :src="product.user.avatarUrl ? product.user.avatarUrl : '/public/images/mobile/default_head_img.png' "/>
-          <span class="author">${product.user.fullname}</span>
-          <span class="teamworker">${teamworker}</span>
+          <img :src=" '{{data.user.avatarUrl}}' ? '{{data.user.avatarUrl}}' : '/public/images/mobile/default_head_img.png' "/>
+          <span class="author">{{data.user.fullname}}</span>
+          <span class="teamworker">{{teamworker}}</span>
       </div>
       <div class="record_area">
-        <span class="record_span">收录于&nbsp;&nbsp;</span><span class="topic_name">${product.topics[0].name}</span>
+        <span class="record_span">收录于&nbsp;&nbsp;</span><span class="topic_name">{{data.topics[0].name}}</span>
       </div>
       <div class="split_line"></div>
-      <p class="introduce">${product.description}</p>
+      <p class="introduce">{{data.description}}</p>
       <div class="image_list">
-        <img v-for="elem in product.artifact_assets" :key="elem.key" :src="elem.profileImage" />
+        	{% for item in data.artifact_assets %}
+            <img src="{{item.profileImage}}" />
+          {% endfor %}
       </div>
       <div class="width_line"></div>
       <div class="commnet_area" v-if="comments">
@@ -56,15 +59,31 @@
       </div>
     </div>
 
-    <div class="operate_panel_list medal"></div>
-    <div class="operate_panel_list score"></div>
+    {% if user %}
+      {% if user.roles[0].name == 'vip' %}
+        <div class="operate_panel_list medal"></div>
+      {% endif %}
+    {% else %}
+      <div class="operate_panel_list like"></div>
+    {% endif %}
+
+    <div class="operate_panel_list score" @click="scoreClick"></div>
     <div class="operate_panel_list comment" @click="commentClick"></div>
-    <div class="operate_panel_list share"></div>
+    <div class="operate_panel_list share" @click="shareClick"></div>
     <div class="operate_panel_list more" @click="moreClick"></div>
 
     <div class="send_comment_area">
-      <input class="comment_input" placeholder="发表你的评论..."></input>
-      <div @click="sendComment" class="submitCommentBtn">提交</div>
+      <input class="comment_input" :placeholder="placeholder" v-model="comment_or_score_value"></input>
+      <div @click="sendResult" class="submitCommentBtn">提交</div>
+    </div>
+
+    <div class="share_panel">
+      <div class="share_panel_title">
+        <span>分享作品</span>
+        <img src="/public/images/mobile/close.png" />
+      </div>
+      <img class="share_img" src="" />
+      <div class="save_share_btn" @click="saveShareBtnClick">保存和分享图片</div>
     </div>
   </div>
 </body>

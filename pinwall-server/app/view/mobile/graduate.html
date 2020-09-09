@@ -13,10 +13,12 @@
   <div id="content">
     <header-menu v-bind:menu-item-num="2"></header-menu>
     <div class="filter_panel">
-      <div class="condition_btn_selected">全部</div>
-      <div class="condition_btn_noraml">开放中</div>
-      <div class="condition_btn_noraml">已存档</div>
-      <div class="condition_btn_noraml">由我创建</div>
+      <div id="all_btn" class="condition_btn_selected" @click="allBtnClick">全部</div>
+      <div id="open_btn" class="condition_btn_noraml" @click="openBtnClick">开放中</div>
+      <div id="save_btn" class="condition_btn_noraml" @click="saveBtnClick">已存档</div>
+      {% if user %}
+        <div id="create_by_me_btn" class="condition_btn_noraml" @click="createByMeBtnClick">由我创建</div>
+      {% endif %}
     </div>
     <div>
       <div  v-for="elem in dataList" :key="elem.key" class="panel_card" @click="workpodCardClick(elem.Id)">
