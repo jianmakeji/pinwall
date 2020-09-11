@@ -29,11 +29,7 @@ class MobileController extends BaseController {
   async workpod() {
     const ctx = this.ctx;
     await ctx.render('mobile/workPod.html',{
-      user:{
-        avatarUrl:'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTL23Wicb0gO9RHQkpOBliavAcbxOGREm20h60MNeEUgtVRXgq6VicvYfCy23ct4uf5qbaTxIs590vJsQ/132',
-        Id:'7522',
-        fullname:'碳酸'
-      }
+      user:ctx.user
     });
   }
 
@@ -108,6 +104,20 @@ class MobileController extends BaseController {
     const ctx = this.ctx;
     await ctx.render('mobile/login.html',{
 
+    });
+  }
+
+  async relogin(){
+    const ctx = this.ctx;
+    await ctx.render('mobile/login.html', {
+      message:'用户名密码错误,或者未激活!'
+    });
+  }
+
+  async codeauthrelogin(){
+    const ctx = this.ctx;
+    await ctx.render('mobile/login.html', {
+      message:'用户名验证码错误,或者未激活!'
     });
   }
 

@@ -11,7 +11,7 @@
 </head>
 <body>
   <div id="content">
-    <header-menu v-bind:menu-item-num="2"></header-menu>
+    <header-menu v-bind:menu-item-num="2" v-bind:user-id="'{{user.Id}}'" v-bind:avatar-url=" '{{user.avatarUrl}}' " v-bind:fullname=" '{{user.fullname}}' "></header-menu>
     <div class="filter_panel">
       <div id="all_btn" class="condition_btn_selected" @click="allBtnClick">全部</div>
       <div id="open_btn" class="condition_btn_noraml" @click="openBtnClick">开放中</div>

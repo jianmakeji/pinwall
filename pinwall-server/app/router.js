@@ -26,6 +26,7 @@ module.exports = app => {
   router.get('/loginByWeixin',app.passport.authenticate('loginByWeixin', {
        successReturnToOrRedirect : '/website/users/bindWeixin',successFlash: true,
        failureRedirect: '/relogin',failureFlash: true,state: 'hello-pinwall', }));
+
   router.get('/logout', controller.home.logout);
   router.get('/wxLogin', controller.website.users.wxLogin);
 
@@ -155,6 +156,14 @@ module.exports = app => {
   router.resources('wx.topics', '/wx/topics',  controller.wx.topics);
 
   //h5移动版接口
+  router.post('/mobilelogin',app.passport.authenticate('mobilelocal', {
+       successReturnToOrRedirect : '/mobile',successFlash: true,
+       failureRedirect: '/mobile/relogin',failureFlash: true }));
+
+  router.post('/mobileAuthCodeLogin',app.passport.authenticate('mobileAuthCodeLocal', {
+            successReturnToOrRedirect : '/mobile',successFlash: true,
+            failureRedirect: '/mobile/codeauthrelogin',failureFlash: true }));
+
   router.get('/mobile', controller.mobile.index);
   router.get('/mobile/graduate', controller.mobile.graduate);
   router.get('/mobile/search', controller.mobile.search);
@@ -163,7 +172,10 @@ module.exports = app => {
   router.get('/mobile/workdetail', controller.mobile.workdetail);
   router.get('/mobile/workset', controller.mobile.workset);
   router.get('/mobile/login', controller.mobile.login);
+  router.get('/mobile/relogin', controller.mobile.relogin);
+  router.get('/mobile/codeauthrelogin', controller.mobile.codeauthrelogin);
   router.get('/mobile/register', controller.mobile.register);
   router.get('/mobile/findpwd', controller.mobile.findpwd);
   router.get('/mobile/updatepwd', controller.mobile.updatepwd);
+
 };

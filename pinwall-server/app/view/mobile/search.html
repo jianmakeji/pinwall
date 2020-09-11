@@ -12,7 +12,7 @@
 </head>
 <body>
   <div id="content">
-    <header-menu></header-menu>
+    <header-menu v-bind:user-id="'{{user.Id}}'" v-bind:avatar-url=" '{{user.avatarUrl}}' " v-bind:fullname=" '{{user.fullname}}' "></header-menu>
     <div class="search_panel" v-show="search_panel_show">
       <div class="title">搜索</div>
       <i-input v-model="condition" style="width:90%;position:relatice;left:5%;margin-top:30px;">

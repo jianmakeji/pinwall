@@ -12,7 +12,7 @@
 </head>
 <body>
   <div id="content">
-    <header-menu></header-menu>
+    <header-menu v-bind:user-id="'{{user.Id}}'" v-bind:avatar-url=" '{{user.avatarUrl}}' " v-bind:fullname=" '{{user.fullname}}' "></header-menu>
     <div v-if="work_info">
       <div>
         <p class="title">${work_info.name}</p>

@@ -3,7 +3,7 @@ const WeixinStrategy = require('passport-weixin');
 
 module.exports = app => {
 
-  app.passport.use(new LocalStrategy({
+  app.passport.use('local',new LocalStrategy({
     passReqToCallback: true,
   }, (req, username, password, done) => {
     // format user
@@ -18,30 +18,73 @@ module.exports = app => {
 
   }));
 
+  app.passport.use('mobilelocal',new LocalStrategy({
+      passReqToCallback: true,
+    }, (req, username, password, done) => {
+      // format user
+      const user = {
+        provider: 'mobilelocal',
+        message: '',
+        success: false,
+        username,
+        password,
+      };
+      app.passport.doVerify(req, user, done);
+    }));
+
+  app.passport.use('mobileAuthCodeLocal',new LocalStrategy({
+      passReqToCallback: true,
+    }, (req, username, password, done) => {
+      // format user
+      const user = {
+        provider: 'mobileAuthCodeLocal',
+        message: '',
+        success: false,
+        username,
+        password,
+      };
+      app.passport.doVerify(req, user, done);
+    }));
+
   // 处理用户信息
 
   app.passport.verify(async (ctx, user) => {
-    let existsUser;
+    if(user.provider == 'mobileAuthCodeLocal'){
+      let vertifyAuthResult = await ctx.service.smsMessage.getDataByCondition({mobile:user.username,code:user.password});
 
-    if(ctx.app.judgeEmail(user.username)){
-      existsUser = await ctx.service.users.loginFindByUserWithEmail(user.username);
-    }
-    else{
-      existsUser = await ctx.service.users.loginFindByUserWithMobile(user.username);
-    }
-
-    if (existsUser) {
-      if (app.cryptoPwd(app.cryptoPwd(user.password)) == existsUser.password){
+      if(vertifyAuthResult.status == 200){
+        let existsUser = await ctx.service.users.loginFindByUserWithMobile(user.username);
         existsUser.password = '';
         return existsUser;
       }
       else{
-         return false;
-       }
+        return false;
+      }
     }
-    else {
-      return false;
+    else{
+      let existsUser;
+
+      if(ctx.app.judgeEmail(user.username)){
+        existsUser = await ctx.service.users.loginFindByUserWithEmail(user.username);
+      }
+      else{
+        existsUser = await ctx.service.users.loginFindByUserWithMobile(user.username);
+      }
+      
+      if (existsUser) {
+        if (app.cryptoPwd(app.cryptoPwd(user.password)) == existsUser.password){
+          existsUser.password = '';
+          return existsUser;
+        }
+        else{
+           return false;
+         }
+      }
+      else {
+        return false;
+      }
     }
+
   });
 
   app.passport.use('loginByWeixin', new WeixinStrategy({
@@ -83,6 +126,7 @@ module.exports = app => {
   // }, function(accessToken, refreshToken, profile, done) {
   //     app.passport.doVerify(req, profile, done);
   // }));
+
 
   // 将用户信息序列化后存进 session 里面，一般需要精简，只保存个别字段
   app.passport.serializeUser(async (ctx, user) => {

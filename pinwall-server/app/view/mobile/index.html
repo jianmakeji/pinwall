@@ -14,9 +14,7 @@
 
 <body>
   <div id="content">
-    <div>
-      <header-menu v-bind:menu-item-num="1"></header-menu>
-    </div>
+    <header-menu v-bind:menu-item-num="1" v-bind:user-id="'{{user.Id}}'" v-bind:avatar-url=" '{{user.avatarUrl}}' " v-bind:fullname=" '{{user.fullname}}' "></header-menu>
 
     <div class="select_content">
       <div class="panel_card" v-for="(elem, index) in dataList" :key="elem.key" @click="cardClick(elem.Id)">

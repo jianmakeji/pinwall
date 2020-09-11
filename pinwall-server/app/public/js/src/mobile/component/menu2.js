@@ -5,7 +5,10 @@ var HeaderMenu = {
     }
   },
   props:{
-    menuItemNum:Number
+    menuItemNum:Number,
+    userId:Number,
+    avatarUrl:String,
+    fullname:String,
   },
   methods: {
     menuClick:function(){
@@ -18,6 +21,10 @@ var HeaderMenu = {
       $(".pop_menu").addClass("animate__animated animate__slideOutUp");
     },
     registerLoginBtnClick:function(){
+      let path = window.location.pathname + window.location.search;
+      if(window.localStorage){
+        window.localStorage.setItem("loginPrePath", path);
+      }
       window.location.href = "/mobile/login";
     },
     choicenessClick:function(){

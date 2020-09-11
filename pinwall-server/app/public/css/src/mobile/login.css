@@ -68,7 +68,8 @@
   line-height:40px;
   vertical-align: top;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: 10px;
+  border: 0px;
 }
 
 .menu_panel{
@@ -113,4 +114,45 @@
 
 .wechat p::after{
   right:25%;
+}
+
+.emailorphone{
+  width: 80%;
+  margin-bottom:15px;
+  height: 35px;
+}
+
+.pwd{
+  width: 80%;
+  height: 35px;
+}
+
+.mobile{
+  width: 80%;
+  margin-bottom:15px;
+  height: 35px;
+}
+
+.code{
+  width: 53%;
+  margin-bottom:15px;
+  height: 35px;
+}
+
+.tips{
+  color: red;
+  font-size: 14px;
+  width: 80%;
+  margin-left: 10%;
+  display: none;
+}
+
+.auth_code_btn{
+  width: 26%;
+  color:#6D7278;
+  margin-bottom: 15px;
+  height:35px;
+  margin-left:5px;
+  border: 0px;
+  border-radius: 5px;
 }
