@@ -70,13 +70,60 @@ new Vue({
       }
 
     },
-    sendResult:function(){
+    sendResult:function(userId){
+      if(that.comment_or_score_value == ''){
+        this.$Message.warning("请填写内容!");
+        return;
+      }
       if(this.comment_or_score == 1){
-
+        let that = this;
+        $.ajax({
+          url: '/website/artifactComment',
+          type: 'post',
+          dataType: 'json',
+          data: {
+            content: that.comment_or_score_value,
+            commenterId: userId,
+            artifactId: that.artifactId,
+          }
+        })
+        .done(function(responseData) {
+          if(responseData.status == 200){
+            $(".send_comment_area").css('visibility','hidden');
+            $(".mask").hide();
+          }
+          else{
+            this.$Message.warning("操作失败!");
+          }
+        })
+        .fail(function() {
+          this.$Message.warning("操作失败!");
+        })
       }
       else if (this.comment_or_score == 2){
-
+        let that = this;
+        $.ajax({
+          url: '/website/artifactScores',
+          type: 'post',
+          dataType: 'json',
+          data: {
+            content: that.comment_or_score_value,
+            scorerId: userId,
+            artifactId: that.artifactId,
+          }
+        })
+        .done(function(responseData) {
+          if(responseData.status == 200){
+            $(".send_comment_area").css('visibility','hidden');
+            $(".mask").hide();
+          }
+        })
+        .fail(function() {
+          this.$Message.warning("操作失败!");
+        })
       }
+    },
+    maskClick:function(){
       $(".send_comment_area").css('visibility','hidden');
       $(".mask").hide();
     },

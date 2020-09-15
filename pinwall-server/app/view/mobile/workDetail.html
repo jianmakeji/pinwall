@@ -12,7 +12,7 @@
 </head>
 <body>
   <div id="content">
-    <div class="mask" id="'{{user.Id}}'"></div>
+    <div class="mask" id="{{user.Id}}" @click="maskClick"></div>
     <header-menu v-bind:user-id="'{{user.Id}}'" v-bind:avatar-url=" '{{user.avatarUrl}}' " v-bind:fullname=" '{{user.fullname}}' "></header-menu>
     <div class="score_area">
         <span v-if=" '{{data.artifact_scores.length}}' && '{{data.artifact_scores[0]}}' != '' && '{{data.artifact_scores[0]}}' != null">{{data.artifact_scores[0].score}}</span>
@@ -79,7 +79,7 @@
 
     <div class="send_comment_area">
       <input class="comment_input" :placeholder="placeholder" v-model="comment_or_score_value"></input>
-      <div @click="sendResult" class="submitCommentBtn">提交</div>
+      <div @click="sendResult({{user.Id}})" class="submitCommentBtn">提交</div>
     </div>
 
     <div class="share_panel">
