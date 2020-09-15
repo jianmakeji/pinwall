@@ -14,6 +14,13 @@ new Vue({
     }
   },
   created() {
+    if(window.localStorage){
+      let detailPrePath = window.localStorage.getItem("detailPrePath");
+      if (detailPrePath && detailPrePath != ''){
+        window.localStorage.setItem("detailPrePath",'');
+        window.location.href = detailPrePath;
+      }
+    }
     let that = this;
     $.ajax({
       url: '/website/artifacts/getMedalDataByRandom/12',

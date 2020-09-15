@@ -83,7 +83,6 @@ class MobileController extends BaseController {
           }
         }
       }
-      console.log(result);
       await ctx.render('mobile/workDetail.html',result);
     }
     catch(e){
@@ -105,6 +104,17 @@ class MobileController extends BaseController {
     await ctx.render('mobile/login.html',{
 
     });
+  }
+
+  async logout(){
+    const ctx = this.ctx;
+    try{
+      ctx.logout();
+      super.success('退出成功!');
+    }
+    catch(e){
+      super.failure(e.message);
+    }
   }
 
   async relogin(){

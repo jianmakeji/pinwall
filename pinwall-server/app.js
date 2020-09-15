@@ -51,7 +51,7 @@ module.exports = app => {
   app.passport.verify(async (ctx, user) => {
     if(user.provider == 'mobileAuthCodeLocal'){
       let vertifyAuthResult = await ctx.service.smsMessage.getDataByCondition({mobile:user.username,code:user.password});
-
+    
       if(vertifyAuthResult.status == 200){
         let existsUser = await ctx.service.users.loginFindByUserWithMobile(user.username);
         existsUser.password = '';
@@ -70,7 +70,7 @@ module.exports = app => {
       else{
         existsUser = await ctx.service.users.loginFindByUserWithMobile(user.username);
       }
-      
+
       if (existsUser) {
         if (app.cryptoPwd(app.cryptoPwd(user.password)) == existsUser.password){
           existsUser.password = '';

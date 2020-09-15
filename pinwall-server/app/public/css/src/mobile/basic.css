@@ -156,3 +156,16 @@ body{
   right:20px;
   top:22px;
 }
+
+.logout{
+  width: calc(100% - 40px);
+  height: 45px;
+  background-color: #07BC72;
+  text-align: center;
+  margin: 15px auto;
+  border-radius: 2px;
+  color:white;
+  font-size: 17px;
+  vertical-align: middle;
+  line-height: 45px;
+}

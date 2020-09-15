@@ -153,6 +153,8 @@
   margin-bottom: 15px;
   height:35px;
   margin-left:5px;
-  border: 0px;
+  border: 1px solid #E8E9EA;
   border-radius: 5px;
+  display: inline-block;
+  line-height: 35px;
 }

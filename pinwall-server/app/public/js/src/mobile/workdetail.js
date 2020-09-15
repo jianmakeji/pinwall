@@ -53,12 +53,22 @@ new Vue({
       }
     },
     commentClick:function(){
-      this.comment_or_score_value = '';
-      this.comment_or_score = 1;
-      this.placeholder = "发表你的评论...";
-      $(".send_comment_area").css('visibility','visible');
-      $(".comment_input").focus();
-      $(".mask").show();
+      let userId = $(".mask").attr('id');
+      if(userId > 0){
+        this.comment_or_score_value = '';
+        this.comment_or_score = 1;
+        this.placeholder = "发表你的评论...";
+        $(".send_comment_area").css('visibility','visible');
+        $(".comment_input").focus();
+        $(".mask").show();
+      }
+      else{
+        if(window.localStorage){
+          window.localStorage.setItem("detailPrePath",window.location.pathname + window.location.search);
+        }
+        window.location.href = '/mobile/login';
+      }
+
     },
     sendResult:function(){
       if(this.comment_or_score == 1){
@@ -71,12 +81,22 @@ new Vue({
       $(".mask").hide();
     },
     scoreClick:function(){
-      this.comment_or_score_value = '';
-      this.comment_or_score = 2;
-      this.placeholder = "请输入分数...";
-      $(".send_comment_area").css('visibility','visible');
-      $(".comment_input").focus();
-      $(".mask").show();
+      let userId = $(".mask").attr('id');
+      if(userId > 0){
+        this.comment_or_score_value = '';
+        this.comment_or_score = 2;
+        this.placeholder = "请输入分数...";
+        $(".send_comment_area").css('visibility','visible');
+        $(".comment_input").focus();
+        $(".mask").show();
+      }
+      else{
+        if(window.localStorage){
+          window.localStorage.setItem("detailPrePath",window.location.pathname + window.location.search);
+        }
+        window.location.href = '/mobile/login';
+      }
+
     },
     shareClick:function(){
       $(".mask").show();

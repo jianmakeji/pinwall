@@ -91,8 +91,8 @@
 }
 
 .record_area{
-  margin: 10px 0px;
-  width:100%;
+  margin: 10px 5px;
+  width:98%;
 }
 
 .record_span{
@@ -274,7 +274,7 @@
 
 @keyframes like_shrink
 {
-  from {top: calc(100vh - 350px);}
+  from {top: calc(100vh - 300px);}
   to {top: calc(100vh -150px);}
 }
 
@@ -324,13 +324,13 @@
 
 .like_grow{
   animation: like_grow 1s;
-  top:calc(100vh - 350px);
+  top:calc(100vh - 300px);
 }
 
 @keyframes like_grow
 {
   from {top: calc(100vh - 150px);}
-  to {top: calc(100vh - 350px);}
+  to {top: calc(100vh - 300px);}
 }
 
 .medal_grow{

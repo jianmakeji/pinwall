@@ -12,7 +12,7 @@
 </head>
 <body>
   <div id="content">
-    <div class="mask"></div>
+    <div class="mask" id="'{{user.Id}}'"></div>
     <header-menu v-bind:user-id="'{{user.Id}}'" v-bind:avatar-url=" '{{user.avatarUrl}}' " v-bind:fullname=" '{{user.fullname}}' "></header-menu>
     <div class="score_area">
         <span v-if=" '{{data.artifact_scores.length}}' && '{{data.artifact_scores[0]}}' != '' && '{{data.artifact_scores[0]}}' != null">{{data.artifact_scores[0].score}}</span>
@@ -62,12 +62,17 @@
     {% if user %}
       {% if user.roles[0].name == 'vip' %}
         <div class="operate_panel_list medal"></div>
+      {% else %}
+        <div class="operate_panel_list like"></div>
       {% endif %}
-    {% else %}
-      <div class="operate_panel_list like"></div>
     {% endif %}
 
-    <div class="operate_panel_list score" @click="scoreClick"></div>
+    {% if user %}
+      {% if user.roles[0].name == 'vip' %}
+        <div class="operate_panel_list score" @click="scoreClick"></div>
+      {% endif %}
+    {% endif %}
+
     <div class="operate_panel_list comment" @click="commentClick"></div>
     <div class="operate_panel_list share" @click="shareClick"></div>
     <div class="operate_panel_list more" @click="moreClick"></div>

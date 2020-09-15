@@ -44,6 +44,26 @@ var HeaderMenu = {
     },
     personalBtnClick:function(userId){
 
+    },
+    logoutClick:function(){
+      let that = this;
+      $.ajax({
+        url: '/mobile/logout',
+        type: 'get',
+        dataType: 'json',
+        data: {}
+      })
+      .done(function(data) {
+        if(data.status == 200){
+          document.location.reload();
+        }
+        else{
+          that.$Message.warning('退出失败!');
+        }
+      })
+      .fail(function() {
+        that.$Message.warning('退出失败!');
+      })
     }
   },
   created() {
@@ -101,6 +121,8 @@ var HeaderMenu = {
         '<span>探索</span>'+
         '<img src="/public/images/mobile/right_arrow.png"/>'+
     '</div>'+
-  '</div></div>',
+    '<div v-if="userId" class="logout" @click="logoutClick">退出</div>'+
+  '</div>'+
+  '</div>',
 
 }

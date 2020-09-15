@@ -124,3 +124,51 @@ body{
   right:20px;
   top:22px;
 }
+
+
+.personal_info{
+  width:100%;
+  height:46px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.personal_info span{
+  color:#E0DBDB;
+  font-size: 17px;
+  position: absolute;
+  left:46px;
+  top:16px;
+  width: 100px;
+}
+
+.personal_headicon{
+  width:30px;
+  height:30px;
+  position: absolute;
+  left:10px;
+  top:13px;
+  border-radius: 50%;
+}
+
+.arrow{
+  width: 6px;
+  height: 12px;
+  position: absolute;
+  right:20px;
+  top:22px;
+}
+
+
+.logout{
+  width: calc(100% - 40px);
+  height: 45px;
+  background-color: #07BC72;
+  text-align: center;
+  margin: 15px auto;
+  border-radius: 2px;
+  color:white;
+  font-size: 17px;
+  vertical-align: middle;
+  line-height: 45px;
+}

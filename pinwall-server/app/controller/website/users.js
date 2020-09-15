@@ -48,8 +48,28 @@ class UsersController extends BaseController{
           super.success('创建成功!');
         }
         else{
-          return vertifyResult;
+          ctx.body = vertifyResult;
         }
+      }
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
+  async createUserFromH5() {
+    const ctx = this.ctx;
+    try{
+      let data = ctx.request.body;
+      console.log(data);
+      let vertifyResult = await ctx.service.smsMessage.getDataByCondition({mobile:data.mobile,code:data.smsCode});
+      console.log(vertifyResult);
+      if (vertifyResult.status == 200){
+        await ctx.service.users.createUser(data,0);
+        super.success('创建成功!');
+      }
+      else{
+          ctx.body = vertifyResult;
       }
     }
     catch(e){
@@ -385,7 +405,7 @@ class UsersController extends BaseController{
       }
     }
     else{
-      return vertifyResult;
+      ctx.body = vertifyResult;
     }
   }
 

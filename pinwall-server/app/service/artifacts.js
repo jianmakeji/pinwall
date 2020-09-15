@@ -408,7 +408,6 @@ class Artifacts extends Service {
         }
       }
       catch(e){
-        console.log(e);
           ctx.getLogger('aliossLogger').info("delete file:"+deleteAliOSSArray.join(',')+": "+e.message+"\n");
       }
 

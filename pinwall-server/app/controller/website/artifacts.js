@@ -49,7 +49,6 @@ class ArtifactsController extends BaseController{
       }
     }
     catch(e){
-      console.log(e);
       super.failure(e.message);
     }
   }
@@ -146,7 +145,6 @@ class ArtifactsController extends BaseController{
       ctx.body = await ctx.service.artifacts.apiFindArtifactsById(id);
     }
     catch(e){
-      console.log(e);
       super.failure(e.message);
     }
   }

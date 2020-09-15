@@ -90,6 +90,7 @@ module.exports = app => {
   router.get('website.users.updateWxActive', '/website/users/updateWxActive', controller.website.users.updateWxActive);
   router.post('website.users.createWxUser', '/website/users/createWxUser', controller.website.users.createWxUser);
   router.post('website.users.createUser', '/website/users/createUser', controller.website.users.createUser);
+  router.post('website.users.createUserFromH5', '/website/users/createUserFromH5', controller.website.users.createUserFromH5);
   router.put('website.users.updatePwd', '/website/users/updatePwd', controller.website.users.updatePwd);
   router.put('website.users.updatePwdWithEmailAndActiveCode', '/website/users/updatePwdWithEmailAndActiveCode', controller.website.users.updatePwdWithEmailAndActiveCode);
   router.put('website.users.updatePwdWithMobile', '/website/users/updatePwdWithMobile', controller.website.users.updatePwdWithMobile);
@@ -172,6 +173,7 @@ module.exports = app => {
   router.get('/mobile/workdetail', controller.mobile.workdetail);
   router.get('/mobile/workset', controller.mobile.workset);
   router.get('/mobile/login', controller.mobile.login);
+  router.get('/mobile/logout', controller.mobile.logout);  
   router.get('/mobile/relogin', controller.mobile.relogin);
   router.get('/mobile/codeauthrelogin', controller.mobile.codeauthrelogin);
   router.get('/mobile/register', controller.mobile.register);

@@ -11,7 +11,7 @@ class SmsMessage extends Service {
     smsMessage.code = code;
 
     let smsSendResult = await smsUtil.sendSMS(smsMessage,3);
-
+    console.log(smsSendResult);
     let result = false;
 
     if (smsSendResult.Code == 'OK'){
@@ -39,7 +39,7 @@ class SmsMessage extends Service {
       }
     }
     else{
-      return {success:true,data:'验证失败!',status:500};
+      return {success:true,data:'验证码错误!',status:500};
     }
   }
 
@@ -56,14 +56,16 @@ class SmsMessage extends Service {
       if (smsSendResult.Code == 'OK'){
         await this.ctx.model.SmsMessage.createSmsMessage(smsMessage);
         result.success = true;
+        result.message = smsSendResult.Message;
       }
       else{
         result.success = false;
+        result.message = smsSendResult.Message;
       }
     }
     else{
       result.success = false;
-      result.message = this.ctx.__('noMobile');
+      result.message = '无此用户!';
     }
 
     return result;
