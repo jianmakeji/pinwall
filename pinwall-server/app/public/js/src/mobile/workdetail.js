@@ -64,7 +64,7 @@ new Vue({
       }
       else{
         if(window.localStorage){
-          window.localStorage.setItem("detailPrePath",window.location.pathname + window.location.search);
+          window.localStorage.setItem("loginPrePath",window.location.pathname + window.location.search);
         }
         window.location.href = '/mobile/login';
       }
@@ -93,11 +93,11 @@ new Vue({
             $(".mask").hide();
           }
           else{
-            this.$Message.warning("操作失败!");
+            that.$Message.warning("操作失败!");
           }
         })
         .fail(function() {
-          this.$Message.warning("操作失败!");
+          that.$Message.warning("操作失败!");
         })
       }
       else if (this.comment_or_score == 2){
@@ -119,7 +119,7 @@ new Vue({
           }
         })
         .fail(function() {
-          this.$Message.warning("操作失败!");
+          that.$Message.warning("操作失败!");
         })
       }
     },
@@ -139,11 +139,84 @@ new Vue({
       }
       else{
         if(window.localStorage){
-          window.localStorage.setItem("detailPrePath",window.location.pathname + window.location.search);
+          window.localStorage.setItem("loginPrePath",window.location.pathname + window.location.search);
         }
         window.location.href = '/mobile/login';
       }
+    },
+    medalClick:function(){
+      let that = this;
+      let userId = $(".mask").attr('id');
+      let artifactUserId = $(".author").attr('id');
+      if(userId > 0){
+        $.ajax({
+          url: '/website/artifactMedalLike',
+          type: 'post',
+          dataType: 'json',
+          data: {
+            artifactUserId: artifactUserId,
+            artifactId: this.artifactId,
+          }
+        })
+        .done(function(responseData) {
+          if(responseData.status == 200){
+            that.$Message.success(responseData.data);
+            document.location.reload();
+          }
+          else{
+            that.$Message.warning(responseData.data);
+          }
+        })
+        .fail(function() {
+          that.$Message.warning("操作失败!");
+        })
+        .always(function() {
 
+        });
+      }
+      else{
+        if(window.localStorage){
+          window.localStorage.setItem("loginPrePath",window.location.pathname + window.location.search);
+        }
+        window.location.href = '/mobile/login';
+      }
+    },
+    likeClick:function(){
+      let that = this;
+      let userId = $(".mask").attr('id');
+      let artifactUserId = $(".author").attr('id');
+      if(userId > 0){
+        $.ajax({
+          url: '/website/artifactMedalLike',
+          type: 'post',
+          dataType: 'json',
+          data: {
+            artifactUserId: artifactUserId,
+            artifactId: this.artifactId,
+          }
+        })
+        .done(function(responseData) {
+          if(responseData.status == 200){
+            that.$Message.success(responseData.data);
+            document.location.reload();
+          }
+          else{
+            that.$Message.warning(responseData.data);
+          }
+        })
+        .fail(function() {
+          that.$Message.warning("操作失败!");
+        })
+        .always(function() {
+          console.log("complete");
+        });
+      }
+      else{
+        if(window.localStorage){
+          window.localStorage.setItem("loginPrePath",window.location.pathname + window.location.search);
+        }
+        window.location.href = '/mobile/login';
+      }
     },
     shareClick:function(){
       $(".mask").show();
@@ -152,10 +225,22 @@ new Vue({
     saveShareBtnClick:function(){
       $(".mask").hide();
       $(".share_panel").hide();
+
+      var oPop = window.open('/website/share/createShareImage/'+this.artifactId,"","width=1, height=1, top=5000, left=5000");
+       for(; oPop.document.readyState != "complete"; ){ 
+        if (oPop.document.readyState == "complete")
+          break; 
+       }
+
+      oPop.document.execCommand("SaveAs");
+      oPop.close(); 
+
     }
   },
   created() {
     this.artifactId = getUrlKey('artifactId');
+    let userId = $(".mask").attr('id');
+    let artifactUserId = $(".author").attr('id');
 
     let that = this;
 
@@ -167,7 +252,7 @@ new Vue({
       data: {
         limit: 10,
         offset: 0,
-        artifactId: this.artifactId,
+        artifactId: that.artifactId,
       }
     })
     .done(function(responseData) {
@@ -180,25 +265,48 @@ new Vue({
       console.log("complete");
     });
 
-    //获取
-    $.ajax({
-      url: '/wx/artifacts/getMedalLikeDataByUserIdAndArtifactsId',
-      type: 'get',
-      dataType: 'json',
-      data: {
-        limit: 10,
-        offset: 0,
-        artifactId: this.artifactId,
-      }
-    })
-    .done(function(responseData) {
+    //查看是否已经点赞
 
-    })
-    .fail(function() {
-      console.log("error");
-    })
-    .always(function() {
-      console.log("complete");
-    });
+    if(userId > 0){
+      $.ajax({
+        url: '/website/artifactMedalLike/getMedalLikeDataByUserIdAndArtifactsId',
+        type: 'get',
+        dataType: 'json',
+        data: {
+          artifactId: this.artifactId,
+        }
+      })
+      .done(function(responseData) {
+        if(responseData.status == 200){
+          //已经点赞
+          if($('.medal').length > 0){
+            $('.medal').css('background-image','url(/public/images/mobile/medal_white.png)');
+            $('.medal').css('background-color','#07BC72');
+          }
+          else{
+            $('.like').css('background-image','url(/public/images/mobile/like.png)');
+            $('.like').css('background-color','#07BC72');
+          }
+        }
+        else{
+          //未点赞
+          if($('.medal').length > 0){
+            $('.medal').css('background-image','url(/public/images/mobile/medal_white_transparent.png)');
+            $('.medal').css('background-color','#FFFFFF');
+          }
+          else{
+            $('.like').css('background-image','url(/public/images/mobile/like_select.png)');
+            $('.like').css('background-color','#FFFFFF');
+          }
+        }
+      })
+      .fail(function() {
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
+    }
+
   }
 })

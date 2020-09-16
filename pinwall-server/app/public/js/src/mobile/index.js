@@ -15,10 +15,10 @@ new Vue({
   },
   created() {
     if(window.localStorage){
-      let detailPrePath = window.localStorage.getItem("detailPrePath");
-      if (detailPrePath && detailPrePath != ''){
-        window.localStorage.setItem("detailPrePath",'');
-        window.location.href = detailPrePath;
+      let loginPrePath = window.localStorage.getItem("loginPrePath");
+      if (loginPrePath && loginPrePath != ''){
+        window.localStorage.setItem("loginPrePath",'');
+        window.location.href = loginPrePath;
       }
     }
     let that = this;

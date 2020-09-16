@@ -30,7 +30,7 @@
       </div>
       <div class="user_info">
           <img :src=" '{{data.user.avatarUrl}}' ? '{{data.user.avatarUrl}}' : '/public/images/mobile/default_head_img.png' "/>
-          <span class="author">{{data.user.fullname}}</span>
+          <span class="author" id="{{user.Id}}">{{data.user.fullname}}</span>
           <span class="teamworker">{{teamworker}}</span>
       </div>
       <div class="record_area">
@@ -61,10 +61,12 @@
 
     {% if user %}
       {% if user.roles[0].name == 'vip' %}
-        <div class="operate_panel_list medal"></div>
+        <div class="operate_panel_list medal" @click="medalClick"></div>
       {% else %}
-        <div class="operate_panel_list like"></div>
+        <div class="operate_panel_list like" @click="likeClick"></div>
       {% endif %}
+    {% else %}
+      <div class="operate_panel_list like" @click="likeClick"></div>
     {% endif %}
 
     {% if user %}
@@ -87,7 +89,7 @@
         <span>分享作品</span>
         <img src="/public/images/mobile/close.png" />
       </div>
-      <img class="share_img" src="" />
+      <img class="share_img" src="/website/share/createShareImage/{{data.Id}}" />
       <div class="save_share_btn" @click="saveShareBtnClick">保存和分享图片</div>
     </div>
   </div>
