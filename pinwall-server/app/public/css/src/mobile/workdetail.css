@@ -436,11 +436,12 @@
   top:100px;
   background-color: white;
   border-radius: 15px;
+  text-align: center;
 }
 
 .share_panel_title{
   width: 100%;
-  height: 60px;
+  height: 45px;
   border-bottom: 1px solid #E8E9EA;
   position: relative;
 }
@@ -451,6 +452,8 @@
   line-height: 60px;
   vertical-align: middle;
   margin-left: 10px;
+  position: absolute;
+  left: 10px;
 }
 
 .share_panel_title img{
@@ -462,16 +465,40 @@
 }
 
 .share_img{
-  width:calc(100% - 20px);
   height: auto;
-  min-height: calc(100% - 20px);
-  margin-left: 10px;
+  margin-top: 10px;
+  box-shadow: 3px 3px 5px;
 }
 
+@media screen and (min-height: 568px) {
+    .share_img {
+        width: 70%;
+    }
+}
+
+@media screen and (min-height: 667px) {
+    .share_img {
+        width: 75%;
+    }
+}
+
+@media screen and (min-height: 736px) {
+    .share_img {
+        width: 80%;
+    }
+}
+
+@media screen and (min-height: 812px) {
+    .share_img {
+        width: 82%;
+    }
+}
+
+
 .save_share_btn{
-  position: relative;
+  position: absolute;
   width:130px;
-  bottom: 120px;
+  bottom: 20px;
   left: calc(100% / 2 - 60px);
   border-radius: 5px;
   background-color: #0ABC73;

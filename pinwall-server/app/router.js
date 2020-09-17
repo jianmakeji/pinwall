@@ -117,7 +117,7 @@ module.exports = app => {
 
   router.get('website.artifactMedalLike.getMedalLikeDataByUserIdAndArtifactsId', '/website/artifactMedalLike/getMedalLikeDataByUserIdAndArtifactsId', ajaxAuthCheck, controller.website.artifactMedalLike.getMedalLikeDataByUserIdAndArtifactsId);
 
-  router.get('website.share.createShareImage', '/website/share/createShareImage/:id', controller.website.share.createShareImage);
+  router.get('website.share.createShareImage', '/website/share/createShareImage/:id', controller.website.shareImage.createShareImage);
 
   //网站接口
   router.resources('website.users', '/website/users',  ajaxAuthCheck, controller.website.users);

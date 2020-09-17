@@ -221,19 +221,25 @@ new Vue({
     shareClick:function(){
       $(".mask").show();
       $(".share_panel").show();
+      $(".share_img").attr('src','/wx/share/createShareImage/' + this.artifactId);
     },
     saveShareBtnClick:function(){
       $(".mask").hide();
       $(".share_panel").hide();
 
-      var oPop = window.open('/website/share/createShareImage/'+this.artifactId,"","width=1, height=1, top=5000, left=5000");
-       for(; oPop.document.readyState != "complete"; ){ 
-        if (oPop.document.readyState == "complete")
-          break; 
-       }
-
-      oPop.document.execCommand("SaveAs");
-      oPop.close(); 
+      var eleLink = document.createElement('a');
+      eleLink.download = this.artifactId;
+      eleLink.style.display = 'none';
+      var canvas = document.createElement('canvas');
+      canvas.width = 520;
+      canvas.height = 820;
+      var context = canvas.getContext('2d');
+      var img = document.getElementById("share_img");
+      context.drawImage(img, 0, 0, 520, 820);
+      eleLink.href = canvas.toDataURL('image/png');
+      document.body.appendChild(eleLink);
+      eleLink.click();
+      document.body.removeChild(eleLink);
 
     }
   },
