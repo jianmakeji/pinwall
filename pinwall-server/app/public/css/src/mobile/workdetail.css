@@ -439,6 +439,12 @@
   text-align: center;
 }
 
+.share_img_spin{
+  position:relative;
+  top:230px;
+  left:calc(100% / 2 - 20px);
+}
+
 .share_panel_title{
   width: 100%;
   height: 45px;

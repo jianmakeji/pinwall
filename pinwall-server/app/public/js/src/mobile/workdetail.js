@@ -14,6 +14,7 @@ new Vue({
     medal:null,
     score:0,
     teamworker:"",
+    spin_show:false,
     shrink_or_grow:0,
     artifactId:0,
     comment_or_score:0,
@@ -21,6 +22,14 @@ new Vue({
     comment_or_score_value:'',
   },
   methods: {
+    isWeixin () {
+      let wx = navigator.userAgent.toLowerCase()
+      if (wx.match(/MicroMessenger/i) === 'micromessenger') {
+        return true
+      } else {
+        return false
+      }
+    },
     moreClick:function(){
       if(this.shrink_or_grow == 1){
         $('.like').removeClass('like_grow');
@@ -126,6 +135,7 @@ new Vue({
     maskClick:function(){
       $(".send_comment_area").css('visibility','hidden');
       $(".mask").hide();
+      $(".share_panel").hide();
     },
     scoreClick:function(){
       let userId = $(".mask").attr('id');
@@ -222,6 +232,11 @@ new Vue({
       $(".mask").show();
       $(".share_panel").show();
       $(".share_img").attr('src','/wx/share/createShareImage/' + this.artifactId);
+      this.spin_show = true;
+      let that = this;
+      $("#share_img").load(function(){
+        that.spin_show = false;
+      });
     },
     saveShareBtnClick:function(){
       $(".mask").hide();

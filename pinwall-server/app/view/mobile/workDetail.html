@@ -85,11 +85,12 @@
     </div>
 
     <div class="share_panel">
+      <Spin fix size="large" v-if="spin_show"></Spin>
       <div class="share_panel_title">
         <span>分享作品</span>
         <img src="/public/images/mobile/close.png" />
       </div>
-      <img class="share_img" id="share_img" src="" />
+      <img class="share_img" id="share_img" src=""/>
       <div class="save_share_btn" @click="saveShareBtnClick">保存和分享图片</div>
     </div>
   </div>
