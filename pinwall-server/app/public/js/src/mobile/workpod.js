@@ -9,6 +9,7 @@ var contentVue = new Vue({
     dataList:[],
     status:0,
     userId:-1,
+    spin_show:false,
   },
   methods: {
       workpodCardClick:function(topicId){
@@ -76,6 +77,7 @@ var contentVue = new Vue({
       },
       loadData:function(){
         let that = this;
+        this.spin_show = true;
         $.ajax({
           url: '/website/topics',
           type: 'get',
@@ -97,10 +99,10 @@ var contentVue = new Vue({
           }
         })
         .fail(function() {
-          console.log("error");
+          that.$Message.warning("操作失败!");
         })
         .always(function() {
-          console.log("complete");
+          that.spin_show = false;
         });
       },
       artifactClick:function(id){

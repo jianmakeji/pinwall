@@ -199,6 +199,55 @@ module.exports = app => {
     return result;
   }
 
+  Artifacts.getPersonalJobByUserIdH5 = async function({
+    offset = 0,
+    limit = 10,
+    userId = 0,
+    jobTag = 0,
+    visible = 0,
+  }) {
+
+    let condition = {
+      offset,
+      limit,
+      order: [
+        ['createAt', 'desc']
+      ],
+      include: [{
+        model: app.model.ArtifactAssets
+      },
+      {
+        model: app.model.Topics,
+        through:{
+          attributes:['topicId','artifactId'],
+        },
+        attributes:['Id','name','userId','status']
+      },{
+        model: app.model.Users,
+        attributes:['Id','fullname','avatarUrl','commentCount','artifactCount','medalCount','likeCount','createAt','intro']
+      }],
+      where:{
+        userId:userId
+      }
+    };
+
+    let countCondition = {
+      where:{
+        userId:userId,
+      }
+    };
+
+    if (jobTag != 0) {
+      condition.where.jobTag = jobTag;
+      countCondition.where.jobTag = jobTag;
+    }
+
+    let result = {};
+    result.rows = await this.findAll(condition);
+    result.count = await this.count(countCondition);
+    return result;
+  }
+
   Artifacts.findArtifactById = async function(id) {
     const artifact = await this.findByPk(id,{
       include: [{

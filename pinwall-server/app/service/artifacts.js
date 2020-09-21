@@ -518,8 +518,14 @@ class Artifacts extends Service {
 
   }
 
-  async getPersonalJobByUserId(query) {
-    let resultObj = await this.ctx.model.Artifacts.getPersonalJobByUserId(query);
+  async getPersonalJobByUserId(query,tag) {
+    let resultObj = {};
+    if(tag == 1){
+      resultObj = await this.ctx.model.Artifacts.getPersonalJobByUserId(query);
+    }
+    else{
+      resultObj = await this.ctx.model.Artifacts.getPersonalJobByUserIdH5(query)
+    }
     const app = this.ctx.app;
     resultObj.rows.forEach((element, index)=>{
       if (element.profileImage.indexOf('pinwall.fzcloud') == -1 && element.profileImage.indexOf('design.hnu.edu.cn') == -1){

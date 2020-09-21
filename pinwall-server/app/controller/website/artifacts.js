@@ -112,7 +112,7 @@ class ArtifactsController extends BaseController{
     query.userId = ctx.user.Id;
 
     try{
-      const result = await ctx.service.artifacts.getPersonalJobByUserId(query);
+      const result = await ctx.service.artifacts.getPersonalJobByUserId(query,1);
       super.success(result);
     }
     catch(e){
@@ -130,7 +130,43 @@ class ArtifactsController extends BaseController{
     };
 
     try{
-      const result = await ctx.service.artifacts.getPersonalJobByUserId(query);
+      const result = await ctx.service.artifacts.getPersonalJobByUserId(query,1);
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
+  async getPersonalJobH5() {
+    const ctx = this.ctx;
+    let query = {
+      limit: ctx.helper.parseInt(ctx.query.limit),
+      offset: ctx.helper.parseInt(ctx.query.offset),
+      jobTag: ctx.helper.parseInt(ctx.query.jobTag),
+    };
+    query.userId = ctx.user.Id;
+
+    try{
+      const result = await ctx.service.artifacts.getPersonalJobByUserId(query,2);
+      super.success(result);
+    }
+    catch(e){
+      super.failure(e.message);
+    }
+  }
+
+  async getPersonalJobByUserIdH5() {
+    const ctx = this.ctx;
+    let query = {
+      limit: ctx.helper.parseInt(ctx.query.limit),
+      offset: ctx.helper.parseInt(ctx.query.offset),
+      userId: ctx.helper.parseInt(ctx.query.userId),
+      jobTag: ctx.helper.parseInt(ctx.query.jobTag),
+    };
+
+    try{
+      const result = await ctx.service.artifacts.getPersonalJobByUserId(query,2);
       super.success(result);
     }
     catch(e){

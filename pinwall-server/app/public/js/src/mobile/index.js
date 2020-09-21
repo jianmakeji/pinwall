@@ -5,7 +5,7 @@ new Vue({
     'header-menu': HeaderMenu,
   },
   data: {
-
+    spin_show:false,
     dataList:[],
   },
   methods: {
@@ -22,6 +22,7 @@ new Vue({
       }
     }
     let that = this;
+    this.spin_show = true;
     $.ajax({
       url: '/website/artifacts/getMedalDataByRandom/12',
       type: 'get',
@@ -32,10 +33,10 @@ new Vue({
       that.dataList = responseData;
     })
     .fail(function() {
-      console.log("error");
+      that.$Message.warning("操作失败!");
     })
     .always(function() {
-      console.log("complete");
+      that.spin_show = false;
     });
 
   }

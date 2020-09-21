@@ -6,14 +6,15 @@ const { promisify } = require('util');
 const fs = require('fs');//在网上查到的readFile同步方式
 const readFile = promisify(fs.readFile);
 const qr = require('qr-image'); //这个插件是用来画二维码的也很好用
-const { createCanvas, loadImage, Image} = require('canvas')
-const Canvas = require('canvas');
+//const { createCanvas, loadImage, Image} = require('canvas')
+//const Canvas = require('canvas');
 
 class ShareController extends BaseController {
 
   async createShareImage() {
     let ctx = this.ctx;
     let multiple = 2;
+    /*
     const result = await ctx.service.artifacts.find(ctx.helper.parseInt(ctx.params.id));
     if(result){
       const canvas = createCanvas(multiple * 260, multiple * 410);
@@ -26,7 +27,7 @@ class ShareController extends BaseController {
         canvasCtx.drawImage(image, 0, 0, multiple * 260, multiple * 260);
       });
 
-      const qrUrl = 'http://192.168.3.110:7001/mobile/workdetail?artifactId=' + ctx.params.id;
+      const qrUrl = 'https://pinwall.cn/mobile/workdetail?artifactId=' + ctx.params.id;
       const qrcode = qr.imageSync(qrUrl, { type: 'png', size: 4, margin: 1 });//可以修改size，margin等格式
       const qrcodeImg = new Image();
       qrcodeImg.src = qrcode;
@@ -75,7 +76,7 @@ class ShareController extends BaseController {
     }
     else{
       this.ctx.body = null;
-    }
+    }*/
   }
 
 }

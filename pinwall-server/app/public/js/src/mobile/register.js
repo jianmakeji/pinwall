@@ -51,6 +51,7 @@ new Vue({
 
         if(this.mobile != null || this.mobile != ''){
           let data = {mobile:this.mobile};
+
           $.ajax({
             url: url,
             type: 'get',
@@ -71,6 +72,7 @@ new Vue({
           .fail(function() {
             that.$Message.error('发送失败!');
           });
+
         }
         else{
           this.$Message.warning('请输入手机号码！');
