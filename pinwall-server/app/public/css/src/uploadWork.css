@@ -338,3 +338,9 @@
 	    background-color: #fff;
 	}
 }
+
+.ivu-btn-primary {
+    color: #fff;
+    background-color: #19be6b;
+    border-color: #19be6b;
+}
