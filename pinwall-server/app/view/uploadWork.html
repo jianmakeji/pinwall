@@ -62,29 +62,56 @@
 							</form-item>
 						</i-col>
 						<i-col span="10" push="2">
-							<form-item label="标题">
+							<form-item label="封面图">
 								<div class="step1_upload">
-									<i-button type="success" id="step1_upload_fengmian">上传裁剪图</i-button>
-									<input type="file" @change="uploadThumbImg($event)" id="step1_upload_fengmian_input" accept="image/png, image/jpg" style="display:none;"/>
-									<i-button type="success" @click="cutCompleteUpload">裁剪完成,上传</i-button>
+									<i-button type="success" @click="copper_modal = true">上传裁剪图</i-button>
 								</div>
-								<p>请上传一张正方形、宽度500~800px，大小不超过2M的jpg或png图像作为作品封面。</p>
+								<p>请上传一张大小不超过2M的jpg或png图像作为作品封面。</p>
 							</form-item>
-							<form-item label="请裁剪图片">
-								<vue-cropper ref="cropper" :img="option.img" :output-size="option.size" :output-type="option.outputType" :info="true" :full="option.full" :fixed="fixed" :fixed-number="fixedNumber"
-						      :can-move="option.canMove" :can-move-box="option.canMoveBox" :fixed-box="option.fixedBox" :original="option.original"
-						      :auto-crop="option.autoCrop" :auto-crop-width="option.autoCropWidth" :auto-crop-height="option.autoCropHeight" :center-box="option.centerBox"
-						      @real-time="realTime" :high="option.high"
-						        @img-load="imgLoad" mode="cover" :maxImgSize="option.max" @crop-moving="cropMoving" style="width:400px;height:400px"></vue-cropper>
-							</form-item>
+
 							<form-item label="封面预览" prop="profileImage">
-								<!--<img class="project_thumb" :src="step1_upload_fengmian_src ? step1_upload_fengmian_src : '../public/images/default_thumb_500.png'">-->
-								<div class="show-preview" :style="{'width': previews.w + 'px', 'height': previews.h + 'px',  'overflow': 'hidden', 'margin': '5px'}">
-							   <img :src="previews.url" :style="previews.img" >
-							 </div>
+								<div :style="previewStyle">
+									<div class="show-preview" :style="{'width': previews.w  + 'px', 'height': previews.h  + 'px',  'overflow': 'hidden', 'margin': '5px'}">
+								   <img :src="previews.url" :style="previews.img" >
+								 </div>
+								</div>
 							</form-item>
 						</i-col>
 				</div>
+				<Modal
+	        v-model="copper_modal"
+	        title="上传封面"
+					:styles="{top: '100px', width: '800px'}"
+	        @on-ok="modelOk"
+	        @on-cancel="modelCancel">
+	        <div style="position:relative;width:100%;height:480px;">
+						<div style="width:200px;height:260px;position:absolute;display:inline-block;left:10px;top:10px">
+							<div :style="previewStyle">
+								<div class="show-preview" :style="{'width': previews.w + 'px', 'height': previews.h + 'px',  'overflow': 'hidden', 'margin': '5px'}">
+								 <img :src="previews.url" :style="previews.img" >
+							 	</div>
+							</div>
+							<div style="margin-top:15px;">
+								<span style="font-size:16px;color:#515a6e;font-style:bold">图片要求:</span>
+								<p style="font-size:14px;color:#515a6e;">请上传一张大小不超过2M的jpg或png图像作为作品封面。</p>
+							</div>
+						</div>
+
+						<div style="display:inline-block;position:absolute;right:10px;top:10px">
+							<vue-cropper ref="cropper" :img="option.img" :output-size="option.size" :output-type="option.outputType" :info="true" :full="option.full" :fixed="fixed" :fixed-number="fixedNumber"
+								:can-move="option.canMove" :can-move-box="option.canMoveBox" :fixed-box="option.fixedBox" :original="option.original"
+								:auto-crop="option.autoCrop" :auto-crop-width="option.autoCropWidth" :auto-crop-height="option.autoCropHeight" :center-box="option.centerBox"
+								@real-time="realTime" :high="option.high"
+									@img-load="imgLoad" mode="cover" :maxImgSize="option.max" @crop-moving="cropMoving" style="width:400px;height:400px"></vue-cropper>
+							<div style="margin-top:10px; width:60px;height:70px;border:1px solid #D3D3D3;text-align:center;cursor:pointer" @click="openModel">
+								<img src="/public/images/add.png" style="width:45px;height:45px;"/>
+								<span>添加</span>
+								<input type="file" @change="uploadThumbImg($event)" id="step1_upload_fengmian_input" accept="image/png, image/jpg" style="display:none;"/>
+							</div>
+
+						</div>
+	        </div>
+	    </Modal>
 				<div class="step2" v-show="stepTwoActive">
 					<row>
 						<i-col span="6">

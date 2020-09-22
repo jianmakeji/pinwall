@@ -90,13 +90,23 @@ var container = new Vue({
             previews: {
 
             },
-
+            previewStyle: {
+              'width': '360px',
+              'max-height': '360px',
+              'overflow': 'hidden',
+              'zoom': '0.5'
+            },
+            previewStyleBig: {
+              'overflow': 'hidden',
+              'zoom': '0.23'
+            },
+            copper_modal:false,
         }
     },
     methods: {
         // 实时预览函数
         realTime(data) {
-        
+
           this.previews = data;
         },
         imgLoad(msg) {
@@ -244,56 +254,8 @@ var container = new Vue({
         /**
          * 步骤一：上传作品封面事件
          */
-        cutCompleteUpload(){
-            let that = this;
-            let fileFullName = $("#step1_upload_fengmian_input").val();
-
-            if (fileFullName != '') {
-              let fileName = calculate_object_name(fileFullName);
-              this.$Notice.success({title:'上传中···'});
-              this.$refs.cropper.getCropBlob((data) => {
-                let file = new File([data], fileName, { type: data.type }); //blob转file
-                $.ajax({
-                    url: '/getSTSSignature/1',
-                    type: 'GET',
-                    success:function(res){
-                        if (res.res.status == 200){
-                            let client = new OSS({
-                          		accessKeyId: res.credentials.AccessKeyId,
-                          		accessKeySecret: res.credentials.AccessKeySecret,
-                          		stsToken: res.credentials.SecurityToken,
-                                bucket:bucket
-                        	});
-
-                          client.multipartUpload('images/'+ fileName, file).then(function (res) {
-                            if(res.res.status == 200){
-                              that.$Notice.success({title:'上传成功！'});
-                              that.dataItem.profileImage = fileName;
-                            }
-                            else{
-                              that.$Notice.success({title:'上传失败！'});
-                            }
-
-                        	});
-                        }else if (res.res.status == 999) {
-                            that.$Notice.error({
-                                title:res.data,
-                                duration:3,
-                                onClose(){
-                                    window.location.href = "/login";
-                                }
-                            });
-                        }else if(res.status == 500){
-                            that.$Notice.error({
-                                title:"获取签名异常，请重试！"
-                            })
-                        }
-                    }
-                })
-              });
-            }else{
-                this.$Notice.error({title:"请上传图片！"});
-            }
+        openModel:function(){
+          $('#step1_upload_fengmian_input').click();
         },
         step2_upload_neirong_change(files){
             let that = this;
@@ -827,7 +789,61 @@ var container = new Vue({
                     }
                 })
             }
-        }
+        },
+        modelOk:function(){
+          let that = this;
+          let fileFullName = $("#step1_upload_fengmian_input").val();
+
+          if (fileFullName != '') {
+            let fileName = calculate_object_name(fileFullName);
+            this.$Notice.success({title:'上传中···'});
+            this.$refs.cropper.getCropBlob((data) => {
+              let file = new File([data], fileName, { type: data.type }); //blob转file
+              $.ajax({
+                  url: '/getSTSSignature/1',
+                  type: 'GET',
+                  success:function(res){
+                      if (res.res.status == 200){
+                          let client = new OSS({
+                            accessKeyId: res.credentials.AccessKeyId,
+                            accessKeySecret: res.credentials.AccessKeySecret,
+                            stsToken: res.credentials.SecurityToken,
+                              bucket:bucket
+                        });
+
+                        client.multipartUpload('images/'+ fileName, file).then(function (res) {
+                          if(res.res.status == 200){
+                            that.$Notice.success({title:'上传成功！'});
+                            that.dataItem.profileImage = fileName;
+                          }
+                          else{
+                            that.$Notice.success({title:'上传失败！'});
+                          }
+
+                        });
+                      }else if (res.res.status == 999) {
+                          that.$Notice.error({
+                              title:res.data,
+                              duration:3,
+                              onClose(){
+                                  window.location.href = "/login";
+                              }
+                          });
+                      }else if(res.status == 500){
+                          that.$Notice.error({
+                              title:"获取签名异常，请重试！"
+                          })
+                      }
+                  }
+              })
+            });
+          }else{
+              this.$Notice.error({title:"请上传图片！"});
+          }
+        },
+        modelCancel:function(){
+
+        },
     },
     created(){
         let that = this;

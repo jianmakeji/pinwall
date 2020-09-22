@@ -18,10 +18,37 @@ var index = new Vue({
     methods:{
         tapArtifact(id){
             window.open("/project/" + id);
-        }
+        },
+        isWeixin() {
+          let wx = navigator.userAgent.toLowerCase()
+          if (wx.match(/MicroMessenger/i) === 'micromessenger') {
+            return true
+          } else {
+            return false
+          }
+        },
+        IsPC() {
+          var userAgentInfo = navigator.userAgent;
+          var Agents = ["Android", "iPhone",
+                      "SymbianOS", "Windows Phone",
+                      "iPad", "iPod"];
+          var flag = true;
+          for (var v = 0; v < Agents.length; v++) {
+              if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                  flag = false;
+                  break;
+              }
+          }
+          return flag;
+      }
     },
     created:function(){
         this.$Loading.start();
+        if(this.isWeixin() || !this.IsPC()){
+          window.location.href = '/mobile';
+          return;
+        }
+
         if(document.documentElement.clientWidth < 450){
             this.containerStyle.height = 1190 + "px";
             this.screenType = "mobile";
