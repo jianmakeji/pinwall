@@ -33,7 +33,7 @@
 
         </div>
         <div class="line"></div>
-        <div class="user_info">
+        <div class="user_info" @click="fullnameClick({{elem.user.Id}})">
           <img :src="elem.user.avatarUrl ? elem.user.avatarUrl : '/public/images/mobile/default_head_img.png' "/><span>${elem.user.fullname}</span>
         </div>
       </div>

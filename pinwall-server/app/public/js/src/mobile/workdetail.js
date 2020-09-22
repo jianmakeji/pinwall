@@ -256,6 +256,9 @@ new Vue({
       eleLink.click();
       document.body.removeChild(eleLink);
 
+    },
+    fullnameClick:function(userId){
+      window.location.href = "/mobile/workset?userId=" + userId;
     }
   },
   created() {

@@ -107,6 +107,9 @@ var contentVue = new Vue({
       },
       artifactClick:function(id){
         window.location.href = "/mobile/workdetail?artifactId=" + id;
+      },
+      fullnameClick:function(userId){
+        window.location.href = "/mobile/workset?userId=" + userId;
       }
   },
   created() {

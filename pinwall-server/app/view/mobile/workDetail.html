@@ -30,7 +30,7 @@
       </div>
       <div class="user_info">
           <img :src=" '{{data.user.avatarUrl}}' ? '{{data.user.avatarUrl}}' : '/public/images/mobile/default_head_img.png' "/>
-          <span class="author" id="{{user.Id}}">{{data.user.fullname}}</span>
+          <span class="author" id="{{user.Id}}" @click="fullnameClick({{data.user.Id}})">{{data.user.fullname}}</span>
           <span class="teamworker">{{teamworker}}</span>
       </div>
       <div class="record_area">
