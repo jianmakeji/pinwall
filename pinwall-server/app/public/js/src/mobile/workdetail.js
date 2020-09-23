@@ -80,6 +80,7 @@ new Vue({
 
     },
     sendResult:function(userId){
+      let that = this;
       if(that.comment_or_score_value == ''){
         this.$Message.warning("请填写内容!");
         return;
@@ -100,6 +101,7 @@ new Vue({
           if(responseData.status == 200){
             $(".send_comment_area").css('visibility','hidden');
             $(".mask").hide();
+            window.location.reload();
           }
           else{
             that.$Message.warning("操作失败!");
