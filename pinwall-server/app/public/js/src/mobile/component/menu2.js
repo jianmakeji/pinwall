@@ -26,18 +26,23 @@ var HeaderMenu = {
         window.localStorage.setItem("loginPrePath", path);
       }
       window.location.href = "/mobile/login";
+      window.localStorage.setItem("search_tag", 0);
     },
     choicenessClick:function(){
       window.location.href = "/mobile";
+      window.localStorage.setItem("search_tag", 0);
     },
     graduateClick:function(){
       window.location.href = "/mobile/graduate";
+      window.localStorage.setItem("search_tag", 0);
     },
     homeworkClick:function(){
       window.location.href = "/mobile/workpod";
+      window.localStorage.setItem("search_tag", 0);
     },
     searchClick:function(){
       window.location.href = "/mobile/search";
+      window.localStorage.setItem("search_tag", 0);
     },
     personalBtnClick:function(userId){
 

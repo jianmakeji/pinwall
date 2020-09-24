@@ -36,6 +36,13 @@
   position: relative;
 }
 
+.workset_result{
+  position: relative;
+}
+
+.product_result{
+  position: relative;
+}
 .search_close{
   width:35px;
   height:35px;

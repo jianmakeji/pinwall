@@ -120,6 +120,9 @@ new Vue({
       window.localStorage.setItem("search_type", '');
       window.localStorage.setItem("search_condition", '');
       window.localStorage.setItem("search_tag", 0);
+    },
+    selectOption:function(){
+      this.condition = "";
     }
   },
   created() {

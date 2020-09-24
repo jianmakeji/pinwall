@@ -16,7 +16,7 @@
     <div class="search_panel" v-show="search_panel_show">
       <div class="title">搜索</div>
       <i-input v-model="condition" style="width:90%;position:relatice;left:5%;margin-top:30px;">
-          <i-select v-model="type" slot="prepend" style="width:80px;">
+          <i-select v-model="type" slot="prepend" style="width:80px;" @on-change="selectOption()">
             <i-option value="course">课程</i-option>
             <i-option value="product">作品</i-option>
             <i-option value="user">用户</i-option>
