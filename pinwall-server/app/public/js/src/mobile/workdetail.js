@@ -6,7 +6,7 @@ new Vue({
   el: '#content',
   delimiters: ['${', '}'],
   components:{
-    'header-menu': HeaderMenu,
+    
   },
   data: {
     product:null,
@@ -261,6 +261,9 @@ new Vue({
     },
     fullnameClick:function(userId){
       window.location.href = "/mobile/workset?userId=" + userId;
+    },
+    backClick:function(){
+      window.history.back(-1);
     }
   },
   created() {

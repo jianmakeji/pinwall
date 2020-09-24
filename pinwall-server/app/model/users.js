@@ -335,6 +335,13 @@ module.exports = app => {
     });
   }
 
+  Users.findUserByFullname = async function(fullname){
+    return await this.findOne({
+      where:{
+        fullname:fullname
+      }
+    });
+  }
 
   Users.updateWxInfoByEmail = async function(wxInfo){
     return await this.update({

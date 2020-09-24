@@ -67,9 +67,10 @@ module.exports = app => {
   router.get('/website/artifacts/getMedalDataByRandom/:limit', controller.website.artifacts.getMedalDataByRandom);
   router.get('/website/artifacts/getPersonalJob', ajaxAuthCheck, controller.website.artifacts.getPersonalJob);
   router.get('/website/artifacts/getPersonalJobByUserId', controller.website.artifacts.getPersonalJobByUserId);
+  router.get('/website/artifacts/getPersonalJobByFullname', controller.website.artifacts.getPersonalJobByFullname);
   router.get('/website/artifacts/getPersonalJobH5', ajaxAuthCheck, controller.website.artifacts.getPersonalJobH5);
   router.get('/website/artifacts/getPersonalJobByUserIdH5', controller.website.artifacts.getPersonalJobByUserIdH5);
-  
+
   router.put('/website/artifacts/updateVisibleById/:id', ajaxAuthCheck, controller.website.artifacts.updateVisibleById);
 
   router.get('/website/artifacts/transterInsertDataToES', adminAuthCheck, controller.website.artifacts.transterInsertDataToES);

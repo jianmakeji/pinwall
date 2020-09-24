@@ -199,6 +199,39 @@ module.exports = app => {
     return result;
   }
 
+  Artifacts.getPersonalJobByFullname = async function({
+    offset = 0,
+    limit = 30,
+    Id = '',
+  }) {
+
+    let condition = {
+      offset,
+      limit,
+      order: [
+        ['createAt', 'desc']
+      ],
+      include: [{
+        model: app.model.Users,
+        attributes:['Id','fullname','avatarUrl','createAt','intro']
+      }],
+      where:{
+        userId:Id,
+      }
+    };
+
+    let countCondition = {
+      where:{
+        userId:Id,
+      }
+    };
+
+    let result = {};
+    result.rows = await this.findAll(condition);
+    result.count = await this.count(countCondition);
+    return result;
+  }
+
   Artifacts.getPersonalJobByUserIdH5 = async function({
     offset = 0,
     limit = 10,

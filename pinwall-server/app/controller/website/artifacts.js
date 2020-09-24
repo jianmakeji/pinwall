@@ -120,6 +120,24 @@ class ArtifactsController extends BaseController{
     }
   }
 
+  async getPersonalJobByFullname() {
+    const ctx = this.ctx;
+    let query = {
+      limit: ctx.helper.parseInt(ctx.query.limit),
+      offset: ctx.helper.parseInt(ctx.query.offset),
+      fullname: ctx.query.fullname
+    };
+
+    try{
+      const result = await ctx.service.artifacts.getPersonalJobByFullname(query);
+      super.success(result);
+    }
+    catch(e){
+      console.log(e);
+      super.failure(e.message);
+    }
+  }
+
   async getPersonalJobByUserId() {
     const ctx = this.ctx;
     let query = {

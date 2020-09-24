@@ -32,6 +32,18 @@
   font-weight: 400;
 }
 
+.user_result{
+  position: relative;
+}
+
+.search_close{
+  width:35px;
+  height:35px;
+  position: absolute;
+  right:10px;
+  top:0px;
+}
+
 /*按用户查询结果样式*/
 .user_result_title{
   color:#7F7D7D;
@@ -191,6 +203,7 @@
   font-size: 14px;
   color: #1A1A1A;
   opacity: 0.78;
+  margin-left: 10px;
 }
 
 /*按作业荚查询结果样式*/

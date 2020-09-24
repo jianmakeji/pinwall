@@ -518,6 +518,32 @@ class Artifacts extends Service {
 
   }
 
+  async getPersonalJobByFullname(query) {
+    const app = this.ctx.app;
+    let result = {};
+    let user = await this.ctx.model.Users.findUserByFullname(query.fullname);
+    result.user = user;
+    if(user && user.avatarUrl != "" && user.avatarUrl != null && !user.avatarUrl.includes("qlogo.cn")){
+      user.avatarUrl = app.signatureUrl(this.ctx.app.headiconPath + user.avatarUrl, "thumb_120_120");
+    }
+
+    if(user.Id){
+      query.Id = user.Id;
+      let artifacts = await this.ctx.model.Artifacts.getPersonalJobByFullname(query)
+
+      artifacts.rows.forEach((element, index)=>{
+        if (element.profileImage.indexOf('pinwall.fzcloud') == -1 && element.profileImage.indexOf('design.hnu.edu.cn') == -1){
+          element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
+        }
+
+      });
+      result.artifacts = artifacts;
+    }
+
+    return result;
+
+  }
+
   async getPersonalJobByUserId(query,tag) {
     let resultObj = {};
     if(tag == 1){

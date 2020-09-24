@@ -3,8 +3,6 @@ function check(){
       $('#myform').attr('action','/mobilelogin');
       var username = $("#emailorphone").val();
       var password = $("#pwd").val();
-      console.log(username);
-      console.log(password);
       if(username == '' || password == ''){
         $('.tips').show();
         $('.tips').html('请输入用户名和密码');

@@ -38,19 +38,21 @@
       </div>
     </div>
     <div class="user_result" v-show="user_result_show">
-      <span class="user_result_title">搜索“某某某”的结果</span>
+      <span class="user_result_title">搜索“${condition}”的结果</span>
+      <img src="/public/images/mobile/search_close.png" class="search_close" @click="searchClose"/>
       <div class="user_info_panel">
         <div class="user_info">
-          <img src="/public/images/mobile/default_head_img.png" /><span>某某某</span>
+          <img :src="userObject.avatarUrl ? userObject.avatarUrl : '/public/images/mobile/default_head_img.png' "/><span>${userObject.fullname}</span>
         </div>
-        <span class="product_count">30件作品</span>
+        <span class="product_count">${artifactsCount}件作品</span>
       </div>
       <div class="product_list">
-        <img src="" class="product_item"/>
+        <img :src="elem.profileImage" class="product_item" v-for="elem in artifactsList" :key="elem.Id"  @click="artifactClick(elem.Id)"/>
       </div>
     </div>
     <div class="product_result" v-show="product_result_show">
       <span class="product_result_title">搜索“${condition}”的结果</span>
+      <img src="/public/images/mobile/search_close.png" class="search_close" @click="searchClose"/>
       <div class="panel_card" v-for="(elem, index) in productArray" :key="elem.key">
           <div class="product_zone">
             <img :src="elem._source.profileImage"/>
@@ -73,6 +75,7 @@
       </div>
     </div>
     <div class="workset_result" v-show="workset_result_show">
+      <img src="/public/images/mobile/search_close.png" class="search_close" @click="searchClose"/>
       <div v-for="elem in dataList" :key="elem.key" class="panel_card" @click="workpodCardClick(elem.Id)">
         <p class="workset_title">${elem.name}</p>
         <p class="workset_info">${elem.createAt.substring(0,10)} 创建&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;${elem.user.gender} 件作品</p>

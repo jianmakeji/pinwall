@@ -7,13 +7,14 @@
   <title>作业详情</title>
   <link rel="stylesheet" href="/public/css/lib/animate.min.css"/>
   <link rel="stylesheet" href="/public/css/lib/iview.css"/>
-  <link href="/public/css/src/mobile/menu2.css" rel="stylesheet" />
   <link href="/public/css/src/mobile/workdetail.css" rel="stylesheet" />
 </head>
 <body>
   <div id="content">
     <div class="mask" id="{{user.Id}}" @click="maskClick"></div>
-    <header-menu v-bind:user-id="'{{user.Id}}'" v-bind:avatar-url=" '{{user.avatarUrl}}' " v-bind:fullname=" '{{user.fullname}}' "></header-menu>
+    <div class="banner">
+      <img src="/public/images/mobile/back.png" class="backicon" @click="backClick"/><span>返回</span>
+    </div>
     <div class="score_area">
         <span v-if=" '{{data.artifact_scores.length}}' && '{{data.artifact_scores[0]}}' != '' && '{{data.artifact_scores[0]}}' != null">{{data.artifact_scores[0].score}}</span>
     </div>
@@ -98,6 +99,5 @@
 <script src="/public/js/lib/jquery.min.js" type="text/javascript"></script>
 <script src="/public/js/lib/vue.min.js" type="text/javascript"></script>
 <script src="/public/js/lib/iview.min.js" type="text/javascript"></script>
-<script src="/public/js/src/mobile/component/menu2.js" type="text/javascript"></script>
 <script src="/public/js/src/mobile/workdetail.js" type="text/javascript"></script>
 </html>

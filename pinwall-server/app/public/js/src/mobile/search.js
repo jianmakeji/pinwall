@@ -15,6 +15,9 @@ new Vue({
     pageNum:1,
     limit:10,
     productArray:[],
+    userObject:{},
+    artifactsList:[],
+    artifactsCount:0,
   },
   methods: {
     searchBtnClick:function(){
@@ -43,6 +46,9 @@ new Vue({
       window.location.href = "/mobile/workpoddetail?topicId=" +  topicId;
     },
     artifactClick:function(id){
+      window.localStorage.setItem("search_type",this.type);
+      window.localStorage.setItem("search_condition",this.condition);
+      window.localStorage.setItem("search_tag",1);
       window.location.href = "/mobile/workdetail?artifactId=" + id;
     },
     loadData:function(){
@@ -67,9 +73,9 @@ new Vue({
         data.keyword = this.condition;
         url = '/website/search/searchByKeywords';
       }else if(this.type == 'user'){
-        url = "/wx/users/findByFullname";
+        url = "/website/artifacts/getPersonalJobByFullname";
         data.fullname = this.condition;
-        this.limit = 50;
+        data.limit = 1000;
         data.offset = (this.pageNum - 1) * this.limit;
       }
 
@@ -83,21 +89,49 @@ new Vue({
       .done(function(responseData) {
         if(that.type == 'course'){
           that.dataList = responseData.data.rows;
-        }else if(that.type == 'product'){
+        }
+        else if(that.type == 'product'){
           that.productArray = responseData.data.hits;
         }
-
+        else if(that.type == 'user'){
+          that.userObject = responseData.data.user;
+          that.artifactsList = responseData.data.artifacts.rows;
+          that.artifactsCount = responseData.data.artifacts.count;
+        }
       })
       .fail(function() {
-        console.log("error");
+        this.$Message.warning('查找失败！');
       })
       .always(function() {
         console.log("complete");
       });
-
+    },
+    searchClose:function(){
+      if(this.type == 'course'){
+        this.search_panel_show = 1;
+        this.workset_result_show = 0;
+      }else if (this.type == 'product'){
+        this.search_panel_show = 1;
+        this.product_result_show = 0;
+      }else if (this.type == 'user'){
+        this.search_panel_show = 1;
+        this.user_result_show = 0;
+      }
+      window.localStorage.setItem("search_type", '');
+      window.localStorage.setItem("search_condition", '');
+      window.localStorage.setItem("search_tag", 0);
     }
   },
   created() {
+    let search_tag = window.localStorage.getItem("search_tag");
+    if(search_tag){
+      window.localStorage.setItem("search_tag",1);
+      let search_type = window.localStorage.getItem("search_type");
+      let search_condition = window.localStorage.getItem("search_condition");
+      this.type = search_type;
+      this.condition = search_condition;
+      this.searchBtnClick();
+    }
 
 
   }
