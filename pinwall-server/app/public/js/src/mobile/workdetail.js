@@ -6,7 +6,7 @@ new Vue({
   el: '#content',
   delimiters: ['${', '}'],
   components:{
-    
+
   },
   data: {
     product:null,
@@ -263,7 +263,15 @@ new Vue({
       window.location.href = "/mobile/workset?userId=" + userId;
     },
     backClick:function(){
-      window.history.back(-1);
+      let path = window.localStorage.getItem("fromDetailPath");
+
+      if(path){
+        window.location.href = path;
+      }
+      else{
+        window.history.back(-1);
+      }
+
     }
   },
   created() {

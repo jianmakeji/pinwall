@@ -106,6 +106,7 @@ new Vue({
       });
     },
     artifactClick:function(id){
+      window.localStorage.setItem("fromDetailPath", window.location.pathname + window.location.search); 
       window.location.href = "/mobile/workdetail?artifactId=" + id;
     }
   },
