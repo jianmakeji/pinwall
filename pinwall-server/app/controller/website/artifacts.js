@@ -256,7 +256,6 @@ class ArtifactsController extends BaseController{
       super.failure("操作失败!");
     }
   }
-
 }
 
 module.exports = ArtifactsController;

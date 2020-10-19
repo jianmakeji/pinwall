@@ -18,10 +18,13 @@ class Topics extends Service {
     resultObj.rows.forEach((element, index)=>{
 
           for (let subElement of element.artifacts){
-              if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1){
-            subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_360_360");
+              if (subElement.storageTag == 2){
+                subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_360_360");
+              }
+              else{
+                subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
+              }
           }
-        }
     });
 
     return resultObj;
@@ -42,8 +45,11 @@ class Topics extends Service {
     resultObj.rows.forEach((element, index)=>{
 
           for (let subElement of element.artifacts){
-              if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1){
+              if (subElement.storageTag == 2){
                 subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_360_360");
+              }
+              else{
+                subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
               }
           }
     });
@@ -138,7 +144,7 @@ class Topics extends Service {
     const app = this.ctx.app;
     if (topic.rows.artifacts){
       topic.rows.artifacts.forEach((element, index)=>{
-        if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
+        if (element.storageTag == 2){
           element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
         }
         if (this.ctx.user){
@@ -198,7 +204,7 @@ class Topics extends Service {
     const app = this.ctx.app;
     if (topic.rows.artifacts){
       topic.rows.artifacts.forEach((element, index)=>{
-        if (element.profileImage.indexOf('pinwall.fzcloud') == -1){
+        if (element.storageTag == 2){
           element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
         }
         if (userId != 0){

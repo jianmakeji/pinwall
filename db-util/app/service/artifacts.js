@@ -185,6 +185,38 @@ class Artifacts extends Service {
     }
     return data;
   }
+
+  async updateArtifactStorageTag(){
+    const ctx = this.ctx;
+    const client = ctx.app.mysql.get('db');
+    const artifacts = await client.query("select * from artifacts ");
+    for (const artifact of artifacts){
+      console.log(artifact.Id);
+      if(artifact.profileImage.indexOf('pinwall.fzcloud') != -1){
+        let imageUrl = artifact.profileImage.replace('http://pinwall.fzcloud.design-engine.org','');
+        const result = await client.query('update artifacts set profileImage = ?,storageTag = ? where Id = ?', [imageUrl, 1, artifact.Id]);
+      }
+      else{
+        const result = await client.query('update artifacts set storageTag = ? where Id = ?', [2, artifact.Id]);
+      }
+    }
+  }
+
+  async updateArtifactAssetsStorageTag(){
+    const ctx = this.ctx;
+    const client = ctx.app.mysql.get('db');
+    const artifacts = await client.query("select * from artifact_assets where Id > 68240 ");
+    for (const artifact of artifacts){
+      console.log(artifact.Id);
+      if(artifact.profileImage.indexOf('pinwall.fzcloud') != -1){
+        let imageUrl = artifact.profileImage.replace('http://pinwall.fzcloud.design-engine.org','');
+        const result = await client.query('update artifact_assets set profileImage = ?,storageTag = ? where Id = ?', [imageUrl, 1, artifact.Id]);
+      }
+      else{
+        const result = await client.query('update artifact_assets set storageTag = ? where Id = ?', [2, artifact.Id]);
+      }
+    }
+  }
 }
 
 module.exports = Artifacts;

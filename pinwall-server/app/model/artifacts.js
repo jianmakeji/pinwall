@@ -49,6 +49,11 @@ module.exports = app => {
       allowNull: false,
       defaultValue: '0'
     },
+    storageTag: {
+      type: INTEGER,
+      allowNull: false,
+      defaultValue: '0'
+    },
     medalCount: {
       type: INTEGER,
       allowNull: false,
@@ -175,7 +180,7 @@ module.exports = app => {
         model: app.model.ArtifactAssets
       },{
         model: app.model.Users,
-        attributes:['Id','fullname','avatarUrl','commentCount','artifactCount','medalCount','likeCount','createAt','intro']
+        attributes:['Id','fullname','avatarUrl','commentCount','artifactCount','storageTag','medalCount','likeCount','createAt','intro']
       }],
       where:{
         userId:userId
@@ -257,7 +262,7 @@ module.exports = app => {
         attributes:['Id','name','userId','status']
       },{
         model: app.model.Users,
-        attributes:['Id','fullname','avatarUrl','commentCount','artifactCount','medalCount','likeCount','createAt','intro']
+        attributes:['Id','fullname','avatarUrl','commentCount','artifactCount','storageTag','medalCount','likeCount','createAt','intro']
       }],
       where:{
         userId:userId

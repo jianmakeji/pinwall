@@ -83,7 +83,7 @@ module.exports  = app => {
           through:{
             attributes:['topicId','artifactId'],
           },
-          attributes:['Id','profileImage']
+          attributes:['Id','profileImage','storageTag']
         }
       ]
     };
@@ -148,7 +148,7 @@ module.exports  = app => {
           through:{
             attributes:['topicId','artifactId'],
           },
-          attributes:['Id','profileImage']
+          attributes:['Id','profileImage','storageTag']
         }
       ]
     };
@@ -230,7 +230,7 @@ module.exports  = app => {
       through:{
         attributes:['topicId','artifactId'],
       },
-      attributes:['Id','profileImage','name','teamworker','medalCount','likeCount','commentCount','createAt']
+      attributes:['Id','profileImage','name','teamworker','medalCount','storageTag','likeCount','commentCount','createAt']
     };
 
     if (role != 'user'){
@@ -331,7 +331,7 @@ module.exports  = app => {
           through:{
             attributes:['topicId','artifactId'],
           },
-          attributes:['Id','name','medalCount','likeCount','commentCount','createAt']
+          attributes:['Id','name','medalCount','likeCount','storageTag','commentCount','createAt']
         }
       ]
     };

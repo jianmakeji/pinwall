@@ -22,6 +22,8 @@ module.exports = app => {
   router.get('/artifact/transferArtifactsTerm', controller.artifacts.transferArtifactsTerm);
   router.get('/artifact/updateHtml5Type', controller.artifacts.updateHtml5Type);
   router.get('/artifact/selectData', controller.artifacts.selectData);
+  router.get('/artifact/updateArtifactStorageTag', controller.artifacts.updateArtifactStorageTag);
+  router.get('/artifact/updateArtifactAssetsStorageTag', controller.artifacts.updateArtifactAssetsStorageTag);
 
   router.get('/prometheus/comment/transferComments', controller.prometheus.comment.transferComments);
   router.get('/prometheus/eliteCourse/transferEliteCourse', controller.prometheus.eliteCourse.transferEliteCourse);

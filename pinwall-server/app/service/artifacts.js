@@ -17,28 +17,43 @@ class Artifacts extends Service {
 
     const app = this.ctx.app;
     resultObj.rows.forEach((element, index)=>{
-      if (element.profileImage.indexOf('pinwall.fzcloud') == -1 && element.profileImage.indexOf('design.hnu.edu.cn') == -1){
+      if (element.storageTag == 2){
         element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
+      }
+      else{
+        element.profileImage = app.qiniuUrlPrefix + element.profileImage;
       }
 
       for (let subElement of element.artifact_assets){
-        if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1){
+        if (subElement.storageTag == 2){
           subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
+        }
+        else{
+          subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
         }
 
         if (subElement.type == 2 && subElement.mediaFile != null){
-          if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          if (subElement.storageTag == 2){
             subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
+          }
+          else{
+            subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
         }
         else if (subElement.type == 3 && subElement.mediaFile != null){
-          if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          if (subElement.storageTag == 2){
             subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
+          }
+          else{
+            subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
         }
         else if (subElement.type == 4 && subElement.mediaFile != null){
-          if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          if (subElement.storageTag == 2){
             subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
+          }
+          else{
+            subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
         }
         else if (subElement.type == 5 && subElement.mediaFile != null){
@@ -56,40 +71,43 @@ class Artifacts extends Service {
     const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
     const app = this.ctx.app;
 
-    if (artifact.profileImage.indexOf('pinwall.fzcloud') == -1 && artifact.profileImage.indexOf('design.hnu.edu.cn') == -1){
-      artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
+    if (element.storageTag == 2){
+      element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
+    }
+    else{
+      element.profileImage = app.qiniuUrlPrefix + element.profileImage;
     }
 
     for (let subElement of artifact.dataValues.artifact_assets){
-      if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1 && subElement.profileImage.indexOf('design.hnu.edu.cn') == -1){
+      if (subElement.storageTag == 2){
         subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
       }
       else{
-        subElement.profileImage = subElement.profileImage.replace('http://','https://');
+        subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
       }
 
       if (subElement.type == 2 && subElement.mediaFile != null){
-        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+        if (subElement.storageTag == 2){
           subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
         }
         else{
-          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
+          subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
       else if (subElement.type == 3 && subElement.mediaFile != null){
-        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+        if (subElement.storageTag == 2){
           subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
         }
         else{
-          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
+          subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
       else if (subElement.type == 4 && subElement.mediaFile != null){
-        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+        if (subElement.storageTag == 2){
           subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
         }
         else{
-          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
+          subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
       else if (subElement.type == 5 && subElement.mediaFile != null){
@@ -155,7 +173,7 @@ class Artifacts extends Service {
 
     }
 
-    if (artifactObj.profileImage.indexOf('pinwall.fzcloud') == -1 && artifactObj.profileImage.indexOf('design.hnu.edu.cn') == -1){
+    if (artifactObj.storageTag == 2 ){
       resultObject.artifact.profile_image = app.signatureUrl(app.imagePath + artifactObj.profileImage, "thumb_360_360");
     }
     else{
@@ -167,35 +185,35 @@ class Artifacts extends Service {
       assetsObj.name = subElement.name;
       assetsObj.filename = subElement.filename;
 
-      if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1 && subElement.profileImage.indexOf('design.hnu.edu.cn') == -1){
+      if (subElement.type == 2){
         assetsObj.profile_image = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
       }
       else{
-        assetsObj.profile_image = subElement.profileImage.replace('http://','https://');
+        assetsObj.profile_image = app.qiniuUrlPrefix + subElement.profileImage;
       }
 
       if (subElement.type == 2 && subElement.mediaFile != null){
-        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+        if (subElement.storageTag == 2){
           assetsObj.media_file = app.signatureUrl(app.pdfPath + subElement.mediaFile);
         }
         else{
-          assetsObj.media_file = subElement.mediaFile.replace('http://','https://');
+          assetsObj.media_file = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
       else if (subElement.type == 3 && subElement.mediaFile != null){
-        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+        if (subElement.storageTag == 2){
           assetsObj.media_file = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
         }
         else{
-          assetsObj.media_file = subElement.mediaFile.replace('http://','https://');
+          assetsObj.media_file = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
       else if (subElement.type == 4 && subElement.mediaFile != null){
-        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+        if (subElement.storageTag == 2){
           assetsObj.media_file = app.signatureUrl(app.videoPath + subElement.mediaFile);
         }
         else{
-          assetsObj.media_file = subElement.mediaFile.replace('http://','https://');
+          assetsObj.media_file = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
       else if (subElement.type == 5 && subElement.mediaFile != null){
@@ -214,6 +232,7 @@ class Artifacts extends Service {
       try {
         transaction = await this.ctx.model.transaction();
         artifact.visible = 0;
+        artifact.storageTag = 2;
         const artiObj = await this.ctx.model.Artifacts.createArtifact(artifact,transaction);
 
         let terms = artifact.terms;
@@ -366,35 +385,35 @@ class Artifacts extends Service {
 
       let deleteAliOSSArray = new Array();
       try{
-        if(artifact.profileImage.indexOf('pinwall.fzcloud') == -1 && artifact.profileImage.indexOf('design.hnu.edu.cn') == -1){
+        if(artifact.storageTag == 2){
           if(artifact.profileImage != updates.profileImage){
             deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
           }
         }
 
         for (const artifactAssets of artifact.dataValues.artifact_assets){
-          if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1 && artifactAssets.profileImage.indexOf('design.hnu.edu.cn') == -1){
+          if (artifactAssets.storageTag == 2){
               if(ctx.app.judgeImageStringInArrayObject(artifactAssets.profileImage,updates.artifact_assets)){
                 deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
               }
           }
 
-          if(artifactAssets.type == 2 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          if(artifactAssets.type == 2 &&  artifactAssets.storageTag == 2){
             if(ctx.app.judgeMediaStringInArrayObject(artifactAssets.mediaFile,updates.artifact_assets)){
               deleteAliOSSArray.push(ctx.app.pdfPath + artifactAssets.mediaFile);
             }
           }
-          else if(artifactAssets.type == 3 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          else if(artifactAssets.type == 3 &&  artifactAssets.storageTag == 2){
             if(ctx.app.judgeMediaStringInArrayObject(artifactAssets.mediaFile,updates.artifact_assets)){
               deleteAliOSSArray.push(ctx.app.rar_zipPath + artifactAssets.mediaFile);
             }
           }
-          else if(artifactAssets.type == 4 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          else if(artifactAssets.type == 4 &&  artifactAssets.storageTag == 2){
             if(ctx.app.judgeMediaStringInArrayObject(artifactAssets.mediaFile,updates.artifact_assets)){
               deleteAliOSSArray.push(ctx.app.videoPath + artifactAssets.mediaFile);
             }
           }
-          else if(artifactAssets.type == 5 &&  artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          else if(artifactAssets.type == 5 &&  artifactAssets.storageTag == 2){
             if(ctx.app.judgeMediaStringInArrayObject(artifactAssets.mediaFile,updates.artifact_assets)){
               deleteAliOSSArray.push(ctx.app.othersPath + artifactAssets.mediaFile);
               let h5Dir = ctx.app.localH5Path + id;
@@ -441,25 +460,25 @@ class Artifacts extends Service {
 
       let deleteAliOSSArray = new Array();
       try{
-        if (artifact.profileImage.indexOf('pinwall.fzcloud') == -1){
+        if (artifact.storageTag == 2){
           deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
         }
 
         for (const artifactAssets of artifact.dataValues.artifact_assets){
-          if (artifactAssets.profileImage.indexOf('pinwall.fzcloud') == -1){
+          if (artifactAssets.storageTag == 2){
             deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
           }
 
-          if(artifactAssets.type == 2 && artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          if(artifactAssets.type == 2 && artifactAssets.storageTag == 2){
             deleteAliOSSArray.push(ctx.app.pdfPath + artifactAssets.mediaFile);
           }
-          else if(artifactAssets.type == 3  && artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          else if(artifactAssets.type == 3  && artifactAssets.storageTag == 2){
             deleteAliOSSArray.push(ctx.app.rar_zipPath + artifactAssets.mediaFile);
           }
-          else if(artifactAssets.type == 4  && artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          else if(artifactAssets.type == 4  && artifactAssets.storageTag == 2){
             deleteAliOSSArray.push(ctx.app.videoPath + artifactAssets.mediaFile);
           }
-          else if(artifactAssets.type == 5  && artifactAssets.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          else if(artifactAssets.type == 5  && artifactAssets.storageTag == 2){
             deleteAliOSSArray.push(ctx.app.othersPath + artifactAssets.mediaFile);
           }
         }
@@ -490,8 +509,11 @@ class Artifacts extends Service {
     if(max < limit){
         listData.forEach((element, index)=>{
             let profileImage = element.profileImage;
-            if (profileImage.indexOf('pinwall.fzcloud') == -1 && profileImage.indexOf('design.hnu.edu.cn') == -1){
+            if (element.storageTag == 2){
                 element.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
+            }
+            else{
+              element.profileImage = app.qiniuUrlPrefix + element.profileImage;
             }
         });
 
@@ -507,8 +529,11 @@ class Artifacts extends Service {
       let result = new Array();
       for (let item of setData.values()) {
         let profileImage = listData[item].dataValues.profileImage;
-        if (profileImage.indexOf('pinwall.fzcloud') == -1 && profileImage.indexOf('design.hnu.edu.cn') == -1){
+        if (listData[item].dataValues.storageTag == 2){
           listData[item].dataValues.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
+        }
+        else{
+          listData[item].dataValues.profileImage = app.qiniuUrlPrefix + listData[item].dataValues.profileImage;
         }
         result.push(listData[item]);
       }
@@ -532,10 +557,12 @@ class Artifacts extends Service {
       let artifacts = await this.ctx.model.Artifacts.getPersonalJobByFullname(query)
 
       artifacts.rows.forEach((element, index)=>{
-        if (element.profileImage.indexOf('pinwall.fzcloud') == -1 && element.profileImage.indexOf('design.hnu.edu.cn') == -1){
+        if (element.storageTag == 2){
           element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
         }
-
+        else{
+          element.profileImage = app.qiniuUrlPrefix + element.profileImage;
+        }
       });
       result.artifacts = artifacts;
     }
@@ -554,28 +581,42 @@ class Artifacts extends Service {
     }
     const app = this.ctx.app;
     resultObj.rows.forEach((element, index)=>{
-      if (element.profileImage.indexOf('pinwall.fzcloud') == -1 && element.profileImage.indexOf('design.hnu.edu.cn') == -1){
+      if (element.storageTag == 2){
         element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
+      }
+      else{
+        element.profileImage = app.qiniuUrlPrefix + element.profileImage;
       }
 
       for (let subElement of element.artifact_assets){
-        if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1){
+        if (subElement.storageTag == 2){
           subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
         }
-
+        else{
+          subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
+        }
         if (subElement.type == 2 && subElement.mediaFile != null){
-          if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          if (subElement.storageTag == 2){
             subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
+          }
+          else{
+            subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
         }
         else if (subElement.type == 3 && subElement.mediaFile != null){
-          if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          if (subElement.storageTag == 2){
             subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
+          }
+          else{
+            subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
         }
         else if (subElement.type == 4 && subElement.mediaFile != null){
-          if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+          if (subElement.storageTag == 2){
             subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
+          }
+          else{
+            subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
         }
       }
@@ -711,7 +752,7 @@ class Artifacts extends Service {
     if(max > 0){
         listData.forEach((element, index)=>{
             let profileImage = element.profileImage;
-            if (profileImage.indexOf('pinwall.fzcloud') == -1 && profileImage.indexOf('design.hnu.edu.cn') == -1){
+            if (element.storageTag == 2){
                 element.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
             }
         });
@@ -724,40 +765,40 @@ class Artifacts extends Service {
     const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
     const app = this.ctx.app;
 
-    if (artifact.profileImage.indexOf('pinwall.fzcloud') == -1 && artifact.profileImage.indexOf('design.hnu.edu.cn') == -1){
+    if (artifact.storageTag == 2){
       artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
     }
 
     for (let subElement of artifact.dataValues.artifact_assets){
-      if (subElement.profileImage.indexOf('pinwall.fzcloud') == -1 && subElement.profileImage.indexOf('design.hnu.edu.cn') == -1){
+      if (subElement.storageTag == 2){
         subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
       }
       else{
-        subElement.profileImage = subElement.profileImage.replace('http://','https://');
+        subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
       }
 
       if (subElement.type == 2 && subElement.mediaFile != null){
-        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+        if (subElement.storageTag == 2){
           subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
         }
         else{
-          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
+          subElement.profileImage = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
       else if (subElement.type == 3 && subElement.mediaFile != null){
-        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+        if (subElement.storageTag == 2){
           subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
         }
         else{
-          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
+          subElement.profileImage = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
       else if (subElement.type == 4 && subElement.mediaFile != null){
-        if (subElement.mediaFile.indexOf('pinwall.fzcloud') == -1){
+        if (subElement.storageTag == 2){
           subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
         }
         else{
-          subElement.mediaFile = subElement.mediaFile.replace('http://','https://');
+          subElement.profileImage = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
       else if (subElement.type == 5 && subElement.mediaFile != null){

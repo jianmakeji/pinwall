@@ -58,6 +58,20 @@ class ArtifactsController extends Controller {
       ctx.body = e.message;
     }
   }
+
+  async updateArtifactStorageTag(){
+    const ctx = this.ctx;
+
+    let result = await ctx.service.artifacts.updateArtifactStorageTag();
+
+  }
+
+  async updateArtifactAssetsStorageTag(){
+    const ctx = this.ctx;
+
+    let result = await ctx.service.artifacts.updateArtifactAssetsStorageTag();
+
+  }
 }
 
 module.exports = ArtifactsController;

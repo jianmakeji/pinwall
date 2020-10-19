@@ -28,6 +28,11 @@ module.exports = app => {
       type:STRING(100),
       allowNull: true
     },
+    storageTag: {
+      type: INTEGER,
+      allowNull: false,
+      defaultValue: '0'
+    },
     imagename: {
       type:STRING(100),
       allowNull: true

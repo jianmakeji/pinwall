@@ -12,6 +12,19 @@ module.exports = appInfo => {
   config.mysql = {
     clients: {
       // clientId, 获取client实例，需要通过 app.mysql.get('clientId') 获取
+      db:{
+        // host
+        host: '192.168.3.101',
+        // 端口号
+        port: '3306',
+        // 用户名
+        user: 'root',
+        // 密码
+        password: 'root',
+        // 数据库名
+        database: 'pinwall2',
+      }
+      /*
       db1: {
         // host
         host: '192.168.3.110',
@@ -59,7 +72,7 @@ module.exports = appInfo => {
         password: 'root',
         // 数据库名
         database: 'PrometheusV2',
-      },
+      },*/
     },
     // 所有数据库配置的默认值
     default: {
