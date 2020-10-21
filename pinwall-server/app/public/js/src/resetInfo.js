@@ -87,6 +87,9 @@ var index = new Vue({
                       if(res.status == 200){
                           that.$Loading.finish();
                           that.$Notice.success({ title: res.data, duration:2});
+                          setTimeout(function(){
+                            window.location.reload();
+                          },2000);
                       }else{
                           that.$Notice.error({ title: res.data, duration:2});
                       }

@@ -93,12 +93,13 @@ class UsersController extends BaseController{
 
     try{
       await ctx.service.users.update({ id, updates });
-      if(avatarUrl != "" && user.avatarUrl != null  && !user.avatarUrl.includes("thirdwx.qlogo.cn")){
+      if(avatarUrl != "" && ctx.user.avatarUrl != null  && !ctx.user.avatarUrl.includes("thirdwx.qlogo.cn")){
         ctx.user.avatarUrl = ctx.app.signatureUrl(ctx.app.headiconPath + avatarUrl, "thumb_120_120");
       }
       super.success('更新成功!');
     }
     catch(e){
+      console.log(e);
       super.failure(e.message);
     }
   }

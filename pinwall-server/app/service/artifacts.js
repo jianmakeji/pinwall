@@ -71,11 +71,11 @@ class Artifacts extends Service {
     const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
     const app = this.ctx.app;
 
-    if (element.storageTag == 2){
-      element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
+    if (artifact.storageTag == 2){
+      artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
     }
     else{
-      element.profileImage = app.qiniuUrlPrefix + element.profileImage;
+      artifact.profileImage = app.qiniuUrlPrefix + artifact.profileImage;
     }
 
     for (let subElement of artifact.dataValues.artifact_assets){

@@ -26,8 +26,11 @@ class SearchController extends BaseController{
       }).then(function (resp) {
           var hits = resp.hits;
           hits.hits.forEach((element,index)=>{
-            if(element._source.profileImage.indexOf('pinwall.fzcloud') == -1){
+            if(element._source.storageTag == 2){
               element._source.profileImage = ctx.app.signatureUrl(ctx.app.imagePath + element._source.profileImage, "thumb_360_360");
+            }
+            else{
+              element._source.profileImage = ctx.app.qiniuUrlPrefix + element._source.profileImage;
             }
           });
           return hits;
