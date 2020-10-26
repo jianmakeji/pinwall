@@ -91,6 +91,9 @@ module.exports = app => {
 
   router.get('website.users.bindWeixin', '/website/users/bindWeixin', controller.website.users.bindWeixin);
   router.post('website.users.bindWeixinInfoByEmail', '/website/users/bindWeixinInfoByEmail', controller.website.users.bindWeixinInfoByEmail);
+  router.post('website.users.h5BindWeixinInfoByMobile', '/website/users/h5BindWeixinInfoByMobile', controller.website.users.h5BindWeixinInfoByMobile);
+  router.post('website.users.h5CreateNewWeixinInfoByMobile', '/website/users/h5CreateNewWeixinInfoByMobile', controller.website.users.h5CreateNewWeixinInfoByMobile);
+
   router.get('website.users.updateWxActive', '/website/users/updateWxActive', controller.website.users.updateWxActive);
   router.post('website.users.createWxUser', '/website/users/createWxUser', controller.website.users.createWxUser);
   router.post('website.users.createUser', '/website/users/createUser', controller.website.users.createUser);
@@ -102,6 +105,7 @@ module.exports = app => {
   router.put('website.users.updateUserRole', '/website/users/updateUserRole', adminAuthCheck, controller.website.users.updateUserRole);
   router.get('website.users.searchByUsername', '/website/users/searchByUsername', controller.website.users.searchByUsername);
   router.get('website.users.searchByEmail', '/website/users/searchByEmail', adminAuthCheck, controller.website.users.searchByEmail);
+  router.get('website.users.mobileBindWeixin', '/website/users/mobileBindWeixin', controller.website.users.mobileBindWeixin);
 
   router.get('website.users.sendBindingEmailCode', '/website/users/sendBindingEmailCode', controller.website.users.sendBindingEmailCode);
   router.get('website.topics.getTopicAndArtifactById', '/website/topics/getTopicAndArtifactById', controller.website.topics.getTopicAndArtifactById);
@@ -170,6 +174,11 @@ module.exports = app => {
             successReturnToOrRedirect : '/mobile',successFlash: true,
             failureRedirect: '/mobile/codeauthrelogin',failureFlash: true }));
 
+  //h5微信授权登录
+  router.get('/loginByWeixinClient',app.passport.authenticate('loginByWeixinClient', {
+       successReturnToOrRedirect : '/website/users/mobileBindWeixin',successFlash: true,
+       failureRedirect: '/wx',failureFlash: true,state: 'hello-h5-pinwall', }));
+
   router.get('/mobile', controller.mobile.index);
   router.get('/mobile/graduate', controller.mobile.graduate);
   router.get('/mobile/search', controller.mobile.search);
@@ -184,5 +193,6 @@ module.exports = app => {
   router.get('/mobile/register', controller.mobile.register);
   router.get('/mobile/findpwd', controller.mobile.findpwd);
   router.get('/mobile/updatepwd', controller.mobile.updatepwd);
-
+  router.get('/mobile/prehtml', controller.mobile.prehtml);
+  router.get('/mobile/wxCompleteInfo', controller.mobile.wxCompleteInfo);
 };

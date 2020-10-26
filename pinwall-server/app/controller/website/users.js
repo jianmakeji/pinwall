@@ -248,6 +248,32 @@ class UsersController extends BaseController{
     }
   }
 
+  async mobileBindWeixin(){
+    const ctx = this.ctx;
+    const unionId = ctx.user.unionid;
+    const user = await ctx.service.users.findByUnionId(unionId);
+    if(user){
+      if(user.Id && (user.email || user.mobile) ){
+        if(user.wxActive == 0){
+          ctx.redirect('/mobile/wxCompleteInfo');
+        }
+        else{
+          ctx.user.Id = user.Id;
+          ctx.user.email = user.email;
+          ctx.user.fullname = user.fullname;
+          ctx.user.roles = user.roles;
+          ctx.user.avatarUrl = user.avatarUrl;
+          ctx.redirect('/mobile/prehtml');
+        }
+      }else{
+        ctx.redirect('/mobile/wxCompleteInfo');
+      }
+    }
+    else{
+      ctx.redirect('/mobile/wxCompleteInfo');
+    }
+  }
+
   async bindWeixinInfoByEmail(){
     const ctx = this.ctx;
     const emailOrPhone = ctx.request.body.email;
@@ -260,6 +286,83 @@ class UsersController extends BaseController{
       super.failure('绑定失败!');
     }
   }
+
+  async h5BindWeixinInfoByMobile(){
+    const ctx = this.ctx;
+    const mobile = ctx.request.body.mobile;
+    const smsCode = ctx.request.body.code;
+    let vertifyResult = await ctx.service.smsMessage.getDataByCondition({mobile:mobile,code:smsCode});
+    if (vertifyResult.status == 200){
+      if (ctx.user){
+        try{
+          const result = await ctx.service.users.bindWeixinInfoByMobile(mobile,ctx.user);
+          if (result){
+            ctx.user.mobile = mobile;
+            super.success('操作成功！');
+          }
+          else{
+            super.failure('操作失败！请重新操作');
+          }
+        }
+        catch(e){
+          super.failure(e.message);
+        }
+      }
+      else{
+        super.failure('微信扫描信息有误，请重新扫描!');
+      }
+    }
+    else{
+      return vertifyResult;
+    }
+  }
+
+  async h5CreateNewWeixinInfoByMobile(){
+    const ctx = this.ctx;
+    const mobile = ctx.request.body.mobile;
+    const smsCode = ctx.request.body.code;
+    const fullname = ctx.request.body.fullname;
+    const password = ctx.request.body.password;
+    let vertifyResult = await ctx.service.smsMessage.getDataByCondition({mobile:mobile,code:smsCode});
+    if (vertifyResult.status == 200){
+      if (ctx.user){
+        let user = {
+          mobile:mobile,
+          fullname:fullname,
+          password:password,
+          openId:ctx.user.openid,
+          nickname:ctx.user.nickname,
+          gender:ctx.user.sex,
+          city:ctx.user.city,
+          province:ctx.user.province,
+          country:ctx.user.country,
+          avatarUrl:ctx.user.headimageurl,
+          unionId:ctx.user.unionid,
+        };
+        try{
+          const result = await ctx.service.users.createUser(user,1);
+          if (result){
+            ctx.user.mobile = mobile;
+            ctx.user.fullname = fullname;
+            super.success('操作成功！');
+          }
+          else{
+            super.failure('操作失败！请重新操作');
+          }
+        }
+        catch(e){
+          super.failure(e.message);
+        }
+      }
+      else{
+        super.failure('微信扫描信息有误，请重新扫描!');
+      }
+    }
+    else{
+      return vertifyResult;
+    }
+  }
+
 
   async updateWxActive(){
     const ctx = this.ctx;

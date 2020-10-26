@@ -151,6 +151,20 @@ class MobileController extends BaseController {
 
     });
   }
+
+  async prehtml(){
+    const ctx = this.ctx;
+    await ctx.render('mobile/pre.html',{
+
+    });
+  }
+
+  async wxCompleteInfo(){
+    const ctx = this.ctx;
+    await ctx.render('mobile/wxCompleteInfo.html',{
+
+    });
+  }
 }
 
 module.exports = MobileController;

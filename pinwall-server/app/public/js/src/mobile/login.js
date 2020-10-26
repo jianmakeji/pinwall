@@ -161,5 +161,21 @@ new Vue({
         $("#form_content").append(this.template_html2);
       }
     }
+  },
+  mounted() {
+    //do something after mounting vue instance
+    var prevurl = document.referrer;
+    console.log(prevurl);
+    window.localStorage.setItem('wx_prev_url',prevurl);
+    window.location.href = '/loginByWeixinClient';
+    /*
+    var ua = window.navigator.userAgent.toLowerCase();
+    if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+        // 是微信端
+        var prevurl = document.referrer;
+        alert('*****');
+        window.localStorage.setitem('wx_prev_url',prevurl);
+        window.location.href = '/loginByWeixinClient';
+    }*/
   }
 })

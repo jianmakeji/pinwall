@@ -152,6 +152,30 @@ class Users extends Service {
     }
   }
 
+  async bindWeixinInfoByMobile(mobile,user){
+    const app = this.ctx.app;
+    let wxInfo = {};
+    wxInfo.openId = user.openid;
+    wxInfo.nickname = user.nickname;
+    wxInfo.avatarUrl = user.headimageurl;
+    wxInfo.gender = user.sex;
+    wxInfo.province = user.province;
+    wxInfo.city = user.city;
+    wxInfo.country = user.country;
+    wxInfo.unionId = user.unionid;
+    wxInfo.mobile = mobile;
+    wxInfo.wxActive = 1;
+
+    try{
+      await this.ctx.model.Users.updateWxInfoByMobile(wxInfo);
+      return true;
+    }
+    catch(e){
+      return false;
+    }
+  }
+
+
   async updateWxActiveByActiveCodeAndUnionId(unionId,activeCode){
     return await this.ctx.model.Users.updateWxActiveByActiveCodeAndUnionId(unionId,activeCode,1);
   }
