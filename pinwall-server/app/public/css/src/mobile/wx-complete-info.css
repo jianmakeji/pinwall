@@ -30,21 +30,22 @@
 }
 
 .mobile{
-  margin: 10px;
-  width:90%;
+  position: relative;
+  margin: 10px 0px;
+  width:100%;
 }
 
 .code{
-  margin: 5px;
-  width:57%;
+  margin: 10px 0px;
+  width:calc(100% - 110px);
 }
 
 .auth_code_btn1{
-  width: 30%;
+  width: 100px;
   color:#6D7278;
 }
 
 .auth_code_btn2{
-  width: 30%;
+  width: 100px;
   color:#6D7278;
 }

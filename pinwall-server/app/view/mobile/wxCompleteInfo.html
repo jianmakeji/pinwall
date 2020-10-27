@@ -16,38 +16,23 @@
 
     <Tabs :animated="false" style="margin:30px 10px 20px;">
          <tab-pane label="绑定现有用户">
-           <div style="text-align:center">
              <i-input v-model="mobile1" placeholder="请输入手机号" class="mobile" ></i-input>
-           </div>
-           <div  style="text-align:center">
              <i-input v-model="code1" placeholder="请输入验证码" enter-button="发送" class="code"></i-input>
              <i-button  class="auth_code_btn1" @click="sendSMSMessage1">获取验证码</i-button>
-           </div>
-           <div style="text-align:center">
-             <i-button style="width:30%;margin-top:15px;" @click="btn1Click">提交</i-button>
-           </div>
-
+             <div style="text-align:center">
+               <i-button style="width:30%;margin-top:15px;" @click="btn1Click">提交</i-button>
+             </div>
          </tab-pane>
          <tab-pane label="创建新用户">
-           <div style="text-align:center">
              <i-input v-model="mobile2" placeholder="请输入手机号" class="mobile" ></i-input>
-           </div>
-           <div  style="text-align:center">
              <i-input v-model="code2" placeholder="请输入验证码" enter-button="发送" class="code"></i-input>
-             <i-button  class="auth_code_btn2" @click="sendSMSMessage">获取验证码</i-button>
-           </div>
-           <div style="text-align:center">
+             <i-button  class="auth_code_btn2" @click="sendSMSMessage2">获取验证码</i-button>
              <i-input v-model="fullname" placeholder="请输入真实姓名" class="mobile" ></i-input>
-           </div>
-           <div style="text-align:center">
              <i-input v-model="password1" placeholder="请输入密码" type="password" class="mobile" ></i-input>
-           </div>
-           <div style="text-align:center">
              <i-input v-model="password2" placeholder="请输入密码" type="password" class="mobile" ></i-input>
-           </div>
-           <div style="text-align:center">
-             <i-button style="width:30%;margin-top:15px;" @click="btn2Click">提交</i-button>
-           </div>
+             <div style="text-align:center">
+               <i-button style="width:30%;margin-top:15px;" @click="btn2Click">提交</i-button>
+             </div>
          </tab-pane>
      </Tabs>
   </div>

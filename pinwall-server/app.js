@@ -117,8 +117,8 @@ module.exports = app => {
   //微信客户端登录
   //微信官网文档：http://mp.weixin.qq.com/wiki/17/c0f37d5704f0b64713d5d2c37b468d75.html
   app.passport.use('loginByWeixinClient', new WeixinStrategy({
-    clientID: 'wx969cc63a2b3e2b3c',
-    clientSecret: '4d56fa7ebb9b576d456fc2e8be203098',
+    clientID: 'wx72c619c97837ad21',
+    clientSecret: 'fa139272b80d16116eff88680d5b545d',
     callbackURL: 'https://pinwall.cn/loginByWeixinClient',
     requireState: false,
     authorizationURL: 'https://open.weixin.qq.com/connect/oauth2/authorize', //[公众平台-网页授权获取用户基本信息]的授权URL 不同于[开放平台-网站应用微信登录]的授权URL
