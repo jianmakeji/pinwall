@@ -167,11 +167,17 @@ class Users extends Service {
     wxInfo.wxActive = 1;
 
     try{
-      await this.ctx.model.Users.updateWxInfoByMobile(wxInfo);
-      return true;
+      let userInfo = await this.ctx.model.Users.findUserByMobile(mobile);
+      if(userInfo){
+        await this.ctx.model.Users.updateWxInfoByMobile(wxInfo);
+        return {result:true,message:'操作成功!'};
+      }
+      else{
+        return {result:false,message:'该手机号码用户不存在!'};
+      }
     }
     catch(e){
-      return false;
+      return {result:false,message:e.message};
     }
   }
 

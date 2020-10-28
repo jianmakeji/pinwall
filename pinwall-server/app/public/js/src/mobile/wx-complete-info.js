@@ -19,8 +19,23 @@ var app = new Vue({
         if(path && path != ''){
           window.location.href = path;
         }
+        else{
+          window.location.href = '/mobile/login';
+        }
       }else{
         window.history.back(-1);
+      }
+    },
+    settime:function(val) {
+      let that = this;
+      if (this.count_seconds == 0) {
+          val.text("获取验证码");
+      } else {
+          val.text("重新发送(" + this.count_seconds + ")");
+          this.count_seconds--;
+          setTimeout(function() {
+              that.settime(val);
+          },1000)
       }
     },
     sendSMSMessage1:function(){
@@ -120,6 +135,7 @@ var app = new Vue({
       }
     },
     btn1Click:function(){
+      let that = this;
       let url = "/website/users/h5BindWeixinInfoByMobile";
       if(this.mobile1 == ''){
         this.$Message.warning('请输入手机号!');
@@ -142,9 +158,12 @@ var app = new Vue({
       .done(function(responseData) {
         if(responseData.status == 200){
           that.$Message.success(responseData.data);
-          var preurl = window.localStorage.getitem('wx_prev_url');
+          var preurl = window.localStorage.getItem('wx_prev_url');
           if(preurl && preurl != ''){
             window.location.href = preurl;
+          }
+          else{
+            window.location.href = '/mobile';
           }
         }
         else{
@@ -157,6 +176,7 @@ var app = new Vue({
     },
 
     btn2Click:function(){
+      let that = this;
       let url = "/website/users/h5CreateNewWeixinInfoByMobile";
 
       if(this.mobile2 == ''){
@@ -200,11 +220,15 @@ var app = new Vue({
       .done(function(responseData) {
         if(responseData.status == 200){
           that.$Message.success(responseData.data);
-          var preurl = window.localStorage.getitem('wx_prev_url');
-          if(preurl && preurl != ''){
-            window.location.href = preurl;
-          }
-
+          setTimeout(function(){
+            var preurl = window.localStorage.getItem('wx_prev_url');
+            if(preurl && preurl != ''){
+              window.location.href = preurl;
+            }
+            else{
+              window.location.href = '/mobile';
+            }
+          },1500);
         }
         else{
           that.$Message.warning(responseData.data);

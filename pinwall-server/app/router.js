@@ -92,6 +92,7 @@ module.exports = app => {
   router.get('website.users.bindWeixin', '/website/users/bindWeixin', controller.website.users.bindWeixin);
   router.post('website.users.bindWeixinInfoByEmail', '/website/users/bindWeixinInfoByEmail', controller.website.users.bindWeixinInfoByEmail);
   router.post('website.users.h5BindWeixinInfoByMobile', '/website/users/h5BindWeixinInfoByMobile', controller.website.users.h5BindWeixinInfoByMobile);
+  
   router.post('website.users.h5CreateNewWeixinInfoByMobile', '/website/users/h5CreateNewWeixinInfoByMobile', controller.website.users.h5CreateNewWeixinInfoByMobile);
 
   router.get('website.users.updateWxActive', '/website/users/updateWxActive', controller.website.users.updateWxActive);

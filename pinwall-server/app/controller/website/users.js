@@ -295,13 +295,14 @@ class UsersController extends BaseController{
     if (vertifyResult.status == 200){
       if (ctx.user){
         try{
-          const result = await ctx.service.users.bindWeixinInfoByMobile(mobile,ctx.user);
-          if (result){
+          const resultObj = await ctx.service.users.bindWeixinInfoByMobile(mobile,ctx.user);
+          console.log(resultObj);
+          if (resultObj.result){
             ctx.user.mobile = mobile;
             super.success('操作成功！');
           }
           else{
-            super.failure('操作失败！请重新操作');
+            super.failure(resultObj.message);
           }
         }
         catch(e){
@@ -309,11 +310,11 @@ class UsersController extends BaseController{
         }
       }
       else{
-        super.failure('微信扫描信息有误，请重新扫描!');
+        super.failure('授权出错，请重新操作!');
       }
     }
     else{
-      return vertifyResult;
+      this.ctx.body =  vertifyResult;
     }
   }
 
@@ -359,7 +360,7 @@ class UsersController extends BaseController{
       }
     }
     else{
-      return vertifyResult;
+      this.ctx.body = vertifyResult;
     }
   }
 
@@ -425,7 +426,7 @@ class UsersController extends BaseController{
         }
       }
       else{
-        return vertifyResult;
+        this.ctx.body =  vertifyResult;
       }
 
     }

@@ -7,7 +7,7 @@ new Vue({
   data: {
     pageNum:1,
     dataList:[],
-    status:0,
+    status:-1,
     userId:-1,
     spin_show:false,
   },
@@ -106,7 +106,7 @@ new Vue({
       });
     },
     artifactClick:function(id){
-      window.localStorage.setItem("fromDetailPath", window.location.pathname + window.location.search); 
+      window.localStorage.setItem("fromDetailPath", window.location.pathname + window.location.search);
       window.location.href = "/mobile/workdetail?artifactId=" + id;
     }
   },

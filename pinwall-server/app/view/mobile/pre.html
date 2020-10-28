@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>图钉墙</title>
 </head>
 <body>
 
@@ -12,8 +12,13 @@
 <script type="text/javascript">
   var ua = window.navigator.userAgent.toLowerCase();
   if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-      var preurl = window.localStorage.getitem('wx_prev_url');
-      window.location.href = preurl;
+      var preurl = window.localStorage.getItem('wx_prev_url');
+      if(preurl != '' && preurl != null){
+        window.location.href = preurl;
+      }
+      else{
+        window.location.href = '/mobile';
+      }
   }
   else{
     window.location.href = '/mobile';
