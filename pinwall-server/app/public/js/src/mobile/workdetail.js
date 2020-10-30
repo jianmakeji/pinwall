@@ -250,6 +250,8 @@ new Vue({
       $(".mask").hide();
       $(".share_panel").hide();
 
+      saveAs('/wx/share/createShareImage/' + this.artifactId, 'image.png');
+      /*
       var eleLink = document.createElement('a');
       eleLink.download = this.artifactId;
       eleLink.style.display = 'none';
@@ -263,7 +265,7 @@ new Vue({
       document.body.appendChild(eleLink);
       eleLink.click();
       document.body.removeChild(eleLink);
-
+      */
     },
     fullnameClick:function(userId){
       window.location.href = "/mobile/workset?userId=" + userId;
