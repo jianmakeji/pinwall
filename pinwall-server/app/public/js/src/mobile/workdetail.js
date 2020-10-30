@@ -22,9 +22,9 @@ new Vue({
     comment_or_score_value:'',
   },
   methods: {
-    isWeixin () {
+    isWeixin() {
       let wx = navigator.userAgent.toLowerCase()
-      if (wx.match(/MicroMessenger/i) === 'micromessenger') {
+      if (wx.match(/micromessenger/)) {
         return true
       } else {
         return false
@@ -231,14 +231,20 @@ new Vue({
       }
     },
     shareClick:function(){
-      $(".mask").show();
-      $(".share_panel").show();
-      $(".share_img").attr('src','/wx/share/createShareImage/' + this.artifactId);
-      this.spin_show = true;
       let that = this;
-      $("#share_img").load(function(){
-        that.spin_show = false;
-      });
+      if(this.isWeixin()){
+        that.$Message.success('请点击右上角进行分享!');
+      }
+      else{
+        $(".mask").show();
+        $(".share_panel").show();
+        $(".share_img").attr('src','/wx/share/createShareImage/' + this.artifactId);
+        this.spin_show = true;
+        let that = this;
+        $("#share_img").load(function(){
+          that.spin_show = false;
+        });
+      }
     },
     saveShareBtnClick:function(){
       $(".mask").hide();
@@ -272,7 +278,76 @@ new Vue({
         window.history.back(-1);
       }
 
+    },
+    randomString:function(len){
+      len = len || 32;
+  　　var $chars = 'abcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+ 　   var maxPos = $chars.length;
+  　　 var str = '';
+  　　for (i = 0; i < len; i++) {
+      str += $chars.charAt(Math.floor(Math.random() * maxPos));
+  　　}
+ 　　return str;
     }
+  },
+  mounted() {
+    let that = this;
+    let timestamp = new Date().getTime();
+    if(timestamp.toString().length > 10){
+      timestamp = timestamp.toString().substring(0,10);
+    }
+    let nonceStr = this.randomString(12);
+    $.ajax({
+      url: '/wx/share/getSingnature',
+      type: 'get',
+      dataType: 'json',
+      data: {
+        noncestr: nonceStr,
+        timestamp: timestamp,
+        Id: that.artifactId,
+      }
+    })
+    .done(function(responseData) {
+      if(responseData.status == 200){
+        wx.config({
+          debug: false,
+          appId: 'wx72c619c97837ad21',
+          timestamp: timestamp,
+          nonceStr: nonceStr,
+          signature: responseData.data,// 必填，签名
+          jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage']
+        });
+        let link = 'https://pinwall.cn/mobile/workdetail?artifactId=' + that.artifactId;
+        let imgUrl = $('#thumbUrl').text();
+        let title = $('.title').text();
+        wx.ready(function(){
+          wx.onMenuShareTimeline({
+            title: title,
+            link: link,
+            imgUrl: imgUrl, // 分享图标
+            success: function () {
+              that.$Message.success('分享成功!');
+            }
+          });
+          wx.onMenuShareAppMessage({
+            title:title,
+            link: link,
+            imgUrl: imgUrl, // 分享图标
+            success: function () {
+                that.$Message.success('分享成功!');
+            },
+            cancel: function () {
+            }
+           });
+        });
+      }
+    })
+    .fail(function() {
+      console.log("error");
+    })
+    .always(function() {
+      console.log("complete");
+    });
   },
   created() {
     this.artifactId = getUrlKey('artifactId');

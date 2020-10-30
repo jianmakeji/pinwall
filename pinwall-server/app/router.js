@@ -92,7 +92,7 @@ module.exports = app => {
   router.get('website.users.bindWeixin', '/website/users/bindWeixin', controller.website.users.bindWeixin);
   router.post('website.users.bindWeixinInfoByEmail', '/website/users/bindWeixinInfoByEmail', controller.website.users.bindWeixinInfoByEmail);
   router.post('website.users.h5BindWeixinInfoByMobile', '/website/users/h5BindWeixinInfoByMobile', controller.website.users.h5BindWeixinInfoByMobile);
-  
+
   router.post('website.users.h5CreateNewWeixinInfoByMobile', '/website/users/h5CreateNewWeixinInfoByMobile', controller.website.users.h5CreateNewWeixinInfoByMobile);
 
   router.get('website.users.updateWxActive', '/website/users/updateWxActive', controller.website.users.updateWxActive);
@@ -144,6 +144,7 @@ module.exports = app => {
   router.get('/wx/artifacts/findCommentsByArtifactIdWithPage', controller.wx.artifacts.findCommentsByArtifactIdWithPage);
   router.get('/wx/artifacts/getMedalLikeDataByUserIdAndArtifactsId', controller.wx.artifacts.getMedalLikeDataByUserIdAndArtifactsId);
   router.get('/wx/share/createShareImage/:id', controller.wx.share.createShareImage);
+  router.get('/wx/share/getSingnature', controller.wx.share.getSingnature);
 
   router.get('/wx/topics/getTopicAndArtifactById', controller.wx.topics.getTopicAndArtifactById);
   router.get('/wx/topics/findArtifactByTopicId', controller.wx.topics.findArtifactByTopicId);

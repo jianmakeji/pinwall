@@ -8,6 +8,8 @@ const readFile = promisify(fs.readFile);
 const qr = require('qr-image'); //这个插件是用来画二维码的也很好用
 //const { createCanvas, loadImage, Image} = require('canvas')
 //const Canvas = require('canvas');
+const {createHash}= require('crypto');
+const fileUtil = require('../../utils/fileUtils');
 
 class ShareController extends BaseController {
 
@@ -77,6 +79,103 @@ class ShareController extends BaseController {
     else{
       this.ctx.body = null;
     }*/
+  }
+
+  async getSingnature(){
+    let ctx = this.ctx;
+    let noncestr = ctx.query.noncestr;
+    let timestamp = ctx.query.timestamp;
+    let shareUrl = "https://pinwall.cn/mobile/workdetail?artifactId=" + ctx.query.Id;
+    try{
+      let accessTokenPath = path.join(__dirname,'../../../config/wx_access_token.json');
+      let ticketPath = path.join(__dirname,'../../../config/wx_ticket.json');
+      let accessTokenJson = fileUtil.readConfigJson(accessTokenPath);
+      let access_token = '';
+      let accessTokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx72c619c97837ad21&secret=fa139272b80d16116eff88680d5b545d";
+      let currentDate = new Date();
+      if(accessTokenJson != null){
+
+        let getAccessTokenTime = new Date(accessTokenJson.getAccessTokenTime);
+        let seconds = (currentDate.getTime() - getAccessTokenTime.getTime()) / 1000;
+        if(typeof(accessTokenJson.expire) == 'undefined' || seconds > accessTokenJson.expire){
+          const result = await ctx.curl(accessTokenUrl, {
+            method: 'GET',
+            dataType: 'json',
+          });
+          access_token = result.data.access_token;
+          let data = {
+            expire:result.data.expires_in,
+            getAccessTokenTime:currentDate,
+            access_token:access_token,
+          };
+          fileUtil.writeConfigJson(accessTokenPath,data);
+        }
+        else{
+          access_token = accessTokenJson.access_token;
+        }
+      }
+      else{
+        const result = await ctx.curl(accessTokenUrl, {
+          method: 'GET',
+          dataType: 'json',
+        });
+        access_token = result.data.access_token;
+        let data = {
+          expire:result.data.expires_in,
+          getAccessTokenTime:currentDate,
+          access_token:access_token,
+        };
+        fileUtil.writeConfigJson(accessTokenPath,data);
+      }
+
+      let jsapi_ticket = '';
+      let ticketJson = fileUtil.readConfigJson(ticketPath);
+      let ticketUrl = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="+access_token+"&type=jsapi";
+      if(ticketJson != null){
+        let getAccessTokenTime = new Date(ticketJson.getAccessTokenTime);
+        let seconds = (currentDate.getTime() - getAccessTokenTime.getTime()) / 1000;
+        if(typeof(ticketJson.expire) == 'undefined' || seconds > ticketJson.expire){
+          const result = await ctx.curl(ticketUrl, {
+            method: 'GET',
+            dataType: 'json',
+          });
+          jsapi_ticket = result.data.ticket;
+          let data = {
+            expire:result.data.expires_in,
+            getAccessTokenTime:currentDate,
+            ticket:jsapi_ticket,
+          };
+          fileUtil.writeConfigJson(ticketPath,data);
+        }
+        else{
+          jsapi_ticket = ticketJson.ticket;
+        }
+      }
+      else{
+        const result = await ctx.curl(ticketUrl, {
+          method: 'GET',
+          dataType: 'json',
+        });
+        jsapi_ticket = result.data.ticket;
+        let data = {
+          expire:result.data.expires_in,
+          getAccessTokenTime:currentDate,
+          ticket:jsapi_ticket,
+        };
+        fileUtil.writeConfigJson(ticketPath,data);
+      }
+
+      let str = 'jsapi_ticket=' + jsapi_ticket + '&noncestr=' + noncestr + '&timestamp=' + timestamp +'&url=' + shareUrl;
+      let hash = createHash('sha1');
+      hash.update(str);
+      let signature = hash.digest('hex');
+      super.success(signature);
+    }
+    catch(e){
+      console.log(e);
+      super.failure(e.message);
+    }
+
   }
 
 }

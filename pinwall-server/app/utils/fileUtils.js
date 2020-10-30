@@ -16,4 +16,23 @@ function delDir(path){
     }
 }
 
-module.exports.delDir = delDir;
+function readConfigJson(filePath){
+  let rawdata = fs.readFileSync(filePath);
+  if(rawdata){
+    return JSON.parse(rawdata);
+  }
+  else{
+    return null;
+  }
+}
+
+function writeConfigJson(filePath, jsonStr){
+  let data = JSON.stringify(jsonStr);
+  fs.writeFileSync(filePath, data);
+}
+
+module.exports = {
+  delDir:delDir,
+  readConfigJson:readConfigJson,
+  writeConfigJson:writeConfigJson,
+}

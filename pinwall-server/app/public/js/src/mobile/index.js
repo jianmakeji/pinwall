@@ -1,3 +1,4 @@
+
 new Vue({
   el: '#content',
   delimiters: ['${', '}'],
