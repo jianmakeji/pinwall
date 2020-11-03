@@ -84,7 +84,7 @@
                 <h2>{{data.name}}</h2>
 				{% if data.topics.length %}
 	                <p class="publishtime">
-	                    {{data.createAt.getFullYear()}}-{{data.createAt.getMonth() + 1}}-{{data.createAt.getDate()}}，收录于
+	                    {{data.createAt}}，收录于
 							{% for item in data.topics %}
 		                    		<a href="/workFolder/{{data.topics[0].Id}}">{{item.name}}</a>
 							{% endfor %}

@@ -1,4 +1,5 @@
 /* jshint indent: 2 */
+const moment = require('moment');
 
 module.exports = app => {
 
@@ -27,7 +28,10 @@ module.exports = app => {
     createAt: {
       type: DATE,
       allowNull: false,
-      defaultValue: app.Sequelize.literal('CURRENT_TIMESTAMP')
+      defaultValue: app.Sequelize.literal('CURRENT_TIMESTAMP'),
+      get(){
+        return moment(this.getDataValue('createAt')).format('YYYY-MM-DD HH:mm:ss');
+      }
     }
   }, {
     tableName: 'artifact_medal_like'

@@ -12,11 +12,19 @@ class ArtifactComment extends Service {
   }
 
   async findByArtifactIdWithPage({ offset = 0, limit = 10, artifactId = 0}) {
-    return this.ctx.model.ArtifactComments.findByArtifactIdWithPage({
+    let data = await this.ctx.model.ArtifactComments.findByArtifactIdWithPage({
       offset,
       limit,
       artifactId,
     });
+    data.rows.forEach((comment)=>{
+      let avatarUrl = comment.user.avatarUrl;
+      if(comment.user && avatarUrl != "" && avatarUrl != null && !avatarUrl.includes("qlogo.cn")){
+        comment.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + avatarUrl, "thumb_120_120");
+      }
+    });
+
+    return data;
   }
 
   async findCommentById(id) {
@@ -59,7 +67,7 @@ class ArtifactComment extends Service {
       await transaction.rollback();
       return false
     }
-    
+
     return artifact;
   }
 

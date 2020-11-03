@@ -69,6 +69,7 @@ class Artifacts extends Service {
   async find(id) {
 
     const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
+    
     const app = this.ctx.app;
 
     if (artifact.storageTag == 2){
@@ -233,6 +234,9 @@ class Artifacts extends Service {
         transaction = await this.ctx.model.transaction();
         artifact.visible = 0;
         artifact.storageTag = 2;
+        artifact.artifact_assets.forEach((artifactAsset)=>{
+          artifactAsset.storageTag = 2;
+        });
         const artiObj = await this.ctx.model.Artifacts.createArtifact(artifact,transaction);
 
         let terms = artifact.terms;
@@ -266,6 +270,10 @@ class Artifacts extends Service {
           try {
             transaction = await this.ctx.model.transaction();
             artifact.visible = 0;
+            artifact.storageTag = 2;
+            artifact.artifact_assets.forEach((artifactAsset)=>{
+              artifactAsset.storageTag = 2;
+            });
             const artiObj = await this.ctx.model.Artifacts.createArtifact(artifact,transaction);
             if (artifact.topicId != 0){
                 await this.ctx.model.TopicArtifact.createTopicArtifact(
@@ -333,6 +341,7 @@ class Artifacts extends Service {
             asset.mediaFile = artifact_asset.mediaFile,
             asset.viewUrl = artifact_asset.viewUrl,
             asset.artifactId = id;
+            asset.storageTag = 2;
             await ctx.model.ArtifactAssets.createAssets(asset,transaction);
         }
       }

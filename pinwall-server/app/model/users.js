@@ -1,5 +1,5 @@
 /* jshint indent: 2 */
-
+const moment = require('moment');
 module.exports = app => {
 
   const { STRING, INTEGER, DATE, BOOLEAN } = app.Sequelize;
@@ -95,11 +95,18 @@ module.exports = app => {
     createAt: {
       type: DATE,
       allowNull: false,
-      defaultValue: app.Sequelize.literal('CURRENT_TIMESTAMP')
+      defaultValue: app.Sequelize.literal('CURRENT_TIMESTAMP'),
+      get(){
+        return moment(this.getDataValue('createAt')).format('YYYY-MM-DD HH:mm:ss');
+      }
     },
     confirmedAt: {
       type: DATE,
-      allowNull: true
+      allowNull: true,
+      defaultValue: app.Sequelize.literal('CURRENT_TIMESTAMP'),
+      get(){
+        return moment(this.getDataValue('confirmedAt')).format('YYYY-MM-DD HH:mm:ss');
+      }
     }
   }, {
     tableName: 'users'

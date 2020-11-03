@@ -1,5 +1,5 @@
 /* jshint indent: 2 */
-
+const moment = require('moment');
 module.exports = app => {
 
   const { INTEGER, DATE } = app.Sequelize;
@@ -18,7 +18,11 @@ module.exports = app => {
     },
     lastSyncTime: {
       type: DATE,
-      allowNull: true
+      allowNull: true,
+      defaultValue: app.Sequelize.literal('CURRENT_TIMESTAMP'),
+      get(){
+        return moment(this.getDataValue('lastSyncTime')).format('YYYY-MM-DD HH:mm:ss');
+      }
     }
   }, {
     tableName: 'es_sync_data'

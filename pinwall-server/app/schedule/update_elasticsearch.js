@@ -13,7 +13,7 @@ class UpdateElasticsearch extends Subscription {
   async subscribe() {
 
     const ctx = this.ctx;
-
+/*
     let insertPinwallTime;
 
     const insertPinwall = await ctx.service.esSyncData.getDateBySyncType(1);
@@ -118,7 +118,7 @@ class UpdateElasticsearch extends Subscription {
         }
     }
     await ctx.service.esSyncData.update(2, updateDataTime);
-
+*/
   }
 }
 

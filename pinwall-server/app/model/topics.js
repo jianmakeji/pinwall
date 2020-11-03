@@ -1,3 +1,4 @@
+const moment = require('moment');
 module.exports  = app => {
 
   const { STRING, INTEGER, DATE, TEXT } = app.Sequelize;
@@ -33,7 +34,10 @@ module.exports  = app => {
     createAt: {
       type: DATE,
       allowNull: false,
-      defaultValue: app.Sequelize.literal('CURRENT_TIMESTAMP')
+      defaultValue: app.Sequelize.literal('CURRENT_TIMESTAMP'),
+      get(){
+        return moment(this.getDataValue('createAt')).format('YYYY-MM-DD HH:mm:ss');
+      }
     },
     updateAt: {
       type: DATE,
