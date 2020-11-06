@@ -168,9 +168,9 @@ new Vue({
     if (ua.match(/micromessenger/)) {
         // 是微信端
         var prevurl = document.referrer;
-        window.localStorage.setitem('wx_prev_url',prevurl);
+        window.localStorage.setItem('wx_prev_url',prevurl);
         window.location.href = '/loginByWeixinClient';
     }
-  
+
   }
 })

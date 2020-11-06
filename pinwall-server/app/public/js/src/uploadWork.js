@@ -115,6 +115,16 @@ var container = new Vue({
         cropMoving(data) {
 
         },
+        teamworkerData(){
+          let result = '';
+          for(let i = 0; i < this.helperBox.length; i++){
+              result = result + this.helperBox[i].fullname;
+              if(i != (this.helperBox.length - 1)){
+                result = result +'，';
+              }
+          }
+          return result;
+        },
         uploadThumbImg(e, num) {
           //上传图片
           // this.option.img

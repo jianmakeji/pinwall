@@ -71,12 +71,13 @@ class HomeController extends BaseController {
     const ctx = this.ctx;
     try{
       const data = await ctx.service.artifacts.find(ctx.helper.parseInt(ctx.params.id));
+
       let result = {
         status:200,
         data:data,
         user:ctx.user
       };
-      
+
       if (data.visible == 0){
         result.status = 200;
       }

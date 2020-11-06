@@ -289,10 +289,18 @@ var projects = new Vue({
         },
         teamworkerData(str){
           if(str != null && str != "" && isJsonString(str)){
-            return JSON.parse(str);
+            let teammates = JSON.parse(str);
+            let result = '';
+            for(let i = 0; i < teammates.length; i++){
+              result = result + teammates[i].fullname;
+              if(i != (teammates.length - 1)){
+                result = result +'，';
+              }
+            }
+            return result;
           }
           else{
-            return new Array();
+            return '';
           }
         }
     },
