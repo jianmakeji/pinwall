@@ -107,6 +107,16 @@
   font-weight: 600;
 }
 
+.author_line{
+  position: absolute;
+  width: 180px;
+  font-size: 14px;
+  color:#07BC72;
+  left: 53px;
+  top:10px;
+  font-weight: 600;
+}
+
 .teamworker{
   position: absolute;
   width: 70%;

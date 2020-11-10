@@ -40,7 +40,8 @@ var HeaderMenu = {
       window.location.href = "/mobile/workpod";
     },
     searchClick:function(){
-      window.location.href = "/mobile/search";
+      window.localStorage.setItem("search_tag",0);
+      window.location.href = "/mobile/search";      
     },
     personalBtnClick:function(userId){
 
@@ -93,7 +94,7 @@ var HeaderMenu = {
       '<a href="/mobile/workpod" :class="workpodMenuStyle">作业荚</a>'+
     '</nav>'+
     '<div class="menu_icon_area" @click="searchClick">'+
-      '<img src="/public/images/mobile/search.png" class="menu_icon" />'+
+      '<img src="/public/images/mobile/search.png" class="search_icon" />'+
     '</div>'+
   '</div>'+
   '<div class="pop_menu" v-show="menu_show">'+

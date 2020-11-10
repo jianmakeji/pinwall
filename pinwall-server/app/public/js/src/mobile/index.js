@@ -26,7 +26,7 @@ new Vue({
     let that = this;
     this.spin_show = true;
     $.ajax({
-      url: '/website/artifacts/getMedalDataByRandom/12',
+      url: '/website/artifacts/getMedalDataByRandom/24',
       type: 'get',
       dataType: 'json',
       data: {}

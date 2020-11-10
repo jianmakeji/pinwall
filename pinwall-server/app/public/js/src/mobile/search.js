@@ -20,7 +20,7 @@ new Vue({
     artifactsCount:0,
   },
   methods: {
-    searchBtnClick:function(){
+    searchInputClick:function(){
       if(this.condition != ''){
         if(this.type != ''){
           if(this.type == 'course'){
@@ -127,15 +127,14 @@ new Vue({
   },
   created() {
     let search_tag = window.localStorage.getItem("search_tag");
-    if(search_tag){
+    
+    if(search_tag != 0){
       window.localStorage.setItem("search_tag",1);
       let search_type = window.localStorage.getItem("search_type");
       let search_condition = window.localStorage.getItem("search_condition");
       this.type = search_type;
       this.condition = search_condition;
-      this.searchBtnClick();
+      this.searchInputClick();
     }
-
-
   }
 })

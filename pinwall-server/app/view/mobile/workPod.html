@@ -14,9 +14,9 @@
   <div id="content">
     <header-menu v-bind:menu-item-num="3" v-bind:user-id="'{{user.Id}}'" v-bind:avatar-url=" '{{user.avatarUrl}}' " v-bind:fullname=" '{{user.fullname}}' "></header-menu>
     <div class="filter_panel">
-      <div id="all_btn" class="condition_btn_selected" @click="allBtnClick">全部</div>
+      <div id="all_btn" class="condition_btn_noraml" @click="allBtnClick">全部</div>
       <div id="open_btn" class="condition_btn_noraml" @click="openBtnClick">开放中</div>
-      <div id="save_btn" class="condition_btn_noraml" @click="saveBtnClick">已存档</div>
+      <div id="save_btn" class="condition_btn_selected" @click="saveBtnClick">已存档</div>
       {% if user %}
         <div id="create_by_me_btn" class="condition_btn_noraml" @click="createByMeBtnClick">由我创建</div>
       {% endif %}

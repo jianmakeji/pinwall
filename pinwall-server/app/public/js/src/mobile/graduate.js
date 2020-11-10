@@ -7,7 +7,7 @@ new Vue({
   data: {
     pageNum:1,
     dataList:[],
-    status:-1,
+    status:1,
     userId:-1,
     spin_show:false,
   },

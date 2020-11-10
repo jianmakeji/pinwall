@@ -32,8 +32,12 @@
       </div>
       <div class="user_info">
           <img :src=" '{{data.user.avatarUrl}}' ? '{{data.user.avatarUrl}}' : '/public/images/mobile/default_head_img.png' "/>
+          {% if teamworker %}
           <span class="author" id="{{user.Id}}" @click="fullnameClick({{data.user.Id}})">{{data.user.fullname}}</span>
           <span class="teamworker">{{teamworker}}</span>
+          {% else %}
+          <span class="author_line" id="{{user.Id}}" @click="fullnameClick({{data.user.Id}})">{{data.user.fullname}}</span>
+          {% endif %}
       </div>
       <div class="record_area">
         <span class="record_span">收录于&nbsp;&nbsp;</span><span class="topic_name">{{data.topics[0].name}}</span>

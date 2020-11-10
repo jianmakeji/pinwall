@@ -25,24 +25,24 @@ var HeaderMenu = {
       if(window.localStorage){
         window.localStorage.setItem("loginPrePath", path);
       }
-      window.location.href = "/mobile/login";
       window.localStorage.setItem("search_tag", 0);
+      window.location.href = "/mobile/login";
     },
     choicenessClick:function(){
-      window.location.href = "/mobile";
       window.localStorage.setItem("search_tag", 0);
+      window.location.href = "/mobile";
     },
     graduateClick:function(){
-      window.location.href = "/mobile/graduate";
       window.localStorage.setItem("search_tag", 0);
+      window.location.href = "/mobile/graduate";
     },
     homeworkClick:function(){
-      window.location.href = "/mobile/workpod";
       window.localStorage.setItem("search_tag", 0);
+      window.location.href = "/mobile/workpod";
     },
     searchClick:function(){
-      window.location.href = "/mobile/search";
       window.localStorage.setItem("search_tag", 0);
+      window.location.href = "/mobile/search";      
     },
     personalBtnClick:function(userId){
 
@@ -77,7 +77,7 @@ var HeaderMenu = {
       '<img src="/public/images/mobile/menu.png" @click="menuClick" class="menu_icon" /><span>图钉墙<span>'+
     '</div>'+
     '<div class="search_icon_area" @click="searchClick">'+
-      '<img src="/public/images/mobile/search.png" class="menu_icon" />'+
+      '<img src="/public/images/mobile/search.png" class="search_icon" />'+
     '</div>'+
   '</div>'+
   '<div class="pop_menu" v-show="menu_show">'+

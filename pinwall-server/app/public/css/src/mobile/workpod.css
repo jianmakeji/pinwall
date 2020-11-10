@@ -99,6 +99,7 @@
 .user_info img{
   width: 24px;
   height: 24px;
+  border-radius: 12px;
 }
 
 .user_info span{

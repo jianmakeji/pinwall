@@ -68,7 +68,7 @@
   line-height:40px;
   vertical-align: top;
   font-size: 16px;
-  border-radius: 10px;
+  border-radius: 4px;
   border: 0px;
   font-weight: 600;
 }
@@ -119,25 +119,37 @@
 
 .emailorphone{
   width: 80%;
-  margin-bottom:15px;
-  height: 35px;
+  margin-bottom:20px;
+  height: 44px;
+  border-radius: 4px;
+  border: #E8E9EA 1px solid;
+  text-indent: 10px;
 }
 
 .pwd{
   width: 80%;
-  height: 35px;
+  height: 44px;
+  border-radius: 4px;
+  border: #E8E9EA 1px solid;
+  text-indent: 10px;
 }
 
 .mobile{
   width: 80%;
-  margin-bottom:15px;
-  height: 35px;
+  margin-bottom:20px;
+  height: 44px;
+  border-radius: 4px;
+  border: #E8E9EA 1px solid;
+  text-indent: 10px;
 }
 
 .code{
   width: 53%;
   margin-bottom:15px;
-  height: 35px;
+  height: 44px;
+  border-radius: 4px;
+  border: #E8E9EA 1px solid;
+  text-indent: 10px;
 }
 
 .tips{
@@ -152,10 +164,10 @@
   width: 26%;
   color:#6D7278;
   margin-bottom: 15px;
-  height:35px;
+  height:44px;
   margin-left:5px;
   border: 1px solid #E8E9EA;
   border-radius: 5px;
   display: inline-block;
-  line-height: 35px;
+  line-height: 44px;
 }

@@ -7,7 +7,7 @@ var contentVue = new Vue({
   data: {
     pageNum:1,
     dataList:[],
-    status:0,
+    status:1,
     userId:-1,
     spin_show:false,
   },

@@ -15,14 +15,14 @@ body{
 
 .menu_banner{
   width: 100%;
-  height: 70px;
+  height: 60px;
   background-color: #333333;
   position: relative;
 }
 
 .menu_icon_area{
   width: 160px;
-  height: 60px;
+  height: 50px;
   margin: 5px 0px;
   text-align: left;
   position: absolute;
@@ -31,7 +31,7 @@ body{
 
 .search_icon_area{
   width: 60px;
-  height: 60px;
+  height: 50px;
   margin: 5px 0px;
   text-align: center;
   position: absolute;
@@ -42,14 +42,14 @@ body{
   font-size: 21px;
   color:#E0DBDB;
   margin-left:10px;
-  line-height: 60px;
+  line-height: 50px;
   vertical-align: top;
   font-weight: 600;
 }
 
 .menu_icon{
-  width:30px;
-  height:30px;
+  width:20px;
+  height:20px;
   margin-top: 15px;
 }
 

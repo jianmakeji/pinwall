@@ -15,14 +15,17 @@
     <header-menu v-bind:user-id="'{{user.Id}}'" v-bind:avatar-url=" '{{user.avatarUrl}}' " v-bind:fullname=" '{{user.fullname}}' "></header-menu>
     <div class="search_panel" v-show="search_panel_show">
       <div class="title">搜索</div>
-      <i-input v-model="condition" style="width:90%;position:relatice;left:5%;margin-top:30px;">
-          <i-select v-model="type" slot="prepend" style="width:80px;" @on-change="selectOption()">
-            <i-option value="course">课程</i-option>
-            <i-option value="product">作品</i-option>
-            <i-option value="user">用户</i-option>
-          </i-select>
-          <i-button @click="searchBtnClick" slot="append" icon="ios-search"></i-button>
-      </i-input>
+      <div style="height:45px;margin-top:30px">
+        <i-select v-model="type" size="large" slot="prepend" style="width:80px;height:44px;margin-left:10px;" @on-change="selectOption()">
+          <i-option value="course">课程</i-option>
+          <i-option value="product">作品</i-option>
+          <i-option value="user">用户</i-option>
+        </i-select>
+        <i-input v-model="condition" size="large" class="search_condition_box">
+        </i-input>
+        <img src="/public/images/mobile/search_gray.png" @click="searchInputClick" class="search_btn" />
+      </div>
+
       <p class="title_desc">按主题分类查看...</p>
       <div class="labellist">
         <span>产品设计</span>

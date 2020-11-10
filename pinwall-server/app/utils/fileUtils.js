@@ -18,7 +18,8 @@ function delDir(path){
 
 function readConfigJson(filePath){
   let rawdata = fs.readFileSync(filePath);
-  if(rawdata){
+  
+  if(rawdata && rawdata != ''){
     return JSON.parse(rawdata);
   }
   else{
