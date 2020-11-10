@@ -57,7 +57,14 @@ class Artifacts extends Service {
           }
         }
         else if (subElement.type == 5 && subElement.mediaFile != null){
-          subElement.mediaFile = h5Util.getH5Url(element.Id, subElement.mediaFile, app);
+          let mediaFile = '';
+          if (subElement.storageTag == 2){
+            mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
+          }
+          else{
+            mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
+          }
+          subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);
         }
       }
 
@@ -69,7 +76,7 @@ class Artifacts extends Service {
   async find(id) {
 
     const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
-    
+
     const app = this.ctx.app;
 
     if (artifact.storageTag == 2){
@@ -112,7 +119,15 @@ class Artifacts extends Service {
         }
       }
       else if (subElement.type == 5 && subElement.mediaFile != null){
-        subElement.mediaFile = h5Util.getH5Url(artifact.Id, subElement.mediaFile, app);
+        let mediaFile = '';
+        if (subElement.storageTag == 2){
+          mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
+        }
+        else{
+          mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
+        }
+        subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);
+        console.log(subElement.mediaFile);
       }
     }
 
@@ -218,7 +233,14 @@ class Artifacts extends Service {
         }
       }
       else if (subElement.type == 5 && subElement.mediaFile != null){
-        subElement.mediaFile = h5Util.getH5Url(artifact.Id, subElement.mediaFile, app);
+        let mediaFile = '';
+        if (subElement.storageTag == 2){
+          mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
+        }
+        else{
+          mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
+        }
+        subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);
       }
       assetsArray.push(assetsObj);
     }
@@ -628,6 +650,16 @@ class Artifacts extends Service {
             subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
         }
+        else if (subElement.type == 5 && subElement.mediaFile != null){
+          let mediaFile = '';
+          if (subElement.storageTag == 2){
+            mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
+          }
+          else{
+            mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
+          }
+          subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);
+        }
       }
 
     });
@@ -811,7 +843,14 @@ class Artifacts extends Service {
         }
       }
       else if (subElement.type == 5 && subElement.mediaFile != null){
-        subElement.mediaFile = h5Util.getH5Url(artifact.Id, subElement.mediaFile, app);
+        let mediaFile = '';
+        if (subElement.storageTag == 2){
+          mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
+        }
+        else{
+          mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
+        }
+        subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);
       }
     }
 

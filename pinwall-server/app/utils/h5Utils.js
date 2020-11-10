@@ -24,26 +24,19 @@ function getJsonFiles(jsonPath){
 }
 
 module.exports.getH5Url = (artifactId, mediaFile, app) => {
-
+    console.log(mediaFile);
     let h5Dir = path.join(app.localH5Path, artifactId + path.sep);
 
     let pathExist = fs.existsSync(h5Dir);
 
     if (!pathExist){
-      let downLoadUrl = '';
-      if(mediaFile.indexOf('pinwall.fzcloud') == -1){
-        downLoadUrl = app.signatureUrl(app.othersPath + mediaFile).replace('https','http');
-      }
-      else{
-        downLoadUrl = mediaFile;
-      }
 
       fs.mkdirSync(h5Dir);
 
       let filename = artifactId + '.zip';
 
       let stream = fs.createWriteStream(path.join(h5Dir, filename));
-      request(downLoadUrl).pipe(stream).on("close", function (err) {
+      request(mediaFile).pipe(stream).on("close", function (err) {
       });
 
       stream.on("finish", function() {
