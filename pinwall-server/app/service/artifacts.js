@@ -127,13 +127,12 @@ class Artifacts extends Service {
           mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
         }
         subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);
-        console.log(subElement.mediaFile);
       }
     }
 
     let ctx = this.ctx;
 
-    if (ctx.user){
+    if (ctx.user && ctx.user.roles){
       let role = ctx.user.roles[0].name;
       if(role == 'vip'){
         //删除所有分数

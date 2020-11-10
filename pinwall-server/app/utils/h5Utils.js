@@ -24,7 +24,7 @@ function getJsonFiles(jsonPath){
 }
 
 module.exports.getH5Url = (artifactId, mediaFile, app) => {
-    console.log(mediaFile);
+  
     let h5Dir = path.join(app.localH5Path, artifactId + path.sep);
 
     let pathExist = fs.existsSync(h5Dir);
