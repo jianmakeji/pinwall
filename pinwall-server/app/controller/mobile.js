@@ -47,8 +47,11 @@ class MobileController extends BaseController {
       let teamworker = '';
       if( data.teamworker !='' && data.teamworker != null){
         let teamworkerArray = JSON.parse(data.teamworker);
-        teamworkerArray.forEach((elem)=>{
-          teamworker = teamworker + elem.fullname + ',';
+        teamworkerArray.forEach((elem,index)=>{
+          teamworker = teamworker + elem.fullname;
+          if(index != (teamworkerArray.length - 1)){
+            teamworker = teamworker + '，'
+          }
         });
       }
       let createAt = data.createAt.toString().substring(0,10);

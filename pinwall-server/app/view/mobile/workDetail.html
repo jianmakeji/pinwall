@@ -34,7 +34,7 @@
           <img :src=" '{{data.user.avatarUrl}}' ? '{{data.user.avatarUrl}}' : '/public/images/mobile/default_head_img.png' "/>
           {% if teamworker %}
           <span class="author" id="{{user.Id}}" @click="fullnameClick({{data.user.Id}})">{{data.user.fullname}}</span>
-          <span class="teamworker">{{teamworker}}</span>
+          <span class="teamworker">协作者:{{teamworker}}</span>
           {% else %}
           <span class="author_line" id="{{user.Id}}" @click="fullnameClick({{data.user.Id}})">{{data.user.fullname}}</span>
           {% endif %}
