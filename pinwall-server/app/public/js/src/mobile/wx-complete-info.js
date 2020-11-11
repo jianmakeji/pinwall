@@ -14,6 +14,7 @@ var app = new Vue({
   },
   methods: {
     backClick:function(){
+      this.logout();
       if(window.localStorage){
         let path = window.localStorage.getItem("loginPrePath");
         if(path && path != ''){
@@ -25,6 +26,21 @@ var app = new Vue({
       }else{
         window.history.back(-1);
       }
+    },
+    logout:function(){
+      let that = this;
+      $.ajax({
+        url: '/mobile/logout',
+        type: 'get',
+        dataType: 'json',
+        data: {}
+      })
+      .done(function(data) {
+        that.$Message.warning('未绑定和创建新用户!');
+      })
+      .fail(function() {
+        that.$Message.warning('退出失败!');
+      })
     },
     settime:function(val) {
       let that = this;
