@@ -24,6 +24,10 @@ class Artifacts extends Service {
         element.profileImage = app.qiniuUrlPrefix + element.profileImage;
       }
 
+      if(element.user && element.user.avatarUrl != "" && element.user.avatarUrl != null && !element.user.avatarUrl.includes("qlogo.cn")){
+        element.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + element.user.avatarUrl, "thumb_120_120");
+      }
+
       for (let subElement of element.artifact_assets){
         if (subElement.storageTag == 2){
           subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
@@ -84,6 +88,10 @@ class Artifacts extends Service {
     }
     else{
       artifact.profileImage = app.qiniuUrlPrefix + artifact.profileImage;
+    }
+
+    if(artifact.user && artifact.user.avatarUrl != "" && artifact.user.avatarUrl != null && !artifact.user.avatarUrl.includes("qlogo.cn")){
+      artifact.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + artifact.user.avatarUrl, "thumb_120_120");
     }
 
     for (let subElement of artifact.dataValues.artifact_assets){
@@ -193,6 +201,10 @@ class Artifacts extends Service {
     }
     else{
         resultObject.artifact.profile_image = artifactObj.profileImage;
+    }
+
+    if(artifactObj.user && artifactObj.user.avatarUrl != "" && artifactObj.user.avatarUrl != null && !artifactObj.user.avatarUrl.includes("qlogo.cn")){
+      resultObject.artifact.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + artifactObj.user.avatarUrl, "thumb_120_120");
     }
 
     for (let subElement of artifactObj.dataValues.artifact_assets){
@@ -618,6 +630,10 @@ class Artifacts extends Service {
         element.profileImage = app.qiniuUrlPrefix + element.profileImage;
       }
 
+      if(element.user && element.user.avatarUrl != "" && element.user.avatarUrl != null && !element.user.avatarUrl.includes("qlogo.cn")){
+        element.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + element.user.avatarUrl, "thumb_120_120");
+      }
+
       for (let subElement of element.artifact_assets){
         if (subElement.storageTag == 2){
           subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
@@ -657,7 +673,7 @@ class Artifacts extends Service {
           else{
             mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
-          subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);
+          subElement.mediaFile = h5Util.getH5Url(element.Id, mediaFile, app);
         }
       }
 

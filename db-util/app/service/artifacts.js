@@ -178,7 +178,7 @@ class Artifacts extends Service {
     let data = new Array();
     for (const artifact of artifacts){
       let topicsArtifact = await client2.query("select * from topic_artifact where artifactId = ? ", artifact.Id);
-      console.log(topicsArtifact.length);
+      
       if (topicsArtifact.length == 0){
         data.push(artifact.Id);
       }
@@ -205,12 +205,14 @@ class Artifacts extends Service {
   async updateArtifactAssetsStorageTag(){
     const ctx = this.ctx;
     const client = ctx.app.mysql.get('db');
-    const artifacts = await client.query("select * from artifact_assets where Id > 68240 ");
+    const artifacts = await client.query("select * from artifact_assets where Id > 0 ");
     for (const artifact of artifacts){
       console.log(artifact.Id);
       if(artifact.profileImage.indexOf('pinwall.fzcloud') != -1){
         let imageUrl = artifact.profileImage.replace('http://pinwall.fzcloud.design-engine.org','');
-        const result = await client.query('update artifact_assets set profileImage = ?,storageTag = ? where Id = ?', [imageUrl, 1, artifact.Id]);
+        let mediaFile = artifact.mediaFile.replace('http://pinwall.fzcloud.design-engine.org','');
+        let viewUrl = artifact.viewUrl.replace('http://pinwall.fzcloud.design-engine.org','');
+        const result = await client.query('update artifact_assets set profileImage = ?,mediaFile = ?,viewUrl = ?, storageTag = ? where Id = ?', [imageUrl, mediaFile, viewUrl, 1, artifact.Id]);
       }
       else{
         const result = await client.query('update artifact_assets set storageTag = ? where Id = ?', [2, artifact.Id]);
