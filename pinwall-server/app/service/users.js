@@ -87,7 +87,7 @@ class Users extends Service {
   async loginFindByUserWithEmail(email){
     let user = await this.ctx.model.Users.loginFindByUserWithEmail(email);
     if(user && user.avatarUrl != "" && user.avatarUrl != null  && !user.avatarUrl.includes("qlogo.cn")){
-      user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + user.avatarUrl, "thumb_120_120");
+      user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + user.avatarUrl, "thumb_120_120",12);
     }
 
     return user;
@@ -96,7 +96,7 @@ class Users extends Service {
   async loginFindByUserWithMobile(mobile){
     let user =  await this.ctx.model.Users.loginFindByUserWithMobile(mobile);
     if(user && user.avatarUrl != "" && user.avatarUrl != null && !user.avatarUrl.includes("qlogo.cn")){
-      user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + user.avatarUrl, "thumb_120_120");
+      user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + user.avatarUrl, "thumb_120_120",12);
     }
     return user;
   }
