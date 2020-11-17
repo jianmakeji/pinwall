@@ -359,7 +359,7 @@ new Vue({
         }
       }
       if(description.length > (charCount + (count /3))){
-         $(".introduce").text(description.substring(0, (charCount + count / 3)));
+         $(".introduce").text(description.substring(0, (charCount + count / 4)));
       }
     }
   },
