@@ -20,6 +20,8 @@ new Vue({
     comment_or_score:0,
     placeholder:"发表你的评论...",
     comment_or_score_value:'',
+    showmore:0,
+    show_model:false,
   },
   methods: {
     isWeixin() {
@@ -251,21 +253,6 @@ new Vue({
       $(".share_panel").hide();
 
       saveAs('/wx/share/createShareImage/' + this.artifactId, 'image.png');
-      /*
-      var eleLink = document.createElement('a');
-      eleLink.download = this.artifactId;
-      eleLink.style.display = 'none';
-      var canvas = document.createElement('canvas');
-      canvas.width = 520;
-      canvas.height = 820;
-      var context = canvas.getContext('2d');
-      var img = document.getElementById("share_img");
-      context.drawImage(img, 0, 0, 520, 820);
-      eleLink.href = canvas.toDataURL('image/png');
-      document.body.appendChild(eleLink);
-      eleLink.click();
-      document.body.removeChild(eleLink);
-      */
     },
     fullnameClick:function(userId){
       window.location.href = "/mobile/workset?userId=" + userId;
@@ -281,6 +268,9 @@ new Vue({
       }
 
     },
+    topicClick:function(topicId){
+      window.location.href = "/mobile/workpoddetail?topicId=" + topicId;
+    },
     randomString:function(len){
       len = len || 32;
   　　var $chars = 'abcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
@@ -290,6 +280,9 @@ new Vue({
       str += $chars.charAt(Math.floor(Math.random() * maxPos));
   　　}
  　　return str;
+    },
+    moreClick:function(){
+      this.show_model = true;
     }
   },
   mounted() {
@@ -350,6 +343,25 @@ new Vue({
     .always(function() {
       console.log("complete");
     });
+
+    var rowNum = Math.round($(".introduce").height()/parseFloat($(".introduce").css('line-height')));
+
+    if(rowNum == 3){
+      this.showmore = 1;
+      let charCount = Math.round((document.body.clientWidth - 20) / 14) * 3;
+      let description = $(".introduce").text();
+      let temp = description.substring(0,charCount);
+      var p = /[0-9a-z]/i;
+      let count = 0;
+      for (let i = 0; i < temp.length; i++){
+        if(p.test(temp[i])){
+          count++
+        }
+      }
+      if(description.length > (charCount + (count /3))){
+         $(".introduce").text(description.substring(0, (charCount + count / 3)));
+      }
+    }
   },
   created() {
     this.artifactId = getUrlKey('artifactId');
@@ -421,6 +433,7 @@ new Vue({
         console.log("complete");
       });
     }
+
 
   }
 })

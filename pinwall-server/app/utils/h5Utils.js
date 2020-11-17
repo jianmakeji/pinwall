@@ -24,7 +24,7 @@ function getJsonFiles(jsonPath){
 }
 
 module.exports.getH5Url = (artifactId, mediaFile, app) => {
-  
+
     let h5Dir = path.join(app.localH5Path, artifactId + path.sep);
 
     let pathExist = fs.existsSync(h5Dir);
@@ -41,11 +41,16 @@ module.exports.getH5Url = (artifactId, mediaFile, app) => {
 
       stream.on("finish", function() {
         stream.end();
-        let ziprarPath = h5Dir + filename;
-        var zip = new AdmZip(ziprarPath);
-        zip.extractAllTo(h5Dir, true);
-        if(fs.existsSync(ziprarPath)){
-          fs.unlinkSync(ziprarPath);
+        try{
+          let ziprarPath = h5Dir + filename;
+          var zip = new AdmZip(ziprarPath);
+          zip.extractAllTo(h5Dir, true);
+          if(fs.existsSync(ziprarPath)){
+            fs.unlinkSync(ziprarPath);
+          }
+        }
+        catch(e){
+          console.log(e);
         }
       });
     }

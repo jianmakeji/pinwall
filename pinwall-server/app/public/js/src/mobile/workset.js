@@ -18,7 +18,7 @@ new Vue({
   methods: {
     isWeixin () {
       let wx = navigator.userAgent.toLowerCase()
-      if (wx.match(/MicroMessenger/i) === 'micromessenger') {
+      if (wx.match(/micromessenger/i) === 'micromessenger') {
         return true
       } else {
         return false
@@ -26,7 +26,7 @@ new Vue({
     },
     loadData:function(){
       let that = this;
-      that.spin_show = true;
+      //that.spin_show = true;
       let url = "";
       if(this.userId == 0){
         url = "/website/artifacts/getPersonalJobH5"
@@ -49,6 +49,10 @@ new Vue({
         if(responseData.data.rows.length > 0){
           that.dataList.push(...responseData.data.rows);
           that.userInfo = responseData.data.rows[0].user;
+          if(that.userInfo.createAt){
+              that.userInfo.createAt = that.userInfo.createAt.substring(0,10);
+          }
+
         }else{
           that.pageNum = -1;
         }
@@ -87,7 +91,7 @@ new Vue({
             that.pageNum = that.pageNum + 1;
             that.loadData();
           }else{
-            //无更多数据
+            that.$Message.warning("无更多数据!");
           }
       }
     }

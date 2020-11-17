@@ -17,7 +17,7 @@
       <Spin fix size="large" v-if="spin_show"></Spin>
       <div>
         <p class="title">${userInfo.fullname}的作品集</p>
-        <p class="info">${userInfo.createAt.substring(0,10)} 创建&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+        <p class="info">${userInfo.createAt} 创建&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
           <img src="/public/images/mobile/upload_cloud.png"/><span>${userInfo.artifactCount}</span>
           <img src="/public/images/mobile/medal.png"/><span>${userInfo.medalCount}</span>
           <img src="/public/images/mobile/like_gray.png"/><span>${userInfo.likeCount}</span>
@@ -34,7 +34,7 @@
             <div class="product_zone">
               <img :src="elem.profileImage"/>
               <p class="product_name">${elem.name}</p>
-              <p class="topic_name" >${elem.topics[0].name}</p>
+              <p class="topic_name" v-if="elem.topics.length > 0" >${elem.topics[0].name}</p>
               <div class="operate_zone">
                 <img src="/public/images/mobile/medal.png"/><span>${elem.medalCount}</span>
                 <img src="/public/images/mobile/like_gray.png"/><span>${elem.likeCount}</span>

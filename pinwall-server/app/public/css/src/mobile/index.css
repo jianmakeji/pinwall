@@ -108,7 +108,7 @@
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .topic_name{

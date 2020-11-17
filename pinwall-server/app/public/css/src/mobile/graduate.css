@@ -48,7 +48,7 @@
   margin: 10px;
   top: 16px;
   position: relative;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .graduate_info{
@@ -104,7 +104,7 @@
 .user_info span{
   font-size: 14px;
   color: #000000;
-  margin-left: 15px;
+  margin-left: 10px;
   line-height: 24px;
   vertical-align: top;
   line-height: 24px;

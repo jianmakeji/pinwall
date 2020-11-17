@@ -16,6 +16,9 @@ new Vue({
     pageNum:1,
     dataList:[],
     topicId:0,
+    showmore:0,
+    show_model:false,
+    desc:'',
   },
   methods: {
     loadData:function(){
@@ -41,6 +44,27 @@ new Vue({
         }else{
           that.pageNum = -1;
         }
+
+        let rowDataCount = Math.round((document.body.clientWidth - 20) / 14) * 3;
+
+        if(that.work_info.description.length > rowDataCount){
+          that.showmore = 1;
+          let charCount = Math.round((document.body.clientWidth - 20) / 14) * 3;
+          let description = that.work_info.description;
+          let temp = description.substring(0,charCount);
+          var p = /[0-9a-z]/i;
+          let count = 0;
+          for (let i = 0; i < temp.length; i++){
+            if(p.test(temp[i])){
+              count++
+            }
+          }
+
+          if(description.length > (charCount )){
+            let txt = description.substring(0, charCount + count / 5);
+            that.desc = txt;
+          }
+        }
       })
       .fail(function() {
         console.log("error");
@@ -52,11 +76,18 @@ new Vue({
     cardClick:function(id){
       window.localStorage.setItem("fromDetailPath", window.location.pathname + window.location.search);
       window.location.href = "/mobile/workdetail?artifactId=" + id;
+    },
+    moreClick:function(){
+      this.show_model = true;
     }
+  },
+  mounted() {
+
   },
   created() {
     this.topicId = getUrlKey('topicId');
     this.loadData();
+
     let that = this;
     window.onscroll = function(){
       //变量scrollTop是滚动条滚动时，距离顶部的距离
