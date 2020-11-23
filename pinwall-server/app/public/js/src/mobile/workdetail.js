@@ -281,7 +281,7 @@ new Vue({
   　　}
  　　return str;
     },
-    moreClick:function(){
+    moreContentClick:function(){
       this.show_model = true;
     }
   },

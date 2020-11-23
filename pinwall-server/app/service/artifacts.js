@@ -32,6 +32,9 @@ class Artifacts extends Service {
         if (subElement.storageTag == 2){
           subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
         }
+        else if(element.storageTag == 3){
+          subElement.profileImage = app.hnuUrlPrefix + subElement.profileImage;
+        }
         else{
           subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
         }
@@ -40,7 +43,7 @@ class Artifacts extends Service {
           if (subElement.storageTag == 2){
             subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
           }
-          else{
+          else if(subElement.storageTag == 1){
             subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
         }
@@ -48,7 +51,7 @@ class Artifacts extends Service {
           if (subElement.storageTag == 2){
             subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
           }
-          else{
+          else if(subElement.storageTag == 1){
             subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
         }
@@ -56,7 +59,7 @@ class Artifacts extends Service {
           if (subElement.storageTag == 2){
             subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
           }
-          else{
+          else if(subElement.storageTag == 1){
             subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
         }
@@ -65,7 +68,7 @@ class Artifacts extends Service {
           if (subElement.storageTag == 2){
             mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
           }
-          else{
+          else if(subElement.storageTag == 1){
             mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
           subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);
@@ -98,6 +101,9 @@ class Artifacts extends Service {
       if (subElement.storageTag == 2){
         subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
       }
+      else if(subElement.storageTag == 3){
+        subElement.profileImage = app.hnuUrlPrefix + subElement.profileImage;
+      }
       else{
         subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
       }
@@ -106,7 +112,7 @@ class Artifacts extends Service {
         if (subElement.storageTag == 2){
           subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
         }
-        else{
+        else if(subElement.storageTag == 1){
           subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
@@ -114,7 +120,7 @@ class Artifacts extends Service {
         if (subElement.storageTag == 2){
           subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
         }
-        else{
+        else if(subElement.storageTag == 1){
           subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
@@ -122,7 +128,7 @@ class Artifacts extends Service {
         if (subElement.storageTag == 2){
           subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
         }
-        else{
+        else if(subElement.storageTag == 1){
           subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
@@ -131,7 +137,7 @@ class Artifacts extends Service {
         if (subElement.storageTag == 2){
           mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
         }
-        else{
+        else if(subElement.storageTag == 1){
           mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
         }
         subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);
@@ -200,8 +206,11 @@ class Artifacts extends Service {
     if (artifactObj.storageTag == 2 ){
       resultObject.artifact.profile_image = app.signatureUrl(app.imagePath + artifactObj.profileImage, "thumb_360_360");
     }
+    if (artifactObj.storageTag == 3 ){
+      resultObject.artifact.profile_image = app.hnuUrlPrefix + artifactObj.profileImage;
+    }
     else{
-        resultObject.artifact.profile_image = artifactObj.profileImage;
+      resultObject.artifact.profile_image = app.qiniuUrlPrefix + artifactObj.profileImage;
     }
 
     if(artifactObj.user && artifactObj.user.avatarUrl != "" && artifactObj.user.avatarUrl != null && !artifactObj.user.avatarUrl.includes("qlogo.cn")){
@@ -213,18 +222,21 @@ class Artifacts extends Service {
       assetsObj.name = subElement.name;
       assetsObj.filename = subElement.filename;
 
-      if (subElement.type == 2){
-        assetsObj.profile_image = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
+      if (subElement.storageTag == 2){
+        assetsObj.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
+      }
+      else if(subElement.storageTag == 3){
+        assetsObj.profileImage = app.hnuUrlPrefix + subElement.profileImage;
       }
       else{
-        assetsObj.profile_image = app.qiniuUrlPrefix + subElement.profileImage;
+        assetsObj.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
       }
 
       if (subElement.type == 2 && subElement.mediaFile != null){
         if (subElement.storageTag == 2){
           assetsObj.media_file = app.signatureUrl(app.pdfPath + subElement.mediaFile);
         }
-        else{
+        else if(subElement.storageTag == 1){
           assetsObj.media_file = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
@@ -232,7 +244,7 @@ class Artifacts extends Service {
         if (subElement.storageTag == 2){
           assetsObj.media_file = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
         }
-        else{
+        else if(subElement.storageTag == 1){
           assetsObj.media_file = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
@@ -240,7 +252,7 @@ class Artifacts extends Service {
         if (subElement.storageTag == 2){
           assetsObj.media_file = app.signatureUrl(app.videoPath + subElement.mediaFile);
         }
-        else{
+        else if(subElement.storageTag == 1){
           assetsObj.media_file = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
@@ -249,7 +261,7 @@ class Artifacts extends Service {
         if (subElement.storageTag == 2){
           mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
         }
-        else{
+        else if(subElement.storageTag == 1){
           mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
         }
         subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);
@@ -627,6 +639,9 @@ class Artifacts extends Service {
       if (element.storageTag == 2){
         element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
       }
+      else if(element.storageTag == 3){
+        element.profileImage = app.hnuUrlPrefix + element.profileImage;
+      }
       else{
         element.profileImage = app.qiniuUrlPrefix + element.profileImage;
       }
@@ -646,7 +661,7 @@ class Artifacts extends Service {
           if (subElement.storageTag == 2){
             subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
           }
-          else{
+          else if(subElement.storageTag == 1){
             subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
         }
@@ -654,7 +669,7 @@ class Artifacts extends Service {
           if (subElement.storageTag == 2){
             subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
           }
-          else{
+          else if(subElement.storageTag == 1){
             subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
         }
@@ -662,7 +677,7 @@ class Artifacts extends Service {
           if (subElement.storageTag == 2){
             subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
           }
-          else{
+          else if(subElement.storageTag == 1){
             subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
         }
@@ -671,7 +686,7 @@ class Artifacts extends Service {
           if (subElement.storageTag == 2){
             mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
           }
-          else{
+          else if(subElement.storageTag == 1){
             mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
           }
           subElement.mediaFile = h5Util.getH5Url(element.Id, mediaFile, app);
@@ -834,6 +849,9 @@ class Artifacts extends Service {
       if (subElement.storageTag == 2){
         subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
       }
+      else if(subElement.storageTag == 3){
+        subElement.profileImage = app.hnuUrlPrefix + subElement.profileImage;
+      }
       else{
         subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
       }
@@ -842,7 +860,7 @@ class Artifacts extends Service {
         if (subElement.storageTag == 2){
           subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
         }
-        else{
+        else if(subElement.storageTag == 1){
           subElement.profileImage = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
@@ -850,7 +868,7 @@ class Artifacts extends Service {
         if (subElement.storageTag == 2){
           subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
         }
-        else{
+        else if(subElement.storageTag == 1){
           subElement.profileImage = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
@@ -858,7 +876,7 @@ class Artifacts extends Service {
         if (subElement.storageTag == 2){
           subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
         }
-        else{
+        else if(subElement.storageTag == 1){
           subElement.profileImage = app.qiniuUrlPrefix + subElement.mediaFile;
         }
       }
@@ -867,7 +885,7 @@ class Artifacts extends Service {
         if (subElement.storageTag == 2){
           mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
         }
-        else{
+        else if(subElement.storageTag == 1){
           mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
         }
         subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);

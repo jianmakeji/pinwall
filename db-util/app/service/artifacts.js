@@ -178,7 +178,7 @@ class Artifacts extends Service {
     let data = new Array();
     for (const artifact of artifacts){
       let topicsArtifact = await client2.query("select * from topic_artifact where artifactId = ? ", artifact.Id);
-      
+
       if (topicsArtifact.length == 0){
         data.push(artifact.Id);
       }
@@ -205,14 +205,34 @@ class Artifacts extends Service {
   async updateArtifactAssetsStorageTag(){
     const ctx = this.ctx;
     const client = ctx.app.mysql.get('db');
-    const artifacts = await client.query("select * from artifact_assets where Id > 0 ");
+    const artifacts = await client.query("select * from artifact_assets where Id > 150000 and Id <= 200000 ");
+    //console.log(artifacts[0].mediaFile);
+
     for (const artifact of artifacts){
       console.log(artifact.Id);
       if(artifact.profileImage.indexOf('pinwall.fzcloud') != -1){
         let imageUrl = artifact.profileImage.replace('http://pinwall.fzcloud.design-engine.org','');
-        let mediaFile = artifact.mediaFile.replace('http://pinwall.fzcloud.design-engine.org','');
-        let viewUrl = artifact.viewUrl.replace('http://pinwall.fzcloud.design-engine.org','');
+        let mediaFile = null;
+        if(artifact.mediaFile != null && artifact.mediaFile != '' && artifact.mediaFile.indexOf('pinwall.fzcloud') != -1){
+          mediaFile = artifact.mediaFile.replace('http://pinwall.fzcloud.design-engine.org','');
+        }
+        else{
+          mediaFile = artifact.mediaFile;
+        }
+
+        let viewUrl = null;
+        if(artifact.viewUrl != null && artifact.viewUrl != '' && artifact.viewUrl.indexOf('pinwall.fzcloud') != -1){
+          viewUrl = artifact.viewUrl.replace('http://pinwall.fzcloud.design-engine.org','');
+        }
+        else{
+          viewUrl = artifact.viewUrl;
+        }
+
         const result = await client.query('update artifact_assets set profileImage = ?,mediaFile = ?,viewUrl = ?, storageTag = ? where Id = ?', [imageUrl, mediaFile, viewUrl, 1, artifact.Id]);
+      }
+      else if(artifact.profileImage.indexOf('design.hnu.edu.cn') != -1){
+        let imageUrl = artifact.profileImage.replace('http://design.hnu.edu.cn','');
+        const result = await client.query('update artifact_assets set profileImage = ?, storageTag = ? where Id = ?', [imageUrl,3, artifact.Id]);
       }
       else{
         const result = await client.query('update artifact_assets set storageTag = ? where Id = ?', [2, artifact.Id]);
