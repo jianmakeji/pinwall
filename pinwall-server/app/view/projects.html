@@ -5,6 +5,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 		<title>图钉墙-HNU design</title>
+		<link rel="shortcut icon" href="/public/images/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="../public/css/lib/iview.css">
 		<link rel="stylesheet" type="text/css" href="../public/css/src/base.css"/>
 		<link rel="stylesheet" type="text/css" href="../public/css/src/projects.css"/>
@@ -77,7 +78,7 @@
                 </div>
 								{% if data.teamworker.length %}
 								<p style="color:#68686B;font-size:13px;margin-top:12px">
-									协作者：<font style="color:#0ABC73" v-text="teamworkerData('{{data.teamworker}}')"></font>
+									协作者：<font v-html="teamworkerData('{{data.teamworker}}')"></font>
 								</p>
 								{% endif %}
 								</p>

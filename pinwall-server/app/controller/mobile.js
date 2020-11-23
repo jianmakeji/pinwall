@@ -44,11 +44,11 @@ class MobileController extends BaseController {
     const ctx = this.ctx;
     try{
       const data = await ctx.service.artifacts.find(ctx.helper.parseInt(ctx.queries.artifactId));
-      let teamworker = '';
+      let teamworker = '协作者:';
       if( data.teamworker !='' && data.teamworker != null){
         let teamworkerArray = JSON.parse(data.teamworker);
         teamworkerArray.forEach((elem,index)=>{
-          teamworker = teamworker + elem.fullname;
+          teamworker = teamworker + '<a style="color:#0ABC73" href="/mobile/workset?userId='+elem.Id+'">' + elem.fullname +'</a>';
           if(index != (teamworkerArray.length - 1)){
             teamworker = teamworker + '，'
           }
@@ -97,7 +97,7 @@ class MobileController extends BaseController {
   async workset() {
     const ctx = this.ctx;
 
-    await ctx.render('mobile/workset.html',{
+    await ctx.render('mobile/workSet.html',{
       user:ctx.user
     });
   }

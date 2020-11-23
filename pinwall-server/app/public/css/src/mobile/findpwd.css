@@ -54,3 +54,13 @@ body{
   margin-bottom:25px;
   color:#6D7278
 }
+
+.ivu-input{
+  height: 44px;
+  border: #E8E9EA 1px solid;
+  text-indent: 10px;
+}
+
+.ivu-btn{
+  height: 44px;
+}

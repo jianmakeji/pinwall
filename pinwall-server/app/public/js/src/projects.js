@@ -292,7 +292,7 @@ var projects = new Vue({
             let teammates = JSON.parse(str);
             let result = '';
             for(let i = 0; i < teammates.length; i++){
-              result = result + teammates[i].fullname;
+              result = result + '<a style="color:#0ABC73" href="/users/'+teammates[i].Id+'">' + teammates[i].fullname +'</a>';
               if(i != (teammates.length - 1)){
                 result = result +'，';
               }

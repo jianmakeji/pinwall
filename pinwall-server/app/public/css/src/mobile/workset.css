@@ -24,7 +24,7 @@
   margin-right: 10px;
   line-height: 15px;
   vertical-align: text-top;
-  margin-left: 5px; 
+  margin-left: 5px;
 }
 
 .user_info{
@@ -86,7 +86,7 @@
   display: block;
   width: 100%;
   height: auto;
-  padding: 5px 10px
+  margin: 24px 10px 10px;
 }
 
 .product_zone img{
@@ -127,7 +127,7 @@
   line-height: 30px;
   vertical-align: top;
   position: absolute;
-  right: 0px;
+  right: 10px;
   top: 0px;
 }
 
@@ -137,6 +137,7 @@
 
 .operate_zone{
   position:relative;
+  margin: 15px 0px 20px;
 }
 
 .operate_zone span{
