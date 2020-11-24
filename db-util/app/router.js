@@ -24,7 +24,10 @@ module.exports = app => {
   router.get('/artifact/selectData', controller.artifacts.selectData);
   router.get('/artifact/updateArtifactStorageTag', controller.artifacts.updateArtifactStorageTag);
   router.get('/artifact/updateArtifactAssetsStorageTag', controller.artifacts.updateArtifactAssetsStorageTag);
-
+  router.get('/artifact/downloadQiniuFiles', controller.artifacts.downloadQiniuFiles);
+  router.get('/artifact/downloadQiniuDetailFiles', controller.artifacts.downloadQiniuDetailFiles);
+  router.get('/artifact/downloadQiniuDetailFiles2', controller.artifacts.downloadQiniuDetailFiles2);
+  
   router.get('/prometheus/comment/transferComments', controller.prometheus.comment.transferComments);
   router.get('/prometheus/eliteCourse/transferEliteCourse', controller.prometheus.eliteCourse.transferEliteCourse);
   router.get('/prometheus/eliteSchool/transferEliteSchool', controller.prometheus.eliteSchool.transferEliteSchool);

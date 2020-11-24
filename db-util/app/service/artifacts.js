@@ -1,6 +1,9 @@
 'use strict';
 
 const Service = require('egg').Service;
+const fs = require('fs');
+const path = require('path');
+const request = require('request');
 
 class Artifacts extends Service {
 
@@ -238,6 +241,105 @@ class Artifacts extends Service {
         const result = await client.query('update artifact_assets set storageTag = ? where Id = ?', [2, artifact.Id]);
       }
     }
+  }
+
+  async downloadQiniuFiles(){
+    const ctx = this.ctx;
+    const client = ctx.app.mysql.get('db');
+    const artifacts = await client.query("select * from artifacts where storageTag=1 and Id < 600");
+    for (const artifact of artifacts){
+      console.log(artifact.Id +' | '+ artifact.profileImage);
+      let extname = path.extname(artifact.profileImage);
+      let filename = ctx.helper.randomString(20) + extname;
+      let stream = fs.createWriteStream('F:\\qiniu\\artifacts\\'+filename);
+      let uri = 'https://qiniu.pinwall.cn' + artifact.profileImage;
+      request(uri).pipe(stream).on('close', function(){
+        client.query('update artifacts set profileImage = ? where Id = ?', [filename, artifact.Id]);
+      });
+
+    }
+  }
+
+  async downloadQiniuDetailFiles(){
+    const ctx = this.ctx;
+    const client = ctx.app.mysql.get('db');
+    const artifact_assets = await client.query("select * from artifact_assets where storageTag=1");
+    for (const artifact_asset of artifact_assets){
+      let fileType = artifact_asset.type;
+      let dir = '';
+      if (fileType == 1){
+        dir = 'F:\\qiniu\\artifact_assets\\images\\';
+        let extname = path.extname(artifact.profileImage);
+        let filename = ctx.helper.randomString(20) + extname;
+        let stream = fs.createWriteStream(dir + filename);
+        let uri = 'https://qiniu.pinwall.cn' + artifact.profileImage;
+        request(uri).pipe(stream).on('close', function(){
+          client.query('update artifact_assets set profileImage = ? where Id = ?', [filename, artifact.Id]);
+        });
+      }
+      else if (fileType == 2){
+        dir = 'F:\\qiniu\\artifact_assets\\pdf\\';
+        let extname = path.extname(artifact.profileImage);
+        let filename = ctx.helper.randomString(20) + extname;
+        let stream = fs.createWriteStream('F:\\qiniu\\artifact_assets\\images\\' + filename);
+        let uri = 'https://qiniu.pinwall.cn' + artifact.profileImage;
+        request(uri).pipe(stream).on('close', function(){
+          let pdf_extname = path.extname(artifact.mediaFile);
+          let pdf_filename = ctx.helper.randomString(20) + pdf_extname;
+          let pdf_stream = fs.createWriteStream(dir + pdf_filename);
+          let pdf_uri = 'https://qiniu.pinwall.cn' + artifact.mediaFile;
+          request(pdf_uri).pipe(pdf_stream).on('close', function(){
+            client.query('update artifact_assets set profileImage = ?,mediaFile = ?,viewUrl =? where Id = ?', [filename,pdf_filename,pdf_filename,artifact.Id]);
+          });
+        });
+      }
+      else if (fileType == 3){
+        dir = 'F:\\qiniu\\artifact_assets\\rar\\';
+        let extname = path.extname(artifact.profileImage);
+        let filename = ctx.helper.randomString(20) + extname;
+        let stream = fs.createWriteStream('F:\\qiniu\\artifact_assets\\images\\' + filename);
+        let uri = 'https://qiniu.pinwall.cn' + artifact.profileImage;
+        request(uri).pipe(stream).on('close', function(){
+          let rar_extname = path.extname(artifact.mediaFile);
+          let rar_filename = ctx.helper.randomString(20) + rar_extname;
+          let rar_stream = fs.createWriteStream(dir + rar_filename);
+          let rar_uri = 'https://qiniu.pinwall.cn' + artifact.mediaFile;
+          request(rar_uri).pipe(rar_stream).on('close', function(){
+            client.query('update artifact_assets set profileImage = ?,mediaFile = ?,viewUrl =? where Id = ?', [filename,rar_filename,rar_filename,artifact.Id]);
+          });
+        });
+      }
+      else if (fileType == 4){
+        dir = 'F:\\qiniu\\artifact_assets\\video\\';
+        let extname = path.extname(artifact.profileImage);
+        let filename = ctx.helper.randomString(20) + extname;
+        let stream = fs.createWriteStream('F:\\qiniu\\artifact_assets\\images\\' + filename);
+        let uri = 'https://qiniu.pinwall.cn' + artifact.profileImage;
+        request(uri).pipe(stream).on('close', function(){
+          let video_extname = path.extname(artifact.mediaFile);
+          let video_filename = ctx.helper.randomString(20) + video_extname;
+          let video_stream = fs.createWriteStream(dir + video_filename);
+          let video_uri = 'https://qiniu.pinwall.cn' + artifact.mediaFile;
+          request(video_uri).pipe(video_stream).on('close', function(){
+            client.query('update artifact_assets set profileImage = ?,mediaFile = ?,viewUrl =? where Id = ?', [filename,video_filename,video_filename,artifact.Id]);
+          });
+        });
+      }
+    }
+  }
+
+  async downloadQiniuDetailFiles2(){
+    const ctx = this.ctx;
+    const client = ctx.app.mysql.get('db');
+    const artifact_assets = await client.query("select * from artifact_assets where storageTag=3");
+    let dir = 'F:\\qiniu\\artifact_assets\\video\\';
+    let video_extname = path.extname(artifact.mediaFile);
+    let video_filename = ctx.helper.randomString(20) + video_extname;
+    let video_stream = fs.createWriteStream(dir + video_filename);
+    let video_uri = artifact.mediaFile;
+    request(video_uri).pipe(video_stream).on('close', function(){
+      client.query('update artifact_assets set profileImage = ?,mediaFile = ?,viewUrl =? where Id = ?', ['',video_filename,video_filename,artifact.Id]);
+    });
   }
 }
 

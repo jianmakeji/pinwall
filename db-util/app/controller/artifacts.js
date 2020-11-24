@@ -72,6 +72,24 @@ class ArtifactsController extends Controller {
     let result = await ctx.service.artifacts.updateArtifactAssetsStorageTag();
 
   }
+
+  async downloadQiniuFiles(){
+    const ctx = this.ctx;
+
+    let result = await ctx.service.artifacts.downloadQiniuFiles();
+  }
+
+  async downloadQiniuDetailFiles(){
+    const ctx = this.ctx;
+
+    let result = await ctx.service.artifacts.downloadQiniuFiles();
+  }
+
+  async downloadQiniuDetailFiles2(){
+    const ctx = this.ctx;
+
+    let result = await ctx.service.artifacts.downloadQiniuFiles();
+  }
 }
 
 module.exports = ArtifactsController;
