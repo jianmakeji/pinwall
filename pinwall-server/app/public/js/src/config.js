@@ -1,7 +1,7 @@
 var config = {
     // 正则表达式
     regexString:{
-        email:new RegExp("^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$"),
+        email:new RegExp("^([a-zA-Z0-9]+[_|\_|\.\\-]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$"),
         phone:new RegExp("^1([358][0-9]|4[579]|66|7[01235678]|9[026789])[0-9]{8}$"),
         chinese:new RegExp("^[\u4e00-\u9fa5]{0,}$")
     },

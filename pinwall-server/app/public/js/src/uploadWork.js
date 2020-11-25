@@ -758,7 +758,8 @@ var container = new Vue({
             let that = this;
             this.$Loading.start();
             if (this.dataItem.Id) {
-                $.ajax({
+              this.clickOk();
+              $.ajax({
                     url: config.ajaxUrls.getArtifactsWithId.replace(":id",this.dataItem.Id),
                     method:"PUT",
                     data:this.dataItem,
@@ -777,7 +778,7 @@ var container = new Vue({
                             that.$Notice.error({title:res.data});
                         }
                     }
-                })
+              })
             }else{
                 $.ajax({
                     url: config.ajaxUrls.getArtifacts,
@@ -891,7 +892,7 @@ var container = new Vue({
 
                     //that.step1_upload_fengmian_src = res.data.profileImage;
                     that.option.img = res.data.profileImage;
-                    if(res.data.profileImage.indexOf("pinwall.fzcloud.design-engine.org") > 0){
+                    if(res.data.storageTag == 1){
                         that.dataItem.profileImage = res.data.profileImage;
                     }else{
                         that.dataItem.profileImage = res.data.profileImage.split("/")[res.data.profileImage.split("/").length - 1].split("?")[0];
@@ -915,7 +916,7 @@ var container = new Vue({
                         bet.description = res.data.artifact_assets[i].description;
                         bet.type = res.data.artifact_assets[i].type;
                         bet.profileImage = res.data.artifact_assets[i].profileImage;
-                        if(res.data.artifact_assets[i].mediaFile == null || res.data.artifact_assets[i].mediaFile == "" || res.data.artifact_assets[i].mediaFile.indexOf("pinwall.fzcloud.design-engine.org") > 0){
+                        if(res.data.artifact_assets[i].mediaFile == null || res.data.artifact_assets[i].mediaFile == "" || res.data.storageTag == 1){
                             bet.mediaFile = res.data.artifact_assets[i].mediaFile;
                         }else{
                             bet.mediaFile = res.data.artifact_assets[i].mediaFile.split("?")[0].split("/")[res.data.artifact_assets[i].mediaFile.split("?")[0].split("/").length - 1];
