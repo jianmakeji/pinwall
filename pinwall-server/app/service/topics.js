@@ -48,6 +48,9 @@ class Topics extends Service {
               if (subElement.storageTag == 2){
                 subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_360_360");
               }
+              else if(subElement.storageTag == 3){
+                subElement.profileImage = app.hnuUrlPrefix + subElement.profileImage;
+              }
               else{
                 subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
               }
@@ -147,6 +150,13 @@ class Topics extends Service {
         if (element.storageTag == 2){
           element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
         }
+        else if(element.storageTag == 3){
+          element.profileImage = app.hnuUrlPrefix + element.profileImage;
+        }
+        else{
+          element.profileImage = app.qiniuUrlPrefix + element.profileImage;
+        }
+
         if (this.ctx.user){
           if(role == 'vip' && topic.rows.userId != this.ctx.user.Id){
             //删除所有分数
@@ -207,6 +217,13 @@ class Topics extends Service {
         if (element.storageTag == 2){
           element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
         }
+        else if(element.storageTag == 3){
+          element.profileImage = app.hnuUrlPrefix + element.profileImage;
+        }
+        else{
+          element.profileImage = app.qiniuUrlPrefix + element.profileImage;
+        }
+        
         if (userId != 0){
           if(role == 'vip' && topic.rows.userId != userId){
             //删除所有分数
