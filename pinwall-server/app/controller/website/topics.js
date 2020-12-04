@@ -95,7 +95,7 @@ class TopicsController extends BaseController{
       score:ctx.helper.parseInt(ctx.query.score),
     };
 
-    if(ctx.user){
+    if(ctx.user && && ctx.user.roles && ctx.user.roles.length > 0){
       query.role = ctx.user.roles[0].name;
     }
     else{
@@ -104,7 +104,7 @@ class TopicsController extends BaseController{
 
     try{
       let result = await ctx.service.topics.getTopicAndArtifactById(query);
-      
+
       super.success(result);
     }
     catch(e){

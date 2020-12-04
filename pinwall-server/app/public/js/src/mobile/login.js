@@ -47,7 +47,7 @@ new Vue({
     template_html2: '<div class="mobile_login_panel" >' +
         '<input id="mobile" name="username" placeholder="请输入手机号" class="mobile" type="text">' +
         '<input id="code" name="password" placeholder="请输入验证码" class="code" type="text">' +
-        '<div class="auth_code_btn" @click="sendSMSMessage">获取验证码</div>' +
+        '<div class="auth_code_btn" >获取验证码</div>' +
       '</div>',
   },
   methods: {
@@ -64,6 +64,7 @@ new Vue({
       }
     },
     mobileClick:function(){
+      let that = this;
       this.login_btn_status = 'type_panel_menu_normal';
       this.mobile_btn_status = 'type_panel_menu_selected';
 
@@ -71,6 +72,9 @@ new Vue({
       $(".tips").empty();
       $("#result_message").empty();
       $("#form_content").append(this.template_html2);
+      $(".auth_code_btn").click(function(){
+        that.sendSMSMessage();
+      });
       if(window.localStorage){
         window.localStorage.setItem("login_btn_status", 2);
       }

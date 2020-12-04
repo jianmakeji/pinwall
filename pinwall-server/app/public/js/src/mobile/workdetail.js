@@ -315,6 +315,14 @@ new Vue({
         let link = 'https://pinwall.cn/mobile/workdetail?artifactId=' + that.artifactId;
         let imgUrl = $('#thumbUrl').text();
         let title = $('.title').text();
+        let author = '';
+        if($('.author')){
+          author = $('.author').text();
+        }
+        else if($('.author_line')){
+          author = $('.author_line').text();
+        }
+
         wx.ready(function(){
           wx.onMenuShareTimeline({
             title: title,
@@ -327,6 +335,7 @@ new Vue({
           wx.onMenuShareAppMessage({
             title:title,
             link: link,
+            desc: author + '的作品',
             imgUrl: imgUrl, // 分享图标
             success: function () {
                 that.$Message.success('分享成功!');

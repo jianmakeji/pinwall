@@ -69,7 +69,7 @@ var contentVue = new Vue({
         $("#save_btn").addClass('condition_btn_noraml');
         $("#create_by_me_btn").removeClass('condition_btn_noraml');
         $("#create_by_me_btn").addClass('condition_btn_selected');
-        this.status = 2;
+        this.status = -1;
         this.pageNum = 1;
         this.dataList = [];
         this.userId = 0;
