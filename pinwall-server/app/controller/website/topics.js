@@ -95,7 +95,7 @@ class TopicsController extends BaseController{
       score:ctx.helper.parseInt(ctx.query.score),
     };
 
-    if(ctx.user && && ctx.user.roles && ctx.user.roles.length > 0){
+    if(ctx.user && ctx.user.roles && ctx.user.roles.length > 0){
       query.role = ctx.user.roles[0].name;
     }
     else{

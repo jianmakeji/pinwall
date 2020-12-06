@@ -50,7 +50,38 @@
 
       <div class="image_list">
         	{% for item in data.artifact_assets %}
-            <img src="{{item.profileImage}}" />
+            {% if item.viewUrl %}
+            <figure class="attach_figure">
+              <i-button v-if="{{item.type}} == 3" shape="circle" icon="md-albums" type="default" size="middle" @click="downAttach('{{item.mediaFile}}')" class="file_flag"></i-button>
+              <i-button v-if="{{item.type}} == 5 && '{{item.mediaFile}}' != ''" shape="circle" icon="logo-html5" type="default" size="middle" @click="downAttach('{{item.mediaFile}}')" class="file_flag"></i-button>
+              <i-button v-if="{{item.type}} != 3 && {{item.type}} != 5" shape="circle" icon="md-arrow-dropright-circle" type="default" size="middle" @click="downAttach('{{item.mediaFile}}')" class="file_flag"></i-button>
+              <a :href="'{{item.mediaFile}}' != '' ? '{{item.mediaFile}}' : 'javascript:void(0)'" target="_blank">
+                <img src="{{item.profileImage}}" alt="">
+                <figcaption>
+                  {% if item.name %}
+                  <span class="title">{{item.name}}</span>
+                  {% endif %}
+                  {% if item.description %}
+                  <span class="description">{{item.description}}</span>
+                  {% endif %}
+                </figcaption>
+              </a>
+            </figure>
+            {% else %}
+            <figure>
+              <img src="{{item.profileImage}}" alt="">
+
+              <figcaption>
+                {% if item.name %}
+                <span>{{item.name}}</span>
+                {% endif %}
+                {% if item.description %}
+                <span class="description">{{item.description}}</span>
+                {% endif %}
+              </figcaption>
+
+            </figure>
+            {% endif %}
           {% endfor %}
       </div>
       <div class="width_line"></div>
