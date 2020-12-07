@@ -316,10 +316,10 @@ new Vue({
         let imgUrl = $('#thumbUrl').text();
         let title = $('.title').text();
         let author = '';
-        if($('.author')){
+        if($('.author').length > 0){
           author = $('.author').text();
         }
-        else if($('.author_line')){
+        else if($('.author_line').length > 0){
           author = $('.author_line').text();
         }
 

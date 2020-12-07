@@ -66,10 +66,6 @@ new Vue({
         data.keyword = this.condition;
         url = '/wx/topics/searchByTopicName';
       }else if(this.type == 'product'){
-        data.jobTag = 1;
-        data.subLimit = 5;
-        data.status = -1;
-        data.userId = -1;
         data.keyword = this.condition;
         url = '/website/search/searchByKeywords';
       }else if(this.type == 'user'){
@@ -88,15 +84,30 @@ new Vue({
       })
       .done(function(responseData) {
         if(that.type == 'course'){
-          that.dataList = responseData.data.rows;
+          if(responseData.data.rows.length > 0){
+            that.dataList.push(...responseData.data.rows);
+          }else{
+            that.pageNum = -1;
+          }
         }
         else if(that.type == 'product'){
-          that.productArray = responseData.data.hits;
+          if(responseData.data.hits.length > 0){
+            that.productArray.push(...responseData.data.hits);
+          }
+          else{
+            that.pageNum = -1;
+          }
         }
         else if(that.type == 'user'){
-          that.userObject = responseData.data.user;
-          that.artifactsList = responseData.data.artifacts.rows;
-          that.artifactsCount = responseData.data.artifacts.count;
+          if(responseData.data.artifacts.rows.length > 0){
+            that.userObject = responseData.data.user;
+            that.artifactsList = responseData.data.artifacts.rows;
+            that.artifactsCount = responseData.data.artifacts.count;
+          }
+          else{
+            that.pageNum = -1;
+          }
+
         }
       })
       .fail(function() {
@@ -127,7 +138,7 @@ new Vue({
   },
   created() {
     let search_tag = window.localStorage.getItem("search_tag");
-    
+
     if(search_tag != 0){
       window.localStorage.setItem("search_tag",1);
       let search_type = window.localStorage.getItem("search_type");
@@ -135,6 +146,21 @@ new Vue({
       this.type = search_type;
       this.condition = search_condition;
       this.searchInputClick();
+    }
+
+    let that = this;
+    window.onscroll = function(){
+      var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+      var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      var scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+      if(scrollTop+windowHeight==scrollHeight){
+          if(that.pageNum != -1){
+            that.pageNum = that.pageNum + 1;
+            that.loadData();
+          }else{
+            that.$Message.warning("无更多数据!");
+          }
+      }
     }
   }
 })

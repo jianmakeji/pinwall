@@ -17,7 +17,7 @@
       <div class="title">搜索</div>
       <div style="height:45px;margin-top:30px">
         <i-select v-model="type" size="large" slot="prepend" style="width:80px;height:44px;margin-left:10px;" @on-change="selectOption()">
-          <i-option value="course">课程</i-option>
+          <i-option value="course">作业荚</i-option>
           <i-option value="product">作品</i-option>
           <i-option value="user">用户</i-option>
         </i-select>
@@ -56,7 +56,7 @@
     <div class="product_result" v-show="product_result_show">
       <span class="product_result_title">搜索“${condition}”的结果</span>
       <img src="/public/images/mobile/search_close.png" class="search_close" @click="searchClose"/>
-      <div class="panel_card" v-for="(elem, index) in productArray" :key="elem.key">
+      <div class="panel_card" v-for="(elem, index) in productArray" :key="elem.key" @click="artifactClick(elem._source.Id)">
           <div class="product_zone">
             <img :src="elem._source.profileImage"/>
             <p class="product_name">${elem._source.name}</p>
