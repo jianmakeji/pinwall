@@ -103,10 +103,16 @@
 								:auto-crop="option.autoCrop" :auto-crop-width="option.autoCropWidth" :auto-crop-height="option.autoCropHeight" :center-box="option.centerBox"
 								@real-time="realTime" :high="option.high"
 									@img-load="imgLoad" mode="cover" :maxImgSize="option.max" @crop-moving="cropMoving" style="width:400px;height:400px"></vue-cropper>
-							<div style="margin-top:10px; width:60px;height:70px;border:1px solid #D3D3D3;text-align:center;cursor:pointer" @click="openModel">
-								<img src="/public/images/add.png" style="width:45px;height:45px;"/>
-								<span>添加</span>
-								<input type="file" @change="uploadThumbImg($event)" id="step1_upload_fengmian_input" accept="image/png, image/jpg" style="display:none;"/>
+							<div style="position:relative">
+								<div style="margin-top:10px; width:60px;height:75px;border:1px solid #D3D3D3;text-align:center;cursor:pointer" @click="openModel">
+									<img src="/public/images/add.png" style="width:45px;height:45px;margin-top:5px"/>
+									<span>添加</span>
+									<input type="file" @change="uploadThumbImg($event)" id="step1_upload_fengmian_input" accept="image/png, image/jpg" style="display:none;"/>
+								</div>
+								<div style="margin-top:10px; display:inline-block;width:70px;height:40px;position:absolute;right:0px;top:0px;">
+									<img src="/public/images/grow.png" style="width:25px;height:25px;cursor:pointer" @click="changeScale(1)"/>
+									<img src="/public/images/shrink.png" style="width:25px;height:25px;margin-left:15px;cursor:pointer" @click="changeScale(-1)"/>
+								</div>
 							</div>
 
 						</div>

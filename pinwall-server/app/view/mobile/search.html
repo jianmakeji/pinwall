@@ -28,16 +28,16 @@
 
       <p class="title_desc">按主题分类查看...</p>
       <div class="labellist">
-        <span>产品设计</span>
-        <span>交互设计</span>
-        <span>界面设计</span>
-        <span>平面设计</span>
-        <span>影像设计</span>
-        <span>工业设计史</span>
-        <span>设计概论</span>
-        <span>数字界面原型</span>
-        <span>交通工具设计</span>
-        <span>汽车造型设计与理论研究</span>
+        <span @click="tagClick('产品设计')">产品设计</span>
+        <span @click="tagClick('交互设计')">交互设计</span>
+        <span @click="tagClick('界面设计')">界面设计</span>
+        <span @click="tagClick('平面设计')">平面设计</span>
+        <span @click="tagClick('影像设计')">影像设计</span>
+        <span @click="tagClick('工业设计史')">工业设计史</span>
+        <span @click="tagClick('设计概论')">设计概论</span>
+        <span @click="tagClick('数字界面原型')">数字界面原型</span>
+        <span @click="tagClick('交通工具设计')">交通工具设计</span>
+        <span @click="tagClick('汽车造型设计与理论研究')">汽车造型设计与理论研究</span>
       </div>
     </div>
     <div class="user_result" v-show="user_result_show">
@@ -60,7 +60,8 @@
           <div class="product_zone">
             <img :src="elem._source.profileImage"/>
             <p class="product_name">${elem._source.name}</p>
-            <p class="topic_name" >${elem._source.topics[0].name}</p>
+
+            <p class="topic_name" v-if="elem._source.topics.length > 0">${elem._source.topics[0].name}</p>
           </div>
           <div class="product_line"></div>
           <div class="function_zone">
@@ -78,6 +79,7 @@
       </div>
     </div>
     <div class="workset_result" v-show="workset_result_show">
+      <span class="user_result_title">搜索“${condition}”的结果</span>
       <img src="/public/images/mobile/search_close.png" class="search_close" @click="searchClose"/>
       <div v-for="elem in dataList" :key="elem.key" class="panel_card" @click="workpodCardClick(elem.Id)">
         <p class="workset_title">${elem.name}</p>

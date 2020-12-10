@@ -6,7 +6,7 @@ new Vue({
   },
   data: {
     dataList:[],
-    type: '',
+    type: 'product',
     condition:'',
     search_panel_show:1,
     user_result_show:0,
@@ -41,6 +41,14 @@ new Vue({
       }else{
         this.$Message.warning('请输入关键词！');
       }
+    },
+    tagClick:function(tagValue){
+      this.type = 'product';
+      this.pageNum = 1;
+      this.condition = tagValue;
+      this.search_panel_show = 0;
+      this.product_result_show = 1;
+      this.loadData();
     },
     workpodCardClick:function(topicId){
       window.location.href = "/mobile/workpoddetail?topicId=" +  topicId;
@@ -133,8 +141,9 @@ new Vue({
       window.localStorage.setItem("search_tag", 0);
     },
     selectOption:function(){
-      this.condition = "";
-    }
+      //this.condition = "";
+    },
+
   },
   created() {
     let search_tag = window.localStorage.getItem("search_tag");

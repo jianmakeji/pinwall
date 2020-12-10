@@ -115,6 +115,10 @@ var container = new Vue({
         cropMoving(data) {
 
         },
+        changeScale(num) {
+          num = num || 1; 
+          this.$refs.cropper.changeScale(num);
+        },
         teamworkerData(){
           let result = '';
           for(let i = 0; i < this.helperBox.length; i++){

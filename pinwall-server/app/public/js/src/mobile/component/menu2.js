@@ -42,10 +42,10 @@ var HeaderMenu = {
     },
     searchClick:function(){
       window.localStorage.setItem("search_tag", 0);
-      window.location.href = "/mobile/search";      
+      window.location.href = "/mobile/search";
     },
     personalBtnClick:function(userId){
-
+      window.location.href = '/mobile/workset?userId=' + userId;
     },
     logoutClick:function(){
       let that = this;
@@ -70,7 +70,7 @@ var HeaderMenu = {
     }
   },
   created() {
-
+    window.personalBtnClick = this.personalBtnClick;
   },
   template:'<div class="menu_top_layer"><div class="menu_banner">'+
     '<div class="menu_icon_area">'+

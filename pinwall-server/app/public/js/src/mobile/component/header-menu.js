@@ -44,7 +44,7 @@ var HeaderMenu = {
       window.location.href = "/mobile/search";
     },
     personalBtnClick:function(userId){
-
+      window.location.href = '/mobile/workset?userId=' + userId;
     },
     logoutClick:function(){
       let that = this;
@@ -68,6 +68,7 @@ var HeaderMenu = {
     }
   },
   created() {
+    window.personalBtnClick = this.personalBtnClick;
     if(this.menuItemNum == 1){
       this.selectMenuStyle = 'bottom_green_line';
       this.graduateMenuStyle = 'bottom_transparent_line';
@@ -103,6 +104,7 @@ var HeaderMenu = {
     '</div>'+
     '<div class="personal_info" @click="personalBtnClick(userId)" v-if="userId">'+
     '<img class="personal_headicon" :src="avatarUrl ? avatarUrl : \'/public/images/mobile/default_head_img.png\' "/> <span v-html="fullname"></span>'+
+    '<img src="/public/images/mobile/right_arrow.png"/>'+
     '</div>'+
     '<div v-else class="register_login_btn" @click="registerLoginBtnClick">登录 / 注册</div>'+
     '<div class="pop_menu_item" @click="choicenessClick">'+

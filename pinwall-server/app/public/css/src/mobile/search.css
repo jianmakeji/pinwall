@@ -96,12 +96,14 @@
 .product_list{
   display:flex;
   flex-flow: row wrap;
+  justify-content: space-between;
+  margin: 10px;
 }
 
 .product_item{
-  width: 18%;
-  height: auto;
-  margin-left: 5px;
+  width: 80px;
+  height: 80px;
+  margin: 5px;
 }
 
 /*按作品查询结果样式*/
