@@ -27,7 +27,7 @@
       <div class="user_info">
         <img :src="userInfo.avatarUrl ? userInfo.avatarUrl : '/public/images/mobile/default_head_img.png' "/><span>${userInfo.fullname}</span>
       </div>
-      <p class="desc"></p>
+      <p class="desc">${userInfo.intro}</p>
       <div class="split_line"></div>
       <div class="list_content">
         <div class="panel_card" v-for="(elem, index) in dataList" :key="elem.key" @click="cardClick(elem.Id)">
@@ -35,6 +35,7 @@
               <img :src="elem.profileImage"/>
               <p class="product_name">${elem.name}</p>
               <p class="topic_name" v-if="elem.topics.length > 0" >${elem.topics[0].name}</p>
+              <div class="product_line"></div>
               <div class="operate_zone">
                 <img src="/public/images/mobile/medal.png"/><span>${elem.medalCount}</span>
                 <img src="/public/images/mobile/like_gray.png"/><span>${elem.likeCount}</span>

@@ -23,7 +23,7 @@
         <img :src="work_info.user.avatarUrl ? work_info.user.avatarUrl : '/public/images/mobile/default_head_img.png' "/><span>${work_info.user.fullname}</span>
       </div>
       <div style="position:relative">
-        <p class="desc">${desc}</p>
+        <p class="desc">${work_info.description}</p>
         <p class="show_more" v-if="showmore == 1" @click="moreClick">...更多</p>
       </div>
 

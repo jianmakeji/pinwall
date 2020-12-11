@@ -206,6 +206,7 @@
 .user_info img{
   width: 24px;
   height: 24px;
+  border-radius: 12px;
 }
 
 .user_info span{
@@ -228,16 +229,15 @@
 .workset_title{
   font-size: 17px;
   color:#0ABC73;
-  margin: 10px;
-  top: 10px;
+  margin: 10px 10px 5px;
   position: relative;
+  font-weight: bold;
 }
 
 .workset_info{
   font-size: 14px;
   color:#A4A5A5;
-  margin: 10px;
-  top: 5px;
+  margin: 0px 10px;
   position: relative;
 }
 
@@ -280,6 +280,7 @@
 .workset_user_info img{
   width: 24px;
   height: 24px;
+  border-radius: 12px;
 }
 
 .workset_user_info span{

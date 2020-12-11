@@ -109,7 +109,7 @@ new Vue({
         else if(that.type == 'user'){
           if(responseData.data.artifacts.rows.length > 0){
             that.userObject = responseData.data.user;
-            that.artifactsList = responseData.data.artifacts.rows;
+            that.artifactsList.push(...responseData.data.artifacts.rows);
             that.artifactsCount = responseData.data.artifacts.count;
           }
           else{

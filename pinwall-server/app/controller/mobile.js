@@ -44,8 +44,9 @@ class MobileController extends BaseController {
     const ctx = this.ctx;
     try{
       const data = await ctx.service.artifacts.find(ctx.helper.parseInt(ctx.queries.artifactId));
-      let teamworker = '协作者:';
+      let teamworker = '';
       if( data.teamworker !='' && data.teamworker != null){
+        teamworker = teamworker + '协作者:';
         let teamworkerArray = JSON.parse(data.teamworker);
         teamworkerArray.forEach((elem,index)=>{
           teamworker = teamworker + '<a style="color:#0ABC73" href="/mobile/workset?userId='+elem.Id+'">' + elem.fullname +'</a>';

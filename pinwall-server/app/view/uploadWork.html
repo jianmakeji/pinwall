@@ -104,9 +104,8 @@
 								@real-time="realTime" :high="option.high"
 									@img-load="imgLoad" mode="cover" :maxImgSize="option.max" @crop-moving="cropMoving" style="width:400px;height:400px"></vue-cropper>
 							<div style="position:relative">
-								<div style="margin-top:10px; width:60px;height:75px;border:1px solid #D3D3D3;text-align:center;cursor:pointer" @click="openModel">
-									<img src="/public/images/add.png" style="width:45px;height:45px;margin-top:5px"/>
-									<span>添加</span>
+								<div style="margin-top:10px; width:60px;border-radius: 5px;height:35px;border:1px solid #D3D3D3;text-align:center;cursor:pointer" @click="openModel">
+									<div style="width:60px;height:30px;margin-top:5px">添加</div>
 									<input type="file" @change="uploadThumbImg($event)" id="step1_upload_fengmian_input" accept="image/png, image/jpg" style="display:none;"/>
 								</div>
 								<div style="margin-top:10px; display:inline-block;width:70px;height:40px;position:absolute;right:0px;top:0px;">

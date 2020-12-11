@@ -104,7 +104,7 @@ var HeaderMenu = {
     '</div>'+
     '<div class="personal_info" @click="personalBtnClick(userId)" v-if="userId">'+
     '<img class="personal_headicon" :src="avatarUrl ? avatarUrl : \'/public/images/mobile/default_head_img.png\' "/> <span v-html="fullname"></span>'+
-    '<img src="/public/images/mobile/right_arrow.png"/>'+
+    '<img class="arrow" src="/public/images/mobile/right_arrow.png"/>'+
     '</div>'+
     '<div v-else class="register_login_btn" @click="registerLoginBtnClick">登录 / 注册</div>'+
     '<div class="pop_menu_item" @click="choicenessClick">'+
