@@ -157,6 +157,10 @@ class Topics extends Service {
           element.profileImage = app.qiniuUrlPrefix + element.profileImage;
         }
 
+        if(element.user && element.user.avatarUrl != "" && element.user.avatarUrl != null  && !element.user.avatarUrl.includes("qlogo.cn")){
+          element.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + element.user.avatarUrl, "thumb_120_120",12);
+        }
+
         if (this.ctx.user){
           if(role == 'vip' && topic.rows.userId != this.ctx.user.Id){
             //删除所有分数
@@ -223,7 +227,7 @@ class Topics extends Service {
         else{
           element.profileImage = app.qiniuUrlPrefix + element.profileImage;
         }
-        
+
         if (userId != 0){
           if(role == 'vip' && topic.rows.userId != userId){
             //删除所有分数
