@@ -28,6 +28,7 @@ var index = new Vue({
                     }
                 },
                 { title: '邮箱',key: 'email', align: 'center',minWidth:200},
+                { title: '手机号',key: 'mobile', align: 'center',minWidth:130},
                 { title: '上传作品数',key: 'artifactCount', align: 'center'},
                 { title: '点赞数',key: 'likeCount', align: 'center'},
                 { title: '发表言论',key: 'commentCount', align: 'center'},

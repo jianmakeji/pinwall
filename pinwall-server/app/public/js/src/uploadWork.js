@@ -78,7 +78,7 @@ var container = new Vue({
               // 只有自动截图开启 宽度高度才生效
               autoCropWidth: 360,
               autoCropHeight: 360,
-              centerBox: false,
+              centerBox: true,
               high: true,
               viewMode: 1,
               max: 99999
@@ -116,7 +116,7 @@ var container = new Vue({
 
         },
         changeScale(num) {
-          num = num || 1; 
+          num = num || 1;
           this.$refs.cropper.changeScale(num);
         },
         teamworkerData(){

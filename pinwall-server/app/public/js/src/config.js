@@ -49,6 +49,7 @@ var config = {
         transterUpdateDataToES:'/website/artifacts/transterUpdateDataToES',
         //手机短信接口
         sendMessage:"/website/sms/sendMessage?mobile=",
+        sendGetBackPwdSms:"/website/sms/sendGetBackPwdSms?mobile=",
         vertifySms:"/website/sms/vertifySms"
     },
     viewUrl:{

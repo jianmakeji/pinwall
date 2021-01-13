@@ -35,7 +35,7 @@ var index = new Vue({
     		var that = this;
     		this.$Loading.start();
     		if(config.regexString.phone.test(this.formItem.mobile)){
-    			var url = config.ajaxUrls.sendMessage + this.formItem.mobile;
+    			var url = config.ajaxUrls.sendGetBackPwdSms + this.formItem.mobile;
     			$.ajax({
                     dataType:"json",
                     type:"get",

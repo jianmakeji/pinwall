@@ -26,12 +26,18 @@ new Vue({
           if(this.type == 'course'){
             this.search_panel_show = 0;
             this.workset_result_show = 1;
+            this.limit = 10;
+            this.dataList = [];
           }else if (this.type == 'product'){
             this.search_panel_show = 0;
             this.product_result_show = 1;
+            this.limit = 10;
+            this.productArray = [];
           }else if (this.type == 'user'){
             this.search_panel_show = 0;
             this.user_result_show = 1;
+            this.limit = 20;
+            this.artifactsList = [];
           }
           this.pageNum = 1;
           this.loadData();
@@ -79,7 +85,7 @@ new Vue({
       }else if(this.type == 'user'){
         url = "/website/artifacts/getPersonalJobByFullname";
         data.fullname = this.condition;
-        data.limit = 1000;
+        data.limit = this.limit;
         data.offset = (this.pageNum - 1) * this.limit;
       }
 
