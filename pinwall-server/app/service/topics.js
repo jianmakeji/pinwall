@@ -18,12 +18,7 @@ class Topics extends Service {
     resultObj.rows.forEach((element, index)=>{
 
           for (let subElement of element.artifacts){
-              if (subElement.storageTag == 2){
-                subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_360_360");
-              }
-              else{
-                subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
-              }
+              subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_360_360");
           }
     });
 
@@ -45,15 +40,7 @@ class Topics extends Service {
     resultObj.rows.forEach((element, index)=>{
 
           for (let subElement of element.artifacts){
-              if (subElement.storageTag == 2){
-                subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_360_360");
-              }
-              else if(subElement.storageTag == 3){
-                subElement.profileImage = app.hnuUrlPrefix + subElement.profileImage;
-              }
-              else{
-                subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
-              }
+              subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_360_360");
           }
     });
 
@@ -147,15 +134,7 @@ class Topics extends Service {
     const app = this.ctx.app;
     if (topic.rows.artifacts){
       topic.rows.artifacts.forEach((element, index)=>{
-        if (element.storageTag == 2){
-          element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
-        }
-        else if(element.storageTag == 3){
-          element.profileImage = app.hnuUrlPrefix + element.profileImage;
-        }
-        else{
-          element.profileImage = app.qiniuUrlPrefix + element.profileImage;
-        }
+        element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
 
         if(element.user && element.user.avatarUrl != "" && element.user.avatarUrl != null  && !element.user.avatarUrl.includes("qlogo.cn")){
           element.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + element.user.avatarUrl, "thumb_120_120",12);
@@ -218,15 +197,7 @@ class Topics extends Service {
     const app = this.ctx.app;
     if (topic.rows.artifacts){
       topic.rows.artifacts.forEach((element, index)=>{
-        if (element.storageTag == 2){
-          element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
-        }
-        else if(element.storageTag == 3){
-          element.profileImage = app.hnuUrlPrefix + element.profileImage;
-        }
-        else{
-          element.profileImage = app.qiniuUrlPrefix + element.profileImage;
-        }
+        element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
 
         if (userId != 0){
           if(role == 'vip' && topic.rows.userId != userId){

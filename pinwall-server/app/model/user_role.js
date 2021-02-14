@@ -25,12 +25,14 @@ module.exports = app => {
     tableName: 'user_role'
   });
 
-  UserRole.creteUserRole = async function(userId,roleId) {
+  UserRole.creteUserRole = async function(userId,roleId,transaction) {
     const userRole = {
       userId:userId,
       roleId:roleId
     };
-     return await this.create(userRole);
+     return await this.create(userRole,{
+       transaction:transaction
+     });
   }
 
   UserRole.delUserRoleByUserId = async function(userId) {

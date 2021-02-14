@@ -149,8 +149,10 @@ module.exports = app => {
     return user;
   }
 
-  Users.createUser = async function (user) {
-    return this.create(user);
+  Users.createUser = async function (user,transaction) {
+    return this.create(user,{
+      transaction:transaction
+    });
   }
 
   Users.updateUser = async function ({ id, updates }) {

@@ -14,7 +14,7 @@ module.exports = appInfo => {
       // clientId, 获取client实例，需要通过 app.mysql.get('clientId') 获取
       db:{
         // host
-        host: '192.168.3.101',
+        host: '192.168.3.17',
         // 端口号
         port: '3306',
         // 用户名
@@ -22,7 +22,7 @@ module.exports = appInfo => {
         // 密码
         password: 'root',
         // 数据库名
-        database: 'test',
+        database: 'pinwall3',
       }
       /*
       db1: {

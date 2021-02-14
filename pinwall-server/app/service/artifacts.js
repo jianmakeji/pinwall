@@ -17,60 +17,26 @@ class Artifacts extends Service {
 
     const app = this.ctx.app;
     resultObj.rows.forEach((element, index)=>{
-      if (element.storageTag == 2){
-        element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
-      }
-      else{
-        element.profileImage = app.qiniuUrlPrefix + element.profileImage;
-      }
+      element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
 
       if(element.user && element.user.avatarUrl != "" && element.user.avatarUrl != null && !element.user.avatarUrl.includes("qlogo.cn")){
         element.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + element.user.avatarUrl, "thumb_120_120",12);
       }
 
       for (let subElement of element.artifact_assets){
-        if (subElement.storageTag == 2){
-          subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
-        }
-        else if(element.storageTag == 3){
-          subElement.profileImage = app.hnuUrlPrefix + subElement.profileImage;
-        }
-        else{
-          subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
-        }
+        subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
 
         if (subElement.type == 2 && subElement.mediaFile != null){
-          if (subElement.storageTag == 2){
-            subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
-          }
-          else if(subElement.storageTag == 1){
-            subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
-          }
+          subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
         }
         else if (subElement.type == 3 && subElement.mediaFile != null){
-          if (subElement.storageTag == 2){
-            subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
-          }
-          else if(subElement.storageTag == 1){
-            subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
-          }
+          subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
         }
         else if (subElement.type == 4 && subElement.mediaFile != null){
-          if (subElement.storageTag == 2){
-            subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
-          }
-          else if(subElement.storageTag == 1){
-            subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
-          }
+          subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
         }
         else if (subElement.type == 5 && subElement.mediaFile != null){
-          let mediaFile = '';
-          if (subElement.storageTag == 2){
-            mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
-          }
-          else if(subElement.storageTag == 1){
-            mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
-          }
+          let mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
           subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);
         }
       }
@@ -86,62 +52,27 @@ class Artifacts extends Service {
 
     const app = this.ctx.app;
 
-    if (artifact.storageTag == 2){
-      artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
-    }
-    else{
-      artifact.profileImage = app.qiniuUrlPrefix + artifact.profileImage;
-    }
+    artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
 
     if(artifact.user && artifact.user.avatarUrl != "" && artifact.user.avatarUrl != null && !artifact.user.avatarUrl.includes("qlogo.cn")){
       artifact.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + artifact.user.avatarUrl, "thumb_120_120",12);
     }
 
     for (let subElement of artifact.dataValues.artifact_assets){
-      if (subElement.storageTag == 2){
-        subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
-      }
-      else if(subElement.storageTag == 3){
-        subElement.profileImage = app.hnuUrlPrefix + subElement.profileImage;
-      }
-      else{
-        subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
-      }
+      subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
 
       if (subElement.type == 2 && subElement.mediaFile != null){
-        if (subElement.storageTag == 2){
-          subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
-        }
-        else if(subElement.storageTag == 1){
-          subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
-        }
+        subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
       }
       else if (subElement.type == 3 && subElement.mediaFile != null){
-        if (subElement.storageTag == 2){
-          subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
-        }
-        else if(subElement.storageTag == 1){
-          subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
-        }
+        subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
       }
       else if (subElement.type == 4 && subElement.mediaFile != null){
-        if (subElement.storageTag == 2){
-          subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
-        }
-        else if(subElement.storageTag == 1){
-          subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
-        }
+        subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
       }
       else if (subElement.type == 5 && subElement.mediaFile != null){
-        let mediaFile = '';
-        if (subElement.storageTag == 2){
-          mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
-        }
-        else if(subElement.storageTag == 1){
-          mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
-        }
+        let mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
         subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);
-
       }
     }
 
@@ -203,15 +134,8 @@ class Artifacts extends Service {
 
     }
 
-    if (artifactObj.storageTag == 2 ){
-      resultObject.artifact.profile_image = app.signatureUrl(app.imagePath + artifactObj.profileImage, "thumb_360_360");
-    }
-    if (artifactObj.storageTag == 3 ){
-      resultObject.artifact.profile_image = app.hnuUrlPrefix + artifactObj.profileImage;
-    }
-    else{
-      resultObject.artifact.profile_image = app.qiniuUrlPrefix + artifactObj.profileImage;
-    }
+    resultObject.artifact.profile_image = app.signatureUrl(app.imagePath + artifactObj.profileImage, "thumb_360_360");
+
 
     if(artifactObj.user && artifactObj.user.avatarUrl != "" && artifactObj.user.avatarUrl != null && !artifactObj.user.avatarUrl.includes("qlogo.cn")){
       resultObject.artifact.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + artifactObj.user.avatarUrl, "thumb_120_120",12);
@@ -222,48 +146,19 @@ class Artifacts extends Service {
       assetsObj.name = subElement.name;
       assetsObj.filename = subElement.filename;
 
-      if (subElement.storageTag == 2){
-        assetsObj.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
-      }
-      else if(subElement.storageTag == 3){
-        assetsObj.profileImage = app.hnuUrlPrefix + subElement.profileImage;
-      }
-      else{
-        assetsObj.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
-      }
+      assetsObj.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
 
       if (subElement.type == 2 && subElement.mediaFile != null){
-        if (subElement.storageTag == 2){
-          assetsObj.media_file = app.signatureUrl(app.pdfPath + subElement.mediaFile);
-        }
-        else if(subElement.storageTag == 1){
-          assetsObj.media_file = app.qiniuUrlPrefix + subElement.mediaFile;
-        }
+        assetsObj.media_file = app.signatureUrl(app.pdfPath + subElement.mediaFile);
       }
       else if (subElement.type == 3 && subElement.mediaFile != null){
-        if (subElement.storageTag == 2){
-          assetsObj.media_file = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
-        }
-        else if(subElement.storageTag == 1){
-          assetsObj.media_file = app.qiniuUrlPrefix + subElement.mediaFile;
-        }
+        assetsObj.media_file = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
       }
       else if (subElement.type == 4 && subElement.mediaFile != null){
-        if (subElement.storageTag == 2){
-          assetsObj.media_file = app.signatureUrl(app.videoPath + subElement.mediaFile);
-        }
-        else if(subElement.storageTag == 1){
-          assetsObj.media_file = app.qiniuUrlPrefix + subElement.mediaFile;
-        }
+        assetsObj.media_file = app.signatureUrl(app.videoPath + subElement.mediaFile);
       }
       else if (subElement.type == 5 && subElement.mediaFile != null){
-        let mediaFile = '';
-        if (subElement.storageTag == 2){
-          mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
-        }
-        else if(subElement.storageTag == 1){
-          mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
-        }
+        let mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
         subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);
       }
       assetsArray.push(assetsObj);
@@ -279,10 +174,7 @@ class Artifacts extends Service {
       try {
         transaction = await this.ctx.model.transaction();
         artifact.visible = 0;
-        artifact.storageTag = 2;
-        artifact.artifact_assets.forEach((artifactAsset)=>{
-          artifactAsset.storageTag = 2;
-        });
+
         const artiObj = await this.ctx.model.Artifacts.createArtifact(artifact,transaction);
 
         let terms = artifact.terms;
@@ -316,10 +208,7 @@ class Artifacts extends Service {
           try {
             transaction = await this.ctx.model.transaction();
             artifact.visible = 0;
-            artifact.storageTag = 2;
-            artifact.artifact_assets.forEach((artifactAsset)=>{
-              artifactAsset.storageTag = 2;
-            });
+
             const artiObj = await this.ctx.model.Artifacts.createArtifact(artifact,transaction);
             if (artifact.topicId != 0){
                 await this.ctx.model.TopicArtifact.createTopicArtifact(
@@ -387,7 +276,6 @@ class Artifacts extends Service {
             asset.mediaFile = artifact_asset.mediaFile,
             asset.viewUrl = artifact_asset.viewUrl,
             asset.artifactId = id;
-            asset.storageTag = 2;
             await ctx.model.ArtifactAssets.createAssets(asset,transaction);
         }
       }
@@ -440,35 +328,31 @@ class Artifacts extends Service {
 
       let deleteAliOSSArray = new Array();
       try{
-        if(artifact.storageTag == 2){
-          if(artifact.profileImage != updates.profileImage){
+        if(artifact.profileImage != updates.profileImage){
             deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
-          }
         }
 
         for (const artifactAssets of artifact.dataValues.artifact_assets){
-          if (artifactAssets.storageTag == 2){
-              if(ctx.app.judgeImageStringInArrayObject(artifactAssets.profileImage,updates.artifact_assets)){
-                deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
-              }
+          if(ctx.app.judgeImageStringInArrayObject(artifactAssets.profileImage,updates.artifact_assets)){
+            deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
           }
 
-          if(artifactAssets.type == 2 &&  artifactAssets.storageTag == 2){
+          if(artifactAssets.type == 2){
             if(ctx.app.judgeMediaStringInArrayObject(artifactAssets.mediaFile,updates.artifact_assets)){
               deleteAliOSSArray.push(ctx.app.pdfPath + artifactAssets.mediaFile);
             }
           }
-          else if(artifactAssets.type == 3 &&  artifactAssets.storageTag == 2){
+          else if(artifactAssets.type == 3){
             if(ctx.app.judgeMediaStringInArrayObject(artifactAssets.mediaFile,updates.artifact_assets)){
               deleteAliOSSArray.push(ctx.app.rar_zipPath + artifactAssets.mediaFile);
             }
           }
-          else if(artifactAssets.type == 4 &&  artifactAssets.storageTag == 2){
+          else if(artifactAssets.type == 4){
             if(ctx.app.judgeMediaStringInArrayObject(artifactAssets.mediaFile,updates.artifact_assets)){
               deleteAliOSSArray.push(ctx.app.videoPath + artifactAssets.mediaFile);
             }
           }
-          else if(artifactAssets.type == 5 &&  artifactAssets.storageTag == 2){
+          else if(artifactAssets.type == 5){
             if(ctx.app.judgeMediaStringInArrayObject(artifactAssets.mediaFile,updates.artifact_assets)){
               deleteAliOSSArray.push(ctx.app.othersPath + artifactAssets.mediaFile);
               let h5Dir = ctx.app.localH5Path + id;
@@ -515,25 +399,21 @@ class Artifacts extends Service {
 
       let deleteAliOSSArray = new Array();
       try{
-        if (artifact.storageTag == 2){
-          deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
-        }
+        deleteAliOSSArray.push(ctx.app.imagePath + artifact.profileImage);
 
         for (const artifactAssets of artifact.dataValues.artifact_assets){
-          if (artifactAssets.storageTag == 2){
-            deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
-          }
+          deleteAliOSSArray.push(ctx.app.imagePath + artifactAssets.profileImage);
 
-          if(artifactAssets.type == 2 && artifactAssets.storageTag == 2){
+          if(artifactAssets.type == 2){
             deleteAliOSSArray.push(ctx.app.pdfPath + artifactAssets.mediaFile);
           }
-          else if(artifactAssets.type == 3  && artifactAssets.storageTag == 2){
+          else if(artifactAssets.type == 3){
             deleteAliOSSArray.push(ctx.app.rar_zipPath + artifactAssets.mediaFile);
           }
-          else if(artifactAssets.type == 4  && artifactAssets.storageTag == 2){
+          else if(artifactAssets.type == 4){
             deleteAliOSSArray.push(ctx.app.videoPath + artifactAssets.mediaFile);
           }
-          else if(artifactAssets.type == 5  && artifactAssets.storageTag == 2){
+          else if(artifactAssets.type == 5){
             deleteAliOSSArray.push(ctx.app.othersPath + artifactAssets.mediaFile);
           }
         }
@@ -564,14 +444,8 @@ class Artifacts extends Service {
     if(max < limit){
         listData.forEach((element, index)=>{
             let profileImage = element.profileImage;
-            if (element.storageTag == 2){
-                element.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
-            }
-            else{
-              element.profileImage = app.qiniuUrlPrefix + element.profileImage;
-            }
+            element.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
         });
-
         return listData;
     }
     else{
@@ -584,18 +458,11 @@ class Artifacts extends Service {
       let result = new Array();
       for (let item of setData.values()) {
         let profileImage = listData[item].dataValues.profileImage;
-        if (listData[item].dataValues.storageTag == 2){
-          listData[item].dataValues.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
-        }
-        else{
-          listData[item].dataValues.profileImage = app.qiniuUrlPrefix + listData[item].dataValues.profileImage;
-        }
+        listData[item].dataValues.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
         result.push(listData[item]);
       }
-
       return result;
     }
-
   }
 
   async getPersonalJobByFullname(query) {
@@ -612,12 +479,7 @@ class Artifacts extends Service {
       let artifacts = await this.ctx.model.Artifacts.getPersonalJobByFullname(query)
 
       artifacts.rows.forEach((element, index)=>{
-        if (element.storageTag == 2){
-          element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
-        }
-        else{
-          element.profileImage = app.qiniuUrlPrefix + element.profileImage;
-        }
+        element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
       });
       result.artifacts = artifacts;
     }
@@ -636,59 +498,27 @@ class Artifacts extends Service {
     }
     const app = this.ctx.app;
     resultObj.rows.forEach((element, index)=>{
-      if (element.storageTag == 2){
-        element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
-      }
-      else if(element.storageTag == 3){
-        element.profileImage = app.hnuUrlPrefix + element.profileImage;
-      }
-      else{
-        element.profileImage = app.qiniuUrlPrefix + element.profileImage;
-      }
+      element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
 
       if(element.user && element.user.avatarUrl != "" && element.user.avatarUrl != null && !element.user.avatarUrl.includes("qlogo.cn")){
         element.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + element.user.avatarUrl, "thumb_120_120",12);
       }
 
       for (let subElement of element.artifact_assets){
-        if (subElement.storageTag == 2){
-          subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
-        }
-        else{
-          subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
-        }
+        subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
+
         if (subElement.type == 2 && subElement.mediaFile != null){
-          if (subElement.storageTag == 2){
-            subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
-          }
-          else if(subElement.storageTag == 1){
-            subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
-          }
+          subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
         }
         else if (subElement.type == 3 && subElement.mediaFile != null){
-          if (subElement.storageTag == 2){
-            subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
-          }
-          else if(subElement.storageTag == 1){
-            subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
-          }
+          subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
         }
         else if (subElement.type == 4 && subElement.mediaFile != null){
-          if (subElement.storageTag == 2){
-            subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
-          }
-          else if(subElement.storageTag == 1){
-            subElement.mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
-          }
+          subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
         }
         else if (subElement.type == 5 && subElement.mediaFile != null){
-          let mediaFile = '';
-          if (subElement.storageTag == 2){
-            mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
-          }
-          else if(subElement.storageTag == 1){
-            mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
-          }
+          let mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
+
           subElement.mediaFile = h5Util.getH5Url(element.Id, mediaFile, app);
         }
       }
@@ -823,10 +653,7 @@ class Artifacts extends Service {
     const max = listData.length;
     if(max > 0){
         listData.forEach((element, index)=>{
-            let profileImage = element.profileImage;
-            if (element.storageTag == 2){
-                element.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
-            }
+            element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
         });
     }
     return listData;
@@ -837,57 +664,26 @@ class Artifacts extends Service {
     const artifact = await this.ctx.model.Artifacts.findArtifactById(id);
     const app = this.ctx.app;
 
-    if (artifact.storageTag == 2){
-      artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
-    }
+    artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
 
     if(artifact.user && artifact.user.avatarUrl != "" && artifact.user.avatarUrl != null && !artifact.user.avatarUrl.includes("qlogo.cn")){
       artifact.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + artifact.user.avatarUrl, "thumb_120_120",12);
     }
 
     for (let subElement of artifact.dataValues.artifact_assets){
-      if (subElement.storageTag == 2){
-        subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
-      }
-      else if(subElement.storageTag == 3){
-        subElement.profileImage = app.hnuUrlPrefix + subElement.profileImage;
-      }
-      else{
-        subElement.profileImage = app.qiniuUrlPrefix + subElement.profileImage;
-      }
-
+      subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
+      
       if (subElement.type == 2 && subElement.mediaFile != null){
-        if (subElement.storageTag == 2){
-          subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
-        }
-        else if(subElement.storageTag == 1){
-          subElement.profileImage = app.qiniuUrlPrefix + subElement.mediaFile;
-        }
+        subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
       }
       else if (subElement.type == 3 && subElement.mediaFile != null){
-        if (subElement.storageTag == 2){
-          subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
-        }
-        else if(subElement.storageTag == 1){
-          subElement.profileImage = app.qiniuUrlPrefix + subElement.mediaFile;
-        }
+        subElement.mediaFile = app.signatureUrl(app.rar_zipPath + subElement.mediaFile);
       }
       else if (subElement.type == 4 && subElement.mediaFile != null){
-        if (subElement.storageTag == 2){
-          subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
-        }
-        else if(subElement.storageTag == 1){
-          subElement.profileImage = app.qiniuUrlPrefix + subElement.mediaFile;
-        }
+        subElement.mediaFile = app.signatureUrl(app.videoPath + subElement.mediaFile);
       }
       else if (subElement.type == 5 && subElement.mediaFile != null){
-        let mediaFile = '';
-        if (subElement.storageTag == 2){
-          mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
-        }
-        else if(subElement.storageTag == 1){
-          mediaFile = app.qiniuUrlPrefix + subElement.mediaFile;
-        }
+        let mediaFile = app.signatureUrl(app.othersPath + subElement.mediaFile);
         subElement.mediaFile = h5Util.getH5Url(artifact.Id, mediaFile, app);
       }
     }

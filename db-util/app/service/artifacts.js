@@ -4,6 +4,8 @@ const Service = require('egg').Service;
 const fs = require('fs');
 const path = require('path');
 const request = require('request');
+const PassThrough = require('stream').PassThrough;
+let OSS = require('ali-oss');
 
 class Artifacts extends Service {
 
@@ -260,10 +262,45 @@ class Artifacts extends Service {
     }
   }
 
+  async testQiniuFileUploadToAliOSS(){
+    const ctx = this.ctx;
+    const client = ctx.app.mysql.get('db');
+    const artifacts = await client.query("select * from artifacts where storageTag=1 and Id >= 20000");
+
+    const config = ctx.helper.aliConfig();
+    let ossClient = new OSS({
+      region: config.region,
+      accessKeyId: config.AccessKeyId,
+      accessKeySecret: config.AccessKeySecret,
+      bucket: config.bucket,
+    });
+
+    for (const artifact of artifacts){
+      let fileType = artifact.type;
+        console.log(artifact.Id +' | '+ artifact.profileImage);
+        let extname = path.extname(artifact.profileImage);
+        let filename = ctx.helper.randomString(20) + extname;
+        let objectName = ctx.helper.imagePath  + filename;
+        let uri = 'https://qiniu.pinwall.cn' + artifact.profileImage;
+        let stream = request(uri).on('error', err => {
+            console.log('错误：'+artifact.Id +' | '+ err);
+        }).pipe(PassThrough());
+        try {
+          console.log(objectName);
+          let result = await ossClient.putStream(objectName, stream);
+          client.query('update artifacts set profileImage = ? where Id = ?', [filename, artifact.Id]);
+          console.log(result);
+        } catch (e) {
+          console.log(e)
+        }
+        console.log('====================================');
+      }
+  }
+
   async downloadQiniuDetailFiles(){
     const ctx = this.ctx;
     const client = ctx.app.mysql.get('db');
-    const artifact_assets = await client.query("select * from artifact_assets where storageTag=1");
+    const artifact_assets = await client.query("select * from artifact_assets where storageTag=1 and Id > 0 and Id < 1000");
     for (const artifact_asset of artifact_assets){
       let fileType = artifact_asset.type;
       let dir = '';
@@ -275,6 +312,7 @@ class Artifacts extends Service {
         let uri = 'https://qiniu.pinwall.cn' + artifact.profileImage;
         request(uri).pipe(stream).on('close', function(){
           client.query('update artifact_assets set profileImage = ? where Id = ?', [filename, artifact.Id]);
+
         });
       }
       else if (fileType == 2){
@@ -328,6 +366,119 @@ class Artifacts extends Service {
     }
   }
 
+  async testQiniuDetailFileUploadToAliOSS(){
+    const ctx = this.ctx;
+    const client = ctx.app.mysql.get('db');
+    const artifact_assets = await client.query("select * from artifact_assets where type=3 and Id in (103265)");
+
+    const config = ctx.helper.aliConfig();
+    let ossClient = new OSS({
+      region: config.region,
+      accessKeyId: config.AccessKeyId,
+      accessKeySecret: config.AccessKeySecret,
+      bucket: config.bucket,
+    });
+
+    for (let artifact_asset of artifact_assets){
+      let fileType = artifact_asset.type;
+      console.log('ID:'+artifact_asset.Id);
+      if (fileType == 1){
+        let extname = path.extname(artifact_asset.profileImage);
+        let filename = ctx.helper.randomString(20) + extname;
+        let objectName = ctx.helper.imagePath  + filename;
+        let uri = 'https://qiniu.pinwall.cn' + artifact_asset.profileImage;
+        //let uri = artifact_asset.profileImage;
+        let stream = request(uri).on('error', err => {
+            console.log('错误：'+artifact_asset.Id +' | '+ err);
+        }).pipe(PassThrough());
+
+        try {
+          let result = await ossClient.putStream(objectName, stream);
+          client.query('update artifact_assets set profileImage = ? where Id = ?', [filename, artifact_asset.Id]);
+        } catch (e) {
+          console.log(e)
+        }
+      }
+      else if (fileType == 2){
+        let extname = path.extname(artifact_asset.profileImage);
+        let filename = ctx.helper.randomString(20) + extname;
+        let uri = 'https://qiniu.pinwall.cn' + artifact_asset.profileImage;
+        let objectName = ctx.helper.imagePath  + filename;
+        let stream = request(uri).on('error', err => {
+            console.log('错误：'+artifact_asset.Id +' | '+ err);
+        }).pipe(PassThrough());
+        try {
+          let result = await ossClient.putStream(objectName, stream);
+          let pdf_extname = path.extname(artifact_asset.mediaFile);
+          let pdf_filename = ctx.helper.randomString(20) + pdf_extname;
+          let pdf_objectName = ctx.helper.pdfPath + pdf_filename;
+          let pdf_uri = 'https://qiniu.pinwall.cn' + artifact_asset.mediaFile;
+          let pdfStream = request(pdf_uri).on('error', err => {
+              console.log('错误：'+artifact_asset.Id +' | '+ err);
+          }).pipe(PassThrough());
+          await ossClient.putStream(pdf_objectName, pdfStream,{
+            timeout:240000
+          });
+          client.query('update artifact_assets set profileImage = ?,mediaFile = ?,viewUrl =? where Id = ?', [filename,pdf_filename,pdf_filename,artifact_asset.Id]);
+
+        } catch (e) {
+          console.log(e)
+        }
+      }
+      else if (fileType == 3){
+        let extname = path.extname(artifact_asset.profileImage);
+        let filename = ctx.helper.randomString(20) + extname;
+        let uri = 'https://qiniu.pinwall.cn' + artifact_asset.profileImage;
+        let objectName = ctx.helper.imagePath  + filename;
+        let stream = request(uri).on('error', err => {
+            console.log('错误：'+artifact_asset.Id +' | '+ err);
+        }).pipe(PassThrough());
+        try {
+          let result = await ossClient.putStream(objectName, stream);
+          let rar_extname = path.extname(artifact_asset.mediaFile);
+          let rar_filename = ctx.helper.randomString(20) + rar_extname;
+          let rar_objectName = ctx.helper.rar_zipPath + rar_filename;
+          let rar_uri = 'https://qiniu.pinwall.cn' + artifact_asset.mediaFile;
+          let rarStream = request(rar_uri).on('error', err => {
+              console.log('错误：'+artifact_asset.Id +' | '+ err);
+          }).pipe(PassThrough());
+          await ossClient.putStream(rar_objectName, rarStream,{
+            timeout:1720000
+          });
+          client.query('update artifact_assets set profileImage = ?,mediaFile = ?,viewUrl =? where Id = ?', [filename,rar_filename,rar_filename,artifact_asset.Id]);
+        } catch (e) {
+          console.log(e)
+        }
+      }
+      else if (fileType == 4){
+        // let extname = path.extname(artifact_asset.profileImage);
+        // let filename = ctx.helper.randomString(20) + extname;
+        // let uri = 'https://qiniu.pinwall.cn' + artifact_asset.profileImage;
+        // let objectName = ctx.helper.imagePath  + filename;
+        // let stream = request(uri).on('error', err => {
+        //     console.log('错误：'+artifact_asset.Id +' | '+ err);
+        // }).pipe(PassThrough());
+        try {
+          //let result = await ossClient.putStream(objectName, stream);
+          let video_extname = path.extname(artifact_asset.mediaFile);
+          let video_filename = ctx.helper.randomString(20) + video_extname;
+          let video_objectName = ctx.helper.videoPath + video_filename;
+          //let video_uri = 'https://qiniu.pinwall.cn' + artifact_asset.mediaFile;
+          let videoStream = request(artifact_asset.mediaFile).on('error', err => {
+              console.log('错误：'+artifact_asset.Id +' | '+ err);
+          }).pipe(PassThrough());
+          await ossClient.putStream(video_objectName, videoStream,{
+            timeout:2720000
+          });
+          client.query('update artifact_assets set mediaFile = ?,viewUrl =? where Id = ?', [video_filename,video_filename,artifact_asset.Id]);
+        } catch (e) {
+          console.log(e)
+        }
+
+      }
+    }
+  }
+
   async downloadQiniuDetailFiles2(){
     const ctx = this.ctx;
     const client = ctx.app.mysql.get('db');
@@ -340,6 +491,21 @@ class Artifacts extends Service {
     request(video_uri).pipe(video_stream).on('close', function(){
       client.query('update artifact_assets set profileImage = ?,mediaFile = ?,viewUrl =? where Id = ?', ['',video_filename,video_filename,artifact.Id]);
     });
+  }
+
+  async checkPdfData(){
+    const ctx = this.ctx;
+    const client = ctx.app.mysql.get('db');
+    const artifact_assets = await client.query("select * from artifact_assets where storageTag=1 and type=3");
+    console.log(artifact_assets);
+    let count = 0;
+    for (let assets of artifact_assets){
+      count = count + 1;
+      if(assets.mediaFile.endsWith('.pdf')){
+        client.query('update artifact_assets set type = ? where Id = ?', [2,assets.Id]);
+      }
+    }
+    console.log(count);
   }
 }
 

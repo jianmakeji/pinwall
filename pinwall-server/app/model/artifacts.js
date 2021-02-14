@@ -49,11 +49,6 @@ module.exports = app => {
       allowNull: false,
       defaultValue: '0'
     },
-    storageTag: {
-      type: INTEGER,
-      allowNull: false,
-      defaultValue: '0'
-    },
     medalCount: {
       type: INTEGER,
       allowNull: false,

@@ -79,6 +79,28 @@ class ArtifactsController extends Controller {
     let result = await ctx.service.artifacts.downloadQiniuFiles();
   }
 
+  async testQiniuFileUploadToAliOSS(){
+    const ctx = this.ctx;
+
+    let result = ctx.service.artifacts.testQiniuFileUploadToAliOSS();
+    ctx.body = '操作成功';
+  }
+
+  async testQiniuDetailFileUploadToAliOSS(){
+    const ctx = this.ctx;
+
+    let result = ctx.service.artifacts.testQiniuDetailFileUploadToAliOSS();
+    ctx.body = '操作成功';
+  }
+
+  async checkPdfData(){
+    const ctx = this.ctx;
+
+    let result = await ctx.service.artifacts.checkPdfData();
+    ctx.body = '操作成功';
+  }
+
+
   async downloadQiniuDetailFiles(){
     const ctx = this.ctx;
 
