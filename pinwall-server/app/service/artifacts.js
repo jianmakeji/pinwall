@@ -20,7 +20,7 @@ class Artifacts extends Service {
       element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
 
       if(element.user && element.user.avatarUrl != "" && element.user.avatarUrl != null && !element.user.avatarUrl.includes("qlogo.cn")){
-        element.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + element.user.avatarUrl, "thumb_120_120",12);
+        element.user.avatarUrl = app.signatureUrl(app.headiconPath + element.user.avatarUrl, "thumb_120_120",12);
       }
 
       for (let subElement of element.artifact_assets){
@@ -55,7 +55,7 @@ class Artifacts extends Service {
     artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
 
     if(artifact.user && artifact.user.avatarUrl != "" && artifact.user.avatarUrl != null && !artifact.user.avatarUrl.includes("qlogo.cn")){
-      artifact.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + artifact.user.avatarUrl, "thumb_120_120",12);
+      artifact.user.avatarUrl = app.signatureUrl(app.headiconPath + artifact.user.avatarUrl, "thumb_120_120",12);
     }
 
     for (let subElement of artifact.dataValues.artifact_assets){
@@ -138,7 +138,7 @@ class Artifacts extends Service {
 
 
     if(artifactObj.user && artifactObj.user.avatarUrl != "" && artifactObj.user.avatarUrl != null && !artifactObj.user.avatarUrl.includes("qlogo.cn")){
-      resultObject.artifact.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + artifactObj.user.avatarUrl, "thumb_120_120",12);
+      resultObject.artifact.user.avatarUrl = app.signatureUrl(app.headiconPath + artifactObj.user.avatarUrl, "thumb_120_120",12);
     }
 
     for (let subElement of artifactObj.dataValues.artifact_assets){
@@ -445,6 +445,11 @@ class Artifacts extends Service {
         listData.forEach((element, index)=>{
             let profileImage = element.profileImage;
             element.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
+            let user = element.user;
+            if(user && user.avatarUrl != "" && user.avatarUrl != null  && !user.avatarUrl.includes("qlogo.cn")){
+              element.user.avatarUrl = app.signatureUrl(app.headiconPath + user.avatarUrl, "thumb_120_120");
+            }
+
         });
         return listData;
     }
@@ -459,6 +464,12 @@ class Artifacts extends Service {
       for (let item of setData.values()) {
         let profileImage = listData[item].dataValues.profileImage;
         listData[item].dataValues.profileImage = app.signatureUrl(app.imagePath + profileImage, "thumb_360_360");
+
+        let user = listData[item].dataValues.user;
+        if(user && user.avatarUrl != "" && user.avatarUrl != null  && !user.avatarUrl.includes("qlogo.cn")){
+          listData[item].dataValues.user.avatarUrl = app.signatureUrl(app.headiconPath + user.avatarUrl, "thumb_120_120");
+        }
+
         result.push(listData[item]);
       }
       return result;
@@ -501,7 +512,7 @@ class Artifacts extends Service {
       element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
 
       if(element.user && element.user.avatarUrl != "" && element.user.avatarUrl != null && !element.user.avatarUrl.includes("qlogo.cn")){
-        element.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + element.user.avatarUrl, "thumb_120_120",12);
+        element.user.avatarUrl = app.signatureUrl(app.headiconPath + element.user.avatarUrl, "thumb_120_120",12);
       }
 
       for (let subElement of element.artifact_assets){
@@ -654,6 +665,10 @@ class Artifacts extends Service {
     if(max > 0){
         listData.forEach((element, index)=>{
             element.profileImage = app.signatureUrl(app.imagePath + element.profileImage, "thumb_360_360");
+            let user = element.user;
+            if(user && user.avatarUrl != "" && user.avatarUrl != null  && !user.avatarUrl.includes("qlogo.cn")){
+              element.user.avatarUrl = app.signatureUrl(app.headiconPath + user.avatarUrl, "thumb_120_120");
+            }
         });
     }
     return listData;
@@ -667,12 +682,12 @@ class Artifacts extends Service {
     artifact.profileImage = app.signatureUrl(app.imagePath + artifact.profileImage, "thumb_360_360");
 
     if(artifact.user && artifact.user.avatarUrl != "" && artifact.user.avatarUrl != null && !artifact.user.avatarUrl.includes("qlogo.cn")){
-      artifact.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + artifact.user.avatarUrl, "thumb_120_120",12);
+      artifact.user.avatarUrl = app.signatureUrl(app.headiconPath + artifact.user.avatarUrl, "thumb_120_120",12);
     }
 
     for (let subElement of artifact.dataValues.artifact_assets){
       subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_1000");
-      
+
       if (subElement.type == 2 && subElement.mediaFile != null){
         subElement.mediaFile = app.signatureUrl(app.pdfPath + subElement.mediaFile);
       }

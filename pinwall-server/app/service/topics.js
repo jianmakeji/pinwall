@@ -20,6 +20,10 @@ class Topics extends Service {
           for (let subElement of element.artifacts){
               subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_360_360");
           }
+
+          if(element.user && element.user.avatarUrl != "" && element.user.avatarUrl != null  && !element.user.avatarUrl.includes("qlogo.cn")){
+            element.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + element.user.avatarUrl, "thumb_120_120",12);
+          }
     });
 
     return resultObj;
@@ -41,6 +45,10 @@ class Topics extends Service {
 
           for (let subElement of element.artifacts){
               subElement.profileImage = app.signatureUrl(app.imagePath + subElement.profileImage, "thumb_360_360");
+          }
+
+          if(element.user && element.user.avatarUrl != "" && element.user.avatarUrl != null  && !element.user.avatarUrl.includes("qlogo.cn")){
+            element.user.avatarUrl = this.ctx.app.signatureUrl(this.ctx.app.headiconPath + element.user.avatarUrl, "thumb_120_120",12);
           }
     });
 
